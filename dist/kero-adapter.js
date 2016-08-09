@@ -1,3 +1,10 @@
+/** 
+ * kero-adapter v1.0.0
+ * kero adapter
+ * author : yonyou FED
+ * homepage : https://github.com/iuap-design/kero-adapter#readme
+ * bugs : https://github.com/iuap-design/kero-adapter/issues
+ **/ 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
