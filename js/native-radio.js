@@ -1,11 +1,24 @@
-u.NativeRadioAdapter = u.BaseAdapter.extend({
-    mixins: [u.ValueMixin, u.EnableMixin],
+/**
+ * Module : Kero native-radio
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 19:03:30
+ */
+
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {getJSObject} from 'neoui-sparrow/lib/util';
+import {on} from 'neoui-sparrow/lib/event';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var NativeRadioAdapter = BaseAdapter.extend({
+    mixins: [ValueMixin, EnableMixin],
     init: function () {
         this.isDynamic = false;
         //如果存在datasource，动态创建radio
         if (this.options['datasource']) {
             this.isDynamic = true;
-            var datasource = u.getJSObject(this.viewModel, this.options['datasource']);
+            var datasource = getJSObject(this.viewModel, this.options['datasource']);
             //if(!u.isArray(datasource)) return;
 
             this.radioTemplateArray = [];
@@ -42,7 +55,7 @@ u.NativeRadioAdapter = u.BaseAdapter.extend({
         this.radioInputName = allRadio[0].name;
 
         this.element.querySelectorAll('[type=radio][name="'+ this.radioInputName +'"]').forEach(function (ele) {
-            u.on(ele, 'click', function () {
+            on(ele, 'click', function () {
                 if (this.checked) {
                     self.setValue(this.value);
                 }
@@ -74,7 +87,8 @@ u.NativeRadioAdapter = u.BaseAdapter.extend({
 
 });
 
-u.compMgr.addDataAdapter({
-    adapter: u.NativeRadioAdapter,
+compMgr.addDataAdapter({
+    adapter: NativeRadioAdapter,
     name: 'radio'
 });
+export {NativeRadioAdapter};

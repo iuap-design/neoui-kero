@@ -1,13 +1,25 @@
-u.NativeCheckAdapter = u.BaseAdapter.extend({
-    mixins: [u.ValueMixin, u.EnableMixin],
+/**
+ * Module : Kero native-checkbox
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 18:55:51
+ */
+
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {getJSObject} from 'neoui-sparrow/lib/util';
+import {on} from 'neoui-sparrow/lib/event';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var NativeCheckAdapter = BaseAdapter.extend({
+    mixins: [ValueMixin, EnableMixin],
     init: function () {
         var self = this;
         this.isGroup = false;
         //如果存在datasource，动态创建checkbox
         if (this.options['datasource']) {
             this.isGroup = true;
-            var datasource = u.getJSObject(this.viewModel, this.options['datasource']);
-            //if(!u.isArray(datasource)) return;
+            var datasource = getJSObject(this.viewModel, this.options['datasource']);
 
             this.checkboxTemplateArray = [];
             for (var i= 0, count = this.element.childNodes.length; i< count; i++){
@@ -17,7 +29,7 @@ u.NativeCheckAdapter = u.BaseAdapter.extend({
         } else {
             this.checkedValue =  this.options['checkedValue'] || 'Y';
             this.unCheckedValue =  this.options["unCheckedValue"] || 'N';
-            u.on(this.element, 'click', function () {
+            on(this.element, 'click', function () {
                 if (this.checked) {
                     self.dataModel.setValue(self.field, self.checkedValue);
                 }else{
@@ -47,7 +59,7 @@ u.NativeCheckAdapter = u.BaseAdapter.extend({
         }
 
         this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
-            u.on(ele, 'click', function () {
+            on(ele, 'click', function () {
                 var modelValue = self.dataModel.getValue(self.field);
 
                 var valueArr = modelValue == '' ? [] : modelValue.split(',');
@@ -103,7 +115,8 @@ u.NativeCheckAdapter = u.BaseAdapter.extend({
 
 });
 
-u.compMgr.addDataAdapter({
-    adapter: u.NativeCheckAdapter,
+compMgr.addDataAdapter({
+    adapter: NativeCheckAdapter,
     name: 'checkbox'
 });
+export {NativeCheckAdapter};

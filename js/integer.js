@@ -1,5 +1,21 @@
-u.IntegerAdapter = u.BaseAdapter.extend({
-    mixins:[u.ValueMixin,u.EnableMixin, u.RequiredMixin, u.ValidateMixin],
+/**
+ * Module : Kero integer
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 18:29:59
+ */
+
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {RequiredMixin} from './valueMixin';
+import {ValidateMixin} from './valueMixin';
+import {isNumber} from 'neoui-sparrow/lib/util';
+import {on,off,stopEvent} from 'neoui-sparrow/lib/event';
+import {env} from 'neoui-sparrow/lib/env';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var IntegerAdapter = BaseAdapter.extend({
+    mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],
     init: function () {
         var self = this;
         this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -18,10 +34,10 @@ u.IntegerAdapter = u.BaseAdapter.extend({
             this.max = this.dataModel.getMeta(this.field, "max") !== undefined ? this.dataModel.getMeta(this.field, "max") : this.max;
             this.minNotEq = this.dataModel.getMeta(this.field, "minNotEq") !== undefined ? this.dataModel.getMeta(this.field, "minNotEq") : this.minNotEq;
             this.maxNotEq = this.dataModel.getMeta(this.field, "maxNotEq") !== undefined ? this.dataModel.getMeta(this.field, "maxNotEq") : this.maxNotEq;
-            this.minLength = u.isNumber(this.dataModel.getMeta(this.field, "minLength")) ? this.dataModel.getMeta(this.field, "minLength") : this.minLength;
-            this.maxLength = u.isNumber(this.dataModel.getMeta(this.field, "maxLength")) ? this.dataModel.getMeta(this.field, "maxLength") : this.maxLength;
+            this.minLength = isNumber(this.dataModel.getMeta(this.field, "minLength")) ? this.dataModel.getMeta(this.field, "minLength") : this.minLength;
+            this.maxLength = isNumber(this.dataModel.getMeta(this.field, "maxLength")) ? this.dataModel.getMeta(this.field, "maxLength") : this.maxLength;
         }
-        u.on(this.element, 'focus', function(){
+        on(this.element, 'focus', function(){
             if(self.enable){
                 self.setShowValue(self.getValue())
                 try{
@@ -35,7 +51,7 @@ u.IntegerAdapter = u.BaseAdapter.extend({
             }
         })
 
-        u.on(this.element, 'blur',function(){
+        on(this.element, 'blur',function(){
             if(self.enable){
                 if (!self.doValidate() && self._needClean()) {
                     if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
@@ -51,8 +67,9 @@ u.IntegerAdapter = u.BaseAdapter.extend({
         });
     }
 });
-u.compMgr.addDataAdapter({
-        adapter: u.IntegerAdapter,
-        name: 'integer'
-    });
+compMgr.addDataAdapter({
+	adapter: IntegerAdapter,
+	name: 'integer'
+});
 
+export {IntegerAdapter};

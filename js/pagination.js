@@ -1,7 +1,18 @@
-u.PaginationAdapter = u.BaseAdapter.extend({
+/**
+ * Module : Kero pagination
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 19:09:39
+ */
+import {BaseAdapter} from './baseAdapter';
+import {extend} from 'neoui-sparrow/lib/extend';
+import {pagination} from 'neoui/lib/neoui-pagination';
+import {getFunction} from 'neoui-sparrow/lib/util';
+
+
+var PaginationAdapter = BaseAdapter.extend({
     initialize: function (comp, options) {
         var self = this;
-        u.PaginationAdapter.superclass.initialize.apply(this, arguments);
+        PaginationAdapter.superclass.initialize.apply(this, arguments);
 
         //var Pagination = function(element, options, viewModel) {
 
@@ -10,12 +21,12 @@ u.PaginationAdapter = u.BaseAdapter.extend({
         this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
         //this.$element.pagination(options);
         //this.comp = this.$element.data('u.pagination');
-        var options = u.extend({},{el:this.element,jumppage:true},this.options);
-        this.comp = new u.pagination(options);
+        var options = extend({},{el:this.element,jumppage:true},this.options);
+        this.comp = new pagination(options);
 		this.element['u.pagination'] = this.comp;
         this.comp.dataModel = this.dataModel;
-        this.pageChange = u.getFunction(this.viewModel, this.options['pageChange']);
-        this.sizeChange = u.getFunction(this.viewModel, this.options['sizeChange']);
+        this.pageChange = getFunction(this.viewModel, this.options['pageChange']);
+        this.sizeChange = getFunction(this.viewModel, this.options['sizeChange']);
 
         this.comp.on('pageChange', function (pageIndex) {
             if (typeof self.pageChange == 'function') {
@@ -30,7 +41,7 @@ u.PaginationAdapter = u.BaseAdapter.extend({
                 self.sizeChange(size, pageIndex);
             } else {
                 self.defaultSizeChange(size,pageIndex);
-                // u.showMessage({msg:"没有注册sizeChange事件"});
+                // showMessage({msg:"没有注册sizeChange事件"});
             }
         });
 
@@ -86,12 +97,11 @@ u.PaginationAdapter = u.BaseAdapter.extend({
     }
 });
 
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.PaginationAdapter,
-        name: 'pagination'
-    });
+compMgr.addDataAdapter({
+	adapter: PaginationAdapter,
+	name: 'pagination'
+});
 
-
+export {PaginationAdapter};
 
 

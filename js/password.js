@@ -1,11 +1,25 @@
 /**
+ * Module : Kero password
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 19:19:33
+ */
+
+import {StringAdapter} from './string';
+import {getJSObject} from 'neoui-sparrow/lib/util';
+import {env} from 'neoui-sparrow/lib/env';
+import {on} from 'neoui-sparrow/lib/event';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+
+
+/**
  * 密码控件
  */
-u.PassWordAdapter = u.StringAdapter.extend({
+var PassWordAdapter = StringAdapter.extend({
     init: function () {
-        u.PassWordAdapter.superclass.init.apply(this);
+        PassWordAdapter.superclass.init.apply(this);
         var oThis = this;
-        if(u.isIE8){
+        if(env.isIE8){
             var outStr = this.element.outerHTML;
             var l = outStr.length;
             outStr = outStr.substring(0,l-1) + ' type="password"' + outStr.substring(l-1);
@@ -20,11 +34,11 @@ u.PassWordAdapter = u.StringAdapter.extend({
         oThis.element.title = '';
         this._element = this.element.parentNode;
         this.span = this._element.querySelector("span");
-        if(u.isIE8){
+        if(env.isIE8){
             this.span.style.display = 'none';
         }
         if(this.span){
-            u.on(this.span,'click',function(){
+            on(this.span,'click',function(){
                 if(oThis.element.type == 'password'){
                     oThis.element.type = 'text';
                 }else{
@@ -40,10 +54,9 @@ u.PassWordAdapter = u.StringAdapter.extend({
         this.element.title = '';
     },
 });
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.PassWordAdapter,
-        name: 'password'
-    });
+compMgr.addDataAdapter({
+	adapter: PassWordAdapter,
+	name: 'password'
+});
 
-
+export {PassWordAdapter};
