@@ -11,7 +11,7 @@ import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
 import {getJSObject,getFunction} from 'neoui-sparrow/lib/util';
 import {NumberFormater} from 'neoui-sparrow/lib/util/formater';
-import {NumberMasker,PercentMasker} from './util/masker';
+import {NumberMasker,PercentMasker} from 'neoui-sparrow/lib/util/masker';
 import {dateRender,dateTimeRender} from 'neoui-sparrow/lib/util/dataRender';
 //miss DataTable
 import {stopEvent} from 'neoui-sparrow/lib/event';

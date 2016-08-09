@@ -1,23 +1,32 @@
 /**
+ * Module : Kero percent
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 20:02:50
+ */
+import {FloatAdapter} from './float';
+import {NumberFormater} from 'neoui-sparrow/lib/util/formater';
+import {PercentMasker} from 'neoui-sparrow/lib/util/masker';
+import {core} from 'neoui-sparrow/lib/core';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+/**
  * 百分比控件
  */
-u.PercentAdapter = u.FloatAdapter.extend({
+var PercentAdapter = FloatAdapter.extend({
     init: function () {
-        u.PercentAdapter.superclass.init.apply(this);
+        PercentAdapter.superclass.init.apply(this);
         this.validType = 'float';
-        this.maskerMeta = iweb.Core.getMaskerMeta('percent') || {};
+        this.maskerMeta = core.getMaskerMeta('percent') || {};
         this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
         if (this.maskerMeta.precision){
             this.maskerMeta.precision = parseInt(this.maskerMeta.precision) + 2;
         }
-        this.formater = new u.NumberFormater(this.maskerMeta.precision);
+        this.formater = new NumberFormater(this.maskerMeta.precision);
         this.masker = new PercentMasker(this.maskerMeta);
     }
 });
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.PercentAdapter,
-        name: 'percent'
-    });
-
+compMgr.addDataAdapter({
+	adapter: PercentAdapter,
+	name: 'percent'
+});
+export {PercentAdapter};
 

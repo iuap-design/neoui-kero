@@ -1,5 +1,19 @@
-u.StringAdapter = u.BaseAdapter.extend({
-    mixins:[u.ValueMixin,u.EnableMixin, u.RequiredMixin, u.ValidateMixin],
+/**
+ * Module : Kero string adapter
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 20:12:42
+ */
+import {BaseAdapter} from './baseAdapter';
+import {extend} from 'neoui-sparrow/lib/extend';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {RequiredMixin} from './valueMixin';
+import {ValidateMixin} from './valueMixin';
+import {on} from 'neoui-sparrow/lib/event';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var StringAdapter = BaseAdapter.extend({
+    mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],
     init: function(){
         var self = this;
         this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -10,7 +24,7 @@ u.StringAdapter = u.BaseAdapter.extend({
         this.minLength = this.getOption('minLength');
         this.maxLength = this.getOption('maxLength');
 
-        u.on(this.element, 'focus', function(){
+        on(this.element, 'focus', function(){
             if(self.enable){
                 self.setShowValue(self.getValue())
                 try{
@@ -24,7 +38,7 @@ u.StringAdapter = u.BaseAdapter.extend({
             }
         })
 
-        u.on(this.element, 'blur',function(e){
+        on(this.element, 'blur',function(e){
             if(self.enable){
                 if (!self.doValidate() && self._needClean()) {
                     if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
@@ -40,9 +54,10 @@ u.StringAdapter = u.BaseAdapter.extend({
         });
     }
 });
-u.compMgr.addDataAdapter({
-        adapter: u.StringAdapter,
+compMgr.addDataAdapter({
+        adapter: StringAdapter,
         name: 'string'
     });
 
 	
+export {StringAdapter};

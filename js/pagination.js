@@ -7,6 +7,7 @@ import {BaseAdapter} from './baseAdapter';
 import {extend} from 'neoui-sparrow/lib/extend';
 import {pagination} from 'neoui/lib/neoui-pagination';
 import {getFunction} from 'neoui-sparrow/lib/util';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
 
 
 var PaginationAdapter = BaseAdapter.extend({

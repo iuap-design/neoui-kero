@@ -12,6 +12,7 @@
     "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
   },
   "dependencies": {
+    "neoui": "^3.1.0",
     "neoui-sparrow": "^1.2.0"
   },
   "devDependencies": {

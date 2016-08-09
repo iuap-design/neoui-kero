@@ -1,7 +1,7 @@
 /**
  * Module : Kero webpack entry index
  * Author : Kvkens(yueming@yonyou.com)
- * Date	  : 2016-08-09 19:32:22
+ * Date	  : 2016-08-09 20:14:44
  */
 
 import {BaseAdapter} from './baseAdapter';
@@ -18,5 +18,7 @@ import {NativeCheckAdapter} from './native-checkbox';
 import {NativeRadioAdapter} from './native-radio';
 import {PaginationAdapter} from './pagination';
 import {PassWordAdapter} from './password';
+import {PercentAdapter} from './percent';
+import {StringAdapter} from './string';
 
-console.log(BaseAdapter);
+console.log(StringAdapter);
