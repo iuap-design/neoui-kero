@@ -1,13 +1,14 @@
 {
   "name": "kero-adapter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
+    "watch": " webpack --progress --colors --watch --mode=dev",
     "build": "webpack --colors --progress --mode=build && node version --mode=build",
     "dev": "webpack --progress --colors  --mode=dev && node version --mode=dev",
-    "es" : "babel js -d lib",
-    "dist" : "webpack --progress --colors  --mode=dev && webpack --colors --progress --mode=build && node version --mode=dev &&  node version --mode=build",
+    "es": "babel js -d lib",
+    "dist": "webpack --progress --colors  --mode=dev && webpack --colors --progress --mode=build && node version --mode=dev &&  node version --mode=build",
     "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
   },
   "dependencies": {

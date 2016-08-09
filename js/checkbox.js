@@ -10,7 +10,8 @@ import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
 import {getJSObject} from 'neoui-sparrow/lib/util';
-import {Checkbox} from './';
+import {Checkbox} from 'neoui/lib/neoui-checkbox';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
 
 
 
@@ -18,7 +19,7 @@ var CheckboxAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],
     init: function (options) {
         var self = this;
-        // u.CheckboxAdapter.superclass.initialize.apply(this, arguments); 
+        // CheckboxAdapter.superclass.initialize.apply(this, arguments); 
         this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
         if(this.options['datasource'] || this.options['hasOther']){
             // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
@@ -241,3 +242,5 @@ compMgr.addDataAdapter(
         adapter: CheckboxAdapter,
         name: 'u-checkbox'
     });
+
+export {CheckboxAdapter};

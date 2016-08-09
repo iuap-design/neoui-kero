@@ -1,5 +1,17 @@
-u.CkEditorAdapter = u.BaseAdapter.extend({
-    mixins: [u.ValueMixin, u.EnableMixin,u.RequiredMixin, u.ValidateMixin],
+/**
+ * Module : Kero webpack entry index
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 09:52:13
+ */
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {RequiredMixin} from './valueMixin';
+import {ValidateMixin} from './valueMixin';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var CkEditorAdapter = BaseAdapter.extend({
+    mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],
     init: function () {
         var self = this;
         this.e_editor = this.id + "-ckeditor";
@@ -77,7 +89,9 @@ u.CkEditorAdapter = u.BaseAdapter.extend({
 
 });
 
-u.compMgr.addDataAdapter({
-    adapter: u.CkEditorAdapter,
+compMgr.addDataAdapter({
+    adapter: CkEditorAdapter,
     name: 'u-ckeditor'
 });
+
+export {CkEditorAdapter};

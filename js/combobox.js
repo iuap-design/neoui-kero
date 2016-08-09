@@ -1,19 +1,36 @@
-u.ComboboxAdapter = u.BaseAdapter.extend({
-    mixins:[u.ValueMixin,u.EnableMixin, u.RequiredMixin, u.ValidateMixin],
+/**
+ * Module : Kero webpack entry index
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 09:52:13
+ */
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {RequiredMixin} from './valueMixin';
+import {ValidateMixin} from './valueMixin';
+import {getJSObject} from 'neoui-sparrow/lib/util';
+import {Combo} from 'neoui/lib/neoui-combo';
+import {env} from 'neoui-sparrow/lib/env';
+import {on,off,stopEvent} from 'neoui-sparrow/lib/event';
+import {removeClass} from 'neoui-sparrow/lib/dom';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var ComboboxAdapter = BaseAdapter.extend({
+    mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],
     init: function () {
         var self = this;
-        //u.ComboboxAdapter.superclass.initialize.apply(this, arguments);
-        this.datasource = u.getJSObject(this.viewModel, this.options['datasource']);
+        //ComboboxAdapter.superclass.initialize.apply(this, arguments);
+        this.datasource = getJSObject(this.viewModel, this.options['datasource']);
         this.mutil = this.options.mutil || false;
         this.onlySelect = this.options.onlySelect || false;
         this.showFix = this.options.showFix || false;
         this.validType = 'combobox';
-        this.comp = new u.Combo({el:this.element,mutilSelect:this.mutil,onlySelect:this.onlySelect,showFix:this.showFix});
+        this.comp = new Combo({el:this.element,mutilSelect:this.mutil,onlySelect:this.onlySelect,showFix:this.showFix});
         this.element['u.Combo'] = this.comp;
         if (this.datasource){
             this.comp.setComboData(this.datasource);
         }else{
-            if(u.isIE8 || u.isIE9)
+            if(env.isIE8 || env.isIE9)
                 alert("IE8/IE9必须设置datasource");
         }
         ////TODO 后续支持多选
@@ -61,36 +78,36 @@ u.ComboboxAdapter = u.BaseAdapter.extend({
             this.enable = true;
             this.element.removeAttribute('readonly');
             this.comp._input.removeAttribute('readonly');
-            u.removeClass(this.element.parentNode,'disablecover');
-            u.on(this.comp._input, 'focus', function (e) {
+            removeClass(this.element.parentNode,'disablecover');
+            on(this.comp._input, 'focus', function (e) {
                 self.comp.show(e);
-                u.stopEvent(e);
+                stopEvent(e);
             })
             if (this.comp.iconBtn){
-                u.on(this.comp.iconBtn, 'click', function(e){
+                on(this.comp.iconBtn, 'click', function(e){
                     self.comp.show(e);
-                    u.stopEvent(e);
+                    stopEvent(e);
                 })
             }
         } else if (enable === false || enable === 'false') {
             this.enable = false;
             this.element.setAttribute('readonly', 'readonly');
             this.comp._input.setAttribute('readonly', 'readonly');
-            u.addClass(this.element.parentNode,'disablecover');
-            u.off(this.comp._input, 'focus')
+            addClass(this.element.parentNode,'disablecover');
+            off(this.comp._input, 'focus')
             if (this.comp.iconBtn){
-                u.off(this.comp.iconBtn, 'click')
+                off(this.comp.iconBtn, 'click')
             }
         }
     }
 });
 
-u.compMgr.addDataAdapter(
+compMgr.addDataAdapter(
     {
-        adapter: u.ComboboxAdapter,
+        adapter: ComboboxAdapter,
         name: 'u-combobox'
     });
 
-
+export {ComboboxAdapter};
 
 

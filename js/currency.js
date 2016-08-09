@@ -1,19 +1,38 @@
 /**
+ * Module : Kero currency
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 13:42:14
+ */
+
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {RequiredMixin} from './valueMixin';
+import {ValidateMixin} from './valueMixin';
+import {getJSObject} from 'neoui-sparrow/lib/util';
+import {Checkbox} from 'neoui/lib/neoui-checkbox';
+//miss DataTable
+import {NumberFormater} from 'neoui-sparrow/lib/util/formater';
+import {isNumber} from 'neoui-sparrow/lib/util';
+import {FloatAdapter} from './float';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+/**
  * 货币控件
  */
-u.CurrencyAdapter = u.FloatAdapter.extend({
+var CurrencyAdapter = FloatAdapter.extend({
     init: function () {
         var self = this;
-        u.CurrencyAdapter.superclass.init.apply(this);
+        CurrencyAdapter.superclass.init.apply(this);
 
         this.maskerMeta = iweb.Core.getMaskerMeta('currency') || {};
         this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
         this.maskerMeta.curSymbol = this.getOption('curSymbol') || this.maskerMeta.curSymbol;
         this.validType = 'float';
-        this.dataModel.on(this.field + '.curSymbol.' + u.DataTable.ON_CURRENT_META_CHANGE, function (event) {
+        this.dataModel.on(this.field + '.curSymbol.' + DataTable.ON_CURRENT_META_CHANGE, function (event) {
             self.setCurSymbol(event.newValue)
         });
-        this.formater = new u.NumberFormater(this.maskerMeta.precision);
+        this.formater = new NumberFormater(this.maskerMeta.precision);
         this.masker = new CurrencyMasker(this.maskerMeta);
     },
     /**
@@ -23,8 +42,8 @@ u.CurrencyAdapter = u.FloatAdapter.extend({
     setPrecision: function (precision) {
         if (this.maskerMeta.precision == precision) return
         this.maskerMeta.precision = precision
-        this.formater = new u.NumberFormater(this.maskerMeta.precision);
-        this.masker = new u.CurrencyMasker(this.maskerMeta);
+        this.formater = new NumberFormater(this.maskerMeta.precision);
+        this.masker = new CurrencyMasker(this.maskerMeta);
         var currentRow = this.dataModel.getCurrentRow();
         if (currentRow) {
             var v = this.dataModel.getCurrentRow().getValue(this.field)
@@ -49,7 +68,7 @@ u.CurrencyAdapter = u.FloatAdapter.extend({
     },
     onFocusin: function (e) {
         var v = this.getValue(), vstr = v + '', focusValue = v
-        if (u.isNumber(v) && u.isNumber(this.maskerMeta.precision)) {
+        if (isNumber(v) && isNumber(this.maskerMeta.precision)) {
             if (vstr.indexOf('.') >= 0) {
                 var sub = vstr.substr(vstr.indexOf('.') + 1)
                 if (sub.length < this.maskerMeta.precision || parseInt(sub.substr(this.maskerMeta.precision)) == 0) {
@@ -64,8 +83,9 @@ u.CurrencyAdapter = u.FloatAdapter.extend({
     }
 })
 
-u.compMgr.addDataAdapter({
-        adapter: u.CurrencyAdapter,
-        name: 'currency'
-    });
+compMgr.addDataAdapter({
+    adapter: CurrencyAdapter,
+    name: 'currency'
+});
 
+export {CurrencyAdapter};

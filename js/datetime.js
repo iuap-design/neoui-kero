@@ -1,19 +1,39 @@
-u.DateTimeAdapter = u.BaseAdapter.extend({
-	mixins: [u.ValueMixin,u.EnableMixin,u.RequiredMixin, u.ValidateMixin],
+/**
+ * Module : Kero datetime
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 14:59:37
+ */
+
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {RequiredMixin} from './valueMixin';
+import {ValidateMixin} from './valueMixin';
+import {on,off,stopEvent} from 'neoui-sparrow/lib/event';
+import {addClass,removeClass} from 'neoui-sparrow/lib/dom';
+import {core} from 'neoui-sparrow/lib/core';
+//miss DataTable;
+import {env} from 'neoui-sparrow/lib/env';
+//miss DateTimePicker
+import {date} from 'neoui-sparrow/lib/util/dateUtils';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var DateTimeAdapter = BaseAdapter.extend({
+	mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],
 	init: function (options) {
 		var self = this,adapterType,format;
-		// u.DateTimeAdapter.superclass.initialize.apply(this, arguments);
+		// DateTimeAdapter.superclass.initialize.apply(this, arguments);
 		if (this.options.type === 'u-date'){
 			this.adapterType = 'date';
 		}else{
 			this.adapterType = 'datetime'
-			u.addClass(this.element,'time');
+			addClass(this.element,'time');
 		}
 
-		this.maskerMeta = u.core.getMaskerMeta(this.adapterType) || {};
+		this.maskerMeta = core.getMaskerMeta(this.adapterType) || {};
 		this.maskerMeta.format = this.options['format'] || this.maskerMeta.format;
 		if(this.dataModel){
-			this.dataModel.on(this.field + '.format.' +  u.DataTable.ON_CURRENT_META_CHANGE, function(event){
+			this.dataModel.on(this.field + '.format.' +  DataTable.ON_CURRENT_META_CHANGE, function(event){
 				self.setFormat(event.newValue)
 			});
 		}
@@ -37,7 +57,7 @@ u.DateTimeAdapter = u.BaseAdapter.extend({
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
 		var op;
-		if(u.isMobile){
+		if(env.isMobile){
 			op = {
 				theme:"ios",
 				mode:"scroller",
@@ -51,9 +71,9 @@ u.DateTimeAdapter = u.BaseAdapter.extend({
 			this.element = this.element.querySelector("input");
 			this.element.setAttribute('readonly','readonly');
 			if (this._span){
-		        u.on(this._span, 'click', function(e){
+		        on(this._span, 'click', function(e){
 		            self.element.focus();
-		            u.stopEvent(e);
+		            stopEvent(e);
 		        });
 		    }
 			if(this.adapterType == 'date'){
@@ -62,12 +82,12 @@ u.DateTimeAdapter = u.BaseAdapter.extend({
 				$(this.element).mobiscroll().datetime(op);
 			}
 		}else{
-			this.comp = new u.DateTimePicker({el:this.element,format:this.maskerMeta.format,showFix:this.options.showFix});
+			this.comp = new DateTimePicker({el:this.element,format:this.maskerMeta.format,showFix:this.options.showFix});
 		}
 		
 		this.element['u.DateTimePicker'] = this.comp;
 
-		if(!u.isMobile){
+		if(!env.isMobile){
 			this.comp.on('select', function(event){
 				self.setValue(event.value);
 			});
@@ -78,21 +98,21 @@ u.DateTimeAdapter = u.BaseAdapter.extend({
 			});
 			if(this.startField){
 				this.dataModel.ref(this.startField).subscribe(function(value) {
-					if(u.isMobile){
-						var valueObj = u.date.getDateObj(value);
+					if(env.isMobile){
+						var valueObj = date.getDateObj(value);
 						op.minDate = valueObj;
 						if(self.adapterType == 'date'){
 							$(self.element).mobiscroll().date(op);
 						}else{
 							$(self.element).mobiscroll().datetime(op);
 						}
-						var nowDate = u.date.getDateObj(self.dataModel.getValue(self.field));
+						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
 						if(nowDate < valueObj || !value){
 							self.dataModel.setValue(self.field,'');
 						}
 					}else{
 						self.comp.setStartDate(value);
-						if(self.comp.date < u.date.getDateObj(value) || !value){
+						if(self.comp.date < date.getDateObj(value) || !value){
 							self.dataModel.setValue(self.field,'');
 						}
 					}
@@ -102,8 +122,8 @@ u.DateTimeAdapter = u.BaseAdapter.extend({
 			if(this.startField){
 				var startValue = this.dataModel.getValue(this.startField);
 				if(startValue){
-					if(u.isMobile){
-						op.minDate = u.date.getDateObj(startValue);
+					if(env.isMobile){
+						op.minDate = date.getDateObj(startValue);
 						if(this.adapterType == 'date'){
 							$(this.element).mobiscroll().date(op);
 						}else{
@@ -121,10 +141,10 @@ u.DateTimeAdapter = u.BaseAdapter.extend({
 	modelValueChange: function(value){
 		if (this.slice) return;
 		this.trueValue = value;
-		if(u.isMobile){
+		if(env.isMobile){
 			if(value){
-				value = u.date.format(value,this.options.format);
-				$(this.element).scroller('setDate', u.date.getDateObj(value), true);
+				value = date.format(value,this.options.format);
+				$(this.element).scroller('setDate', date.getDateObj(value), true);
 			}
 		}else{
 			this.comp.setDate(value);
@@ -135,13 +155,13 @@ u.DateTimeAdapter = u.BaseAdapter.extend({
 		if (this.maskerMeta.format == format) return;
 		this.options.format = format;
 		this.maskerMeta.format = format;
-		if(!u.isMobile)
+		if(!env.isMobile)
 			this.comp.setFormat(format);
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
 	},
 	setValue: function (value) {
-		value = u.date.format(value,this.options.format);
+		value = date.format(value,this.options.format);
         this.trueValue = this.formater ? this.formater.format(value) : value;
         this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
         this.setShowValue(this.showValue);
@@ -152,35 +172,35 @@ u.DateTimeAdapter = u.BaseAdapter.extend({
     setEnable: function(enable){
         if (enable === true || enable === 'true') {
             this.enable = true;
-            if(u.isMobile){
+            if(env.isMobile){
             	this.element.removeAttribute('disabled');
             }else{
             	this.comp._input.removeAttribute('readonly');
             }
-            u.removeClass(this.element.parentNode,'disablecover');
+            removeClass(this.element.parentNode,'disablecover');
         } else if (enable === false || enable === 'false') {
             this.enable = false;
-            if(u.isMobile){
+            if(env.isMobile){
             	this.element.setAttribute('disabled','disabled');
             }else{
             	this.comp._input.setAttribute('readonly', 'readonly');
             }
-            u.addClass(this.element.parentNode,'disablecover');
+            addClass(this.element.parentNode,'disablecover');
         }
-        if(!u.isMobile)
+        if(!env.isMobile)
         	this.comp.setEnable(enable);
     }
 
 });
 
-u.compMgr.addDataAdapter(
-		{
-			adapter: u.DateTimeAdapter,
-			name: 'u-date'
-		});
+compMgr.addDataAdapter({
+	adapter: DateTimeAdapter,
+	name: 'u-date'
+});
 
-u.compMgr.addDataAdapter(
-		{
-			adapter: u.DateTimeAdapter,
-			name: 'u-datetime'
-		});
+compMgr.addDataAdapter({
+	adapter: DateTimeAdapter,
+	name: 'u-datetime'
+});
+
+export {DateTimeAdapter};

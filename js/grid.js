@@ -1,8 +1,38 @@
-u.GridAdapter = u.BaseAdapter.extend({
-	
+/**
+ * Module : Kero Grid Adapter
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-09 16:17:17
+ */
+
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {RequiredMixin} from './valueMixin';
+import {ValidateMixin} from './valueMixin';
+import {getJSObject,getFunction} from 'neoui-sparrow/lib/util';
+import {NumberFormater} from 'neoui-sparrow/lib/util/formater';
+import {NumberMasker,PercentMasker} from './util/masker';
+import {dateRender,dateTimeRender} from 'neoui-sparrow/lib/util/dataRender';
+//miss DataTable
+import {stopEvent} from 'neoui-sparrow/lib/event';
+import {StringAdapter} from './string';
+import {IntegerAdapter} from './integer';
+import {CheckboxAdapter} from './checkbox';
+import {ComboboxAdapter} from './combobox';
+import {RadioAdapter} from './radio';
+import {FloatAdapter} from './float';
+import {CurrencyAdapter} from './currency';
+import {DateTimeAdapter} from './datetime';
+import {UrlAdapter} from './url';
+import {PassWordAdapter} from './password';
+import {PercentAdapter} from './percent';
+import {Validate} from 'neoui/lib/neoui-validate';
+import {showMessage} from 'neoui/lib/neoui-message';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var GridAdapter = BaseAdapter.extend({
 	initialize: function(options) {
 		// 初始options中包含grid的属性设置，还需要增加dataSource、columns、transMap以及事件处理
-
 		var opt = options['options'] || {},
 				viewModel = options['model'];
 		var element = typeof options['el'] === 'string' ? document.querySelector(options['el']) : options['el'];
@@ -13,7 +43,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 		var oThis = this;
 		var compDiv = null;
 		var comp = null;
-		this.dataTable = u.getJSObject(viewModel, options["data"]);
+		this.dataTable = getJSObject(viewModel, options["data"]);
 		this.element = element;
 		this.$element = $(element);
 		this.editComponentDiv = {};
@@ -24,24 +54,24 @@ u.GridAdapter = u.BaseAdapter.extend({
 
 		
 		// 在html中将函数类参数进行处理
-		this.gridOptions.onBeforeRowSelected = u.getFunction(viewModel,this.gridOptions.onBeforeRowSelected);
-		this.gridOptions.onRowSelected = u.getFunction(viewModel,this.gridOptions.onRowSelected);
-		this.gridOptions.onBeforeRowUnSelected = u.getFunction(viewModel,this.gridOptions.onBeforeRowUnSelected);
-		this.gridOptions.onRowUnSelected = u.getFunction(viewModel,this.gridOptions.onRowUnSelected);
-		this.gridOptions.onBeforeAllRowSelected = u.getFunction(viewModel,this.gridOptions.onBeforeAllRowSelected);
-		this.gridOptions.onAllRowSelected = u.getFunction(viewModel,this.gridOptions.onAllRowSelected);
-		this.gridOptions.onBeforeAllRowUnSelected = u.getFunction(viewModel,this.gridOptions.onBeforeAllRowUnSelected);
-		this.gridOptions.onAllRowUnSelected = u.getFunction(viewModel,this.gridOptions.onAllRowUnSelected);
-		this.gridOptions.onBeforeRowFocus = u.getFunction(viewModel,this.gridOptions.onBeforeRowFocus);
-		this.gridOptions.onRowFocus = u.getFunction(viewModel,this.gridOptions.onRowFocus);
-		this.gridOptions.onBeforeRowUnFocus = u.getFunction(viewModel,this.gridOptions.onBeforeRowUnFocus);
-		this.gridOptions.onRowUnFocus = u.getFunction(viewModel,this.gridOptions.onRowUnFocus);
-		this.gridOptions.onDblClickFun = u.getFunction(viewModel,this.gridOptions.onDblClickFun);
-		this.gridOptions.onValueChange = u.getFunction(viewModel,this.gridOptions.onValueChange);
-		this.gridOptions.onBeforeClickFun = u.getFunction(viewModel,this.gridOptions.onBeforeClickFun);
-		this.gridOptions.onBeforeEditFun = u.getFunction(viewModel,this.gridOptions.onBeforeEditFun);
-		this.gridOptions.onRowHover = u.getFunction(viewModel,this.gridOptions.onRowHover);
-		this.gridOptions.afterCreate = u.getFunction(viewModel,this.gridOptions.afterCreate);
+		this.gridOptions.onBeforeRowSelected = getFunction(viewModel,this.gridOptions.onBeforeRowSelected);
+		this.gridOptions.onRowSelected = getFunction(viewModel,this.gridOptions.onRowSelected);
+		this.gridOptions.onBeforeRowUnSelected = getFunction(viewModel,this.gridOptions.onBeforeRowUnSelected);
+		this.gridOptions.onRowUnSelected = getFunction(viewModel,this.gridOptions.onRowUnSelected);
+		this.gridOptions.onBeforeAllRowSelected = getFunction(viewModel,this.gridOptions.onBeforeAllRowSelected);
+		this.gridOptions.onAllRowSelected = getFunction(viewModel,this.gridOptions.onAllRowSelected);
+		this.gridOptions.onBeforeAllRowUnSelected = getFunction(viewModel,this.gridOptions.onBeforeAllRowUnSelected);
+		this.gridOptions.onAllRowUnSelected = getFunction(viewModel,this.gridOptions.onAllRowUnSelected);
+		this.gridOptions.onBeforeRowFocus = getFunction(viewModel,this.gridOptions.onBeforeRowFocus);
+		this.gridOptions.onRowFocus = getFunction(viewModel,this.gridOptions.onRowFocus);
+		this.gridOptions.onBeforeRowUnFocus = getFunction(viewModel,this.gridOptions.onBeforeRowUnFocus);
+		this.gridOptions.onRowUnFocus = getFunction(viewModel,this.gridOptions.onRowUnFocus);
+		this.gridOptions.onDblClickFun = getFunction(viewModel,this.gridOptions.onDblClickFun);
+		this.gridOptions.onValueChange = getFunction(viewModel,this.gridOptions.onValueChange);
+		this.gridOptions.onBeforeClickFun = getFunction(viewModel,this.gridOptions.onBeforeClickFun);
+		this.gridOptions.onBeforeEditFun = getFunction(viewModel,this.gridOptions.onBeforeEditFun);
+		this.gridOptions.onRowHover = getFunction(viewModel,this.gridOptions.onRowHover);
+		this.gridOptions.afterCreate = getFunction(viewModel,this.gridOptions.afterCreate);
 
 		/*扩展onBeforeEditFun，如果点击的是单选或者复选的话则不执行原有的编辑处理，直接通过此js进行处理*/
 		var customOnBeforeEditFun = this.gridOptions.onBeforeEditFun;
@@ -74,11 +104,11 @@ u.GridAdapter = u.BaseAdapter.extend({
 			// 处理精度，以dataTable的精度为准
 			
 			/*处理editType*/
-			var eType = u.getFunction(viewModel, column.editType);
-			var rType = u.getFunction(viewModel, column.renderType);
-			var afterEType = u.getFunction(viewModel, column.afterEType);
-			var afterRType = u.getFunction(viewModel, column.afterRType);
-			var sumRenderType = u.getFunction(viewModel, column.sumRenderType);
+			var eType = getFunction(viewModel, column.editType);
+			var rType = getFunction(viewModel, column.renderType);
+			var afterEType = getFunction(viewModel, column.afterEType);
+			var afterRType = getFunction(viewModel, column.afterRType);
+			var sumRenderType = getFunction(viewModel, column.sumRenderType);
 			column.sumRenderType = sumRenderType;
 			var eOptions = {};
 			if(column.editOptions){
@@ -191,8 +221,8 @@ u.GridAdapter = u.BaseAdapter.extend({
 					maskerMeta.precision = precision;
 
 					maskerMeta.precision = precision || maskerMeta.precision
-					var formater = new u.NumberFormater(maskerMeta.precision);
-					var masker = new u.NumberMasker(maskerMeta);
+					var formater = new NumberFormater(maskerMeta.precision);
+					var masker = new NumberMasker(maskerMeta);
 					var svalue = masker.format(formater.format(obj.value)).value
 					obj.element.innerHTML =  svalue
 					/*设置header为right*/
@@ -225,8 +255,8 @@ u.GridAdapter = u.BaseAdapter.extend({
 					var precision = typeof(parseFloat(rprec)) == 'number' ? rprec : maskerMeta.precision;
 					maskerMeta.precision = precision;
 
-					var formater = new u.NumberFormater(maskerMeta.precision);
-					var masker = new u.NumberMasker(maskerMeta);
+					var formater = new NumberFormater(maskerMeta.precision);
+					var masker = new NumberMasker(maskerMeta);
 					var svalue = masker.format(formater.format(obj.value)).value
 					obj.element.innerHTML =  svalue 
 					/*设置header为right*/
@@ -245,7 +275,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				column.renderType = function(obj){
 				  
 				  //需要将key转化为name
-					var ds = u.getJSObject(viewModel, eOptions['datasource'])
+					var ds = getJSObject(viewModel, eOptions['datasource'])
 				
 					obj.element.innerHTML = '';
 					if(nameArr){
@@ -275,7 +305,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			}else if(rType == 'dateRender'){
 				//通过grid的dataType为Date format处理
 				column.renderType = function(obj){
-					var svalue =  u.dateRender(obj.value, obj.gridCompColumn.options['format']);
+					var svalue =  dateRender(obj.value, obj.gridCompColumn.options['format']);
 					obj.element.innerHTML = svalue;
 					$(obj.element).attr('title', svalue)
 					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
@@ -286,7 +316,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			}else if(rType == 'dateTimeRender'){
 				//通过grid的dataType为DateTime format处理
 				column.renderType = function(obj){
-					var svalue = u.dateTimeRender(obj.value)
+					var svalue = dateTimeRender(obj.value)
 					obj.element.innerHTML = svalue;
 					$(obj.element).attr('title', svalue)
 
@@ -300,7 +330,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			}else if(rType == 'radioRender'){
 				column.renderType = function(params){
 					//debugger
-					var ds = u.getJSObject(viewModel, eOptions['datasource'])
+					var ds = getJSObject(viewModel, eOptions['datasource'])
 					var value = params.value
 					var compDiv = $('<div class="u-grid-edit-item-radio"></div>');
 					
@@ -401,8 +431,8 @@ u.GridAdapter = u.BaseAdapter.extend({
 			            maskerMeta.precision = parseInt(maskerMeta.precision) + 2;
 			        }
 
-					var formater = new u.NumberFormater(maskerMeta.precision);
-					var masker = new u.PercentMasker(maskerMeta)
+					var formater = new NumberFormater(maskerMeta.precision);
+					var masker = new PercentMasker(maskerMeta)
 					var svalue = masker.format(formater.format(obj.value)).value
 					obj.element.innerHTML =  svalue
 					$(obj.element).css('text-align', 'right')
@@ -425,8 +455,8 @@ u.GridAdapter = u.BaseAdapter.extend({
 				var precision = rprec == 0 || (rprec && typeof(parseFloat(rprec)) == 'number')? rprec : maskerMeta.precision;
 				maskerMeta.precision = precision;
 
-				var formater = new u.NumberFormater(maskerMeta.precision);
-				var masker = new u.NumberMasker(maskerMeta);
+				var formater = new NumberFormater(maskerMeta.precision);
+				var masker = new NumberMasker(maskerMeta);
 				var svalue = masker.format(formater.format(obj.value)).value
 				obj.element.innerHTML =  svalue
 				$(obj.element).parent().css('text-align', 'right')
@@ -464,7 +494,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				onRowSelectedFun.call(oThis,obj);
 			}
 		};
-		this.dataTable.on(u.DataTable.ON_ROW_SELECT, function(event) {
+		this.dataTable.on(DataTable.ON_ROW_SELECT, function(event) {
 			/*index转化为grid的index*/
 			$.each(event.rowIds, function() {
 				var index = oThis.grid.getRowIndexByValue('$_#_@_id',this);
@@ -479,12 +509,12 @@ u.GridAdapter = u.BaseAdapter.extend({
 		});
 		
 		//全选
-		this.dataTable.on(u.DataTable.ON_ROW_ALLSELECT, function(event) {
+		this.dataTable.on(DataTable.ON_ROW_ALLSELECT, function(event) {
 			oThis.grid.setAllRowSelect()
 		});
 		
 		//全返选
-		this.dataTable.on(u.DataTable.ON_ROW_ALLUNSELECT, function(event) {
+		this.dataTable.on(DataTable.ON_ROW_ALLUNSELECT, function(event) {
 			oThis.grid.setAllRowUnSelect()
 		});
 		
@@ -498,7 +528,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				onRowUnSelectedFun.call(oThis,obj);
 			}
 		};
-		this.dataTable.on(u.DataTable.ON_ROW_UNSELECT, function(event) {
+		this.dataTable.on(DataTable.ON_ROW_UNSELECT, function(event) {
 			$.each(event.rowIds, function() {
 				var index = oThis.grid.getRowIndexByValue('$_#_@_id',this);
 				var unSelectFlag = true;
@@ -531,7 +561,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				onRowFocusFun.call(oThis,obj);
 			}
 		};
-		this.dataTable.on(u.DataTable.ON_ROW_FOCUS, function(event) {
+		this.dataTable.on(DataTable.ON_ROW_FOCUS, function(event) {
 			/*index转化为grid的index*/
 			var index = oThis.grid.getRowIndexByValue('$_#_@_id',event.rowId);
 		
@@ -555,7 +585,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				onRowUnFocusFun.call(oThis,obj);
 			}
 		};
-		this.dataTable.on(u.DataTable.ON_ROW_UNFOCUS, function(event) {
+		this.dataTable.on(DataTable.ON_ROW_UNFOCUS, function(event) {
 			var index = oThis.grid.getRowIndexByValue('$_#_@_id',event.rowId);
 			var unFocusFlag = true;
 			if(index > -1){
@@ -574,7 +604,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 //				viewModel[onRowUnSelectedFun].call(grid,grid, row, rowindex);
 //			}
 //		};
-		this.dataTable.on(u.DataTable.ON_INSERT, function(event) {
+		this.dataTable.on(DataTable.ON_INSERT, function(event) {
 			var gridRows = new Array();
 			$.each(event.rows,function(){
 				var row = this.data;
@@ -589,7 +619,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			oThis.grid.addRows(gridRows,event.index);
 		});
 		
-		this.dataTable.on(u.DataTable.ON_UPDATE, function(event) {
+		this.dataTable.on(DataTable.ON_UPDATE, function(event) {
 			$.each(event.rows,function(){
 				var row = this.data;
 				var id = this.rowId;
@@ -604,7 +634,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			
 		});		
 		
-		this.dataTable.on(u.DataTable.ON_VALUE_CHANGE, function(obj) {
+		this.dataTable.on(DataTable.ON_VALUE_CHANGE, function(obj) {
 	
 			var id = obj.rowId;
 			var index = oThis.grid.getRowIndexByValue('$_#_@_id',id);
@@ -621,7 +651,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 //		this.gridOptions.onRowDelete = function(obj){
 //			dataTable.removeRow(obj.index);
 //		};
-		this.dataTable.on(u.DataTable.ON_DELETE, function(event) {
+		this.dataTable.on(DataTable.ON_DELETE, function(event) {
 			/*index转化为grid的index*/
 			var gridIndexs = new Array();
 			$.each(event.rowIds, function() {
@@ -631,7 +661,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			oThis.grid.deleteRows(gridIndexs);
 		});
 		
-		this.dataTable.on(u.DataTable.ON_DELETE_ALL, function(event) {
+		this.dataTable.on(DataTable.ON_DELETE_ALL, function(event) {
 			oThis.grid.setDataSource({})
 		});		
 		
@@ -662,7 +692,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			}
 		});
 		// 加载数据,只考虑viewModel传入grid
-		this.dataTable.on(u.DataTable.ON_LOAD, function(data) {
+		this.dataTable.on(DataTable.ON_LOAD, function(data) {
 			if(data.length > 0){
 				var values = new Array();
 				
@@ -682,11 +712,11 @@ u.GridAdapter = u.BaseAdapter.extend({
 				oThis.grid.setDataSource(dataSource);
 			}
 		});
-		this.dataTable.on(u.DataTable.ON_ENABLE_CHANGE, function(enable) {		
+		this.dataTable.on(DataTable.ON_ENABLE_CHANGE, function(enable) {		
 			oThis.grid.setEditable(enable.enable);
 		});
 
-		this.dataTable.on(u.DataTable.ON_ROW_META_CHANGE, function(event){
+		this.dataTable.on(DataTable.ON_ROW_META_CHANGE, function(event){
 			var field = event.field,
 				meta = event.meta,
 				row = event.row,
@@ -710,7 +740,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			}
 		})
 
-		this.dataTable.on(u.DataTable.ON_META_CHANGE, function(event){
+		this.dataTable.on(DataTable.ON_META_CHANGE, function(event){
 			var field = event.field
 			var meta = event.meta
 			if (meta == 'precision'){
@@ -775,7 +805,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				compDiv.addClass("eType-input")
 			}
 			eOptions.dataType = 'string';
-			comp = new u.StringAdapter({
+			comp = new StringAdapter({
 				el:compDiv[0],
 				options:eOptions,
 				model: viewModel
@@ -787,7 +817,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				compDiv.addClass("eType-input")
 			}
 			eOptions.dataType = 'integer';
-			comp = new u.IntegerAdapter({
+			comp = new IntegerAdapter({
 				el:compDiv[0],
 				options:eOptions,
 				model: viewModel
@@ -802,7 +832,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			if($.CheckboxComp){
 				comp = new $.CheckboxComp(compDiv.find("input")[0],eOptions,viewModel);
 			}else{
-				comp = new u.CheckboxAdapter({
+				comp = new CheckboxAdapter({
 					el:compDiv[0],
 					options:eOptions,
 					model: viewModel
@@ -816,7 +846,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			// compDiv = $('<div class="input-group  form_date u-grid-edit-item-comb"><div  type="text" class="form-control grid-combox"></div><i class="input-group-addon" ><i class="uf uf-anglearrowdown"></i></i></div>');
 			compDiv = $('<div class="eType-input"><input type="text" class="u-grid-edit-item-float"></div>');
 			//comp = new $.compManager.plugs.combo(compDiv[0],eOptions,viewModel);
-			//comp = new u.Combobox({
+			//comp = new Combobox({
 			//	el:compDiv[0],
 			//	options:eOptions,
 			//	model: viewModel
@@ -826,7 +856,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				compDiv = $('<div class="input-group  form_date u-grid-edit-item-comb"><div  type="text" class="form-control grid-combox"></div><i class="input-group-addon" ><i class="uf uf-anglearrowdown"></i></i></div>');
 				comp = new $.Combobox(compDiv[0],eOptions,viewModel)
 			}else{
-				comp = new u.ComboboxAdapter({
+				comp = new ComboboxAdapter({
 					el:compDiv[0],
 					options:eOptions,
 					model: viewModel
@@ -848,7 +878,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			}else {
 				compDiv = $('<div class="u-grid-edit-item-radio"><input type="radio" name="identity" /><i data-role="name"></i></div>');
 				//comp = new $.compManager.plugs.radio(compDiv[0],eOptions,viewModel);
-				comp = new u.RadioAdapter({
+				comp = new RadioAdapter({
 					el:compDiv[0],
 					options:eOptions,
 					model: viewModel
@@ -862,7 +892,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			}
 			//comp = new $.compManager.plugs.float(compDiv.find("input")[0],eOptions,viewModel);
 			eOptions.dataType = 'float';
-			comp = new u.FloatAdapter({
+			comp = new FloatAdapter({
 				el:compDiv[0],
 				options:eOptions,
 				model: viewModel
@@ -875,7 +905,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			}
 			//comp = new $.compManager.plugs.currency(compDiv.find("input")[0],eOptions,viewModel);
 			eOptions.dataType = 'currency';
-			comp = new u.CurrencyAdapter({
+			comp = new CurrencyAdapter({
 				el:compDiv[0],
 				options:eOptions,
 				model: viewModel
@@ -888,7 +918,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			if($.DateTime){
 				comp = new $.DateTime(compDiv[0],eOptions,viewModel);
 			}else{
-				comp = new u.DateTimeAdapter({
+				comp = new DateTimeAdapter({
 					el:compDiv[0],
 					options:eOptions,
 					model: viewModel
@@ -910,7 +940,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				comp = new $.DateComp(compDiv[0],eOptions,viewModel);
 			}else{
 				eOptions.type = 'u-date';
-				comp = new u.DateTimeAdapter({
+				comp = new DateTimeAdapter({
 					el:compDiv[0],
 					options:eOptions,
 					model: viewModel
@@ -931,7 +961,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				compDiv.addClass("eType-input")
 			}
 			eOptions.dataType = 'url';
-			comp = new u.UrlAdapter({
+			comp = new UrlAdapter({
 				el:compDiv[0],
 				options:eOptions,
 				model: viewModel
@@ -944,7 +974,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				compDiv.addClass("eType-input")
 			}
 			eOptions.dataType = 'password';
-			comp = new u.PassWordAdapter({
+			comp = new PassWordAdapter({
 				el:compDiv[0],
 				options:eOptions,
 				model: viewModel
@@ -959,7 +989,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			}
 			//comp = new $.compManager.plugs.float(compDiv.find("input")[0],eOptions,viewModel);
 			eOptions.dataType = 'precent';
-			comp = new u.PercentAdapter({
+			comp = new PercentAdapter({
 				el:compDiv[0],
 				options:eOptions,
 				model: viewModel
@@ -971,7 +1001,7 @@ u.GridAdapter = u.BaseAdapter.extend({
             if( e.keyCode == 13 || e.keyCode == 9){// 回车
             	this.blur(); //首先触发blur来将修改值反应到datatable中
                 oThis.grid.nextEditShow();
-                u.stopEvent(e);
+                stopEvent(e);
             }
 		});
 		if (comp && comp.dataAdapter){
@@ -1055,7 +1085,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 				
             var columnPassedFlag = true,
                 columnMsg = '';
-            var validate = new u.Validate({
+            var validate = new Validate({
             	el:this.element,
                 single: true,
                 required: required,
@@ -1087,8 +1117,8 @@ u.GridAdapter = u.BaseAdapter.extend({
             		var row = contentDiv.querySelectorAll('tr')[i];
             		var td = row.querySelectorAll('td')[index];
             		var div = td.querySelector('div')
-            		u.addClass(td,'u-grid-err-td');
-            		u.addClass(div,'u-grid-err-td');
+            		addClass(td,'u-grid-err-td');
+            		addClass(div,'u-grid-err-td');
             		evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}';
 					eval(evalStr);
             		var msg = '(' + title + ')' + result.Msg + ';'; 
@@ -1103,7 +1133,7 @@ u.GridAdapter = u.BaseAdapter.extend({
 			
 		}
 		if(columnShowMsg)
-			u.showMessage({msg:columnShowMsg,showSeconds:3})
+			showMessage({msg:columnShowMsg,showSeconds:3})
 		if(MsgArr.length > 0){
 			MsgArr.sort(function(a1,a2){
 				if(a1.rowNum > a2.rowNum)
@@ -1130,10 +1160,10 @@ u.GridAdapter = u.BaseAdapter.extend({
 	//if ($.compManager)
 	//	$.compManager.addPlug(Grid)
 
+compMgr.addDataAdapter({
+	adapter: GridAdapter,
+	name: 'grid'
+		//dataType: 'float'
+});
 
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.GridAdapter,
-        name: 'grid'
-        //dataType: 'float'
-    })
+export {GridAdapter};

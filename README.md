@@ -26,7 +26,14 @@ $ npm run build
 ```
 $ npm run dev
 ```
-
+自动编译
+```
+$ npm run watch
+```
+产出兼容ES5
+```
+$ npm run es
+```
 执行测试
 ```
 $ npm run test
