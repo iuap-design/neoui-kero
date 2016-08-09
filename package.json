@@ -1,0 +1,40 @@
+{
+  "name": "kero-adapter",
+  "version": "1.0.0",
+  "description": "kero adapter",
+  "main": "js/index.js",
+  "scripts": {
+    "build": "webpack --colors --progress --mode=build && npm version",
+    "dev": "webpack --progress --colors  --mode=dev && npm version",
+    "es" : "babel js -d lib",
+    "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
+  },
+  "dependencies": {
+    "neoui-sparrow": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.13.2",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
+    "babel-preset-es2015": "^6.13.2",
+    "chai": "^3.5.0",
+    "eslint": "^3.2.2",
+    "eslint-loader": "^1.5.0",
+    "mocha": "^3.0.2",
+    "webpack": "^1.13.1",
+    "yargs": "^4.8.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iuap-design/kero-adapter.git"
+  },
+  "author": "yonyou FED",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iuap-design/kero-adapter/issues"
+  },
+  "homepage": "https://github.com/iuap-design/kero-adapter#readme"
+}
