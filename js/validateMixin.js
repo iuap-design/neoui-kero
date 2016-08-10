@@ -1,9 +1,9 @@
 /**
  * Module : Kero Validate Mixin
  * Author : Kvkens(yueming@yonyou.com)
- * Date	  : 2016-08-08 15:58:49
+ * Date	  : 2016-08-10 14:53:43
  */
-import {Validate} from './';
+import {Validate} from 'neoui/lib/neoui-validate';
 
 var ValidateMixin = {
     init: function(){

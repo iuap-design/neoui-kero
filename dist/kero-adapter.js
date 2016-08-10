@@ -87,6 +87,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _string = __webpack_require__(30);
 	
+	var _progress = __webpack_require__(33);
+	
+	var _radio = __webpack_require__(35);
+	
+	var _switch = __webpack_require__(37);
+	
+	var _textarea = __webpack_require__(39);
+	
+	var _textfield = __webpack_require__(40);
+	
+	var _url = __webpack_require__(41);
+	
+	var _enableMixin = __webpack_require__(42);
+	
+	var _requiredMixin = __webpack_require__(43);
+	
+	var _validateMixin = __webpack_require__(44);
+	
+	var _valueMixin = __webpack_require__(5);
+	
+	//import {YearAdapter} from './year';
+	//import {YearMonthAdapter} from './yearmonth';
+	//import {TreeAdapter} from './tree';
+	
 	//import {MonthAdapter} from './month';
 	
 	//import {CurrencyAdapter} from './currency';
@@ -94,10 +118,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Module : Kero webpack entry index
 	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 20:14:44
+	 * Date	  : 2016-08-10 14:51:05
 	 */
 	
-	console.log(_string.StringAdapter);
+	console.log(_textarea.TextAreaAdapter);
+	//import {TimeAdapter} from './time';
+	
 	//import {GridAdapter} from './grid';
 
 /***/ },
@@ -5717,6 +5743,2099 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.NumberMasker = NumberMasker;
 	exports.CurrencyMasker = CurrencyMasker;
 	exports.PercentMasker = PercentMasker;
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.ProgressAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(1);
+	
+	var _neouiProgress = __webpack_require__(34);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(options) {
+	        var self = this;
+	        ProgressAdapter.superclass.initialize.apply(this, arguments);
+	
+	        this.comp = new _neouiProgress.Progress(this.element);
+	        this.element['u.Progress'] = this.comp;
+	
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	
+	    modelValueChange: function modelValueChange(val) {
+	        this.comp.setProgress(val);
+	    }
+	}); /**
+	     * Module : Kero percent
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 20:02:50
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: ProgressAdapter,
+	    name: 'u-progress'
+	});
+	
+	exports.ProgressAdapter = ProgressAdapter;
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Progress = undefined;
+	
+	var _BaseComponent = __webpack_require__(7);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _env = __webpack_require__(9);
+	
+	var _event = __webpack_require__(8);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var Progress = _BaseComponent.BaseComponent.extend({
+		_Constant: {},
+		_CssClasses: {
+			INDETERMINATE_CLASS: 'u-progress__indeterminate'
+		},
+		setProgress: function setProgress(p) {
+	
+			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+				return;
+			}
+	
+			this.progressbar_.style.width = p + '%';
+			return this;
+		},
+		/**
+	  * 设置竖向进度条的进度
+	  * @param p 要设置的进度
+	  * @returns {u.Progress}
+	     */
+		setProgressHeight: function setProgressHeight(p) {
+	
+			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+				return;
+			}
+	
+			this.progressbar_.style.height = p + '%';
+			this.progressbar_.style.width = '100%';
+			return this;
+		},
+		/**
+	  * 设置进度条中的html内容
+	  * @param p 要设置的html内容
+	  * @returns {u.Progress}
+	  */
+		setProgressHTML: function setProgressHTML(html) {
+	
+			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+				return;
+			}
+	
+			this.progressbar_.innerHTML = html;
+			return this;
+		},
+		setBuffer: function setBuffer(p) {
+			this.bufferbar_.style.width = p + '%';
+			this.auxbar_.style.width = 100 - p + '%';
+			return this;
+		},
+	
+		init: function init() {
+			var el = document.createElement('div');
+			el.className = 'progressbar bar bar1';
+			this.element.appendChild(el);
+			this.progressbar_ = el;
+	
+			el = document.createElement('div');
+			el.className = 'bufferbar bar bar2';
+			this.element.appendChild(el);
+			this.bufferbar_ = el;
+	
+			el = document.createElement('div');
+			el.className = 'auxbar bar bar3';
+			this.element.appendChild(el);
+			this.auxbar_ = el;
+	
+			this.progressbar_.style.width = '0%';
+			this.bufferbar_.style.width = '100%';
+			this.auxbar_.style.width = '0%';
+	
+			(0, _dom.addClass)(this.element, 'is-upgraded');
+	
+			if (_env.env.isIE8 || _env.env.isIE9) {
+	
+				if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+					var p = 0;
+					var oThis = this;
+					setInterval(function () {
+						p += 5;
+						p = p % 100;
+						oThis.progressbar_.style.width = p + '%';
+					}, 100);
+				}
+			}
+		}
+	
+	}); /**
+	     * Module : neoui-progress
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-03 10:46:37
+	     */
+	
+	_compMgr.compMgr.regComp({
+		comp: Progress,
+		compAsString: 'u.Progress',
+		css: 'u-progress'
+	});
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+	exports.Progress = Progress;
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.RadioAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(1);
+	
+	var _valueMixin = __webpack_require__(5);
+	
+	var _util = __webpack_require__(3);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _event = __webpack_require__(8);
+	
+	var _neouiRadio = __webpack_require__(36);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * Module : Kero percent
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 10:33:09
+	 */
+	
+	var RadioAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
+	    init: function init(options) {
+	        var self = this;
+	        //RadioAdapter.superclass.initialize.apply(this, arguments);
+	        this.dynamic = false;
+	        if (this.options['datasource'] || this.options['hasOther']) {
+	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
+	            this.radioTemplateArray = [];
+	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
+	                this.radioTemplateArray.push(this.element.childNodes[i]);
+	            }
+	        }
+	        if (this.options['datasource']) {
+	            this.dynamic = true;
+	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
+	            this.setComboData(datasource);
+	        } else {
+	            this.comp = new _neouiRadio.Radio(this.element);
+	            this.element['u.Radio'] = this.comp;
+	            this.eleValue = this.comp._btnElement.value;
+	
+	            this.comp.on('change', function (event) {
+	                if (self.slice) return;
+	                var modelValue = self.dataModel.getValue(self.field);
+	                //var valueArr = modelValue == '' ?  [] : modelValue.split(',');
+	                if (self.comp._btnElement.checked) {
+	                    self.dataModel.setValue(self.field, self.eleValue);
+	                }
+	            });
+	        }
+	
+	        // 如果存在其他
+	        if (this.options['hasOther']) {
+	            var node = null;
+	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
+	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+	            }
+	            var LabelS = this.element.querySelectorAll('.u-radio');
+	            self.lastLabel = LabelS[LabelS.length - 1];
+	            var allRadioS = this.element.querySelectorAll('[type=radio]');
+	            self.lastRadio = allRadioS[allRadioS.length - 1];
+	            var nameDivs = this.element.querySelectorAll('.u-radio-label');
+	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
+	            self.lastNameDiv.innerHTML = '其他';
+	            self.otherInput = (0, _dom.makeDOM)('<input type="text" style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
+	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
+	            self.lastRadio.value = '';
+	
+	            var comp;
+	            if (self.lastLabel['u.Radio']) {
+	                comp = self.lastLabel['u.Radio'];
+	            } else {
+	                comp = new _neouiRadio.Radio(self.lastLabel);
+	            }
+	            self.lastLabel['u.Radio'] = comp;
+	            self.otherComp = comp;
+	            comp.on('change', function () {
+	                if (comp._btnElement.checked) {
+	                    self.dataModel.setValue(self.field, comp._btnElement.value);
+	                }
+	            });
+	
+	            (0, _event.on)(self.otherInput, 'blur', function (e) {
+	                self.lastRadio.oldValue = self.lastRadio.value;
+	                self.lastRadio.value = this.value;
+	                self.otherComp.trigger('change');
+	            });
+	            (0, _event.on)(self.otherInput, 'click', function (e) {
+	                (0, _event.stopEvent)(e);
+	            });
+	        }
+	
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	    setComboData: function setComboData(comboData) {
+	        var self = this;
+	        // this.element.innerHTML = '';
+	        for (var i = 0, len = comboData.length; i < len - 1; i++) {
+	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
+	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+	            }
+	            //this.radioTemplate.clone().appendTo(this.element)
+	        }
+	
+	        var allRadio = this.element.querySelectorAll('[type=radio]');
+	        var allName = this.element.querySelectorAll('.u-radio-label');
+	        for (var k = 0; k < allRadio.length; k++) {
+	            allRadio[k].value = comboData[k].pk || comboData[k].value;
+	            allName[k].innerHTML = comboData[k].name;
+	        }
+	
+	        this.radioInputName = allRadio[0].name;
+	
+	        this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	            var comp = new _neouiRadio.Radio(ele);
+	            ele['u.Radio'] = comp;
+	
+	            comp.on('change', function (event) {
+	                if (comp._btnElement.checked) {
+	                    self.dataModel.setValue(self.field, comp._btnElement.value);
+	                }
+	            });
+	        });
+	    },
+	
+	    modelValueChange: function modelValueChange(value) {
+	        if (this.slice) return;
+	        var fetch = false;
+	        if (this.dynamic) {
+	            this.trueValue = value;
+	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	                var comp = ele['u.Radio'];
+	                var inptuValue = comp._btnElement.value;
+	                if (inptuValue && inptuValue == value) {
+	                    fetch = true;
+	                    comp._btnElement.click();
+	                }
+	            });
+	        } else {
+	            if (this.eleValue == value) {
+	                fetch = true;
+	                this.slice = true;
+	                this.comp._btnElement.click();
+	                this.slice = false;
+	            }
+	        }
+	        if (this.options.hasOther && !fetch && value) {
+	            this.lastRadio.checked = true;
+	            this.otherInput.value = value;
+	        }
+	    },
+	
+	    setEnable: function setEnable(enable) {
+	        this.enable = enable === true || enable === 'true';
+	        if (this.dynamic) {
+	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	                var comp = ele['u.Radio'];
+	                if (enable === true || enable === 'true') {
+	                    comp.enable();
+	                } else {
+	                    comp.disable();
+	                }
+	            });
+	        } else {
+	            if (this.enable) {
+	                this.comp.enable();
+	            } else {
+	                this.comp.disable();
+	            }
+	        }
+	    }
+	});
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: RadioAdapter,
+	    name: 'u-radio'
+	});
+	exports.RadioAdapter = RadioAdapter;
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Radio = undefined;
+	
+	var _BaseComponent = __webpack_require__(7);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _env = __webpack_require__(9);
+	
+	var _event = __webpack_require__(8);
+	
+	var _ripple = __webpack_require__(14);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * Module : neoui-radio
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-03 11:16:00
+	 */
+	
+	var Radio = _BaseComponent.BaseComponent.extend({
+	    Constant_: {
+	        TINY_TIMEOUT: 0.001
+	    },
+	
+	    _CssClasses: {
+	        IS_FOCUSED: 'is-focused',
+	        IS_DISABLED: 'is-disabled',
+	        IS_CHECKED: 'is-checked',
+	        IS_UPGRADED: 'is-upgraded',
+	        JS_RADIO: 'u-radio',
+	        RADIO_BTN: 'u-radio-button',
+	        RADIO_OUTER_CIRCLE: 'u-radio-outer-circle',
+	        RADIO_INNER_CIRCLE: 'u-radio-inner-circle'
+	    },
+	
+	    init: function init() {
+	        this._btnElement = this.element.querySelector('input');
+	
+	        this._boundChangeHandler = this._onChange.bind(this);
+	        this._boundFocusHandler = this._onChange.bind(this);
+	        this._boundBlurHandler = this._onBlur.bind(this);
+	        this._boundMouseUpHandler = this._onMouseup.bind(this);
+	
+	        var outerCircle = document.createElement('span');
+	        (0, _dom.addClass)(outerCircle, this._CssClasses.RADIO_OUTER_CIRCLE);
+	
+	        var innerCircle = document.createElement('span');
+	        (0, _dom.addClass)(innerCircle, this._CssClasses.RADIO_INNER_CIRCLE);
+	
+	        this.element.appendChild(outerCircle);
+	        this.element.appendChild(innerCircle);
+	
+	        var rippleContainer;
+	        //if (this.element.classList.contains( this._CssClasses.RIPPLE_EFFECT)) {
+	        //  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
+	        rippleContainer = document.createElement('span');
+	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CONTAINER);
+	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_EFFECT);
+	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CENTER);
+	        rippleContainer.addEventListener('mouseup', this._boundMouseUpHandler);
+	
+	        //var ripple = document.createElement('span');
+	        //ripple.classList.add(this._CssClasses.RIPPLE);
+	
+	        //rippleContainer.appendChild(ripple);
+	        this.element.appendChild(rippleContainer);
+	        new _ripple.URipple(rippleContainer);
+	        //}
+	
+	        this._btnElement.addEventListener('change', this._boundChangeHandler);
+	        this._btnElement.addEventListener('focus', this._boundFocusHandler);
+	        this._btnElement.addEventListener('blur', this._boundBlurHandler);
+	        this.element.addEventListener('mouseup', this._boundMouseUpHandler);
+	
+	        this._updateClasses();
+	        (0, _dom.addClass)(this.element, this._CssClasses.IS_UPGRADED);
+	    },
+	
+	    _onChange: function _onChange(event) {
+	        // Since other radio buttons don't get change events, we need to look for
+	        // them to update their classes.
+	        var radios = document.querySelectorAll('.' + this._CssClasses.JS_RADIO);
+	        for (var i = 0; i < radios.length; i++) {
+	            var button = radios[i].querySelector('.' + this._CssClasses.RADIO_BTN);
+	            // Different name == different group, so no point updating those.
+	            if (button.getAttribute('name') === this._btnElement.getAttribute('name')) {
+	                if (radios[i]['u.Radio']) {
+	                    radios[i]['u.Radio']._updateClasses();
+	                }
+	            }
+	        }
+	        this.trigger('change', { isChecked: this._btnElement.checked });
+	    },
+	
+	    /**
+	     * Handle focus.
+	     *
+	     * @param {Event} event The event that fired.
+	     * @private
+	     */
+	    _onFocus: function _onFocus(event) {
+	        (0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
+	    },
+	
+	    /**
+	     * Handle lost focus.
+	     *
+	     * @param {Event} event The event that fired.
+	     * @private
+	     */
+	    _onBlur: function _onBlur(event) {
+	        (0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
+	    },
+	
+	    /**
+	     * Handle mouseup.
+	     *
+	     * @param {Event} event The event that fired.
+	     * @private
+	     */
+	    _onMouseup: function _onMouseup(event) {
+	        this._blur();
+	    },
+	
+	    /**
+	     * Update classes.
+	     *
+	     * @private
+	     */
+	    _updateClasses: function _updateClasses() {
+	        this.checkDisabled();
+	        this.checkToggleState();
+	    },
+	
+	    /**
+	     * Add blur.
+	     *
+	     * @private
+	     */
+	    _blur: function _blur() {
+	
+	        // TODO: figure out why there's a focus event being fired after our blur,
+	        // so that we can avoid this hack.
+	        window.setTimeout(function () {
+	            this._btnElement.blur();
+	        }.bind(this), /** @type {number} */this.Constant_.TINY_TIMEOUT);
+	    },
+	
+	    // Public methods.
+	
+	    /**
+	     * Check the components disabled state.
+	     *
+	     * @public
+	     */
+	    checkDisabled: function checkDisabled() {
+	        if (this._btnElement.disabled) {
+	            (0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
+	        } else {
+	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
+	        }
+	    },
+	
+	    /**
+	     * Check the components toggled state.
+	     *
+	     * @public
+	     */
+	    checkToggleState: function checkToggleState() {
+	        if (this._btnElement.checked) {
+	            (0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
+	        } else {
+	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
+	        }
+	    },
+	
+	    /**
+	     * Disable radio.
+	     *
+	     * @public
+	     */
+	    disable: function disable() {
+	        this._btnElement.disabled = true;
+	        this._updateClasses();
+	    },
+	
+	    /**
+	     * Enable radio.
+	     *
+	     * @public
+	     */
+	    enable: function enable() {
+	        this._btnElement.disabled = false;
+	        this._updateClasses();
+	    },
+	
+	    /**
+	     * Check radio.
+	     *
+	     * @public
+	     */
+	    check: function check() {
+	        this._btnElement.checked = true;
+	        this._updateClasses();
+	    },
+	
+	    uncheck: function uncheck() {
+	        this._btnElement.checked = false;
+	        this._updateClasses();
+	    }
+	
+	});
+	
+	_compMgr.compMgr.regComp({
+	    comp: Radio,
+	    compAsString: 'u.Radio',
+	    css: 'u-radio'
+	});
+	
+	if (document.readyState && document.readyState === 'complete') {
+	    _compMgr.compMgr.updateComp();
+	} else {
+	    (0, _event.on)(window, 'load', function () {
+	        //扫描并生成控件
+	        _compMgr.compMgr.updateComp();
+	    });
+	}
+	
+	exports.Radio = Radio;
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.SwitchAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(1);
+	
+	var _neouiSwitch = __webpack_require__(38);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(options) {
+	        var self = this;
+	        SwitchAdapter.superclass.initialize.apply(this, arguments);
+	
+	        this.comp = new _neouiSwitch.Switch(this.element);
+	        this.element['u.Switch'] = this.comp;
+	        this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
+	        this.unCheckedValue = this.options["unCheckedValue"];
+	        this.comp.on('change', function (event) {
+	            if (self.slice) return;
+	            if (self.comp._inputElement.checked) {
+	                self.dataModel.setValue(self.field, self.checkedValue);
+	            } else {
+	                self.dataModel.setValue(self.field, self.unCheckedValue);
+	            }
+	        });
+	
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	
+	    modelValueChange: function modelValueChange(val) {
+	        if (this.slice) return;
+	        if (this.comp._inputElement.checked != (val === this.checkedValue)) {
+	            this.slice = true;
+	            this.comp.toggle();
+	            this.slice = false;
+	        }
+	    },
+	    setEnable: function setEnable(enable) {
+	        if (enable === true || enable === 'true') {
+	            this.enable = true;
+	        } else if (enable === false || enable === 'false') {
+	            this.enable = false;
+	        }
+	    }
+	}); /**
+	     * Module : Kero switch adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 10:42:15
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: SwitchAdapter,
+	    name: 'u-switch'
+	});
+	
+	exports.SwitchAdapter = SwitchAdapter;
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Switch = undefined;
+	
+	var _BaseComponent = __webpack_require__(7);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _event = __webpack_require__(8);
+	
+	var _ripple = __webpack_require__(14);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var Switch = _BaseComponent.BaseComponent.extend({
+		_Constant: {
+			TINY_TIMEOUT: 0.001
+		},
+	
+		_CssClasses: {
+			INPUT: 'u-switch-input',
+			TRACK: 'u-switch-track',
+			THUMB: 'u-switch-thumb',
+			FOCUS_HELPER: 'u-switch-focus-helper',
+			IS_FOCUSED: 'is-focused',
+			IS_DISABLED: 'is-disabled',
+			IS_CHECKED: 'is-checked'
+		},
+	
+		init: function init() {
+			this._inputElement = this.element.querySelector('.' + this._CssClasses.INPUT);
+	
+			var track = document.createElement('div');
+			(0, _dom.addClass)(track, this._CssClasses.TRACK);
+	
+			var thumb = document.createElement('div');
+			(0, _dom.addClass)(thumb, this._CssClasses.THUMB);
+	
+			var focusHelper = document.createElement('span');
+			(0, _dom.addClass)(focusHelper, this._CssClasses.FOCUS_HELPER);
+	
+			thumb.appendChild(focusHelper);
+	
+			this.element.appendChild(track);
+			this.element.appendChild(thumb);
+	
+			this.boundMouseUpHandler = this._onMouseUp.bind(this);
+	
+			//if (this.element.classList.contains(this._CssClasses.RIPPLE_EFFECT)) {
+			//  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
+			this._rippleContainerElement = document.createElement('span');
+			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CONTAINER);
+			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_EFFECT);
+			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CENTER);
+			this._rippleContainerElement.addEventListener('mouseup', this.boundMouseUpHandler);
+	
+			//var ripple = document.createElement('span');
+			//ripple.classList.add(this._CssClasses.RIPPLE);
+	
+			//this._rippleContainerElement.appendChild(ripple);
+			this.element.appendChild(this._rippleContainerElement);
+			new _ripple.URipple(this._rippleContainerElement);
+			//}
+	
+			this.boundChangeHandler = this._onChange.bind(this);
+			this.boundFocusHandler = this._onFocus.bind(this);
+			this.boundBlurHandler = this._onBlur.bind(this);
+	
+			this._inputElement.addEventListener('change', this.boundChangeHandler);
+			this._inputElement.addEventListener('focus', this.boundFocusHandler);
+			this._inputElement.addEventListener('blur', this.boundBlurHandler);
+			this.element.addEventListener('mouseup', this.boundMouseUpHandler);
+	
+			this._updateClasses();
+			(0, _dom.addClass)(this.element, 'is-upgraded');
+		},
+	
+		_onChange: function _onChange(event) {
+			this._updateClasses();
+			this.trigger('change', {
+				isChecked: this._inputElement.checked
+			});
+		},
+	
+		_onFocus: function _onFocus(event) {
+			(0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
+		},
+	
+		_onBlur: function _onBlur(event) {
+			(0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
+		},
+	
+		_onMouseUp: function _onMouseUp(event) {
+			this._blur();
+		},
+	
+		_updateClasses: function _updateClasses() {
+			this.checkDisabled();
+			this.checkToggleState();
+		},
+	
+		_blur: function _blur() {
+			// TODO: figure out why there's a focus event being fired after our blur,
+			// so that we can avoid this hack.
+			window.setTimeout(function () {
+				this._inputElement.blur();
+			}.bind(this), /** @type {number} */this._Constant.TINY_TIMEOUT);
+		},
+	
+		// Public methods.
+	
+		checkDisabled: function checkDisabled() {
+			if (this._inputElement.disabled) {
+				(0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
+			} else {
+				(0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
+			}
+		},
+	
+		checkToggleState: function checkToggleState() {
+			if (this._inputElement.checked) {
+				(0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
+			} else {
+				(0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
+			}
+		},
+	
+		isChecked: function isChecked() {
+			//return hasClass(this.element,this._CssClasses.IS_CHECKED);
+			return this._inputElement.checked;
+		},
+	
+		toggle: function toggle() {
+			//return;
+			if (this.isChecked()) {
+				this.uncheck();
+			} else {
+				this.check();
+			}
+		},
+	
+		disable: function disable() {
+			this._inputElement.disabled = true;
+			this._updateClasses();
+		},
+	
+		enable: function enable() {
+			this._inputElement.disabled = false;
+			this._updateClasses();
+		},
+	
+		check: function check() {
+			this._inputElement.checked = true;
+			this._updateClasses();
+		},
+	
+		uncheck: function uncheck() {
+			this._inputElement.checked = false;
+			this._updateClasses();
+		}
+	
+	}); /**
+	     * Module : neoui-switch
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-03 13:39:55
+	     */
+	
+	_compMgr.compMgr.regComp({
+		comp: Switch,
+		compAsString: 'u.Switch',
+		css: 'u-switch'
+	});
+	
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+	
+	exports.Switch = Switch;
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.TextAreaAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(1);
+	
+	var _valueMixin = __webpack_require__(5);
+	
+	var _event = __webpack_require__(8);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'TEXTAREA' ? this.element : this.element.querySelector('textarea');
+	        if (!this.element) {
+	            throw new Error('not found TEXTAREA element, u-meta:' + JSON.stringify(this.options));
+	        };
+	
+	        (0, _event.on)(this.element, 'focus', function () {
+	            self.setShowValue(self.getValue());
+	        });
+	        (0, _event.on)(this.element, 'blur', function () {
+	            self.setValue(self.element.value);
+	        });
+	    }
+	}); /**
+	     * Module : Kero textarea adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 12:40:46
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TextAreaAdapter,
+	    name: 'textarea'
+	});
+	
+	exports.TextAreaAdapter = TextAreaAdapter;
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.TextFieldAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(1);
+	
+	var _extend = __webpack_require__(10);
+	
+	var _neouiTextfield = __webpack_require__(18);
+	
+	var _float = __webpack_require__(19);
+	
+	var _string = __webpack_require__(30);
+	
+	var _integer = __webpack_require__(24);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
+	    /**
+	     *
+	     * @param comp
+	     * @param options ：
+	     *      el: '#content',  对应的dom元素
+	     *      options: {},     配置
+	     *      model:{}        模型，包括数据和事件
+	     */
+	    initialize: function initialize(options) {
+	        TextFieldAdapter.superclass.initialize.apply(this, arguments);
+	        //this.comp = comp;
+	        //this.element = options['el'];
+	        //this.options = options['options'];
+	        //this.viewModel = options['model'];
+	        var dataType = this.dataModel.getMeta(this.field, 'type') || 'string';
+	        //var dataType = this.options['dataType'] || 'string';
+	
+	        this.comp = new _neouiTextfield.Text(this.element);
+	        this.element['u.Text'] = this.comp;
+	
+	        if (dataType === 'float') {
+	            this.trueAdpt = new _float.FloatAdapter(options);
+	        } else if (dataType === 'string') {
+	            this.trueAdpt = new _string.StringAdapter(options);
+	        } else if (dataType === 'integer') {
+	            this.trueAdpt = new _integer.IntegerAdapter(options);
+	        } else {
+	            throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" + this.field + "'");
+	        }
+	        (0, _extend.extend)(this, this.trueAdpt);
+	
+	        this.trueAdpt.comp = this.comp;
+	        this.trueAdpt.setShowValue = function (showValue) {
+	            this.showValue = showValue;
+	            //if (this.comp.compType === 'text')
+	            this.comp.change(showValue);
+	            this.element.title = showValue;
+	        };
+	        return this.trueAdpt;
+	    }
+	}); /**
+	     * Module : Kero textfield adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 13:00:27
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TextFieldAdapter,
+	    name: 'u-text'
+	    //dataType: 'float'
+	});
+	
+	exports.TextFieldAdapter = TextFieldAdapter;
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.UrlAdapter = undefined;
+	
+	var _string = __webpack_require__(30);
+	
+	var _dom = __webpack_require__(13);
+	
+	/**
+	 * Module : Kero url adapter
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 13:51:26
+	 */
+	var UrlAdapter = _string.StringAdapter.extend({
+	    init: function init() {
+	        UrlAdapter.superclass.init.apply(this);
+	        this.validType = 'url';
+	
+	        /*
+	         * 因为需要输入，因此不显示为超链接
+	         */
+	    },
+	    // 如果enable为false则显示<a>标签
+	    setEnable: function setEnable(enable) {
+	        if (enable === true || enable === 'true') {
+	            this.enable = true;
+	            this.element.removeAttribute('readonly');
+	            (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
+	            if (this.aDom) {
+	                this.aDom.style.display = 'none';
+	            }
+	        } else if (enable === false || enable === 'false') {
+	            this.enable = false;
+	            this.element.setAttribute('readonly', 'readonly');
+	            (0, _dom.addClass)(this.element.parentNode, 'disablecover');
+	            if (!this.aDom) {
+	                this.aDom = (0, _dom.makeDOM)('<div style="position:absolute;background:#fff;z-index:999;"><a href="' + this.trueValue + '" target="_blank" style="position:absolue;">' + this.trueValue + '</a></div>');
+	                var left = this.element.offsetLeft;
+	                var width = this.element.offsetWidth;
+	                var top = this.element.offsetTop;
+	                var height = this.element.offsetHeight;
+	                this.aDom.style.left = left + 'px';
+	                this.aDom.style.width = width + 'px';
+	                this.aDom.style.top = top + 'px';
+	                this.aDom.style.height = height + 'px';
+	                this.element.parentNode.appendChild(this.aDom);
+	            }
+	            var $a = $(this.aDom).find('a');
+	            $a.href = this.trueValue;
+	            $a.innerHTML = this.trueValue;
+	            this.aDom.style.display = 'block';
+	        }
+	    }
+	});
+	compMgr.addDataAdapter({
+	    adapter: UrlAdapter,
+	    name: 'url'
+	});
+	exports.UrlAdapter = UrlAdapter;
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.EnableMixin = undefined;
+	
+	var _dom = __webpack_require__(13);
+	
+	var EnableMixin = {
+	    init: function init() {
+	        var self = this;
+	        //处理只读
+	        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)) {
+	            this.setEnable(false);
+	        } else {
+	            this.dataModel.refEnable(this.field).subscribe(function (value) {
+	                self.setEnable(value);
+	            });
+	            this.setEnable(this.dataModel.isEnable(this.field));
+	        }
+	    },
+	    methods: {
+	        setEnable: function setEnable(enable) {
+	            if (enable === true || enable === 'true') {
+	                this.enable = true;
+	                this.element.removeAttribute('readonly');
+	                (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
+	            } else if (enable === false || enable === 'false') {
+	                this.enable = false;
+	                this.element.setAttribute('readonly', 'readonly');
+	                (0, _dom.addClass)(this.element.parentNode, 'disablecover');
+	            }
+	        }
+	    }
+	}; /**
+	    * Module : Kero Enable Mixin
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-08 16:32:54
+	    */
+	exports.EnableMixin = EnableMixin;
+
+/***/ },
+/* 43 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : Kero Enable Mixin
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-08 16:32:54
+	 */
+	
+	var RequiredMixin = {
+	    init: function init() {
+	        var self = this;
+	        this.required = this.getOption('required');
+	        this.dataModel.refRowMeta(this.field, "required").subscribe(function (value) {
+	            self.setRequired(value);
+	        });
+	        //this.setRequired(this.dataModel.getMeta(this.field, "required"));
+	    },
+	    methods: {
+	        setRequired: function setRequired(required) {
+	            if (required === true || required === 'true') {
+	                this.required = true;
+	            } else if (required === false || required === 'false') {
+	                this.required = false;
+	            }
+	        }
+	    }
+	};
+	
+	exports.RequiredMixin = RequiredMixin;
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.ValidateMixin = undefined;
+	
+	var _neouiValidate = __webpack_require__(45);
+	
+	var ValidateMixin = {
+	    init: function init() {
+	        this.placement = this.getOption('placement');
+	        this.tipId = this.getOption('tipId');
+	        this.tipAliveTime = this.getOption('tipAliveTime');
+	        this.errorMsg = this.getOption('errorMsg');
+	        this.nullMsg = this.getOption('nullMsg');
+	        this.regExp = this.getOption('regExp');
+	        this.successId = this.getOption('successId');
+	        this.hasSuccess = this.getOption('hasSuccess');
+	        this.notipFlag = this.getOption('notipFlag');
+	
+	        // if (this.validType) {
+	        this.validate = new _neouiValidate.Validate({
+	            el: this.element,
+	            single: true,
+	            validMode: 'manually',
+	            required: this.required,
+	            validType: this.validType,
+	            placement: this.placement,
+	            tipId: this.tipId,
+	            tipAliveTime: this.tipAliveTime,
+	            successId: this.successId,
+	            notipFlag: this.notipFlag,
+	            hasSuccess: this.hasSuccess,
+	            errorMsg: this.errorMsg,
+	            nullMsg: this.nullMsg,
+	            maxLength: this.maxLength,
+	            minLength: this.minLength,
+	            max: this.max,
+	            min: this.min,
+	            maxNotEq: this.maxNotEq,
+	            minNotEq: this.minNotEq,
+	            reg: this.regExp
+	        });
+	        // };
+	    },
+	    methods: {
+	        /**
+	         *校验
+	         */
+	        doValidate: function doValidate(options) {
+	            if (this.validate) {
+	                if (options && options['trueValue'] === true) {
+	                    options['showMsg'] = options['showMsg'] || false;
+	                    var result = this.validate.check({ pValue: this.getValue(), showMsg: options['showMsg'] });
+	                } else {
+	                    var result = this.validate.check();
+	                }
+	                result.comp = this;
+	                return result;
+	            } else {
+	                return { passed: true, comp: this };
+	            }
+	        },
+	        /**
+	         * 是否需要清除数据
+	         */
+	        _needClean: function _needClean() {
+	            if (this.validate) return this.validate._needClean();else return false;
+	        }
+	    }
+	}; /**
+	    * Module : Kero Validate Mixin
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-10 14:53:43
+	    */
+	exports.ValidateMixin = ValidateMixin;
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.doValidate = exports.validate = exports.Validate = undefined;
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : neoui-validate
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-06 14:03:15
+	                                                                                                                                                                                                                                                   */
+	
+	
+	var _BaseComponent = __webpack_require__(7);
+	
+	var _extend = __webpack_require__(10);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _event = __webpack_require__(8);
+	
+	var _util = __webpack_require__(3);
+	
+	var _neouiTooltip = __webpack_require__(46);
+	
+	var _i18n = __webpack_require__(47);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var Validate = _BaseComponent.BaseComponent.extend({
+	
+		init: function init() {
+			var self = this;
+			this.$element = this.element;
+			this.$form = this.form;
+			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options, JSON.parse(this.element.getAttribute('uvalidate')));
+			this.required = false;
+			this.timeout = null;
+			this.tipAliveTime = this.options['tipAliveTime'] === undefined ? 3000 : this.options['tipAliveTime'];
+			//所有属性优先级 ：  options参数  > attr属性  > 默认值
+			this.required = this.options['required'] ? this.options['required'] : false;
+			this.validType = this.options['validType'] ? this.options['validType'] : null;
+			//校验模式  blur  submit
+			this.validMode = this.options['validMode'] ? this.options['validMode'] : Validate.DEFAULTS.validMode;
+			//空提示
+			this.nullMsg = this.options['nullMsg'] ? this.options['nullMsg'] : Validate.NULLMSG[this.validType];
+			//是否必填
+			if (this.required && !this.nullMsg) this.nullMsg = Validate.NULLMSG['required'];
+			//错误必填
+			this.errorMsg = this.options['errorMsg'] ? this.options['errorMsg'] : Validate.ERRORMSG[this.validType];
+			//正则校验
+			this.regExp = this.options['reg'] ? this.options['reg'] : Validate.REG[this.validType];
+			try {
+				if (typeof this.regExp == 'string') this.regExp = eval(this.regExp);
+			} catch (e) {}
+	
+			this.notipFlag = this.options['notipFlag']; // 错误信息提示方式是否为tip，默认为true
+			this.hasSuccess = this.options['hasSuccess']; //是否含有正确提示
+	
+			this.showFix = this.options['showFix'];
+	
+			//提示div的id 为空时使用tooltop来提示
+			this.tipId = this.options['tipId'] ? this.options['tipId'] : null;
+			//校验成功提示信息的div
+			this.successId = this.options['successId'] ? this.options['successId'] : null;
+	
+			// 要求显示成功提示，并没有成功提示dom的id时，则创建成功提示dom
+			if (this.hasSuccess && !this.successId) {
+				this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-checkedsymbol" ></span>');
+	
+				if (this.$element.nextSibling) {
+					this.$element.parentNode.insertBefore(this.successId, this.$element.nextSibling);
+				} else {
+					this.$element.parentNode.appendChild(this.successId);
+				}
+			}
+			//不是默认的tip提示方式并且tipId没有定义时创建默认tipid	
+			if (this.notipFlag && !this.tipId) {
+				this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exclamationsign "></span>');
+				this.$element.parentNode.appendChild(this.tipId);
+	
+				if (this.$element.nextSibling) {
+					this.$element.parentNode.insertBefore(this.tipId, this.$element.nextSibling);
+				} else {
+					this.$element.parentNode.appendChild(this.tipId);
+				}
+			}
+			//提示框位置
+			this.placement = this.options['placement'] ? this.options['placement'] : Validate.DEFAULTS.placement;
+			//
+			this.minLength = this.options['minLength'] > 0 ? this.options['minLength'] : null;
+			this.maxLength = this.options['maxLength'] > 0 ? this.options['maxLength'] : null;
+			this.min = this.options['min'] !== undefined ? this.options['min'] : null;
+			this.max = this.options['max'] !== undefined ? this.options['max'] : null;
+			this.minNotEq = this.options['minNotEq'] !== undefined ? this.options['minNotEq'] : null;
+			this.maxNotEq = this.options['maxNotEq'] !== undefined ? this.options['maxNotEq'] : null;
+			this.min = env.isNumber(this.min) ? this.min : null;
+			this.max = env.isNumber(this.max) ? this.max : null;
+			this.minNotEq = env.isNumber(this.minNotEq) ? this.minNotEq : null;
+			this.maxNotEq = env.isNumber(this.maxNotEq) ? this.maxNotEq : null;
+			this.create();
+		}
+	});
+	
+	Validate.fn = Validate.prototype;
+	//Validate.tipTemplate = '<div class="tooltip" role="tooltip"><div class="tooltip-arrow tooltip-arrow-c"></div><div class="tooltip-arrow"></div><div class="tooltip-inner" style="color:#ed7103;border:1px solid #ed7103;background-color:#fff7f0;"></div></div>'
+	
+	Validate.DEFAULTS = {
+		validMode: 'blur',
+		placement: "top"
+	};
+	
+	Validate.NULLMSG = {
+		"required": (0, _i18n.trans)('validate.required', "不能为空！"),
+		"integer": (0, _i18n.trans)('validate.integer', "请填写整数！"),
+		"float": (0, _i18n.trans)('validate.float', "请填写数字！"),
+		"zipCode": (0, _i18n.trans)('validate.zipCode', "请填写邮政编码！"),
+		"phone": (0, _i18n.trans)('validate.phone', "请填写手机号码！"),
+		"landline": (0, _i18n.trans)('validate.landline', "请填写座机号码！"),
+		"email": (0, _i18n.trans)('validate.email', "请填写邮箱地址！"),
+		"url": (0, _i18n.trans)('validate.url', "请填写网址！"),
+		"datetime": (0, _i18n.trans)('validate.datetime', "请填写日期！")
+	
+	};
+	
+	Validate.ERRORMSG = {
+		"integer": (0, _i18n.trans)('validate.error_integer', "整数格式不对！"),
+		"float": (0, _i18n.trans)('validate.error_float', "数字格式不对！"),
+		"zipCode": (0, _i18n.trans)('validate.error_zipCode', "邮政编码格式不对！"),
+		"phone": (0, _i18n.trans)('validate.error_phone', "手机号码格式不对！"),
+		"landline": (0, _i18n.trans)('validate.error_landline', "座机号码格式不对！"),
+		"email": (0, _i18n.trans)('validate.error_email', "邮箱地址格式不对！"),
+		"url": (0, _i18n.trans)('validate.error_url', "网址格式不对！"),
+		"datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！")
+	};
+	
+	Validate.REG = {
+		"integer": /^-?\d+$/,
+		"float": /^-?\d+(\.\d+)?$/,
+		"zipCode": /^[0-9]{6}$/,
+		"phone": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
+		"landline": /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
+		"email": /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+		"url": /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
+		"datetime": /^(?:19|20)[0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/
+	};
+	
+	Validate.fn.create = function () {
+		var self = this;
+		(0, _event.on)(this.element, 'blur', function (e) {
+			if (self.validMode == 'blur') {
+				self.passed = self.doValid();
+			}
+		});
+		(0, _event.on)(this.element, 'focus', function (e) {
+			//隐藏错误信息
+			self.hideMsg();
+		});
+		(0, _event.on)(this.element, 'change', function (e) {
+			//隐藏错误信息
+			self.hideMsg();
+		});
+		(0, _event.on)(this.element, 'keydown', function (e) {
+			var event = window.event || e;
+			if (self["validType"] == "float") {
+				var tmp = self.element.value;
+				if (event.shiftKey) {
+					event.returnValue = false;
+					return false;
+				} else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
+					// tab键 左箭头 右箭头 delete键
+					return true;
+				} else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
+					//复制粘贴
+					return true;
+				} else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 110, 190, 189, 109]) > -1)) {
+					event.returnValue = false;
+					return false;
+				} else if ((!tmp || tmp.indexOf(".") > -1) && (event.keyCode == 190 || event.keyCode == 110)) {
+					event.returnValue = false;
+					return false;
+				}
+	
+				if (tmp && (tmp + '').split('.')[0].length >= 25) {
+					return false;
+				}
+			}
+			if (self["validType"] == "integer") {
+				var tmp = self.element.value;
+	
+				if (event.shiftKey) {
+					event.returnValue = false;
+					return false;
+				} else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
+					// tab键 左箭头 右箭头 delete键
+					return true;
+				} else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
+					//复制粘贴
+					return true;
+				} else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 109, 189]) > -1)) {
+					event.returnValue = false;
+					return false;
+				}
+	
+				if (tmp && (tmp + '').split('.')[0].length >= 25) {
+					return false;
+				}
+			}
+		});
+	};
+	
+	Validate.fn.updateOptions = function (options) {};
+	
+	Validate.fn.doValid = function (options) {
+		var self = this;
+		var pValue;
+		this.showMsgFlag = true;
+		if (options) {
+			pValue = options.pValue;
+			this.showMsgFlag = options.showMsg;
+		}
+		this.needClean = false;
+		//只读的也需要校验，所以注释
+		// if (this.element && this.element.getAttribute("readonly")) return {passed:true}
+		var value = null;
+		if (typeof pValue != 'undefined') value = pValue;else if (this.element) value = this.element.value;
+	
+		if (this.isEmpty(value) && this.required) {
+			this.showMsg(this.nullMsg);
+			return {
+				passed: false,
+				Msg: this.nullMsg
+			};
+		} else if (this.isEmpty(value) && !this.required) {
+			return {
+				passed: true
+			};
+		}
+		if (this.regExp) {
+			var reg = new RegExp(this.regExp);
+			if (typeof value == 'number') value = value + "";
+			var r = value.match(reg);
+			if (r === null || r === false) {
+				this.showMsg(this.errorMsg);
+				this.needClean = true;
+				return {
+					passed: false,
+					Msg: this.errorMsg
+				};
+			}
+		}
+		if (this.minLength) {
+			if (value.lengthb() < this.minLength) {
+				var Msg = "输入长度不能小于" + this.minLength + "位";
+				this.showMsg(Msg);
+				return {
+					passed: false,
+					Msg: Msg
+				};
+			}
+		}
+		if (this.maxLength) {
+			if (value.lengthb() > this.maxLength) {
+				var Msg = "输入长度不能大于" + this.maxLength + "位";
+				this.showMsg(Msg);
+				return {
+					passed: false,
+					Msg: Msg
+				};
+			}
+		}
+		if (this.max != undefined && this.max != null) {
+			if (parseFloat(value) > this.max) {
+				var Msg = "输入值不能大于" + this.max;
+				this.showMsg(Msg);
+				return {
+					passed: false,
+					Msg: Msg
+				};
+			}
+		}
+		if (this.min != undefined && this.min != null) {
+			if (parseFloat(value) < this.min) {
+				var Msg = "输入值不能小于" + this.min;
+				this.showMsg(Msg);
+				return {
+					passed: false,
+					Msg: Msg
+				};
+			}
+		}
+		if (this.maxNotEq != undefined && this.maxNotEq != null) {
+			if (parseFloat(value) >= this.maxNotEq) {
+				var Msg = "输入值不能大于或等于" + this.maxNotEq;
+				this.showMsg(Msg);
+				return {
+					passed: false,
+					Msg: Msg
+				};
+			}
+		}
+		if (this.minNotEq != undefined && this.minNotEq != null) {
+			if (parseFloat(value) <= this.minNotEq) {
+				var Msg = "输入值不能小于或等于" + this.minNotEq;
+				this.showMsg(Msg);
+				return {
+					passed: false,
+					Msg: Msg
+				};
+			}
+		}
+		//succes时，将成功信息显示
+		if (this.successId) {
+			// addClass(this.element.parentNode,'u-has-success');
+			var successDiv = this.successId;
+			var successleft = this.$element.offsetLeft + this.$element.offsetWidth + 5;
+			var successtop = this.$element.offsetTop + 10;
+			if (typeof successDiv === 'string') successDiv = document.getElementById(successDiv);
+			successDiv.style.display = 'inline-block';
+			successDiv.style.top = successtop + 'px';
+			successDiv.style.left = successleft + 'px';
+			clearTimeout(this.timeout);
+			this.timeout = setTimeout(function () {
+				// self.tooltip.hide();
+				successDiv.style.display = 'none';
+			}, 3000);
+		}
+		return {
+			passed: true
+		};
+	};
+	
+	Validate.fn.check = Validate.fn.doValid;
+	
+	//	Validate.fn.getValue = function() {
+	//		var inputval
+	//		if (this.$element.is(":radio")) {
+	//			inputval = this.$form.find(":radio[name='" + this.$element.attr("name") + "']:checked").val();
+	//		} else if (this.$element.is(":checkbox")) {
+	//			inputval = "";
+	//			this.$form.find(":checkbox[name='" + obj.attr("name") + "']:checked").each(function() {
+	//				inputval += $(this).val() + ',';
+	//			})
+	//		} else if (this.$element.is('div')) {
+	//			inputval = this.$element[0].trueValue;
+	//		} else {
+	//			inputval = this.$element.val();
+	//		}
+	//		inputval = $.trim(inputval);
+	//		return this.isEmpty(inputval) ? "" : inputval;
+	//	}
+	
+	Validate.fn.some = Array.prototype.some ? Array.prototype.some : function () {
+		var flag;
+		for (var i = 0; i < this.length; i++) {
+			if (typeof arguments[0] == "function") {
+				flag = arguments[0](this[i]);
+				if (flag) break;
+			}
+		}
+		return flag;
+	};
+	
+	Validate.fn.getValue = function () {
+		var inputval = '';
+		//checkbox、radio为u-meta绑定时
+		var bool = this.some.call(this.$element.querySelectorAll('[type="checkbox"],[type="radio"]'), function (ele) {
+			return ele.type == "checkbox" || ele.type == "radio";
+		});
+		if (this.$element.childNodes.length > 0 && bool) {
+			var eleArr = this.$element.querySelectorAll('[type="checkbox"],[type="radio"]');
+			var ele = eleArr[0];
+			if (ele.type == "checkbox") {
+				this.$element.querySelectorAll(":checkbox[name='" + $(ele).attr("name") + "']:checked").each(function () {
+					inputval += $(this).val() + ',';
+				});
+			} else if (ele.type == "radio") {
+				inputval = this.$element.querySelectorAll(":radio[name='" + $(ele).attr("name") + "']:checked").value;
+			}
+		} else if (this.$element.is(":radio")) {
+			//valid-type 绑定
+			inputval = this.$element.parent().querySelectorAll(":radio[name='" + this.$element.attr("name") + "']:checked").val();
+		} else if (this.$element.is(":checkbox")) {
+			inputval = "";
+			this.$element.parent().find(":checkbox[name='" + this.$element.attr("name") + "']:checked").each(function () {
+				inputval += $(this).val() + ',';
+			});
+		} else if (this.$element.find('input').length > 0) {
+			inputval = this.$element.find('input').val();
+		} else {
+			inputval = this.$element.val();
+		}
+		inputval = inputval.trim;
+		return this.isEmpty(inputval) ? "" : inputval;
+	};
+	
+	Validate.fn.isEmpty = function (val) {
+		return val === "" || val === undefined || val === null; //|| val === $.trim(this.$element.attr("tip"));
+	};
+	
+	Validate.fn.showMsg = function (msg) {
+	
+		if (this.showMsgFlag == false || this.showMsgFlag == 'false') {
+			return;
+		}
+		var self = this;
+		if (this.tipId) {
+			this.$element.style.borderColor = 'rgb(241,90,74)';
+			var tipdiv = this.tipId;
+			if (typeof tipdiv === 'string') {
+				tipdiv = document.getElementById(tipdiv);
+			}
+			tipdiv.innerHTML = msg;
+			//如果notipFlag为true说明，可能是平台创建的，需要添加left、top值
+			if (this.notipFlag) {
+				var left = this.$element.offsetLeft;
+				var top = this.$element.offsetTop + this.$element.offsetHeight + 4;
+				tipdiv.style.left = left + 'px';
+				tipdiv.style.top = top + 'px';
+			}
+	
+			tipdiv.style.display = 'block';
+			// addClass(tipdiv.parentNode,'u-has-error');
+			// $('#' + this.tipId).html(msg).show()
+		} else {
+			var tipOptions = {
+				"title": msg,
+				"trigger": "manual",
+				"selector": "validtip",
+				"placement": this.placement,
+				"showFix": this.showFix
+			};
+			if (this.options.tipTemplate) tipOptions.template = this.options.tipTemplate;
+			if (!this.tooltip) this.tooltip = new _neouiTooltip.Tooltip(this.element, tipOptions);
+			this.tooltip.setTitle(msg);
+			this.tooltip.show();
+		}
+		if (this.tipAliveTime !== -1) {
+			clearTimeout(this.timeout);
+			this.timeout = setTimeout(function () {
+				// self.tooltip.hide();
+				self.hideMsg();
+			}, this.tipAliveTime);
+		}
+	};
+	Validate.fn.hideMsg = function () {
+		//隐藏成功信息
+		// if(this.successId||this.tipId){
+		// 	document.getElementById(this.successId).style.display='none';
+		// 	document.getElementById(this.tipId).style.display='none';
+		// }
+	
+		// removeClass(this.element.parentNode,'u-has-error');
+		// removeClass(this.element.parentNode,'u-has-success');
+	
+		if (this.tipId) {
+			var tipdiv = this.tipId;
+			if (typeof tipdiv === 'string') {
+				tipdiv = document.getElementById(tipdiv);
+			}
+			tipdiv.style.display = 'none';
+			this.$element.style.borderColor = '';
+			// removeClass(tipdiv.parentNode,'u-has-error');
+		} else {
+			if (this.tooltip) this.tooltip.hide();
+		}
+	};
+	
+	/**
+	 * 只有单一元素时使用
+	 */
+	Validate.fn._needClean = function () {
+		return true; //this.validates[0].needClean
+	};
+	
+	var validate = function validate(element) {
+		var self = this,
+		    options,
+		    childEle;
+		if (typeof element === 'string') {
+			element = document.querySelector(element);
+		}
+		//element本身需要校验
+		if (element.attributes["uvalidate"]) {
+			options = element.attributes["uvalidate"] ? JSON.parse(element.attributes["uvalidate"].value) : {};
+			options = (0, _extend.extend)({
+				el: element
+			}, options);
+			element['Validate'] = new Validate(options);
+		}
+	
+		//element是个父元素，校验子元素
+		childEle = element.querySelectorAll('[uvalidate]');
+		(0, _util.each)(childEle, function (i, child) {
+			if (!child['Validate']) {
+				//如果该元素上没有校验
+				options = child.attributes["validate"] ? JSON.parse(child.attributes["validate"].value) : {};
+				options = (0, _extend.extend)({
+					el: child
+				}, options);
+				child['Validate'] = new Validate(options);
+			}
+		});
+	};
+	
+	// 对某个dom容器内的元素进行校验
+	var doValidate = function doValidate(element) {
+		var passed = true,
+		    childEle,
+		    result;
+		if (typeof element === 'string') {
+			element = document.querySelector(element);
+		}
+		childEle = element.querySelectorAll('input');
+		(0, _util.each)(childEle, function (i, child) {
+			if (child['Validate'] && child['Validate'].check) {
+				result = child['Validate'].check({
+					trueValue: true,
+					showMsg: true
+				});
+				if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) === 'object') passed = result['passed'] && passed;else passed = result && passed;
+			}
+		});
+		return passed;
+	};
+	
+	_compMgr.compMgr.regComp({
+		comp: Validate,
+		compAsString: 'u.Validate',
+		css: 'u-validate'
+	});
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+	exports.Validate = Validate;
+	exports.validate = validate;
+	exports.doValidate = doValidate;
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Tooltip = undefined;
+	
+	var _extend = __webpack_require__(10);
+	
+	var _event = __webpack_require__(8);
+	
+	var _dom = __webpack_require__(13);
+	
+	var Tooltip = function Tooltip(element, options) {
+		this.init(element, options);
+		//this.show()
+	}; /**
+	    * Module : neoui-tooltip
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date   : 2016-08-06 13:26:06
+	    */
+	
+	
+	Tooltip.prototype = {
+		defaults: {
+			animation: true,
+			placement: 'top',
+			//selector: false,
+			template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow" ></div><div class="tooltip-inner"></div></div>',
+			trigger: 'hover focus',
+			title: '',
+			delay: 0,
+			html: false,
+			container: false,
+			viewport: {
+				selector: 'body',
+				padding: 0
+			},
+			showFix: false
+		},
+		init: function init(element, options) {
+			this.element = element;
+			this.options = (0, _extend.extend)({}, this.defaults, options);
+			this._viewport = this.options.viewport && document.querySelector(this.options.viewport.selector || this.options.viewport);
+	
+			var triggers = this.options.trigger.split(' ');
+	
+			for (var i = triggers.length; i--;) {
+				var trigger = triggers[i];
+				if (trigger == 'click') {
+					(0, _event.on)(this.element, 'click', this.toggle.bind(this));
+				} else if (trigger != 'manual') {
+					var eventIn = trigger == 'hover' ? 'mouseenter' : 'focusin';
+					var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout';
+					(0, _event.on)(this.element, eventIn, this.enter.bind(this));
+					(0, _event.on)(this.element, eventOut, this.leave.bind(this));
+				}
+			}
+			this.options.title = this.options.title || this.element.getAttribute('title');
+			this.element.removeAttribute('title');
+			if (this.options.delay && typeof this.options.delay == 'number') {
+				this.options.delay = {
+					show: this.options.delay,
+					hide: this.options.delay
+				};
+			};
+			//tip模板对应的dom
+			this.tipDom = (0, _dom.makeDOM)(this.options.template);
+			(0, _dom.addClass)(this.tipDom, this.options.placement);
+			if (this.options.colorLevel) {
+				(0, _dom.addClass)(this.tipDom, this.options.colorLevel);
+			}
+			this.arrrow = this.tipDom.querySelector('.tooltip-arrow');
+	
+			// tip容器,默认为当前元素的parent
+			this.container = this.options.container ? document.querySelector(this.options.container) : this.element.parentNode;
+		},
+		enter: function enter() {
+			var self = this;
+			clearTimeout(this.timeout);
+			this.hoverState = 'in';
+			if (!this.options.delay || !this.options.delay.show) return this.show();
+	
+			this.timeout = setTimeout(function () {
+				if (self.hoverState == 'in') self.show();
+			}, this.options.delay.show);
+		},
+		leave: function leave() {
+			var self = this;
+			clearTimeout(this.timeout);
+			self.hoverState = 'out';
+			if (!self.options.delay || !self.options.delay.hide) return self.hide();
+			self.timeout = setTimeout(function () {
+				if (self.hoverState == 'out') self.hide();
+			}, self.options.delay.hide);
+		},
+		show: function show() {
+			var self = this;
+			this.tipDom.querySelector('.tooltip-inner').innerHTML = this.options.title;
+			this.tipDom.style.zIndex = (0, _dom.getZIndex)();
+	
+			if (this.options.showFix) {
+				document.body.appendChild(this.tipDom);
+				this.tipDom.style.position = 'fixed';
+				showPanelByEle({
+					ele: this.element,
+					panel: this.tipDom,
+					position: "top"
+				});
+				// fix情况下滚动时隐藏
+				(0, _event.on)(document, 'scroll', function () {
+					self.hide();
+				});
+			} else {
+				this.container.appendChild(this.tipDom);
+				var inputLeft = this.element.offsetLeft;
+				var inputTop = this.element.offsetTop;
+				var inputWidth = this.element.offsetWidth;
+				var inputHeight = this.element.offsetHeight;
+				var topWidth = this.tipDom.offsetWidth;
+				var topHeight = this.tipDom.offsetHeight;
+				if (this.options.placement == 'top') {
+					this.left = this.element.offsetLeft + inputWidth / 2;
+					this.top = this.element.offsetTop - topHeight;
+				}
+				// 水平居中
+				this.tipDom.style.left = this.left - this.tipDom.clientWidth / 2 + 'px';
+				// this.tipDom.style.left = this.left + 'px';
+				this.tipDom.style.top = this.top + 'px';
+			}
+	
+			(0, _dom.addClass)(this.tipDom, 'active');
+	
+			// var placement = this.options.placement;
+			// var pos = this.getPosition()
+			// var actualWidth = this.tipDom.offsetWidth
+			// var actualHeight = this.tipDom.offsetHeight
+			// var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight)
+	
+			// this.applyPlacement(calculatedOffset, placement)
+		},
+		hide: function hide() {
+			if (this.options.showFix) {
+				if (document.body.contains(this.tipDom)) {
+					(0, _dom.removeClass)(this.tipDom, 'active');
+					document.body.removeChild(this.tipDom);
+				}
+			} else {
+				if (this.container.contains(this.tipDom)) {
+					(0, _dom.removeClass)(this.tipDom, 'active');
+					this.container.removeChild(this.tipDom);
+				}
+			}
+		},
+		applyPlacement: function applyPlacement(offset, placement) {
+			var width = this.tipDom.offsetWidth;
+			var height = this.tipDom.offsetHeight;
+	
+			// manually read margins because getBoundingClientRect includes difference
+			var marginTop = parseInt(this.tipDom.style.marginTop, 10);
+			var marginLeft = parseInt(this.tipDom.style.marginTop, 10);
+	
+			// we must check for NaN for ie 8/9
+			if (isNaN(marginTop)) marginTop = 0;
+			if (isNaN(marginLeft)) marginLeft = 0;
+	
+			offset.top = offset.top + marginTop;
+			offset.left = offset.left + marginLeft;
+	
+			// $.fn.offset doesn't round pixel values
+			// so we use setOffset directly with our own function B-0
+			this.tipDom.style.left = offset.left + 'px';
+			this.tipDom.style.top = offset.top + 'px';
+	
+			(0, _dom.addClass)(this.tipDom, 'active');
+	
+			// check to see if placing tip in new offset caused the tip to resize itself
+			var actualWidth = this.tipDom.offsetWidth;
+			var actualHeight = this.tipDom.offsetHeight;
+	
+			if (placement == 'top' && actualHeight != height) {
+				offset.top = offset.top + height - actualHeight;
+			}
+			var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight);
+	
+			if (delta.left) offset.left += delta.left;else offset.top += delta.top;
+	
+			var isVertical = /top|bottom/.test(placement);
+			var arrowDelta = isVertical ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight;
+			var arrowOffsetPosition = isVertical ? 'offsetWidth' : 'offsetHeight';
+	
+			//$tip.offset(offset)
+			this.tipDom.style.left = offset.left + 'px';
+			this.tipDom.style.top = offset.top - 4 + 'px';
+	
+			// this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], isVertical)
+		},
+		getCalculatedOffset: function getCalculatedOffset(placement, pos, actualWidth, actualHeight) {
+			return placement == 'bottom' ? {
+				top: pos.top + pos.height,
+				left: pos.left + pos.width / 2 - actualWidth / 2
+			} : placement == 'top' ? {
+				top: pos.top - actualHeight,
+				left: pos.left + pos.width / 2 - actualWidth / 2
+			} : placement == 'left' ? {
+				top: pos.top + pos.height / 2 - actualHeight / 2,
+				left: pos.left - actualWidth
+			} :
+			/* placement == 'right' */
+			{
+				top: pos.top + pos.height / 2 - actualHeight / 2,
+				left: pos.left + pos.width
+			};
+		},
+		getPosition: function getPosition(el) {
+			el = el || this.element;
+			var isBody = el.tagName == 'BODY';
+			var elRect = el.getBoundingClientRect();
+			if (elRect.width == null) {
+				// width and height are missing in IE8, so compute them manually; see https://github.com/twbs/bootstrap/issues/14093
+				elRect = (0, _extend.extend)({}, elRect, {
+					width: elRect.right - elRect.left,
+					height: elRect.bottom - elRect.top
+				});
+			}
+			var elOffset = isBody ? {
+				top: 0,
+				left: 0
+			} : {
+				top: el.offsetTop,
+				left: el.offsetLeft
+			};
+			var scroll = {
+				scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop : el.scrollTop
+			};
+			var outerDims = isBody ? {
+				width: window.innerWidth || document.body.clientWidth,
+				height: window.innerHeight || document.body.clientHeight
+			} : null;
+			//return extend({}, elRect, scroll, outerDims, elOffset)
+			return (0, _extend.extend)({}, elRect, scroll, outerDims);
+		},
+		getViewportAdjustedDelta: function getViewportAdjustedDelta(placement, pos, actualWidth, actualHeight) {
+			var delta = {
+				top: 0,
+				left: 0
+			};
+			if (!this._viewport) return delta;
+	
+			var viewportPadding = this.options.viewport && this.options.viewport.padding || 0;
+			var viewportDimensions = this.getPosition(this._viewport);
+	
+			if (/right|left/.test(placement)) {
+				var topEdgeOffset = pos.top - viewportPadding - viewportDimensions.scroll;
+				var bottomEdgeOffset = pos.top + viewportPadding - viewportDimensions.scroll + actualHeight;
+				if (topEdgeOffset < viewportDimensions.top) {
+					// top overflow
+					delta.top = viewportDimensions.top - topEdgeOffset;
+				} else if (bottomEdgeOffset > viewportDimensions.top + viewportDimensions.height) {
+					// bottom overflow
+					delta.top = viewportDimensions.top + viewportDimensions.height - bottomEdgeOffset;
+				}
+			} else {
+				var leftEdgeOffset = pos.left - viewportPadding;
+				var rightEdgeOffset = pos.left + viewportPadding + actualWidth;
+				if (leftEdgeOffset < viewportDimensions.left) {
+					// left overflow
+					delta.left = viewportDimensions.left - leftEdgeOffset;
+				} else if (rightEdgeOffset > viewportDimensions.width) {
+					// right overflow
+					delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset;
+				}
+			}
+	
+			return delta;
+		},
+		replaceArrow: function replaceArrow(delta, dimension, isHorizontal) {
+			if (isHorizontal) {
+				this.arrow.style.left = 50 * (1 - delta / dimension) + '%';
+				this.arrow.style.top = '';
+			} else {
+				this.arrow.style.top = 50 * (1 - delta / dimension) + '%';
+				this.arrow.style.left = '';
+			}
+		},
+		destory: function destory() {},
+		setTitle: function setTitle(title) {
+			this.options.title = title;
+		}
+	
+	};
+	
+	exports.Tooltip = Tooltip;
+
+/***/ },
+/* 47 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	* Module : Sparrow i18n
+	* Author : Kvkens(yueming@yonyou.com)
+	* Date	  : 2016-07-29 10:16:54
+	*/
+	//import {uuii18n} from '?';//缺失故修改为default值
+	var trans = function trans(key, dftValue) {
+	  //return  uuii18n ?  uuii18n.t('uui-trans:' + key) : dftValue;
+	  return dftValue;
+	};
+	
+	exports.trans = trans;
 
 /***/ }
 /******/ ])

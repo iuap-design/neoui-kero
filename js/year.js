@@ -1,10 +1,19 @@
-u.YearAdapter = u.BaseAdapter.extend({
+/**
+ * Module : Kero year adapter
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-10 12:40:46
+ */
+import {BaseAdapter} from './baseAdapter';
+import {Year} from './';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var YearAdapter = BaseAdapter.extend({
     initialize: function (comp, options) {
         var self = this;
-        u.YearAdapter.superclass.initialize.apply(this, arguments);
+        YearAdapter.superclass.initialize.apply(this, arguments);
         this.validType = 'year';
 
-        this.comp = new u.Year(this.element);
+        this.comp = new Year(this.element);
 
 
         this.comp.on('valueChange', function(event){
@@ -27,12 +36,11 @@ u.YearAdapter = u.BaseAdapter.extend({
     }
 });
 
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.YearAdapter,
-        name: 'u-year'
-    });
+compMgr.addDataAdapter({
+	adapter: YearAdapter,
+	name: 'u-year'
+});
 
-
+export {YearAdapter};
 
 

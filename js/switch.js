@@ -1,9 +1,20 @@
-u.SwitchAdapter = u.BaseAdapter.extend({
+/**
+ * Module : Kero switch adapter
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-10 10:42:15
+ */
+
+import {BaseAdapter} from './baseAdapter';
+import {Switch} from 'neoui/lib/neoui-switch';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+
+var SwitchAdapter = BaseAdapter.extend({
     initialize: function (options) {
         var self = this;
-        u.SwitchAdapter.superclass.initialize.apply(this, arguments);
+        SwitchAdapter.superclass.initialize.apply(this, arguments);
 
-        this.comp = new u.Switch(this.element);
+        this.comp = new Switch(this.element);
         this.element['u.Switch'] = this.comp;
         this.checkedValue =  this.options['checkedValue'] || this.comp._inputElement.value;
         this.unCheckedValue =  this.options["unCheckedValue"];
@@ -42,8 +53,10 @@ u.SwitchAdapter = u.BaseAdapter.extend({
 })
 
 
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.SwitchAdapter,
-        name: 'u-switch'
-    });
+compMgr.addDataAdapter({
+	adapter: SwitchAdapter,
+	name: 'u-switch'
+});
+
+
+export {SwitchAdapter};

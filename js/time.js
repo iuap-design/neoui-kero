@@ -1,16 +1,37 @@
-u.TimeAdapter = u.BaseAdapter.extend({
+/**
+ * Module : Kero time adapter
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-10 12:40:46
+ */
+
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {RequiredMixin} from './valueMixin';
+import {ValidateMixin} from './valueMixin';
+import {on} from 'neoui-sparrow/lib/event';
+import {core} from 'neoui-sparrow/lib/core';
+import {env} from 'neoui-sparrow/lib/env';
+import {date} from 'neoui-sparrow/lib/util/dateUtils';
+//miss ClockPicker
+//miss Time
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+
+
+var TimeAdapter = BaseAdapter.extend({
     initialize: function (options) {
         var self = this;
-        u.TimeAdapter.superclass.initialize.apply(this, arguments);
+        TimeAdapter.superclass.initialize.apply(this, arguments);
         this.validType = 'time';
 
-        this.maskerMeta = u.core.getMaskerMeta('time') || {};
+        this.maskerMeta = core.getMaskerMeta('time') || {};
         this.maskerMeta.format = this.dataModel.getMeta(this.field, "format") || this.maskerMeta.format
 
-        if (this.options.type == 'u-clockpicker' && !u.isIE8)
-            this.comp = new u.ClockPicker(this.element);
+        if (this.options.type == 'u-clockpicker' && !env.isIE8)
+            this.comp = new ClockPicker(this.element);
         else
-            this.comp = new u.Time(this.element);
+            this.comp = new Time(this.element);
         var dataType = this.dataModel.getMeta(this.field,'type');
         this.dataType =  dataType || 'string';
 
@@ -23,7 +44,7 @@ u.TimeAdapter = u.BaseAdapter.extend({
                 var _date = self.dataModel.getValue(self.field);
                 if (self.dataType === 'datetime') {
                     var valueArr = event.value.split(':');
-                    _date = u.date.getDateObj(_date);
+                    _date = date.getDateObj(_date);
                     if (!_date){
                         self.dataModel.setValue(self.field,'');
                     }else {
@@ -55,7 +76,7 @@ u.TimeAdapter = u.BaseAdapter.extend({
         if (this.slice) return;
         var compValue = '';
         if (this.dataType === 'datetime') {
-            var _date = u.date.getDateObj(value);
+            var _date = date.getDateObj(value);
             if (!_date)
                 compValue = ''
             else
@@ -70,17 +91,15 @@ u.TimeAdapter = u.BaseAdapter.extend({
     }
 });
 
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.TimeAdapter,
-        name: 'u-time'
-    });
+compMgr.addDataAdapter({
+	adapter: TimeAdapter,
+	name: 'u-time'
+});
 
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.TimeAdapter,
-        name: 'u-clockpicker'
-    });
+compMgr.addDataAdapter({
+	adapter: TimeAdapter,
+	name: 'u-clockpicker'
+});
 
-
+export {TimeAdapter};
 

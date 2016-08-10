@@ -1,8 +1,25 @@
-u.RadioAdapter = u.BaseAdapter.extend({
-    mixins: [u.ValueMixin, u.EnableMixin,u.RequiredMixin, u.ValidateMixin],
+/**
+ * Module : Kero percent
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-10 10:33:09
+ */
+
+import {BaseAdapter} from './baseAdapter';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './valueMixin';
+import {RequiredMixin} from './valueMixin';
+import {ValidateMixin} from './valueMixin';
+import {getJSObject} from 'neoui-sparrow/lib/util';
+import {makeDOM} from 'neoui-sparrow/lib/dom';
+import {on,off,stopEvent} from 'neoui-sparrow/lib/event';
+import {Radio} from 'neoui/lib/neoui-radio';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var RadioAdapter = BaseAdapter.extend({
+    mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],
     init: function (options) {
         var self = this;
-        //u.RadioAdapter.superclass.initialize.apply(this, arguments);
+        //RadioAdapter.superclass.initialize.apply(this, arguments);
         this.dynamic = false;
         if(this.options['datasource'] || this.options['hasOther']){
             // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
@@ -13,10 +30,10 @@ u.RadioAdapter = u.BaseAdapter.extend({
         }
         if (this.options['datasource']) {
             this.dynamic = true;
-            var datasource = u.getJSObject(this.viewModel, this.options['datasource']);
+            var datasource = getJSObject(this.viewModel, this.options['datasource']);
             this.setComboData(datasource);
         } else {
-            this.comp = new u.Radio(this.element);
+            this.comp = new Radio(this.element);
             this.element['u.Radio'] = this.comp;
             this.eleValue = this.comp._btnElement.value;
 
@@ -43,7 +60,7 @@ u.RadioAdapter = u.BaseAdapter.extend({
             var nameDivs = this.element.querySelectorAll('.u-radio-label');
             self.lastNameDiv = nameDivs[nameDivs.length -1];
             self.lastNameDiv.innerHTML = '其他';
-            self.otherInput = u.makeDOM('<input type="text" style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
+            self.otherInput = makeDOM('<input type="text" style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
             self.lastNameDiv.parentNode.appendChild(self.otherInput);
             self.lastRadio.value = '';
            
@@ -52,7 +69,7 @@ u.RadioAdapter = u.BaseAdapter.extend({
             if(self.lastLabel['u.Radio']) {
                 comp = self.lastLabel['u.Radio'];
             } else {
-                comp = new u.Radio(self.lastLabel);
+                comp = new Radio(self.lastLabel);
             }
             self.lastLabel['u.Radio'] = comp;
             self.otherComp = comp;
@@ -62,14 +79,14 @@ u.RadioAdapter = u.BaseAdapter.extend({
                 }
             });
             
-            u.on(self.otherInput,'blur',function(e){
+            on(self.otherInput,'blur',function(e){
                 self.lastRadio.oldValue = self.lastRadio.value;
                 self.lastRadio.value = this.value;
                 self.otherComp.trigger('change');
 
             })
-            u.on(self.otherInput,'click',function(e){
-                u.stopEvent(e)
+            on(self.otherInput,'click',function(e){
+                stopEvent(e)
             })
         }
 
@@ -99,7 +116,7 @@ u.RadioAdapter = u.BaseAdapter.extend({
         this.radioInputName = allRadio[0].name;
 
         this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-            var comp = new u.Radio(ele);
+            var comp = new Radio(ele);
             ele['u.Radio'] = comp;
 
             comp.on('change', function(event){
@@ -159,8 +176,8 @@ u.RadioAdapter = u.BaseAdapter.extend({
 })
 
 
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.RadioAdapter,
-        name: 'u-radio'
-    });
+compMgr.addDataAdapter({
+	adapter: RadioAdapter,
+	name: 'u-radio'
+});
+export {RadioAdapter};

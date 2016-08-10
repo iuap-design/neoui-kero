@@ -1,8 +1,19 @@
 /**
- * Created by dingrf on 2016/1/25.
+ * Module : Kero textfield adapter
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-10 13:00:27
  */
 
-u.TextFieldAdapter = u.BaseAdapter.extend({
+import {BaseAdapter} from './baseAdapter';
+import {extend} from 'neoui-sparrow/lib/extend';
+import {Text} from 'neoui/lib/neoui-textfield';
+import {FloatAdapter} from './float';
+import {StringAdapter} from './string';
+import {IntegerAdapter} from './integer';
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+
+var TextFieldAdapter = BaseAdapter.extend({
     /**
      *
      * @param comp
@@ -12,7 +23,7 @@ u.TextFieldAdapter = u.BaseAdapter.extend({
      *      model:{}        模型，包括数据和事件
      */
     initialize: function (options) {
-        u.TextFieldAdapter.superclass.initialize.apply(this, arguments);
+        TextFieldAdapter.superclass.initialize.apply(this, arguments);
         //this.comp = comp;
         //this.element = options['el'];
         //this.options = options['options'];
@@ -20,22 +31,22 @@ u.TextFieldAdapter = u.BaseAdapter.extend({
         var dataType = this.dataModel.getMeta(this.field,'type') || 'string';
         //var dataType = this.options['dataType'] || 'string';
 
-        this.comp = new u.Text(this.element);
+        this.comp = new Text(this.element);
         this.element['u.Text'] = this.comp;
 
 
         if (dataType === 'float'){
-            this.trueAdpt = new u.FloatAdapter(options);
+            this.trueAdpt = new FloatAdapter(options);
         }
         else if (dataType === 'string'){
-            this.trueAdpt = new u.StringAdapter(options);
+            this.trueAdpt = new StringAdapter(options);
         }
         else if (dataType === 'integer'){
-            this.trueAdpt = new u.IntegerAdapter(options);
+            this.trueAdpt = new IntegerAdapter(options);
         }else{
             throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" +this.field+ "'");
         }
-        u.extend(this, this.trueAdpt);
+        extend(this, this.trueAdpt);
 
 
         this.trueAdpt.comp = this.comp;
@@ -49,9 +60,10 @@ u.TextFieldAdapter = u.BaseAdapter.extend({
     }
 });
 
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.TextFieldAdapter,
-        name: 'u-text'
-        //dataType: 'float'
-    })
+compMgr.addDataAdapter({
+	adapter: TextFieldAdapter,
+	name: 'u-text'
+		//dataType: 'float'
+});
+
+export {TextFieldAdapter};

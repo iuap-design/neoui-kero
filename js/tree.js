@@ -1,4 +1,15 @@
-u.TreeAdapter = u.BaseAdapter.extend({
+/**
+ * Module : Kero tree adapter
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-10 14:23:13
+ */
+import {BaseAdapter} from './baseAdapter';
+import {Year} from './';
+import {getJSObject,getFunction} from 'neoui-sparrow/lib/util';
+//miss DataTable
+import {compMgr} from 'neoui-sparrow/lib/compMgr';
+
+var TreeAdapter = BaseAdapter.extend({
 	
 	initialize: function(options) {
 		var opt = options['options'] || {},
@@ -9,7 +20,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 		options = opt;
 		
 		var oThis = this;
-		this.dataTable = u.getJSObject(viewModel, options["data"]);
+		this.dataTable = getJSObject(viewModel, options["data"]);
 		this.element = element;
 		this.$element = $(element);
 		this.id = options['id'];
@@ -36,7 +47,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 				//点击前
 				beforeClick: function(e, id, node) {
 					if (oThis.events.beforeClick) {
-						u.getFunction(viewModel, oThis.events.beforeClick)(e, id, node);
+						getFunction(viewModel, oThis.events.beforeClick)(e, id, node);
 					}
 				},
 				// 选中/取消选中事件
@@ -79,7 +90,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 						var index = oThis.dataTable.getIndexByRowId(rowId);
 						oThis.dataTable.setRowSelect(index);
 						if (oThis.events.onClick) {
-							u.getFunction(viewModel, oThis.events.onClick)(e, id, node);
+							getFunction(viewModel, oThis.events.onClick)(e, id, node);
 						}
 					}
 
@@ -93,7 +104,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 			//if (typeof(JSON) == "undefined")
 			//	setting = eval("(" + this.options.setting + ")");
 			//else
-				setting = u.getJSObject(viewModel, this.options.setting) || u.getJSObject(window, this.options.setting);
+				setting = getJSObject(viewModel, this.options.setting) || getJSObject(window, this.options.setting);
 		}
 
 		// 遍历callback先执行默认之后再执行用户自定义的。
@@ -194,7 +205,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 
 
 		// dataTable事件
-		this.dataTable.on(u.DataTable.ON_ROW_SELECT, function(event) {
+		this.dataTable.on(DataTable.ON_ROW_SELECT, function(event) {
 			/*index转化为grid的index*/
 			$.each(event.rowIds, function() {
 				var row = oThis.dataTable.getRowByRowId(this);
@@ -209,7 +220,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 			});
 		});
 
-		this.dataTable.on(u.DataTable.ON_ROW_UNSELECT, function(event) {
+		this.dataTable.on(DataTable.ON_ROW_UNSELECT, function(event) {
 			/*index转化为grid的index*/
 			$.each(event.rowIds, function() {
 				var row = oThis.dataTable.getRowByRowId(this);
@@ -224,7 +235,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 			});
 		});
 
-		this.dataTable.on(u.DataTable.ON_INSERT, function(event) {
+		this.dataTable.on(DataTable.ON_INSERT, function(event) {
 			//var gridRows = new Array();
 			var dataArray=[],nodes=[];
 			var hasChild=false;//是否含有子节点
@@ -262,7 +273,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 		});
 
 
-		this.dataTable.on(u.DataTable.ON_DELETE, function(event) {
+		this.dataTable.on(DataTable.ON_DELETE, function(event) {
 			/*index转化为grid的index*/
 			var gridIndexs = new Array();
 			if (this.deleteRows.length > 0) {
@@ -278,7 +289,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 			}
 		});
 
-		this.dataTable.on(u.DataTable.ON_DELETE_ALL, function(event) {
+		this.dataTable.on(DataTable.ON_DELETE_ALL, function(event) {
 			var nodes = oThis.tree.getNodes();
 			for (var i = 0, l = nodes.length; i < l; i++) {
 				var node = oThis.tree.getNodeByParam('id', nodes[i].id);
@@ -289,7 +300,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 		});
 
 		// 加载数据,只考虑viewModel传入grid
-		this.dataTable.on(u.DataTable.ON_LOAD, function(data) {
+		this.dataTable.on(DataTable.ON_LOAD, function(data) {
 			var data = oThis.dataTable.rows();
 			if (data.length > 0) {
 				var values = new Array();
@@ -310,7 +321,7 @@ u.TreeAdapter = u.BaseAdapter.extend({
 			this.tree = $.fn.zTree.init(this.$element, treeSetting, treeData);
 		});
 
-		this.dataTable.on(u.DataTable.ON_VALUE_CHANGE, function(event) {
+		this.dataTable.on(DataTable.ON_VALUE_CHANGE, function(event) {
 			var row = oThis.dataTable.getRowByRowId(event.rowId);
 			if (!row) return
 			var treeArray=oThis.tree.getNodes();
@@ -360,9 +371,10 @@ u.TreeAdapter = u.BaseAdapter.extend({
 
 });
 
-u.compMgr.addDataAdapter(
-    {
-        adapter: u.TreeAdapter,
-        name: 'tree'
-        //dataType: 'float'
-    })
+compMgr.addDataAdapter({
+	adapter: TreeAdapter,
+	name: 'tree'
+		//dataType: 'float'
+});
+
+export {TreeAdapter};
