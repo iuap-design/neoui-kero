@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v1.0.2
+ * kero-adapter v1.0.4
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -80,64 +80,65 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _currency = __webpack_require__(19);
 	
+	var _datetime = __webpack_require__(51);
+	
 	var _float = __webpack_require__(47);
 	
-	var _integer = __webpack_require__(51);
+	var _integer = __webpack_require__(56);
 	
-	var _nativeCheckbox = __webpack_require__(52);
+	var _month = __webpack_require__(57);
 	
-	var _nativeRadio = __webpack_require__(53);
+	var _nativeCheckbox = __webpack_require__(59);
 	
-	var _pagination = __webpack_require__(54);
+	var _nativeRadio = __webpack_require__(60);
 	
-	var _password = __webpack_require__(56);
+	var _pagination = __webpack_require__(61);
 	
-	var _percent = __webpack_require__(58);
+	var _password = __webpack_require__(63);
 	
-	var _string = __webpack_require__(57);
+	var _percent = __webpack_require__(65);
 	
-	var _progress = __webpack_require__(60);
+	var _string = __webpack_require__(64);
 	
-	var _radio = __webpack_require__(62);
+	var _progress = __webpack_require__(67);
 	
-	var _switch = __webpack_require__(64);
+	var _radio = __webpack_require__(69);
 	
-	var _textarea = __webpack_require__(66);
+	var _switch = __webpack_require__(71);
 	
-	var _textfield = __webpack_require__(67);
+	var _textarea = __webpack_require__(73);
 	
-	var _url = __webpack_require__(68);
+	var _textfield = __webpack_require__(74);
 	
-	var _enableMixin = __webpack_require__(69);
+	var _time = __webpack_require__(75);
 	
-	var _requiredMixin = __webpack_require__(70);
+	var _url = __webpack_require__(78);
 	
-	var _validateMixin = __webpack_require__(71);
+	var _year = __webpack_require__(79);
+	
+	var _yearmonth = __webpack_require__(81);
+	
+	var _enableMixin = __webpack_require__(83);
+	
+	var _requiredMixin = __webpack_require__(84);
+	
+	var _validateMixin = __webpack_require__(85);
 	
 	var _valueMixin = __webpack_require__(7);
 	
 	// console.log(TextAreaAdapter);
 	
-	//import {YearAdapter} from './year';
-	//import {YearMonthAdapter} from './yearmonth';
 	//import {TreeAdapter} from './tree';
-	
-	//import {MonthAdapter} from './month';
-	
-	//import {DateTimeAdapter} from './datetime';
-	/**
-	 * Module : Kero webpack entry index
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 14:51:05
-	 */
 	var ex = {
 		BaseAdapter: _baseAdapter.BaseAdapter,
 		CheckboxAdapter: _checkbox.CheckboxAdapter,
 		CkEditorAdapter: _ckeditor.CkEditorAdapter,
 		ComboboxAdapter: _combobox.ComboboxAdapter,
 		CurrencyAdapter: _currency.CurrencyAdapter,
+		DateTimeAdapter: _datetime.DateTimeAdapter,
 		FloatAdapter: _float.FloatAdapter,
 		IntegerAdapter: _integer.IntegerAdapter,
+		MonthAdapter: _month.MonthAdapter,
 		NativeCheckAdapter: _nativeCheckbox.NativeCheckAdapter,
 		NativeRadioAdapter: _nativeRadio.NativeRadioAdapter,
 		PaginationAdapter: _pagination.PaginationAdapter,
@@ -149,15 +150,21 @@ return /******/ (function(modules) { // webpackBootstrap
 		SwitchAdapter: _switch.SwitchAdapter,
 		TextAreaAdapter: _textarea.TextAreaAdapter,
 		TextFieldAdapter: _textfield.TextFieldAdapter,
+		TimeAdapter: _time.TimeAdapter,
 		UrlAdapter: _url.UrlAdapter,
+		YearAdapter: _year.YearAdapter,
+		YearMonthAdapter: _yearmonth.YearMonthAdapter,
 		EnableMixin: _enableMixin.EnableMixin,
 		RequiredMixin: _requiredMixin.RequiredMixin,
 		ValidateMixin: _validateMixin.ValidateMixin,
 		ValueMixin: _valueMixin.ValueMixin
 	};
-	//import {TimeAdapter} from './time';
-	
 	// import {GridAdapter} from './grid';
+	/**
+	 * Module : Kero webpack entry index
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 14:51:05
+	 */
 	
 	
 	(0, _extend.extend)(ex, window.u || {});
@@ -6611,83 +6618,214 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
-	exports.IntegerAdapter = undefined;
+	exports.DateTimeAdapter = undefined;
 	
 	var _baseAdapter = __webpack_require__(3);
 	
 	var _valueMixin = __webpack_require__(7);
 	
-	var _util = __webpack_require__(5);
-	
 	var _event = __webpack_require__(10);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _core = __webpack_require__(48);
+	
+	var _indexDataTable = __webpack_require__(20);
 	
 	var _env = __webpack_require__(11);
 	
+	var _neouiDatetimepicker = __webpack_require__(52);
+	
+	var _dateUtils = __webpack_require__(50);
+	
 	var _compMgr = __webpack_require__(12);
 	
-	var IntegerAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
-	    init: function init() {
-	        var self = this;
-	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
-	        if (!this.element) {
-	            throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
-	        };
-	        this.validType = this.options['validType'] || 'integer';
-	        this.max = this.options['max'];
-	        this.min = this.options['min'];
-	        this.maxNotEq = this.options['maxNotEq'];
-	        this.minNotEq = this.options['minNotEq'];
-	        this.maxLength = this.options['maxLength'] ? options['maxLength'] : 25;
-	        this.minLength = this.options['mixLength'] ? options['mixLength'] : 0;
-	        if (this.dataModel) {
-	            this.min = this.dataModel.getMeta(this.field, "min") !== undefined ? this.dataModel.getMeta(this.field, "min") : this.min;
-	            this.max = this.dataModel.getMeta(this.field, "max") !== undefined ? this.dataModel.getMeta(this.field, "max") : this.max;
-	            this.minNotEq = this.dataModel.getMeta(this.field, "minNotEq") !== undefined ? this.dataModel.getMeta(this.field, "minNotEq") : this.minNotEq;
-	            this.maxNotEq = this.dataModel.getMeta(this.field, "maxNotEq") !== undefined ? this.dataModel.getMeta(this.field, "maxNotEq") : this.maxNotEq;
-	            this.minLength = (0, _util.isNumber)(this.dataModel.getMeta(this.field, "minLength")) ? this.dataModel.getMeta(this.field, "minLength") : this.minLength;
-	            this.maxLength = (0, _util.isNumber)(this.dataModel.getMeta(this.field, "maxLength")) ? this.dataModel.getMeta(this.field, "maxLength") : this.maxLength;
-	        }
-	        (0, _event.on)(this.element, 'focus', function () {
-	            if (self.enable) {
-	                self.setShowValue(self.getValue());
-	                try {
-	                    var e = event.srcElement;
-	                    var r = e.createTextRange();
-	                    r.moveStart('character', e.value.length);
-	                    r.collapse(true);
-	                    r.select();
-	                } catch (e) {}
-	            }
-	        });
+	var DateTimeAdapter = _baseAdapter.BaseAdapter.extend({
+		mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
+		init: function init(options) {
+			var self = this,
+			    adapterType,
+			    format;
+			// DateTimeAdapter.superclass.initialize.apply(this, arguments);
+			if (this.options.type === 'u-date') {
+				this.adapterType = 'date';
+			} else {
+				this.adapterType = 'datetime';
+				(0, _dom.addClass)(this.element, 'time');
+			}
 	
-	        (0, _event.on)(this.element, 'blur', function () {
-	            if (self.enable) {
-	                if (!self.doValidate() && self._needClean()) {
-	                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-	                        // 因必输项清空导致检验没通过的情况
-	                        self.setValue('');
-	                    } else {
-	                        self.element.value = self.getShowValue();
-	                    }
-	                } else self.setValue(self.element.value);
-	            }
-	        });
-	    }
+			this.maskerMeta = _core.core.getMaskerMeta(this.adapterType) || {};
+			this.maskerMeta.format = this.options['format'] || this.maskerMeta.format;
+			if (this.dataModel) {
+				this.dataModel.on(this.field + '.format.' + _indexDataTable.DataTable.ON_CURRENT_META_CHANGE, function (event) {
+					self.setFormat(event.newValue);
+				});
+			}
+	
+			if (this.dataModel && !this.options['format']) this.options.format = this.dataModel.getMeta(this.field, "format");
+	
+			if (!this.options['format']) {
+				if (this.options.type === 'u-date') {
+					this.options.format = "YYYY-MM-DD";
+				} else {
+					this.options.format = "YYYY-MM-DD HH:mm:ss";
+				}
+			}
+			format = this.options.format;
+			this.maskerMeta.format = format || this.maskerMeta.format;
+	
+			this.startField = this.options.startField ? this.options.startField : this.dataModel.getMeta(this.field, "startField");
+	
+			// this.formater = new $.DateFormater(this.maskerMeta.format);
+			// this.masker = new DateTimeMasker(this.maskerMeta);
+			var op;
+			if (_env.env.isMobile) {
+				op = {
+					theme: "ios",
+					mode: "scroller",
+					lang: "zh",
+					cancelText: null,
+					onSelect: function onSelect(val) {
+						self.setValue(val);
+					}
+				};
+				this._span = this.element.querySelector("span");
+				this.element = this.element.querySelector("input");
+				this.element.setAttribute('readonly', 'readonly');
+				if (this._span) {
+					(0, _event.on)(this._span, 'click', function (e) {
+						self.element.focus();
+						(0, _event.stopEvent)(e);
+					});
+				}
+				if (this.adapterType == 'date') {
+					$(this.element).mobiscroll().date(op);
+				} else {
+					$(this.element).mobiscroll().datetime(op);
+				}
+			} else {
+				this.comp = new _neouiDatetimepicker.DateTimePicker({ el: this.element, format: this.maskerMeta.format, showFix: this.options.showFix });
+			}
+	
+			this.element['u.DateTimePicker'] = this.comp;
+	
+			if (!_env.env.isMobile) {
+				this.comp.on('select', function (event) {
+					self.setValue(event.value);
+				});
+			}
+			if (this.dataModel) {
+				this.dataModel.ref(this.field).subscribe(function (value) {
+					self.modelValueChange(value);
+				});
+				if (this.startField) {
+					this.dataModel.ref(this.startField).subscribe(function (value) {
+						if (_env.env.isMobile) {
+							var valueObj = _dateUtils.date.getDateObj(value);
+							op.minDate = valueObj;
+							if (self.adapterType == 'date') {
+								$(self.element).mobiscroll().date(op);
+							} else {
+								$(self.element).mobiscroll().datetime(op);
+							}
+							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
+							if (nowDate < valueObj || !value) {
+								self.dataModel.setValue(self.field, '');
+							}
+						} else {
+							self.comp.setStartDate(value);
+							if (self.comp.date < _dateUtils.date.getDateObj(value) || !value) {
+								self.dataModel.setValue(self.field, '');
+							}
+						}
+					});
+				}
+				if (this.startField) {
+					var startValue = this.dataModel.getValue(this.startField);
+					if (startValue) {
+						if (_env.env.isMobile) {
+							op.minDate = _dateUtils.date.getDateObj(startValue);
+							if (this.adapterType == 'date') {
+								$(this.element).mobiscroll().date(op);
+							} else {
+								$(this.element).mobiscroll().datetime(op);
+							}
+						} else {
+							self.comp.setStartDate(startValue);
+						}
+					}
+				}
+			}
+		},
+		modelValueChange: function modelValueChange(value) {
+			if (this.slice) return;
+			this.trueValue = value;
+			if (_env.env.isMobile) {
+				if (value) {
+					value = _dateUtils.date.format(value, this.options.format);
+					$(this.element).scroller('setDate', _dateUtils.date.getDateObj(value), true);
+				}
+			} else {
+				this.comp.setDate(value);
+			}
+		},
+		setFormat: function setFormat(format) {
+			if (this.maskerMeta.format == format) return;
+			this.options.format = format;
+			this.maskerMeta.format = format;
+			if (!_env.env.isMobile) this.comp.setFormat(format);
+			// this.formater = new $.DateFormater(this.maskerMeta.format);
+			// this.masker = new DateTimeMasker(this.maskerMeta);
+		},
+		setValue: function setValue(value) {
+			value = _dateUtils.date.format(value, this.options.format);
+			this.trueValue = this.formater ? this.formater.format(value) : value;
+			this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
+			this.setShowValue(this.showValue);
+			this.slice = true;
+			this.dataModel.setValue(this.field, this.trueValue);
+			this.slice = false;
+		},
+		setEnable: function setEnable(enable) {
+			if (enable === true || enable === 'true') {
+				this.enable = true;
+				if (_env.env.isMobile) {
+					this.element.removeAttribute('disabled');
+				} else {
+					this.comp._input.removeAttribute('readonly');
+				}
+				(0, _dom.removeClass)(this.element.parentNode, 'disablecover');
+			} else if (enable === false || enable === 'false') {
+				this.enable = false;
+				if (_env.env.isMobile) {
+					this.element.setAttribute('disabled', 'disabled');
+				} else {
+					this.comp._input.setAttribute('readonly', 'readonly');
+				}
+				(0, _dom.addClass)(this.element.parentNode, 'disablecover');
+			}
+			if (!_env.env.isMobile) this.comp.setEnable(enable);
+		}
+	
 	}); /**
-	     * Module : Kero integer
+	     * Module : Kero datetime
 	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 18:29:59
+	     * Date	  : 2016-08-09 14:59:37
 	     */
 	
 	_compMgr.compMgr.addDataAdapter({
-	    adapter: IntegerAdapter,
-	    name: 'integer'
+		adapter: DateTimeAdapter,
+		name: 'u-date'
 	});
 	
-	exports.IntegerAdapter = IntegerAdapter;
+	_compMgr.compMgr.addDataAdapter({
+		adapter: DateTimeAdapter,
+		name: 'u-datetime'
+	});
+	
+	exports.DateTimeAdapter = DateTimeAdapter;
 
 /***/ },
 /* 52 */
@@ -6698,2078 +6836,1211 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.NativeCheckAdapter = undefined;
-	
-	var _baseAdapter = __webpack_require__(3);
-	
-	var _valueMixin = __webpack_require__(7);
-	
-	var _util = __webpack_require__(5);
-	
-	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	/**
-	 * Module : Kero native-checkbox
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 18:55:51
-	 */
-	
-	var NativeCheckAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin],
-	    init: function init() {
-	        var self = this;
-	        this.isGroup = false;
-	        //如果存在datasource，动态创建checkbox
-	        if (this.options['datasource']) {
-	            this.isGroup = true;
-	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-	
-	            this.checkboxTemplateArray = [];
-	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
-	                this.checkboxTemplateArray.push(this.element.childNodes[i]);
-	            }
-	            this.setComboData(datasource);
-	        } else {
-	            this.checkedValue = this.options['checkedValue'] || 'Y';
-	            this.unCheckedValue = this.options["unCheckedValue"] || 'N';
-	            (0, _event.on)(this.element, 'click', function () {
-	                if (this.checked) {
-	                    self.dataModel.setValue(self.field, self.checkedValue);
-	                } else {
-	                    self.dataModel.setValue(self.field, self.unCheckedValue);
-	                }
-	            });
-	        }
-	    },
-	    setComboData: function setComboData(comboData) {
-	        var self = this;
-	        this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len; i++) {
-	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
-	                try {
-	                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode());
-	                } catch (e) {}
-	            }
-	            //this.radioTemplate.clone().appendTo(this.element)
-	        }
-	
-	        var allCheck = this.element.querySelectorAll('[type=checkbox]');
-	        var allName = this.element.querySelectorAll('[data-role=name]');
-	        for (var k = 0; k < allCheck.length; k++) {
-	            allCheck[k].value = comboData[k].pk || comboData[k].value;
-	            allName[k].innerHTML = comboData[k].name;
-	        }
-	
-	        this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
-	            (0, _event.on)(ele, 'click', function () {
-	                var modelValue = self.dataModel.getValue(self.field);
-	
-	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
-	
-	                if (this.checked) {
-	                    valueArr.push(this.value);
-	                } else {
-	                    var index = valueArr.indexOf(this.value);
-	                    valueArr.splice(index, 1);
-	                }
-	                self.slice = true;
-	                self.dataModel.setValue(self.field, valueArr.join(','));
-	                self.slice = false;
-	            });
-	        });
-	    },
-	    modelValueChange: function modelValueChange(val) {
-	        if (this.slice) return;
-	        if (this.isGroup) {
-	            this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
-	                if (ele.checked != (val + ',').indexOf(ele.value) > -1) {
-	                    this.slice = true;
-	                    ele.checked = !ele.checked;
-	                    this.slice = false;
-	                }
-	            });
-	        } else {
-	            if (this.element.checked != (val === this.checkedValue)) {
-	                this.slice = true;
-	                this.element.checked = !this.element.checked;
-	                this.slice = false;
-	            }
-	        }
-	    },
-	    setValue: function setValue(value) {
-	        this.trueValue = value;
-	        this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
-	            if (ele.value == value) {
-	                ele.checked = true;
-	            } else {
-	                ele.checked = false;
-	            }
-	        });
-	        this.slice = true;
-	        this.dataModel.setValue(this.field, this.trueValue);
-	        this.slice = false;
-	    },
-	    getValue: function getValue() {
-	        return this.trueValue;
-	    }
-	
-	});
-	
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: NativeCheckAdapter,
-	    name: 'checkbox'
-	});
-	exports.NativeCheckAdapter = NativeCheckAdapter;
-
-/***/ },
-/* 53 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.NativeRadioAdapter = undefined;
-	
-	var _baseAdapter = __webpack_require__(3);
-	
-	var _valueMixin = __webpack_require__(7);
-	
-	var _util = __webpack_require__(5);
-	
-	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	/**
-	 * Module : Kero native-radio
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 19:03:30
-	 */
-	
-	var NativeRadioAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin],
-	    init: function init() {
-	        this.isDynamic = false;
-	        //如果存在datasource，动态创建radio
-	        if (this.options['datasource']) {
-	            this.isDynamic = true;
-	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-	            //if(!u.isArray(datasource)) return;
-	
-	            this.radioTemplateArray = [];
-	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
-	                this.radioTemplateArray.push(this.element.childNodes[i]);
-	            }
-	            this.setComboData(datasource);
-	        } else {}
-	    },
-	    setComboData: function setComboData(comboData) {
-	        var self = this;
-	        //if(!this.radioTemplate.is(":radio")) return;
-	        this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len; i++) {
-	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
-	                try {
-	                    this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
-	                } catch (e) {}
-	            }
-	            //this.radioTemplate.clone().appendTo(this.element)
-	        }
-	
-	        var allRadio = this.element.querySelectorAll('[type=radio]');
-	        var allName = this.element.querySelectorAll('[data-role=name]');
-	        for (var k = 0; k < allRadio.length; k++) {
-	            allRadio[k].value = comboData[k].pk || comboData[k].value;
-	            allName[k].innerHTML = comboData[k].name;
-	        }
-	
-	        this.radioInputName = allRadio[0].name;
-	
-	        this.element.querySelectorAll('[type=radio][name="' + this.radioInputName + '"]').forEach(function (ele) {
-	            (0, _event.on)(ele, 'click', function () {
-	                if (this.checked) {
-	                    self.setValue(this.value);
-	                }
-	            });
-	        });
-	    },
-	    modelValueChange: function modelValueChange(value) {
-	        if (this.slice) return;
-	        this.setValue(value);
-	    },
-	    setValue: function setValue(value) {
-	        this.trueValue = value;
-	        this.element.querySelectorAll('[type=radio][name="' + this.radioInputName + '"]').forEach(function (ele) {
-	            if (ele.value == value) {
-	                ele.checked = true;
-	            } else {
-	                ele.checked = false;
-	            }
-	        });
-	        this.slice = true;
-	        this.dataModel.setValue(this.field, this.trueValue);
-	        this.slice = false;
-	    },
-	    getValue: function getValue() {
-	        return this.trueValue;
-	    }
-	
-	});
-	
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: NativeRadioAdapter,
-	    name: 'radio'
-	});
-	exports.NativeRadioAdapter = NativeRadioAdapter;
-
-/***/ },
-/* 54 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.PaginationAdapter = undefined;
-	
-	var _baseAdapter = __webpack_require__(3);
+	exports.DateTimePicker = undefined;
 	
 	var _extend = __webpack_require__(1);
-	
-	var _neouiPagination = __webpack_require__(55);
-	
-	var _util = __webpack_require__(5);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	var PaginationAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(comp, options) {
-	        var self = this;
-	        PaginationAdapter.superclass.initialize.apply(this, arguments);
-	
-	        //var Pagination = function(element, options, viewModel) {
-	
-	        if (!this.dataModel.pageSize() && this.options.pageSize) this.dataModel.pageSize(this.options.pageSize);
-	        this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
-	        //this.$element.pagination(options);
-	        //this.comp = this.$element.data('u.pagination');
-	        var options = (0, _extend.extend)({}, { el: this.element, jumppage: true }, this.options);
-	        this.comp = new _neouiPagination.pagination(options);
-	        this.element['u.pagination'] = this.comp;
-	        this.comp.dataModel = this.dataModel;
-	        this.pageChange = (0, _util.getFunction)(this.viewModel, this.options['pageChange']);
-	        this.sizeChange = (0, _util.getFunction)(this.viewModel, this.options['sizeChange']);
-	
-	        this.comp.on('pageChange', function (pageIndex) {
-	            if (typeof self.pageChange == 'function') {
-	                self.pageChange(pageIndex);
-	            } else {
-	                self.defaultPageChange(pageIndex);
-	            }
-	        });
-	        this.comp.on('sizeChange', function (size, pageIndex) {
-	            if (typeof self.sizeChange == 'function') {
-	                self.sizeChange(size, pageIndex);
-	            } else {
-	                self.defaultSizeChange(size, pageIndex);
-	                // showMessage({msg:"没有注册sizeChange事件"});
-	            }
-	        });
-	
-	        this.dataModel.totalPages.subscribe(function (value) {
-	            self.comp.update({ totalPages: value });
-	        });
-	
-	        this.dataModel.pageSize.subscribe(function (value) {
-	            self.comp.update({ pageSize: value });
-	        });
-	
-	        this.dataModel.pageIndex.subscribe(function (value) {
-	            self.comp.update({ currentPage: value + 1 });
-	        });
-	
-	        this.dataModel.totalRow.subscribe(function (value) {
-	            self.comp.update({ totalCount: value });
-	        });
-	
-	        if (this.comp.options.pageList.length > 0) {
-	            this.comp.options.pageSize = this.comp.options.pageList[0];
-	            ///this.comp.trigger('sizeChange', options.pageList[0])
-	            this.dataModel.pageSize(this.comp.options.pageList[0]);
-	        }
-	
-	        // 如果datatable已经创建则根据datatable设置分页组件
-	        // self.comp.update({totalPages: this.dataModel.totalPages()})
-	        // self.comp.update({pageSize: this.dataModel.pageSize()})
-	        // self.comp.update({currentPage: this.dataModel.pageIndex() + 1})
-	        // self.comp.update({totalCount: this.dataModel.totalRow()})
-	        self.comp.update({ totalPages: this.dataModel.totalPages(), pageSize: this.dataModel.pageSize(), currentPage: this.dataModel.pageIndex() + 1, totalCount: this.dataModel.totalRow() });
-	    },
-	
-	    defaultPageChange: function defaultPageChange(pageIndex) {
-	        if (this.dataModel.hasPage(pageIndex)) {
-	            this.dataModel.setCurrentPage(pageIndex);
-	        } else {}
-	    },
-	
-	    defaultSizeChange: function defaultSizeChange(size, pageIndex) {
-	        this.dataModel.pageSize(size);
-	    },
-	
-	    disableChangeSize: function disableChangeSize() {
-	        this.comp.disableChangeSize();
-	    },
-	
-	    enableChangeSize: function enableChangeSize() {
-	        this.comp.enableChangeSize();
-	    }
-	}); /**
-	     * Module : Kero pagination
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 19:09:39
-	     */
-	
-	
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: PaginationAdapter,
-	    name: 'pagination'
-	});
-	
-	exports.PaginationAdapter = PaginationAdapter;
-
-/***/ },
-/* 55 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.pagination = undefined;
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : neoui-pagination
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-08-03 08:45:49
-	                                                                                                                                                                                                                                                   */
 	
 	var _BaseComponent = __webpack_require__(9);
-	
-	var _extend = __webpack_require__(1);
-	
-	var _dom = __webpack_require__(13);
-	
-	var _util = __webpack_require__(5);
-	
-	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	var pagination = _BaseComponent.BaseComponent.extend({});
-	
-	var PageProxy = function PageProxy(options, page) {
-		this.isCurrent = function () {
-			return page == options.currentPage;
-		};
-	
-		this.isFirst = function () {
-			return page == 1;
-		};
-	
-		this.isLast = function () {
-			return page == options.totalPages;
-		};
-	
-		this.isPrev = function () {
-			return page == options.currentPage - 1;
-		};
-	
-		this.isNext = function () {
-			return page == options.currentPage + 1;
-		};
-	
-		this.isLeftOuter = function () {
-			return page <= options.outerWindow;
-		};
-	
-		this.isRightOuter = function () {
-			return options.totalPages - page < options.outerWindow;
-		};
-	
-		this.isInsideWindow = function () {
-			if (options.currentPage < options.innerWindow + 1) {
-				return page <= options.innerWindow * 2 + 1;
-			} else if (options.currentPage > options.totalPages - options.innerWindow) {
-				return options.totalPages - page <= options.innerWindow * 2;
-			} else {
-				return Math.abs(options.currentPage - page) <= options.innerWindow;
-			}
-		};
-	
-		this.number = function () {
-			return page;
-		};
-		this.pageSize = function () {
-			return options.pageSize;
-		};
-	};
-	
-	var View = {
-		firstPage: function firstPage(pagin, options, currentPageProxy) {
-			return '<li role="first"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a >' + options.first + '</a></li>';
-		},
-	
-		prevPage: function prevPage(pagin, options, currentPageProxy) {
-			return '<li role="prev"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a  rel="prev">' + options.prev + '</a></li>';
-		},
-	
-		nextPage: function nextPage(pagin, options, currentPageProxy) {
-			return '<li role="next"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a  rel="next">' + options.next + '</a></li>';
-		},
-	
-		lastPage: function lastPage(pagin, options, currentPageProxy) {
-	
-			return '<li role="last"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a >' + options.last + '</a></li>';
-		},
-	
-		gap: function gap(pagin, options) {
-			return '<li role="gap" class="disabled"><a href="#">' + options.gap + '</a></li>';
-		},
-	
-		page: function page(pagin, options, pageProxy) {
-			return '<li role="page"' + (pageProxy.isCurrent() ? 'class="active"' : '') + '><a ' + (pageProxy.isNext() ? ' rel="next"' : '') + (pageProxy.isPrev() ? 'rel="prev"' : '') + '>' + pageProxy.number() + '</a></li>';
-		}
-	
-	};
-	
-	//pagination.prototype.compType = 'pagination';
-	pagination.prototype.init = function (element, options) {
-		var self = this;
-		var element = this.element;
-		this.$element = element;
-		this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
-		this.$ul = this.$element; //.find("ul");
-		this.render();
-	};
-	
-	pagination.prototype.DEFAULTS = {
-		currentPage: 1,
-		totalPages: 1,
-		pageSize: 10,
-		pageList: [5, 10, 20, 50, 100],
-		innerWindow: 2,
-		outerWindow: 0,
-		first: '&laquo;',
-		prev: '<i class="uf uf-anglepointingtoleft"></i>',
-		next: '<i class="uf uf-anglearrowpointingtoright"></i>',
-		last: '&raquo;',
-		gap: '···',
-		//totalText: '合计:',
-		totalText: '共',
-		truncate: false,
-		showState: true,
-		page: function page(_page) {
-			return true;
-		}
-	};
-	
-	pagination.prototype.update = function (options) {
-		this.$ul.innerHTML = "";
-		this.options = (0, _extend.extend)({}, this.options, options);
-		this.render();
-	};
-	pagination.prototype.render = function () {
-		var a = new Date().valueOf();
-	
-		var options = this.options;
-	
-		if (!options.totalPages) {
-			this.$element.style.display = "none";
-			return;
-		} else {
-			this.$element.style.display = "block";
-		}
-	
-		var htmlArr = [];
-		var currentPageProxy = new PageProxy(options, options.currentPage);
-	
-		//update pagination by pengyic@yonyou.com
-		//预设显示页码数
-		var windows = 2;
-		var total = options.totalPages - 0;
-		var current = options.currentPage - 0;
-		//预设显示页码数截断修正
-		var fix = 0;
-		var pageProxy;
-		if (current - 2 <= windows + 1) {
-			for (var i = 1; i <= current; i++) {
-				pageProxy = new PageProxy(options, i);
-				htmlArr.push(View.page(this, options, pageProxy));
-			}
-	
-			fix = windows - (current - 1) < 0 ? 0 : windows - (current - 1);
-	
-			if (total - current - fix <= windows + 1) {
-				for (var i = current + 1; i <= total; i++) {
-					pageProxy = new PageProxy(options, i);
-					htmlArr.push(View.page(this, options, pageProxy));
-				}
-			} else {
-				for (var i = current + 1; i <= current + windows + fix; i++) {
-					pageProxy = new PageProxy(options, i);
-					htmlArr.push(View.page(this, options, pageProxy));
-				}
-				//添加分割'...'
-				htmlArr.push(View.gap(this, options));
-	
-				pageProxy = new PageProxy(options, total);
-				htmlArr.push(View.page(this, options, pageProxy));
-			}
-		} else {
-			if (total - current <= windows + 1) {
-				fix = windows - (total - current) < 0 ? 0 : windows - (total - current);
-	
-				for (var i = current - windows - fix; i <= total; i++) {
-					pageProxy = new PageProxy(options, i);
-					htmlArr.push(View.page(this, options, pageProxy));
-				}
-				if (i >= 2) {
-					//添加分割'...'
-					htmlArr.unshift(View.gap(this, options));
-					pageProxy = new PageProxy(options, 1);
-					htmlArr.unshift(View.page(this, options, pageProxy));
-				}
-			} else {
-				for (var i = current - windows; i <= current + windows; i++) {
-					pageProxy = new PageProxy(options, i);
-					htmlArr.push(View.page(this, options, pageProxy));
-				}
-				//添加分割'...'
-				htmlArr.push(View.gap(this, options));
-	
-				pageProxy = new PageProxy(options, total);
-				htmlArr.push(View.page(this, options, pageProxy));
-	
-				//添加分割'...'
-				htmlArr.unshift(View.gap(this, options));
-				pageProxy = new PageProxy(options, 1);
-				htmlArr.unshift(View.page(this, options, pageProxy));
-			}
-		}
-		htmlArr.unshift(View.prevPage(this, options, currentPageProxy));
-		htmlArr.push(View.nextPage(this, options, currentPageProxy));
-		/*
-	 if (!currentPageProxy.isFirst() || !options.truncate) {
-	 		if (options.first) {
-	 		htmlArr.push(View.firstPage(this, options, currentPageProxy))
-	 	}
-	 	if (options.prev) {
-	 		htmlArr.push(View.prevPage(this, options, currentPageProxy));
-	 	}
-	 }
-	 
-	 var wasTruncated = false;
-	 	for (var i = 1, length = options.totalPages; i <= length; i++) {
-	 	var pageProxy = new PageProxy(options, i);
-	 	if (pageProxy.isLeftOuter() || pageProxy.isRightOuter() || pageProxy.isInsideWindow()) {
-	 		htmlArr.push(View.page(this, options, pageProxy));
-	 		wasTruncated = false;
-	 	} else {
-	 		if (!wasTruncated && options.outerWindow > 0) {
-	 			htmlArr.push(View.gap(this, options));
-	 			wasTruncated = true;
-	 		}
-	 	}
-	 }
-	 	if (!currentPageProxy.isLast() || !options.truncate) {
-	 	if (options.next) {
-	 		htmlArr.push(View.nextPage(this, options, currentPageProxy));
-	 	}
-	 		if (options.last) {
-	 		htmlArr.push(View.lastPage(this, options, currentPageProxy));
-	 	}
-	 }
-	 */
-		if (options.totalCount === undefined || options.totalCount <= 0) {
-			options.totalCount = 0;
-		}
-		if (options.showState) {
-			var htmlStr = '<div class="pagination-state">' + options.totalText + '&nbsp;' + options.totalCount + '&nbsp;条</div>';
-			htmlArr.push(htmlStr);
-	
-			if (options.jumppage || options.pageSize) {
-	
-				var pageOption = '';
-				options.pageList.forEach(function (item) {
-					if (options.pageSize - 0 == item) {
-						pageOption += '<option selected>' + item + '</option>';
-					} else {
-						pageOption += '<option>' + item + '</option>';
-					}
-				});
-				var jumppagehtml = '到<input class="page_j" value=' + options.currentPage + '>页<input class="pagination-jump" type="button" value="确定"/>';
-				var sizehtml = '显示<select  class="page_z">' + pageOption + '</select>条&nbsp;&nbsp;';
-				var tmpjump = "<div class='pagination-state'>" + (options.pageSize ? sizehtml : "") + (options.jumppage ? jumppagehtml : "") + "</div>";
-				htmlArr.push(tmpjump);
-				//<i class='jump_page fa fa-arrow-circle-right' style='margin-left: 8px; cursor: pointer;'></i>
-			}
-		}
-	
-		this.$ul.innerHTML = "";
-		this.$ul.insertAdjacentHTML('beforeEnd', htmlArr.join(''));
-	
-		var me = this;
-		(0, _event.on)(this.$ul.querySelector(".pagination-jump"), "click", function () {
-			var jp, pz;
-			jp = me.$ul.querySelector(".page_j").value || options.currentPage;
-			pz = me.$ul.querySelector(".page_z").value || options.pageSize;
-	
-			//if (pz != options.pageSize){
-			//	me.$element.trigger('sizeChange', [pz, jp - 1])
-			//}else{
-			//	me.$element.trigger('pageChange', jp - 1)
-			//}
-			me.page(jp, options.totalPages, pz);
-			//me.$element.trigger('pageChange', jp - 1)
-			//me.$element.trigger('sizeChange', pz)
-			return false;
-		});
-	
-		(0, _event.on)(this.$ul.querySelector('[role="first"] a'), 'click', function () {
-			if (options.currentPage <= 1) return;
-			me.firstPage();
-			//me.$element.trigger('pageChange', 0)
-			return false;
-		});
-		(0, _event.on)(this.$ul.querySelector('[role="prev"] a'), 'click', function () {
-			if (options.currentPage <= 1) return;
-			me.prevPage();
-			//me.$element.trigger('pageChange', options.currentPage - 1)
-			return false;
-		});
-		(0, _event.on)(this.$ul.querySelector('[role="next"] a'), 'click', function () {
-			if (parseInt(options.currentPage) + 1 > options.totalPages) return;
-			me.nextPage();
-			//me.$element.trigger('pageChange', parseInt(options.currentPage) + 1)
-			return false;
-		});
-		(0, _event.on)(this.$ul.querySelector('[role="last"] a'), 'click', function () {
-			if (options.currentPage == options.totalPages) return;
-			me.lastPage();
-			//me.$element.trigger('pageChange', options.totalPages - 1)
-			return false;
-		});
-		(0, _util.each)(this.$ul.querySelectorAll('[role="page"] a'), function (i, node) {
-			(0, _event.on)(node, 'click', function () {
-				var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
-				me.page(parseInt(this.innerHTML), options.totalPages, pz);
-				//me.$element.trigger('pageChange', parseInt($(this).html()) - 1)
-	
-				return false;
-			});
-		});
-		(0, _event.on)(this.$ul.querySelector('.page_z'), 'change', function () {
-			var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
-			me.trigger('sizeChange', pz);
-		});
-	};
-	
-	pagination.prototype.page = function (pageIndex, totalPages, pageSize) {
-	
-		var options = this.options;
-	
-		if (totalPages === undefined) {
-			totalPages = options.totalPages;
-		}
-		if (pageSize === undefined) {
-			pageSize = options.pageSize;
-		}
-		var oldPageSize = options.pageSize;
-		// if (pageIndex > 0 && pageIndex <= totalPages) {
-		// 	if (options.page(pageIndex)) {
-	
-		// 		this.$ul.innerHTML="";
-		// 		options.pageSize = pageSize;
-		// 		options.currentPage = pageIndex;
-		// 		options.totalPages = totalPages;
-		// 		this.render();
-	
-		// 	}
-		// }else{
-		// 	return false;
-		// }
-	
-		if (options.page(pageIndex)) {
-			if (pageIndex < 0) {
-				pageIndex = 0;
-			}
-	
-			if (pageIndex > totalPages) {
-				pageIndex = totalPages;
-			}
-			this.$ul.innerHTML = "";
-			options.pageSize = pageSize;
-			options.currentPage = pageIndex;
-			options.totalPages = totalPages;
-			this.render();
-		}
-		if (pageSize != oldPageSize) {
-			this.trigger('sizeChange', [pageSize, pageIndex - 1]);
-		} else {
-			this.trigger('pageChange', pageIndex - 1);
-		}
-	
-		//this.$element.trigger('pageChange', pageIndex)
-	
-		return false;
-	};
-	
-	pagination.prototype.firstPage = function () {
-		return this.page(1);
-	};
-	
-	pagination.prototype.lastPage = function () {
-		return this.page(this.options.totalPages);
-	};
-	
-	pagination.prototype.nextPage = function () {
-		return this.page(parseInt(this.options.currentPage) + 1);
-	};
-	
-	pagination.prototype.prevPage = function () {
-		return this.page(this.options.currentPage - 1);
-	};
-	
-	pagination.prototype.disableChangeSize = function () {
-		this.$element.querySelector('.page_z').setAttribute('readonly', true);
-	};
-	
-	pagination.prototype.enableChangeSize = function () {
-		this.$element.querySelector('.page_z').removeAttribute('readonly');
-	};
-	
-	function Plugin(option) {
-		return this.each(function () {
-			var $this = $(this);
-			var data = $this.data('u.pagination');
-			var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
-	
-			if (!data) $this.data('u.pagination', data = new Pagination(this, options));else data.update(options);
-		});
-	}
-	
-	// var old = $.fn.pagination;
-	
-	// $.fn.pagination = Plugin
-	// $.fn.pagination.Constructor = Pagination
-	
-	if (_compMgr.compMgr) _compMgr.compMgr.regComp({
-		comp: pagination,
-		compAsString: 'u.pagination',
-		css: 'u-pagination'
-	});
-	
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-	
-	exports.pagination = pagination;
-
-/***/ },
-/* 56 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.PassWordAdapter = undefined;
-	
-	var _string = __webpack_require__(57);
-	
-	var _util = __webpack_require__(5);
 	
 	var _env = __webpack_require__(11);
 	
 	var _event = __webpack_require__(10);
 	
-	var _compMgr = __webpack_require__(12);
-	
-	/**
-	 * 密码控件
-	 */
-	var PassWordAdapter = _string.StringAdapter.extend({
-	    init: function init() {
-	        PassWordAdapter.superclass.init.apply(this);
-	        var oThis = this;
-	        if (_env.env.isIE8) {
-	            var outStr = this.element.outerHTML;
-	            var l = outStr.length;
-	            outStr = outStr.substring(0, l - 1) + ' type="password"' + outStr.substring(l - 1);
-	            var newEle = document.createElement(outStr);
-	            var parent = this.element.parentNode;
-	            parent.insertBefore(newEle, this.element.nextSibling);
-	            parent.removeChild(this.element);
-	            this.element = newEle;
-	        } else {
-	            this.element.type = "password";
-	        }
-	        oThis.element.title = '';
-	        this._element = this.element.parentNode;
-	        this.span = this._element.querySelector("span");
-	        if (_env.env.isIE8) {
-	            this.span.style.display = 'none';
-	        }
-	        if (this.span) {
-	            (0, _event.on)(this.span, 'click', function () {
-	                if (oThis.element.type == 'password') {
-	                    oThis.element.type = 'text';
-	                } else {
-	                    oThis.element.type = 'password';
-	                }
-	            });
-	        }
-	    },
-	    setShowValue: function setShowValue(showValue) {
-	        this.showValue = showValue;
-	        this.element.value = showValue;
-	        this.element.title = '';
-	    }
-	}); /**
-	     * Module : Kero password
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 19:19:33
-	     */
-	
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: PassWordAdapter,
-	    name: 'password'
-	});
-	
-	exports.PassWordAdapter = PassWordAdapter;
-
-/***/ },
-/* 57 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.StringAdapter = undefined;
-	
-	var _baseAdapter = __webpack_require__(3);
-	
-	var _extend = __webpack_require__(1);
-	
-	var _valueMixin = __webpack_require__(7);
-	
-	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	/**
-	 * Module : Kero string adapter
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 20:12:42
-	 */
-	var StringAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
-	    init: function init() {
-	        var self = this;
-	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
-	        if (!this.element) {
-	            throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
-	        };
-	        this.validType = this.options['validType'] || 'string';
-	        this.minLength = this.getOption('minLength');
-	        this.maxLength = this.getOption('maxLength');
-	
-	        (0, _event.on)(this.element, 'focus', function () {
-	            if (self.enable) {
-	                self.setShowValue(self.getValue());
-	                try {
-	                    var e = event.srcElement;
-	                    var r = e.createTextRange();
-	                    r.moveStart('character', e.value.length);
-	                    r.collapse(true);
-	                    r.select();
-	                } catch (e) {}
-	            }
-	        });
-	
-	        (0, _event.on)(this.element, 'blur', function (e) {
-	            if (self.enable) {
-	                if (!self.doValidate() && self._needClean()) {
-	                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-	                        // 因必输项清空导致检验没通过的情况
-	                        self.setValue('');
-	                    } else {
-	                        self.element.value = self.getShowValue();
-	                    }
-	                } else self.setValue(self.element.value);
-	            }
-	        });
-	    }
-	});
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: StringAdapter,
-	    name: 'string'
-	});
-	
-	exports.StringAdapter = StringAdapter;
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.PercentAdapter = undefined;
-	
-	var _float = __webpack_require__(47);
-	
-	var _formater = __webpack_require__(46);
-	
-	var _masker = __webpack_require__(59);
+	var _dom = __webpack_require__(13);
 	
 	var _core = __webpack_require__(48);
 	
+	var _dateUtils = __webpack_require__(50);
+	
+	var _neouiValidate = __webpack_require__(53);
+	
 	var _compMgr = __webpack_require__(12);
 	
-	/**
-	 * 百分比控件
-	 */
-	var PercentAdapter = _float.FloatAdapter.extend({
-	  init: function init() {
-	    PercentAdapter.superclass.init.apply(this);
-	    this.validType = 'float';
-	    this.maskerMeta = _core.core.getMaskerMeta('percent') || {};
-	    this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
-	    if (this.maskerMeta.precision) {
-	      this.maskerMeta.precision = parseInt(this.maskerMeta.precision) + 2;
+	var DateTimePicker = _BaseComponent.BaseComponent.extend({});
+	
+	DateTimePicker.fn = DateTimePicker.prototype;
+	
+	DateTimePicker.fn.init = function () {
+	
+	    var self = this,
+	        _fmt,
+	        _defaultFmt;
+	    this.enable = true;
+	    this._element = this.element;
+	    //this.type = 'datetime';
+	    //if (hasClass(this.element,'u-datepicker')){
+	    //    this.type = 'date';
+	    //}
+	    //addClass(this._element,'u-text')
+	    //this._element.style.display = "inline-table"; // 存在右侧图标，因此修改display
+	    //new UText(this._element);
+	    this._input = this._element.querySelector("input");
+	
+	    if (_env.env.isMobile) {
+	        // setTimeout(function(){
+	        //     self._input.setAttribute('readonly','readonly');
+	        // },1000);
 	    }
-	    this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
-	    this.masker = new _masker.PercentMasker(this.maskerMeta);
-	  }
-	}); /**
-	     * Module : Kero percent
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 20:02:50
-	     */
 	
-	_compMgr.compMgr.addDataAdapter({
-	  adapter: PercentAdapter,
-	  name: 'percent'
-	});
-	exports.PercentAdapter = PercentAdapter;
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow abstract formater class
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 19:35:26
-	                                                                                                                                                                                                                                                   */
-	
-	var _extend = __webpack_require__(1);
-	
-	function AbstractMasker() {};
-	
-	AbstractMasker.prototype.format = function (obj) {
-		if (obj == null) return null;
-	
-		var fObj = this.formatArgument(obj);
-		return this.innerFormat(fObj);
-	};
-	
-	/**
-	 * 统一被格式化对象结构
-	 *
-	 * @param obj
-	 * @return
-	 */
-	AbstractMasker.prototype.formatArgument = function (obj) {};
-	
-	/**
-	 * 格式化
-	 *
-	 * @param obj
-	 * @return
-	 */
-	AbstractMasker.prototype.innerFormat = function (obj) {};
-	
-	/**
-	 * 拆分算法格式化虚基类
-	 */
-	AbstractSplitMasker.prototype = new AbstractMasker();
-	
-	function AbstractSplitMasker() {};
-	AbstractSplitMasker.prototype.elements = new Array();
-	AbstractSplitMasker.prototype.format = function (obj) {
-		if (obj == null) return null;
-	
-		var fObj = this.formatArgument(obj);
-		return this.innerFormat(fObj);
-	};
-	
-	/**
-	 * 统一被格式化对象结构
-	 *
-	 * @param obj
-	 * @return
-	 */
-	AbstractSplitMasker.prototype.formatArgument = function (obj) {
-		return obj;
-	};
-	
-	/**
-	 * 格式化
-	 *
-	 * @param obj
-	 * @return
-	 */
-	AbstractSplitMasker.prototype.innerFormat = function (obj) {
-		if (obj == null || obj == "") return new FormatResult(obj);
-		this.doSplit();
-		var result = "";
-		//dingrf 去掉concat合并数组的方式，换用多维数组来实现 提高效率
-		result = this.getElementsValue(this.elements, obj);
-	
-		return new FormatResult(result);
-	};
-	
-	/**
-	 * 合并多维数组中的elementValue
-	 * @param {} element
-	 * @param {} obj
-	 * @return {}
-	 */
-	AbstractSplitMasker.prototype.getElementsValue = function (element, obj) {
-		var result = "";
-		if (element instanceof Array) {
-			for (var i = 0; i < element.length; i++) {
-				result = result + this.getElementsValue(element[i], obj);
-			}
-		} else {
-			if (element.getValue) result = element.getValue(obj);
-		}
-		return result;
-	};
-	
-	AbstractSplitMasker.prototype.getExpress = function () {};
-	
-	AbstractSplitMasker.prototype.doSplit = function () {
-		var express = this.getExpress();
-		if (this.elements == null || this.elements.length == 0) this.elements = this.doQuotation(express, this.getSeperators(), this.getReplaceds(), 0);
-	};
-	
-	/**
-	 * 处理引号
-	 *
-	 * @param express
-	 * @param seperators
-	 * @param replaced
-	 * @param curSeperator
-	 * @param obj
-	 * @param result
-	 */
-	AbstractSplitMasker.prototype.doQuotation = function (express, seperators, replaced, curSeperator) {
-		if (express.length == 0) return null;
-		var elements = new Array();
-		var pattern = new RegExp('".*?"', "g");
-		var fromIndex = 0;
-		var result;
-		do {
-			result = pattern.exec(express);
-			if (result != null) {
-				var i = result.index;
-				var j = pattern.lastIndex;
-				if (i != j) {
-					if (fromIndex < i) {
-						var childElements = this.doSeperator(express.substring(fromIndex, i), seperators, replaced, curSeperator);
-						if (childElements != null && childElements.length > 0) {
-							//						elements = elements.concat(childElements);
-							elements.push(childElements);
-						}
-					}
-				}
-				elements.push(new StringElement(express.substring(i + 1, j - 1)));
-				fromIndex = j;
-			}
-		} while (result != null);
-	
-		if (fromIndex < express.length) {
-			var childElements = this.doSeperator(express.substring(fromIndex, express.length), seperators, replaced, curSeperator);
-			if (childElements != null && childElements.length > 0)
-				//			elements = elements.concat(childElements);
-				elements.push(childElements);
-		}
-		return elements;
-	};
-	
-	/**
-	 * 处理其它分隔符
-	 *
-	 * @param express
-	 * @param seperators
-	 * @param replaced
-	 * @param curSeperator
-	 * @param obj
-	 * @param result
-	 */
-	AbstractSplitMasker.prototype.doSeperator = function (express, seperators, replaced, curSeperator) {
-		if (curSeperator >= seperators.length) {
-			var elements = new Array();
-			elements.push(this.getVarElement(express));
-			return elements;
-		}
-	
-		if (express.length == 0) return null;
-		var fromIndex = 0;
-		var elements = new Array();
-		var pattern = new RegExp(seperators[curSeperator], "g");
-		var result;
-		do {
-			result = pattern.exec(express);
-			if (result != null) {
-				var i = result.index;
-				var j = pattern.lastIndex;
-				if (i != j) {
-					if (fromIndex < i) {
-						var childElements = this.doSeperator(express.substring(fromIndex, i), seperators, replaced, curSeperator + 1);
-						if (childElements != null && childElements.length > 0)
-							//						elements = elements.concat(childElements);
-							elements.push(childElements);
-					}
-	
-					if (replaced[curSeperator] != null) {
-						elements.push(new StringElement(replaced[curSeperator]));
-					} else {
-						elements.push(new StringElement(express.substring(i, j)));
-					}
-					fromIndex = j;
-				}
-			}
-		} while (result != null);
-	
-		if (fromIndex < express.length) {
-			var childElements = this.doSeperator(express.substring(fromIndex, express.length), seperators, replaced, curSeperator + 1);
-			if (childElements != null && childElements.length > 0)
-				//			elements = elements.concat(childElements);
-				elements.push(childElements);
-		}
-		return elements;
-	};
-	
-	/**
-	 * 地址格式
-	 */
-	AddressMasker.prototype = new AbstractSplitMasker();
-	
-	function AddressMasker(formatMeta) {
-		this.update(formatMeta);
-	};
-	
-	AddressMasker.prototype.update = function (formatMeta) {
-		this.formatMeta = (0, _extend.extend)({}, AddressMasker.DefaultFormatMeta, formatMeta);
-	};
-	
-	AddressMasker.prototype.getExpress = function () {
-		return this.formatMeta.express;
-	};
-	
-	AddressMasker.prototype.getReplaceds = function () {
-		return [this.formatMeta.separator];
-	};
-	
-	AddressMasker.prototype.getSeperators = function () {
-		return ["(\\s)+?"];
-	};
-	
-	AddressMasker.prototype.getVarElement = function (express) {
-		var ex = {};
-	
-		if (express == "C") ex.getValue = function (obj) {
-			return obj.country;
-		};
-	
-		if (express == "S") ex.getValue = function (obj) {
-			return obj.state;
-		};
-	
-		if (express == "T") ex.getValue = function (obj) {
-			return obj.city;
-		};
-	
-		if (express == "D") ex.getValue = function (obj) {
-			return obj.section;
-		};
-	
-		if (express == "R") ex.getValue = function (obj) {
-			return obj.road;
-		};
-	
-		if (express == "P") ex.getValue = function (obj) {
-			return obj.postcode;
-		};
-	
-		if (_typeof(ex.getValue) == undefined) return new StringElement(express);else return ex;
-	};
-	
-	AddressMasker.prototype.formatArgument = function (obj) {
-		return obj;
-	};
-	
-	/**
-	 * <b> 数字格式化  </b>
-	 *
-	 * <p> 格式化数字
-	 *
-	 * </p>
-	 *
-	 * Create at 2009-3-20 上午08:50:32
-	 *
-	 * @author bq
-	 * @since V6.0
-	 */
-	NumberMasker.prototype = new AbstractMasker();
-	NumberMasker.prototype.formatMeta = null;
-	
-	/**
-	 *构造方法
-	 */
-	function NumberMasker(formatMeta) {
-		this.update(formatMeta);
-	};
-	
-	NumberMasker.prototype.update = function (formatMeta) {
-		this.formatMeta = (0, _extend.extend)({}, NumberMasker.DefaultFormatMeta, formatMeta);
-	};
-	
-	/**
-	 *格式化对象
-	 */
-	NumberMasker.prototype.innerFormat = function (obj) {
-		var dValue, express, seperatorIndex, strValue;
-		dValue = obj.value;
-		if (dValue > 0) {
-			express = this.formatMeta.positiveFormat;
-			strValue = dValue + '';
-		} else if (dValue < 0) {
-			express = this.formatMeta.negativeFormat;
-			strValue = (dValue + '').substr(1, (dValue + '').length - 1);
-		} else {
-			express = this.formatMeta.positiveFormat;
-			strValue = dValue + '';
-		}
-		seperatorIndex = strValue.indexOf('.');
-		strValue = this.setTheSeperator(strValue, seperatorIndex);
-		strValue = this.setTheMark(strValue, seperatorIndex);
-		var color = null;
-		if (dValue < 0 && this.formatMeta.isNegRed) {
-			color = "FF0000";
-		}
-		return new FormatResult(express.replaceAll('n', strValue), color);
-	};
-	/**
-	 *设置标记
-	 */
-	NumberMasker.prototype.setTheMark = function (str, seperatorIndex) {
-		var endIndex, first, index;
-		if (!this.formatMeta.isMarkEnable) return str;
-		if (seperatorIndex <= 0) seperatorIndex = str.length;
-		first = str.charCodeAt(0);
-		endIndex = 0;
-		if (first == 45) endIndex = 1;
-		index = seperatorIndex - 3;
-		while (index > endIndex) {
-			str = str.substr(0, index - 0) + this.formatMeta.markSymbol + str.substr(index, str.length - index);
-			index = index - 3;
-		}
-		return str;
-	};
-	NumberMasker.prototype.setTheSeperator = function (str, seperatorIndex) {
-		var ca;
-		if (seperatorIndex > 0) {
-			ca = NumberMasker.toCharArray(str);
-			//ca[seperatorIndex] = NumberMasker.toCharArray(this.formatMeta.pointSymbol)[0];
-			ca[seperatorIndex] = this.formatMeta.pointSymbol;
-			str = ca.join('');
-		}
-		return str;
-	};
-	/**
-	 * 将字符串转换成char数组
-	 * @param {} str
-	 * @return {}
-	 */
-	NumberMasker.toCharArray = function (str) {
-		var str = str.split("");
-		var charArray = new Array();
-		for (var i = 0; i < str.length; i++) {
-			charArray.push(str[i]);
-		}
-		return charArray;
-	};
-	
-	/**
-	 *默认构造方法
-	 */
-	NumberMasker.prototype.formatArgument = function (obj) {
-		var numberObj = {};
-		numberObj.value = obj;
-		return numberObj;
-	};
-	
-	/**
-	 * 货币格式
-	 */
-	CurrencyMasker.prototype = new NumberMasker();
-	CurrencyMasker.prototype.formatMeta = null;
-	
-	function CurrencyMasker(formatMeta) {
-		this.update(formatMeta);
-	};
-	
-	CurrencyMasker.prototype.update = function (formatMeta) {
-		this.formatMeta = (0, _extend.extend)({}, CurrencyMasker.DefaultFormatMeta, formatMeta);
-	};
-	
-	/**
-	 * 重载格式方法
-	 * @param {} obj
-	 * @return {}
-	 */
-	CurrencyMasker.prototype.innerFormat = function (obj) {
-		if (!obj.value) {
-			return { value: "" };
-		}
-		var fo = new NumberMasker(this.formatMeta).innerFormat(obj);
-		fo.value = this.formatMeta.curSymbol + fo.value; //fo.value.replace("$", this.formatMeta.curSymbol);
-		return fo;
-	};
-	
-	PercentMasker.prototype = new NumberMasker();
-	
-	function PercentMasker(formatMeta) {
-		this.update(formatMeta);
-	};
-	
-	PercentMasker.prototype.update = function (formatMeta) {
-		this.formatMeta = (0, _extend.extend)({}, NumberMasker.DefaultFormatMeta, formatMeta);
-	};
-	
-	PercentMasker.prototype.formatArgument = function (obj) {
-		return obj;
-	};
-	
-	PercentMasker.prototype.innerFormat = function (value) {
-		var val = "";
-		if (value != "") {
-			var obj = new NumberMasker(this.formatMeta).innerFormat({ value: value }).value;
-			// 获取obj保留几位小数位,obj小数位-2为显示小数位
-			var objStr = String(obj);
-			var objPrecision = objStr.length - objStr.indexOf(".") - 1;
-			var showPrecision = objPrecision - 2;
-			if (showPrecision < 0) {
-				showPrecision = 0;
-			}
-			val = parseFloat(obj) * 100;
-			val = (val * Math.pow(10, showPrecision) / Math.pow(10, showPrecision)).toFixed(showPrecision);
-			val = val + "%";
-		}
-		return {
-			value: val
-		};
-	};
-	
-	/**
-	 * 将结果输出成HTML代码
-	 * @param {} result
-	 * @return {String}
-	 */
-	function toColorfulString(result) {
-		var color;
-		if (!result) {
-			return '';
-		}
-		if (result.color == null) {
-			return result.value;
-		}
-		color = result.color;
-		return '<font color="' + color + '">' + result.value + '<\/font>';
-	};
-	
-	/**
-	 * 格式解析后形成的单个格式单元
-	 * 适用于基于拆分算法的AbstractSplitFormat，表示拆分后的变量单元
-	 */
-	StringElement.prototype = new Object();
-	
-	function StringElement(value) {
-		this.value = value;
-	};
-	StringElement.prototype.value = "";
-	
-	StringElement.prototype.getValue = function (obj) {
-		return this.value;
-	};
-	/**
-	 *格式结果
-	 */
-	FormatResult.prototype = new Object();
-	/**
-	 *默认构造方法
-	 */
-	function FormatResult(value, color) {
-		this.value = value;
-		this.color = color;
-	};
-	
-	NumberMasker.DefaultFormatMeta = {
-		isNegRed: true,
-		isMarkEnable: true,
-		markSymbol: ",",
-		pointSymbol: ".",
-		positiveFormat: "n",
-		negativeFormat: "-n"
-	};
-	
-	CurrencyMasker.DefaultFormatMeta = (0, _extend.extend)({}, NumberMasker.DefaultFormatMeta, {
-		//curSymbol: "",
-		positiveFormat: "n",
-		negativeFormat: "-n"
-	});
-	
-	AddressMasker.defaultFormatMeta = {
-		express: "C S T R P",
-		separator: " "
-	};
-	
-	exports.AddressMasker = AddressMasker;
-	exports.NumberMasker = NumberMasker;
-	exports.CurrencyMasker = CurrencyMasker;
-	exports.PercentMasker = PercentMasker;
-
-/***/ },
-/* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.ProgressAdapter = undefined;
-	
-	var _baseAdapter = __webpack_require__(3);
-	
-	var _neouiProgress = __webpack_require__(61);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(options) {
-	        var self = this;
-	        ProgressAdapter.superclass.initialize.apply(this, arguments);
-	
-	        this.comp = new _neouiProgress.Progress(this.element);
-	        this.element['u.Progress'] = this.comp;
-	
-	        this.dataModel.ref(this.field).subscribe(function (value) {
-	            self.modelValueChange(value);
+	    setTimeout(function () {
+	        self._input.setAttribute('readonly', 'readonly');
+	    }, 1000);
+	
+	    (0, _event.on)(this._input, 'focus', function (e) {
+	        // 用来关闭键盘
+	        if (_env.env.isMobile) this.blur();
+	        self._inputFocus = true;
+	        if (self.isShow !== true) {
+	            self.show(e);
+	        }
+	        (0, _event.stopEvent)(e);
+	    });
+	
+	    (0, _event.on)(this._input, 'blur', function (e) {
+	        self._inputFocus = false;
+	    });
+	    this._span = this._element.querySelector("span");
+	    if (this._span) {
+	        (0, _event.on)(this._span, 'click', function (e) {
+	            // if (self.isShow !== true){
+	            //     self.show(e);
+	            // }
+	            self._input.focus();
+	            (0, _event.stopEvent)(e);
 	        });
-	    },
-	
-	    modelValueChange: function modelValueChange(val) {
-	        this.comp.setProgress(val);
 	    }
-	}); /**
-	     * Module : Kero percent
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 20:02:50
-	     */
 	
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: ProgressAdapter,
-	    name: 'u-progress'
-	});
+	    if ((0, _dom.hasClass)(this._element, 'time')) {
+	        this.type = 'datetime';
+	        _defaultFmt = 'YYYY-MM-DD hh:mm:ss';
+	    } else {
+	        this.type = 'date';
+	        _defaultFmt = 'YYYY-MM-DD';
+	    }
+	    _fmt = this._element.getAttribute("format");
+	    this.format = _fmt || this.options['format'] || _defaultFmt;
+	    this.isShow = false;
+	};
 	
-	exports.ProgressAdapter = ProgressAdapter;
-
-/***/ },
-/* 61 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
+	/**
+	 * 轮播动画效果
+	 * @private
+	 */
+	DateTimePicker.fn._carousel = function (newPage, direction) {
+	    if (direction == 'left') {
+	        (0, _dom.addClass)(newPage, 'right-page');
+	    } else {
+	        (0, _dom.addClass)(newPage, 'left-page');
+	    }
+	    this._dateContent.appendChild(newPage);
+	    if (_env.env.isIE8 || _env.env.isIE9 || _env.env.isFF) {
+	        // this._dateContent.removeChild(this.contentPage);
+	        var pages = this._dateContent.querySelectorAll('.u-date-content-page');
+	        for (i = 0; i < pages.length; i++) {
+	            this._dateContent.removeChild(pages[i]);
+	        }
+	        this.contentPage = newPage;
+	        this._dateContent.appendChild(newPage);
+	        if (direction == 'left') {
+	            (0, _dom.removeClass)(newPage, 'right-page');
+	        } else {
+	            (0, _dom.removeClass)(newPage, 'left-page');
+	        }
+	    } else {
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Progress = undefined;
+	        var cleanup = function () {
+	            newPage.removeEventListener('transitionend', cleanup);
+	            newPage.removeEventListener('webkitTransitionEnd', cleanup);
+	            // this._dateContent.removeChild(this.contentPage);
+	            var pages = this._dateContent.querySelectorAll('.u-date-content-page');
+	            for (i = 0; i < pages.length; i++) {
+	                this._dateContent.removeChild(pages[i]);
+	            }
+	            this.contentPage = newPage;
+	            this._dateContent.appendChild(newPage);
+	        }.bind(this);
 	
-	var _BaseComponent = __webpack_require__(9);
+	        newPage.addEventListener('transitionend', cleanup);
+	        newPage.addEventListener('webkitTransitionEnd', cleanup);
+	        if (window.requestAnimationFrame) window.requestAnimationFrame(function () {
+	            if (direction == 'left') {
+	                (0, _dom.addClass)(this.contentPage, 'left-page');
+	                (0, _dom.removeClass)(newPage, 'right-page');
+	            } else {
+	                (0, _dom.addClass)(this.contentPage, 'right-page');
+	                (0, _dom.removeClass)(newPage, 'left-page');
+	            }
+	        }.bind(this));
+	    }
+	};
 	
-	var _dom = __webpack_require__(13);
+	/**
+	 * 淡入动画效果
+	 * @private
+	 */
+	DateTimePicker.fn._zoomIn = function (newPage) {
+	    if (!this.contentPage) {
+	        this._dateContent.appendChild(newPage);
+	        this.contentPage = newPage;
+	        return;
+	    }
+	    (0, _dom.addClass)(newPage, 'zoom-in');
+	    this._dateContent.appendChild(newPage);
+	    if (_env.env.isIE8 || _env.env.isIE9 || _env.env.isFF) {
+	        var pages = this._dateContent.querySelectorAll('.u-date-content-page');
+	        for (i = 0; i < pages.length; i++) {
+	            this._dateContent.removeChild(pages[i]);
+	        }
+	        // this._dateContent.removeChild(this.contentPage);
+	        this.contentPage = newPage;
+	        this._dateContent.appendChild(newPage);
+	        (0, _dom.removeClass)(newPage, 'zoom-in');
+	    } else {
+	        var cleanup = function () {
+	            newPage.removeEventListener('transitionend', cleanup);
+	            newPage.removeEventListener('webkitTransitionEnd', cleanup);
+	            // this._dateContent.removeChild(this.contentPage);
+	            var pages = this._dateContent.querySelectorAll('.u-date-content-page');
+	            for (i = 0; i < pages.length; i++) {
+	                this._dateContent.removeChild(pages[i]);
+	            }
+	            this.contentPage = newPage;
+	            this._dateContent.appendChild(newPage);
+	        }.bind(this);
+	        if (this.contentPage) {
+	            newPage.addEventListener('transitionend', cleanup);
+	            newPage.addEventListener('webkitTransitionEnd', cleanup);
+	        }
+	        if (window.requestAnimationFrame) window.requestAnimationFrame(function () {
+	            (0, _dom.addClass)(this.contentPage, 'is-hidden');
+	            (0, _dom.removeClass)(newPage, 'zoom-in');
+	        }.bind(this));
+	    }
+	};
 	
-	var _env = __webpack_require__(11);
+	/**
+	 *填充年份选择面板
+	 * @private
+	 */
+	DateTimePicker.fn._fillYear = function (type) {
+	    var year,
+	        template,
+	        yearPage,
+	        titleDiv,
+	        yearDiv,
+	        _year,
+	        i,
+	        cell,
+	        language,
+	        year,
+	        month,
+	        date,
+	        time,
+	        self = this;
+	    template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">',
+	    /*'<div class="u-date-content-title-year"></div>-',
+	    '<div class="u-date-content-title-month"></div>-',
+	    '<div class="u-date-content-title-date"></div>',
+	    '<div class="u-date-content-title-time"></div>',*/
+	    '</div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
+	    type = type || 'current';
+	    _year = this.pickerDate.getFullYear();
+	    if ('current' === type) {
+	        this.startYear = _year - _year % 10 - 1;
+	    } else if (type === 'preivous') {
+	        this.startYear = this.startYear - 10;
+	    } else {
+	        this.startYear = this.startYear + 10;
+	    }
+	    yearPage = (0, _dom.makeDOM)(template);
+	    // titleDiv = yearPage.querySelector('.u-date-content-title');
+	    // titleDiv.innerHTML = (this.startYear - 1) + '-' + (this.startYear + 11);
+	    language = _core.core.getLanguages();
+	    year = _dateUtils.date._formats['YYYY'](this.pickerDate);
+	    month = _dateUtils.date._formats['MM'](this.pickerDate, language);
+	    date = _dateUtils.date._formats['DD'](this.pickerDate, language);
+	    time = _dateUtils.date._formats['HH'](this.pickerDate, language) + ':' + _dateUtils.date._formats['mm'](this.pickerDate, language) + ':' + _dateUtils.date._formats['ss'](this.pickerDate, language);
 	
-	var _event = __webpack_require__(10);
+	    this._yearTitle = yearPage.querySelector('.u-date-content-title');
+	    this._yearTitle.innerHTML = year;
+	    /*this._headerYear = yearPage.querySelector('.u-date-content-title-year');
+	    this._headerYear.innerHTML = year;
+	    this._headerMonth = yearPage.querySelector('.u-date-content-title-month');
+	    this._headerMonth.innerHTML = month;
+	    this._headerDate = yearPage.querySelector('.u-date-content-title-date');
+	    this._headerDate.innerHTML = date;
+	    this._headerTime = yearPage.querySelector('.u-date-content-title-time');
+	    this._headerTime.innerHTML = time;*/
+	    if (this.type == 'date') {
+	        this._headerTime.style.display = 'none';
+	    }
 	
-	var _compMgr = __webpack_require__(12);
+	    /*on(this._headerYear, 'click', function(e){
+	        self._fillYear();
+	        stopEvent(e)
+	    });
+	     on(this._headerMonth, 'click', function(e){
+	        self._fillMonth();
+	        stopEvent(e)
+	    });    
+	     on(this._headerTime, 'click', function(e){
+	        self._fillTime();
+	        stopEvent(e)
+	    });*/
 	
-	var Progress = _BaseComponent.BaseComponent.extend({
-		_Constant: {},
-		_CssClasses: {
-			INDETERMINATE_CLASS: 'u-progress__indeterminate'
-		},
-		setProgress: function setProgress(p) {
+	    yearDiv = yearPage.querySelector('.u-date-content-panel');
+	    for (i = 0; i < 12; i++) {
 	
-			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
-				return;
-			}
+	        cell = (0, _dom.makeDOM)('<div class="u-date-content-year-cell">' + (this.startYear + i) + '</div>');
+	        new URipple(cell);
+	        if (this.startYear + i == _year) {
+	            (0, _dom.addClass)(cell, 'current');
+	        }
+	        if (this.startYear + i < this.beginYear) {
+	            (0, _dom.addClass)(cell, 'u-disabled');
+	        }
+	        cell._value = this.startYear + i;
+	        yearDiv.appendChild(cell);
+	    }
+	    (0, _event.on)(yearDiv, 'click', function (e) {
+	        if ((0, _dom.hasClass)(e.target, 'u-disabled')) return;
+	        var _y = e.target._value;
+	        this.pickerDate.setYear(_y);
+	        this._updateDate();
+	        this._fillMonth();
+	    }.bind(this));
 	
-			this.progressbar_.style.width = p + '%';
-			return this;
-		},
-		/**
-	  * 设置竖向进度条的进度
-	  * @param p 要设置的进度
-	  * @returns {u.Progress}
-	     */
-		setProgressHeight: function setProgressHeight(p) {
+	    if (type === 'current') {
+	        this._zoomIn(yearPage);
+	    } else if (type === 'next') {
+	        this._carousel(yearPage, 'left');
+	    } else if (type === 'preivous') {
+	        this._carousel(yearPage, 'right');
+	    }
+	    this.currentPanel = 'year';
+	};
 	
-			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
-				return;
-			}
+	/**
+	 * 填充月份选择面板
+	 * @private
+	 */
+	DateTimePicker.fn._fillMonth = function () {
+	    var template,
+	        monthPage,
+	        _month,
+	        cells,
+	        i,
+	        language,
+	        year,
+	        month,
+	        date,
+	        time,
+	        self = this;
+	    template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">',
+	    /*'<div class="u-date-content-title-year"></div>-',
+	    '<div class="u-date-content-title-month"></div>-',
+	    '<div class="u-date-content-title-date"></div>',
+	    '<div class="u-date-content-title-time"></div>',*/
+	    '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
 	
-			this.progressbar_.style.height = p + '%';
-			this.progressbar_.style.width = '100%';
-			return this;
-		},
-		/**
-	  * 设置进度条中的html内容
-	  * @param p 要设置的html内容
-	  * @returns {u.Progress}
-	  */
-		setProgressHTML: function setProgressHTML(html) {
+	    monthPage = (0, _dom.makeDOM)(template);
+	    language = _core.core.getLanguages();
+	    year = _dateUtils.date._formats['YYYY'](this.pickerDate);
+	    month = _dateUtils.date._formats['MM'](this.pickerDate, language);
+	    date = _dateUtils.date._formats['DD'](this.pickerDate, language);
+	    time = _dateUtils.date._formats['HH'](this.pickerDate, language) + ':' + _dateUtils.date._formats['mm'](this.pickerDate, language) + ':' + _dateUtils.date._formats['ss'](this.pickerDate, language);
 	
-			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
-				return;
-			}
+	    this._monthTitle = monthPage.querySelector('.u-date-content-title');
+	    this._monthTitle.innerHTML = _dateUtils.date._formats['MMM'](this.pickerDate, language);
+	    /*this._headerYear = monthPage.querySelector('.u-date-content-title-year');
+	    this._headerYear.innerHTML = year;
+	    this._headerMonth = monthPage.querySelector('.u-date-content-title-month');
+	    this._headerMonth.innerHTML = month;
+	    this._headerDate = monthPage.querySelector('.u-date-content-title-date');
+	    this._headerDate.innerHTML = date;
+	    this._headerTime = monthPage.querySelector('.u-date-content-title-time');
+	    this._headerTime.innerHTML = time;*/
+	    if (this.type == 'date') {
+	        this._headerTime.style.display = 'none';
+	    }
 	
-			this.progressbar_.innerHTML = html;
-			return this;
-		},
-		setBuffer: function setBuffer(p) {
-			this.bufferbar_.style.width = p + '%';
-			this.auxbar_.style.width = 100 - p + '%';
-			return this;
-		},
+	    /*on(this._headerYear, 'click', function(e){
+	        self._fillYear();
+	        stopEvent(e)
+	    });
+	     on(this._headerMonth, 'click', function(e){
+	        self._fillMonth();
+	        stopEvent(e)
+	    });    
+	     on(this._headerTime, 'click', function(e){
+	        self._fillTime();
+	        stopEvent(e)
+	    });*/
 	
-		init: function init() {
-			var el = document.createElement('div');
-			el.className = 'progressbar bar bar1';
-			this.element.appendChild(el);
-			this.progressbar_ = el;
+	    cells = monthPage.querySelectorAll('.u-date-content-year-cell');
+	    for (i = 0; i < cells.length; i++) {
+	        if (_month - 1 == i) {
+	            (0, _dom.addClass)(cells[i], 'current');
+	        }
+	        if (this.pickerDate.getFullYear() == this.beginYear && i < this.beginMonth) {
+	            (0, _dom.addClass)(cells[i], 'u-disabled');
+	        }
+	        if (this.pickerDate.getFullYear() < this.beginYear) {
+	            (0, _dom.addClass)(cells[i], 'u-disabled');
+	        }
+	        cells[i]._value = i;
+	        new URipple(cells[i]);
+	    }
+	    (0, _event.on)(monthPage, 'click', function (e) {
+	        if ((0, _dom.hasClass)(e.target, 'u-disabled')) return;
+	        if ((0, _dom.hasClass)(e.target, 'u-date-content-title')) return;
+	        var _m = e.target._value;
+	        this.pickerDate.setMonth(_m);
+	        this._updateDate();
+	        this._fillDate();
+	    }.bind(this));
+	    this._zoomIn(monthPage);
+	    this.currentPanel = 'month';
+	};
 	
-			el = document.createElement('div');
-			el.className = 'bufferbar bar bar2';
-			this.element.appendChild(el);
-			this.bufferbar_ = el;
+	DateTimePicker.fn._getPickerStartDate = function (date) {
+	    var d = new Date(date);
+	    d.setDate(1);
+	    var day = d.getDay();
+	    d = _dateUtils.date.sub(d, 'd', day);
+	    return d;
+	};
 	
-			el = document.createElement('div');
-			el.className = 'auxbar bar bar3';
-			this.element.appendChild(el);
-			this.auxbar_ = el;
+	DateTimePicker.fn._getPickerEndDate = function (date) {
+	    var d = new Date(date);
+	    d.setDate(1);
+	    d.setMonth(d.getMonth() + 1);
+	    d.setDate(0);
+	    var day = d.getDay();
+	    d = _dateUtils.date.add(d, 'd', 6 - day);
+	    return d;
+	};
 	
-			this.progressbar_.style.width = '0%';
-			this.bufferbar_.style.width = '100%';
-			this.auxbar_.style.width = '0%';
+	/**
+	 * 渲染日历
+	 * @param type : previous  current  next
+	 * @private
+	 */
+	DateTimePicker.fn._fillDate = function (type) {
+	    // if (env.isMobile){
+	    //     this._dateMobileScroll()
+	    //     return
+	    // }
+	    var year,
+	        month,
+	        day,
+	        time,
+	        template,
+	        datePage,
+	        titleDiv,
+	        dateDiv,
+	        weekSpans,
+	        language,
+	        tempDate,
+	        i,
+	        cell,
+	        self = this;
+	    type = type || 'current';
+	    if ('current' === type) {
+	        tempDate = this.pickerDate;
+	    } else if (type === 'preivous') {
+	        tempDate = _dateUtils.date.sub(this.startDate, 'd', 1);
+	    } else {
+	        tempDate = _dateUtils.date.add(this.endDate, 'd', 1);
+	    }
+	    this.startDate = this._getPickerStartDate(tempDate);
+	    this.endDate = this._getPickerEndDate(tempDate);
 	
-			(0, _dom.addClass)(this.element, 'is-upgraded');
+	    language = _core.core.getLanguages();
+	    year = _dateUtils.date._formats['YYYY'](tempDate);
+	    month = _dateUtils.date._formats['MM'](tempDate, language);
+	    date = _dateUtils.date._formats['DD'](tempDate, language);
+	    time = _dateUtils.date._formats['HH'](tempDate, language) + ':' + _dateUtils.date._formats['mm'](tempDate, language) + ':' + _dateUtils.date._formats['ss'](tempDate, language);
+	    template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">', '<div class="u-date-content-title-year"></div>-', '<div class="u-date-content-title-month"></div>-', '<div class="u-date-content-title-date"></div>', '<div class="u-date-content-title-time"></div>', '</div>', '<div class="u-date-week"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
+	    datePage = (0, _dom.makeDOM)(template);
+	    this._headerYear = datePage.querySelector('.u-date-content-title-year');
+	    this._headerYear.innerHTML = year;
+	    this._headerMonth = datePage.querySelector('.u-date-content-title-month');
+	    this._headerMonth.innerHTML = month;
+	    this._headerDate = datePage.querySelector('.u-date-content-title-date');
+	    this._headerDate.innerHTML = date;
+	    this._headerTime = datePage.querySelector('.u-date-content-title-time');
+	    this._headerTime.innerHTML = time;
+	    if (this.type == 'date') {
+	        this._headerTime.style.display = 'none';
+	    }
 	
-			if (_env.env.isIE8 || _env.env.isIE9) {
+	    (0, _event.on)(this._headerYear, 'click', function (e) {
+	        self._fillYear();
+	        (0, _event.stopEvent)(e);
+	    });
 	
-				if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
-					var p = 0;
-					var oThis = this;
-					setInterval(function () {
-						p += 5;
-						p = p % 100;
-						oThis.progressbar_.style.width = p + '%';
-					}, 100);
-				}
-			}
-		}
+	    (0, _event.on)(this._headerMonth, 'click', function (e) {
+	        self._fillMonth();
+	        (0, _event.stopEvent)(e);
+	    });
 	
-	}); /**
-	     * Module : neoui-progress
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-03 10:46:37
-	     */
+	    (0, _event.on)(this._headerTime, 'click', function (e) {
+	        self._fillTime();
+	        (0, _event.stopEvent)(e);
+	    });
+	
+	    weekSpans = datePage.querySelectorAll('.u-date-week span');
+	
+	    for (i = 0; i < 7; i++) {
+	        weekSpans[i].innerHTML = _dateUtils.date._dateLocale[language].weekdaysMin[i];
+	    }
+	    dateDiv = datePage.querySelector('.u-date-content-panel');
+	    tempDate = this.startDate;
+	    while (tempDate <= this.endDate) {
+	        cell = (0, _dom.makeDOM)('<div class="u-date-cell" unselectable="on" onselectstart="return false;">' + tempDate.getDate() + '</div>');
+	        if (tempDate.getFullYear() == this.pickerDate.getFullYear() && tempDate.getMonth() == this.pickerDate.getMonth() && tempDate.getDate() == this.pickerDate.getDate()) {
+	            (0, _dom.addClass)(cell, 'current');
+	        }
+	
+	        if (tempDate.getFullYear() < this.beginYear || tempDate.getFullYear() == this.beginYear && tempDate.getMonth() < this.beginMonth) {
+	            (0, _dom.addClass)(cell, 'u-disabled');
+	            (0, _dom.removeClass)(cell, 'current');
+	        }
+	
+	        if (tempDate.getFullYear() == this.beginYear && tempDate.getMonth() == this.beginMonth && tempDate.getDate() < this.beginDate) {
+	            (0, _dom.addClass)(cell, 'u-disabled');
+	            (0, _dom.removeClass)(cell, 'current');
+	        }
+	        cell._value = tempDate.getDate();
+	        cell._month = tempDate.getMonth();
+	        cell._year = tempDate.getFullYear();
+	        new URipple(cell);
+	        dateDiv.appendChild(cell);
+	        tempDate = _dateUtils.date.add(tempDate, 'd', 1);
+	    }
+	    (0, _event.on)(dateDiv, 'click', function (e) {
+	        if ((0, _dom.hasClass)(e.target, 'u-disabled')) return;
+	        var _d = e.target._value;
+	        if (!_d) return;
+	        this.pickerDate.setFullYear(e.target._year);
+	        this.pickerDate.setMonth(e.target._month);
+	        this.pickerDate.setDate(_d);
+	        var _cell = e.target.parentNode.querySelector('.u-date-cell.current');
+	        if (_cell) {
+	            (0, _dom.removeClass)(_cell, 'current');
+	            if (_env.env.isIE8 || _env.env.isIE9) _cell.style.backgroundColor = "#fff";
+	        }
+	        (0, _dom.addClass)(e.target, 'current');
+	        if (_env.env.isIE8 || _env.env.isIE9) e.target.style.backgroundColor = '#3f51b5';
+	        this._updateDate();
+	        if (this.type === 'date') {
+	            this.onOk();
+	        }
+	    }.bind(this));
+	    if (type === 'current') {
+	        this._zoomIn(datePage);
+	    } else if (type === 'next') {
+	        this._carousel(datePage, 'left');
+	    } else if (type === 'preivous') {
+	        this._carousel(datePage, 'right');
+	    }
+	    this.currentPanel = 'date';
+	};
+	
+	/**
+	 * 填充时间选择面板
+	 * @private
+	 */
+	DateTimePicker.fn._fillTime = function (type) {
+	    // if (env.isMobile) {
+	    //     this._timeMobileScroll()
+	    //     return;
+	    // }
+	    var year, month, day, date, time, template, timePage, titleDiv, dateDiv, weekSpans, language, tempDate, i, cell;
+	    var self = this;
+	    type = type || 'current';
+	    if ('current' === type) {
+	        tempDate = this.pickerDate;
+	    } else if (type === 'preivous') {
+	        tempDate = _dateUtils.date.sub(this.startDate, 'd', 1);
+	    } else {
+	        tempDate = _dateUtils.date.add(this.endDate, 'd', 1);
+	    }
+	    this.startDate = this._getPickerStartDate(tempDate);
+	    this.endDate = this._getPickerEndDate(tempDate);
+	
+	    language = _core.core.getLanguages();
+	    year = _dateUtils.date._formats['YYYY'](tempDate);
+	    month = _dateUtils.date._formats['MM'](tempDate, language);
+	    date = _dateUtils.date._formats['DD'](tempDate, language);
+	    time = _dateUtils.date._formats['HH'](tempDate, language) + ':' + _dateUtils.date._formats['mm'](tempDate, language) + ':' + _dateUtils.date._formats['ss'](tempDate, language);
+	
+	    template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">', '<div class="u-date-content-title-year"></div>-', '<div class="u-date-content-title-month"></div>-', '<div class="u-date-content-title-date"></div>', '<div class="u-date-content-title-time"></div>', '</div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
+	    timePage = (0, _dom.makeDOM)(template);
+	    //    titleDiv = timePage.querySelector('.u-date-content-title');
+	    //    titleDiv.innerHTML = year + ' ' + month + ' ' +day ;
+	    this._headerYear = timePage.querySelector('.u-date-content-title-year');
+	    this._headerYear.innerHTML = year;
+	    this._headerMonth = timePage.querySelector('.u-date-content-title-month');
+	    this._headerMonth.innerHTML = month;
+	    this._headerDate = timePage.querySelector('.u-date-content-title-date');
+	    this._headerDate.innerHTML = date;
+	    this._headerTime = timePage.querySelector('.u-date-content-title-time');
+	    this._headerTime.innerHTML = time;
+	    if (this.type == 'date') {
+	        this._headerTime.style.display = 'none';
+	    }
+	
+	    (0, _event.on)(this._headerYear, 'click', function (e) {
+	        self._fillYear();
+	        (0, _event.stopEvent)(e);
+	    });
+	
+	    (0, _event.on)(this._headerMonth, 'click', function (e) {
+	        self._fillMonth();
+	        (0, _event.stopEvent)(e);
+	    });
+	
+	    (0, _event.on)(this._headerTime, 'click', function (e) {
+	        self._fillTime();
+	        (0, _event.stopEvent)(e);
+	    });
+	
+	    dateDiv = timePage.querySelector('.u-date-content-panel');
+	    // tempDate = this.startDate;
+	    // while(tempDate <= this.endDate){
+	    // cell = makeDOM('<div class="u-date-cell">'+ udate._formats['HH'](tempDate,language) +'</div>');
+	    // if (tempDate.getFullYear() == this.pickerDate.getFullYear() && tempDate.getMonth() == this.pickerDate.getMonth()
+	    // && tempDate.getDate() == this.pickerDate.getDate()){
+	    // addClass(cell, 'current');
+	    // }
+	    // cell._value = tempDate.getDate();
+	    // new URipple(cell);
+	    // dateDiv.appendChild(cell);
+	    // tempDate = udate.add(tempDate, 'd', 1);
+	    // }
+	    if (_env.env.isIE8) {
+	        // IE8/IE9保持原来，非IE8/IE9使用clockpicker
+	        timetemplate = ['<div class="u_time_box">', '<div class="u_time_cell">',
+	        //'<div class="add_hour_cell"><i class="add_hour_cell icon-angle-up"></i></div>',
+	        '<div class="show_hour_cell">' + _dateUtils.date._formats['HH'](tempDate) + '</div>',
+	        //'<div class="subtract_hour_cell"><i class="subtract_hour_cell icon-angle-down"></i></div>',
+	        '</div>', '<div class="u_time_cell">',
+	        //'<div class="add_min_cell"><i class="add_min_cell icon-angle-up"></i></div>',
+	        '<div class="show_min_cell">' + _dateUtils.date._formats['mm'](tempDate) + '</div>',
+	        //'<div class="subtract_min_cell"><i class="subtract_min_cell icon-angle-down"></i></div>',
+	        '</div>', '<div class="u_time_cell">',
+	        //'<div class="add_sec_cell"><i class="add_sec_cell icon-angle-up"></i></div>',
+	        '<div class="show_sec_cell">' + _dateUtils.date._formats['ss'](tempDate) + '</div>',
+	        //'<div class="subtract_sec_cell"><i class="subtract_sec_cell icon-angle-down"></i></div>',
+	        '</div>', '</div>'].join("");
+	        cell = (0, _dom.makeDOM)(timetemplate);
+	        dateDiv.appendChild(cell);
+	        (0, _event.on)(dateDiv, 'click', function (e) {
+	            var _arrary = e.target.getAttribute("class").split("_");
+	            if (_arrary[0] == "add") {
+	                if (_arrary[1] == "hour") {
+	                    var tmph = Number(_dateUtils.date._formats['HH'](this.pickerDate));
+	                    if (tmph < 23) {
+	                        tmph++;
+	                    } else {
+	                        tmph = 0;
+	                    }
+	
+	                    this.pickerDate.setHours(tmph);
+	                    dateDiv.querySelector(".show_hour_cell").innerHTML = tmph;
+	                } else if (_arrary[1] == "min") {
+	                    var tmpm = Number(_dateUtils.date._formats['mm'](this.pickerDate));
+	                    if (tmpm < 59) {
+	                        tmpm++;
+	                    } else {
+	                        tmpm = 0;
+	                    }
+	                    this.pickerDate.setMinutes(tmpm);
+	                } else if (_arrary[1] == "sec") {
+	                    var tmps = Number(_dateUtils.date._formats['ss'](this.pickerDate));
+	                    if (tmps < 59) {
+	                        tmps++;
+	                    } else {
+	                        tmps = 0;
+	                    }
+	                    this.pickerDate.setSeconds(tmps);
+	                }
+	            } else if (_arrary[0] == "subtract") {
+	                if (_arrary[1] == "hour") {
+	                    var tmph = Number(_dateUtils.date._formats['HH'](this.pickerDate));
+	                    if (tmph > 0) {
+	                        tmph--;
+	                    } else {
+	                        tmph = 23;
+	                    }
+	                    this.pickerDate.setHours(tmph);
+	                } else if (_arrary[1] == "min") {
+	                    var tmpm = Number(_dateUtils.date._formats['mm'](this.pickerDate));
+	                    if (tmpm > 0) {
+	                        tmpm--;
+	                    } else {
+	                        tmpm = 59;
+	                    }
+	                    this.pickerDate.setMinutes(tmpm);
+	                } else if (_arrary[1] == "sec") {
+	                    var tmps = Number(_dateUtils.date._formats['ss'](this.pickerDate));
+	                    if (tmps > 0) {
+	                        tmps--;
+	                    } else {
+	                        tmps = 59;
+	                    }
+	                    this.pickerDate.setSeconds(tmps);
+	                }
+	            } else if (_arrary[0] == "show") {
+	                var tmptarget = e.target;
+	                var tmpinput = (0, _dom.makeDOM)("<input type='text' class='u-input'>");
+	                if (tmptarget.querySelector('.u-input')) return;
+	                this._updateDate();
+	                tmpinput.value = tmptarget.innerHTML;
+	                tmptarget.innerHTML = "";
+	                tmptarget.appendChild(tmpinput);
+	                if (_arrary[1] == "hour") {
+	                    var vali = new _neouiValidate.Validate(tmpinput, { validType: "integer", minLength: 0, maxLength: 2, min: 0, max: 23 });
+	                    (0, _event.on)(tmpinput, 'blur', function () {
+	                        if (vali.passed) {
+	                            self.pickerDate.setHours(tmpinput.value);
+	                            self._updateDate();
+	                        }
+	                    });
+	                } else if (_arrary[1] == "min") {
+	                    var vali = new _neouiValidate.Validate(tmpinput, { validType: "integer", minLength: 0, maxLength: 2, min: 0, max: 59 });
+	                    (0, _event.on)(tmpinput, 'blur', function () {
+	                        if (vali.passed) {
+	                            self.pickerDate.setMinutes(tmpinput.value);
+	                            self._updateDate();
+	                        }
+	                    });
+	                } else if (_arrary[1] == "sec") {
+	                    var vali = new _neouiValidate.Validate(tmpinput, { validType: "integer", minLength: 0, maxLength: 2, min: 0, max: 59 });
+	                    (0, _event.on)(tmpinput, 'blur', function () {
+	                        if (vali.passed) {
+	                            self.pickerDate.setSeconds(tmpinput.value);
+	                            self._updateDate();
+	                        }
+	                    });
+	                }
+	
+	                tmpinput.focus();
+	                return;
+	            } else {
+	                return false;
+	            }
+	
+	            this._updateDate();
+	        }.bind(this));
+	    } else {
+	        timetemplate = '<div class="u-combo-ul clockpicker-popover is-visible" style="width:100%;padding:0px;">';
+	        //        timetemplate += '<div class="popover-title"><span class="clockpicker-span-hours">02</span> : <span class="clockpicker-span-minutes text-primary">01</span><span class="clockpicker-span-am-pm"></span></div>';
+	        timetemplate += '<div class="popover-content">';
+	        timetemplate += '  <div class="clockpicker-plate data-clockpicker-plate">';
+	        timetemplate += '      <div class="clockpicker-canvas">';
+	        timetemplate += '          <svg class="clockpicker-svg">';
+	        timetemplate += '              <g transform="translate(100,100)">';
+	        timetemplate += '                  <circle class="clockpicker-canvas-bg clockpicker-canvas-bg-trans" r="13" cx="8.362277061412277" cy="-79.56175162946187"></circle>';
+	        timetemplate += '                  <circle class="clockpicker-canvas-fg" r="3.5" cx="8.362277061412277" cy="-79.56175162946187"></circle>';
+	        timetemplate += '                  <line x1="0" y1="0" x2="8.362277061412277" y2="-79.56175162946187"></line>';
+	        timetemplate += '                  <circle class="clockpicker-canvas-bearing" cx="0" cy="0" r="2"></circle>';
+	        timetemplate += '              </g>';
+	        timetemplate += '          </svg>';
+	        timetemplate += '      </div>';
+	        timetemplate += '      <div class="clockpicker-dial clockpicker-hours" style="visibility: visible;">';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-1" >00</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-2" >1</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-3" >2</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-4" >3</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-5" >4</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-6" >5</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-7" >6</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-8" >7</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-9" >8</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-10" >9</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-11" >10</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-12" >11</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-13" >12</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-14" >13</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-15" >14</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-16" >15</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-17" >16</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-18" >17</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-19" >18</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-20" >19</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-21" >20</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-22" >21</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-23" >22</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-24" >23</div>';
+	        timetemplate += '      </div>';
+	        timetemplate += '      <div class="clockpicker-dial clockpicker-minutes" style="visibility: hidden;">';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-25" >00</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-26" >05</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-27" >10</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-28" >15</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-29" >20</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-30" >25</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-31" >30</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-32" >35</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-33" >40</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-34" >45</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-35" >50</div>';
+	        timetemplate += '          <div class="clockpicker-tick clockpicker-tick-36" >55</div>';
+	        timetemplate += '      </div>';
+	        timetemplate += '  </div><span class="clockpicker-am-pm-block"></span></div>';
+	        timetemplate += '  </div>';
+	        cell = (0, _dom.makeDOM)(timetemplate);
+	        this.cell = cell;
+	        dateDiv.appendChild(cell);
+	
+	        this.hand = cell.querySelector('line');
+	        this.bg = cell.querySelector('.clockpicker-canvas-bg');
+	        this.fg = cell.querySelector('.clockpicker-canvas-fg');
+	        this.titleHourSpan = cell.querySelector('.clockpicker-span-hours');
+	        this.titleMinSpan = cell.querySelector('.clockpicker-span-minutes');
+	        this.hourDiv = cell.querySelector('.clockpicker-hours');
+	        this.minDiv = cell.querySelector('.clockpicker-minutes');
+	        this.currentView = 'hours';
+	        this.hours = _dateUtils.date._formats['HH'](tempDate);
+	        this.min = _dateUtils.date._formats['mm'](tempDate);
+	        this.sec = _dateUtils.date._formats['ss'](tempDate);
+	        //this.titleHourSpan.innerHTML = this.hours;
+	        //this.titleMinSpan.innerHTML = this.min;
+	
+	
+	        (0, _event.on)(this.hourDiv, 'click', function (e) {
+	            var target = e.target;
+	            if ((0, _dom.hasClass)(target, 'clockpicker-tick')) {
+	                this.hours = target.innerHTML;
+	                this.hours = this.hours > 9 || this.hours == 0 ? '' + this.hours : '0' + this.hours;
+	                // this.titleHourSpan.innerHTML = this.hours;
+	                self.pickerDate.setHours(this.hours);
+	                var language = _core.core.getLanguages();
+	                var time = _dateUtils.date._formats['HH'](this.pickerDate, language) + ':' + _dateUtils.date._formats['mm'](this.pickerDate, language) + ':' + _dateUtils.date._formats['ss'](this.pickerDate, language);
+	                this._headerTime.innerHTML = time;
+	                this.hourDiv.style.visibility = 'hidden';
+	                this.minDiv.style.visibility = 'visible';
+	                this.currentView = 'min';
+	                this.setHand();
+	            }
+	        }.bind(this));
+	
+	        (0, _event.on)(this.minDiv, 'click', function (e) {
+	            var target = e.target;
+	            if ((0, _dom.hasClass)(target, 'clockpicker-tick')) {
+	                this.min = target.innerHTML;
+	                // this.min = this.min > 9 || this.min  == 00? '' + this.min:'0' + this.min;
+	                // this.titleMinSpan.innerHTML = this.min;
+	                self.pickerDate.setMinutes(this.min);
+	                var language = _core.core.getLanguages();
+	                var time = _dateUtils.date._formats['HH'](this.pickerDate, language) + ':' + _dateUtils.date._formats['mm'](this.pickerDate, language) + ':' + _dateUtils.date._formats['ss'](this.pickerDate, language);
+	                this._headerTime.innerHTML = time;
+	                this.minDiv.style.visibility = 'hidden';
+	                this.hourDiv.style.visibility = 'visible';
+	                this.currentView = 'hours';
+	                this.setHand();
+	            }
+	        }.bind(this));
+	    }
+	
+	    this._zoomIn(timePage);
+	    if (!_env.env.isIE8) this.setHand();
+	    this.currentPanel = 'time';
+	    dateDiv.onselectstart = new Function("return false");
+	};
+	
+	DateTimePicker.fn.setHand = function () {
+	    var dialRadius = 100,
+	        innerRadius = 54,
+	        outerRadius = 80;
+	    var view = this.currentView,
+	        value = this[view],
+	        isHours = view === 'hours',
+	        unit = Math.PI / (isHours ? 6 : 30),
+	        radian = value * unit,
+	        radius = isHours && value > 0 && value < 13 ? innerRadius : outerRadius,
+	        x = Math.sin(radian) * radius,
+	        y = -Math.cos(radian) * radius;
+	    this.setHandFun(x, y);
+	};
+	
+	DateTimePicker.fn.setHandFun = function (x, y, roundBy5, dragging) {
+	    var dialRadius = 100,
+	        innerRadius = 54,
+	        outerRadius = 80;
+	
+	    var radian = Math.atan2(x, -y),
+	        isHours = this.currentView === 'hours',
+	        unit = Math.PI / (isHours ? 6 : 30),
+	        z = Math.sqrt(x * x + y * y),
+	        options = this.options,
+	        inner = isHours && z < (outerRadius + innerRadius) / 2,
+	        radius = inner ? innerRadius : outerRadius,
+	        value;
+	
+	    if (this.twelvehour) {
+	        radius = outerRadius;
+	    }
+	
+	    // Radian should in range [0, 2PI]
+	    if (radian < 0) {
+	        radian = Math.PI * 2 + radian;
+	    }
+	
+	    // Get the round value
+	    value = Math.round(radian / unit);
+	
+	    // Get the round radian
+	    radian = value * unit;
+	
+	    // Correct the hours or minutes
+	    if (options.twelvehour) {
+	        if (isHours) {
+	            if (value === 0) {
+	                value = 12;
+	            }
+	        } else {
+	            if (roundBy5) {
+	                value *= 5;
+	            }
+	            if (value === 60) {
+	                value = 0;
+	            }
+	        }
+	    } else {
+	        if (isHours) {
+	            if (value === 12) {
+	                value = 0;
+	            }
+	            value = inner ? value === 0 ? 12 : value : value === 0 ? 0 : value + 12;
+	        } else {
+	            if (roundBy5) {
+	                value *= 5;
+	            }
+	            if (value === 60) {
+	                value = 0;
+	            }
+	        }
+	    }
+	
+	    // Set clock hand and others' position
+	    var w = this._panel.offsetWidth;
+	    var u = w / 294;
+	    var cx = Math.sin(radian) * radius * u,
+	        cy = -Math.cos(radian) * radius * u;
+	    var iu = 100 * u;
+	    this.cell.querySelector('g').setAttribute('transform', 'translate(' + iu + ',' + iu + ')');
+	    this.hand.setAttribute('x2', cx);
+	    this.hand.setAttribute('y2', cy);
+	    this.bg.setAttribute('cx', cx);
+	    this.bg.setAttribute('cy', cy);
+	    this.fg.setAttribute('cx', cx);
+	    this.fg.setAttribute('cy', cy);
+	};
+	
+	/**
+	 * 重新渲染面板
+	 * @private
+	 */
+	DateTimePicker.fn._updateDate = function () {
+	    var year, month, week, date, time, hour, minute, seconds, language;
+	
+	    language = _core.core.getLanguages();
+	    year = _dateUtils.date._formats['YYYY'](this.pickerDate);
+	    // week = udate._formats['ddd'](this.pickerDate, language);
+	    month = _dateUtils.date._formats['MM'](this.pickerDate, language);
+	    time = _dateUtils.date._formats['HH'](this.pickerDate, language) + ':' + _dateUtils.date._formats['mm'](this.pickerDate, language) + ':' + _dateUtils.date._formats['ss'](this.pickerDate, language);
+	
+	    //TODO 多语
+	    // date = udate._formats['D'](this.pickerDate) + '日';
+	    date = _dateUtils.date._formats['DD'](this.pickerDate, language);
+	    if (this._headerYear) {
+	        this._headerYear.innerHTML = '';
+	        this._headerYear.innerHTML = year;
+	    }
+	    // this._headerWeak.innerHTML = '';
+	    // this._headerWeak.innerHTML = week;
+	    if (this._headerMonth) {
+	        this._headerMonth.innerHTML = '';
+	        this._headerMonth.innerHTML = month;
+	    }
+	    if (this._headerDate) {
+	        this._headerDate.innerHTML = '';
+	        this._headerDate.innerHTML = date;
+	    }
+	    if (this._headerTime) {
+	        this._headerTime.innerHTML = '';
+	        this._headerTime.innerHTML = time;
+	    }
+	    if (this.currentPanel == 'time') {
+	        if (_env.env.isIE8) {
+	            this._panel.querySelector(".show_hour_cell").innerHTML = _dateUtils.date._formats['HH'](this.pickerDate, language);
+	            this._panel.querySelector(".show_min_cell").innerHTML = _dateUtils.date._formats['mm'](this.pickerDate, language);
+	            this._panel.querySelector(".show_sec_cell").innerHTML = _dateUtils.date._formats['ss'](this.pickerDate, language);
+	        }
+	    }
+	};
+	
+	DateTimePicker.fn._response = function () {
+	    return;
+	    var bodyHeight = document.body.offsetHeight; //395
+	    var _height = 430;
+	    if (this.type === 'date' && !_env.env.isMobile) _height = 395;
+	    if (bodyHeight > _height) {
+	        this._panel.style.height = _height;
+	    }
+	    //if (bodyHeight > 500){
+	    //    this._panel.style.height =  '500px';
+	    //}
+	    //this._dateContent.style.height =panelHeight - 158 + 'px';   // 106 52
+	};
+	
+	var dateTimePickerTemplateArr = ['<div class="u-date-panel">', '<div class="u-date-body">',
+	/*'<div class="u-date-header">',
+	    '<span class="u-date-header-year"></span>',
+	     '<div class="u-date-header-h3">',
+	        '<span class="u-date-header-week"></span>',
+	        '<span>,</span>',
+	        '<span class="u-date-header-month"></span>',
+	        '<span> </span>',
+	        '<span class="u-date-header-date"></span>',
+	        '<span> </span>',
+	        '<span class="u-date-header-time"></span>',
+	     '</div>',
+	'</div>',*/
+	'<div class="u-date-content"></div>', '</div>', '<div class="u-date-nav">', '<button class="u-button u-date-ok right primary">确定</button>', '<button class="u-button u-date-cancel right">取消</button>', '<button class="u-button u-date-clean">清空</button>', '</div>', '</div>'];
+	
+	/******************************
+	 *  Public method
+	 ******************************/
+	
+	DateTimePicker.fn.show = function (evt) {
+	    if (!this.enable) {
+	        return;
+	    }
+	    var inputValue = this._input.value;
+	    this.setDate(inputValue);
+	
+	    var self = this;
+	    if (!this._panel) {
+	        this._panel = (0, _dom.makeDOM)(dateTimePickerTemplateArr.join(""));
+	        if (_env.env.isMobile) {
+	            (0, _dom.removeClass)(this._panel, 'u-date-panel');
+	            (0, _dom.addClass)(this._panel, 'u-date-panel-mobile');
+	        }
+	        this._dateNav = this._panel.querySelector('.u-date-nav');
+	        if (this.type === 'date' && !_env.env.isMobile) {
+	            this._dateNav.style.display = 'none';
+	        }
+	        this._dateContent = this._panel.querySelector('.u-date-content');
+	        if (this.type == 'datetime') {
+	            /*if(env.isMobile){
+	                this._dateContent.style.height = '226/16*2rem';
+	            }
+	            else{
+	                this._dateContent.style.height = '226px';
+	            }*/
+	        }
+	        this.btnOk = this._panel.querySelector('.u-date-ok');
+	        this.btnCancel = this._panel.querySelector('.u-date-cancel');
+	        this.btnClean = this._panel.querySelector('.u-date-clean');
+	        var rippleContainer = document.createElement('span');
+	        (0, _dom.addClass)(rippleContainer, 'u-ripple');
+	        this.btnOk.appendChild(rippleContainer);
+	        var rippleContainer = document.createElement('span');
+	        (0, _dom.addClass)(rippleContainer, 'u-ripple');
+	        this.btnCancel.appendChild(rippleContainer);
+	        var rippleContainer = document.createElement('span');
+	        (0, _dom.addClass)(rippleContainer, 'u-ripple');
+	        this.btnClean.appendChild(rippleContainer);
+	        new URipple(this.btnOk);
+	        new URipple(this.btnCancel);
+	        new URipple(this.btnClean);
+	        (0, _event.on)(this.btnOk, 'click', function (e) {
+	            this.onOk();
+	            (0, _event.stopEvent)(e);
+	        }.bind(this));
+	        (0, _event.on)(this.btnCancel, 'click', function (e) {
+	            self.onCancel();
+	            (0, _event.stopEvent)(e);
+	        });
+	        (0, _event.on)(this.btnClean, 'click', function (e) {
+	            self.pickerDate = null;
+	            self.onOk();
+	            (0, _event.stopEvent)(e);
+	        });
+	
+	        // this.preBtn = makeDOM('<button class="u-date-pre-button u-button flat floating mini">&lt;</button>');
+	        // this.nextBtn = makeDOM('<button class="u-date-next-button u-button flat floating mini">&gt;</button>');
+	        this.preBtn = (0, _dom.makeDOM)('<button class="u-date-pre-button u-button mini">&lt;</button>');
+	        this.nextBtn = (0, _dom.makeDOM)('<button class="u-date-next-button u-button mini">&gt;</button>');
+	        // new u.Button(this.nextBtn);
+	
+	        (0, _event.on)(this.preBtn, 'click', function (e) {
+	            if (self.currentPanel == 'date') {
+	                self._fillDate('preivous');
+	            } else if (self.currentPanel == 'year') {
+	                self._fillYear('preivous');
+	            }
+	            (0, _event.stopEvent)(e);
+	        });
+	        (0, _event.on)(this.nextBtn, 'click', function (e) {
+	            if (self.currentPanel == 'date') {
+	                self._fillDate('next');
+	            } else if (self.currentPanel == 'year') {
+	                self._fillYear('next');
+	            }
+	            (0, _event.stopEvent)(e);
+	        });
+	        // if(!env.isMobile){
+	        this._dateContent.appendChild(this.preBtn);
+	        this._dateContent.appendChild(this.nextBtn);
+	        // }
+	
+	    }
+	    this.pickerDate = this.date || new Date();
+	    this._updateDate();
+	    this._fillDate();
+	    this._response();
+	    (0, _event.on)(window, 'resize', function () {
+	        self._response();
+	    });
+	    if (_env.env.isMobile) {
+	        this.overlayDiv = (0, _dom.makeModal)(this._panel);
+	        (0, _event.on)(this.overlayDiv, 'click', function () {
+	            self.onCancel();
+	        });
+	    }
+	    (0, _dom.addClass)(this._panel, 'is-visible');
+	    if (!_env.env.isMobile) {
+	        if (this.options.showFix) {
+	            document.body.appendChild(this._panel);
+	            this._panel.style.position = 'fixed';
+	            (0, _dom.showPanelByEle)({
+	                ele: this._input,
+	                panel: this._panel,
+	                position: "bottomLeft"
+	            });
+	        } else {
+	            var bodyWidth = document.body.clientWidth,
+	                bodyHeight = document.body.clientHeight,
+	                panelWidth = this._panel.offsetWidth,
+	                panelHeight = this._panel.offsetHeight;
+	            //调整left和top
+	            // this._element.parentNode.appendChild(this._panel);
+	            this._element.appendChild(this._panel);
+	            this._element.style.position = 'relative';
+	            // this.left = this.element.offsetLeft;
+	            this.left = this._input.offsetLeft;
+	            var inputHeight = this._input.offsetHeight;
+	            // this.top = this.element.offsetTop + inputHeight;
+	            this.top = this._input.offsetTop + inputHeight;
+	
+	            if (this.left + panelWidth > bodyWidth) {
+	                this.left = bodyWidth - panelWidth;
+	            }
+	
+	            if (this.top + panelHeight > bodyHeight) {
+	                this.top = bodyHeight - panelHeight;
+	            }
+	
+	            this._panel.style.left = this.left + 'px';
+	            this._panel.style.top = this.top + 'px';
+	        }
+	
+	        this._panel.style.marginLeft = '0px';
+	        var callback = function callback(e) {
+	            if (e !== evt && e.target !== self._input && !(0, _dom.hasClass)(e.target, 'u-date-content-year-cell') && !(0, _dom.hasClass)(e.target, 'u-date-content-year-cell') && (0, _dom.closest)(e.target, 'u-date-panel') !== self._panel && self._inputFocus != true) {
+	                (0, _event.off)(document, 'click', callback);
+	                self.onCancel();
+	            }
+	        };
+	        (0, _event.on)(document, 'click', callback);
+	
+	        //tab事件
+	        (0, _event.on)(self._input, 'keydown', function (e) {
+	            var keyCode = e.keyCode;
+	            if (keyCode == 9) {
+	                self.onCancel();
+	            }
+	        });
+	    }
+	
+	    this.isShow = true;
+	};
+	
+	/**
+	 * 确定事件
+	 */
+	DateTimePicker.fn.onOk = function () {
+	    this.setDate(this.pickerDate);
+	    this.isShow = false;
+	    (0, _dom.removeClass)(this._panel, 'is-visible');
+	    try {
+	        document.body.removeChild(this.overlayDiv);
+	    } catch (e) {}
+	    this.trigger('select', { value: this.pickerDate });
+	};
+	
+	/**
+	 * 确定事件
+	 */
+	DateTimePicker.fn.onCancel = function () {
+	    this.isShow = false;
+	    (0, _dom.removeClass)(this._panel, 'is-visible');
+	    try {
+	        document.body.removeChild(this.overlayDiv);
+	    } catch (e) {}
+	};
+	
+	DateTimePicker.fn.setDate = function (value) {
+	    if (!value) {
+	        this.date = null;
+	        this._input.value = '';
+	        return;
+	    }
+	
+	    var _date = _dateUtils.date.getDateObj(value);
+	    if (_date) {
+	        if (this.beginDateObj) {
+	            if (_date < this.beginDateObj) return;
+	        }
+	        this.date = _date;
+	        this._input.value = _dateUtils.date.format(this.date, this.format);
+	    }
+	};
+	/**
+	 *设置format
+	 * @param format
+	 */
+	DateTimePicker.fn.setFormat = function (format) {
+	    this.format = format;
+	    this._input.value = _dateUtils.date.format(this.date, this.format);
+	};
+	
+	DateTimePicker.fn.setStartDate = function (startDate) {
+	    if (startDate) {
+	        this.beginDateObj = _dateUtils.date.getDateObj(startDate);
+	        this.beginYear = this.beginDateObj.getFullYear();
+	        this.beginMonth = this.beginDateObj.getMonth();
+	        this.beginDate = this.beginDateObj.getDate();
+	    }
+	};
+	DateTimePicker.fn.setEnable = function (enable) {
+	    if (enable === true || enable === 'true') {
+	        this.enable = true;
+	    } else {
+	        this.enable = false;
+	    }
+	};
 	
 	_compMgr.compMgr.regComp({
-		comp: Progress,
-		compAsString: 'u.Progress',
-		css: 'u-progress'
-	});
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-	exports.Progress = Progress;
-
-/***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.RadioAdapter = undefined;
-	
-	var _baseAdapter = __webpack_require__(3);
-	
-	var _valueMixin = __webpack_require__(7);
-	
-	var _util = __webpack_require__(5);
-	
-	var _dom = __webpack_require__(13);
-	
-	var _event = __webpack_require__(10);
-	
-	var _neouiRadio = __webpack_require__(63);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	/**
-	 * Module : Kero percent
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 10:33:09
-	 */
-	
-	var RadioAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
-	    init: function init(options) {
-	        var self = this;
-	        //RadioAdapter.superclass.initialize.apply(this, arguments);
-	        this.dynamic = false;
-	        if (this.options['datasource'] || this.options['hasOther']) {
-	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
-	            this.radioTemplateArray = [];
-	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
-	                this.radioTemplateArray.push(this.element.childNodes[i]);
-	            }
-	        }
-	        if (this.options['datasource']) {
-	            this.dynamic = true;
-	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-	            this.setComboData(datasource);
-	        } else {
-	            this.comp = new _neouiRadio.Radio(this.element);
-	            this.element['u.Radio'] = this.comp;
-	            this.eleValue = this.comp._btnElement.value;
-	
-	            this.comp.on('change', function (event) {
-	                if (self.slice) return;
-	                var modelValue = self.dataModel.getValue(self.field);
-	                //var valueArr = modelValue == '' ?  [] : modelValue.split(',');
-	                if (self.comp._btnElement.checked) {
-	                    self.dataModel.setValue(self.field, self.eleValue);
-	                }
-	            });
-	        }
-	
-	        // 如果存在其他
-	        if (this.options['hasOther']) {
-	            var node = null;
-	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
-	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
-	            }
-	            var LabelS = this.element.querySelectorAll('.u-radio');
-	            self.lastLabel = LabelS[LabelS.length - 1];
-	            var allRadioS = this.element.querySelectorAll('[type=radio]');
-	            self.lastRadio = allRadioS[allRadioS.length - 1];
-	            var nameDivs = this.element.querySelectorAll('.u-radio-label');
-	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
-	            self.lastNameDiv.innerHTML = '其他';
-	            self.otherInput = (0, _dom.makeDOM)('<input type="text" style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
-	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
-	            self.lastRadio.value = '';
-	
-	            var comp;
-	            if (self.lastLabel['u.Radio']) {
-	                comp = self.lastLabel['u.Radio'];
-	            } else {
-	                comp = new _neouiRadio.Radio(self.lastLabel);
-	            }
-	            self.lastLabel['u.Radio'] = comp;
-	            self.otherComp = comp;
-	            comp.on('change', function () {
-	                if (comp._btnElement.checked) {
-	                    self.dataModel.setValue(self.field, comp._btnElement.value);
-	                }
-	            });
-	
-	            (0, _event.on)(self.otherInput, 'blur', function (e) {
-	                self.lastRadio.oldValue = self.lastRadio.value;
-	                self.lastRadio.value = this.value;
-	                self.otherComp.trigger('change');
-	            });
-	            (0, _event.on)(self.otherInput, 'click', function (e) {
-	                (0, _event.stopEvent)(e);
-	            });
-	        }
-	
-	        this.dataModel.ref(this.field).subscribe(function (value) {
-	            self.modelValueChange(value);
-	        });
-	    },
-	    setComboData: function setComboData(comboData) {
-	        var self = this;
-	        // this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len - 1; i++) {
-	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
-	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
-	            }
-	            //this.radioTemplate.clone().appendTo(this.element)
-	        }
-	
-	        var allRadio = this.element.querySelectorAll('[type=radio]');
-	        var allName = this.element.querySelectorAll('.u-radio-label');
-	        for (var k = 0; k < allRadio.length; k++) {
-	            allRadio[k].value = comboData[k].pk || comboData[k].value;
-	            allName[k].innerHTML = comboData[k].name;
-	        }
-	
-	        this.radioInputName = allRadio[0].name;
-	
-	        this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-	            var comp = new _neouiRadio.Radio(ele);
-	            ele['u.Radio'] = comp;
-	
-	            comp.on('change', function (event) {
-	                if (comp._btnElement.checked) {
-	                    self.dataModel.setValue(self.field, comp._btnElement.value);
-	                }
-	            });
-	        });
-	    },
-	
-	    modelValueChange: function modelValueChange(value) {
-	        if (this.slice) return;
-	        var fetch = false;
-	        if (this.dynamic) {
-	            this.trueValue = value;
-	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-	                var comp = ele['u.Radio'];
-	                var inptuValue = comp._btnElement.value;
-	                if (inptuValue && inptuValue == value) {
-	                    fetch = true;
-	                    comp._btnElement.click();
-	                }
-	            });
-	        } else {
-	            if (this.eleValue == value) {
-	                fetch = true;
-	                this.slice = true;
-	                this.comp._btnElement.click();
-	                this.slice = false;
-	            }
-	        }
-	        if (this.options.hasOther && !fetch && value) {
-	            this.lastRadio.checked = true;
-	            this.otherInput.value = value;
-	        }
-	    },
-	
-	    setEnable: function setEnable(enable) {
-	        this.enable = enable === true || enable === 'true';
-	        if (this.dynamic) {
-	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-	                var comp = ele['u.Radio'];
-	                if (enable === true || enable === 'true') {
-	                    comp.enable();
-	                } else {
-	                    comp.disable();
-	                }
-	            });
-	        } else {
-	            if (this.enable) {
-	                this.comp.enable();
-	            } else {
-	                this.comp.disable();
-	            }
-	        }
-	    }
-	});
-	
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: RadioAdapter,
-	    name: 'u-radio'
-	});
-	exports.RadioAdapter = RadioAdapter;
-
-/***/ },
-/* 63 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.Radio = undefined;
-	
-	var _BaseComponent = __webpack_require__(9);
-	
-	var _dom = __webpack_require__(13);
-	
-	var _env = __webpack_require__(11);
-	
-	var _event = __webpack_require__(10);
-	
-	var _ripple = __webpack_require__(14);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	/**
-	 * Module : neoui-radio
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-03 11:16:00
-	 */
-	
-	var Radio = _BaseComponent.BaseComponent.extend({
-	    Constant_: {
-	        TINY_TIMEOUT: 0.001
-	    },
-	
-	    _CssClasses: {
-	        IS_FOCUSED: 'is-focused',
-	        IS_DISABLED: 'is-disabled',
-	        IS_CHECKED: 'is-checked',
-	        IS_UPGRADED: 'is-upgraded',
-	        JS_RADIO: 'u-radio',
-	        RADIO_BTN: 'u-radio-button',
-	        RADIO_OUTER_CIRCLE: 'u-radio-outer-circle',
-	        RADIO_INNER_CIRCLE: 'u-radio-inner-circle'
-	    },
-	
-	    init: function init() {
-	        this._btnElement = this.element.querySelector('input');
-	
-	        this._boundChangeHandler = this._onChange.bind(this);
-	        this._boundFocusHandler = this._onChange.bind(this);
-	        this._boundBlurHandler = this._onBlur.bind(this);
-	        this._boundMouseUpHandler = this._onMouseup.bind(this);
-	
-	        var outerCircle = document.createElement('span');
-	        (0, _dom.addClass)(outerCircle, this._CssClasses.RADIO_OUTER_CIRCLE);
-	
-	        var innerCircle = document.createElement('span');
-	        (0, _dom.addClass)(innerCircle, this._CssClasses.RADIO_INNER_CIRCLE);
-	
-	        this.element.appendChild(outerCircle);
-	        this.element.appendChild(innerCircle);
-	
-	        var rippleContainer;
-	        //if (this.element.classList.contains( this._CssClasses.RIPPLE_EFFECT)) {
-	        //  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
-	        rippleContainer = document.createElement('span');
-	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CONTAINER);
-	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_EFFECT);
-	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CENTER);
-	        rippleContainer.addEventListener('mouseup', this._boundMouseUpHandler);
-	
-	        //var ripple = document.createElement('span');
-	        //ripple.classList.add(this._CssClasses.RIPPLE);
-	
-	        //rippleContainer.appendChild(ripple);
-	        this.element.appendChild(rippleContainer);
-	        new _ripple.URipple(rippleContainer);
-	        //}
-	
-	        this._btnElement.addEventListener('change', this._boundChangeHandler);
-	        this._btnElement.addEventListener('focus', this._boundFocusHandler);
-	        this._btnElement.addEventListener('blur', this._boundBlurHandler);
-	        this.element.addEventListener('mouseup', this._boundMouseUpHandler);
-	
-	        this._updateClasses();
-	        (0, _dom.addClass)(this.element, this._CssClasses.IS_UPGRADED);
-	    },
-	
-	    _onChange: function _onChange(event) {
-	        // Since other radio buttons don't get change events, we need to look for
-	        // them to update their classes.
-	        var radios = document.querySelectorAll('.' + this._CssClasses.JS_RADIO);
-	        for (var i = 0; i < radios.length; i++) {
-	            var button = radios[i].querySelector('.' + this._CssClasses.RADIO_BTN);
-	            // Different name == different group, so no point updating those.
-	            if (button.getAttribute('name') === this._btnElement.getAttribute('name')) {
-	                if (radios[i]['u.Radio']) {
-	                    radios[i]['u.Radio']._updateClasses();
-	                }
-	            }
-	        }
-	        this.trigger('change', { isChecked: this._btnElement.checked });
-	    },
-	
-	    /**
-	     * Handle focus.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _onFocus: function _onFocus(event) {
-	        (0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
-	    },
-	
-	    /**
-	     * Handle lost focus.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _onBlur: function _onBlur(event) {
-	        (0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
-	    },
-	
-	    /**
-	     * Handle mouseup.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _onMouseup: function _onMouseup(event) {
-	        this._blur();
-	    },
-	
-	    /**
-	     * Update classes.
-	     *
-	     * @private
-	     */
-	    _updateClasses: function _updateClasses() {
-	        this.checkDisabled();
-	        this.checkToggleState();
-	    },
-	
-	    /**
-	     * Add blur.
-	     *
-	     * @private
-	     */
-	    _blur: function _blur() {
-	
-	        // TODO: figure out why there's a focus event being fired after our blur,
-	        // so that we can avoid this hack.
-	        window.setTimeout(function () {
-	            this._btnElement.blur();
-	        }.bind(this), /** @type {number} */this.Constant_.TINY_TIMEOUT);
-	    },
-	
-	    // Public methods.
-	
-	    /**
-	     * Check the components disabled state.
-	     *
-	     * @public
-	     */
-	    checkDisabled: function checkDisabled() {
-	        if (this._btnElement.disabled) {
-	            (0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
-	        } else {
-	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
-	        }
-	    },
-	
-	    /**
-	     * Check the components toggled state.
-	     *
-	     * @public
-	     */
-	    checkToggleState: function checkToggleState() {
-	        if (this._btnElement.checked) {
-	            (0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
-	        } else {
-	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
-	        }
-	    },
-	
-	    /**
-	     * Disable radio.
-	     *
-	     * @public
-	     */
-	    disable: function disable() {
-	        this._btnElement.disabled = true;
-	        this._updateClasses();
-	    },
-	
-	    /**
-	     * Enable radio.
-	     *
-	     * @public
-	     */
-	    enable: function enable() {
-	        this._btnElement.disabled = false;
-	        this._updateClasses();
-	    },
-	
-	    /**
-	     * Check radio.
-	     *
-	     * @public
-	     */
-	    check: function check() {
-	        this._btnElement.checked = true;
-	        this._updateClasses();
-	    },
-	
-	    uncheck: function uncheck() {
-	        this._btnElement.checked = false;
-	        this._updateClasses();
-	    }
-	
-	});
-	
-	_compMgr.compMgr.regComp({
-	    comp: Radio,
-	    compAsString: 'u.Radio',
-	    css: 'u-radio'
+	    comp: DateTimePicker,
+	    compAsString: 'u.DateTimePicker',
+	    css: 'u-datepicker'
 	});
 	
 	if (document.readyState && document.readyState === 'complete') {
@@ -8781,629 +8052,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	}
 	
-	exports.Radio = Radio;
+	exports.DateTimePicker = DateTimePicker;
 
 /***/ },
-/* 64 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.SwitchAdapter = undefined;
-	
-	var _baseAdapter = __webpack_require__(3);
-	
-	var _neouiSwitch = __webpack_require__(65);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(options) {
-	        var self = this;
-	        SwitchAdapter.superclass.initialize.apply(this, arguments);
-	
-	        this.comp = new _neouiSwitch.Switch(this.element);
-	        this.element['u.Switch'] = this.comp;
-	        this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
-	        this.unCheckedValue = this.options["unCheckedValue"];
-	        this.comp.on('change', function (event) {
-	            if (self.slice) return;
-	            if (self.comp._inputElement.checked) {
-	                self.dataModel.setValue(self.field, self.checkedValue);
-	            } else {
-	                self.dataModel.setValue(self.field, self.unCheckedValue);
-	            }
-	        });
-	
-	        this.dataModel.ref(this.field).subscribe(function (value) {
-	            self.modelValueChange(value);
-	        });
-	    },
-	
-	    modelValueChange: function modelValueChange(val) {
-	        if (this.slice) return;
-	        if (this.comp._inputElement.checked != (val === this.checkedValue)) {
-	            this.slice = true;
-	            this.comp.toggle();
-	            this.slice = false;
-	        }
-	    },
-	    setEnable: function setEnable(enable) {
-	        if (enable === true || enable === 'true') {
-	            this.enable = true;
-	        } else if (enable === false || enable === 'false') {
-	            this.enable = false;
-	        }
-	    }
-	}); /**
-	     * Module : Kero switch adapter
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-10 10:42:15
-	     */
-	
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: SwitchAdapter,
-	    name: 'u-switch'
-	});
-	
-	exports.SwitchAdapter = SwitchAdapter;
-
-/***/ },
-/* 65 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Switch = undefined;
-	
-	var _BaseComponent = __webpack_require__(9);
-	
-	var _dom = __webpack_require__(13);
-	
-	var _event = __webpack_require__(10);
-	
-	var _ripple = __webpack_require__(14);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	var Switch = _BaseComponent.BaseComponent.extend({
-		_Constant: {
-			TINY_TIMEOUT: 0.001
-		},
-	
-		_CssClasses: {
-			INPUT: 'u-switch-input',
-			TRACK: 'u-switch-track',
-			THUMB: 'u-switch-thumb',
-			FOCUS_HELPER: 'u-switch-focus-helper',
-			IS_FOCUSED: 'is-focused',
-			IS_DISABLED: 'is-disabled',
-			IS_CHECKED: 'is-checked'
-		},
-	
-		init: function init() {
-			this._inputElement = this.element.querySelector('.' + this._CssClasses.INPUT);
-	
-			var track = document.createElement('div');
-			(0, _dom.addClass)(track, this._CssClasses.TRACK);
-	
-			var thumb = document.createElement('div');
-			(0, _dom.addClass)(thumb, this._CssClasses.THUMB);
-	
-			var focusHelper = document.createElement('span');
-			(0, _dom.addClass)(focusHelper, this._CssClasses.FOCUS_HELPER);
-	
-			thumb.appendChild(focusHelper);
-	
-			this.element.appendChild(track);
-			this.element.appendChild(thumb);
-	
-			this.boundMouseUpHandler = this._onMouseUp.bind(this);
-	
-			//if (this.element.classList.contains(this._CssClasses.RIPPLE_EFFECT)) {
-			//  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
-			this._rippleContainerElement = document.createElement('span');
-			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CONTAINER);
-			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_EFFECT);
-			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CENTER);
-			this._rippleContainerElement.addEventListener('mouseup', this.boundMouseUpHandler);
-	
-			//var ripple = document.createElement('span');
-			//ripple.classList.add(this._CssClasses.RIPPLE);
-	
-			//this._rippleContainerElement.appendChild(ripple);
-			this.element.appendChild(this._rippleContainerElement);
-			new _ripple.URipple(this._rippleContainerElement);
-			//}
-	
-			this.boundChangeHandler = this._onChange.bind(this);
-			this.boundFocusHandler = this._onFocus.bind(this);
-			this.boundBlurHandler = this._onBlur.bind(this);
-	
-			this._inputElement.addEventListener('change', this.boundChangeHandler);
-			this._inputElement.addEventListener('focus', this.boundFocusHandler);
-			this._inputElement.addEventListener('blur', this.boundBlurHandler);
-			this.element.addEventListener('mouseup', this.boundMouseUpHandler);
-	
-			this._updateClasses();
-			(0, _dom.addClass)(this.element, 'is-upgraded');
-		},
-	
-		_onChange: function _onChange(event) {
-			this._updateClasses();
-			this.trigger('change', {
-				isChecked: this._inputElement.checked
-			});
-		},
-	
-		_onFocus: function _onFocus(event) {
-			(0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
-		},
-	
-		_onBlur: function _onBlur(event) {
-			(0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
-		},
-	
-		_onMouseUp: function _onMouseUp(event) {
-			this._blur();
-		},
-	
-		_updateClasses: function _updateClasses() {
-			this.checkDisabled();
-			this.checkToggleState();
-		},
-	
-		_blur: function _blur() {
-			// TODO: figure out why there's a focus event being fired after our blur,
-			// so that we can avoid this hack.
-			window.setTimeout(function () {
-				this._inputElement.blur();
-			}.bind(this), /** @type {number} */this._Constant.TINY_TIMEOUT);
-		},
-	
-		// Public methods.
-	
-		checkDisabled: function checkDisabled() {
-			if (this._inputElement.disabled) {
-				(0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
-			} else {
-				(0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
-			}
-		},
-	
-		checkToggleState: function checkToggleState() {
-			if (this._inputElement.checked) {
-				(0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
-			} else {
-				(0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
-			}
-		},
-	
-		isChecked: function isChecked() {
-			//return hasClass(this.element,this._CssClasses.IS_CHECKED);
-			return this._inputElement.checked;
-		},
-	
-		toggle: function toggle() {
-			//return;
-			if (this.isChecked()) {
-				this.uncheck();
-			} else {
-				this.check();
-			}
-		},
-	
-		disable: function disable() {
-			this._inputElement.disabled = true;
-			this._updateClasses();
-		},
-	
-		enable: function enable() {
-			this._inputElement.disabled = false;
-			this._updateClasses();
-		},
-	
-		check: function check() {
-			this._inputElement.checked = true;
-			this._updateClasses();
-		},
-	
-		uncheck: function uncheck() {
-			this._inputElement.checked = false;
-			this._updateClasses();
-		}
-	
-	}); /**
-	     * Module : neoui-switch
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-03 13:39:55
-	     */
-	
-	_compMgr.compMgr.regComp({
-		comp: Switch,
-		compAsString: 'u.Switch',
-		css: 'u-switch'
-	});
-	
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-	
-	exports.Switch = Switch;
-
-/***/ },
-/* 66 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.TextAreaAdapter = undefined;
-	
-	var _baseAdapter = __webpack_require__(3);
-	
-	var _valueMixin = __webpack_require__(7);
-	
-	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
-	    init: function init() {
-	        var self = this;
-	        this.element = this.element.nodeName === 'TEXTAREA' ? this.element : this.element.querySelector('textarea');
-	        if (!this.element) {
-	            throw new Error('not found TEXTAREA element, u-meta:' + JSON.stringify(this.options));
-	        };
-	
-	        (0, _event.on)(this.element, 'focus', function () {
-	            self.setShowValue(self.getValue());
-	        });
-	        (0, _event.on)(this.element, 'blur', function () {
-	            self.setValue(self.element.value);
-	        });
-	    }
-	}); /**
-	     * Module : Kero textarea adapter
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-10 12:40:46
-	     */
-	
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: TextAreaAdapter,
-	    name: 'textarea'
-	});
-	
-	exports.TextAreaAdapter = TextAreaAdapter;
-
-/***/ },
-/* 67 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.TextFieldAdapter = undefined;
-	
-	var _baseAdapter = __webpack_require__(3);
-	
-	var _extend = __webpack_require__(1);
-	
-	var _neouiTextfield = __webpack_require__(18);
-	
-	var _float = __webpack_require__(47);
-	
-	var _string = __webpack_require__(57);
-	
-	var _integer = __webpack_require__(51);
-	
-	var _compMgr = __webpack_require__(12);
-	
-	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
-	    /**
-	     *
-	     * @param comp
-	     * @param options ：
-	     *      el: '#content',  对应的dom元素
-	     *      options: {},     配置
-	     *      model:{}        模型，包括数据和事件
-	     */
-	    initialize: function initialize(options) {
-	        TextFieldAdapter.superclass.initialize.apply(this, arguments);
-	        //this.comp = comp;
-	        //this.element = options['el'];
-	        //this.options = options['options'];
-	        //this.viewModel = options['model'];
-	        var dataType = this.dataModel.getMeta(this.field, 'type') || 'string';
-	        //var dataType = this.options['dataType'] || 'string';
-	
-	        this.comp = new _neouiTextfield.Text(this.element);
-	        this.element['u.Text'] = this.comp;
-	
-	        if (dataType === 'float') {
-	            this.trueAdpt = new _float.FloatAdapter(options);
-	        } else if (dataType === 'string') {
-	            this.trueAdpt = new _string.StringAdapter(options);
-	        } else if (dataType === 'integer') {
-	            this.trueAdpt = new _integer.IntegerAdapter(options);
-	        } else {
-	            throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" + this.field + "'");
-	        }
-	        (0, _extend.extend)(this, this.trueAdpt);
-	
-	        this.trueAdpt.comp = this.comp;
-	        this.trueAdpt.setShowValue = function (showValue) {
-	            this.showValue = showValue;
-	            //if (this.comp.compType === 'text')
-	            this.comp.change(showValue);
-	            this.element.title = showValue;
-	        };
-	        return this.trueAdpt;
-	    }
-	}); /**
-	     * Module : Kero textfield adapter
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-10 13:00:27
-	     */
-	
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: TextFieldAdapter,
-	    name: 'u-text'
-	    //dataType: 'float'
-	});
-	
-	exports.TextFieldAdapter = TextFieldAdapter;
-
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.UrlAdapter = undefined;
-	
-	var _string = __webpack_require__(57);
-	
-	var _dom = __webpack_require__(13);
-	
-	/**
-	 * Module : Kero url adapter
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 13:51:26
-	 */
-	var UrlAdapter = _string.StringAdapter.extend({
-	    init: function init() {
-	        UrlAdapter.superclass.init.apply(this);
-	        this.validType = 'url';
-	
-	        /*
-	         * 因为需要输入，因此不显示为超链接
-	         */
-	    },
-	    // 如果enable为false则显示<a>标签
-	    setEnable: function setEnable(enable) {
-	        if (enable === true || enable === 'true') {
-	            this.enable = true;
-	            this.element.removeAttribute('readonly');
-	            (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
-	            if (this.aDom) {
-	                this.aDom.style.display = 'none';
-	            }
-	        } else if (enable === false || enable === 'false') {
-	            this.enable = false;
-	            this.element.setAttribute('readonly', 'readonly');
-	            (0, _dom.addClass)(this.element.parentNode, 'disablecover');
-	            if (!this.aDom) {
-	                this.aDom = (0, _dom.makeDOM)('<div style="position:absolute;background:#fff;z-index:999;"><a href="' + this.trueValue + '" target="_blank" style="position:absolue;">' + this.trueValue + '</a></div>');
-	                var left = this.element.offsetLeft;
-	                var width = this.element.offsetWidth;
-	                var top = this.element.offsetTop;
-	                var height = this.element.offsetHeight;
-	                this.aDom.style.left = left + 'px';
-	                this.aDom.style.width = width + 'px';
-	                this.aDom.style.top = top + 'px';
-	                this.aDom.style.height = height + 'px';
-	                this.element.parentNode.appendChild(this.aDom);
-	            }
-	            var $a = $(this.aDom).find('a');
-	            $a.href = this.trueValue;
-	            $a.innerHTML = this.trueValue;
-	            this.aDom.style.display = 'block';
-	        }
-	    }
-	});
-	compMgr.addDataAdapter({
-	    adapter: UrlAdapter,
-	    name: 'url'
-	});
-	exports.UrlAdapter = UrlAdapter;
-
-/***/ },
-/* 69 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.EnableMixin = undefined;
-	
-	var _dom = __webpack_require__(13);
-	
-	var EnableMixin = {
-	    init: function init() {
-	        var self = this;
-	        //处理只读
-	        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)) {
-	            this.setEnable(false);
-	        } else {
-	            this.dataModel.refEnable(this.field).subscribe(function (value) {
-	                self.setEnable(value);
-	            });
-	            this.setEnable(this.dataModel.isEnable(this.field));
-	        }
-	    },
-	    methods: {
-	        setEnable: function setEnable(enable) {
-	            if (enable === true || enable === 'true') {
-	                this.enable = true;
-	                this.element.removeAttribute('readonly');
-	                (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
-	            } else if (enable === false || enable === 'false') {
-	                this.enable = false;
-	                this.element.setAttribute('readonly', 'readonly');
-	                (0, _dom.addClass)(this.element.parentNode, 'disablecover');
-	            }
-	        }
-	    }
-	}; /**
-	    * Module : Kero Enable Mixin
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-08 16:32:54
-	    */
-	exports.EnableMixin = EnableMixin;
-
-/***/ },
-/* 70 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : Kero Enable Mixin
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-08 16:32:54
-	 */
-	
-	var RequiredMixin = {
-	    init: function init() {
-	        var self = this;
-	        this.required = this.getOption('required');
-	        this.dataModel.refRowMeta(this.field, "required").subscribe(function (value) {
-	            self.setRequired(value);
-	        });
-	        //this.setRequired(this.dataModel.getMeta(this.field, "required"));
-	    },
-	    methods: {
-	        setRequired: function setRequired(required) {
-	            if (required === true || required === 'true') {
-	                this.required = true;
-	            } else if (required === false || required === 'false') {
-	                this.required = false;
-	            }
-	        }
-	    }
-	};
-	
-	exports.RequiredMixin = RequiredMixin;
-
-/***/ },
-/* 71 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.ValidateMixin = undefined;
-	
-	var _neouiValidate = __webpack_require__(72);
-	
-	var ValidateMixin = {
-	    init: function init() {
-	        this.placement = this.getOption('placement');
-	        this.tipId = this.getOption('tipId');
-	        this.tipAliveTime = this.getOption('tipAliveTime');
-	        this.errorMsg = this.getOption('errorMsg');
-	        this.nullMsg = this.getOption('nullMsg');
-	        this.regExp = this.getOption('regExp');
-	        this.successId = this.getOption('successId');
-	        this.hasSuccess = this.getOption('hasSuccess');
-	        this.notipFlag = this.getOption('notipFlag');
-	
-	        // if (this.validType) {
-	        this.validate = new _neouiValidate.Validate({
-	            el: this.element,
-	            single: true,
-	            validMode: 'manually',
-	            required: this.required,
-	            validType: this.validType,
-	            placement: this.placement,
-	            tipId: this.tipId,
-	            tipAliveTime: this.tipAliveTime,
-	            successId: this.successId,
-	            notipFlag: this.notipFlag,
-	            hasSuccess: this.hasSuccess,
-	            errorMsg: this.errorMsg,
-	            nullMsg: this.nullMsg,
-	            maxLength: this.maxLength,
-	            minLength: this.minLength,
-	            max: this.max,
-	            min: this.min,
-	            maxNotEq: this.maxNotEq,
-	            minNotEq: this.minNotEq,
-	            reg: this.regExp
-	        });
-	        // };
-	    },
-	    methods: {
-	        /**
-	         *校验
-	         */
-	        doValidate: function doValidate(options) {
-	            if (this.validate) {
-	                if (options && options['trueValue'] === true) {
-	                    options['showMsg'] = options['showMsg'] || false;
-	                    var result = this.validate.check({ pValue: this.getValue(), showMsg: options['showMsg'] });
-	                } else {
-	                    var result = this.validate.check();
-	                }
-	                result.comp = this;
-	                return result;
-	            } else {
-	                return { passed: true, comp: this };
-	            }
-	        },
-	        /**
-	         * 是否需要清除数据
-	         */
-	        _needClean: function _needClean() {
-	            if (this.validate) return this.validate._needClean();else return false;
-	        }
-	    }
-	}; /**
-	    * Module : Kero Validate Mixin
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-10 14:53:43
-	    */
-	exports.ValidateMixin = ValidateMixin;
-
-/***/ },
-/* 72 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9430,9 +8082,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _util = __webpack_require__(5);
 	
-	var _neouiTooltip = __webpack_require__(73);
+	var _neouiTooltip = __webpack_require__(54);
 	
-	var _i18n = __webpack_require__(74);
+	var _i18n = __webpack_require__(55);
 	
 	var _compMgr = __webpack_require__(12);
 	
@@ -9951,7 +8603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.doValidate = doValidate;
 
 /***/ },
-/* 73 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10249,7 +8901,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Tooltip = Tooltip;
 
 /***/ },
-/* 74 */
+/* 55 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10269,6 +8921,4555 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	exports.trans = trans;
+
+/***/ },
+/* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.IntegerAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _valueMixin = __webpack_require__(7);
+	
+	var _util = __webpack_require__(5);
+	
+	var _event = __webpack_require__(10);
+	
+	var _env = __webpack_require__(11);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var IntegerAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
+	        if (!this.element) {
+	            throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
+	        };
+	        this.validType = this.options['validType'] || 'integer';
+	        this.max = this.options['max'];
+	        this.min = this.options['min'];
+	        this.maxNotEq = this.options['maxNotEq'];
+	        this.minNotEq = this.options['minNotEq'];
+	        this.maxLength = this.options['maxLength'] ? options['maxLength'] : 25;
+	        this.minLength = this.options['mixLength'] ? options['mixLength'] : 0;
+	        if (this.dataModel) {
+	            this.min = this.dataModel.getMeta(this.field, "min") !== undefined ? this.dataModel.getMeta(this.field, "min") : this.min;
+	            this.max = this.dataModel.getMeta(this.field, "max") !== undefined ? this.dataModel.getMeta(this.field, "max") : this.max;
+	            this.minNotEq = this.dataModel.getMeta(this.field, "minNotEq") !== undefined ? this.dataModel.getMeta(this.field, "minNotEq") : this.minNotEq;
+	            this.maxNotEq = this.dataModel.getMeta(this.field, "maxNotEq") !== undefined ? this.dataModel.getMeta(this.field, "maxNotEq") : this.maxNotEq;
+	            this.minLength = (0, _util.isNumber)(this.dataModel.getMeta(this.field, "minLength")) ? this.dataModel.getMeta(this.field, "minLength") : this.minLength;
+	            this.maxLength = (0, _util.isNumber)(this.dataModel.getMeta(this.field, "maxLength")) ? this.dataModel.getMeta(this.field, "maxLength") : this.maxLength;
+	        }
+	        (0, _event.on)(this.element, 'focus', function () {
+	            if (self.enable) {
+	                self.setShowValue(self.getValue());
+	                try {
+	                    var e = event.srcElement;
+	                    var r = e.createTextRange();
+	                    r.moveStart('character', e.value.length);
+	                    r.collapse(true);
+	                    r.select();
+	                } catch (e) {}
+	            }
+	        });
+	
+	        (0, _event.on)(this.element, 'blur', function () {
+	            if (self.enable) {
+	                if (!self.doValidate() && self._needClean()) {
+	                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+	                        // 因必输项清空导致检验没通过的情况
+	                        self.setValue('');
+	                    } else {
+	                        self.element.value = self.getShowValue();
+	                    }
+	                } else self.setValue(self.element.value);
+	            }
+	        });
+	    }
+	}); /**
+	     * Module : Kero integer
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 18:29:59
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: IntegerAdapter,
+	    name: 'integer'
+	});
+	
+	exports.IntegerAdapter = IntegerAdapter;
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.MonthAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _neouiMonth = __webpack_require__(58);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var MonthAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(comp, options) {
+	        var self = this;
+	        MonthAdapter.superclass.initialize.apply(this, arguments);
+	        this.validType = 'month';
+	
+	        this.comp = new _neouiMonth.Month(this.element);
+	
+	        this.comp.on('valueChange', function (event) {
+	            self.slice = true;
+	            self.dataModel.setValue(self.field, event.value);
+	            self.slice = false;
+	            //self.setValue(event.value);
+	        });
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	    modelValueChange: function modelValueChange(value) {
+	        if (this.slice) return;
+	        this.comp.setValue(value);
+	    },
+	    setEnable: function setEnable(enable) {}
+	}); /**
+	     * Module : Kero month
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 18:46:30
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: MonthAdapter,
+	    name: 'u-month'
+	});
+	
+	exports.MonthAdapter = MonthAdapter;
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Month = undefined;
+	
+	var _BaseComponent = __webpack_require__(9);
+	
+	var _event = __webpack_require__(10);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _extend = __webpack_require__(1);
+	
+	/**
+	 * Module : neoui-month
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-11 15:17:07
+	 */
+	var Month = _BaseComponent.BaseComponent.extend({
+		DEFAULTS: {},
+		init: function init() {
+			var self = this;
+			var element = this.element;
+			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
+			this.panelDiv = null;
+			this.input = this.element.querySelector("input");
+	
+			var d = new Date();
+			this.month = d.getMonth() + 1;
+			this.defaultMonth = this.month;
+	
+			(0, _event.on)(this.input, 'blur', function (e) {
+				self._inputFocus = false;
+				this.setValue(this.input.value);
+			}.bind(this));
+	
+			// 添加focus事件
+			this.focusEvent();
+			// 添加右侧图标click事件
+			this.clickEvent();
+		},
+	
+		createPanel: function createPanel() {
+			if (this.panelDiv) {
+				this._fillMonth();
+				return;
+			}
+			var oThis = this;
+			this.panelDiv = (0, _dom.makeDOM)('<div class="u-date-panel" style="margin:0px;"></div>');
+			this.panelContentDiv = (0, _dom.makeDOM)('<div class="u-date-content"></div>');
+			this.panelDiv.appendChild(this.panelContentDiv);
+	
+			this.preBtn = (0, _dom.makeDOM)('<button class="u-date-pre-button u-button flat floating mini" style="display:none;">&lt;</button>');
+			this.nextBtn = (0, _dom.makeDOM)('<button class="u-date-next-button u-button flat floating mini" style="display:none;">&gt;</button>');
+	
+			(0, _event.on)(this.preBtn, 'click', function (e) {
+				oThis.startYear -= 10;
+				oThis._fillYear();
+			});
+			(0, _event.on)(this.nextBtn, 'click', function (e) {
+				oThis.startYear += 10;
+				oThis._fillYear();
+			});
+			this.panelContentDiv.appendChild(this.preBtn);
+			this.panelContentDiv.appendChild(this.nextBtn);
+			this._fillMonth();
+		},
+	
+		/**
+	  * 填充月份选择面板
+	  * @private
+	  */
+		_fillMonth: function _fillMonth() {
+			var oldPanel, template, monthPage, _month, cells, i;
+			oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
+			if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
+			_month = this.month;
+			template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
+	
+			monthPage = (0, _dom.makeDOM)(template);
+			cells = monthPage.querySelectorAll('.u-date-content-year-cell');
+			for (i = 0; i < cells.length; i++) {
+				if (_month == i + 1) {
+					(0, _dom.addClass)(cells[i], 'current');
+				}
+				cells[i]._value = i + 1;
+				new URipple(cells[i]);
+			}
+			(0, _event.on)(monthPage, 'click', function (e) {
+				var _m = e.target._value;
+				this.month = _m;
+				monthPage.querySelector('.u-date-content-title').innerHTML = _m + '月';
+				this.setValue(_m);
+				this.hide();
+			}.bind(this));
+	
+			this.preBtn.style.display = 'none';
+			this.nextBtn.style.display = 'none';
+			this.panelContentDiv.appendChild(monthPage);
+			this.currentPanel = 'month';
+		},
+	
+		setValue: function setValue(value) {
+			value = value ? value : '';
+			this.value = value;
+			if (value) {
+				this.month = value;
+			} else {
+				this.month = this.defaultMonth;
+			}
+			this.input.value = value;
+			this.trigger('valueChange', { value: value });
+		},
+	
+		focusEvent: function focusEvent() {
+			var self = this;
+			(0, _event.on)(this.input, 'focus', function (e) {
+				self._inputFocus = true;
+				self.show(e);
+	
+				if (e.stopPropagation) {
+					e.stopPropagation();
+				} else {
+					e.cancelBubble = true;
+				}
+			});
+		},
+	
+		//下拉图标的点击事件
+		clickEvent: function clickEvent() {
+			var self = this;
+			var caret = this.element.nextSibling;
+			(0, _event.on)(caret, 'click', function (e) {
+				self.input.focus();
+				(0, _event.stopEvent)(e);
+			});
+		},
+	
+		show: function show(evt) {
+			var oThis = this;
+			this.createPanel();
+	
+			this.width = this.element.offsetWidth;
+			if (this.width < 300) this.width = 300;
+			if (this.options.showFix) {
+				document.body.appendChild(this.panelDiv);
+				this.panelDiv.style.position = 'fixed';
+				(0, _dom.showPanelByEle)({
+					ele: this.input,
+					panel: this.panelDiv,
+					position: "bottomLeft"
+				});
+			} else {
+				var bodyWidth = document.body.clientWidth,
+				    bodyHeight = document.body.clientHeight,
+				    panelWidth = this.panelDiv.offsetWidth,
+				    panelHeight = this.panelDiv.offsetHeight;
+	
+				this.element.appendChild(this.panelDiv);
+				this.element.style.position = 'relative';
+				this.left = this.input.offsetLeft;
+				var inputHeight = this.input.offsetHeight;
+				this.top = this.input.offsetTop + inputHeight;
+	
+				if (this.left + panelWidth > bodyWidth) {
+					this.left = bodyWidth - panelWidth;
+				}
+	
+				if (this.top + panelHeight > bodyHeight) {
+					this.top = bodyHeight - panelHeight;
+				}
+	
+				this.panelDiv.style.left = this.left + 'px';
+				this.panelDiv.style.top = this.top + 'px';
+			}
+	
+			this.panelDiv.style.width = 152 + 'px';
+			this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
+			(0, _dom.addClass)(this.panelDiv, 'is-visible');
+	
+			var callback = function (e) {
+				if (e !== evt && e.target !== this.input && !oThis.clickPanel(e.target) && self._inputFocus != true) {
+					(0, _event.off)(document, 'click', callback);
+					// document.removeEventListener('click', callback);
+					this.hide();
+				}
+			}.bind(this);
+			(0, _event.on)(document, 'click', callback);
+		},
+	
+		clickPanel: function clickPanel(dom) {
+			while (dom) {
+				if (dom == this.panelDiv) {
+					return true;
+				} else {
+					dom = dom.parentNode;
+				}
+			}
+			return false;
+		},
+	
+		hide: function hide() {
+			(0, _dom.removeClass)(this.panelDiv, 'is-visible');
+			this.panelDiv.style.zIndex = -1;
+		}
+	});
+	
+	compMgr.regComp({
+		comp: Month,
+		compAsString: 'u.Month',
+		css: 'u-month'
+	});
+	if (document.readyState && document.readyState === 'complete') {
+		compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			compMgr.updateComp();
+		});
+	}
+	exports.Month = Month;
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.NativeCheckAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _valueMixin = __webpack_require__(7);
+	
+	var _util = __webpack_require__(5);
+	
+	var _event = __webpack_require__(10);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * Module : Kero native-checkbox
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-09 18:55:51
+	 */
+	
+	var NativeCheckAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin],
+	    init: function init() {
+	        var self = this;
+	        this.isGroup = false;
+	        //如果存在datasource，动态创建checkbox
+	        if (this.options['datasource']) {
+	            this.isGroup = true;
+	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
+	
+	            this.checkboxTemplateArray = [];
+	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
+	                this.checkboxTemplateArray.push(this.element.childNodes[i]);
+	            }
+	            this.setComboData(datasource);
+	        } else {
+	            this.checkedValue = this.options['checkedValue'] || 'Y';
+	            this.unCheckedValue = this.options["unCheckedValue"] || 'N';
+	            (0, _event.on)(this.element, 'click', function () {
+	                if (this.checked) {
+	                    self.dataModel.setValue(self.field, self.checkedValue);
+	                } else {
+	                    self.dataModel.setValue(self.field, self.unCheckedValue);
+	                }
+	            });
+	        }
+	    },
+	    setComboData: function setComboData(comboData) {
+	        var self = this;
+	        this.element.innerHTML = '';
+	        for (var i = 0, len = comboData.length; i < len; i++) {
+	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
+	                try {
+	                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode());
+	                } catch (e) {}
+	            }
+	            //this.radioTemplate.clone().appendTo(this.element)
+	        }
+	
+	        var allCheck = this.element.querySelectorAll('[type=checkbox]');
+	        var allName = this.element.querySelectorAll('[data-role=name]');
+	        for (var k = 0; k < allCheck.length; k++) {
+	            allCheck[k].value = comboData[k].pk || comboData[k].value;
+	            allName[k].innerHTML = comboData[k].name;
+	        }
+	
+	        this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
+	            (0, _event.on)(ele, 'click', function () {
+	                var modelValue = self.dataModel.getValue(self.field);
+	
+	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
+	
+	                if (this.checked) {
+	                    valueArr.push(this.value);
+	                } else {
+	                    var index = valueArr.indexOf(this.value);
+	                    valueArr.splice(index, 1);
+	                }
+	                self.slice = true;
+	                self.dataModel.setValue(self.field, valueArr.join(','));
+	                self.slice = false;
+	            });
+	        });
+	    },
+	    modelValueChange: function modelValueChange(val) {
+	        if (this.slice) return;
+	        if (this.isGroup) {
+	            this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
+	                if (ele.checked != (val + ',').indexOf(ele.value) > -1) {
+	                    this.slice = true;
+	                    ele.checked = !ele.checked;
+	                    this.slice = false;
+	                }
+	            });
+	        } else {
+	            if (this.element.checked != (val === this.checkedValue)) {
+	                this.slice = true;
+	                this.element.checked = !this.element.checked;
+	                this.slice = false;
+	            }
+	        }
+	    },
+	    setValue: function setValue(value) {
+	        this.trueValue = value;
+	        this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
+	            if (ele.value == value) {
+	                ele.checked = true;
+	            } else {
+	                ele.checked = false;
+	            }
+	        });
+	        this.slice = true;
+	        this.dataModel.setValue(this.field, this.trueValue);
+	        this.slice = false;
+	    },
+	    getValue: function getValue() {
+	        return this.trueValue;
+	    }
+	
+	});
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: NativeCheckAdapter,
+	    name: 'checkbox'
+	});
+	exports.NativeCheckAdapter = NativeCheckAdapter;
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.NativeRadioAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _valueMixin = __webpack_require__(7);
+	
+	var _util = __webpack_require__(5);
+	
+	var _event = __webpack_require__(10);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * Module : Kero native-radio
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-09 19:03:30
+	 */
+	
+	var NativeRadioAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin],
+	    init: function init() {
+	        this.isDynamic = false;
+	        //如果存在datasource，动态创建radio
+	        if (this.options['datasource']) {
+	            this.isDynamic = true;
+	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
+	            //if(!u.isArray(datasource)) return;
+	
+	            this.radioTemplateArray = [];
+	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
+	                this.radioTemplateArray.push(this.element.childNodes[i]);
+	            }
+	            this.setComboData(datasource);
+	        } else {}
+	    },
+	    setComboData: function setComboData(comboData) {
+	        var self = this;
+	        //if(!this.radioTemplate.is(":radio")) return;
+	        this.element.innerHTML = '';
+	        for (var i = 0, len = comboData.length; i < len; i++) {
+	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
+	                try {
+	                    this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+	                } catch (e) {}
+	            }
+	            //this.radioTemplate.clone().appendTo(this.element)
+	        }
+	
+	        var allRadio = this.element.querySelectorAll('[type=radio]');
+	        var allName = this.element.querySelectorAll('[data-role=name]');
+	        for (var k = 0; k < allRadio.length; k++) {
+	            allRadio[k].value = comboData[k].pk || comboData[k].value;
+	            allName[k].innerHTML = comboData[k].name;
+	        }
+	
+	        this.radioInputName = allRadio[0].name;
+	
+	        this.element.querySelectorAll('[type=radio][name="' + this.radioInputName + '"]').forEach(function (ele) {
+	            (0, _event.on)(ele, 'click', function () {
+	                if (this.checked) {
+	                    self.setValue(this.value);
+	                }
+	            });
+	        });
+	    },
+	    modelValueChange: function modelValueChange(value) {
+	        if (this.slice) return;
+	        this.setValue(value);
+	    },
+	    setValue: function setValue(value) {
+	        this.trueValue = value;
+	        this.element.querySelectorAll('[type=radio][name="' + this.radioInputName + '"]').forEach(function (ele) {
+	            if (ele.value == value) {
+	                ele.checked = true;
+	            } else {
+	                ele.checked = false;
+	            }
+	        });
+	        this.slice = true;
+	        this.dataModel.setValue(this.field, this.trueValue);
+	        this.slice = false;
+	    },
+	    getValue: function getValue() {
+	        return this.trueValue;
+	    }
+	
+	});
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: NativeRadioAdapter,
+	    name: 'radio'
+	});
+	exports.NativeRadioAdapter = NativeRadioAdapter;
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.PaginationAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _extend = __webpack_require__(1);
+	
+	var _neouiPagination = __webpack_require__(62);
+	
+	var _util = __webpack_require__(5);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var PaginationAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(comp, options) {
+	        var self = this;
+	        PaginationAdapter.superclass.initialize.apply(this, arguments);
+	
+	        //var Pagination = function(element, options, viewModel) {
+	
+	        if (!this.dataModel.pageSize() && this.options.pageSize) this.dataModel.pageSize(this.options.pageSize);
+	        this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
+	        //this.$element.pagination(options);
+	        //this.comp = this.$element.data('u.pagination');
+	        var options = (0, _extend.extend)({}, { el: this.element, jumppage: true }, this.options);
+	        this.comp = new _neouiPagination.pagination(options);
+	        this.element['u.pagination'] = this.comp;
+	        this.comp.dataModel = this.dataModel;
+	        this.pageChange = (0, _util.getFunction)(this.viewModel, this.options['pageChange']);
+	        this.sizeChange = (0, _util.getFunction)(this.viewModel, this.options['sizeChange']);
+	
+	        this.comp.on('pageChange', function (pageIndex) {
+	            if (typeof self.pageChange == 'function') {
+	                self.pageChange(pageIndex);
+	            } else {
+	                self.defaultPageChange(pageIndex);
+	            }
+	        });
+	        this.comp.on('sizeChange', function (size, pageIndex) {
+	            if (typeof self.sizeChange == 'function') {
+	                self.sizeChange(size, pageIndex);
+	            } else {
+	                self.defaultSizeChange(size, pageIndex);
+	                // showMessage({msg:"没有注册sizeChange事件"});
+	            }
+	        });
+	
+	        this.dataModel.totalPages.subscribe(function (value) {
+	            self.comp.update({ totalPages: value });
+	        });
+	
+	        this.dataModel.pageSize.subscribe(function (value) {
+	            self.comp.update({ pageSize: value });
+	        });
+	
+	        this.dataModel.pageIndex.subscribe(function (value) {
+	            self.comp.update({ currentPage: value + 1 });
+	        });
+	
+	        this.dataModel.totalRow.subscribe(function (value) {
+	            self.comp.update({ totalCount: value });
+	        });
+	
+	        if (this.comp.options.pageList.length > 0) {
+	            this.comp.options.pageSize = this.comp.options.pageList[0];
+	            ///this.comp.trigger('sizeChange', options.pageList[0])
+	            this.dataModel.pageSize(this.comp.options.pageList[0]);
+	        }
+	
+	        // 如果datatable已经创建则根据datatable设置分页组件
+	        // self.comp.update({totalPages: this.dataModel.totalPages()})
+	        // self.comp.update({pageSize: this.dataModel.pageSize()})
+	        // self.comp.update({currentPage: this.dataModel.pageIndex() + 1})
+	        // self.comp.update({totalCount: this.dataModel.totalRow()})
+	        self.comp.update({ totalPages: this.dataModel.totalPages(), pageSize: this.dataModel.pageSize(), currentPage: this.dataModel.pageIndex() + 1, totalCount: this.dataModel.totalRow() });
+	    },
+	
+	    defaultPageChange: function defaultPageChange(pageIndex) {
+	        if (this.dataModel.hasPage(pageIndex)) {
+	            this.dataModel.setCurrentPage(pageIndex);
+	        } else {}
+	    },
+	
+	    defaultSizeChange: function defaultSizeChange(size, pageIndex) {
+	        this.dataModel.pageSize(size);
+	    },
+	
+	    disableChangeSize: function disableChangeSize() {
+	        this.comp.disableChangeSize();
+	    },
+	
+	    enableChangeSize: function enableChangeSize() {
+	        this.comp.enableChangeSize();
+	    }
+	}); /**
+	     * Module : Kero pagination
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 19:09:39
+	     */
+	
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: PaginationAdapter,
+	    name: 'pagination'
+	});
+	
+	exports.PaginationAdapter = PaginationAdapter;
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.pagination = undefined;
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : neoui-pagination
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-03 08:45:49
+	                                                                                                                                                                                                                                                   */
+	
+	var _BaseComponent = __webpack_require__(9);
+	
+	var _extend = __webpack_require__(1);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _util = __webpack_require__(5);
+	
+	var _event = __webpack_require__(10);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var pagination = _BaseComponent.BaseComponent.extend({});
+	
+	var PageProxy = function PageProxy(options, page) {
+		this.isCurrent = function () {
+			return page == options.currentPage;
+		};
+	
+		this.isFirst = function () {
+			return page == 1;
+		};
+	
+		this.isLast = function () {
+			return page == options.totalPages;
+		};
+	
+		this.isPrev = function () {
+			return page == options.currentPage - 1;
+		};
+	
+		this.isNext = function () {
+			return page == options.currentPage + 1;
+		};
+	
+		this.isLeftOuter = function () {
+			return page <= options.outerWindow;
+		};
+	
+		this.isRightOuter = function () {
+			return options.totalPages - page < options.outerWindow;
+		};
+	
+		this.isInsideWindow = function () {
+			if (options.currentPage < options.innerWindow + 1) {
+				return page <= options.innerWindow * 2 + 1;
+			} else if (options.currentPage > options.totalPages - options.innerWindow) {
+				return options.totalPages - page <= options.innerWindow * 2;
+			} else {
+				return Math.abs(options.currentPage - page) <= options.innerWindow;
+			}
+		};
+	
+		this.number = function () {
+			return page;
+		};
+		this.pageSize = function () {
+			return options.pageSize;
+		};
+	};
+	
+	var View = {
+		firstPage: function firstPage(pagin, options, currentPageProxy) {
+			return '<li role="first"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a >' + options.first + '</a></li>';
+		},
+	
+		prevPage: function prevPage(pagin, options, currentPageProxy) {
+			return '<li role="prev"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a  rel="prev">' + options.prev + '</a></li>';
+		},
+	
+		nextPage: function nextPage(pagin, options, currentPageProxy) {
+			return '<li role="next"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a  rel="next">' + options.next + '</a></li>';
+		},
+	
+		lastPage: function lastPage(pagin, options, currentPageProxy) {
+	
+			return '<li role="last"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a >' + options.last + '</a></li>';
+		},
+	
+		gap: function gap(pagin, options) {
+			return '<li role="gap" class="disabled"><a href="#">' + options.gap + '</a></li>';
+		},
+	
+		page: function page(pagin, options, pageProxy) {
+			return '<li role="page"' + (pageProxy.isCurrent() ? 'class="active"' : '') + '><a ' + (pageProxy.isNext() ? ' rel="next"' : '') + (pageProxy.isPrev() ? 'rel="prev"' : '') + '>' + pageProxy.number() + '</a></li>';
+		}
+	
+	};
+	
+	//pagination.prototype.compType = 'pagination';
+	pagination.prototype.init = function (element, options) {
+		var self = this;
+		var element = this.element;
+		this.$element = element;
+		this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
+		this.$ul = this.$element; //.find("ul");
+		this.render();
+	};
+	
+	pagination.prototype.DEFAULTS = {
+		currentPage: 1,
+		totalPages: 1,
+		pageSize: 10,
+		pageList: [5, 10, 20, 50, 100],
+		innerWindow: 2,
+		outerWindow: 0,
+		first: '&laquo;',
+		prev: '<i class="uf uf-anglepointingtoleft"></i>',
+		next: '<i class="uf uf-anglearrowpointingtoright"></i>',
+		last: '&raquo;',
+		gap: '···',
+		//totalText: '合计:',
+		totalText: '共',
+		truncate: false,
+		showState: true,
+		page: function page(_page) {
+			return true;
+		}
+	};
+	
+	pagination.prototype.update = function (options) {
+		this.$ul.innerHTML = "";
+		this.options = (0, _extend.extend)({}, this.options, options);
+		this.render();
+	};
+	pagination.prototype.render = function () {
+		var a = new Date().valueOf();
+	
+		var options = this.options;
+	
+		if (!options.totalPages) {
+			this.$element.style.display = "none";
+			return;
+		} else {
+			this.$element.style.display = "block";
+		}
+	
+		var htmlArr = [];
+		var currentPageProxy = new PageProxy(options, options.currentPage);
+	
+		//update pagination by pengyic@yonyou.com
+		//预设显示页码数
+		var windows = 2;
+		var total = options.totalPages - 0;
+		var current = options.currentPage - 0;
+		//预设显示页码数截断修正
+		var fix = 0;
+		var pageProxy;
+		if (current - 2 <= windows + 1) {
+			for (var i = 1; i <= current; i++) {
+				pageProxy = new PageProxy(options, i);
+				htmlArr.push(View.page(this, options, pageProxy));
+			}
+	
+			fix = windows - (current - 1) < 0 ? 0 : windows - (current - 1);
+	
+			if (total - current - fix <= windows + 1) {
+				for (var i = current + 1; i <= total; i++) {
+					pageProxy = new PageProxy(options, i);
+					htmlArr.push(View.page(this, options, pageProxy));
+				}
+			} else {
+				for (var i = current + 1; i <= current + windows + fix; i++) {
+					pageProxy = new PageProxy(options, i);
+					htmlArr.push(View.page(this, options, pageProxy));
+				}
+				//添加分割'...'
+				htmlArr.push(View.gap(this, options));
+	
+				pageProxy = new PageProxy(options, total);
+				htmlArr.push(View.page(this, options, pageProxy));
+			}
+		} else {
+			if (total - current <= windows + 1) {
+				fix = windows - (total - current) < 0 ? 0 : windows - (total - current);
+	
+				for (var i = current - windows - fix; i <= total; i++) {
+					pageProxy = new PageProxy(options, i);
+					htmlArr.push(View.page(this, options, pageProxy));
+				}
+				if (i >= 2) {
+					//添加分割'...'
+					htmlArr.unshift(View.gap(this, options));
+					pageProxy = new PageProxy(options, 1);
+					htmlArr.unshift(View.page(this, options, pageProxy));
+				}
+			} else {
+				for (var i = current - windows; i <= current + windows; i++) {
+					pageProxy = new PageProxy(options, i);
+					htmlArr.push(View.page(this, options, pageProxy));
+				}
+				//添加分割'...'
+				htmlArr.push(View.gap(this, options));
+	
+				pageProxy = new PageProxy(options, total);
+				htmlArr.push(View.page(this, options, pageProxy));
+	
+				//添加分割'...'
+				htmlArr.unshift(View.gap(this, options));
+				pageProxy = new PageProxy(options, 1);
+				htmlArr.unshift(View.page(this, options, pageProxy));
+			}
+		}
+		htmlArr.unshift(View.prevPage(this, options, currentPageProxy));
+		htmlArr.push(View.nextPage(this, options, currentPageProxy));
+		/*
+	 if (!currentPageProxy.isFirst() || !options.truncate) {
+	 		if (options.first) {
+	 		htmlArr.push(View.firstPage(this, options, currentPageProxy))
+	 	}
+	 	if (options.prev) {
+	 		htmlArr.push(View.prevPage(this, options, currentPageProxy));
+	 	}
+	 }
+	 
+	 var wasTruncated = false;
+	 	for (var i = 1, length = options.totalPages; i <= length; i++) {
+	 	var pageProxy = new PageProxy(options, i);
+	 	if (pageProxy.isLeftOuter() || pageProxy.isRightOuter() || pageProxy.isInsideWindow()) {
+	 		htmlArr.push(View.page(this, options, pageProxy));
+	 		wasTruncated = false;
+	 	} else {
+	 		if (!wasTruncated && options.outerWindow > 0) {
+	 			htmlArr.push(View.gap(this, options));
+	 			wasTruncated = true;
+	 		}
+	 	}
+	 }
+	 	if (!currentPageProxy.isLast() || !options.truncate) {
+	 	if (options.next) {
+	 		htmlArr.push(View.nextPage(this, options, currentPageProxy));
+	 	}
+	 		if (options.last) {
+	 		htmlArr.push(View.lastPage(this, options, currentPageProxy));
+	 	}
+	 }
+	 */
+		if (options.totalCount === undefined || options.totalCount <= 0) {
+			options.totalCount = 0;
+		}
+		if (options.showState) {
+			var htmlStr = '<div class="pagination-state">' + options.totalText + '&nbsp;' + options.totalCount + '&nbsp;条</div>';
+			htmlArr.push(htmlStr);
+	
+			if (options.jumppage || options.pageSize) {
+	
+				var pageOption = '';
+				options.pageList.forEach(function (item) {
+					if (options.pageSize - 0 == item) {
+						pageOption += '<option selected>' + item + '</option>';
+					} else {
+						pageOption += '<option>' + item + '</option>';
+					}
+				});
+				var jumppagehtml = '到<input class="page_j" value=' + options.currentPage + '>页<input class="pagination-jump" type="button" value="确定"/>';
+				var sizehtml = '显示<select  class="page_z">' + pageOption + '</select>条&nbsp;&nbsp;';
+				var tmpjump = "<div class='pagination-state'>" + (options.pageSize ? sizehtml : "") + (options.jumppage ? jumppagehtml : "") + "</div>";
+				htmlArr.push(tmpjump);
+				//<i class='jump_page fa fa-arrow-circle-right' style='margin-left: 8px; cursor: pointer;'></i>
+			}
+		}
+	
+		this.$ul.innerHTML = "";
+		this.$ul.insertAdjacentHTML('beforeEnd', htmlArr.join(''));
+	
+		var me = this;
+		(0, _event.on)(this.$ul.querySelector(".pagination-jump"), "click", function () {
+			var jp, pz;
+			jp = me.$ul.querySelector(".page_j").value || options.currentPage;
+			pz = me.$ul.querySelector(".page_z").value || options.pageSize;
+	
+			//if (pz != options.pageSize){
+			//	me.$element.trigger('sizeChange', [pz, jp - 1])
+			//}else{
+			//	me.$element.trigger('pageChange', jp - 1)
+			//}
+			me.page(jp, options.totalPages, pz);
+			//me.$element.trigger('pageChange', jp - 1)
+			//me.$element.trigger('sizeChange', pz)
+			return false;
+		});
+	
+		(0, _event.on)(this.$ul.querySelector('[role="first"] a'), 'click', function () {
+			if (options.currentPage <= 1) return;
+			me.firstPage();
+			//me.$element.trigger('pageChange', 0)
+			return false;
+		});
+		(0, _event.on)(this.$ul.querySelector('[role="prev"] a'), 'click', function () {
+			if (options.currentPage <= 1) return;
+			me.prevPage();
+			//me.$element.trigger('pageChange', options.currentPage - 1)
+			return false;
+		});
+		(0, _event.on)(this.$ul.querySelector('[role="next"] a'), 'click', function () {
+			if (parseInt(options.currentPage) + 1 > options.totalPages) return;
+			me.nextPage();
+			//me.$element.trigger('pageChange', parseInt(options.currentPage) + 1)
+			return false;
+		});
+		(0, _event.on)(this.$ul.querySelector('[role="last"] a'), 'click', function () {
+			if (options.currentPage == options.totalPages) return;
+			me.lastPage();
+			//me.$element.trigger('pageChange', options.totalPages - 1)
+			return false;
+		});
+		(0, _util.each)(this.$ul.querySelectorAll('[role="page"] a'), function (i, node) {
+			(0, _event.on)(node, 'click', function () {
+				var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
+				me.page(parseInt(this.innerHTML), options.totalPages, pz);
+				//me.$element.trigger('pageChange', parseInt($(this).html()) - 1)
+	
+				return false;
+			});
+		});
+		(0, _event.on)(this.$ul.querySelector('.page_z'), 'change', function () {
+			var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
+			me.trigger('sizeChange', pz);
+		});
+	};
+	
+	pagination.prototype.page = function (pageIndex, totalPages, pageSize) {
+	
+		var options = this.options;
+	
+		if (totalPages === undefined) {
+			totalPages = options.totalPages;
+		}
+		if (pageSize === undefined) {
+			pageSize = options.pageSize;
+		}
+		var oldPageSize = options.pageSize;
+		// if (pageIndex > 0 && pageIndex <= totalPages) {
+		// 	if (options.page(pageIndex)) {
+	
+		// 		this.$ul.innerHTML="";
+		// 		options.pageSize = pageSize;
+		// 		options.currentPage = pageIndex;
+		// 		options.totalPages = totalPages;
+		// 		this.render();
+	
+		// 	}
+		// }else{
+		// 	return false;
+		// }
+	
+		if (options.page(pageIndex)) {
+			if (pageIndex < 0) {
+				pageIndex = 0;
+			}
+	
+			if (pageIndex > totalPages) {
+				pageIndex = totalPages;
+			}
+			this.$ul.innerHTML = "";
+			options.pageSize = pageSize;
+			options.currentPage = pageIndex;
+			options.totalPages = totalPages;
+			this.render();
+		}
+		if (pageSize != oldPageSize) {
+			this.trigger('sizeChange', [pageSize, pageIndex - 1]);
+		} else {
+			this.trigger('pageChange', pageIndex - 1);
+		}
+	
+		//this.$element.trigger('pageChange', pageIndex)
+	
+		return false;
+	};
+	
+	pagination.prototype.firstPage = function () {
+		return this.page(1);
+	};
+	
+	pagination.prototype.lastPage = function () {
+		return this.page(this.options.totalPages);
+	};
+	
+	pagination.prototype.nextPage = function () {
+		return this.page(parseInt(this.options.currentPage) + 1);
+	};
+	
+	pagination.prototype.prevPage = function () {
+		return this.page(this.options.currentPage - 1);
+	};
+	
+	pagination.prototype.disableChangeSize = function () {
+		this.$element.querySelector('.page_z').setAttribute('readonly', true);
+	};
+	
+	pagination.prototype.enableChangeSize = function () {
+		this.$element.querySelector('.page_z').removeAttribute('readonly');
+	};
+	
+	function Plugin(option) {
+		return this.each(function () {
+			var $this = $(this);
+			var data = $this.data('u.pagination');
+			var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
+	
+			if (!data) $this.data('u.pagination', data = new Pagination(this, options));else data.update(options);
+		});
+	}
+	
+	// var old = $.fn.pagination;
+	
+	// $.fn.pagination = Plugin
+	// $.fn.pagination.Constructor = Pagination
+	
+	if (_compMgr.compMgr) _compMgr.compMgr.regComp({
+		comp: pagination,
+		compAsString: 'u.pagination',
+		css: 'u-pagination'
+	});
+	
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+	
+	exports.pagination = pagination;
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.PassWordAdapter = undefined;
+	
+	var _string = __webpack_require__(64);
+	
+	var _util = __webpack_require__(5);
+	
+	var _env = __webpack_require__(11);
+	
+	var _event = __webpack_require__(10);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * 密码控件
+	 */
+	var PassWordAdapter = _string.StringAdapter.extend({
+	    init: function init() {
+	        PassWordAdapter.superclass.init.apply(this);
+	        var oThis = this;
+	        if (_env.env.isIE8) {
+	            var outStr = this.element.outerHTML;
+	            var l = outStr.length;
+	            outStr = outStr.substring(0, l - 1) + ' type="password"' + outStr.substring(l - 1);
+	            var newEle = document.createElement(outStr);
+	            var parent = this.element.parentNode;
+	            parent.insertBefore(newEle, this.element.nextSibling);
+	            parent.removeChild(this.element);
+	            this.element = newEle;
+	        } else {
+	            this.element.type = "password";
+	        }
+	        oThis.element.title = '';
+	        this._element = this.element.parentNode;
+	        this.span = this._element.querySelector("span");
+	        if (_env.env.isIE8) {
+	            this.span.style.display = 'none';
+	        }
+	        if (this.span) {
+	            (0, _event.on)(this.span, 'click', function () {
+	                if (oThis.element.type == 'password') {
+	                    oThis.element.type = 'text';
+	                } else {
+	                    oThis.element.type = 'password';
+	                }
+	            });
+	        }
+	    },
+	    setShowValue: function setShowValue(showValue) {
+	        this.showValue = showValue;
+	        this.element.value = showValue;
+	        this.element.title = '';
+	    }
+	}); /**
+	     * Module : Kero password
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 19:19:33
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: PassWordAdapter,
+	    name: 'password'
+	});
+	
+	exports.PassWordAdapter = PassWordAdapter;
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.StringAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _extend = __webpack_require__(1);
+	
+	var _valueMixin = __webpack_require__(7);
+	
+	var _event = __webpack_require__(10);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * Module : Kero string adapter
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-09 20:12:42
+	 */
+	var StringAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
+	        if (!this.element) {
+	            throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
+	        };
+	        this.validType = this.options['validType'] || 'string';
+	        this.minLength = this.getOption('minLength');
+	        this.maxLength = this.getOption('maxLength');
+	
+	        (0, _event.on)(this.element, 'focus', function () {
+	            if (self.enable) {
+	                self.setShowValue(self.getValue());
+	                try {
+	                    var e = event.srcElement;
+	                    var r = e.createTextRange();
+	                    r.moveStart('character', e.value.length);
+	                    r.collapse(true);
+	                    r.select();
+	                } catch (e) {}
+	            }
+	        });
+	
+	        (0, _event.on)(this.element, 'blur', function (e) {
+	            if (self.enable) {
+	                if (!self.doValidate() && self._needClean()) {
+	                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+	                        // 因必输项清空导致检验没通过的情况
+	                        self.setValue('');
+	                    } else {
+	                        self.element.value = self.getShowValue();
+	                    }
+	                } else self.setValue(self.element.value);
+	            }
+	        });
+	    }
+	});
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: StringAdapter,
+	    name: 'string'
+	});
+	
+	exports.StringAdapter = StringAdapter;
+
+/***/ },
+/* 65 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.PercentAdapter = undefined;
+	
+	var _float = __webpack_require__(47);
+	
+	var _formater = __webpack_require__(46);
+	
+	var _masker = __webpack_require__(66);
+	
+	var _core = __webpack_require__(48);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * 百分比控件
+	 */
+	var PercentAdapter = _float.FloatAdapter.extend({
+	  init: function init() {
+	    PercentAdapter.superclass.init.apply(this);
+	    this.validType = 'float';
+	    this.maskerMeta = _core.core.getMaskerMeta('percent') || {};
+	    this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+	    if (this.maskerMeta.precision) {
+	      this.maskerMeta.precision = parseInt(this.maskerMeta.precision) + 2;
+	    }
+	    this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
+	    this.masker = new _masker.PercentMasker(this.maskerMeta);
+	  }
+	}); /**
+	     * Module : Kero percent
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 20:02:50
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	  adapter: PercentAdapter,
+	  name: 'percent'
+	});
+	exports.PercentAdapter = PercentAdapter;
+
+/***/ },
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow abstract formater class
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 19:35:26
+	                                                                                                                                                                                                                                                   */
+	
+	var _extend = __webpack_require__(1);
+	
+	function AbstractMasker() {};
+	
+	AbstractMasker.prototype.format = function (obj) {
+		if (obj == null) return null;
+	
+		var fObj = this.formatArgument(obj);
+		return this.innerFormat(fObj);
+	};
+	
+	/**
+	 * 统一被格式化对象结构
+	 *
+	 * @param obj
+	 * @return
+	 */
+	AbstractMasker.prototype.formatArgument = function (obj) {};
+	
+	/**
+	 * 格式化
+	 *
+	 * @param obj
+	 * @return
+	 */
+	AbstractMasker.prototype.innerFormat = function (obj) {};
+	
+	/**
+	 * 拆分算法格式化虚基类
+	 */
+	AbstractSplitMasker.prototype = new AbstractMasker();
+	
+	function AbstractSplitMasker() {};
+	AbstractSplitMasker.prototype.elements = new Array();
+	AbstractSplitMasker.prototype.format = function (obj) {
+		if (obj == null) return null;
+	
+		var fObj = this.formatArgument(obj);
+		return this.innerFormat(fObj);
+	};
+	
+	/**
+	 * 统一被格式化对象结构
+	 *
+	 * @param obj
+	 * @return
+	 */
+	AbstractSplitMasker.prototype.formatArgument = function (obj) {
+		return obj;
+	};
+	
+	/**
+	 * 格式化
+	 *
+	 * @param obj
+	 * @return
+	 */
+	AbstractSplitMasker.prototype.innerFormat = function (obj) {
+		if (obj == null || obj == "") return new FormatResult(obj);
+		this.doSplit();
+		var result = "";
+		//dingrf 去掉concat合并数组的方式，换用多维数组来实现 提高效率
+		result = this.getElementsValue(this.elements, obj);
+	
+		return new FormatResult(result);
+	};
+	
+	/**
+	 * 合并多维数组中的elementValue
+	 * @param {} element
+	 * @param {} obj
+	 * @return {}
+	 */
+	AbstractSplitMasker.prototype.getElementsValue = function (element, obj) {
+		var result = "";
+		if (element instanceof Array) {
+			for (var i = 0; i < element.length; i++) {
+				result = result + this.getElementsValue(element[i], obj);
+			}
+		} else {
+			if (element.getValue) result = element.getValue(obj);
+		}
+		return result;
+	};
+	
+	AbstractSplitMasker.prototype.getExpress = function () {};
+	
+	AbstractSplitMasker.prototype.doSplit = function () {
+		var express = this.getExpress();
+		if (this.elements == null || this.elements.length == 0) this.elements = this.doQuotation(express, this.getSeperators(), this.getReplaceds(), 0);
+	};
+	
+	/**
+	 * 处理引号
+	 *
+	 * @param express
+	 * @param seperators
+	 * @param replaced
+	 * @param curSeperator
+	 * @param obj
+	 * @param result
+	 */
+	AbstractSplitMasker.prototype.doQuotation = function (express, seperators, replaced, curSeperator) {
+		if (express.length == 0) return null;
+		var elements = new Array();
+		var pattern = new RegExp('".*?"', "g");
+		var fromIndex = 0;
+		var result;
+		do {
+			result = pattern.exec(express);
+			if (result != null) {
+				var i = result.index;
+				var j = pattern.lastIndex;
+				if (i != j) {
+					if (fromIndex < i) {
+						var childElements = this.doSeperator(express.substring(fromIndex, i), seperators, replaced, curSeperator);
+						if (childElements != null && childElements.length > 0) {
+							//						elements = elements.concat(childElements);
+							elements.push(childElements);
+						}
+					}
+				}
+				elements.push(new StringElement(express.substring(i + 1, j - 1)));
+				fromIndex = j;
+			}
+		} while (result != null);
+	
+		if (fromIndex < express.length) {
+			var childElements = this.doSeperator(express.substring(fromIndex, express.length), seperators, replaced, curSeperator);
+			if (childElements != null && childElements.length > 0)
+				//			elements = elements.concat(childElements);
+				elements.push(childElements);
+		}
+		return elements;
+	};
+	
+	/**
+	 * 处理其它分隔符
+	 *
+	 * @param express
+	 * @param seperators
+	 * @param replaced
+	 * @param curSeperator
+	 * @param obj
+	 * @param result
+	 */
+	AbstractSplitMasker.prototype.doSeperator = function (express, seperators, replaced, curSeperator) {
+		if (curSeperator >= seperators.length) {
+			var elements = new Array();
+			elements.push(this.getVarElement(express));
+			return elements;
+		}
+	
+		if (express.length == 0) return null;
+		var fromIndex = 0;
+		var elements = new Array();
+		var pattern = new RegExp(seperators[curSeperator], "g");
+		var result;
+		do {
+			result = pattern.exec(express);
+			if (result != null) {
+				var i = result.index;
+				var j = pattern.lastIndex;
+				if (i != j) {
+					if (fromIndex < i) {
+						var childElements = this.doSeperator(express.substring(fromIndex, i), seperators, replaced, curSeperator + 1);
+						if (childElements != null && childElements.length > 0)
+							//						elements = elements.concat(childElements);
+							elements.push(childElements);
+					}
+	
+					if (replaced[curSeperator] != null) {
+						elements.push(new StringElement(replaced[curSeperator]));
+					} else {
+						elements.push(new StringElement(express.substring(i, j)));
+					}
+					fromIndex = j;
+				}
+			}
+		} while (result != null);
+	
+		if (fromIndex < express.length) {
+			var childElements = this.doSeperator(express.substring(fromIndex, express.length), seperators, replaced, curSeperator + 1);
+			if (childElements != null && childElements.length > 0)
+				//			elements = elements.concat(childElements);
+				elements.push(childElements);
+		}
+		return elements;
+	};
+	
+	/**
+	 * 地址格式
+	 */
+	AddressMasker.prototype = new AbstractSplitMasker();
+	
+	function AddressMasker(formatMeta) {
+		this.update(formatMeta);
+	};
+	
+	AddressMasker.prototype.update = function (formatMeta) {
+		this.formatMeta = (0, _extend.extend)({}, AddressMasker.DefaultFormatMeta, formatMeta);
+	};
+	
+	AddressMasker.prototype.getExpress = function () {
+		return this.formatMeta.express;
+	};
+	
+	AddressMasker.prototype.getReplaceds = function () {
+		return [this.formatMeta.separator];
+	};
+	
+	AddressMasker.prototype.getSeperators = function () {
+		return ["(\\s)+?"];
+	};
+	
+	AddressMasker.prototype.getVarElement = function (express) {
+		var ex = {};
+	
+		if (express == "C") ex.getValue = function (obj) {
+			return obj.country;
+		};
+	
+		if (express == "S") ex.getValue = function (obj) {
+			return obj.state;
+		};
+	
+		if (express == "T") ex.getValue = function (obj) {
+			return obj.city;
+		};
+	
+		if (express == "D") ex.getValue = function (obj) {
+			return obj.section;
+		};
+	
+		if (express == "R") ex.getValue = function (obj) {
+			return obj.road;
+		};
+	
+		if (express == "P") ex.getValue = function (obj) {
+			return obj.postcode;
+		};
+	
+		if (_typeof(ex.getValue) == undefined) return new StringElement(express);else return ex;
+	};
+	
+	AddressMasker.prototype.formatArgument = function (obj) {
+		return obj;
+	};
+	
+	/**
+	 * <b> 数字格式化  </b>
+	 *
+	 * <p> 格式化数字
+	 *
+	 * </p>
+	 *
+	 * Create at 2009-3-20 上午08:50:32
+	 *
+	 * @author bq
+	 * @since V6.0
+	 */
+	NumberMasker.prototype = new AbstractMasker();
+	NumberMasker.prototype.formatMeta = null;
+	
+	/**
+	 *构造方法
+	 */
+	function NumberMasker(formatMeta) {
+		this.update(formatMeta);
+	};
+	
+	NumberMasker.prototype.update = function (formatMeta) {
+		this.formatMeta = (0, _extend.extend)({}, NumberMasker.DefaultFormatMeta, formatMeta);
+	};
+	
+	/**
+	 *格式化对象
+	 */
+	NumberMasker.prototype.innerFormat = function (obj) {
+		var dValue, express, seperatorIndex, strValue;
+		dValue = obj.value;
+		if (dValue > 0) {
+			express = this.formatMeta.positiveFormat;
+			strValue = dValue + '';
+		} else if (dValue < 0) {
+			express = this.formatMeta.negativeFormat;
+			strValue = (dValue + '').substr(1, (dValue + '').length - 1);
+		} else {
+			express = this.formatMeta.positiveFormat;
+			strValue = dValue + '';
+		}
+		seperatorIndex = strValue.indexOf('.');
+		strValue = this.setTheSeperator(strValue, seperatorIndex);
+		strValue = this.setTheMark(strValue, seperatorIndex);
+		var color = null;
+		if (dValue < 0 && this.formatMeta.isNegRed) {
+			color = "FF0000";
+		}
+		return new FormatResult(express.replaceAll('n', strValue), color);
+	};
+	/**
+	 *设置标记
+	 */
+	NumberMasker.prototype.setTheMark = function (str, seperatorIndex) {
+		var endIndex, first, index;
+		if (!this.formatMeta.isMarkEnable) return str;
+		if (seperatorIndex <= 0) seperatorIndex = str.length;
+		first = str.charCodeAt(0);
+		endIndex = 0;
+		if (first == 45) endIndex = 1;
+		index = seperatorIndex - 3;
+		while (index > endIndex) {
+			str = str.substr(0, index - 0) + this.formatMeta.markSymbol + str.substr(index, str.length - index);
+			index = index - 3;
+		}
+		return str;
+	};
+	NumberMasker.prototype.setTheSeperator = function (str, seperatorIndex) {
+		var ca;
+		if (seperatorIndex > 0) {
+			ca = NumberMasker.toCharArray(str);
+			//ca[seperatorIndex] = NumberMasker.toCharArray(this.formatMeta.pointSymbol)[0];
+			ca[seperatorIndex] = this.formatMeta.pointSymbol;
+			str = ca.join('');
+		}
+		return str;
+	};
+	/**
+	 * 将字符串转换成char数组
+	 * @param {} str
+	 * @return {}
+	 */
+	NumberMasker.toCharArray = function (str) {
+		var str = str.split("");
+		var charArray = new Array();
+		for (var i = 0; i < str.length; i++) {
+			charArray.push(str[i]);
+		}
+		return charArray;
+	};
+	
+	/**
+	 *默认构造方法
+	 */
+	NumberMasker.prototype.formatArgument = function (obj) {
+		var numberObj = {};
+		numberObj.value = obj;
+		return numberObj;
+	};
+	
+	/**
+	 * 货币格式
+	 */
+	CurrencyMasker.prototype = new NumberMasker();
+	CurrencyMasker.prototype.formatMeta = null;
+	
+	function CurrencyMasker(formatMeta) {
+		this.update(formatMeta);
+	};
+	
+	CurrencyMasker.prototype.update = function (formatMeta) {
+		this.formatMeta = (0, _extend.extend)({}, CurrencyMasker.DefaultFormatMeta, formatMeta);
+	};
+	
+	/**
+	 * 重载格式方法
+	 * @param {} obj
+	 * @return {}
+	 */
+	CurrencyMasker.prototype.innerFormat = function (obj) {
+		if (!obj.value) {
+			return { value: "" };
+		}
+		var fo = new NumberMasker(this.formatMeta).innerFormat(obj);
+		fo.value = this.formatMeta.curSymbol + fo.value; //fo.value.replace("$", this.formatMeta.curSymbol);
+		return fo;
+	};
+	
+	PercentMasker.prototype = new NumberMasker();
+	
+	function PercentMasker(formatMeta) {
+		this.update(formatMeta);
+	};
+	
+	PercentMasker.prototype.update = function (formatMeta) {
+		this.formatMeta = (0, _extend.extend)({}, NumberMasker.DefaultFormatMeta, formatMeta);
+	};
+	
+	PercentMasker.prototype.formatArgument = function (obj) {
+		return obj;
+	};
+	
+	PercentMasker.prototype.innerFormat = function (value) {
+		var val = "";
+		if (value != "") {
+			var obj = new NumberMasker(this.formatMeta).innerFormat({ value: value }).value;
+			// 获取obj保留几位小数位,obj小数位-2为显示小数位
+			var objStr = String(obj);
+			var objPrecision = objStr.length - objStr.indexOf(".") - 1;
+			var showPrecision = objPrecision - 2;
+			if (showPrecision < 0) {
+				showPrecision = 0;
+			}
+			val = parseFloat(obj) * 100;
+			val = (val * Math.pow(10, showPrecision) / Math.pow(10, showPrecision)).toFixed(showPrecision);
+			val = val + "%";
+		}
+		return {
+			value: val
+		};
+	};
+	
+	/**
+	 * 将结果输出成HTML代码
+	 * @param {} result
+	 * @return {String}
+	 */
+	function toColorfulString(result) {
+		var color;
+		if (!result) {
+			return '';
+		}
+		if (result.color == null) {
+			return result.value;
+		}
+		color = result.color;
+		return '<font color="' + color + '">' + result.value + '<\/font>';
+	};
+	
+	/**
+	 * 格式解析后形成的单个格式单元
+	 * 适用于基于拆分算法的AbstractSplitFormat，表示拆分后的变量单元
+	 */
+	StringElement.prototype = new Object();
+	
+	function StringElement(value) {
+		this.value = value;
+	};
+	StringElement.prototype.value = "";
+	
+	StringElement.prototype.getValue = function (obj) {
+		return this.value;
+	};
+	/**
+	 *格式结果
+	 */
+	FormatResult.prototype = new Object();
+	/**
+	 *默认构造方法
+	 */
+	function FormatResult(value, color) {
+		this.value = value;
+		this.color = color;
+	};
+	
+	NumberMasker.DefaultFormatMeta = {
+		isNegRed: true,
+		isMarkEnable: true,
+		markSymbol: ",",
+		pointSymbol: ".",
+		positiveFormat: "n",
+		negativeFormat: "-n"
+	};
+	
+	CurrencyMasker.DefaultFormatMeta = (0, _extend.extend)({}, NumberMasker.DefaultFormatMeta, {
+		//curSymbol: "",
+		positiveFormat: "n",
+		negativeFormat: "-n"
+	});
+	
+	AddressMasker.defaultFormatMeta = {
+		express: "C S T R P",
+		separator: " "
+	};
+	
+	exports.AddressMasker = AddressMasker;
+	exports.NumberMasker = NumberMasker;
+	exports.CurrencyMasker = CurrencyMasker;
+	exports.PercentMasker = PercentMasker;
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.ProgressAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _neouiProgress = __webpack_require__(68);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(options) {
+	        var self = this;
+	        ProgressAdapter.superclass.initialize.apply(this, arguments);
+	
+	        this.comp = new _neouiProgress.Progress(this.element);
+	        this.element['u.Progress'] = this.comp;
+	
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	
+	    modelValueChange: function modelValueChange(val) {
+	        this.comp.setProgress(val);
+	    }
+	}); /**
+	     * Module : Kero percent
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 20:02:50
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: ProgressAdapter,
+	    name: 'u-progress'
+	});
+	
+	exports.ProgressAdapter = ProgressAdapter;
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Progress = undefined;
+	
+	var _BaseComponent = __webpack_require__(9);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _env = __webpack_require__(11);
+	
+	var _event = __webpack_require__(10);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var Progress = _BaseComponent.BaseComponent.extend({
+		_Constant: {},
+		_CssClasses: {
+			INDETERMINATE_CLASS: 'u-progress__indeterminate'
+		},
+		setProgress: function setProgress(p) {
+	
+			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+				return;
+			}
+	
+			this.progressbar_.style.width = p + '%';
+			return this;
+		},
+		/**
+	  * 设置竖向进度条的进度
+	  * @param p 要设置的进度
+	  * @returns {u.Progress}
+	     */
+		setProgressHeight: function setProgressHeight(p) {
+	
+			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+				return;
+			}
+	
+			this.progressbar_.style.height = p + '%';
+			this.progressbar_.style.width = '100%';
+			return this;
+		},
+		/**
+	  * 设置进度条中的html内容
+	  * @param p 要设置的html内容
+	  * @returns {u.Progress}
+	  */
+		setProgressHTML: function setProgressHTML(html) {
+	
+			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+				return;
+			}
+	
+			this.progressbar_.innerHTML = html;
+			return this;
+		},
+		setBuffer: function setBuffer(p) {
+			this.bufferbar_.style.width = p + '%';
+			this.auxbar_.style.width = 100 - p + '%';
+			return this;
+		},
+	
+		init: function init() {
+			var el = document.createElement('div');
+			el.className = 'progressbar bar bar1';
+			this.element.appendChild(el);
+			this.progressbar_ = el;
+	
+			el = document.createElement('div');
+			el.className = 'bufferbar bar bar2';
+			this.element.appendChild(el);
+			this.bufferbar_ = el;
+	
+			el = document.createElement('div');
+			el.className = 'auxbar bar bar3';
+			this.element.appendChild(el);
+			this.auxbar_ = el;
+	
+			this.progressbar_.style.width = '0%';
+			this.bufferbar_.style.width = '100%';
+			this.auxbar_.style.width = '0%';
+	
+			(0, _dom.addClass)(this.element, 'is-upgraded');
+	
+			if (_env.env.isIE8 || _env.env.isIE9) {
+	
+				if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+					var p = 0;
+					var oThis = this;
+					setInterval(function () {
+						p += 5;
+						p = p % 100;
+						oThis.progressbar_.style.width = p + '%';
+					}, 100);
+				}
+			}
+		}
+	
+	}); /**
+	     * Module : neoui-progress
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-03 10:46:37
+	     */
+	
+	_compMgr.compMgr.regComp({
+		comp: Progress,
+		compAsString: 'u.Progress',
+		css: 'u-progress'
+	});
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+	exports.Progress = Progress;
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.RadioAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _valueMixin = __webpack_require__(7);
+	
+	var _util = __webpack_require__(5);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _event = __webpack_require__(10);
+	
+	var _neouiRadio = __webpack_require__(70);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * Module : Kero percent
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 10:33:09
+	 */
+	
+	var RadioAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
+	    init: function init(options) {
+	        var self = this;
+	        //RadioAdapter.superclass.initialize.apply(this, arguments);
+	        this.dynamic = false;
+	        if (this.options['datasource'] || this.options['hasOther']) {
+	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
+	            this.radioTemplateArray = [];
+	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
+	                this.radioTemplateArray.push(this.element.childNodes[i]);
+	            }
+	        }
+	        if (this.options['datasource']) {
+	            this.dynamic = true;
+	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
+	            this.setComboData(datasource);
+	        } else {
+	            this.comp = new _neouiRadio.Radio(this.element);
+	            this.element['u.Radio'] = this.comp;
+	            this.eleValue = this.comp._btnElement.value;
+	
+	            this.comp.on('change', function (event) {
+	                if (self.slice) return;
+	                var modelValue = self.dataModel.getValue(self.field);
+	                //var valueArr = modelValue == '' ?  [] : modelValue.split(',');
+	                if (self.comp._btnElement.checked) {
+	                    self.dataModel.setValue(self.field, self.eleValue);
+	                }
+	            });
+	        }
+	
+	        // 如果存在其他
+	        if (this.options['hasOther']) {
+	            var node = null;
+	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
+	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+	            }
+	            var LabelS = this.element.querySelectorAll('.u-radio');
+	            self.lastLabel = LabelS[LabelS.length - 1];
+	            var allRadioS = this.element.querySelectorAll('[type=radio]');
+	            self.lastRadio = allRadioS[allRadioS.length - 1];
+	            var nameDivs = this.element.querySelectorAll('.u-radio-label');
+	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
+	            self.lastNameDiv.innerHTML = '其他';
+	            self.otherInput = (0, _dom.makeDOM)('<input type="text" style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
+	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
+	            self.lastRadio.value = '';
+	
+	            var comp;
+	            if (self.lastLabel['u.Radio']) {
+	                comp = self.lastLabel['u.Radio'];
+	            } else {
+	                comp = new _neouiRadio.Radio(self.lastLabel);
+	            }
+	            self.lastLabel['u.Radio'] = comp;
+	            self.otherComp = comp;
+	            comp.on('change', function () {
+	                if (comp._btnElement.checked) {
+	                    self.dataModel.setValue(self.field, comp._btnElement.value);
+	                }
+	            });
+	
+	            (0, _event.on)(self.otherInput, 'blur', function (e) {
+	                self.lastRadio.oldValue = self.lastRadio.value;
+	                self.lastRadio.value = this.value;
+	                self.otherComp.trigger('change');
+	            });
+	            (0, _event.on)(self.otherInput, 'click', function (e) {
+	                (0, _event.stopEvent)(e);
+	            });
+	        }
+	
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	    setComboData: function setComboData(comboData) {
+	        var self = this;
+	        // this.element.innerHTML = '';
+	        for (var i = 0, len = comboData.length; i < len - 1; i++) {
+	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
+	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+	            }
+	            //this.radioTemplate.clone().appendTo(this.element)
+	        }
+	
+	        var allRadio = this.element.querySelectorAll('[type=radio]');
+	        var allName = this.element.querySelectorAll('.u-radio-label');
+	        for (var k = 0; k < allRadio.length; k++) {
+	            allRadio[k].value = comboData[k].pk || comboData[k].value;
+	            allName[k].innerHTML = comboData[k].name;
+	        }
+	
+	        this.radioInputName = allRadio[0].name;
+	
+	        this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	            var comp = new _neouiRadio.Radio(ele);
+	            ele['u.Radio'] = comp;
+	
+	            comp.on('change', function (event) {
+	                if (comp._btnElement.checked) {
+	                    self.dataModel.setValue(self.field, comp._btnElement.value);
+	                }
+	            });
+	        });
+	    },
+	
+	    modelValueChange: function modelValueChange(value) {
+	        if (this.slice) return;
+	        var fetch = false;
+	        if (this.dynamic) {
+	            this.trueValue = value;
+	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	                var comp = ele['u.Radio'];
+	                var inptuValue = comp._btnElement.value;
+	                if (inptuValue && inptuValue == value) {
+	                    fetch = true;
+	                    comp._btnElement.click();
+	                }
+	            });
+	        } else {
+	            if (this.eleValue == value) {
+	                fetch = true;
+	                this.slice = true;
+	                this.comp._btnElement.click();
+	                this.slice = false;
+	            }
+	        }
+	        if (this.options.hasOther && !fetch && value) {
+	            this.lastRadio.checked = true;
+	            this.otherInput.value = value;
+	        }
+	    },
+	
+	    setEnable: function setEnable(enable) {
+	        this.enable = enable === true || enable === 'true';
+	        if (this.dynamic) {
+	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	                var comp = ele['u.Radio'];
+	                if (enable === true || enable === 'true') {
+	                    comp.enable();
+	                } else {
+	                    comp.disable();
+	                }
+	            });
+	        } else {
+	            if (this.enable) {
+	                this.comp.enable();
+	            } else {
+	                this.comp.disable();
+	            }
+	        }
+	    }
+	});
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: RadioAdapter,
+	    name: 'u-radio'
+	});
+	exports.RadioAdapter = RadioAdapter;
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Radio = undefined;
+	
+	var _BaseComponent = __webpack_require__(9);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _env = __webpack_require__(11);
+	
+	var _event = __webpack_require__(10);
+	
+	var _ripple = __webpack_require__(14);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * Module : neoui-radio
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-03 11:16:00
+	 */
+	
+	var Radio = _BaseComponent.BaseComponent.extend({
+	    Constant_: {
+	        TINY_TIMEOUT: 0.001
+	    },
+	
+	    _CssClasses: {
+	        IS_FOCUSED: 'is-focused',
+	        IS_DISABLED: 'is-disabled',
+	        IS_CHECKED: 'is-checked',
+	        IS_UPGRADED: 'is-upgraded',
+	        JS_RADIO: 'u-radio',
+	        RADIO_BTN: 'u-radio-button',
+	        RADIO_OUTER_CIRCLE: 'u-radio-outer-circle',
+	        RADIO_INNER_CIRCLE: 'u-radio-inner-circle'
+	    },
+	
+	    init: function init() {
+	        this._btnElement = this.element.querySelector('input');
+	
+	        this._boundChangeHandler = this._onChange.bind(this);
+	        this._boundFocusHandler = this._onChange.bind(this);
+	        this._boundBlurHandler = this._onBlur.bind(this);
+	        this._boundMouseUpHandler = this._onMouseup.bind(this);
+	
+	        var outerCircle = document.createElement('span');
+	        (0, _dom.addClass)(outerCircle, this._CssClasses.RADIO_OUTER_CIRCLE);
+	
+	        var innerCircle = document.createElement('span');
+	        (0, _dom.addClass)(innerCircle, this._CssClasses.RADIO_INNER_CIRCLE);
+	
+	        this.element.appendChild(outerCircle);
+	        this.element.appendChild(innerCircle);
+	
+	        var rippleContainer;
+	        //if (this.element.classList.contains( this._CssClasses.RIPPLE_EFFECT)) {
+	        //  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
+	        rippleContainer = document.createElement('span');
+	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CONTAINER);
+	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_EFFECT);
+	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CENTER);
+	        rippleContainer.addEventListener('mouseup', this._boundMouseUpHandler);
+	
+	        //var ripple = document.createElement('span');
+	        //ripple.classList.add(this._CssClasses.RIPPLE);
+	
+	        //rippleContainer.appendChild(ripple);
+	        this.element.appendChild(rippleContainer);
+	        new _ripple.URipple(rippleContainer);
+	        //}
+	
+	        this._btnElement.addEventListener('change', this._boundChangeHandler);
+	        this._btnElement.addEventListener('focus', this._boundFocusHandler);
+	        this._btnElement.addEventListener('blur', this._boundBlurHandler);
+	        this.element.addEventListener('mouseup', this._boundMouseUpHandler);
+	
+	        this._updateClasses();
+	        (0, _dom.addClass)(this.element, this._CssClasses.IS_UPGRADED);
+	    },
+	
+	    _onChange: function _onChange(event) {
+	        // Since other radio buttons don't get change events, we need to look for
+	        // them to update their classes.
+	        var radios = document.querySelectorAll('.' + this._CssClasses.JS_RADIO);
+	        for (var i = 0; i < radios.length; i++) {
+	            var button = radios[i].querySelector('.' + this._CssClasses.RADIO_BTN);
+	            // Different name == different group, so no point updating those.
+	            if (button.getAttribute('name') === this._btnElement.getAttribute('name')) {
+	                if (radios[i]['u.Radio']) {
+	                    radios[i]['u.Radio']._updateClasses();
+	                }
+	            }
+	        }
+	        this.trigger('change', { isChecked: this._btnElement.checked });
+	    },
+	
+	    /**
+	     * Handle focus.
+	     *
+	     * @param {Event} event The event that fired.
+	     * @private
+	     */
+	    _onFocus: function _onFocus(event) {
+	        (0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
+	    },
+	
+	    /**
+	     * Handle lost focus.
+	     *
+	     * @param {Event} event The event that fired.
+	     * @private
+	     */
+	    _onBlur: function _onBlur(event) {
+	        (0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
+	    },
+	
+	    /**
+	     * Handle mouseup.
+	     *
+	     * @param {Event} event The event that fired.
+	     * @private
+	     */
+	    _onMouseup: function _onMouseup(event) {
+	        this._blur();
+	    },
+	
+	    /**
+	     * Update classes.
+	     *
+	     * @private
+	     */
+	    _updateClasses: function _updateClasses() {
+	        this.checkDisabled();
+	        this.checkToggleState();
+	    },
+	
+	    /**
+	     * Add blur.
+	     *
+	     * @private
+	     */
+	    _blur: function _blur() {
+	
+	        // TODO: figure out why there's a focus event being fired after our blur,
+	        // so that we can avoid this hack.
+	        window.setTimeout(function () {
+	            this._btnElement.blur();
+	        }.bind(this), /** @type {number} */this.Constant_.TINY_TIMEOUT);
+	    },
+	
+	    // Public methods.
+	
+	    /**
+	     * Check the components disabled state.
+	     *
+	     * @public
+	     */
+	    checkDisabled: function checkDisabled() {
+	        if (this._btnElement.disabled) {
+	            (0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
+	        } else {
+	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
+	        }
+	    },
+	
+	    /**
+	     * Check the components toggled state.
+	     *
+	     * @public
+	     */
+	    checkToggleState: function checkToggleState() {
+	        if (this._btnElement.checked) {
+	            (0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
+	        } else {
+	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
+	        }
+	    },
+	
+	    /**
+	     * Disable radio.
+	     *
+	     * @public
+	     */
+	    disable: function disable() {
+	        this._btnElement.disabled = true;
+	        this._updateClasses();
+	    },
+	
+	    /**
+	     * Enable radio.
+	     *
+	     * @public
+	     */
+	    enable: function enable() {
+	        this._btnElement.disabled = false;
+	        this._updateClasses();
+	    },
+	
+	    /**
+	     * Check radio.
+	     *
+	     * @public
+	     */
+	    check: function check() {
+	        this._btnElement.checked = true;
+	        this._updateClasses();
+	    },
+	
+	    uncheck: function uncheck() {
+	        this._btnElement.checked = false;
+	        this._updateClasses();
+	    }
+	
+	});
+	
+	_compMgr.compMgr.regComp({
+	    comp: Radio,
+	    compAsString: 'u.Radio',
+	    css: 'u-radio'
+	});
+	
+	if (document.readyState && document.readyState === 'complete') {
+	    _compMgr.compMgr.updateComp();
+	} else {
+	    (0, _event.on)(window, 'load', function () {
+	        //扫描并生成控件
+	        _compMgr.compMgr.updateComp();
+	    });
+	}
+	
+	exports.Radio = Radio;
+
+/***/ },
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.SwitchAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _neouiSwitch = __webpack_require__(72);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(options) {
+	        var self = this;
+	        SwitchAdapter.superclass.initialize.apply(this, arguments);
+	
+	        this.comp = new _neouiSwitch.Switch(this.element);
+	        this.element['u.Switch'] = this.comp;
+	        this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
+	        this.unCheckedValue = this.options["unCheckedValue"];
+	        this.comp.on('change', function (event) {
+	            if (self.slice) return;
+	            if (self.comp._inputElement.checked) {
+	                self.dataModel.setValue(self.field, self.checkedValue);
+	            } else {
+	                self.dataModel.setValue(self.field, self.unCheckedValue);
+	            }
+	        });
+	
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	
+	    modelValueChange: function modelValueChange(val) {
+	        if (this.slice) return;
+	        if (this.comp._inputElement.checked != (val === this.checkedValue)) {
+	            this.slice = true;
+	            this.comp.toggle();
+	            this.slice = false;
+	        }
+	    },
+	    setEnable: function setEnable(enable) {
+	        if (enable === true || enable === 'true') {
+	            this.enable = true;
+	        } else if (enable === false || enable === 'false') {
+	            this.enable = false;
+	        }
+	    }
+	}); /**
+	     * Module : Kero switch adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 10:42:15
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: SwitchAdapter,
+	    name: 'u-switch'
+	});
+	
+	exports.SwitchAdapter = SwitchAdapter;
+
+/***/ },
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Switch = undefined;
+	
+	var _BaseComponent = __webpack_require__(9);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _event = __webpack_require__(10);
+	
+	var _ripple = __webpack_require__(14);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var Switch = _BaseComponent.BaseComponent.extend({
+		_Constant: {
+			TINY_TIMEOUT: 0.001
+		},
+	
+		_CssClasses: {
+			INPUT: 'u-switch-input',
+			TRACK: 'u-switch-track',
+			THUMB: 'u-switch-thumb',
+			FOCUS_HELPER: 'u-switch-focus-helper',
+			IS_FOCUSED: 'is-focused',
+			IS_DISABLED: 'is-disabled',
+			IS_CHECKED: 'is-checked'
+		},
+	
+		init: function init() {
+			this._inputElement = this.element.querySelector('.' + this._CssClasses.INPUT);
+	
+			var track = document.createElement('div');
+			(0, _dom.addClass)(track, this._CssClasses.TRACK);
+	
+			var thumb = document.createElement('div');
+			(0, _dom.addClass)(thumb, this._CssClasses.THUMB);
+	
+			var focusHelper = document.createElement('span');
+			(0, _dom.addClass)(focusHelper, this._CssClasses.FOCUS_HELPER);
+	
+			thumb.appendChild(focusHelper);
+	
+			this.element.appendChild(track);
+			this.element.appendChild(thumb);
+	
+			this.boundMouseUpHandler = this._onMouseUp.bind(this);
+	
+			//if (this.element.classList.contains(this._CssClasses.RIPPLE_EFFECT)) {
+			//  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
+			this._rippleContainerElement = document.createElement('span');
+			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CONTAINER);
+			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_EFFECT);
+			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CENTER);
+			this._rippleContainerElement.addEventListener('mouseup', this.boundMouseUpHandler);
+	
+			//var ripple = document.createElement('span');
+			//ripple.classList.add(this._CssClasses.RIPPLE);
+	
+			//this._rippleContainerElement.appendChild(ripple);
+			this.element.appendChild(this._rippleContainerElement);
+			new _ripple.URipple(this._rippleContainerElement);
+			//}
+	
+			this.boundChangeHandler = this._onChange.bind(this);
+			this.boundFocusHandler = this._onFocus.bind(this);
+			this.boundBlurHandler = this._onBlur.bind(this);
+	
+			this._inputElement.addEventListener('change', this.boundChangeHandler);
+			this._inputElement.addEventListener('focus', this.boundFocusHandler);
+			this._inputElement.addEventListener('blur', this.boundBlurHandler);
+			this.element.addEventListener('mouseup', this.boundMouseUpHandler);
+	
+			this._updateClasses();
+			(0, _dom.addClass)(this.element, 'is-upgraded');
+		},
+	
+		_onChange: function _onChange(event) {
+			this._updateClasses();
+			this.trigger('change', {
+				isChecked: this._inputElement.checked
+			});
+		},
+	
+		_onFocus: function _onFocus(event) {
+			(0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
+		},
+	
+		_onBlur: function _onBlur(event) {
+			(0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
+		},
+	
+		_onMouseUp: function _onMouseUp(event) {
+			this._blur();
+		},
+	
+		_updateClasses: function _updateClasses() {
+			this.checkDisabled();
+			this.checkToggleState();
+		},
+	
+		_blur: function _blur() {
+			// TODO: figure out why there's a focus event being fired after our blur,
+			// so that we can avoid this hack.
+			window.setTimeout(function () {
+				this._inputElement.blur();
+			}.bind(this), /** @type {number} */this._Constant.TINY_TIMEOUT);
+		},
+	
+		// Public methods.
+	
+		checkDisabled: function checkDisabled() {
+			if (this._inputElement.disabled) {
+				(0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
+			} else {
+				(0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
+			}
+		},
+	
+		checkToggleState: function checkToggleState() {
+			if (this._inputElement.checked) {
+				(0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
+			} else {
+				(0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
+			}
+		},
+	
+		isChecked: function isChecked() {
+			//return hasClass(this.element,this._CssClasses.IS_CHECKED);
+			return this._inputElement.checked;
+		},
+	
+		toggle: function toggle() {
+			//return;
+			if (this.isChecked()) {
+				this.uncheck();
+			} else {
+				this.check();
+			}
+		},
+	
+		disable: function disable() {
+			this._inputElement.disabled = true;
+			this._updateClasses();
+		},
+	
+		enable: function enable() {
+			this._inputElement.disabled = false;
+			this._updateClasses();
+		},
+	
+		check: function check() {
+			this._inputElement.checked = true;
+			this._updateClasses();
+		},
+	
+		uncheck: function uncheck() {
+			this._inputElement.checked = false;
+			this._updateClasses();
+		}
+	
+	}); /**
+	     * Module : neoui-switch
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-03 13:39:55
+	     */
+	
+	_compMgr.compMgr.regComp({
+		comp: Switch,
+		compAsString: 'u.Switch',
+		css: 'u-switch'
+	});
+	
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+	
+	exports.Switch = Switch;
+
+/***/ },
+/* 73 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.TextAreaAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _valueMixin = __webpack_require__(7);
+	
+	var _event = __webpack_require__(10);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'TEXTAREA' ? this.element : this.element.querySelector('textarea');
+	        if (!this.element) {
+	            throw new Error('not found TEXTAREA element, u-meta:' + JSON.stringify(this.options));
+	        };
+	
+	        (0, _event.on)(this.element, 'focus', function () {
+	            self.setShowValue(self.getValue());
+	        });
+	        (0, _event.on)(this.element, 'blur', function () {
+	            self.setValue(self.element.value);
+	        });
+	    }
+	}); /**
+	     * Module : Kero textarea adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 12:40:46
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TextAreaAdapter,
+	    name: 'textarea'
+	});
+	
+	exports.TextAreaAdapter = TextAreaAdapter;
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.TextFieldAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _extend = __webpack_require__(1);
+	
+	var _neouiTextfield = __webpack_require__(18);
+	
+	var _float = __webpack_require__(47);
+	
+	var _string = __webpack_require__(64);
+	
+	var _integer = __webpack_require__(56);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
+	    /**
+	     *
+	     * @param comp
+	     * @param options ：
+	     *      el: '#content',  对应的dom元素
+	     *      options: {},     配置
+	     *      model:{}        模型，包括数据和事件
+	     */
+	    initialize: function initialize(options) {
+	        TextFieldAdapter.superclass.initialize.apply(this, arguments);
+	        //this.comp = comp;
+	        //this.element = options['el'];
+	        //this.options = options['options'];
+	        //this.viewModel = options['model'];
+	        var dataType = this.dataModel.getMeta(this.field, 'type') || 'string';
+	        //var dataType = this.options['dataType'] || 'string';
+	
+	        this.comp = new _neouiTextfield.Text(this.element);
+	        this.element['u.Text'] = this.comp;
+	
+	        if (dataType === 'float') {
+	            this.trueAdpt = new _float.FloatAdapter(options);
+	        } else if (dataType === 'string') {
+	            this.trueAdpt = new _string.StringAdapter(options);
+	        } else if (dataType === 'integer') {
+	            this.trueAdpt = new _integer.IntegerAdapter(options);
+	        } else {
+	            throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" + this.field + "'");
+	        }
+	        (0, _extend.extend)(this, this.trueAdpt);
+	
+	        this.trueAdpt.comp = this.comp;
+	        this.trueAdpt.setShowValue = function (showValue) {
+	            this.showValue = showValue;
+	            //if (this.comp.compType === 'text')
+	            this.comp.change(showValue);
+	            this.element.title = showValue;
+	        };
+	        return this.trueAdpt;
+	    }
+	}); /**
+	     * Module : Kero textfield adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 13:00:27
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TextFieldAdapter,
+	    name: 'u-text'
+	    //dataType: 'float'
+	});
+	
+	exports.TextFieldAdapter = TextFieldAdapter;
+
+/***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.TimeAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _valueMixin = __webpack_require__(7);
+	
+	var _event = __webpack_require__(10);
+	
+	var _core = __webpack_require__(48);
+	
+	var _env = __webpack_require__(11);
+	
+	var _dateUtils = __webpack_require__(50);
+	
+	var _neouiClockpicker = __webpack_require__(76);
+	
+	var _neouiTime = __webpack_require__(77);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	/**
+	 * Module : Kero time adapter
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 12:40:46
+	 */
+	
+	var TimeAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(options) {
+	        var self = this;
+	        TimeAdapter.superclass.initialize.apply(this, arguments);
+	        this.validType = 'time';
+	
+	        this.maskerMeta = _core.core.getMaskerMeta('time') || {};
+	        this.maskerMeta.format = this.dataModel.getMeta(this.field, "format") || this.maskerMeta.format;
+	
+	        if (this.options.type == 'u-clockpicker' && !_env.env.isIE8) this.comp = new _neouiClockpicker.ClockPicker(this.element);else this.comp = new _neouiTime.Time(this.element);
+	        var dataType = this.dataModel.getMeta(this.field, 'type');
+	        this.dataType = dataType || 'string';
+	
+	        this.comp.on('valueChange', function (event) {
+	            self.slice = true;
+	            if (event.value == '') {
+	                self.dataModel.setValue(self.field, '');
+	            } else {
+	                var _date = self.dataModel.getValue(self.field);
+	                if (self.dataType === 'datetime') {
+	                    var valueArr = event.value.split(':');
+	                    _date = _dateUtils.date.getDateObj(_date);
+	                    if (!_date) {
+	                        self.dataModel.setValue(self.field, '');
+	                    } else {
+	                        if (event.value == _date.getHours() + ':' + _date.getMinutes() + ':' + _date.getSeconds()) return;
+	                        _date.setHours(valueArr[0]);
+	                        _date.setMinutes(valueArr[1]);
+	                        _date.setSeconds(valueArr[2]);
+	                        self.dataModel.setValue(self.field, u.date.format(_date, 'YYYY-MM-DD HH:mm:ss'));
+	                    }
+	                } else {
+	                    if (event.value == _date) return;
+	                    self.dataModel.setValue(self.field, event.value);
+	                }
+	            }
+	
+	            self.slice = false;
+	            //self.setValue(event.value);
+	        });
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	    modelValueChange: function modelValueChange(value) {
+	        if (this.slice) return;
+	        var compValue = '';
+	        if (this.dataType === 'datetime') {
+	            var _date = _dateUtils.date.getDateObj(value);
+	            if (!_date) compValue = '';else compValue = _date.getHours() + ':' + _date.getMinutes() + ':' + _date.getSeconds();
+	        } else {
+	            compValue = value;
+	        }
+	        this.comp.setValue(compValue);
+	    },
+	    setEnable: function setEnable(enable) {}
+	});
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TimeAdapter,
+	    name: 'u-time'
+	});
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TimeAdapter,
+	    name: 'u-clockpicker'
+	});
+	
+	exports.TimeAdapter = TimeAdapter;
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.ClockPicker = undefined;
+	
+	var _BaseComponent = __webpack_require__(9);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _event = __webpack_require__(10);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var _env = __webpack_require__(11);
+	
+	var _extend = __webpack_require__(1);
+	
+	var _core = __webpack_require__(48);
+	
+	var _dateUtils = __webpack_require__(50);
+	
+	/**
+	 * Module : neoui-clockpicker
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-11 15:17:07
+	 */
+	
+	var ClockPicker = _BaseComponent.BaseComponent.extend({
+		DEFAULTS: {},
+		init: function init() {
+			var self = this;
+			var element = this.element;
+			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
+			this.format = this.options['format'] || _core.core.getMaskerMeta('time').format;
+			this.panelDiv = null;
+			this.input = this.element.querySelector("input");
+			if (_env.isMobile) {
+				this.input.setAttribute('readonly', 'readonly');
+			}
+			(0, _dom.addClass)(this.element, 'u-text');
+	
+			this.template = '<div class="u-clock-ul popover clockpicker-popover" style="padding:0px;">';
+			this.template += '<div class="popover-title"><button class="u-button u-date-clean u-clock-clean" >清空</button><span class="clockpicker-span-hours">02</span> : <span class="clockpicker-span-minutes text-primary">01</span><span class="clockpicker-span-am-pm"></span></div>';
+			this.template += '<div class="popover-content">';
+			this.template += '	<div class="clockpicker-plate">';
+			this.template += '		<div class="clockpicker-canvas">';
+			this.template += '			<svg class="clockpicker-svg">';
+			this.template += '				<g transform="translate(100,100)">';
+			this.template += '					<circle class="clockpicker-canvas-bg clockpicker-canvas-bg-trans" r="13" cx="8.362277061412277" cy="-79.56175162946187"></circle>';
+			this.template += '					<circle class="clockpicker-canvas-fg" r="3.5" cx="8.362277061412277" cy="-79.56175162946187"></circle>';
+			this.template += '					<line x1="0" y1="0" x2="8.362277061412277" y2="-79.56175162946187"></line>';
+			this.template += '					<circle class="clockpicker-canvas-bearing" cx="0" cy="0" r="2"></circle>';
+			this.template += '				</g>';
+			this.template += '			</svg>';
+			this.template += '		</div>';
+			this.template += '		<div class="clockpicker-dial clockpicker-hours" style="visibility: visible;">';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-1" >00</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-2" >1</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-3" >2</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-4" >3</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-5" >4</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-6" >5</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-7" >6</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-8" >7</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-9" >8</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-10" >9</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-11" >10</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-12" >11</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-13" >12</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-14" >13</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-15" >14</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-16" >15</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-17" >16</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-18" >17</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-19" >18</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-20" >19</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-21" >20</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-22" >21</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-23" >22</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-24" >23</div>';
+			this.template += '		</div>';
+			this.template += '		<div class="clockpicker-dial clockpicker-minutes" style="visibility: hidden;">';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-25" >00</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-26" >05</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-27" >10</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-28" >15</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-29" >20</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-30" >25</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-31" >30</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-32" >35</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-33" >40</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-34" >45</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-35" >50</div>';
+			this.template += '			<div class="clockpicker-tick clockpicker-tick-36" >55</div>';
+			this.template += '		</div>';
+			this.template += '	</div><span class="clockpicker-am-pm-block"></span></div>';
+			this.template += '	</div>';
+			(0, _event.on)(this.input, 'blur', function (e) {
+				self._inputFocus = false;
+				this.setValue(this.input.value);
+			}.bind(this));
+	
+			var d = new Date();
+			this.defaultHour = d.getHours() > 9 ? '' + d.getHours() : '0' + d.getHours();
+			this.defaultMin = d.getMinutes() > 9 ? '' + d.getMinutes() : '0' + d.getMinutes();
+			this.defaultSec = d.getSeconds() > 9 ? '' + d.getSeconds() : '0' + d.getSeconds();
+	
+			this.hours = this.defaultHour;
+			this.min = this.defaultMin;
+			this.sec = this.defaultSec;
+			// 添加focus事件
+			this.focusEvent();
+			// 添加右侧图标click事件
+			this.clickEvent();
+		},
+	
+		_zoomIn: function _zoomIn(newPage) {
+	
+			(0, _dom.addClass)(newPage, 'zoom-in');
+	
+			var cleanup = function () {
+				(0, _event.off)(newPage, 'transitionend', cleanup);
+				(0, _event.off)(newPage, 'webkitTransitionEnd', cleanup);
+				// this.panelContentDiv.removeChild(this.contentPage);
+				this.contentPage = newPage;
+			}.bind(this);
+			if (this.contentPage) {
+				(0, _event.on)(newPage, 'transitionend', cleanup);
+				(0, _event.on)(newPage, 'webkitTransitionEnd', cleanup);
+			}
+			setTimeout(function () {
+				newPage.style.visibility = 'visible';
+				(0, _dom.removeClass)(newPage, 'zoom-in');
+			}, 150);
+		},
+	
+		createPanel: function createPanel() {
+			if (this.panelDiv) return;
+			var oThis = this;
+			this.panelDiv = (0, _dom.makeDOM)(this.template);
+	
+			this.hand = this.panelDiv.querySelector('line');
+			this.bg = this.panelDiv.querySelector('.clockpicker-canvas-bg');
+			this.fg = this.panelDiv.querySelector('.clockpicker-canvas-fg');
+			this.titleHourSpan = this.panelDiv.querySelector('.clockpicker-span-hours');
+			this.titleMinSpan = this.panelDiv.querySelector('.clockpicker-span-minutes');
+			this.hourDiv = this.panelDiv.querySelector('.clockpicker-hours');
+			this.minDiv = this.panelDiv.querySelector('.clockpicker-minutes');
+			this.btnClean = this.panelDiv.querySelector('.u-date-clean');
+			if (!_env.isMobile) this.btnClean.style.display = 'none';
+			this.currentView = 'hours';
+			(0, _event.on)(this.hourDiv, 'click', function (e) {
+				var target = e.target;
+				if ((0, _dom.hasClass)(target, 'clockpicker-tick')) {
+					this.hours = target.innerHTML;
+					this.hours = this.hours > 9 || this.hours == 0 ? '' + this.hours : '0' + this.hours;
+					this.titleHourSpan.innerHTML = this.hours;
+					this.hourDiv.style.visibility = 'hidden';
+					// this.minDiv.style.visibility = 'visible';
+					this._zoomIn(this.minDiv);
+					this.currentView = 'min';
+					this.setHand();
+				}
+			}.bind(this));
+	
+			(0, _event.on)(this.minDiv, 'click', function (e) {
+				var target = e.target;
+				if ((0, _dom.hasClass)(target, 'clockpicker-tick')) {
+					this.min = target.innerHTML;
+					// this.min = this.min > 9 || this.min == 00? '' + this.min:'0' + this.min;
+					this.titleMinSpan.innerHTML = this.min;
+					this.minDiv.style.visibility = 'hidden';
+					this.hourDiv.style.visibility = 'visible';
+					this.currentView = 'hours';
+					var v = this.hours + ':' + this.min + ':' + this.sec;
+					this.setValue(v);
+					this.hide();
+				}
+			}.bind(this));
+	
+			(0, _event.on)(this.btnClean, 'click', function (e) {
+				this.setValue("");
+				this.hide();
+			}.bind(this));
+		},
+	
+		setHand: function setHand() {
+			var dialRadius = 100,
+			    innerRadius = 54,
+			    outerRadius = 80;
+			var view = this.currentView,
+			    value = this[view],
+			    isHours = view === 'hours',
+			    unit = Math.PI / (isHours ? 6 : 30),
+			    radian = value * unit,
+			    radius = isHours && value > 0 && value < 13 ? innerRadius : outerRadius,
+			    x = Math.sin(radian) * radius,
+			    y = -Math.cos(radian) * radius;
+			this.setHandFun(x, y);
+		},
+	
+		setHandFun: function setHandFun(x, y, roundBy5, dragging) {
+			var dialRadius = 100,
+			    innerRadius = 54,
+			    outerRadius = 80;
+	
+			var radian = Math.atan2(x, -y),
+			    isHours = this.currentView === 'hours',
+			    unit = Math.PI / (isHours ? 6 : 30),
+			    z = Math.sqrt(x * x + y * y),
+			    options = this.options,
+			    inner = isHours && z < (outerRadius + innerRadius) / 2,
+			    radius = inner ? innerRadius : outerRadius,
+			    value;
+	
+			if (this.twelvehour) {
+				radius = outerRadius;
+			}
+	
+			// Radian should in range [0, 2PI]
+			if (radian < 0) {
+				radian = Math.PI * 2 + radian;
+			}
+	
+			// Get the round value
+			value = Math.round(radian / unit);
+	
+			// Get the round radian
+			radian = value * unit;
+	
+			// Correct the hours or minutes
+			if (options.twelvehour) {
+				if (isHours) {
+					if (value === 0) {
+						value = 12;
+					}
+				} else {
+					if (roundBy5) {
+						value *= 5;
+					}
+					if (value === 60) {
+						value = 0;
+					}
+				}
+			} else {
+				if (isHours) {
+					if (value === 12) {
+						value = 0;
+					}
+					value = inner ? value === 0 ? 12 : value : value === 0 ? 0 : value + 12;
+				} else {
+					if (roundBy5) {
+						value *= 5;
+					}
+					if (value === 60) {
+						value = 0;
+					}
+				}
+			}
+	
+			// Set clock hand and others' position
+			var w = this.panelDiv.querySelector('.clockpicker-plate').offsetWidth;
+			var u = w / 200;
+			var cx = Math.sin(radian) * radius * u,
+			    cy = -Math.cos(radian) * radius * u;
+			var iu = 100 * u;
+			this.panelDiv.querySelector('g').setAttribute('transform', 'translate(' + iu + ',' + iu + ')');
+	
+			this.hand.setAttribute('x2', cx);
+			this.hand.setAttribute('y2', cy);
+			this.bg.setAttribute('cx', cx);
+			this.bg.setAttribute('cy', cy);
+			this.fg.setAttribute('cx', cx);
+			this.fg.setAttribute('cy', cy);
+		},
+	
+		setValue: function setValue(value) {
+			value = value ? value : '';
+	
+			if (value == '') {
+				this.input.value = '';
+	
+				this.trigger('valueChange', { value: '' });
+				return;
+			}
+	
+			if (value && value.indexOf(':') > -1) {
+				var vA = value.split(":");
+				var hour = vA[0];
+				hour = hour % 24;
+				this.hours = hour > 9 ? '' + hour : '0' + hour;
+				var min = vA[1];
+				min = min % 60;
+				this.min = min > 9 ? '' + min : '0' + min;
+				var sec = vA[2] || 0;
+				sec = sec % 60;
+				this.sec = sec > 9 ? '' + sec : '0' + sec;
+	
+				value = this.hours + ':' + this.min + ':' + this.sec;
+			} else {
+				this.hours = this.defaultHour;
+				this.min = this.defaultMin;
+				this.sec = this.defaultSec;
+			}
+			var _date = new Date();
+			_date.setHours(this.hours);
+			_date.setMinutes(this.min);
+			_date.setSeconds(this.sec);
+			var showValue = _dateUtils.date.format(_date, this.format);
+			this.input.value = showValue;
+	
+			this.trigger('valueChange', { value: value });
+		},
+	
+		focusEvent: function focusEvent() {
+			var self = this;
+			(0, _event.on)(this.input, 'focus', function (e) {
+				self._inputFocus = true;
+				self.show(e);
+				if (e.stopPropagation) {
+					e.stopPropagation();
+				} else {
+					e.cancelBubble = true;
+				}
+			});
+		},
+	
+		//下拉图标的点击事件
+		clickEvent: function clickEvent() {
+			var self = this;
+			var caret = this.element.nextSibling;
+			(0, _event.on)(caret, 'click', function (e) {
+				self._inputFocus = true;
+				self.show(e);
+				if (e.stopPropagation) {
+					e.stopPropagation();
+				} else {
+					e.cancelBubble = true;
+				}
+			});
+		},
+	
+		show: function show(evt) {
+	
+			var inputValue = this.input.value;
+			this.setValue(inputValue);
+	
+			var self = this;
+			this.createPanel();
+			this.minDiv.style.visibility = 'hidden';
+			this.hourDiv.style.visibility = 'visible';
+			this.currentView = 'hours';
+			this.titleHourSpan.innerHTML = this.hours;
+			this.titleMinSpan.innerHTML = this.min;
+	
+			/*因为元素可能变化位置，所以显示的时候需要重新计算*/
+			if (_env.isMobile) {
+				this.panelDiv.style.position = 'fixed';
+				this.panelDiv.style.top = '20%';
+				var screenW = document.body.clientWidth;
+				var l = (screenW - 226) / 2;
+				this.panelDiv.style.left = l + 'px';
+				this.overlayDiv = (0, _dom.makeModal)(this.panelDiv);
+				(0, _event.on)(this.overlayDiv, 'click', function () {
+					self.hide();
+				});
+			} else {
+				if (this.options.showFix) {
+					document.body.appendChild(this.panelDiv);
+					this.panelDiv.style.position = 'fixed';
+					(0, _dom.showPanelByEle)({
+						ele: this.input,
+						panel: this.panelDiv,
+						position: "bottomLeft"
+					});
+				} else {
+	
+					var bodyWidth = document.body.clientWidth,
+					    bodyHeight = document.body.clientHeight,
+					    panelWidth = this.panelDiv.offsetWidth,
+					    panelHeight = this.panelDiv.offsetHeight;
+	
+					this.element.appendChild(this.panelDiv);
+					this.element.style.position = 'relative';
+					this.left = this.input.offsetLeft;
+					var inputHeight = this.input.offsetHeight;
+					this.top = this.input.offsetTop + inputHeight;
+	
+					if (this.left + panelWidth > bodyWidth) {
+						this.left = bodyWidth - panelWidth;
+					}
+	
+					if (this.top + panelHeight > bodyHeight) {
+						this.top = bodyHeight - panelHeight;
+					}
+	
+					this.panelDiv.style.left = this.left + 'px';
+					this.panelDiv.style.top = this.top + 'px';
+				}
+			}
+	
+			this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
+			(0, _dom.addClass)(this.panelDiv, 'is-visible');
+	
+			this.setHand();
+	
+			var callback = function (e) {
+				if (e !== evt && e.target !== this.input && !self.clickPanel(e.target) && self._inputFocus != true) {
+					(0, _event.off)(document, 'click', callback);
+					this.hide();
+				}
+			}.bind(this);
+			(0, _event.on)(document, 'click', callback);
+	
+			//tab事件
+			(0, _event.on)(self.input, 'keydown', function (e) {
+				var keyCode = e.keyCode;
+				if (keyCode == 9) {
+					self.hide();
+				}
+			});
+		},
+	
+		clickPanel: function clickPanel(dom) {
+			while (dom) {
+				if (dom == this.panelDiv) {
+					return true;
+				} else {
+					dom = dom.parentNode;
+				}
+			}
+			return false;
+		},
+	
+		hide: function hide() {
+			(0, _dom.removeClass)(this.panelDiv, 'is-visible');
+			this.panelDiv.style.zIndex = -1;
+			if (this.overlayDiv) {
+				try {
+					document.body.removeChild(this.overlayDiv);
+				} catch (e) {}
+			}
+		}
+	});
+	
+	_compMgr.compMgr.regComp({
+		comp: ClockPicker,
+		compAsString: 'u.ClockPicker',
+		css: 'u-clockpicker'
+	});
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+	exports.ClockPicker = ClockPicker;
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Time = undefined;
+	
+	var _extend = __webpack_require__(1);
+	
+	var _BaseComponent = __webpack_require__(9);
+	
+	var _env = __webpack_require__(11);
+	
+	var _event = __webpack_require__(10);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var Time = _BaseComponent.BaseComponent.extend({
+		DEFAULTS: {},
+		init: function init() {
+			var self = this;
+			var element = this.element;
+			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
+			this.panelDiv = null;
+			this.input = this.element.querySelector("input");
+			(0, _dom.addClass)(this.element, 'u-text');
+	
+			(0, _event.on)(this.input, 'blur', function (e) {
+				self._inputFocus = false;
+				this.setValue(this.input.value);
+			}.bind(this));
+	
+			// 添加focus事件
+			this.focusEvent();
+			// 添加右侧图标click事件
+			this.clickEvent();
+		}
+	});
+	
+	Time.fn = Time.prototype;
+	
+	Time.fn.createPanel = function () {
+		if (this.panelDiv) return;
+		var oThis = this;
+		this.panelDiv = (0, _dom.makeDOM)('<div class="u-date-panel" style="padding:0px;"></div>');
+		this.panelContentDiv = (0, _dom.makeDOM)('<div class="u-time-content"></div>');
+		this.panelDiv.appendChild(this.panelContentDiv);
+		this.panelHourDiv = (0, _dom.makeDOM)('<div class="u-time-cell"></div>');
+		this.panelContentDiv.appendChild(this.panelHourDiv);
+		this.panelHourInput = (0, _dom.makeDOM)('<input class="u-time-input">');
+		this.panelHourDiv.appendChild(this.panelHourInput);
+		this.panelMinDiv = (0, _dom.makeDOM)('<div class="u-time-cell"></div>');
+		this.panelContentDiv.appendChild(this.panelMinDiv);
+		this.panelMinInput = (0, _dom.makeDOM)('<input class="u-time-input">');
+		this.panelMinDiv.appendChild(this.panelMinInput);
+		this.panelSecDiv = (0, _dom.makeDOM)('<div class="u-time-cell"></div>');
+		this.panelContentDiv.appendChild(this.panelSecDiv);
+		this.panelSecInput = (0, _dom.makeDOM)('<input class="u-time-input">');
+		this.panelSecDiv.appendChild(this.panelSecInput);
+		this.panelNavDiv = (0, _dom.makeDOM)('<div class="u-time-nav"></div>');
+		this.panelDiv.appendChild(this.panelNavDiv);
+		this.panelOKButton = (0, _dom.makeDOM)('<button class="u-button" style="float:right;">OK</button>');
+		this.panelNavDiv.appendChild(this.panelOKButton);
+		(0, _event.on)(this.panelOKButton, 'click', function () {
+			var v = oThis.panelHourInput.value + ':' + oThis.panelMinInput.value + ':' + oThis.panelSecInput.value;
+			oThis.setValue(v);
+			oThis.hide();
+		});
+		this.panelCancelButton = (0, _dom.makeDOM)('<button class="u-button" style="float:right;">Cancel</button>');
+		this.panelNavDiv.appendChild(this.panelCancelButton);
+		(0, _event.on)(this.panelCancelButton, 'click', function () {
+			oThis.hide();
+		});
+	
+		var d = new Date();
+		this.panelHourInput.value = d.getHours() > 9 ? '' + d.getHours() : '0' + d.getHours();
+		this.panelMinInput.value = d.getMinutes() > 9 ? '' + d.getMinutes() : '0' + d.getMinutes();
+		this.panelSecInput.value = d.getSeconds() > 9 ? '' + d.getSeconds() : '0' + d.getSeconds();
+	};
+	
+	Time.fn.setValue = function (value) {
+		var hour = '',
+		    min = '',
+		    sec = '';
+		value = value ? value : '';
+		if (value == this.input.value) return;
+		if (value && value.indexOf(':') > -1) {
+			var vA = value.split(":");
+			var hour = vA[0];
+			hour = hour % 24;
+			hour = hour > 9 ? '' + hour : '0' + hour;
+			var min = vA[1];
+			min = min % 60;
+			min = min > 9 ? '' + min : '0' + min;
+			var sec = vA[2];
+			sec = sec % 60;
+			sec = sec > 9 ? '' + sec : '0' + sec;
+	
+			value = hour + ':' + min + ':' + sec;
+		}
+		this.input.value = value;
+		this.createPanel();
+	
+		this.panelHourInput.value = hour;
+		this.panelMinInput.value = min;
+		this.panelSecInput.value = sec;
+		this.trigger('valueChange', { value: value });
+	};
+	
+	Time.fn.focusEvent = function () {
+		var self = this;
+		(0, _event.on)(this.input, 'focus', function (e) {
+			self._inputFocus = true;
+			self.show(e);
+			(0, _event.stopEvent)(e);
+		});
+	};
+	
+	//下拉图标的点击事件
+	Time.fn.clickEvent = function () {
+		var self = this;
+		var caret = this.element.nextSibling;
+		(0, _event.on)(caret, 'click', function (e) {
+			self.input.focus();
+			(0, _event.stopEvent)(e);
+		});
+	};
+	
+	Time.fn.show = function (evt) {
+	
+		var inputValue = this.input.value;
+		this.setValue(inputValue);
+	
+		var oThis = this;
+		this.createPanel();
+	
+		/*因为元素可能变化位置，所以显示的时候需要重新计算*/
+		this.width = this.element.offsetWidth;
+		if (this.width < 300) this.width = 300;
+	
+		this.panelDiv.style.width = this.width + 'px';
+		this.panelDiv.style.maxWidth = this.width + 'px';
+		if (this.options.showFix) {
+			document.body.appendChild(this.panelDiv);
+			this.panelDiv.style.position = 'fixed';
+			(0, _dom.showPanelByEle)({
+				ele: this.input,
+				panel: this.panelDiv,
+				position: "bottomLeft"
+			});
+		} else {
+			// this.element.parentNode.appendChild(this.panelDiv);
+			// //调整left和top
+			// this.left = this.element.offsetLeft;
+			// var inputHeight = this.element.offsetHeight;
+			// this.top = this.element.offsetTop + inputHeight;
+			// this.panelDiv.style.left = this.left + 'px';
+			// this.panelDiv.style.top = this.top + 'px';
+	
+			var bodyWidth = document.body.clientWidth,
+			    bodyHeight = document.body.clientHeight,
+			    panelWidth = this.panelDiv.offsetWidth,
+			    panelHeight = this.panelDiv.offsetHeight;
+	
+			this.element.appendChild(this.panelDiv);
+			this.element.style.position = 'relative';
+			this.left = this.input.offsetLeft;
+			var inputHeight = this.input.offsetHeight;
+			this.top = this.input.offsetTop + inputHeight;
+	
+			if (this.left + panelWidth > bodyWidth) {
+				this.left = bodyWidth - panelWidth;
+			}
+	
+			if (this.top + panelHeight > bodyHeight) {
+				this.top = bodyHeight - panelHeight;
+			}
+	
+			this.panelDiv.style.left = this.left + 'px';
+			this.panelDiv.style.top = this.top + 'px';
+		}
+	
+		this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
+		(0, _dom.addClass)(this.panelDiv, 'is-visible');
+	
+		var callback = function (e) {
+			if (e !== evt && e.target !== this.input && !oThis.clickPanel(e.target) && self._inputFocus != true) {
+				(0, _event.off)(document, 'click', callback);
+				// document.removeEventListener('click', callback);
+				this.hide();
+			}
+		}.bind(this);
+		(0, _event.on)(document, 'click', callback);
+		// document.addEventListener('click', callback);
+	};
+	
+	Time.fn.clickPanel = function (dom) {
+		while (dom) {
+			if (dom == this.panelDiv) {
+				return true;
+			} else {
+				dom = dom.parentNode;
+			}
+		}
+		return false;
+	};
+	
+	Time.fn.hide = function () {
+		(0, _dom.removeClass)(this.panelDiv, 'is-visible');
+		this.panelDiv.style.zIndex = -1;
+	};
+	
+	_compMgr.compMgr.regComp({
+		comp: Time,
+		compAsString: 'u.Time',
+		css: 'u-time'
+	});
+	if (_env.env.isIE8) {
+		_compMgr.compMgr.regComp({
+			comp: Time,
+			compAsString: 'u.ClockPicker',
+			css: 'u-clockpicker'
+		});
+	}
+	
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+	
+	exports.Time = Time;
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.UrlAdapter = undefined;
+	
+	var _string = __webpack_require__(64);
+	
+	var _dom = __webpack_require__(13);
+	
+	/**
+	 * Module : Kero url adapter
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 13:51:26
+	 */
+	var UrlAdapter = _string.StringAdapter.extend({
+	    init: function init() {
+	        UrlAdapter.superclass.init.apply(this);
+	        this.validType = 'url';
+	
+	        /*
+	         * 因为需要输入，因此不显示为超链接
+	         */
+	    },
+	    // 如果enable为false则显示<a>标签
+	    setEnable: function setEnable(enable) {
+	        if (enable === true || enable === 'true') {
+	            this.enable = true;
+	            this.element.removeAttribute('readonly');
+	            (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
+	            if (this.aDom) {
+	                this.aDom.style.display = 'none';
+	            }
+	        } else if (enable === false || enable === 'false') {
+	            this.enable = false;
+	            this.element.setAttribute('readonly', 'readonly');
+	            (0, _dom.addClass)(this.element.parentNode, 'disablecover');
+	            if (!this.aDom) {
+	                this.aDom = (0, _dom.makeDOM)('<div style="position:absolute;background:#fff;z-index:999;"><a href="' + this.trueValue + '" target="_blank" style="position:absolue;">' + this.trueValue + '</a></div>');
+	                var left = this.element.offsetLeft;
+	                var width = this.element.offsetWidth;
+	                var top = this.element.offsetTop;
+	                var height = this.element.offsetHeight;
+	                this.aDom.style.left = left + 'px';
+	                this.aDom.style.width = width + 'px';
+	                this.aDom.style.top = top + 'px';
+	                this.aDom.style.height = height + 'px';
+	                this.element.parentNode.appendChild(this.aDom);
+	            }
+	            var $a = $(this.aDom).find('a');
+	            $a.href = this.trueValue;
+	            $a.innerHTML = this.trueValue;
+	            this.aDom.style.display = 'block';
+	        }
+	    }
+	});
+	compMgr.addDataAdapter({
+	    adapter: UrlAdapter,
+	    name: 'url'
+	});
+	exports.UrlAdapter = UrlAdapter;
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.YearAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _neouiYear = __webpack_require__(80);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var YearAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(comp, options) {
+	        var self = this;
+	        YearAdapter.superclass.initialize.apply(this, arguments);
+	        this.validType = 'year';
+	
+	        this.comp = new _neouiYear.Year(this.element);
+	
+	        this.comp.on('valueChange', function (event) {
+	            self.slice = true;
+	            self.dataModel.setValue(self.field, event.value);
+	            self.slice = false;
+	            //self.setValue(event.value);
+	        });
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	    modelValueChange: function modelValueChange(value) {
+	        if (this.slice) return;
+	        this.comp.setValue(value);
+	    },
+	    setEnable: function setEnable(enable) {}
+	}); /**
+	     * Module : Kero year adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 12:40:46
+	     */
+	
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: YearAdapter,
+	    name: 'u-year'
+	});
+	
+	exports.YearAdapter = YearAdapter;
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Year = undefined;
+	
+	var _BaseComponent = __webpack_require__(9);
+	
+	var _event = __webpack_require__(10);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _extend = __webpack_require__(1);
+	
+	/**
+	 * Module : neoui-year
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-11 15:17:07
+	 */
+	
+	var Year = _BaseComponent.BaseComponent.extend({
+		DEFAULTS: {},
+		init: function init() {
+			var self = this;
+			var element = this.element;
+			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
+			this.panelDiv = null;
+			this.input = this.element.querySelector("input");
+	
+			var d = new Date();
+			this.year = d.getFullYear();
+			this.defaultYear = this.year;
+			this.startYear = this.year - this.year % 10 - 1;
+	
+			(0, _event.on)(this.input, 'blur', function (e) {
+				self._inputFocus = false;
+				this.setValue(this.input.value);
+			}.bind(this));
+	
+			// 添加focus事件
+			this.focusEvent();
+			// 添加右侧图标click事件
+			this.clickEvent();
+		},
+	
+		createPanel: function createPanel() {
+			if (this.panelDiv) {
+				this._fillYear();
+				return;
+			}
+			var oThis = this;
+			this.panelDiv = (0, _dom.makeDOM)('<div class="u-date-panel" style="margin:0px;"></div>');
+			this.panelContentDiv = (0, _dom.makeDOM)('<div class="u-date-content"></div>');
+			this.panelDiv.appendChild(this.panelContentDiv);
+	
+			this.preBtn = (0, _dom.makeDOM)('<button class="u-date-pre-button u-button mini">&lt;</button>');
+			this.nextBtn = (0, _dom.makeDOM)('<button class="u-date-next-button u-button mini">&gt;</button>');
+	
+			(0, _event.on)(this.preBtn, 'click', function (e) {
+				oThis.startYear -= 10;
+				oThis._fillYear();
+			});
+			(0, _event.on)(this.nextBtn, 'click', function (e) {
+				oThis.startYear += 10;
+				oThis._fillYear();
+			});
+			this.panelContentDiv.appendChild(this.preBtn);
+			this.panelContentDiv.appendChild(this.nextBtn);
+			this._fillYear();
+		},
+	
+		/**
+	  *填充年份选择面板
+	  * @private
+	  */
+		_fillYear: function _fillYear(type) {
+			var oldPanel, year, template, yearPage, titleDiv, yearDiv, i, cell;
+			oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
+			if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
+			template = ['<div class="u-date-content-page">', '<div class="u-date-content-title"></div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
+			yearPage = (0, _dom.makeDOM)(template);
+			titleDiv = yearPage.querySelector('.u-date-content-title');
+			titleDiv.innerHTML = this.startYear + '-' + (this.startYear + 11);
+			yearDiv = yearPage.querySelector('.u-date-content-panel');
+			for (i = 0; i < 12; i++) {
+				cell = (0, _dom.makeDOM)('<div class="u-date-content-year-cell">' + (this.startYear + i) + '</div>');
+				new URipple(cell);
+				if (this.startYear + i == this.year) {
+					(0, _dom.addClass)(cell, 'current');
+				}
+				cell._value = this.startYear + i;
+				yearDiv.appendChild(cell);
+			}
+			(0, _event.on)(yearDiv, 'click', function (e) {
+				var _y = e.target._value;
+				this.year = _y;
+				this.setValue(_y);
+				this.hide();
+				(0, _event.stopEvent)(e);
+			}.bind(this));
+	
+			this.preBtn.style.display = 'block';
+			this.nextBtn.style.display = 'block';
+			this.panelContentDiv.appendChild(yearPage);
+	
+			this.currentPanel = 'year';
+		},
+	
+		setValue: function setValue(value) {
+			value = value ? value : '';
+			this.value = value;
+			if (value) {
+				this.year = value;
+			} else {
+				this.year = this.defaultYear;
+			}
+			this.startYear = this.year - this.year % 10 - 1;
+			this.input.value = value;
+			this.trigger('valueChange', { value: value });
+		},
+	
+		focusEvent: function focusEvent() {
+			var self = this;
+			(0, _event.on)(this.input, 'focus', function (e) {
+				self._inputFocus = true;
+				self.show(e);
+				(0, _event.stopEvent)(e);
+			});
+		},
+	
+		//下拉图标的点击事件
+		clickEvent: function clickEvent() {
+			var self = this;
+			var caret = this.element.nextSibling;
+			(0, _event.on)(caret, 'click', function (e) {
+				self.input.focus();
+				(0, _event.stopEvent)(e);
+			});
+		},
+	
+		show: function show(evt) {
+			var oThis = this;
+			this.createPanel();
+	
+			this.width = this.element.offsetWidth;
+			if (this.width < 300) this.width = 300;
+	
+			this.panelDiv.style.width = 152 + 'px';
+			if (this.options.showFix) {
+				document.body.appendChild(this.panelDiv);
+				this.panelDiv.style.position = 'fixed';
+				(0, _dom.showPanelByEle)({
+					ele: this.input,
+					panel: this.panelDiv,
+					position: "bottomLeft"
+				});
+			} else {
+				var bodyWidth = document.body.clientWidth,
+				    bodyHeight = document.body.clientHeight,
+				    panelWidth = this.panelDiv.offsetWidth,
+				    panelHeight = this.panelDiv.offsetHeight;
+	
+				this.element.appendChild(this.panelDiv);
+				this.element.style.position = 'relative';
+				this.left = this.input.offsetLeft;
+				var inputHeight = this.input.offsetHeight;
+				this.top = this.input.offsetTop + inputHeight;
+	
+				if (this.left + panelWidth > bodyWidth) {
+					this.left = bodyWidth - panelWidth;
+				}
+	
+				if (this.top + panelHeight > bodyHeight) {
+					this.top = bodyHeight - panelHeight;
+				}
+	
+				this.panelDiv.style.left = this.left + 'px';
+				this.panelDiv.style.top = this.top + 'px';
+			}
+			this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
+			(0, _dom.addClass)(this.panelDiv, 'is-visible');
+	
+			var callback = function (e) {
+				if (e !== evt && e.target !== this.input && !oThis.clickPanel(e.target) && self._inputFocus != true) {
+					(0, _event.off)(document, 'click', callback);
+					// document.removeEventListener('click', callback);
+					this.hide();
+				}
+			}.bind(this);
+			(0, _event.on)(document, 'click', callback);
+			// document.addEventListener('click', callback);
+		},
+	
+		clickPanel: function clickPanel(dom) {
+			while (dom) {
+				if (dom == this.panelDiv) {
+					return true;
+				} else {
+					dom = dom.parentNode;
+				}
+			}
+			return false;
+		},
+		hide: function hide() {
+			(0, _dom.removeClass)(this.panelDiv, 'is-visible');
+			this.panelDiv.style.zIndex = -1;
+		}
+	});
+	
+	compMgr.regComp({
+		comp: Year,
+		compAsString: 'u.Year',
+		css: 'u-year'
+	});
+	if (document.readyState && document.readyState === 'complete') {
+		compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			compMgr.updateComp();
+		});
+	}
+	exports.Year = Year;
+
+/***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.YearMonthAdapter = undefined;
+	
+	var _baseAdapter = __webpack_require__(3);
+	
+	var _neouiYearmonth = __webpack_require__(82);
+	
+	var _compMgr = __webpack_require__(12);
+	
+	var YearMonthAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(comp, options) {
+	        var self = this;
+	        YearMonthAdapter.superclass.initialize.apply(this, arguments);
+	        this.validType = 'yearmonth';
+	
+	        this.comp = new _neouiYearmonth.YearMonth(this.element);
+	
+	        this.comp.on('valueChange', function (event) {
+	            self.slice = true;
+	            self.dataModel.setValue(self.field, event.value);
+	            self.slice = false;
+	            //self.setValue(event.value);
+	        });
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	    modelValueChange: function modelValueChange(value) {
+	        if (this.slice) return;
+	        this.comp.setValue(value);
+	    },
+	    setEnable: function setEnable(enable) {}
+	}); /**
+	     * Module : Kero yearmonth adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 14:11:50
+	     */
+	
+	
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: YearMonthAdapter,
+	    name: 'u-yearmonth'
+	});
+	
+	exports.YearMonthAdapter = YearMonthAdapter;
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.YearMonth = undefined;
+	
+	var _BaseComponent = __webpack_require__(9);
+	
+	var _event = __webpack_require__(10);
+	
+	var _dom = __webpack_require__(13);
+	
+	var _extend = __webpack_require__(1);
+	
+	var _env = __webpack_require__(11);
+	
+	var YearMonth = _BaseComponent.BaseComponent.extend({
+	    DEFAULTS: {},
+	    init: function init() {
+	        var self = this;
+	        var element = this.element;
+	        this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
+	        this.panelDiv = null;
+	        this.input = this.element.querySelector("input");
+	
+	        var d = new Date();
+	        this.year = d.getFullYear();
+	        this.startYear = this.year - this.year % 10 - 1;
+	        this.month = d.getMonth() + 1;
+	
+	        (0, _event.on)(this.input, 'blur', function (e) {
+	            self._inputFocus = false;
+	            this.setValue(this.input.value);
+	        }.bind(this));
+	
+	        // 添加focus事件
+	        this.focusEvent();
+	        // 添加右侧图标click事件
+	        this.clickEvent();
+	    },
+	
+	    createPanel: function createPanel() {
+	        if (this.panelDiv) {
+	            this._fillYear();
+	            return;
+	        }
+	        var oThis = this;
+	        this.panelDiv = (0, _dom.makeDOM)('<div class="u-date-panel" style="margin:0px;"></div>');
+	        this.panelContentDiv = (0, _dom.makeDOM)('<div class="u-date-content"></div>');
+	        this.panelDiv.appendChild(this.panelContentDiv);
+	
+	        // this.preBtn = makeDOM('<button class="u-date-pre-button u-button flat floating mini" style="display:none;">&lt;</button>');
+	        // this.nextBtn = makeDOM('<button class="u-date-next-button u-button flat floating mini" style="display:none;">&gt;</button>');
+	        this.preBtn = (0, _dom.makeDOM)('<button class="u-date-pre-button u-button mini">&lt;</button>');
+	        this.nextBtn = (0, _dom.makeDOM)('<button class="u-date-next-button u-button mini">&gt;</button>');
+	
+	        (0, _event.on)(this.preBtn, 'click', function (e) {
+	            oThis.startYear -= 10;
+	            oThis._fillYear();
+	        });
+	        (0, _event.on)(this.nextBtn, 'click', function (e) {
+	            oThis.startYear += 10;
+	            oThis._fillYear();
+	        });
+	        this.panelContentDiv.appendChild(this.preBtn);
+	        this.panelContentDiv.appendChild(this.nextBtn);
+	        this._fillYear();
+	    },
+	
+	    /**
+	     *填充年份选择面板
+	     * @private
+	     */
+	    _fillYear: function _fillYear(type) {
+	        var oldPanel, year, template, yearPage, titleDiv, yearDiv, i, cell;
+	        oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
+	        if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title"></div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
+	        yearPage = (0, _dom.makeDOM)(template);
+	        titleDiv = yearPage.querySelector('.u-date-content-title');
+	        titleDiv.innerHTML = this.startYear + '-' + (this.startYear + 11);
+	        yearDiv = yearPage.querySelector('.u-date-content-panel');
+	        for (i = 0; i < 12; i++) {
+	            cell = (0, _dom.makeDOM)('<div class="u-date-content-year-cell">' + (this.startYear + i) + '</div>');
+	            new URipple(cell);
+	            if (this.startYear + i == this.year) {
+	                (0, _dom.addClass)(cell, 'current');
+	            }
+	            cell._value = this.startYear + i;
+	            yearDiv.appendChild(cell);
+	        }
+	        var oThis = this;
+	        (0, _event.on)(yearDiv, 'click', function (e) {
+	            var _y = e.target._value;
+	            oThis.year = _y;
+	            oThis._fillMonth();
+	            (0, _event.stopEvent)(e);
+	        });
+	
+	        this.preBtn.style.display = 'block';
+	        this.nextBtn.style.display = 'block';
+	        // this._zoomIn(yearPage);
+	        this.panelContentDiv.appendChild(yearPage);
+	        this.contentPage = yearPage;
+	        this.currentPanel = 'year';
+	    },
+	
+	    /**
+	     * 填充月份选择面板
+	     * @private
+	     */
+	    _fillMonth: function _fillMonth() {
+	        var oldPanel, template, monthPage, _month, cells, i;
+	        oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
+	        if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
+	        _month = this.month;
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
+	
+	        monthPage = (0, _dom.makeDOM)(template);
+	        cells = monthPage.querySelectorAll('.u-date-content-year-cell');
+	        for (i = 0; i < cells.length; i++) {
+	            if (_month == i + 1) {
+	                (0, _dom.addClass)(cells[i], 'current');
+	            }
+	            cells[i]._value = i + 1;
+	            new URipple(cells[i]);
+	        }
+	        var oThis = this;
+	        (0, _event.on)(monthPage, 'click', function (e) {
+	            var _m = e.target._value;
+	            oThis.month = _m;
+	            monthPage.querySelector('.u-date-content-title').innerHTML = _m + '月';
+	            oThis.setValue(oThis.year + '-' + oThis.month);
+	            oThis.hide();
+	        });
+	
+	        this.preBtn.style.display = 'none';
+	        this.nextBtn.style.display = 'none';
+	        this._zoomIn(monthPage);
+	        this.currentPanel = 'month';
+	    },
+	
+	    /**
+	     * 淡入动画效果
+	     * @private
+	     */
+	    _zoomIn: function _zoomIn(newPage) {
+	        if (!this.contentPage) {
+	            this.panelContentDiv.appendChild(newPage);
+	            this.contentPage = newPage;
+	            return;
+	        }
+	        (0, _dom.addClass)(newPage, 'zoom-in');
+	        this.panelContentDiv.appendChild(newPage);
+	        if (_env.isIE8) {
+	            this.contentPage = newPage;
+	        } else {
+	            var cleanup = function () {
+	                newPage.removeEventListener('transitionend', cleanup);
+	                newPage.removeEventListener('webkitTransitionEnd', cleanup);
+	                // this.panelContentDiv.removeChild(this.contentPage);
+	                this.contentPage = newPage;
+	            }.bind(this);
+	            if (this.contentPage) {
+	                newPage.addEventListener('transitionend', cleanup);
+	                newPage.addEventListener('webkitTransitionEnd', cleanup);
+	            }
+	            window.requestAnimationFrame(function () {
+	                (0, _dom.addClass)(this.contentPage, 'is-hidden');
+	                (0, _dom.removeClass)(newPage, 'zoom-in');
+	            }.bind(this));
+	        }
+	    },
+	
+	    setValue: function setValue(value) {
+	        value = value ? value : '';
+	        if (value && value.indexOf('-') > -1) {
+	            var vA = value.split("-");
+	            this.year = vA[0];
+	            var month = vA[1];
+	            this.month = month % 12;
+	            if (this.month == 0) this.month = 12;
+	
+	            value = this.year + '-' + this.month;
+	        }
+	        this.value = value;
+	        this.input.value = value;
+	        this.trigger('valueChange', { value: value });
+	    },
+	
+	    focusEvent: function focusEvent() {
+	        var self = this;
+	        (0, _event.on)(this.input, 'focus', function (e) {
+	            self._inputFocus = true;
+	            self.show(e);
+	            (0, _event.stopEvent)(e);
+	        });
+	    },
+	
+	    //下拉图标的点击事件
+	    clickEvent: function clickEvent() {
+	        var self = this;
+	        var caret = this.element.nextSibling;
+	        (0, _event.on)(caret, 'click', function (e) {
+	            self.input.focus();
+	            (0, _event.stopEvent)(e);
+	        });
+	    },
+	
+	    show: function show(evt) {
+	        var oThis = this;
+	        if (this.value && this.value.indexOf('-') > -1) {
+	            var vA = this.value.split("-");
+	            this.year = vA[0];
+	            var month = vA[1];
+	            this.month = month % 12;
+	            if (this.month == 0) this.month = 12;
+	        }
+	        this.createPanel();
+	        /*因为元素可能变化位置，所以显示的时候需要重新计算*/
+	        this.width = this.element.offsetWidth;
+	        if (this.width < 300) this.width = 300;
+	
+	        this.panelDiv.style.width = this.width + 'px';
+	
+	        if (this.options.showFix) {
+	            document.body.appendChild(this.panelDiv);
+	            this.panelDiv.style.position = 'fixed';
+	            (0, _dom.showPanelByEle)({
+	                ele: this.input,
+	                panel: this.panelDiv,
+	                position: "bottomLeft"
+	            });
+	        } else {
+	            //    this.element.parentNode.appendChild(this.panelDiv);
+	            // //调整left和top
+	            //    this.left = this.element.offsetLeft;
+	            //    var inputHeight = this.element.offsetHeight;
+	            //    this.top = this.element.offsetTop + inputHeight;
+	            //    this.panelDiv.style.left = this.left + 'px';
+	            //    this.panelDiv.style.top = this.top + 'px';
+	
+	            var bodyWidth = document.body.clientWidth,
+	                bodyHeight = document.body.clientHeight,
+	                panelWidth = this.panelDiv.offsetWidth,
+	                panelHeight = this.panelDiv.offsetHeight;
+	
+	            this.element.appendChild(this.panelDiv);
+	            this.element.style.position = 'relative';
+	            this.left = this.input.offsetLeft;
+	            var inputHeight = this.input.offsetHeight;
+	            this.top = this.input.offsetTop + inputHeight;
+	
+	            if (this.left + panelWidth > bodyWidth) {
+	                this.left = bodyWidth - panelWidth;
+	            }
+	
+	            if (this.top + panelHeight > bodyHeight) {
+	                this.top = bodyHeight - panelHeight;
+	            }
+	
+	            this.panelDiv.style.left = this.left + 'px';
+	            this.panelDiv.style.top = this.top + 'px';
+	        }
+	
+	        this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
+	        (0, _dom.addClass)(this.panelDiv, 'is-visible');
+	        var oThis = this;
+	        var callback = function callback(e) {
+	            if (e !== evt && e.target !== oThis.input && !oThis.clickPanel(e.target) && self._inputFocus != true) {
+	                // document.removeEventListener('click', callback);
+	                (0, _event.off)(document, 'click', callback);
+	                oThis.hide();
+	            }
+	        };
+	        (0, _event.on)(document, 'click', callback);
+	        // document.addEventListener('click', callback);
+	    },
+	
+	    clickPanel: function clickPanel(dom) {
+	        while (dom) {
+	            if (dom == this.panelDiv) {
+	                return true;
+	            } else {
+	                dom = dom.parentNode;
+	            }
+	        }
+	        return false;
+	    },
+	
+	    hide: function hide() {
+	        (0, _dom.removeClass)(this.panelDiv, 'is-visible');
+	        this.panelDiv.style.zIndex = -1;
+	    }
+	}); /**
+	     * Module : neoui-year
+	     * Author : liuyk(liuyk@yonyou.com)
+	     * Date   : 2016-08-11 15:17:07
+	     */
+	
+	compMgr.regComp({
+	    comp: YearMonth,
+	    compAsString: 'u.YearMonth',
+	    css: 'u-yearmonth'
+	});
+	if (document.readyState && document.readyState === 'complete') {
+	    compMgr.updateComp();
+	} else {
+	    (0, _event.on)(window, 'load', function () {
+	        //扫描并生成控件
+	        compMgr.updateComp();
+	    });
+	}
+	exports.YearMonth = YearMonth;
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.EnableMixin = undefined;
+	
+	var _dom = __webpack_require__(13);
+	
+	var EnableMixin = {
+	    init: function init() {
+	        var self = this;
+	        //处理只读
+	        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)) {
+	            this.setEnable(false);
+	        } else {
+	            this.dataModel.refEnable(this.field).subscribe(function (value) {
+	                self.setEnable(value);
+	            });
+	            this.setEnable(this.dataModel.isEnable(this.field));
+	        }
+	    },
+	    methods: {
+	        setEnable: function setEnable(enable) {
+	            if (enable === true || enable === 'true') {
+	                this.enable = true;
+	                this.element.removeAttribute('readonly');
+	                (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
+	            } else if (enable === false || enable === 'false') {
+	                this.enable = false;
+	                this.element.setAttribute('readonly', 'readonly');
+	                (0, _dom.addClass)(this.element.parentNode, 'disablecover');
+	            }
+	        }
+	    }
+	}; /**
+	    * Module : Kero Enable Mixin
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-08 16:32:54
+	    */
+	exports.EnableMixin = EnableMixin;
+
+/***/ },
+/* 84 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : Kero Enable Mixin
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-08 16:32:54
+	 */
+	
+	var RequiredMixin = {
+	    init: function init() {
+	        var self = this;
+	        this.required = this.getOption('required');
+	        this.dataModel.refRowMeta(this.field, "required").subscribe(function (value) {
+	            self.setRequired(value);
+	        });
+	        //this.setRequired(this.dataModel.getMeta(this.field, "required"));
+	    },
+	    methods: {
+	        setRequired: function setRequired(required) {
+	            if (required === true || required === 'true') {
+	                this.required = true;
+	            } else if (required === false || required === 'false') {
+	                this.required = false;
+	            }
+	        }
+	    }
+	};
+	
+	exports.RequiredMixin = RequiredMixin;
+
+/***/ },
+/* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.ValidateMixin = undefined;
+	
+	var _neouiValidate = __webpack_require__(53);
+	
+	var ValidateMixin = {
+	    init: function init() {
+	        this.placement = this.getOption('placement');
+	        this.tipId = this.getOption('tipId');
+	        this.tipAliveTime = this.getOption('tipAliveTime');
+	        this.errorMsg = this.getOption('errorMsg');
+	        this.nullMsg = this.getOption('nullMsg');
+	        this.regExp = this.getOption('regExp');
+	        this.successId = this.getOption('successId');
+	        this.hasSuccess = this.getOption('hasSuccess');
+	        this.notipFlag = this.getOption('notipFlag');
+	
+	        // if (this.validType) {
+	        this.validate = new _neouiValidate.Validate({
+	            el: this.element,
+	            single: true,
+	            validMode: 'manually',
+	            required: this.required,
+	            validType: this.validType,
+	            placement: this.placement,
+	            tipId: this.tipId,
+	            tipAliveTime: this.tipAliveTime,
+	            successId: this.successId,
+	            notipFlag: this.notipFlag,
+	            hasSuccess: this.hasSuccess,
+	            errorMsg: this.errorMsg,
+	            nullMsg: this.nullMsg,
+	            maxLength: this.maxLength,
+	            minLength: this.minLength,
+	            max: this.max,
+	            min: this.min,
+	            maxNotEq: this.maxNotEq,
+	            minNotEq: this.minNotEq,
+	            reg: this.regExp
+	        });
+	        // };
+	    },
+	    methods: {
+	        /**
+	         *校验
+	         */
+	        doValidate: function doValidate(options) {
+	            if (this.validate) {
+	                if (options && options['trueValue'] === true) {
+	                    options['showMsg'] = options['showMsg'] || false;
+	                    var result = this.validate.check({ pValue: this.getValue(), showMsg: options['showMsg'] });
+	                } else {
+	                    var result = this.validate.check();
+	                }
+	                result.comp = this;
+	                return result;
+	            } else {
+	                return { passed: true, comp: this };
+	            }
+	        },
+	        /**
+	         * 是否需要清除数据
+	         */
+	        _needClean: function _needClean() {
+	            if (this.validate) return this.validate._needClean();else return false;
+	        }
+	    }
+	}; /**
+	    * Module : Kero Validate Mixin
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-10 14:53:43
+	    */
+	exports.ValidateMixin = ValidateMixin;
 
 /***/ }
 /******/ ])

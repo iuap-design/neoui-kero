@@ -5,7 +5,7 @@
  */
 
 import {BaseAdapter} from './baseAdapter';
-//miss Month
+import {Month} from 'neoui/js/neoui-month';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var MonthAdapter = BaseAdapter.extend({

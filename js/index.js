@@ -10,11 +10,11 @@ import {CheckboxAdapter} from './checkbox';
 import {CkEditorAdapter} from './ckeditor';
 import {ComboboxAdapter} from './combobox';
 import {CurrencyAdapter} from './currency';
-//import {DateTimeAdapter} from './datetime';
+import {DateTimeAdapter} from './datetime';
 import {FloatAdapter} from './float';
 // import {GridAdapter} from './grid';
 import {IntegerAdapter} from './integer';
-//import {MonthAdapter} from './month';
+import {MonthAdapter} from './month';
 import {NativeCheckAdapter} from './native-checkbox';
 import {NativeRadioAdapter} from './native-radio';
 import {PaginationAdapter} from './pagination';
@@ -26,10 +26,10 @@ import {RadioAdapter} from './radio';
 import {SwitchAdapter} from './switch';
 import {TextAreaAdapter} from './textarea';
 import {TextFieldAdapter} from './textfield';
-//import {TimeAdapter} from './time';
+import {TimeAdapter} from './time';
 import {UrlAdapter} from './url';
-//import {YearAdapter} from './year';
-//import {YearMonthAdapter} from './yearmonth';
+import {YearAdapter} from './year';
+import {YearMonthAdapter} from './yearmonth';
 //import {TreeAdapter} from './tree';
 import {EnableMixin} from './enableMixin';
 import {RequiredMixin} from './requiredMixin';
@@ -44,8 +44,10 @@ var ex = {
 	CkEditorAdapter: CkEditorAdapter,
 	ComboboxAdapter: ComboboxAdapter,
 	CurrencyAdapter: CurrencyAdapter,
+	DateTimeAdapter: DateTimeAdapter,
 	FloatAdapter: FloatAdapter,
 	IntegerAdapter: IntegerAdapter,
+	MonthAdapter: MonthAdapter,
 	NativeCheckAdapter: NativeCheckAdapter,
 	NativeRadioAdapter: NativeRadioAdapter,
 	PaginationAdapter: PaginationAdapter,
@@ -57,7 +59,10 @@ var ex = {
 	SwitchAdapter: SwitchAdapter,
 	TextAreaAdapter: TextAreaAdapter,
 	TextFieldAdapter: TextFieldAdapter,
+	TimeAdapter: TimeAdapter,
 	UrlAdapter: UrlAdapter,
+	YearAdapter: YearAdapter,
+	YearMonthAdapter: YearMonthAdapter,
 	EnableMixin: EnableMixin,
 	RequiredMixin: RequiredMixin,
 	ValidateMixin: ValidateMixin,

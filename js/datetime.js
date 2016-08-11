@@ -14,7 +14,7 @@ import {addClass,removeClass} from 'neoui-sparrow/js/dom';
 import {core} from 'neoui-sparrow/js/core';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {env} from 'neoui-sparrow/js/env';
-//miss DateTimePicker
+import {DateTimePicker} from 'neoui/js/neoui-datetimepicker';
 import {date} from 'neoui-sparrow/js/util/dateUtils';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 

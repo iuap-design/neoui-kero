@@ -4,7 +4,7 @@
  * Date	  : 2016-08-10 14:11:50
  */
 import {BaseAdapter} from './baseAdapter';
-import {YearMonth} from './';
+import {YearMonth} from 'neoui/js/neoui-yearmonth';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var YearMonthAdapter = BaseAdapter.extend({
