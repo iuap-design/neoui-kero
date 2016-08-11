@@ -13,7 +13,7 @@ import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
 import {NumberMasker,PercentMasker} from 'neoui-sparrow/js/util/masker';
 import {dateRender,dateTimeRender} from 'neoui-sparrow/js/util/dataRender';
-//miss DataTable
+import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {stopEvent} from 'neoui-sparrow/js/event';
 import {StringAdapter} from './string';
 import {IntegerAdapter} from './integer';

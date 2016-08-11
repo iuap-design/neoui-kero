@@ -12,7 +12,7 @@ import {ValidateMixin} from './valueMixin';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
 import {addClass,removeClass} from 'neoui-sparrow/js/dom';
 import {core} from 'neoui-sparrow/js/core';
-//miss DataTable;
+import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {env} from 'neoui-sparrow/js/env';
 //miss DateTimePicker
 import {date} from 'neoui-sparrow/js/util/dateUtils';

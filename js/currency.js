@@ -11,7 +11,7 @@ import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
 import {Checkbox} from 'neoui/js/neoui-checkbox';
-//miss DataTable
+import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
 import {isNumber} from 'neoui-sparrow/js/util';
 import {FloatAdapter} from './float';

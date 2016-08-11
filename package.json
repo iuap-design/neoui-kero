@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -12,6 +12,7 @@
     "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
   },
   "dependencies": {
+    "kero": "^3.1.2",
     "neoui": "^3.1.2",
     "neoui-sparrow": "^1.2.2"
   },
