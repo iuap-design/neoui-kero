@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v1.0.4
+ * kero-adapter v1.0.5
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -9079,11 +9079,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _extend = __webpack_require__(1);
 	
-	/**
-	 * Module : neoui-month
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-08-11 15:17:07
-	 */
+	var _compMgr = __webpack_require__(12);
+	
 	var Month = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
@@ -9271,19 +9268,24 @@ return /******/ (function(modules) { // webpackBootstrap
 			(0, _dom.removeClass)(this.panelDiv, 'is-visible');
 			this.panelDiv.style.zIndex = -1;
 		}
-	});
+	}); /**
+	     * Module : neoui-month
+	     * Author : liuyk(liuyk@yonyou.com)
+	     * Date	  : 2016-08-11 15:17:07
+	     */
 	
-	compMgr.regComp({
+	
+	_compMgr.compMgr.regComp({
 		comp: Month,
 		compAsString: 'u.Month',
 		css: 'u-month'
 	});
 	if (document.readyState && document.readyState === 'complete') {
-		compMgr.updateComp();
+		_compMgr.compMgr.updateComp();
 	} else {
 		(0, _event.on)(window, 'load', function () {
 			//扫描并生成控件
-			compMgr.updateComp();
+			_compMgr.compMgr.updateComp();
 		});
 	}
 	exports.Month = Month;
