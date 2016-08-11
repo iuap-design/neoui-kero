@@ -9,13 +9,13 @@ import {ValueMixin} from './valueMixin';
 import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
-import {on} from 'neoui-sparrow/lib/event';
-import {core} from 'neoui-sparrow/lib/core';
-import {env} from 'neoui-sparrow/lib/env';
-import {date} from 'neoui-sparrow/lib/util/dateUtils';
+import {on} from 'neoui-sparrow/js/event';
+import {core} from 'neoui-sparrow/js/core';
+import {env} from 'neoui-sparrow/js/env';
+import {date} from 'neoui-sparrow/js/util/dateUtils';
 //miss ClockPicker
 //miss Time
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 
 

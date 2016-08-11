@@ -4,7 +4,7 @@
  * Date	  : 2016-08-10 13:51:26
  */
 import {StringAdapter} from './string';
-import {addClass,removeClass,makeDOM} from 'neoui-sparrow/lib/dom';
+import {addClass,removeClass,makeDOM} from 'neoui-sparrow/js/dom';
 
 
 var UrlAdapter = StringAdapter.extend({

@@ -9,10 +9,10 @@ import {ValueMixin} from './valueMixin';
 import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
-import {isNumber} from 'neoui-sparrow/lib/util';
-import {on,off,stopEvent} from 'neoui-sparrow/lib/event';
-import {env} from 'neoui-sparrow/lib/env';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {isNumber} from 'neoui-sparrow/js/util';
+import {on,off,stopEvent} from 'neoui-sparrow/js/event';
+import {env} from 'neoui-sparrow/js/env';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var IntegerAdapter = BaseAdapter.extend({
     mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],

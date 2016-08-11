@@ -5,9 +5,9 @@
  */
 import {BaseAdapter} from './baseAdapter';
 import {Year} from './';
-import {getJSObject,getFunction} from 'neoui-sparrow/lib/util';
+import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
 //miss DataTable
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var TreeAdapter = BaseAdapter.extend({
 	

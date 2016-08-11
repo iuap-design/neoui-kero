@@ -3,7 +3,7 @@
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-10 14:53:43
  */
-import {Validate} from 'neoui/lib/neoui-validate';
+import {Validate} from 'neoui/js/neoui-validate';
 
 var ValidateMixin = {
     init: function(){

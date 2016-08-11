@@ -9,12 +9,12 @@ import {ValueMixin} from './valueMixin';
 import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
-import {getJSObject,getFunction} from 'neoui-sparrow/lib/util';
-import {NumberFormater} from 'neoui-sparrow/lib/util/formater';
-import {NumberMasker,PercentMasker} from 'neoui-sparrow/lib/util/masker';
-import {dateRender,dateTimeRender} from 'neoui-sparrow/lib/util/dataRender';
+import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
+import {NumberFormater} from 'neoui-sparrow/js/util/formater';
+import {NumberMasker,PercentMasker} from 'neoui-sparrow/js/util/masker';
+import {dateRender,dateTimeRender} from 'neoui-sparrow/js/util/dataRender';
 //miss DataTable
-import {stopEvent} from 'neoui-sparrow/lib/event';
+import {stopEvent} from 'neoui-sparrow/js/event';
 import {StringAdapter} from './string';
 import {IntegerAdapter} from './integer';
 import {CheckboxAdapter} from './checkbox';
@@ -26,9 +26,9 @@ import {DateTimeAdapter} from './datetime';
 import {UrlAdapter} from './url';
 import {PassWordAdapter} from './password';
 import {PercentAdapter} from './percent';
-import {Validate} from 'neoui/lib/neoui-validate';
-import {showMessage} from 'neoui/lib/neoui-message';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {Validate} from 'neoui/js/neoui-validate';
+import {showMessage} from 'neoui/js/neoui-message';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var GridAdapter = BaseAdapter.extend({
 	initialize: function(options) {

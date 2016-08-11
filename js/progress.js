@@ -5,8 +5,8 @@
  */
 
 import {BaseAdapter} from './baseAdapter';
-import {Progress} from 'neoui/lib/neoui-progress';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {Progress} from 'neoui/js/neoui-progress';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var ProgressAdapter = BaseAdapter.extend({
     initialize: function (options) {

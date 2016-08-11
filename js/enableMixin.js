@@ -3,7 +3,7 @@
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-08 16:32:54
  */
-import {addClass,removeClass} from 'neoui-sparrow/lib/dom';
+import {addClass,removeClass} from 'neoui-sparrow/js/dom';
 
 var EnableMixin = {
     init: function(){

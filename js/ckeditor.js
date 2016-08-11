@@ -8,7 +8,7 @@ import {ValueMixin} from './valueMixin';
 import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var CkEditorAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],

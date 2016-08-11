@@ -9,11 +9,11 @@ import {ValueMixin} from './valueMixin';
 import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
-import {getJSObject} from 'neoui-sparrow/lib/util';
-import {makeDOM} from 'neoui-sparrow/lib/dom';
-import {on,off,stopEvent} from 'neoui-sparrow/lib/event';
-import {Radio} from 'neoui/lib/neoui-radio';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {getJSObject} from 'neoui-sparrow/js/util';
+import {makeDOM} from 'neoui-sparrow/js/dom';
+import {on,off,stopEvent} from 'neoui-sparrow/js/event';
+import {Radio} from 'neoui/js/neoui-radio';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var RadioAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],

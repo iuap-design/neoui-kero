@@ -9,9 +9,9 @@ import {ValueMixin} from './valueMixin';
 import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
-import {getJSObject} from 'neoui-sparrow/lib/util';
-import {Checkbox} from 'neoui/lib/neoui-checkbox';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {getJSObject} from 'neoui-sparrow/js/util';
+import {Checkbox} from 'neoui/js/neoui-checkbox';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 
 

@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v1.0.1
+ * kero-adapter v1.0.2
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -7825,10 +7825,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	/**
-	* Module : Sparrow i18n
-	* Author : Kvkens(yueming@yonyou.com)
-	* Date	  : 2016-07-29 10:16:54
-	*/
+	 * Module : Sparrow i18n
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-29 10:16:54
+	 */
 	//import {uuii18n} from '?';//缺失故修改为default值
 	var trans = function trans(key, dftValue) {
 	  //return  uuii18n ?  uuii18n.t('uui-trans:' + key) : dftValue;

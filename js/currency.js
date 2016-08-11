@@ -9,13 +9,13 @@ import {ValueMixin} from './valueMixin';
 import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
-import {getJSObject} from 'neoui-sparrow/lib/util';
-import {Checkbox} from 'neoui/lib/neoui-checkbox';
+import {getJSObject} from 'neoui-sparrow/js/util';
+import {Checkbox} from 'neoui/js/neoui-checkbox';
 //miss DataTable
-import {NumberFormater} from 'neoui-sparrow/lib/util/formater';
-import {isNumber} from 'neoui-sparrow/lib/util';
+import {NumberFormater} from 'neoui-sparrow/js/util/formater';
+import {isNumber} from 'neoui-sparrow/js/util';
 import {FloatAdapter} from './float';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 /**
  * 货币控件

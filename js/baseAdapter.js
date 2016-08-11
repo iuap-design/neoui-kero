@@ -3,8 +3,8 @@
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-09 10:00:00
  */
-import {Class} from 'neoui-sparrow/lib/class';
-import {getJSObject} from 'neoui-sparrow/lib/util';
+import {Class} from 'neoui-sparrow/js/class';
+import {getJSObject} from 'neoui-sparrow/js/util';
 
 
 

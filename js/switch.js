@@ -5,8 +5,8 @@
  */
 
 import {BaseAdapter} from './baseAdapter';
-import {Switch} from 'neoui/lib/neoui-switch';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {Switch} from 'neoui/js/neoui-switch';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 
 var SwitchAdapter = BaseAdapter.extend({

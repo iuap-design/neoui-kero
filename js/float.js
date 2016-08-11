@@ -8,15 +8,15 @@ import {ValueMixin} from './valueMixin';
 import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
-import {on,off,stopEvent} from 'neoui-sparrow/lib/event';
-import {addClass,removeClass} from 'neoui-sparrow/lib/dom';
-import {core} from 'neoui-sparrow/lib/core';
+import {on,off,stopEvent} from 'neoui-sparrow/js/event';
+import {addClass,removeClass} from 'neoui-sparrow/js/dom';
+import {core} from 'neoui-sparrow/js/core';
 //miss DataTable;
-import {NumberFormater} from 'neoui-sparrow/lib/util/formater';
-import {env} from 'neoui-sparrow/lib/env';
+import {NumberFormater} from 'neoui-sparrow/js/util/formater';
+import {env} from 'neoui-sparrow/js/env';
 //miss DateTimePicker
-import {date} from 'neoui-sparrow/lib/util/dateUtils';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {date} from 'neoui-sparrow/js/util/dateUtils';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var FloatAdapter = BaseAdapter.extend({
     mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],

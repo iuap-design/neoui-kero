@@ -5,12 +5,12 @@
  */
 
 import {BaseAdapter} from './baseAdapter';
-import {extend} from 'neoui-sparrow/lib/extend';
-import {Text} from 'neoui/lib/neoui-textfield';
+import {extend} from 'neoui-sparrow/js/extend';
+import {Text} from 'neoui/js/neoui-textfield';
 import {FloatAdapter} from './float';
 import {StringAdapter} from './string';
 import {IntegerAdapter} from './integer';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 
 var TextFieldAdapter = BaseAdapter.extend({

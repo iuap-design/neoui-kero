@@ -5,10 +5,10 @@
  */
 
 import {StringAdapter} from './string';
-import {getJSObject} from 'neoui-sparrow/lib/util';
-import {env} from 'neoui-sparrow/lib/env';
-import {on} from 'neoui-sparrow/lib/event';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {getJSObject} from 'neoui-sparrow/js/util';
+import {env} from 'neoui-sparrow/js/env';
+import {on} from 'neoui-sparrow/js/event';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 
 

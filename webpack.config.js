@@ -37,7 +37,7 @@ var config = {
 		loaders: [{
 			test: /(\.jsx|\.js)$/,
 			loader: 'babel',
-			exclude: /(node_modules|bower_components)/
+			exclude: /(bower_components)/
 		}, {
 			test: /(\.jsx|\.js)$/,
 			loader: "eslint-loader",

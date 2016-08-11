@@ -4,13 +4,13 @@
  * Date	  : 2016-08-09 20:12:42
  */
 import {BaseAdapter} from './baseAdapter';
-import {extend} from 'neoui-sparrow/lib/extend';
+import {extend} from 'neoui-sparrow/js/extend';
 import {ValueMixin} from './valueMixin';
 import {EnableMixin} from './valueMixin';
 import {RequiredMixin} from './valueMixin';
 import {ValidateMixin} from './valueMixin';
-import {on} from 'neoui-sparrow/lib/event';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {on} from 'neoui-sparrow/js/event';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var StringAdapter = BaseAdapter.extend({
     mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],

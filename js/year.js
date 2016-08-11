@@ -5,7 +5,7 @@
  */
 import {BaseAdapter} from './baseAdapter';
 import {Year} from './';
-import {compMgr} from 'neoui-sparrow/lib/compMgr';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var YearAdapter = BaseAdapter.extend({
     initialize: function (comp, options) {
