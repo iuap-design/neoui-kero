@@ -5,7 +5,7 @@
  */
 import {StringAdapter} from './string';
 import {addClass,removeClass,makeDOM} from 'neoui-sparrow/js/dom';
-
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var UrlAdapter = StringAdapter.extend({
     init: function () {
