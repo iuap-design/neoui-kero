@@ -96,33 +96,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _password = __webpack_require__(63);
 	
-	var _percent = __webpack_require__(65);
+	var _percent = __webpack_require__(68);
 	
 	var _string = __webpack_require__(64);
 	
-	var _progress = __webpack_require__(67);
+	var _progress = __webpack_require__(70);
 	
-	var _radio = __webpack_require__(69);
+	var _radio = __webpack_require__(72);
 	
-	var _switch = __webpack_require__(71);
+	var _switch = __webpack_require__(74);
 	
-	var _textarea = __webpack_require__(73);
+	var _textarea = __webpack_require__(76);
 	
-	var _textfield = __webpack_require__(74);
+	var _textfield = __webpack_require__(77);
 	
-	var _time = __webpack_require__(75);
+	var _time = __webpack_require__(78);
 	
-	var _url = __webpack_require__(78);
+	var _url = __webpack_require__(81);
 	
-	var _year = __webpack_require__(79);
+	var _year = __webpack_require__(82);
 	
-	var _yearmonth = __webpack_require__(81);
+	var _yearmonth = __webpack_require__(84);
 	
-	var _enableMixin = __webpack_require__(83);
+	var _enableMixin = __webpack_require__(65);
 	
-	var _requiredMixin = __webpack_require__(84);
+	var _requiredMixin = __webpack_require__(66);
 	
-	var _validateMixin = __webpack_require__(85);
+	var _validateMixin = __webpack_require__(67);
 	
 	var _valueMixin = __webpack_require__(7);
 	
@@ -10178,6 +10178,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _valueMixin = __webpack_require__(7);
 	
+	var _enableMixin = __webpack_require__(65);
+	
+	var _requiredMixin = __webpack_require__(66);
+	
+	var _validateMixin = __webpack_require__(67);
+	
 	var _event = __webpack_require__(10);
 	
 	var _compMgr = __webpack_require__(12);
@@ -10188,7 +10194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Date	  : 2016-08-09 20:12:42
 	 */
 	var StringAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _valueMixin.EnableMixin, _valueMixin.RequiredMixin, _valueMixin.ValidateMixin],
+	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
 	        var self = this;
 	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -10240,6 +10246,171 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.EnableMixin = undefined;
+	
+	var _dom = __webpack_require__(13);
+	
+	var EnableMixin = {
+	    init: function init() {
+	        var self = this;
+	        //处理只读
+	        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)) {
+	            this.setEnable(false);
+	        } else {
+	            this.dataModel.refEnable(this.field).subscribe(function (value) {
+	                self.setEnable(value);
+	            });
+	            this.setEnable(this.dataModel.isEnable(this.field));
+	        }
+	    },
+	    methods: {
+	        setEnable: function setEnable(enable) {
+	            if (enable === true || enable === 'true') {
+	                this.enable = true;
+	                this.element.removeAttribute('readonly');
+	                (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
+	            } else if (enable === false || enable === 'false') {
+	                this.enable = false;
+	                this.element.setAttribute('readonly', 'readonly');
+	                (0, _dom.addClass)(this.element.parentNode, 'disablecover');
+	            }
+	        }
+	    }
+	}; /**
+	    * Module : Kero Enable Mixin
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-08 16:32:54
+	    */
+	exports.EnableMixin = EnableMixin;
+
+/***/ },
+/* 66 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : Kero Enable Mixin
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-08 16:32:54
+	 */
+	
+	var RequiredMixin = {
+	    init: function init() {
+	        var self = this;
+	        this.required = this.getOption('required');
+	        this.dataModel.refRowMeta(this.field, "required").subscribe(function (value) {
+	            self.setRequired(value);
+	        });
+	        //this.setRequired(this.dataModel.getMeta(this.field, "required"));
+	    },
+	    methods: {
+	        setRequired: function setRequired(required) {
+	            if (required === true || required === 'true') {
+	                this.required = true;
+	            } else if (required === false || required === 'false') {
+	                this.required = false;
+	            }
+	        }
+	    }
+	};
+	
+	exports.RequiredMixin = RequiredMixin;
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.ValidateMixin = undefined;
+	
+	var _neouiValidate = __webpack_require__(53);
+	
+	var ValidateMixin = {
+	    init: function init() {
+	        this.placement = this.getOption('placement');
+	        this.tipId = this.getOption('tipId');
+	        this.tipAliveTime = this.getOption('tipAliveTime');
+	        this.errorMsg = this.getOption('errorMsg');
+	        this.nullMsg = this.getOption('nullMsg');
+	        this.regExp = this.getOption('regExp');
+	        this.successId = this.getOption('successId');
+	        this.hasSuccess = this.getOption('hasSuccess');
+	        this.notipFlag = this.getOption('notipFlag');
+	
+	        // if (this.validType) {
+	        this.validate = new _neouiValidate.Validate({
+	            el: this.element,
+	            single: true,
+	            validMode: 'manually',
+	            required: this.required,
+	            validType: this.validType,
+	            placement: this.placement,
+	            tipId: this.tipId,
+	            tipAliveTime: this.tipAliveTime,
+	            successId: this.successId,
+	            notipFlag: this.notipFlag,
+	            hasSuccess: this.hasSuccess,
+	            errorMsg: this.errorMsg,
+	            nullMsg: this.nullMsg,
+	            maxLength: this.maxLength,
+	            minLength: this.minLength,
+	            max: this.max,
+	            min: this.min,
+	            maxNotEq: this.maxNotEq,
+	            minNotEq: this.minNotEq,
+	            reg: this.regExp
+	        });
+	        // };
+	    },
+	    methods: {
+	        /**
+	         *校验
+	         */
+	        doValidate: function doValidate(options) {
+	            if (this.validate) {
+	                if (options && options['trueValue'] === true) {
+	                    options['showMsg'] = options['showMsg'] || false;
+	                    var result = this.validate.check({ pValue: this.getValue(), showMsg: options['showMsg'] });
+	                } else {
+	                    var result = this.validate.check();
+	                }
+	                result.comp = this;
+	                return result;
+	            } else {
+	                return { passed: true, comp: this };
+	            }
+	        },
+	        /**
+	         * 是否需要清除数据
+	         */
+	        _needClean: function _needClean() {
+	            if (this.validate) return this.validate._needClean();else return false;
+	        }
+	    }
+	}; /**
+	    * Module : Kero Validate Mixin
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-10 14:53:43
+	    */
+	exports.ValidateMixin = ValidateMixin;
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.PercentAdapter = undefined;
@@ -10248,7 +10419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _formater = __webpack_require__(46);
 	
-	var _masker = __webpack_require__(66);
+	var _masker = __webpack_require__(69);
 	
 	var _core = __webpack_require__(48);
 	
@@ -10282,7 +10453,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.PercentAdapter = PercentAdapter;
 
 /***/ },
-/* 66 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10779,7 +10950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.PercentMasker = PercentMasker;
 
 /***/ },
-/* 67 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10791,7 +10962,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _baseAdapter = __webpack_require__(3);
 	
-	var _neouiProgress = __webpack_require__(68);
+	var _neouiProgress = __webpack_require__(71);
 	
 	var _compMgr = __webpack_require__(12);
 	
@@ -10825,7 +10996,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 68 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10952,7 +11123,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Progress = Progress;
 
 /***/ },
-/* 69 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10972,7 +11143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _event = __webpack_require__(10);
 	
-	var _neouiRadio = __webpack_require__(70);
+	var _neouiRadio = __webpack_require__(73);
 	
 	var _compMgr = __webpack_require__(12);
 	
@@ -11145,7 +11316,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.RadioAdapter = RadioAdapter;
 
 /***/ },
-/* 70 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11385,7 +11556,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Radio = Radio;
 
 /***/ },
-/* 71 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11397,7 +11568,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _baseAdapter = __webpack_require__(3);
 	
-	var _neouiSwitch = __webpack_require__(72);
+	var _neouiSwitch = __webpack_require__(75);
 	
 	var _compMgr = __webpack_require__(12);
 	
@@ -11453,7 +11624,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 72 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11644,7 +11815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Switch = Switch;
 
 /***/ },
-/* 73 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11692,7 +11863,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 74 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11772,7 +11943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 75 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11794,9 +11965,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _dateUtils = __webpack_require__(50);
 	
-	var _neouiClockpicker = __webpack_require__(76);
+	var _neouiClockpicker = __webpack_require__(79);
 	
-	var _neouiTime = __webpack_require__(77);
+	var _neouiTime = __webpack_require__(80);
 	
 	var _compMgr = __webpack_require__(12);
 	
@@ -11877,7 +12048,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TimeAdapter = TimeAdapter;
 
 /***/ },
-/* 76 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12343,7 +12514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ClockPicker = ClockPicker;
 
 /***/ },
-/* 77 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12585,7 +12756,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Time = Time;
 
 /***/ },
-/* 78 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12599,11 +12770,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _dom = __webpack_require__(13);
 	
-	/**
-	 * Module : Kero url adapter
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 13:51:26
-	 */
+	var _compMgr = __webpack_require__(12);
+	
 	var UrlAdapter = _string.StringAdapter.extend({
 	    init: function init() {
 	        UrlAdapter.superclass.init.apply(this);
@@ -12644,15 +12812,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.aDom.style.display = 'block';
 	        }
 	    }
-	});
-	compMgr.addDataAdapter({
+	}); /**
+	     * Module : Kero url adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 13:51:26
+	     */
+	
+	_compMgr.compMgr.addDataAdapter({
 	    adapter: UrlAdapter,
 	    name: 'url'
 	});
 	exports.UrlAdapter = UrlAdapter;
 
 /***/ },
-/* 79 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12664,7 +12837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _baseAdapter = __webpack_require__(3);
 	
-	var _neouiYear = __webpack_require__(80);
+	var _neouiYear = __webpack_require__(83);
 	
 	var _compMgr = __webpack_require__(12);
 	
@@ -12706,7 +12879,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YearAdapter = YearAdapter;
 
 /***/ },
-/* 80 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12935,7 +13108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Year = Year;
 
 /***/ },
-/* 81 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12947,7 +13120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _baseAdapter = __webpack_require__(3);
 	
-	var _neouiYearmonth = __webpack_require__(82);
+	var _neouiYearmonth = __webpack_require__(85);
 	
 	var _compMgr = __webpack_require__(12);
 	
@@ -12989,7 +13162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YearMonthAdapter = YearMonthAdapter;
 
 /***/ },
-/* 82 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13307,171 +13480,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	}
 	exports.YearMonth = YearMonth;
-
-/***/ },
-/* 83 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.EnableMixin = undefined;
-	
-	var _dom = __webpack_require__(13);
-	
-	var EnableMixin = {
-	    init: function init() {
-	        var self = this;
-	        //处理只读
-	        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)) {
-	            this.setEnable(false);
-	        } else {
-	            this.dataModel.refEnable(this.field).subscribe(function (value) {
-	                self.setEnable(value);
-	            });
-	            this.setEnable(this.dataModel.isEnable(this.field));
-	        }
-	    },
-	    methods: {
-	        setEnable: function setEnable(enable) {
-	            if (enable === true || enable === 'true') {
-	                this.enable = true;
-	                this.element.removeAttribute('readonly');
-	                (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
-	            } else if (enable === false || enable === 'false') {
-	                this.enable = false;
-	                this.element.setAttribute('readonly', 'readonly');
-	                (0, _dom.addClass)(this.element.parentNode, 'disablecover');
-	            }
-	        }
-	    }
-	}; /**
-	    * Module : Kero Enable Mixin
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-08 16:32:54
-	    */
-	exports.EnableMixin = EnableMixin;
-
-/***/ },
-/* 84 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : Kero Enable Mixin
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-08 16:32:54
-	 */
-	
-	var RequiredMixin = {
-	    init: function init() {
-	        var self = this;
-	        this.required = this.getOption('required');
-	        this.dataModel.refRowMeta(this.field, "required").subscribe(function (value) {
-	            self.setRequired(value);
-	        });
-	        //this.setRequired(this.dataModel.getMeta(this.field, "required"));
-	    },
-	    methods: {
-	        setRequired: function setRequired(required) {
-	            if (required === true || required === 'true') {
-	                this.required = true;
-	            } else if (required === false || required === 'false') {
-	                this.required = false;
-	            }
-	        }
-	    }
-	};
-	
-	exports.RequiredMixin = RequiredMixin;
-
-/***/ },
-/* 85 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.ValidateMixin = undefined;
-	
-	var _neouiValidate = __webpack_require__(53);
-	
-	var ValidateMixin = {
-	    init: function init() {
-	        this.placement = this.getOption('placement');
-	        this.tipId = this.getOption('tipId');
-	        this.tipAliveTime = this.getOption('tipAliveTime');
-	        this.errorMsg = this.getOption('errorMsg');
-	        this.nullMsg = this.getOption('nullMsg');
-	        this.regExp = this.getOption('regExp');
-	        this.successId = this.getOption('successId');
-	        this.hasSuccess = this.getOption('hasSuccess');
-	        this.notipFlag = this.getOption('notipFlag');
-	
-	        // if (this.validType) {
-	        this.validate = new _neouiValidate.Validate({
-	            el: this.element,
-	            single: true,
-	            validMode: 'manually',
-	            required: this.required,
-	            validType: this.validType,
-	            placement: this.placement,
-	            tipId: this.tipId,
-	            tipAliveTime: this.tipAliveTime,
-	            successId: this.successId,
-	            notipFlag: this.notipFlag,
-	            hasSuccess: this.hasSuccess,
-	            errorMsg: this.errorMsg,
-	            nullMsg: this.nullMsg,
-	            maxLength: this.maxLength,
-	            minLength: this.minLength,
-	            max: this.max,
-	            min: this.min,
-	            maxNotEq: this.maxNotEq,
-	            minNotEq: this.minNotEq,
-	            reg: this.regExp
-	        });
-	        // };
-	    },
-	    methods: {
-	        /**
-	         *校验
-	         */
-	        doValidate: function doValidate(options) {
-	            if (this.validate) {
-	                if (options && options['trueValue'] === true) {
-	                    options['showMsg'] = options['showMsg'] || false;
-	                    var result = this.validate.check({ pValue: this.getValue(), showMsg: options['showMsg'] });
-	                } else {
-	                    var result = this.validate.check();
-	                }
-	                result.comp = this;
-	                return result;
-	            } else {
-	                return { passed: true, comp: this };
-	            }
-	        },
-	        /**
-	         * 是否需要清除数据
-	         */
-	        _needClean: function _needClean() {
-	            if (this.validate) return this.validate._needClean();else return false;
-	        }
-	    }
-	}; /**
-	    * Module : Kero Validate Mixin
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-10 14:53:43
-	    */
-	exports.ValidateMixin = ValidateMixin;
 
 /***/ }
 /******/ ])
