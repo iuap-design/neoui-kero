@@ -11,9 +11,9 @@ var data = fs.readFileSync('./package.json', 'utf8');
 var packageObj = JSON.parse(data);
 var filesArr = [];
 if(env == "dev") {
-	filesArr.push('./dist/kero-adapter.js');
+	filesArr.push('./dist/js/kero-adapter.js');
 } else if(env == "build") {
-	filesArr.push('./dist/kero-adapter.min.js');
+	filesArr.push('./dist/js/kero-adapter.min.js');
 }
 var headerStr = '/** \r\n';
 headerStr += ' * ' + packageObj.name + ' v' + packageObj.version + '\r\n';

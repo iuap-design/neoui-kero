@@ -18,41 +18,41 @@
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -62,72 +62,72 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.u = undefined;
-	
+
 	var _extend = __webpack_require__(1);
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _checkbox = __webpack_require__(6);
-	
-	var _ckeditor = __webpack_require__(29);
-	
-	var _combobox = __webpack_require__(30);
-	
-	var _currency = __webpack_require__(33);
-	
-	var _datetime = __webpack_require__(66);
-	
-	var _float = __webpack_require__(62);
-	
-	var _integer = __webpack_require__(72);
-	
-	var _month = __webpack_require__(73);
-	
-	var _nativeCheckbox = __webpack_require__(75);
-	
-	var _nativeRadio = __webpack_require__(76);
-	
-	var _pagination = __webpack_require__(77);
-	
-	var _password = __webpack_require__(79);
-	
-	var _percent = __webpack_require__(81);
-	
-	var _string = __webpack_require__(80);
-	
-	var _progress = __webpack_require__(83);
-	
-	var _radio = __webpack_require__(85);
-	
-	var _switch = __webpack_require__(87);
-	
-	var _textarea = __webpack_require__(89);
-	
-	var _textfield = __webpack_require__(90);
-	
-	var _time = __webpack_require__(92);
-	
-	var _url = __webpack_require__(95);
-	
-	var _year = __webpack_require__(96);
-	
-	var _yearmonth = __webpack_require__(98);
-	
+
+	var _ckeditor = __webpack_require__(21);
+
+	var _combobox = __webpack_require__(22);
+
+	var _currency = __webpack_require__(25);
+
+	var _datetime = __webpack_require__(57);
+
+	var _float = __webpack_require__(53);
+
+	var _integer = __webpack_require__(59);
+
+	var _month = __webpack_require__(60);
+
+	var _nativeCheckbox = __webpack_require__(62);
+
+	var _nativeRadio = __webpack_require__(63);
+
+	var _pagination = __webpack_require__(64);
+
+	var _password = __webpack_require__(66);
+
+	var _percent = __webpack_require__(68);
+
+	var _string = __webpack_require__(67);
+
+	var _progress = __webpack_require__(70);
+
+	var _radio = __webpack_require__(72);
+
+	var _switch = __webpack_require__(74);
+
+	var _textarea = __webpack_require__(76);
+
+	var _textfield = __webpack_require__(77);
+
+	var _time = __webpack_require__(78);
+
+	var _url = __webpack_require__(81);
+
+	var _year = __webpack_require__(82);
+
+	var _yearmonth = __webpack_require__(84);
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	// console.log(TextAreaAdapter);
-	
+
 	//import {TreeAdapter} from './tree';
 	var ex = {
 		BaseAdapter: _baseAdapter.BaseAdapter,
@@ -165,10 +165,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-10 14:51:05
 	 */
-	
-	
+
+
 	(0, _extend.extend)(ex, window.u || {});
-	
+
 	exports.u = ex;
 
 /***/ },
@@ -176,20 +176,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.extend = undefined;
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : Sparrow extend
 	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
 	                                                                                                                                                                                                                                                   * Date	  : 2016-07-27 21:46:50
 	                                                                                                                                                                                                                                                   */
-	
+
 	var _enumerables = __webpack_require__(2);
-	
+
 	/**
 	 * 复制对象属性
 	 *
@@ -220,7 +220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return object;
 	};
-	
+
 	exports.extend = extend;
 
 /***/ },
@@ -228,7 +228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
@@ -237,12 +237,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-07-27 21:46:50
 	 */
-	
+
 	var U_LANGUAGES = "i_languages";
 	var U_THEME = "u_theme";
 	var U_LOCALE = "u_locale";
 	var U_USERCODE = "usercode";
-	
+
 	var enumerables = true,
 	    enumerablesTest = {
 		toString: 1
@@ -254,7 +254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	if (enumerables) {
 		exports.enumerables = enumerables = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
 	}
-	
+
 	exports.enumerables = enumerables;
 	exports.U_LANGUAGES = U_LANGUAGES;
 	exports.U_THEME = U_THEME;
@@ -266,20 +266,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.BaseAdapter = undefined;
-	
+
 	var _class = __webpack_require__(4);
-	
+
 	var _util = __webpack_require__(5);
-	
+
 	/**
 	 * adapter基类
 	 */
-	
+
 	/**
 	 * Module : Kero adapter 基类
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -304,7 +304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	        }
-	
+
 	        //this.comp = comp;
 	        this.element = options['el'];
 	        this.options = options['options'];
@@ -342,7 +342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    init: function init() {}
 	});
-	
+
 	exports.BaseAdapter = BaseAdapter;
 
 /***/ },
@@ -350,7 +350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
@@ -359,13 +359,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-07-28 08:45:39
 	 */
-	
+
 	var Class = function Class(o) {
 		if (!(this instanceof Class) && isFunction(o)) {
 			return classify(o);
 		}
 	};
-	
+
 	// Create a new Class.
 	//
 	//  var SuperPig = Class.create({
@@ -384,42 +384,42 @@ return /******/ (function(modules) { // webpackBootstrap
 			properties = parent;
 			parent = null;
 		}
-	
+
 		properties || (properties = {});
 		parent || (parent = properties.Extends || Class);
 		properties.Extends = parent;
-	
+
 		// The created class constructor
 		function SubClass() {
 			var ret;
 			// Call the parent constructor.
 			parent.apply(this, arguments);
-	
+
 			// Only call initialize in self constructor.
 			if (this.constructor === SubClass && this.initialize) {
 				ret = this.initialize.apply(this, arguments);
 			}
 			return ret ? ret : this;
 		}
-	
+
 		// Inherit class (static) properties from parent.
 		if (parent !== Class) {
 			mix(SubClass, parent, parent.StaticsWhiteList);
 		}
-	
+
 		// Add instance properties to the subclass.
 		implement.call(SubClass, properties);
-	
+
 		// Make subclass extendable.
 		return classify(SubClass);
 	};
-	
+
 	function implement(properties) {
 		var key, value;
-	
+
 		for (key in properties) {
 			value = properties[key];
-	
+
 			if (Class.Mutators.hasOwnProperty(key)) {
 				Class.Mutators[key].call(this, value);
 			} else {
@@ -427,60 +427,60 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}
 	}
-	
+
 	// Create a sub Class based on `Class`.
 	Class.extend = function (properties) {
 		properties || (properties = {});
 		properties.Extends = this;
-	
+
 		return Class.create(properties);
 	};
-	
+
 	function classify(cls) {
 		cls.extend = Class.extend;
 		cls.implement = implement;
 		return cls;
 	}
-	
+
 	// Mutators define special properties.
 	Class.Mutators = {
-	
+
 		'Extends': function Extends(parent) {
 			var existed = this.prototype;
 			var proto = createProto(parent.prototype);
-	
+
 			// Keep existed properties.
 			mix(proto, existed);
-	
+
 			// Enforce the constructor to be what we expect.
 			proto.constructor = this;
-	
+
 			// Set the prototype chain to inherit from `parent`.
 			this.prototype = proto;
-	
+
 			// Set a convenience property in case the parent's prototype is
 			// needed later.
 			this.superclass = parent.prototype;
 		},
-	
+
 		'Implements': function Implements(items) {
 			isArray(items) || (items = [items]);
 			var proto = this.prototype,
 			    item;
-	
+
 			while (item = items.shift()) {
 				mix(proto, item.prototype || item);
 			}
 		},
-	
+
 		'Statics': function Statics(staticProperties) {
 			mix(this, staticProperties);
 		}
 	};
-	
+
 	// Shared empty constructor function to aid in prototype-chain creation.
 	function Ctor() {}
-	
+
 	// See: http://jsperf.com/object-create-vs-new-ctor
 	var createProto = Object.__proto__ ? function (proto) {
 		return {
@@ -490,16 +490,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		Ctor.prototype = proto;
 		return new Ctor();
 	};
-	
+
 	// Helpers
 	// ------------
-	
+
 	function mix(r, s, wl) {
 		// Copy "all" properties including inherited ones.
 		for (var p in s) {
 			if (s.hasOwnProperty(p)) {
 				if (wl && indexOf(wl, p) === -1) continue;
-	
+
 				// 在 iPhone 1 代等设备的 Safari 中，prototype 也会被枚举出来，需排除
 				if (p !== 'prototype') {
 					r[p] = s[p];
@@ -507,17 +507,17 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}
 	}
-	
+
 	var toString = Object.prototype.toString;
-	
+
 	var isArray = Array.isArray || function (val) {
 		return toString.call(val) === '[object Array]';
 	};
-	
+
 	var isFunction = function isFunction(val) {
 		return toString.call(val) === '[object Function]';
 	};
-	
+
 	var indexOf = function indexOf(arr, item) {
 		if (Array.prototype.indexOf && arr.indexOf) {
 			return arr.indexOf(item);
@@ -530,7 +530,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			return -1;
 		}
 	};
-	
+
 	exports.Class = Class;
 	exports.isFunction = isFunction;
 
@@ -539,19 +539,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
+
 	/**
 	 * Module : Sparrow util tools
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-07-27 21:46:50
 	 */
-	
+
 	/**
 	 * 创建一个带壳的对象,防止外部修改
 	 * @param {Object} proto
@@ -566,7 +566,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			a.call(b, c);
 		} catch (e) {}
 	};
-	
+
 	var getFunction = function getFunction(target, val) {
 		if (!val || typeof val == 'function') return val;
 		if (typeof target[val] == 'function') return target[val];else if (typeof window[val] == 'function') return window[val];else if (val.indexOf('.') != -1) {
@@ -638,9 +638,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			return;
 		}
 	};
-	
+
 	NodeList.prototype.forEach = Array.prototype.forEach;
-	
+
 	/**
 	 * 获得字符串的字节长度
 	 */
@@ -649,7 +649,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var str = this.replace(/[^\x00-\xff]/g, "**");
 		return str.length;
 	};
-	
+
 	/**
 	 * 将AFindText全部替换为ARepText
 	 */
@@ -658,7 +658,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var raRegExp = new RegExp(AFindText, "g");
 		return this.replace(raRegExp, ARepText);
 	};
-	
+
 	exports.createShellObject = createShellObject;
 	exports.execIgnoreError = execIgnoreError;
 	exports.getFunction = getFunction;
@@ -676,34 +676,34 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.CheckboxAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _util = __webpack_require__(5);
-	
-	var _neouiCheckbox = __webpack_require__(26);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiCheckbox = __webpack_require__(19);
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : Kero Check Adapter
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-08 15:50:03
 	 */
-	
+
 	var CheckboxAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init(options) {
@@ -720,7 +720,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (this.options['datasource']) {
 	            this.isGroup = true;
 	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-	
+
 	            this.setComboData(datasource);
 	        } else {
 	            if (this.element['u.Checkbox']) {
@@ -729,10 +729,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.comp = new _neouiCheckbox.Checkbox(this.element);
 	                this.element['u.Checkbox'] = this.comp;
 	            }
-	
+
 	            this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
 	            this.unCheckedValue = this.options["unCheckedValue"];
-	
+
 	            this.comp.on('change', function () {
 	                if (self.slice) return;
 	                if (!self.dataModel) return;
@@ -740,7 +740,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                modelValue = modelValue ? modelValue : '';
 	                if (self.isGroup) {
 	                    var valueArr = modelValue == '' ? [] : modelValue.split(',');
-	
+
 	                    if (self.comp._inputElement.checked) {
 	                        valueArr.push(self.checkedValue);
 	                    } else {
@@ -773,7 +773,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            self.otherInput = makeDOM('<input type="text">');
 	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
 	            self.lastCheck.value = '';
-	
+
 	            var comp;
 	            if (self.lastLabel['u.Checkbox']) {
 	                comp = self.lastLabel['u.Checkbox'];
@@ -803,7 +803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                self.dataModel.setValue(self.field, valueArr.join(','));
 	                //self.slice = false;
 	            });
-	
+
 	            on(self.otherInput, 'blur', function (e) {
 	                self.lastCheck.oldValue = self.lastCheck.value;
 	                self.lastCheck.value = this.value;
@@ -813,7 +813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                stopEvent(e);
 	            });
 	        }
-	
+
 	        if (this.dataModel) {
 	            this.dataModel.ref(this.field).subscribe(function (value) {
 	                self.modelValueChange(value);
@@ -862,7 +862,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    modelValueChange: function modelValueChange(val) {
 	        var self = this;
 	        if (this.slice) return;
-	
+
 	        if (this.isGroup) {
 	            this.trueValue = val;
 	            if (this.options.hasOther) {
@@ -898,7 +898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    },
-	
+
 	    setEnable: function setEnable(enable) {
 	        this.enable = enable === true || enable === 'true';
 	        if (this.isGroup) {
@@ -919,12 +919,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: CheckboxAdapter,
 	    name: 'u-checkbox'
 	});
-	
+
 	exports.CheckboxAdapter = CheckboxAdapter;
 
 /***/ },
@@ -932,7 +932,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -941,7 +941,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-08 15:58:49
 	 */
-	
+
 	var ValueMixin = {
 	    init: function init() {
 	        var self = this;
@@ -962,12 +962,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            //this.element.trueValue = this.trueValue;
 	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
 	            this.setShowValue(this.showValue);
-	
+
 	            //this.trueValue = value;
 	            //this.showValue = value;
 	            //this.setShowValue(this.showValue);
 	        },
-	
+
 	        ///**
 	        // * 设置模型值
 	        // * @param {Object} value
@@ -1008,7 +1008,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	};
-	
+
 	exports.ValueMixin = ValueMixin;
 
 /***/ },
@@ -1016,14 +1016,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.EnableMixin = undefined;
-	
+
 	var _dom = __webpack_require__(9);
-	
+
 	var EnableMixin = {
 	    init: function init() {
 	        var self = this;
@@ -1062,14 +1062,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
-	
+
 	var _event = __webpack_require__(10);
-	
+
 	/**
 	 * 元素增加指定样式
 	 * @param value
@@ -1128,7 +1128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			return element.classList.toggle(value);
 		}
 	};
-	
+
 	/**
 	 * 向上查找指定类元素
 	 * @param {Object} element
@@ -1142,7 +1142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		if (tmp == document.body) return null;
 		return tmp;
 	};
-	
+
 	/**
 	 * 元素CSS操作
 	 * @param {Object} element
@@ -1167,7 +1167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}
 	};
-	
+
 	var wrap = function wrap(element, parent) {
 		var p = makeDOM(parent);
 		element.parentNode.insertBefore(p, element);
@@ -1217,14 +1217,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		} else {
 			document.body.appendChild(overlayDiv);
 		}
-	
+
 		element.style.zIndex = getZIndex();
 		(0, _event.on)(overlayDiv, 'click', function (e) {
 			(0, _event.stopEvent)(e);
 		});
 		return overlayDiv;
 	};
-	
+
 	var getOffset = function getOffset(Node, offset) {
 		if (!offset) {
 			offset = {};
@@ -1290,12 +1290,12 @@ return /******/ (function(modules) { // webpackBootstrap
 			left = left;
 			top = top + eleHeight;
 		}
-	
+
 		// if((left + panelWidth) > bodyWidth)
 		//     left = bodyWidth - panelWidth;
 		// if(left < 0)
 		//     left = 0;
-	
+
 		// if((top + panelHeight) > bodyHeight)
 		//     top = bodyHeight - panelHeight;
 		// if(top < 0)
@@ -1303,7 +1303,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		panel.style.left = left + 'px';
 		panel.style.top = top + 'px';
 	};
-	
+
 	exports.addClass = addClass;
 	exports.removeClass = removeClass;
 	exports.hasClass = hasClass;
@@ -1324,26 +1324,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
-	
+
 	var _env = __webpack_require__(11);
-	
+
 	var u = {}; /**
 	             * Module : Sparrow touch event
 	             * Author : Kvkens(yueming@yonyou.com)
 	             * Date	  : 2016-07-28 14:41:17
 	             */
-	
+
 	u.event = {};
-	
+
 	var touchStartEvent = _env.env.hasTouch ? "touchstart" : "mousedown",
 	    touchStopEvent = _env.env.hasTouch ? "touchend" : "mouseup",
 	    touchMoveEvent = _env.env.hasTouch ? "touchmove" : "mousemove";
-	
+
 	// tap和taphold
 	u.event.tap = {
 		tapholdThreshold: 750,
@@ -1358,31 +1358,31 @@ return /******/ (function(modules) { // webpackBootstrap
 		setup: function setup() {
 			var thisObject = this,
 			    isTaphold = false;
-	
+
 			on(thisObject, "vmousedown", function (event) {
 				isTaphold = false;
 				if (event.which && event.which !== 1) {
 					return false;
 				}
-	
+
 				var origTarget = event.target,
 				    timer;
-	
+
 				function clearTapTimer() {
 					clearTimeout(timer);
 				}
-	
+
 				function clearTapHandlers() {
 					clearTapTimer();
-	
+
 					off(thisObject, 'vclick');
 					off(thisObject, 'vmouseup');
 					off(document, 'vmousecancel');
 				}
-	
+
 				function clickHandler(event) {
 					clearTapHandlers();
-	
+
 					// ONLY trigger a 'tap' event if the start target is
 					// the same as the stop target.
 					if (!isTaphold && origTarget === event.target) {
@@ -1394,7 +1394,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				on(thisObject, 'vmouseup', clearTapTimer);
 				on(thisObject, 'vclick', clickHandler);
 				on(document, 'vmousecancel', clearTapHandlers);
-	
+
 				timer = setTimeout(function () {
 					if (!u.event.tap.emitTapOnTaphold) {
 						isTaphold = true;
@@ -1403,7 +1403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					clearTapHandlers();
 				}, u.event.tap.tapholdThreshold);
 			});
-	
+
 			on(thisObject, 'touchstart', u.event.tap.touchstartFun);
 			on(thisObject, 'touchend', u.event.tap.touchendFun);
 		},
@@ -1414,50 +1414,50 @@ return /******/ (function(modules) { // webpackBootstrap
 			off(document, 'vmousecancel');
 		}
 	};
-	
+
 	u.event.taphold = u.event.tap;
-	
+
 	u.event.swipe = {
-	
+
 		// More than this horizontal displacement, and we will suppress scrolling.
 		scrollSupressionThreshold: 30,
-	
+
 		// More time than this, and it isn't a swipe.
 		durationThreshold: 1000,
-	
+
 		// Swipe horizontal displacement must be more than this.
 		horizontalDistanceThreshold: 30,
-	
+
 		// Swipe vertical displacement must be less than this.
 		verticalDistanceThreshold: 30,
-	
+
 		getLocation: function getLocation(event) {
 			var winPageX = window.pageXOffset,
 			    winPageY = window.pageYOffset,
 			    x = event.clientX,
 			    y = event.clientY;
-	
+
 			if (event.pageY === 0 && Math.floor(y) > Math.floor(event.pageY) || event.pageX === 0 && Math.floor(x) > Math.floor(event.pageX)) {
-	
+
 				// iOS4 clientX/clientY have the value that should have been
 				// in pageX/pageY. While pageX/page/ have the value 0
 				x = x - winPageX;
 				y = y - winPageY;
 			} else if (y < event.pageY - winPageY || x < event.pageX - winPageX) {
-	
+
 				// Some Android browsers have totally bogus values for clientX/Y
 				// when scrolling/zooming a page. Detectable since clientX/clientY
 				// should never be smaller than pageX/pageY minus page scroll
 				x = event.pageX - winPageX;
 				y = event.pageY - winPageY;
 			}
-	
+
 			return {
 				x: x,
 				y: y
 			};
 		},
-	
+
 		start: function start(event) {
 			var data = event.touches ? event.touches[0] : event,
 			    location = u.event.swipe.getLocation(data);
@@ -1467,7 +1467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				origin: event.target
 			};
 		},
-	
+
 		stop: function stop(event) {
 			var data = event.touches ? event.touches[0] : event,
 			    location = u.event.swipe.getLocation(data);
@@ -1476,27 +1476,27 @@ return /******/ (function(modules) { // webpackBootstrap
 				coords: [location.x, location.y]
 			};
 		},
-	
+
 		handleSwipe: function handleSwipe(start, stop, thisObject, origTarget) {
 			if (stop.time - start.time < u.event.swipe.durationThreshold && Math.abs(start.coords[0] - stop.coords[0]) > u.event.swipe.horizontalDistanceThreshold && Math.abs(start.coords[1] - stop.coords[1]) < u.event.swipe.verticalDistanceThreshold) {
 				var direction = start.coords[0] > stop.coords[0] ? "swipeleft" : "swiperight";
-	
+
 				trigger(thisObject, "swipe");
 				trigger(thisObject, direction);
 				return true;
 			}
 			return false;
 		},
-	
+
 		// This serves as a flag to ensure that at most one swipe event event is
 		// in work at any given time
 		eventInProgress: false,
-	
+
 		setup: function setup() {
 			var events,
 			    thisObject = this,
 			    context = {};
-	
+
 			// Retrieve the events data for this element and add the swipe context
 			events = thisObject["mobile-events"];
 			if (!events) {
@@ -1507,31 +1507,31 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			events.length++;
 			events.swipe = context;
-	
+
 			context.start = function (event) {
-	
+
 				// Bail if we're already working on a swipe event
 				if (u.event.swipe.eventInProgress) {
 					return;
 				}
 				u.event.swipe.eventInProgress = true;
-	
+
 				var stop,
 				    start = u.event.swipe.start(event),
 				    origTarget = event.target,
 				    emitted = false;
-	
+
 				context.move = function (event) {
 					// if ( !start || event.isDefaultPrevented() ) {
 					if (!start) {
 						return;
 					}
-	
+
 					stop = u.event.swipe.stop(event);
 					if (!emitted) {
 						emitted = u.event.swipe.handleSwipe(start, stop, thisObject, origTarget);
 						if (emitted) {
-	
+
 							// Reset the context to make way for the next swipe event
 							u.event.swipe.eventInProgress = false;
 						}
@@ -1541,25 +1541,25 @@ return /******/ (function(modules) { // webpackBootstrap
 						event.preventDefault();
 					}
 				};
-	
+
 				context.stop = function () {
 					emitted = true;
-	
+
 					// Reset the context to make way for the next swipe event
 					u.event.swipe.eventInProgress = false;
 					off(document, touchMoveEvent, context.move);
 					context.move = null;
 				};
-	
+
 				on(document, touchMoveEvent, context.move);
 				on(document, touchStopEvent, context.stop);
 			};
 			on(thisObject, touchStartEvent, context.start);
 		},
-	
+
 		teardown: function teardown() {
 			var events, context;
-	
+
 			events = thisObject["mobile-events"];
 			if (events) {
 				context = events.swipe;
@@ -1569,7 +1569,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					thisObject["mobile-events"] = null;
 				}
 			}
-	
+
 			if (context) {
 				if (context.start) {
 					off(thisObject, touchStartEvent, context.start);
@@ -1583,13 +1583,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}
 	};
-	
+
 	u.event.swipeleft = u.event.swipe;
-	
+
 	u.event.swiperight = u.event.swipe;
-	
+
 	var event = u.event;
-	
+
 	var on = function on(element, eventName, child, listener) {
 		if (!element) return;
 		if (arguments.length < 4) {
@@ -1609,7 +1609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 		}
 		//capture = capture || false;
-	
+
 		if (!element["uEvent"]) {
 			//在dom上添加记录区
 			element["uEvent"] = {};
@@ -1654,7 +1654,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}
 	};
-	
+
 	var off = function off(element, eventName, listener) {
 		//删除事件数组
 		if (listener) {
@@ -1689,7 +1689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			element["uEvent"][eventName + 'fn']();
 		}
 	};
-	
+
 	/**
 	 * 阻止冒泡
 	 */
@@ -1704,7 +1704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			else window.event.returnValue = false;
 		}
 	};
-	
+
 	exports.on = on;
 	exports.off = off;
 	exports.trigger = trigger;
@@ -1716,20 +1716,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.env = undefined;
-	
+
 	var _extend = __webpack_require__(1);
-	
+
 	var u = {}; /**
 	             * Module : Sparrow browser environment
 	             * Author : Kvkens(yueming@yonyou.com)
 	             * Date	  : 2016-07-27 21:46:50
 	             */
-	
+
 	(0, _extend.extend)(u, {
 		isIE: false,
 		isFF: false,
@@ -1758,7 +1758,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		hasTouch: false,
 		isMobile: false
 	});
-	
+
 	(function () {
 		var userAgent = navigator.userAgent,
 		    rMsie = /(msie\s|trident.*rv:)([\w.]+)/,
@@ -1774,7 +1774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			version: ''
 		},
 		    match = rMsie.exec(ua);
-	
+
 		if (match != null) {
 			browserMatch = {
 				browser: "IE",
@@ -1815,7 +1815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				version: "0"
 			};
 		}
-	
+
 		if (s = ua.match(/opera.([\d.]+)/)) {
 			u.isOpera = true;
 		} else if (browserMatch.browser == "IE" && browserMatch.version == 11) {
@@ -1849,27 +1849,27 @@ return /******/ (function(modules) { // webpackBootstrap
 			u.isIOS = true;
 			u.isIphone = true;
 		}
-	
+
 		if (navigator.platform == "Mac68K" || navigator.platform == "MacPPC" || navigator.platform == "Macintosh" || navigator.platform == "MacIntel") {
 			//u.isIOS = true;
 			u.isMac = true;
 		}
-	
+
 		if (navigator.platform == "Win32" || navigator.platform == "Windows" || navigator.platform == "Win64") {
 			u.isWin = true;
 		}
-	
+
 		if (navigator.platform == "X11" && !u.isWin && !u.isMac) {
 			u.isUnix = true;
 		}
 		if (String(navigator.platform).indexOf("Linux") > -1) {
 			u.isLinux = true;
 		}
-	
+
 		if (ua.indexOf('Android') > -1 || ua.indexOf('android') > -1 || ua.indexOf('Adr') > -1 || ua.indexOf('adr') > -1) {
 			u.isAndroid = true;
 		}
-	
+
 		u.version = version ? browserMatch.version ? browserMatch.version : 0 : 0;
 		if (u.isIE) {
 			var intVersion = parseInt(u.version);
@@ -1907,7 +1907,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		if (u.isIOS || u.isAndroid) u.isMobile = true;
 	})();
-	
+
 	var env = u;
 	exports.env = env;
 
@@ -1916,7 +1916,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -1925,7 +1925,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-08 16:32:54
 	 */
-	
+
 	var RequiredMixin = {
 	    init: function init() {
 	        var self = this;
@@ -1945,7 +1945,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	};
-	
+
 	exports.RequiredMixin = RequiredMixin;
 
 /***/ },
@@ -1953,14 +1953,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.ValidateMixin = undefined;
-	
+
 	var _neouiValidate = __webpack_require__(14);
-	
+
 	var ValidateMixin = {
 	    init: function init() {
 	        this.placement = this.getOption('placement');
@@ -1972,7 +1972,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.successId = this.getOption('successId');
 	        this.hasSuccess = this.getOption('hasSuccess');
 	        this.notipFlag = this.getOption('notipFlag');
-	
+
 	        // if (this.validType) {
 	        this.validate = new _neouiValidate.Validate({
 	            el: this.element,
@@ -2035,37 +2035,37 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.doValidate = exports.validate = exports.Validate = undefined;
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : neoui-validate
 	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
 	                                                                                                                                                                                                                                                   * Date	  : 2016-08-06 14:03:15
 	                                                                                                                                                                                                                                                   */
-	
-	
+
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _extend = __webpack_require__(20);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _event = __webpack_require__(18);
-	
-	var _util = __webpack_require__(17);
-	
-	var _neouiTooltip = __webpack_require__(24);
-	
-	var _i18n = __webpack_require__(25);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _extend = __webpack_require__(1);
+
+	var _dom = __webpack_require__(9);
+
+	var _event = __webpack_require__(10);
+
+	var _util = __webpack_require__(5);
+
+	var _neouiTooltip = __webpack_require__(17);
+
+	var _i18n = __webpack_require__(18);
+
+	var _compMgr = __webpack_require__(16);
+
 	var Validate = _BaseComponent.BaseComponent.extend({
-	
+
 		init: function init() {
 			var self = this;
 			this.$element = this.element;
@@ -2090,21 +2090,21 @@ return /******/ (function(modules) { // webpackBootstrap
 			try {
 				if (typeof this.regExp == 'string') this.regExp = eval(this.regExp);
 			} catch (e) {}
-	
+
 			this.notipFlag = this.options['notipFlag']; // 错误信息提示方式是否为tip，默认为true
 			this.hasSuccess = this.options['hasSuccess']; //是否含有正确提示
-	
+
 			this.showFix = this.options['showFix'];
-	
+
 			//提示div的id 为空时使用tooltop来提示
 			this.tipId = this.options['tipId'] ? this.options['tipId'] : null;
 			//校验成功提示信息的div
 			this.successId = this.options['successId'] ? this.options['successId'] : null;
-	
+
 			// 要求显示成功提示，并没有成功提示dom的id时，则创建成功提示dom
 			if (this.hasSuccess && !this.successId) {
 				this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-checkedsymbol" ></span>');
-	
+
 				if (this.$element.nextSibling) {
 					this.$element.parentNode.insertBefore(this.successId, this.$element.nextSibling);
 				} else {
@@ -2115,7 +2115,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			if (this.notipFlag && !this.tipId) {
 				this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exclamationsign "></span>');
 				this.$element.parentNode.appendChild(this.tipId);
-	
+
 				if (this.$element.nextSibling) {
 					this.$element.parentNode.insertBefore(this.tipId, this.$element.nextSibling);
 				} else {
@@ -2138,15 +2138,15 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.create();
 		}
 	});
-	
+
 	Validate.fn = Validate.prototype;
 	//Validate.tipTemplate = '<div class="tooltip" role="tooltip"><div class="tooltip-arrow tooltip-arrow-c"></div><div class="tooltip-arrow"></div><div class="tooltip-inner" style="color:#ed7103;border:1px solid #ed7103;background-color:#fff7f0;"></div></div>'
-	
+
 	Validate.DEFAULTS = {
 		validMode: 'blur',
 		placement: "top"
 	};
-	
+
 	Validate.NULLMSG = {
 		"required": (0, _i18n.trans)('validate.required', "不能为空！"),
 		"integer": (0, _i18n.trans)('validate.integer', "请填写整数！"),
@@ -2157,9 +2157,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		"email": (0, _i18n.trans)('validate.email', "请填写邮箱地址！"),
 		"url": (0, _i18n.trans)('validate.url', "请填写网址！"),
 		"datetime": (0, _i18n.trans)('validate.datetime', "请填写日期！")
-	
+
 	};
-	
+
 	Validate.ERRORMSG = {
 		"integer": (0, _i18n.trans)('validate.error_integer', "整数格式不对！"),
 		"float": (0, _i18n.trans)('validate.error_float', "数字格式不对！"),
@@ -2170,7 +2170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"url": (0, _i18n.trans)('validate.error_url', "网址格式不对！"),
 		"datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！")
 	};
-	
+
 	Validate.REG = {
 		"integer": /^-?\d+$/,
 		"float": /^-?\d+(\.\d+)?$/,
@@ -2181,7 +2181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"url": /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
 		"datetime": /^(?:19|20)[0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/
 	};
-	
+
 	Validate.fn.create = function () {
 		var self = this;
 		(0, _event.on)(this.element, 'blur', function (e) {
@@ -2217,14 +2217,14 @@ return /******/ (function(modules) { // webpackBootstrap
 					event.returnValue = false;
 					return false;
 				}
-	
+
 				if (tmp && (tmp + '').split('.')[0].length >= 25) {
 					return false;
 				}
 			}
 			if (self["validType"] == "integer") {
 				var tmp = self.element.value;
-	
+
 				if (event.shiftKey) {
 					event.returnValue = false;
 					return false;
@@ -2238,16 +2238,16 @@ return /******/ (function(modules) { // webpackBootstrap
 					event.returnValue = false;
 					return false;
 				}
-	
+
 				if (tmp && (tmp + '').split('.')[0].length >= 25) {
 					return false;
 				}
 			}
 		});
 	};
-	
+
 	Validate.fn.updateOptions = function (options) {};
-	
+
 	Validate.fn.doValid = function (options) {
 		var self = this;
 		var pValue;
@@ -2261,7 +2261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		// if (this.element && this.element.getAttribute("readonly")) return {passed:true}
 		var value = null;
 		if (typeof pValue != 'undefined') value = pValue;else if (this.element) value = this.element.value;
-	
+
 		if (this.isEmpty(value) && this.required) {
 			this.showMsg(this.nullMsg);
 			return {
@@ -2366,9 +2366,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			passed: true
 		};
 	};
-	
+
 	Validate.fn.check = Validate.fn.doValid;
-	
+
 	//	Validate.fn.getValue = function() {
 	//		var inputval
 	//		if (this.$element.is(":radio")) {
@@ -2386,7 +2386,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	//		inputval = $.trim(inputval);
 	//		return this.isEmpty(inputval) ? "" : inputval;
 	//	}
-	
+
 	Validate.fn.some = Array.prototype.some ? Array.prototype.some : function () {
 		var flag;
 		for (var i = 0; i < this.length; i++) {
@@ -2397,7 +2397,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return flag;
 	};
-	
+
 	Validate.fn.getValue = function () {
 		var inputval = '';
 		//checkbox、radio为u-meta绑定时
@@ -2430,13 +2430,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		inputval = inputval.trim;
 		return this.isEmpty(inputval) ? "" : inputval;
 	};
-	
+
 	Validate.fn.isEmpty = function (val) {
 		return val === "" || val === undefined || val === null; //|| val === $.trim(this.$element.attr("tip"));
 	};
-	
+
 	Validate.fn.showMsg = function (msg) {
-	
+
 		if (this.showMsgFlag == false || this.showMsgFlag == 'false') {
 			return;
 		}
@@ -2455,7 +2455,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				tipdiv.style.left = left + 'px';
 				tipdiv.style.top = top + 'px';
 			}
-	
+
 			tipdiv.style.display = 'block';
 			// addClass(tipdiv.parentNode,'u-has-error');
 			// $('#' + this.tipId).html(msg).show()
@@ -2486,10 +2486,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		// 	document.getElementById(this.successId).style.display='none';
 		// 	document.getElementById(this.tipId).style.display='none';
 		// }
-	
+
 		// removeClass(this.element.parentNode,'u-has-error');
 		// removeClass(this.element.parentNode,'u-has-success');
-	
+
 		if (this.tipId) {
 			var tipdiv = this.tipId;
 			if (typeof tipdiv === 'string') {
@@ -2502,14 +2502,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			if (this.tooltip) this.tooltip.hide();
 		}
 	};
-	
+
 	/**
 	 * 只有单一元素时使用
 	 */
 	Validate.fn._needClean = function () {
 		return true; //this.validates[0].needClean
 	};
-	
+
 	var validate = function validate(element) {
 		var self = this,
 		    options,
@@ -2525,7 +2525,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}, options);
 			element['Validate'] = new Validate(options);
 		}
-	
+
 		//element是个父元素，校验子元素
 		childEle = element.querySelectorAll('[uvalidate]');
 		(0, _util.each)(childEle, function (i, child) {
@@ -2539,7 +2539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		});
 	};
-	
+
 	// 对某个dom容器内的元素进行校验
 	var doValidate = function doValidate(element) {
 		var passed = true,
@@ -2560,7 +2560,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		});
 		return passed;
 	};
-	
+
 	_compMgr.compMgr.regComp({
 		comp: Validate,
 		compAsString: 'u.Validate',
@@ -2583,26 +2583,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.BaseComponent = undefined;
-	
-	var _class = __webpack_require__(16);
-	
-	var _util = __webpack_require__(17);
-	
-	var _event = __webpack_require__(18);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _class = __webpack_require__(4);
+
+	var _util = __webpack_require__(5);
+
+	var _event = __webpack_require__(10);
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : Sparrow base component
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-07-28 18:45:08
 	 */
-	
+
 	var BaseComponent = _class.Class.create({
 	    initialize: function initialize(element) {
 	        if ((0, _util.isDomElement)(element)) {
@@ -2613,7 +2613,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.options = element;
 	        }
 	        this.element = typeof this.element === 'string' ? document.querySelector(this.element) : this.element;
-	
+
 	        this.compType = this.compType || this.constructor.compType;
 	        this.element[this.compType] = this;
 	        this.element['init'] = true;
@@ -2704,7 +2704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	});
-	
+
 	function adjustDataType(options) {
 	    var types = ['integer', 'float', 'currency', 'percent', 'string', 'textarea'];
 	    var _type = options['type'],
@@ -2714,1038 +2714,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	        options['type'] = 'originText';
 	    }
 	}
-	
+
 	var BaseComponent = BaseComponent;
-	
+
 	exports.BaseComponent = BaseComponent;
 
 /***/ },
 /* 16 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	/**
-	 * Module : Sparrow class
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-28 08:45:39
-	 */
-	
-	var Class = function Class(o) {
-		if (!(this instanceof Class) && isFunction(o)) {
-			return classify(o);
-		}
-	};
-	
-	// Create a new Class.
-	//
-	//  var SuperPig = Class.create({
-	//    Extends: Animal,
-	//    Implements: Flyable,
-	//    initialize: function() {
-	//      SuperPig.superclass.initialize.apply(this, arguments)
-	//    },
-	//    Statics: {
-	//      COLOR: 'red'
-	//    }
-	// })
-	//
-	Class.create = function (parent, properties) {
-		if (!isFunction(parent)) {
-			properties = parent;
-			parent = null;
-		}
-	
-		properties || (properties = {});
-		parent || (parent = properties.Extends || Class);
-		properties.Extends = parent;
-	
-		// The created class constructor
-		function SubClass() {
-			var ret;
-			// Call the parent constructor.
-			parent.apply(this, arguments);
-	
-			// Only call initialize in self constructor.
-			if (this.constructor === SubClass && this.initialize) {
-				ret = this.initialize.apply(this, arguments);
-			}
-			return ret ? ret : this;
-		}
-	
-		// Inherit class (static) properties from parent.
-		if (parent !== Class) {
-			mix(SubClass, parent, parent.StaticsWhiteList);
-		}
-	
-		// Add instance properties to the subclass.
-		implement.call(SubClass, properties);
-	
-		// Make subclass extendable.
-		return classify(SubClass);
-	};
-	
-	function implement(properties) {
-		var key, value;
-	
-		for (key in properties) {
-			value = properties[key];
-	
-			if (Class.Mutators.hasOwnProperty(key)) {
-				Class.Mutators[key].call(this, value);
-			} else {
-				this.prototype[key] = value;
-			}
-		}
-	}
-	
-	// Create a sub Class based on `Class`.
-	Class.extend = function (properties) {
-		properties || (properties = {});
-		properties.Extends = this;
-	
-		return Class.create(properties);
-	};
-	
-	function classify(cls) {
-		cls.extend = Class.extend;
-		cls.implement = implement;
-		return cls;
-	}
-	
-	// Mutators define special properties.
-	Class.Mutators = {
-	
-		'Extends': function Extends(parent) {
-			var existed = this.prototype;
-			var proto = createProto(parent.prototype);
-	
-			// Keep existed properties.
-			mix(proto, existed);
-	
-			// Enforce the constructor to be what we expect.
-			proto.constructor = this;
-	
-			// Set the prototype chain to inherit from `parent`.
-			this.prototype = proto;
-	
-			// Set a convenience property in case the parent's prototype is
-			// needed later.
-			this.superclass = parent.prototype;
-		},
-	
-		'Implements': function Implements(items) {
-			isArray(items) || (items = [items]);
-			var proto = this.prototype,
-			    item;
-	
-			while (item = items.shift()) {
-				mix(proto, item.prototype || item);
-			}
-		},
-	
-		'Statics': function Statics(staticProperties) {
-			mix(this, staticProperties);
-		}
-	};
-	
-	// Shared empty constructor function to aid in prototype-chain creation.
-	function Ctor() {}
-	
-	// See: http://jsperf.com/object-create-vs-new-ctor
-	var createProto = Object.__proto__ ? function (proto) {
-		return {
-			__proto__: proto
-		};
-	} : function (proto) {
-		Ctor.prototype = proto;
-		return new Ctor();
-	};
-	
-	// Helpers
-	// ------------
-	
-	function mix(r, s, wl) {
-		// Copy "all" properties including inherited ones.
-		for (var p in s) {
-			if (s.hasOwnProperty(p)) {
-				if (wl && indexOf(wl, p) === -1) continue;
-	
-				// 在 iPhone 1 代等设备的 Safari 中，prototype 也会被枚举出来，需排除
-				if (p !== 'prototype') {
-					r[p] = s[p];
-				}
-			}
-		}
-	}
-	
-	var toString = Object.prototype.toString;
-	
-	var isArray = Array.isArray || function (val) {
-		return toString.call(val) === '[object Array]';
-	};
-	
-	var isFunction = function isFunction(val) {
-		return toString.call(val) === '[object Function]';
-	};
-	
-	var indexOf = function indexOf(arr, item) {
-		if (Array.prototype.indexOf && arr.indexOf) {
-			return arr.indexOf(item);
-		} else {
-			for (var i = 0, len = arr.length; i < len; i++) {
-				if (arr[i] === item) {
-					return i;
-				}
-			}
-			return -1;
-		}
-	};
-	
-	exports.Class = Class;
-	exports.isFunction = isFunction;
-
-/***/ },
-/* 17 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
-	/**
-	 * Module : Sparrow util tools
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-	
-	/**
-	 * 创建一个带壳的对象,防止外部修改
-	 * @param {Object} proto
-	 */
-	var createShellObject = function createShellObject(proto) {
-		var exf = function exf() {};
-		exf.prototype = proto;
-		return new exf();
-	};
-	var execIgnoreError = function execIgnoreError(a, b, c) {
-		try {
-			a.call(b, c);
-		} catch (e) {}
-	};
-	
-	var getFunction = function getFunction(target, val) {
-		if (!val || typeof val == 'function') return val;
-		if (typeof target[val] == 'function') return target[val];else if (typeof window[val] == 'function') return window[val];else if (val.indexOf('.') != -1) {
-			var func = getJSObject(target, val);
-			if (typeof func == 'function') return func;
-			func = getJSObject(window, val);
-			if (typeof func == 'function') return func;
-		}
-		return val;
-	};
-	var getJSObject = function getJSObject(target, names) {
-		if (!names) {
-			return;
-		}
-		if ((typeof names === 'undefined' ? 'undefined' : _typeof(names)) == 'object') return names;
-		var nameArr = names.split('.');
-		var obj = target;
-		for (var i = 0; i < nameArr.length; i++) {
-			obj = obj[nameArr[i]];
-			if (!obj) return null;
-		}
-		return obj;
-	};
-	var isDate = function isDate(input) {
-		return Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
-	};
-	var isNumber = function isNumber(obj) {
-		//return obj === +obj
-		return obj - parseFloat(obj) + 1 >= 0;
-	};
-	var isArray = Array.isArray || function (val) {
-		return Object.prototype.toString.call(val) === '[object Array]';
-	};
-	var isEmptyObject = function isEmptyObject(obj) {
-		var name;
-		for (name in obj) {
-			return false;
-		}
-		return true;
-	};
-	var inArray = function inArray(node, arr) {
-		if (!arr instanceof Array) {
-			throw "arguments is not Array";
-		}
-		for (var i = 0, k = arr.length; i < k; i++) {
-			if (node == arr[i]) {
-				return true;
-			}
-		}
-		return false;
-	};
-	var isDomElement = function isDomElement(obj) {
-		if (window['HTMLElement']) {
-			return obj instanceof HTMLElement;
-		} else {
-			return obj && obj.tagName && obj.nodeType === 1;
-		}
-	};
-	var each = function each(obj, callback) {
-		if (obj.forEach) {
-			obj.forEach(function (v, k) {
-				callback(k, v);
-			});
-		} else if (obj instanceof Object) {
-			for (var k in obj) {
-				callback(k, obj[k]);
-			}
-		} else {
-			return;
-		}
-	};
-	
-	NodeList.prototype.forEach = Array.prototype.forEach;
-	
-	/**
-	 * 获得字符串的字节长度
-	 */
-	String.prototype.lengthb = function () {
-		//	var str = this.replace(/[^\x800-\x10000]/g, "***");
-		var str = this.replace(/[^\x00-\xff]/g, "**");
-		return str.length;
-	};
-	
-	/**
-	 * 将AFindText全部替换为ARepText
-	 */
-	String.prototype.replaceAll = function (AFindText, ARepText) {
-		//自定义String对象的方法
-		var raRegExp = new RegExp(AFindText, "g");
-		return this.replace(raRegExp, ARepText);
-	};
-	
-	exports.createShellObject = createShellObject;
-	exports.execIgnoreError = execIgnoreError;
-	exports.getFunction = getFunction;
-	exports.getJSObject = getJSObject;
-	exports.isDate = isDate;
-	exports.isNumber = isNumber;
-	exports.isArray = isArray;
-	exports.isEmptyObject = isEmptyObject;
-	exports.inArray = inArray;
-	exports.isDomElement = isDomElement;
-	exports.each = each;
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
-	
-	var _env = __webpack_require__(19);
-	
-	var u = {}; /**
-	             * Module : Sparrow touch event
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-07-28 14:41:17
-	             */
-	
-	u.event = {};
-	
-	var touchStartEvent = _env.env.hasTouch ? "touchstart" : "mousedown",
-	    touchStopEvent = _env.env.hasTouch ? "touchend" : "mouseup",
-	    touchMoveEvent = _env.env.hasTouch ? "touchmove" : "mousemove";
-	
-	// tap和taphold
-	u.event.tap = {
-		tapholdThreshold: 750,
-		emitTapOnTaphold: true,
-		touchstartFun: function touchstartFun() {
-			trigger(this, 'vmousedown');
-		},
-		touchendFun: function touchendFun() {
-			trigger(this, 'vmouseup');
-			trigger(this, 'vclick');
-		},
-		setup: function setup() {
-			var thisObject = this,
-			    isTaphold = false;
-	
-			on(thisObject, "vmousedown", function (event) {
-				isTaphold = false;
-				if (event.which && event.which !== 1) {
-					return false;
-				}
-	
-				var origTarget = event.target,
-				    timer;
-	
-				function clearTapTimer() {
-					clearTimeout(timer);
-				}
-	
-				function clearTapHandlers() {
-					clearTapTimer();
-	
-					off(thisObject, 'vclick');
-					off(thisObject, 'vmouseup');
-					off(document, 'vmousecancel');
-				}
-	
-				function clickHandler(event) {
-					clearTapHandlers();
-	
-					// ONLY trigger a 'tap' event if the start target is
-					// the same as the stop target.
-					if (!isTaphold && origTarget === event.target) {
-						trigger(thisObject, 'tap');
-					} else if (isTaphold) {
-						event.preventDefault();
-					}
-				}
-				on(thisObject, 'vmouseup', clearTapTimer);
-				on(thisObject, 'vclick', clickHandler);
-				on(document, 'vmousecancel', clearTapHandlers);
-	
-				timer = setTimeout(function () {
-					if (!u.event.tap.emitTapOnTaphold) {
-						isTaphold = true;
-					}
-					trigger(thisObject, "taphold");
-					clearTapHandlers();
-				}, u.event.tap.tapholdThreshold);
-			});
-	
-			on(thisObject, 'touchstart', u.event.tap.touchstartFun);
-			on(thisObject, 'touchend', u.event.tap.touchendFun);
-		},
-		teardown: function teardown() {
-			off(thisObject, 'vmousedown');
-			off(thisObject, 'vclick');
-			off(thisObject, 'vmouseup');
-			off(document, 'vmousecancel');
-		}
-	};
-	
-	u.event.taphold = u.event.tap;
-	
-	u.event.swipe = {
-	
-		// More than this horizontal displacement, and we will suppress scrolling.
-		scrollSupressionThreshold: 30,
-	
-		// More time than this, and it isn't a swipe.
-		durationThreshold: 1000,
-	
-		// Swipe horizontal displacement must be more than this.
-		horizontalDistanceThreshold: 30,
-	
-		// Swipe vertical displacement must be less than this.
-		verticalDistanceThreshold: 30,
-	
-		getLocation: function getLocation(event) {
-			var winPageX = window.pageXOffset,
-			    winPageY = window.pageYOffset,
-			    x = event.clientX,
-			    y = event.clientY;
-	
-			if (event.pageY === 0 && Math.floor(y) > Math.floor(event.pageY) || event.pageX === 0 && Math.floor(x) > Math.floor(event.pageX)) {
-	
-				// iOS4 clientX/clientY have the value that should have been
-				// in pageX/pageY. While pageX/page/ have the value 0
-				x = x - winPageX;
-				y = y - winPageY;
-			} else if (y < event.pageY - winPageY || x < event.pageX - winPageX) {
-	
-				// Some Android browsers have totally bogus values for clientX/Y
-				// when scrolling/zooming a page. Detectable since clientX/clientY
-				// should never be smaller than pageX/pageY minus page scroll
-				x = event.pageX - winPageX;
-				y = event.pageY - winPageY;
-			}
-	
-			return {
-				x: x,
-				y: y
-			};
-		},
-	
-		start: function start(event) {
-			var data = event.touches ? event.touches[0] : event,
-			    location = u.event.swipe.getLocation(data);
-			return {
-				time: new Date().getTime(),
-				coords: [location.x, location.y],
-				origin: event.target
-			};
-		},
-	
-		stop: function stop(event) {
-			var data = event.touches ? event.touches[0] : event,
-			    location = u.event.swipe.getLocation(data);
-			return {
-				time: new Date().getTime(),
-				coords: [location.x, location.y]
-			};
-		},
-	
-		handleSwipe: function handleSwipe(start, stop, thisObject, origTarget) {
-			if (stop.time - start.time < u.event.swipe.durationThreshold && Math.abs(start.coords[0] - stop.coords[0]) > u.event.swipe.horizontalDistanceThreshold && Math.abs(start.coords[1] - stop.coords[1]) < u.event.swipe.verticalDistanceThreshold) {
-				var direction = start.coords[0] > stop.coords[0] ? "swipeleft" : "swiperight";
-	
-				trigger(thisObject, "swipe");
-				trigger(thisObject, direction);
-				return true;
-			}
-			return false;
-		},
-	
-		// This serves as a flag to ensure that at most one swipe event event is
-		// in work at any given time
-		eventInProgress: false,
-	
-		setup: function setup() {
-			var events,
-			    thisObject = this,
-			    context = {};
-	
-			// Retrieve the events data for this element and add the swipe context
-			events = thisObject["mobile-events"];
-			if (!events) {
-				events = {
-					length: 0
-				};
-				thisObject["mobile-events"] = events;
-			}
-			events.length++;
-			events.swipe = context;
-	
-			context.start = function (event) {
-	
-				// Bail if we're already working on a swipe event
-				if (u.event.swipe.eventInProgress) {
-					return;
-				}
-				u.event.swipe.eventInProgress = true;
-	
-				var stop,
-				    start = u.event.swipe.start(event),
-				    origTarget = event.target,
-				    emitted = false;
-	
-				context.move = function (event) {
-					// if ( !start || event.isDefaultPrevented() ) {
-					if (!start) {
-						return;
-					}
-	
-					stop = u.event.swipe.stop(event);
-					if (!emitted) {
-						emitted = u.event.swipe.handleSwipe(start, stop, thisObject, origTarget);
-						if (emitted) {
-	
-							// Reset the context to make way for the next swipe event
-							u.event.swipe.eventInProgress = false;
-						}
-					}
-					// prevent scrolling
-					if (Math.abs(start.coords[0] - stop.coords[0]) > u.event.swipe.scrollSupressionThreshold) {
-						event.preventDefault();
-					}
-				};
-	
-				context.stop = function () {
-					emitted = true;
-	
-					// Reset the context to make way for the next swipe event
-					u.event.swipe.eventInProgress = false;
-					off(document, touchMoveEvent, context.move);
-					context.move = null;
-				};
-	
-				on(document, touchMoveEvent, context.move);
-				on(document, touchStopEvent, context.stop);
-			};
-			on(thisObject, touchStartEvent, context.start);
-		},
-	
-		teardown: function teardown() {
-			var events, context;
-	
-			events = thisObject["mobile-events"];
-			if (events) {
-				context = events.swipe;
-				delete events.swipe;
-				events.length--;
-				if (events.length === 0) {
-					thisObject["mobile-events"] = null;
-				}
-			}
-	
-			if (context) {
-				if (context.start) {
-					off(thisObject, touchStartEvent, context.start);
-				}
-				if (context.move) {
-					off(document, touchMoveEvent, context.move);
-				}
-				if (context.stop) {
-					off(document, touchStopEvent, context.stop);
-				}
-			}
-		}
-	};
-	
-	u.event.swipeleft = u.event.swipe;
-	
-	u.event.swiperight = u.event.swipe;
-	
-	var event = u.event;
-	
-	var on = function on(element, eventName, child, listener) {
-		if (!element) return;
-		if (arguments.length < 4) {
-			listener = child;
-			child = undefined;
-		} else {
-			var childlistener = function childlistener(e) {
-				if (!e) {
-					return;
-				}
-				var tmpchildren = element.querySelectorAll(child);
-				tmpchildren.forEach(function (node) {
-					if (node == e.target) {
-						listener.call(e.target, e);
-					}
-				});
-			};
-		}
-		//capture = capture || false;
-	
-		if (!element["uEvent"]) {
-			//在dom上添加记录区
-			element["uEvent"] = {};
-		}
-		//判断是否元素上是否用通过on方法填加进去的事件
-		if (!element["uEvent"][eventName]) {
-			element["uEvent"][eventName] = [child ? childlistener : listener];
-			if (u.event && u.event[eventName] && u.event[eventName].setup) {
-				u.event[eventName].setup.call(element);
-			}
-			element["uEvent"][eventName + 'fn'] = function (e) {
-				//火狐下有问题修改判断
-				if (!e) e = typeof event != 'undefined' && event ? event : window.event;
-				element["uEvent"][eventName].forEach(function (fn) {
-					try {
-						e.target = e.target || e.srcElement; //兼容IE8
-					} catch (e) {}
-					if (fn) fn.call(element, e);
-				});
-			};
-			if (element.addEventListener) {
-				// 用于支持DOM的浏览器
-				element.addEventListener(eventName, element["uEvent"][eventName + 'fn']);
-			} else if (element.attachEvent) {
-				// 用于IE浏览器
-				element.attachEvent("on" + eventName, element["uEvent"][eventName + 'fn']);
-			} else {
-				// 用于其它浏览器
-				element["on" + eventName] = element["uEvent"][eventName + 'fn'];
-			}
-		} else {
-			//如果有就直接往元素的记录区添加事件
-			var lis = child ? childlistener : listener;
-			var hasLis = false;
-			element["uEvent"][eventName].forEach(function (fn) {
-				if (fn == lis) {
-					hasLis = true;
-				}
-			});
-			if (!hasLis) {
-				element["uEvent"][eventName].push(child ? childlistener : listener);
-			}
-		}
-	};
-	
-	var off = function off(element, eventName, listener) {
-		//删除事件数组
-		if (listener) {
-			if (element && element["uEvent"] && element["uEvent"][eventName]) {
-				element["uEvent"][eventName].forEach(function (fn, i) {
-					if (fn == listener) {
-						element["uEvent"][eventName].splice(i, 1);
-					}
-				});
-			}
-			return;
-		}
-		var eventfn = element["uEvent"][eventName + 'fn'];
-		if (element.removeEventListener) {
-			// 用于支持DOM的浏览器
-			element.removeEventListener(eventName, eventfn);
-		} else if (element.removeEvent) {
-			// 用于IE浏览器
-			element.removeEvent("on" + eventName, eventfn);
-		} else {
-			// 用于其它浏览器
-			delete element["on" + eventName];
-		}
-		if (u.event && u.event[eventName] && u.event[eventName].teardown) {
-			u.event[eventName].teardown.call(element);
-		}
-		element["uEvent"][eventName] = undefined;
-		element["uEvent"][eventName + 'fn'] = undefined;
-	};
-	var trigger = function trigger(element, eventName) {
-		if (element["uEvent"] && element["uEvent"][eventName]) {
-			element["uEvent"][eventName + 'fn']();
-		}
-	};
-	
-	/**
-	 * 阻止冒泡
-	 */
-	var stopEvent = function stopEvent(e) {
-		if (typeof e != "undefined") {
-			if (e.stopPropagation) e.stopPropagation();else {
-				e.cancelBubble = true;
-			}
-			//阻止默认浏览器动作(W3C)
-			if (e && e.preventDefault) e.preventDefault();
-			//IE中阻止函数器默认动作的方式
-			else window.event.returnValue = false;
-		}
-	};
-	
-	exports.on = on;
-	exports.off = off;
-	exports.trigger = trigger;
-	exports.stopEvent = stopEvent;
-	exports.event = event;
-
-/***/ },
-/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.env = undefined;
-	
-	var _extend = __webpack_require__(20);
-	
-	var u = {}; /**
-	             * Module : Sparrow browser environment
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-07-27 21:46:50
-	             */
-	
-	(0, _extend.extend)(u, {
-		isIE: false,
-		isFF: false,
-		isOpera: false,
-		isChrome: false,
-		isSafari: false,
-		isWebkit: false,
-		isIE8_BEFORE: false,
-		isIE8: false,
-		isIE8_CORE: false,
-		isIE9: false,
-		isIE9_CORE: false,
-		isIE10: false,
-		isIE10_ABOVE: false,
-		isIE11: false,
-		isIOS: false,
-		isIphone: false,
-		isIPAD: false,
-		isStandard: false,
-		version: 0,
-		isWin: false,
-		isUnix: false,
-		isLinux: false,
-		isAndroid: false,
-		isMac: false,
-		hasTouch: false,
-		isMobile: false
-	});
-	
-	(function () {
-		var userAgent = navigator.userAgent,
-		    rMsie = /(msie\s|trident.*rv:)([\w.]+)/,
-		    rFirefox = /(firefox)\/([\w.]+)/,
-		    rOpera = /(opera).+version\/([\w.]+)/,
-		    rChrome = /(chrome)\/([\w.]+)/,
-		    rSafari = /version\/([\w.]+).*(safari)/,
-		    version,
-		    ua = userAgent.toLowerCase(),
-		    s,
-		    browserMatch = {
-			browser: "",
-			version: ''
-		},
-		    match = rMsie.exec(ua);
-	
-		if (match != null) {
-			browserMatch = {
-				browser: "IE",
-				version: match[2] || "0"
-			};
-		}
-		match = rFirefox.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[1] || "",
-				version: match[2] || "0"
-			};
-		}
-		match = rOpera.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[1] || "",
-				version: match[2] || "0"
-			};
-		}
-		match = rChrome.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[1] || "",
-				version: match[2] || "0"
-			};
-		}
-		match = rSafari.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[2] || "",
-				version: match[1] || "0"
-			};
-		}
-		if (match != null) {
-			browserMatch = {
-				browser: "",
-				version: "0"
-			};
-		}
-	
-		if (s = ua.match(/opera.([\d.]+)/)) {
-			u.isOpera = true;
-		} else if (browserMatch.browser == "IE" && browserMatch.version == 11) {
-			u.isIE11 = true;
-			u.isIE = true;
-		} else if (s = ua.match(/chrome\/([\d.]+)/)) {
-			u.isChrome = true;
-			u.isStandard = true;
-		} else if (s = ua.match(/version\/([\d.]+).*safari/)) {
-			u.isSafari = true;
-			u.isStandard = true;
-		} else if (s = ua.match(/gecko/)) {
-			//add by licza : support XULRunner
-			u.isFF = true;
-			u.isStandard = true;
-		} else if (s = ua.match(/msie ([\d.]+)/)) {
-			u.isIE = true;
-		} else if (s = ua.match(/firefox\/([\d.]+)/)) {
-			u.isFF = true;
-			u.isStandard = true;
-		}
-		if (ua.match(/webkit\/([\d.]+)/)) {
-			u.isWebkit = true;
-		}
-		if (ua.match(/ipad/i)) {
-			u.isIOS = true;
-			u.isIPAD = true;
-			u.isStandard = true;
-		}
-		if (ua.match(/iphone/i)) {
-			u.isIOS = true;
-			u.isIphone = true;
-		}
-	
-		if (navigator.platform == "Mac68K" || navigator.platform == "MacPPC" || navigator.platform == "Macintosh" || navigator.platform == "MacIntel") {
-			//u.isIOS = true;
-			u.isMac = true;
-		}
-	
-		if (navigator.platform == "Win32" || navigator.platform == "Windows" || navigator.platform == "Win64") {
-			u.isWin = true;
-		}
-	
-		if (navigator.platform == "X11" && !u.isWin && !u.isMac) {
-			u.isUnix = true;
-		}
-		if (String(navigator.platform).indexOf("Linux") > -1) {
-			u.isLinux = true;
-		}
-	
-		if (ua.indexOf('Android') > -1 || ua.indexOf('android') > -1 || ua.indexOf('Adr') > -1 || ua.indexOf('adr') > -1) {
-			u.isAndroid = true;
-		}
-	
-		u.version = version ? browserMatch.version ? browserMatch.version : 0 : 0;
-		if (u.isIE) {
-			var intVersion = parseInt(u.version);
-			var mode = document.documentMode;
-			if (mode == null) {
-				if (intVersion == 6 || intVersion == 7) {
-					u.isIE8_BEFORE = true;
-				}
-			} else {
-				if (mode == 7) {
-					u.isIE8_BEFORE = true;
-				} else if (mode == 8) {
-					u.isIE8 = true;
-				} else if (mode == 9) {
-					u.isIE9 = true;
-					u.isSTANDARD = true;
-				} else if (mode == 10) {
-					u.isIE10 = true;
-					u.isSTANDARD = true;
-					u.isIE10_ABOVE = true;
-				} else {
-					u.isSTANDARD = true;
-				}
-				if (intVersion == 8) {
-					u.isIE8_CORE = true;
-				} else if (intVersion == 9) {
-					u.isIE9_CORE = true;
-				} else if (browserMatch.version == 11) {
-					u.isIE11 = true;
-				} else {}
-			}
-		}
-		if ("ontouchend" in document) {
-			u.hasTouch = true;
-		}
-		if (u.isIOS || u.isAndroid) u.isMobile = true;
-	})();
-	
-	var env = u;
-	exports.env = env;
 
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.extend = undefined;
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow extend
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-27 21:46:50
-	                                                                                                                                                                                                                                                   */
-	
-	var _enumerables = __webpack_require__(21);
-	
-	/**
-	 * 复制对象属性
-	 *
-	 * @param {Object}  目标对象
-	 * @param {config} 源对象
-	 */
-	var extend = function extend(object, config) {
-		var args = arguments,
-		    options;
-		if (args.length > 1) {
-			for (var len = 1; len < args.length; len++) {
-				options = args[len];
-				if (object && options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					var i, j, k;
-					for (i in options) {
-						object[i] = options[i];
-					}
-					if (_enumerables.enumerables) {
-						for (j = _enumerables.enumerables.length; j--;) {
-							k = _enumerables.enumerables[j];
-							if (options.hasOwnProperty && options.hasOwnProperty(k)) {
-								object[k] = options[k];
-							}
-						}
-					}
-				}
-			}
-		}
-		return object;
-	};
-	
-	exports.extend = extend;
-
-/***/ },
-/* 21 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	/**
-	 * Module : Sparrow extend enum
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-	
-	var U_LANGUAGES = "i_languages";
-	var U_THEME = "u_theme";
-	var U_LOCALE = "u_locale";
-	var U_USERCODE = "usercode";
-	
-	var enumerables = true,
-	    enumerablesTest = {
-		toString: 1
-	},
-	    toString = Object.prototype.toString;
-	for (var i in enumerablesTest) {
-		exports.enumerables = enumerables = null;
-	}
-	if (enumerables) {
-		exports.enumerables = enumerables = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
-	}
-	
-	exports.enumerables = enumerables;
-	exports.U_LANGUAGES = U_LANGUAGES;
-	exports.U_THEME = U_THEME;
-	exports.U_LOCALE = U_LOCALE;
-	exports.U_USERCODE = U_USERCODE;
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.compMgr = undefined;
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : Sparrow compMgr
 	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
 	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 18:41:06
 	                                                                                                                                                                                                                                                   */
-	
-	var _dom = __webpack_require__(23);
-	
+
+	var _dom = __webpack_require__(9);
+
 	function _findRegisteredClass(name, optReplace) {
 	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
 	        if (CompMgr.registeredControls[i].className === name) {
@@ -3757,18 +2749,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return false;
 	}
-	
+
 	function _getUpgradedListOfElement(element) {
 	    var dataUpgraded = element.getAttribute('data-upgraded');
 	    // Use `['']` as default value to conform the `,name,name...` style.
 	    return dataUpgraded === null ? [''] : dataUpgraded.split(',');
 	}
-	
+
 	function _isElementUpgraded(element, jsClass) {
 	    var upgradedList = _getUpgradedListOfElement(element);
 	    return upgradedList.indexOf(jsClass) != -1;
 	}
-	
+
 	function _upgradeElement(element, optJsClass) {
 	    if (!((typeof element === 'undefined' ? 'undefined' : _typeof(element)) === 'object' && element instanceof Element)) {
 	        throw new Error('Invalid argument provided to upgrade MDL element.');
@@ -3786,7 +2778,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else if (!_isElementUpgraded(element, optJsClass)) {
 	        classesToUpgrade.push(_findRegisteredClass(optJsClass));
 	    }
-	
+
 	    // Upgrade the element for each classes.
 	    for (var i = 0, n = classesToUpgrade.length, registeredClass; i < n; i++) {
 	        registeredClass = classesToUpgrade[i];
@@ -3809,7 +2801,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	}
-	
+
 	function _upgradeDomInternal(optJsClass, optCssClass, ele) {
 	    if (typeof optJsClass === 'undefined' && typeof optCssClass === 'undefined') {
 	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
@@ -3834,7 +2826,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	}
-	
+
 	var CompMgr = {
 	    plugs: {},
 	    dataAdapters: {},
@@ -3944,10 +2936,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	};
-	
+
 	var compMgr = CompMgr;
 	exports.compMgr = compMgr;
-	
+
 	///**
 	// * 加载控件
 	// */
@@ -3963,284 +2955,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	//}
 
 /***/ },
-/* 23 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
-	
-	var _event = __webpack_require__(18);
-	
-	/**
-	 * 元素增加指定样式
-	 * @param value
-	 * @returns {*}
-	 */
-	var addClass = function addClass(element, value) {
-		if (typeof element.classList === 'undefined') {
-			if (u._addClass) u._addClass(element, value);
-		} else {
-			element.classList.add(value);
-		}
-		return this;
-	};
-	/**
-	 * 删除元素上指定样式
-	 * @param {Object} element
-	 * @param {Object} value
-	 */
-	/**
-	 * Module : Sparrow dom
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-	var removeClass = function removeClass(element, value) {
-		if (typeof element.classList === 'undefined') {
-			if (u._removeClass) u._removeClass(element, value);
-		} else {
-			element.classList.remove(value);
-		}
-		return this;
-	};
-	/**
-	 * 元素上是否存在该类
-	 * @param {Object} element
-	 * @param {Object} value
-	 */
-	var hasClass = function hasClass(element, value) {
-		if (!element) return false;
-		if (element.nodeName && (element.nodeName === '#text' || element.nodeName === '#comment')) return false;
-		if (typeof element.classList === 'undefined') {
-			if (u._hasClass) return u._hasClass(element, value);
-			return false;
-		} else {
-			return element.classList.contains(value);
-		}
-	};
-	/**
-	 * 选择元素类切换
-	 * @param {Object} element
-	 * @param {Object} value
-	 */
-	var toggleClass = function toggleClass(element, value) {
-		if (typeof element.classList === 'undefined') {
-			return u._toggleClass(element, value);
-		} else {
-			return element.classList.toggle(value);
-		}
-	};
-	
-	/**
-	 * 向上查找指定类元素
-	 * @param {Object} element
-	 * @param {Object} selector
-	 */
-	var closest = function closest(element, selector) {
-		var tmp = element;
-		while (tmp != null && !hasClass(tmp, selector) && tmp != document.body) {
-			tmp = tmp.parentNode;
-		}
-		if (tmp == document.body) return null;
-		return tmp;
-	};
-	
-	/**
-	 * 元素CSS操作
-	 * @param {Object} element
-	 * @param {Object} csstext
-	 * @param {Object} val
-	 */
-	var css = function css(element, csstext, val) {
-		//TO DO : 实现u.相关方法
-		if (csstext instanceof Object) {
-			for (var k in csstext) {
-				var tmpcss = csstext[k];
-				if (["width", "height", "top", "bottom", "left", "right"].indexOf(k) > -1 && isNumber(tmpcss)) {
-					tmpcss = tmpcss + "px";
-				}
-				element.style[k] = tmpcss;
-			}
-		} else {
-			if (arguments.length > 2) {
-				element.style[csstext] = val;
-			} else {
-				return getStyle(element, csstext);
-			}
-		}
-	};
-	
-	var wrap = function wrap(element, parent) {
-		var p = makeDOM(parent);
-		element.parentNode.insertBefore(p, element);
-		p.appendChild(element);
-	};
-	var getStyle = function getStyle(element, key) {
-		//不要在循环里用
-		var allCSS;
-		if (window.getComputedStyle) {
-			allCSS = window.getComputedStyle(element);
-		} else {
-			allCSS = element.currentStyle;
-		}
-		if (allCSS[key] !== undefined) {
-			return allCSS[key];
-		} else {
-			return "";
-		}
-	};
-	var globalZIndex;
-	/**
-	 * 统一zindex值, 不同控件每次显示时都取最大的zindex，防止显示错乱
-	 */
-	var getZIndex = function getZIndex() {
-		if (!globalZIndex) {
-			globalZIndex = 2000;
-		}
-		return globalZIndex++;
-	};
-	var makeDOM = function makeDOM(htmlString) {
-		var tempDiv = document.createElement("div");
-		tempDiv.innerHTML = htmlString;
-		var _dom = tempDiv.children[0];
-		return _dom;
-	};
-	/**
-	 * element
-	 */
-	var makeModal = function makeModal(element, parEle) {
-		var overlayDiv = document.createElement('div');
-		addClass(overlayDiv, 'u-overlay');
-		overlayDiv.style.zIndex = getZIndex();
-		// 如果有父元素则插入到父元素上，没有则添加到body上
-		if (parEle && parEle != document.body) {
-			addClass(overlayDiv, 'hasPar');
-			parEle.appendChild(overlayDiv);
-		} else {
-			document.body.appendChild(overlayDiv);
-		}
-	
-		element.style.zIndex = getZIndex();
-		(0, _event.on)(overlayDiv, 'click', function (e) {
-			(0, _event.stopEvent)(e);
-		});
-		return overlayDiv;
-	};
-	
-	var getOffset = function getOffset(Node, offset) {
-		if (!offset) {
-			offset = {};
-			offset.top = 0;
-			offset.left = 0;
-		}
-		if (Node == document.body) {
-			return offset;
-		}
-		offset.top += Node.offsetTop;
-		offset.left += Node.offsetLeft;
-		if (Node.offsetParent) return getOffset(Node.offsetParent, offset);else return offset;
-	};
-	var getScroll = function getScroll(Node, offset) {
-		if (!offset) {
-			offset = {};
-			offset.top = 0;
-			offset.left = 0;
-		}
-		if (Node == document.body) {
-			offset.top += Node.scrollTop || document.documentElement.scrollTop;
-			offset.left += Node.scrollLeft || document.documentElement.scrollLeft;
-			return offset;
-		}
-		offset.top += Node.scrollTop;
-		offset.left += Node.scrollLeft;
-		if (Node.parentNode) return getScroll(Node.parentNode, offset);else return offset;
-	};
-	var showPanelByEle = function showPanelByEle(obj) {
-		var ele = obj.ele,
-		    panel = obj.panel,
-		    position = obj.position,
-		    off = getOffset(ele),
-		    scroll = getScroll(ele),
-		    offLeft = off.left,
-		    offTop = off.top,
-		    scrollLeft = scroll.left,
-		    scrollTop = scroll.top,
-		    eleWidth = ele.offsetWidth,
-		    eleHeight = ele.offsetHeight,
-		    panelWidth = panel.offsetWidth,
-		    panelHeight = panel.offsetHeight,
-		    bodyWidth = document.body.clientWidth,
-		    bodyHeight = document.body.clientHeight,
-		    position = position || 'top',
-		    left = offLeft - scrollLeft,
-		    top = offTop - scrollTop;
-		// 基准点为Ele的左上角
-		// 后续根据需要完善
-		if (position == 'left') {
-			left = left - panelWidth;
-			top = top + (eleHeight - panelHeight) / 2;
-		} else if (position == 'right') {
-			left = left + eleWidth;
-			top = top + (eleHeight - panelHeight) / 2;
-		} else if (position == 'top' || position == 'topCenter') {
-			left = left + (eleWidth - panelWidth) / 2;
-			top = top - panelHeight;
-		} else if (position == 'bottom' || position == 'bottomCenter') {
-			left = left + (eleWidth - panelWidth) / 2;
-			top = top + eleHeight;
-		} else if (position == 'bottomLeft') {
-			left = left;
-			top = top + eleHeight;
-		}
-	
-		// if((left + panelWidth) > bodyWidth)
-		//     left = bodyWidth - panelWidth;
-		// if(left < 0)
-		//     left = 0;
-	
-		// if((top + panelHeight) > bodyHeight)
-		//     top = bodyHeight - panelHeight;
-		// if(top < 0)
-		//     top = 0;
-		panel.style.left = left + 'px';
-		panel.style.top = top + 'px';
-	};
-	
-	exports.addClass = addClass;
-	exports.removeClass = removeClass;
-	exports.hasClass = hasClass;
-	exports.toggleClass = toggleClass;
-	exports.closest = closest;
-	exports.css = css;
-	exports.wrap = wrap;
-	exports.getStyle = getStyle;
-	exports.getZIndex = getZIndex;
-	exports.makeDOM = makeDOM;
-	exports.makeModal = makeModal;
-	exports.getOffset = getOffset;
-	exports.getScroll = getScroll;
-	exports.showPanelByEle = showPanelByEle;
 
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.Tooltip = undefined;
-	
-	var _extend = __webpack_require__(20);
-	
-	var _event = __webpack_require__(18);
-	
-	var _dom = __webpack_require__(23);
-	
+
+	var _extend = __webpack_require__(1);
+
+	var _event = __webpack_require__(10);
+
+	var _dom = __webpack_require__(9);
+
 	var Tooltip = function Tooltip(element, options) {
 		this.init(element, options);
 		//this.show()
@@ -4249,8 +2979,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    * Author : Kvkens(yueming@yonyou.com)
 	    * Date   : 2016-08-06 13:26:06
 	    */
-	
-	
+
+
 	Tooltip.prototype = {
 		defaults: {
 			animation: true,
@@ -4272,9 +3002,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.element = element;
 			this.options = (0, _extend.extend)({}, this.defaults, options);
 			this._viewport = this.options.viewport && document.querySelector(this.options.viewport.selector || this.options.viewport);
-	
+
 			var triggers = this.options.trigger.split(' ');
-	
+
 			for (var i = triggers.length; i--;) {
 				var trigger = triggers[i];
 				if (trigger == 'click') {
@@ -4301,7 +3031,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _dom.addClass)(this.tipDom, this.options.colorLevel);
 			}
 			this.arrrow = this.tipDom.querySelector('.tooltip-arrow');
-	
+
 			// tip容器,默认为当前元素的parent
 			this.container = this.options.container ? document.querySelector(this.options.container) : this.element.parentNode;
 		},
@@ -4310,7 +3040,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			clearTimeout(this.timeout);
 			this.hoverState = 'in';
 			if (!this.options.delay || !this.options.delay.show) return this.show();
-	
+
 			this.timeout = setTimeout(function () {
 				if (self.hoverState == 'in') self.show();
 			}, this.options.delay.show);
@@ -4328,7 +3058,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			var self = this;
 			this.tipDom.querySelector('.tooltip-inner').innerHTML = this.options.title;
 			this.tipDom.style.zIndex = (0, _dom.getZIndex)();
-	
+
 			if (this.options.showFix) {
 				document.body.appendChild(this.tipDom);
 				this.tipDom.style.position = 'fixed';
@@ -4358,15 +3088,15 @@ return /******/ (function(modules) { // webpackBootstrap
 				// this.tipDom.style.left = this.left + 'px';
 				this.tipDom.style.top = this.top + 'px';
 			}
-	
+
 			(0, _dom.addClass)(this.tipDom, 'active');
-	
+
 			// var placement = this.options.placement;
 			// var pos = this.getPosition()
 			// var actualWidth = this.tipDom.offsetWidth
 			// var actualHeight = this.tipDom.offsetHeight
 			// var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight)
-	
+
 			// this.applyPlacement(calculatedOffset, placement)
 		},
 		hide: function hide() {
@@ -4385,44 +3115,44 @@ return /******/ (function(modules) { // webpackBootstrap
 		applyPlacement: function applyPlacement(offset, placement) {
 			var width = this.tipDom.offsetWidth;
 			var height = this.tipDom.offsetHeight;
-	
+
 			// manually read margins because getBoundingClientRect includes difference
 			var marginTop = parseInt(this.tipDom.style.marginTop, 10);
 			var marginLeft = parseInt(this.tipDom.style.marginTop, 10);
-	
+
 			// we must check for NaN for ie 8/9
 			if (isNaN(marginTop)) marginTop = 0;
 			if (isNaN(marginLeft)) marginLeft = 0;
-	
+
 			offset.top = offset.top + marginTop;
 			offset.left = offset.left + marginLeft;
-	
+
 			// $.fn.offset doesn't round pixel values
 			// so we use setOffset directly with our own function B-0
 			this.tipDom.style.left = offset.left + 'px';
 			this.tipDom.style.top = offset.top + 'px';
-	
+
 			(0, _dom.addClass)(this.tipDom, 'active');
-	
+
 			// check to see if placing tip in new offset caused the tip to resize itself
 			var actualWidth = this.tipDom.offsetWidth;
 			var actualHeight = this.tipDom.offsetHeight;
-	
+
 			if (placement == 'top' && actualHeight != height) {
 				offset.top = offset.top + height - actualHeight;
 			}
 			var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight);
-	
+
 			if (delta.left) offset.left += delta.left;else offset.top += delta.top;
-	
+
 			var isVertical = /top|bottom/.test(placement);
 			var arrowDelta = isVertical ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight;
 			var arrowOffsetPosition = isVertical ? 'offsetWidth' : 'offsetHeight';
-	
+
 			//$tip.offset(offset)
 			this.tipDom.style.left = offset.left + 'px';
 			this.tipDom.style.top = offset.top - 4 + 'px';
-	
+
 			// this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], isVertical)
 		},
 		getCalculatedOffset: function getCalculatedOffset(placement, pos, actualWidth, actualHeight) {
@@ -4476,10 +3206,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				left: 0
 			};
 			if (!this._viewport) return delta;
-	
+
 			var viewportPadding = this.options.viewport && this.options.viewport.padding || 0;
 			var viewportDimensions = this.getPosition(this._viewport);
-	
+
 			if (/right|left/.test(placement)) {
 				var topEdgeOffset = pos.top - viewportPadding - viewportDimensions.scroll;
 				var bottomEdgeOffset = pos.top + viewportPadding - viewportDimensions.scroll + actualHeight;
@@ -4501,7 +3231,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset;
 				}
 			}
-	
+
 			return delta;
 		},
 		replaceArrow: function replaceArrow(delta, dimension, isHorizontal) {
@@ -4517,17 +3247,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		setTitle: function setTitle(title) {
 			this.options.title = title;
 		}
-	
+
 	};
-	
+
 	exports.Tooltip = Tooltip;
 
 /***/ },
-/* 25 */
+/* 18 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -4541,35 +3271,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	  //return  uuii18n ?  uuii18n.t('uui-trans:' + key) : dftValue;
 	  return dftValue;
 	};
-	
+
 	exports.trans = trans;
 
 /***/ },
-/* 26 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.Checkbox = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _event = __webpack_require__(18);
-	
-	var _ripple = __webpack_require__(27);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _dom = __webpack_require__(9);
+
+	var _event = __webpack_require__(10);
+
+	var _ripple = __webpack_require__(20);
+
+	var _compMgr = __webpack_require__(16);
+
 	var Checkbox = _BaseComponent.BaseComponent.extend({
 	    _Constant: {
 	        TINY_TIMEOUT: 0.001
 	    },
-	
+
 	    _CssClasses: {
 	        INPUT: 'u-checkbox-input',
 	        BOX_OUTLINE: 'u-checkbox-outline',
@@ -4582,21 +3312,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    init: function init() {
 	        this._inputElement = this.element.querySelector('input');
-	
+
 	        var boxOutline = document.createElement('span');
 	        (0, _dom.addClass)(boxOutline, this._CssClasses.BOX_OUTLINE);
-	
+
 	        var tickContainer = document.createElement('span');
 	        (0, _dom.addClass)(tickContainer, this._CssClasses.FOCUS_HELPER);
-	
+
 	        var tickOutline = document.createElement('span');
 	        (0, _dom.addClass)(tickOutline, this._CssClasses.TICK_OUTLINE);
-	
+
 	        boxOutline.appendChild(tickOutline);
-	
+
 	        this.element.appendChild(tickContainer);
 	        this.element.appendChild(boxOutline);
-	
+
 	        //if (this.element.classList.contains(this._CssClasses.RIPPLE_EFFECT)) {
 	        //  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
 	        this.rippleContainerElement_ = document.createElement('span');
@@ -4605,14 +3335,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        //this.rippleContainerElement_.classList.add(this._CssClasses.RIPPLE_CENTER);
 	        this.boundRippleMouseUp = this._onMouseUp.bind(this);
 	        this.rippleContainerElement_.addEventListener('mouseup', this.boundRippleMouseUp);
-	
+
 	        //var ripple = document.createElement('span');
 	        //ripple.classList.add(this._CssClasses.RIPPLE);
-	
+
 	        //this.rippleContainerElement_.appendChild(ripple);
 	        this.element.appendChild(this.rippleContainerElement_);
 	        new _ripple.URipple(this.rippleContainerElement_);
-	
+
 	        //}
 	        this.boundInputOnChange = this._onChange.bind(this);
 	        this.boundInputOnFocus = this._onFocus.bind(this);
@@ -4630,28 +3360,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }.bind(this));
 	        }
-	
+
 	        this._updateClasses();
 	        (0, _dom.addClass)(this.element, this._CssClasses.IS_UPGRADED);
 	    },
-	
+
 	    _onChange: function _onChange(event) {
 	        this._updateClasses();
 	        this.trigger('change', { isChecked: this._inputElement.checked });
 	    },
-	
+
 	    _onFocus: function _onFocus() {
 	        (0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
 	    },
-	
+
 	    _onBlur: function _onBlur() {
 	        (0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
 	    },
-	
+
 	    _onMouseUp: function _onMouseUp(event) {
 	        this._blur();
 	    },
-	
+
 	    /**
 	     * Handle class updates.
 	     *
@@ -4661,7 +3391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.checkDisabled();
 	        this.checkToggleState();
 	    },
-	
+
 	    /**
 	     * Add blur.
 	     *
@@ -4674,9 +3404,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._inputElement.blur();
 	        }.bind(this), /** @type {number} */this._Constant.TINY_TIMEOUT);
 	    },
-	
+
 	    // Public methods.
-	
+
 	    /**
 	     * Check the inputs toggle state and update display.
 	     *
@@ -4689,7 +3419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
 	        }
 	    },
-	
+
 	    /**
 	     * Check the inputs disabled state and update display.
 	     *
@@ -4702,12 +3432,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
 	        }
 	    },
-	
+
 	    isChecked: function isChecked() {
 	        //return hasClass(this.element,this._CssClasses.IS_CHECKED);
 	        return this._inputElement.checked;
 	    },
-	
+
 	    toggle: function toggle() {
 	        //return;
 	        if (this.isChecked()) {
@@ -4716,7 +3446,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.check();
 	        }
 	    },
-	
+
 	    /**
 	     * Disable checkbox.
 	     *
@@ -4726,7 +3456,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._inputElement.disabled = true;
 	        this._updateClasses();
 	    },
-	
+
 	    /**
 	     * Enable checkbox.
 	     *
@@ -4736,7 +3466,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._inputElement.disabled = false;
 	        this._updateClasses();
 	    },
-	
+
 	    /**
 	     * Check checkbox.
 	     *
@@ -4747,7 +3477,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._updateClasses();
 	        this.boundInputOnChange();
 	    },
-	
+
 	    /**
 	     * Uncheck checkbox.
 	     *
@@ -4758,14 +3488,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._updateClasses();
 	        this.boundInputOnChange();
 	    }
-	
+
 	}); /**
 	     * Module : neoui-checkbox
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-02 13:55:07
 	     */
-	
-	
+
+
 	_compMgr.compMgr.regComp({
 	    comp: Checkbox,
 	    compAsString: 'u.Checkbox',
@@ -4782,37 +3512,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Checkbox = Checkbox;
 
 /***/ },
-/* 27 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.URipple = exports.Ripple = undefined;
-	
-	var _env = __webpack_require__(19);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _event = __webpack_require__(18);
-	
+
+	var _env = __webpack_require__(11);
+
+	var _dom = __webpack_require__(9);
+
+	var _event = __webpack_require__(10);
+
 	var URipple = function URipple(element) {
 	  if (_env.isIE8) return;
 	  this._element = element;
-	
+
 	  // Initialize instance.
 	  this.init();
 	};
 	//window['URipple'] = URipple;
-	
+
 	/**
 	 * Module : Sparrow ripple
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-07-29 08:42:13
 	 */
-	
+
 	URipple.prototype._down = function (event) {
 	  if (_env.isIE8) return;
 	  if (!this._rippleElement.style.width && !this._rippleElement.style.height) {
@@ -4821,9 +3551,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this._rippleElement.style.width = this.rippleSize_ + 'px';
 	    this._rippleElement.style.height = this.rippleSize_ + 'px';
 	  }
-	
+
 	  (0, _dom.addClass)(this._rippleElement, 'is-visible');
-	
+
 	  if (event.type === 'mousedown' && this._ignoringMouseDown) {
 	    this._ignoringMouseDown = false;
 	  } else {
@@ -4854,7 +3584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (window.requestAnimationFrame) window.requestAnimationFrame(this.animFrameHandler.bind(this));
 	  }
 	};
-	
+
 	/**
 	 * Handle mouse / finger up on element.
 	 *
@@ -4875,7 +3605,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    (0, _dom.removeClass)(self._rippleElement, 'is-visible');
 	  }, 0);
 	};
-	
+
 	/**
 	     * Getter for frameCount_.
 	     * @return {number} the frame count.
@@ -4892,7 +3622,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (_env.isIE8) return;
 	  this.frameCount_ = fC;
 	};
-	
+
 	/**
 	     * Getter for _rippleElement.
 	     * @return {Element} the ripple element.
@@ -4901,7 +3631,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (_env.isIE8) return;
 	  return this._rippleElement;
 	};
-	
+
 	/**
 	 * Sets the ripple X and Y coordinates.
 	 * @param  {number} newX the new X coordinate
@@ -4912,7 +3642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.x_ = newX;
 	  this.y_ = newY;
 	};
-	
+
 	/**
 	 * Sets the ripple styles.
 	 * @param  {boolean} start whether or not this is the start frame.
@@ -4924,7 +3654,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var scale;
 	    var size;
 	    var offset = 'translate(' + this.x_ + 'px, ' + this.y_ + 'px)';
-	
+
 	    if (start) {
 	      scale = 'scale(0.0001, 0.0001)';
 	      size = '1px';
@@ -4932,13 +3662,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      scale = '';
 	      size = this.rippleSize_ + 'px';
 	    }
-	
+
 	    transformString = 'translate(-50%, -50%) ' + offset + scale;
-	
+
 	    this._rippleElement.style.webkitTransform = transformString;
 	    this._rippleElement.style.msTransform = transformString;
 	    this._rippleElement.style.transform = transformString;
-	
+
 	    if (start) {
 	      (0, _dom.removeClass)(this._rippleElement, 'is-animating');
 	    } else {
@@ -4946,7 +3676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	};
-	
+
 	/**
 	   * Handles an animation frame.
 	   */
@@ -4958,7 +3688,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.setRippleStyles(false);
 	  }
 	};
-	
+
 	/**
 	 * Initialize element.
 	 */
@@ -4978,7 +3708,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.rippleSize_ = 0;
 	    this.x_ = 0;
 	    this.y_ = 0;
-	
+
 	    // Touch start produces a compat mouse down event, which would cause a
 	    // second ripples. To avoid that, we use this property to ignore the first
 	    // mouse down after a touch start.
@@ -4989,7 +3719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    (0, _event.on)(this._element, 'touchstart', function (e) {
 	      self._down(e);
 	    });
-	
+
 	    (0, _event.on)(this._element, 'mouseup', function (e) {
 	      self._up(e);
 	    });
@@ -5004,270 +3734,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  }
 	};
-	
+
 	var Ripple = URipple;
-	
+
 	exports.Ripple = Ripple;
 	exports.URipple = URipple;
 
 /***/ },
-/* 28 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.compMgr = undefined;
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow compMgr
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 18:41:06
-	                                                                                                                                                                                                                                                   */
-	
-	var _dom = __webpack_require__(9);
-	
-	function _findRegisteredClass(name, optReplace) {
-	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	        if (CompMgr.registeredControls[i].className === name) {
-	            if (typeof optReplace !== 'undefined') {
-	                CompMgr.registeredControls[i] = optReplace;
-	            }
-	            return CompMgr.registeredControls[i];
-	        }
-	    }
-	    return false;
-	}
-	
-	function _getUpgradedListOfElement(element) {
-	    var dataUpgraded = element.getAttribute('data-upgraded');
-	    // Use `['']` as default value to conform the `,name,name...` style.
-	    return dataUpgraded === null ? [''] : dataUpgraded.split(',');
-	}
-	
-	function _isElementUpgraded(element, jsClass) {
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    return upgradedList.indexOf(jsClass) != -1;
-	}
-	
-	function _upgradeElement(element, optJsClass) {
-	    if (!((typeof element === 'undefined' ? 'undefined' : _typeof(element)) === 'object' && element instanceof Element)) {
-	        throw new Error('Invalid argument provided to upgrade MDL element.');
-	    }
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    var classesToUpgrade = [];
-	    if (!optJsClass) {
-	        var className = element.className;
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            var component = CompMgr.registeredControls[i];
-	            if (className.indexOf(component.cssClass) > -1 && classesToUpgrade.indexOf(component) === -1 && !_isElementUpgraded(element, component.className)) {
-	                classesToUpgrade.push(component);
-	            }
-	        }
-	    } else if (!_isElementUpgraded(element, optJsClass)) {
-	        classesToUpgrade.push(_findRegisteredClass(optJsClass));
-	    }
-	
-	    // Upgrade the element for each classes.
-	    for (var i = 0, n = classesToUpgrade.length, registeredClass; i < n; i++) {
-	        registeredClass = classesToUpgrade[i];
-	        if (registeredClass) {
-	            if (element[registeredClass.className]) {
-	                continue;
-	            }
-	            // Mark element as upgraded.
-	            upgradedList.push(registeredClass.className);
-	            element.setAttribute('data-upgraded', upgradedList.join(','));
-	            var instance = new registeredClass.classConstructor(element);
-	            CompMgr.createdControls.push(instance);
-	            // Call any callbacks the user has registered with this component type.
-	            for (var j = 0, m = registeredClass.callbacks.length; j < m; j++) {
-	                registeredClass.callbacks[j](element);
-	            }
-	            element[registeredClass.className] = instance;
-	        } else {
-	            throw new Error('Unable to find a registered component for the given class.');
-	        }
-	    }
-	}
-	
-	function _upgradeDomInternal(optJsClass, optCssClass, ele) {
-	    if (typeof optJsClass === 'undefined' && typeof optCssClass === 'undefined') {
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            _upgradeDomInternal(CompMgr.registeredControls[i].className, registeredControls[i].cssClass, ele);
-	        }
-	    } else {
-	        var jsClass = optJsClass;
-	        if (!optCssClass) {
-	            var registeredClass = _findRegisteredClass(jsClass);
-	            if (registeredClass) {
-	                optCssClass = registeredClass.cssClass;
-	            }
-	        }
-	        var elements;
-	        if (ele) {
-	            elements = (0, _dom.hasClass)(ele, optCssClass) ? [ele] : ele.querySelectorAll('.' + optCssClass);
-	        } else {
-	            elements = document.querySelectorAll('.' + optCssClass);
-	        }
-	        for (var n = 0; n < elements.length; n++) {
-	            _upgradeElement(elements[n], jsClass);
-	        }
-	    }
-	}
-	
-	var CompMgr = {
-	    plugs: {},
-	    dataAdapters: {},
-	    /** 注册的控件*/
-	    registeredControls: [],
-	    createdControls: [],
-	    /**
-	     *
-	     * @param options  {el:'#content', model:{}}
-	     */
-	    apply: function apply(options) {
-	        if (options) {
-	            var _el = options.el || document.body;
-	            var model = options.model;
-	        }
-	        if (typeof _el == 'string') {
-	            _el = document.body.querySelector(_el);
-	        }
-	        if (_el == null || (typeof _el === 'undefined' ? 'undefined' : _typeof(_el)) != 'object') _el = document.body;
-	        var comps = _el.querySelectorAll('[u-meta]');
-	        comps.forEach(function (element) {
-	            if (element['comp']) return;
-	            var options = JSON.parse(element.getAttribute('u-meta'));
-	            if (options && options['type']) {
-	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
-	                var comp = CompMgr.createDataAdapter({ el: element, options: options, model: model });
-	                if (comp) {
-	                    element['adpt'] = comp;
-	                    element['u-meta'] = comp;
-	                }
-	            }
-	        });
-	    },
-	    addPlug: function addPlug(config) {
-	        var plug = config['plug'],
-	            name = config['name'];
-	        this.plugs || (this.plugs = {});
-	        if (this.plugs[name]) {
-	            throw new Error('plug has exist:' + name);
-	        }
-	        plug.compType = name;
-	        this.plugs[name] = plug;
-	    },
-	    addDataAdapter: function addDataAdapter(config) {
-	        var adapter = config['adapter'],
-	            name = config['name'];
-	        //dataType = config['dataType'] || ''
-	        //var key = dataType ? name + '.' + dataType : name;
-	        this.dataAdapters || (dataAdapters = {});
-	        if (this.dataAdapters[name]) {
-	            throw new Error('dataAdapter has exist:' + name);
-	        }
-	        this.dataAdapters[name] = adapter;
-	    },
-	    getDataAdapter: function getDataAdapter(name) {
-	        if (!name) return;
-	        this.dataAdapters || (dataAdapters = {});
-	        //var key = dataType ? name + '.' + dataType : name;
-	        return this.dataAdapters[name];
-	    },
-	    createDataAdapter: function createDataAdapter(options) {
-	        var opt = options['options'];
-	        var type = opt['type'],
-	            id = opt['id'];
-	        var adpt = this.dataAdapters[type];
-	        if (!adpt) return null;
-	        var comp = new adpt(options);
-	        comp.type = type;
-	        comp.id = id;
-	        return comp;
-	    },
-	    _createComp: function _createComp(options) {
-	        var opt = options['options'];
-	        var type = opt['type'];
-	        var plug = this.plugs[type];
-	        if (!plug) return null;
-	        var comp = new plug(options);
-	        comp.type = type;
-	        return comp;
-	    },
-	    /**
-	     * 注册UI控件
-	     */
-	    regComp: function regComp(config) {
-	        var newConfig = {
-	            classConstructor: config.comp,
-	            className: config.compAsString || config['compAsString'],
-	            cssClass: config.css || config['css'],
-	            callbacks: []
-	        };
-	        config.comp.prototype.compType = config.compAsString;
-	        for (var i = 0; i < this.registeredControls.length; i++) {
-	            var item = this.registeredControls[i];
-	            //registeredControls.forEach(function(item) {
-	            if (item.cssClass === newConfig.cssClass) {
-	                throw new Error('The provided cssClass has already been registered: ' + item.cssClass);
-	            }
-	            if (item.className === newConfig.className) {
-	                throw new Error('The provided className has already been registered');
-	            }
-	        };
-	        this.registeredControls.push(newConfig);
-	    },
-	    updateComp: function updateComp(ele) {
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
-	        }
-	    }
-	};
-	
-	var compMgr = CompMgr;
-	exports.compMgr = compMgr;
-	
-	///**
-	// * 加载控件
-	// */
-	//
-	//if (document.readyState && document.readyState === 'complete'){
-	//    compMgr.updateComp();
-	//}else{
-	//    on(window, 'load', function() {
-	//
-	//        //扫描并生成控件
-	//        compMgr.updateComp();
-	//    });
-	//}
 
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.CkEditorAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : Kero webpack entry index
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -5280,7 +3775,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.e_editor = this.id + "-ckeditor";
 	        this.render(this.options);
 	    },
-	
+
 	    render: function render(data) {
 	        var cols = data.cols || 80;
 	        var rows = data.rows || 10;
@@ -5293,12 +3788,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.tmpeditor.on('blur', function () {
 	            self.setValue(tmpeditor.getData());
 	        });
-	
+
 	        this.tmpeditor.on('focus', function () {
 	            self.setShowValue(self.getValue());
 	        });
 	    },
-	
+
 	    modelValueChange: function modelValueChange(value) {
 	        if (this.slice) return;
 	        value = value || "";
@@ -5306,7 +3801,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.showValue = value;
 	        this.setShowValue(this.showValue);
 	    },
-	
+
 	    setValue: function setValue(value) {
 	        this.trueValue = value;
 	        this.showValue = value;
@@ -5316,17 +3811,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.slice = false;
 	        //this.trigger(Editor.EVENT_VALUE_CHANGE, this.trueValue)
 	    },
-	
+
 	    getValue: function getValue() {
 	        return this.trueValue;
 	    },
-	
+
 	    setShowValue: function setShowValue(showValue) {
 	        var self = this;
 	        this.showValue = showValue;
 	        this.element.value = showValue;
 	        this.tmpeditor.setData(showValue);
-	
+
 	        //同一页面多次复制有些时候会不生效，setData为异步方法导致。
 	        if (self.setShowValueInter) clearInterval(self.setShowValueInter);
 	        self.setShowValueInter = setInterval(function () {
@@ -5336,61 +3831,61 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }, 100);
 	    },
-	
+
 	    getShowValue: function getShowValue() {
 	        return this.showValue;
 	    },
-	
+
 	    getContent: function getContent() {
 	        return $('#' + this.e_editor).html();
 	    },
-	
+
 	    setContent: function setContent(txt) {
 	        $('#' + this.e_editor).html(txt);
 	    }
-	
+
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: CkEditorAdapter,
 	    name: 'u-ckeditor'
 	});
-	
+
 	exports.CkEditorAdapter = CkEditorAdapter;
 
 /***/ },
-/* 30 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.ComboboxAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _util = __webpack_require__(5);
-	
-	var _neouiCombo = __webpack_require__(31);
-	
+
+	var _neouiCombo = __webpack_require__(23);
+
 	var _env = __webpack_require__(11);
-	
+
 	var _event = __webpack_require__(10);
-	
+
 	var _dom = __webpack_require__(9);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	var ComboboxAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
@@ -5479,51 +3974,51 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-09 09:52:13
 	     */
-	
-	
+
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: ComboboxAdapter,
 	    name: 'u-combobox'
 	});
-	
+
 	exports.ComboboxAdapter = ComboboxAdapter;
 
 /***/ },
-/* 31 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.Combo = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _env = __webpack_require__(19);
-	
-	var _event = __webpack_require__(18);
-	
-	var _neouiTextfield = __webpack_require__(32);
-	
-	var _ripple = __webpack_require__(27);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _dom = __webpack_require__(9);
+
+	var _env = __webpack_require__(11);
+
+	var _event = __webpack_require__(10);
+
+	var _neouiTextfield = __webpack_require__(24);
+
+	var _ripple = __webpack_require__(20);
+
+	var _compMgr = __webpack_require__(16);
+
 	var Combo = _BaseComponent.BaseComponent.extend({
-	
+
 	    init: function init() {
 	        this.mutilSelect = this.options['mutilSelect'] || false;
 	        if ((0, _dom.hasClass)(this.element, 'mutil-select')) {
 	            this.mutilSelect = true;
 	        }
-	
+
 	        this.onlySelect = this.options['onlySelect'] || false;
 	        if (this.mutilSelect) this.onlySelect = true;
-	
+
 	        this.comboDatas = [];
 	        var i,
 	            option,
@@ -5536,7 +4031,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            option = options[i];
 	            datas.push({ value: option.value, name: option.text });
 	        }
-	
+
 	        this.setComboData(datas);
 	        this._input = this.element.querySelector("input");
 	        if (this.onlySelect || _env.env.isMobile) {
@@ -5565,7 +4060,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        (0, _event.on)(this._input, 'blur', function (e) {
 	            self._inputFocus = false;
 	        });
-	
+
 	        (0, _event.on)(this.input, 'keydown', function (e) {
 	            var keyCode = e.keyCode;
 	            if (e.keyCode == 13) {
@@ -5581,9 +4076,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 	        }
 	    },
-	
+
 	    show: function show(evt) {
-	
+
 	        var self = this,
 	            width = this._input.offsetWidth;
 	        if (this.options.showFix) {
@@ -5613,11 +4108,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (this.left + panelWidth > bodyWidth) {
 	                this.left = bodyWidth - panelWidth;
 	            }
-	
+
 	            if (this.top + panelHeight > bodyHeight) {
 	                this.top = bodyHeight - panelHeight;
 	            }
-	
+
 	            this._ul.style.left = this.left + 'px';
 	            this._ul.style.top = this.top + 'px';
 	        }
@@ -5625,7 +4120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        (0, _dom.addClass)(this._ul, 'is-animating');
 	        this._ul.style.zIndex = (0, _dom.getZIndex)();
 	        (0, _dom.addClass)(this._ul, 'is-visible');
-	
+
 	        var callback = function (e) {
 	            if (e === evt || e.target === this._input || self._inputFocus == true) return;
 	            if (this.mutilSelect && ((0, _dom.closest)(e.target, 'u-combo-ul') === self._ul || (0, _dom.closest)(e.target, 'u-combo-name-par') || (0, _dom.closest)(e.target, 'u-combo-name'))) return;
@@ -5637,13 +4132,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        (0, _event.on)(document.body, 'touchend', callback);
 	        // document.addEventListener('click', callback);
 	    },
-	
+
 	    hide: function hide() {
 	        (0, _dom.removeClass)(this._ul, 'is-visible');
 	        this._ul.style.zIndex = -1;
 	        this.trigger('select', { value: this.value });
 	    },
-	
+
 	    /**
 	     * 设置下拉数据
 	     * @param datas  数据项
@@ -5661,7 +4156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        if (!this._ul) {
 	            this._ul = (0, _dom.makeDOM)('<ul class="u-combo-ul"></ul>');
-	
+
 	            // document.body.appendChild(this._ul);
 	        }
 	        this._ul.innerHTML = '';
@@ -5676,17 +4171,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	            (0, _dom.addClass)(rippleContainer, 'u-ripple-container');
 	            var _rippleElement = document.createElement('span');
 	            (0, _dom.addClass)(_rippleElement, 'u-ripple');
-	
+
 	            rippleContainer.appendChild(_rippleElement);
 	            li.appendChild(rippleContainer);
 	            new _ripple.URipple(li);
 	            this._ul.appendChild(li);
 	        }
 	    },
-	
+
 	    selectItem: function selectItem(index) {
 	        var self = this;
-	
+
 	        if (this.mutilSelect) {
 	            var val = this.comboDatas[index].value;
 	            var name = this.comboDatas[index].name;
@@ -5701,7 +4196,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.value = !this.value ? val + ',' : this.value + val + ',';
 	                flag = '+';
 	            }
-	
+
 	            if (flag == '+') {
 	                var nameDiv = (0, _dom.makeDOM)('<div class="u-combo-name" key="' + val + '">' + name + /*<a href="javascript:void(0)" class="remove">x</a>*/'</div>');
 	                var parNameDiv = (0, _dom.makeDOM)('<div class="u-combo-name-par" style="position:absolute"></div>');
@@ -5725,9 +4220,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    if (comboDiv) this._combo_name_par.removeChild(comboDiv);
 	                }
 	            }
-	
+
 	            this._updateItemSelect();
-	
+
 	            // this.trigger('select', {value: this.value, name: name});
 	        } else {
 	            this.value = this.comboDatas[index].value;
@@ -5736,7 +4231,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // this.trigger('select', {value: this.value, name: this._input.value});
 	        }
 	    },
-	
+
 	    _updateItemSelect: function _updateItemSelect() {
 	        var lis = this._ul.querySelectorAll('.u-combo-li');
 	        if (this.mutilSelect) {
@@ -5762,7 +4257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    },
-	
+
 	    /**
 	     *设置值
 	     * @param value
@@ -5771,7 +4266,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var self = this;
 	        value = value + '';
 	        value = value || '';
-	
+
 	        var values = value.split(',');
 	        if (this.mutilSelect === true) {
 	            if (self._combo_name_par) self._combo_name_par.innerHTML = '';
@@ -5801,7 +4296,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.trigger('select', { value: this.value, name: this._input.value });
 	        }
 	    },
-	
+
 	    /**
 	     * 设置显示名
 	     * @param name
@@ -5814,13 +4309,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }.bind(this));
 	    }
-	
+
 	}); /**
 	     * Module : neoui-combo
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-06 13:19:10
 	     */
-	
+
 	_compMgr.compMgr.regComp({
 	    comp: Combo,
 	    compAsString: 'u.Combo',
@@ -5837,32 +4332,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Combo = Combo;
 
 /***/ },
-/* 32 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.Text = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _env = __webpack_require__(19);
-	
-	var _event = __webpack_require__(18);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _dom = __webpack_require__(9);
+
+	var _env = __webpack_require__(11);
+
+	var _event = __webpack_require__(10);
+
+	var _compMgr = __webpack_require__(16);
+
 	var Text = _BaseComponent.BaseComponent.extend({
 	    _Constant: {
 	        NO_MAX_ROWS: -1,
 	        MAX_ROWS_ATTRIBUTE: 'maxrows'
 	    },
-	
+
 	    _CssClasses: {
 	        LABEL: 'u-label',
 	        INPUT: 'u-input',
@@ -5872,13 +4367,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        IS_INVALID: 'is-invalid',
 	        IS_UPGRADED: 'is-upgraded'
 	    },
-	
+
 	    init: function init() {
 	        var oThis = this;
 	        this.maxRows = this._Constant.NO_MAX_ROWS;
 	        this.label_ = this.element.querySelector('.' + this._CssClasses.LABEL);
 	        this._input = this.element.querySelector('input');
-	
+
 	        if (this._input) {
 	            if (this._input.hasAttribute(
 	            /** @type {string} */this._Constant.MAX_ROWS_ATTRIBUTE)) {
@@ -5888,7 +4383,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.maxRows = this._Constant.NO_MAX_ROWS;
 	                }
 	            }
-	
+
 	            this.boundUpdateClassesHandler = this._updateClasses.bind(this);
 	            this.boundFocusHandler = this._focus.bind(this);
 	            this.boundBlurHandler = this._blur.bind(this);
@@ -5907,10 +4402,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }.bind(this));
 	                }
 	            }
-	
+
 	            this._input.addEventListener('blur', this.boundBlurHandler);
 	            this._input.addEventListener('reset', this.boundResetHandler);
-	
+
 	            if (this.maxRows !== this._Constant.NO_MAX_ROWS) {
 	                // TODO: This should handle pasting multi line text.
 	                // Currently doesn't.
@@ -5925,7 +4420,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    },
-	
+
 	    /**
 	     * Handle input being entered.
 	     *
@@ -5977,9 +4472,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.checkValidity();
 	        this.checkDirty();
 	    },
-	
+
 	    // Public methods.
-	
+
 	    /**
 	     * Check the disabled state and update field accordingly.
 	     *
@@ -6046,21 +4541,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._input.value = value || '';
 	        this._updateClasses();
 	    }
-	
+
 	});
-	
+
 	//if (compMgr)
 	//    compMgr.addPlug({
 	//        name:'text',
 	//        plug: Text
 	//    })
-	
+
 	/**
 	 * Module : neoui-combo
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-02 14:22:46
 	 */
-	
+
 	_compMgr.compMgr.regComp({
 	    comp: Text,
 	    compAsString: 'u.Text',
@@ -6077,38 +4572,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Text = Text;
 
 /***/ },
-/* 33 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.CurrencyAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _util = __webpack_require__(5);
-	
-	var _neouiCheckbox = __webpack_require__(26);
-	
-	var _indexDataTable = __webpack_require__(34);
-	
-	var _formater = __webpack_require__(61);
-	
-	var _float = __webpack_require__(62);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiCheckbox = __webpack_require__(19);
+
+	var _indexDataTable = __webpack_require__(26);
+
+	var _formater = __webpack_require__(52);
+
+	var _float = __webpack_require__(53);
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * 货币控件
 	 */
@@ -6117,12 +4612,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-09 13:42:14
 	 */
-	
+
 	var CurrencyAdapter = _float.FloatAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        CurrencyAdapter.superclass.init.apply(this);
-	
+
 	        this.maskerMeta = iweb.Core.getMaskerMeta('currency') || {};
 	        this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
 	        this.maskerMeta.curSymbol = this.getOption('curSymbol') || this.maskerMeta.curSymbol;
@@ -6180,91 +4675,91 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setShowValue(focusValue);
 	    }
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: CurrencyAdapter,
 	    name: 'currency'
 	});
-	
+
 	exports.CurrencyAdapter = CurrencyAdapter;
 
 /***/ },
-/* 34 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.DataTable = undefined;
-	
-	var _indexEvents = __webpack_require__(35);
-	
-	var _copyRow = __webpack_require__(37);
-	
-	var _data = __webpack_require__(38);
-	
-	var _enable = __webpack_require__(39);
-	
-	var _getCurrent = __webpack_require__(40);
-	
-	var _getData = __webpack_require__(41);
-	
-	var _getFocus = __webpack_require__(42);
-	
-	var _getMeta = __webpack_require__(43);
-	
-	var _getPage = __webpack_require__(44);
-	
-	var _getParam = __webpack_require__(45);
-	
-	var _getSelect = __webpack_require__(46);
-	
-	var _getSimpleData = __webpack_require__(47);
-	
-	var _meta = __webpack_require__(48);
-	
-	var _page = __webpack_require__(49);
-	
-	var _param = __webpack_require__(50);
-	
-	var _ref = __webpack_require__(51);
-	
-	var _removeRow = __webpack_require__(52);
-	
-	var _row = __webpack_require__(55);
-	
-	var _rowCurrent = __webpack_require__(56);
-	
-	var _rowDelete = __webpack_require__(57);
-	
-	var _rowSelect = __webpack_require__(58);
-	
-	var _rowFocus = __webpack_require__(59);
-	
-	var _simpleData = __webpack_require__(60);
-	
-	var _util = __webpack_require__(53);
-	
+
+	var _indexEvents = __webpack_require__(27);
+
+	var _copyRow = __webpack_require__(29);
+
+	var _data = __webpack_require__(30);
+
+	var _enable = __webpack_require__(31);
+
+	var _getCurrent = __webpack_require__(32);
+
+	var _getData = __webpack_require__(33);
+
+	var _getFocus = __webpack_require__(34);
+
+	var _getMeta = __webpack_require__(35);
+
+	var _getPage = __webpack_require__(36);
+
+	var _getParam = __webpack_require__(37);
+
+	var _getSelect = __webpack_require__(38);
+
+	var _getSimpleData = __webpack_require__(39);
+
+	var _meta = __webpack_require__(40);
+
+	var _page = __webpack_require__(41);
+
+	var _param = __webpack_require__(42);
+
+	var _ref = __webpack_require__(43);
+
+	var _removeRow = __webpack_require__(44);
+
+	var _row = __webpack_require__(46);
+
+	var _rowCurrent = __webpack_require__(47);
+
+	var _rowDelete = __webpack_require__(48);
+
+	var _rowSelect = __webpack_require__(49);
+
+	var _rowFocus = __webpack_require__(50);
+
+	var _simpleData = __webpack_require__(51);
+
+	var _util = __webpack_require__(45);
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Module : Kero webpack entry dataTable index
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Author : liuyk(liuyuekai@yonyou.com)
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Date   : 2016-08-09 15:24:46
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
+
 	var DataTable = function (_Events) {
 	    _inherits(DataTable, _Events);
-	
+
 	    function DataTable(options) {
 	        _classCallCheck(this, DataTable);
-	
+
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DataTable).call(this));
-	
+
 	        options = options || {};
 	        _this.id = options['id'];
 	        _this.strict = options['strict'] || false;
@@ -6297,19 +4792,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            _this.ns = '';
 	        }
-	
+
 	        //copyRow
 	        _this.copyRow = _copyRow.copyRow;
 	        _this.copyRows = _copyRow.copyRows;
-	
+
 	        //data
 	        _this.setData = _data.setData;
 	        _this.setValue = _data.setValue;
-	
+
 	        //enable
 	        _this.isEnable = _enable.isEnable;
 	        _this.setEnable = _enable.setEnable;
-	
+
 	        //getData
 	        _this.getData = _getData.getData;
 	        _this.getDataByRule = _getData.getDataByRule;
@@ -6326,41 +4821,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.getIndexByRowId = _getData.getIndexByRowId;
 	        _this.getAllDatas = _getData.getAllDatas;
 	        _this.getRowIdsByIndices = _getData.getRowIdsByIndices;
-	
+
 	        //getCurrent
 	        _this.getCurrentRow = _getCurrent.getCurrentRow;
 	        _this.getCurrentIndex = _getCurrent.getCurrentIndex;
-	
+
 	        //getFocus
 	        _this.getFocusRow = _getFocus.getFocusRow;
 	        _this.getFocusIndex = _getFocus.getFocusIndex;
-	
+
 	        //getMeta
 	        _this.getMeta = _getMeta.getMeta;
 	        _this.getRowMeta = _getMeta.getRowMeta;
-	
+
 	        //getPage
 	        _this.getPage = _getPage.getPage;
 	        _this.getPages = _getPage.getPages;
-	
+
 	        //getParam
 	        _this.getParam = _getParam.getParam;
-	
+
 	        //getSelect
 	        _this.getSelectedIndex = _getSelect.getSelectedIndex;
 	        _this.getSelectedIndices = _getSelect.getSelectedIndices;
 	        _this.getSelectedIndexs = _getSelect.getSelectedIndexs;
 	        _this.getSelectedDatas = _getSelect.getSelectedDatas;
 	        _this.getSelectedRows = _getSelect.getSelectedRows;
-	
+
 	        //getSimpleData
 	        _this.getSimpleData = _getSimpleData.getSimpleData;
-	
+
 	        //meta
 	        _this.setMeta = _meta.setMeta;
 	        _this.updateMeta = _meta.updateMeta;
 	        _this.createField = _meta.createField;
-	
+
 	        //page
 	        _this.setCurrentPage = _page.setCurrentPage;
 	        _this.updatePages = _page.updatePages;
@@ -6368,18 +4863,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.hasPage = _page.hasPage;
 	        _this.clearCache = _page.clearCache;
 	        _this.cacheCurrentPage = _page.cacheCurrentPage;
-	
+
 	        //param
 	        _this.addParam = _param.addParam;
 	        _this.addParams = _param.addParams;
-	
+
 	        //ref
 	        _this.refSelectedRows = _ref.refSelectedRows;
 	        _this.ref = _ref.ref;
 	        _this.refMeta = _ref.refMeta;
 	        _this.refRowMeta = _ref.refRowMeta;
 	        _this.refEnable = _ref.refEnable;
-	
+
 	        //row
 	        _this.setRows = _row.setRows;
 	        _this.addRow = _row.addRow;
@@ -6387,27 +4882,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.insertRow = _row.insertRow;
 	        _this.insertRows = _row.insertRows;
 	        _this.createEmptyRow = _row.createEmptyRow;
-	
+
 	        //removeRow
 	        _this.removeRowByRowId = _removeRow.removeRowByRowId;
 	        _this.removeRow = _removeRow.removeRow;
 	        _this.removeAllRows = _removeRow.removeAllRows;
 	        _this.removeRows = _removeRow.removeRows;
 	        _this.clear = _removeRow.clear;
-	
+
 	        //rowCurrent
 	        _this.updateCurrIndex = _rowCurrent.updateCurrIndex;
-	
+
 	        //rowDelete
 	        _this.setRowDelete = _rowDelete.setRowDelete;
 	        _this.setAllRowsDelete = _rowDelete.setAllRowsDelete;
 	        _this.setRowsDelete = _rowDelete.setRowsDelete;
-	
+
 	        //rowFocus
 	        _this.setRowFocus = _rowFocus.setRowFocus;
 	        _this.setRowUnFocus = _rowFocus.setRowUnFocus;
 	        _this.updateFocusIndex = _rowFocus.updateFocusIndex;
-	
+
 	        //rowSelect
 	        _this.setAllRowsSelect = _rowSelect.setAllRowsSelect;
 	        _this.setRowSelect = _rowSelect.setRowSelect;
@@ -6419,19 +4914,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.setRowsUnSelect = _rowSelect.setRowsUnSelect;
 	        _this.toggleAllSelect = _rowSelect.toggleAllSelect;
 	        _this.updateSelectedIndices = _rowSelect.updateSelectedIndices;
-	
+
 	        //simpleData
 	        _this.setSimpleData = _simpleData.setSimpleData;
 	        _this.addSimpleData = _simpleData.addSimpleData;
-	
+
 	        //util
 	        _this.isChanged = _util.isChanged;
 	        return _this;
 	    }
-	
+
 	    return DataTable;
 	}(_indexEvents.Events);
-	
+
 	DataTable.DEFAULTS = {
 	    pageSize: 20,
 	    pageIndex: 0,
@@ -6439,13 +4934,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    pageCache: false,
 	    enable: true
 	};
-	
+
 	DataTable.META_DEFAULTS = {
 	    enable: true,
 	    required: false,
 	    descs: {}
 	};
-	
+
 	//事件类型
 	DataTable.ON_ROW_SELECT = 'select';
 	DataTable.ON_ROW_UNSELECT = 'unSelect';
@@ -6468,7 +4963,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	DataTable.ON_ROW_META_CHANGE = 'rowMetaChange';
 	DataTable.ON_CURRENT_META_CHANGE = 'currentMetaChange';
 	DataTable.ON_CURRENT_ROW_CHANGE = 'currentRowChange';
-	
+
 	DataTable.SUBMIT = {
 	    current: 'current',
 	    focus: 'focus',
@@ -6479,7 +4974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    allSelect: 'allSelect',
 	    allPages: 'allPages'
 	};
-	
+
 	DataTable.createMetaItems = function (metas) {
 	    var newMetas = {};
 	    for (var key in metas) {
@@ -6489,61 +4984,61 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return newMetas;
 	};
-	
+
 	exports.DataTable = DataTable;
 
 /***/ },
-/* 35 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.Events = undefined;
-	
-	var _events = __webpack_require__(36);
-	
+
+	var _events = __webpack_require__(28);
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
 	                                                                                                                                                           * Module : Kero webpack entry events index
 	                                                                                                                                                           * Author : liuyk(liuyuekai@yonyou.com)
 	                                                                                                                                                           * Date   : 2016-08-09 15:24:46
 	                                                                                                                                                           */
-	
+
 	//相关依赖导入
-	
-	
+
+
 	var Events = function Events() {
 	    _classCallCheck(this, Events);
-	
+
 	    this.on = _events.on;
 	    this.off = _events.off;
 	    this.one = _events.one;
 	    this.trigger = _events.trigger;
 	    this.getEvent = _events.getEvent;
 	};
-	
+
 	exports.Events = Events;
 
 /***/ },
-/* 36 */
+/* 28 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
+
 	/**
 	 * Module : kero dataTable events
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-07-30 14:34:01
 	 */
-	
+
 	/**
 	 * 绑定事件
 	 * 支持的格式： 1. on(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
@@ -6580,7 +5075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	    return this;
 	};
-	
+
 	/**
 	 * 解绑事件
 	 * 
@@ -6613,14 +5108,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return this;
 	};
-	
+
 	/**
 	 * 
 	**/
 	var one = function one(name, callback) {
 	    this.on(name, callback, 1);
 	};
-	
+
 	/**
 	 * 触发事件
 	 */
@@ -6634,13 +5129,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return this;
 	};
-	
+
 	var getEvent = function getEvent(name) {
 	    name = name.toLowerCase();
 	    this._events || (this._events = {});
 	    return this._events[name];
 	};
-	
+
 	exports.on = on;
 	exports.off = off;
 	exports.one = one;
@@ -6648,11 +5143,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getEvent = getEvent;
 
 /***/ },
-/* 37 */
+/* 29 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -6661,11 +5156,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-08-01 14:34:01
 	 */
-	
+
 	var copyRow = function copyRow(index, row) {
 	    this.copyRows(index, [row]);
 	};
-	
+
 	var copyRows = function copyRows(index, rows) {
 	    for (var i = 0; i < rows.length; i++) {
 	        var newRow = new Row({ parent: this });
@@ -6675,16 +5170,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.insertRows(index === undefined ? this.rows().length : index, [newRow]);
 	    }
 	};
-	
+
 	exports.copyRow = copyRow;
 	exports.copyRows = copyRows;
 
 /***/ },
-/* 38 */
+/* 30 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -6693,7 +5188,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-07-30 14:34:01
 	 */
-	
+
 	/** 
 	 *设置数据
 	 *
@@ -6722,7 +5217,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var select,
 	        focus,
 	        unSelect = options ? options.unSelect : false;
-	
+
 	    this.pageCache = data.pageCache || this.pageCache;
 	    if (this.pageCache === true) {
 	        this.updatePages(data.pages);
@@ -6745,32 +5240,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.pageSize(newSize);
 	    this.totalPages(newTotalPages);
 	    this.totalRow(newTotalRow);
-	
+
 	    this.updateSelectedIndices();
-	
+
 	    if (select && select.length > 0 && this.rows().length > 0) this.setRowsSelect(select);
 	    if (focus) this.setRowFocus(focus);
 	};
-	
+
 	var setValue = function setValue(fieldName, value, row, ctx) {
 	    if (arguments.length === 1) {
 	        value = fieldName;
 	        fieldName = '$data';
 	    }
-	
+
 	    row = row ? row : this.getCurrentRow();
 	    if (row) row.setValue(fieldName, value, ctx);
 	};
-	
+
 	exports.setData = setData;
 	exports.setValue = setValue;
 
 /***/ },
-/* 39 */
+/* 31 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -6779,13 +5274,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-08 09:59:01
 	 */
-	
+
 	var isEnable = function isEnable(fieldName) {
 	    var fieldEnable = this.getMeta(fieldName, 'enable');
 	    if (typeof fieldEnable == 'undefined' || fieldEnable == null) fieldEnable = true;
 	    return fieldEnable && this.enable;
 	};
-	
+
 	var setEnable = function setEnable(enable) {
 	    if (this.enable == enable) return;
 	    //当传入的参数不为false时，默认enable为true
@@ -6800,16 +5295,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        enable: this.enable
 	    });
 	};
-	
+
 	exports.isEnable = isEnable;
 	exports.setEnable = setEnable;
 
 /***/ },
-/* 40 */
+/* 32 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -6818,7 +5313,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-08 09:59:01
 	 */
-	
+
 	/**
 	 * 获取当前操作行
 	 * 规则： focus 行优先，没有focus行时，取第一选中行
@@ -6828,22 +5323,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var index = this.getSelectedIndex();
 	    if (index == -1) return null;else return this.getRow(index);
 	};
-	
+
 	var getCurrentIndex = function getCurrentIndex() {
 	    if (this.focusIndex() != -1) return this.focusIndex();
 	    var index = this.getSelectedIndex();
 	    if (index == -1) return -1;else return index;
 	};
-	
+
 	exports.getCurrentRow = getCurrentRow;
 	exports.getCurrentIndex = getCurrentIndex;
 
 /***/ },
-/* 41 */
+/* 33 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -6852,7 +5347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-07-30 14:34:01
 	 */
-	
+
 	/**
 	 * 获取当前页数据
 	 */
@@ -6864,7 +5359,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return datas;
 	};
-	
+
 	var getDataByRule = function getDataByRule(rule) {
 	    var returnData = {},
 	        datas = null,
@@ -6951,7 +5446,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        returnData.select = this.getSelectedIndexs();
 	        returnData.focus = this.getFocusIndex();
 	    }
-	
+
 	    returnData.pageSize = this.pageSize();
 	    returnData.pageIndex = this.pageIndex();
 	    returnData.isChanged = this.isChanged();
@@ -6959,12 +5454,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    returnData.pageCache = this.pageCache;
 	    return returnData;
 	};
-	
+
 	var getRow = function getRow(index) {
 	    //return this.rows()[index]   //modify by licza.   improve performance
 	    return this.rows.peek()[index];
 	};
-	
+
 	/**
 	 * 根据rowid取row对象
 	 * @param rowid
@@ -6977,7 +5472,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return null;
 	};
-	
+
 	/**
 	 * 取行索引
 	 * @param row
@@ -6990,7 +5485,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return -1;
 	};
-	
+
 	var getRowsByField = function getRowsByField(field, value) {
 	    var rows = this.rows.peek();
 	    var returnRows = new Array();
@@ -6999,7 +5494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return returnRows;
 	};
-	
+
 	var getRowByField = function getRowByField(field, value) {
 	    var rows = this.rows.peek();
 	    for (var i = 0, count = rows.length; i < count; i++) {
@@ -7007,11 +5502,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return null;
 	};
-	
+
 	var getAllRows = function getAllRows() {
 	    return this.rows.peek();
 	};
-	
+
 	var getAllPageRows = function getAllPageRows() {
 	    var datas = [],
 	        rows;
@@ -7031,7 +5526,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return datas;
 	};
-	
+
 	/**
 	 * 获取变动的数据(新增、修改)
 	 */
@@ -7047,7 +5542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return datas;
 	};
-	
+
 	/**
 	 * 取改变的行
 	 */
@@ -7061,12 +5556,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return changedRows;
 	};
-	
+
 	var getValue = function getValue(fieldName, row) {
 	    row = row || this.getCurrentRow();
 	    if (row) return row.getValue(fieldName);else return '';
 	};
-	
+
 	/**
 	 * 根据行号获取行索引
 	 * @param {String} rowId
@@ -7078,7 +5573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return -1;
 	};
-	
+
 	/**
 	 * 获取所有行数据
 	 */
@@ -7089,7 +5584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (rows[i]) datas.push(rows[i].getData());
 	    }return datas;
 	};
-	
+
 	/**
 	 * 根据索引取rowid
 	 * @param {Object} indices
@@ -7101,7 +5596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return rowIds;
 	};
-	
+
 	exports.getData = getData;
 	exports.getDataByRule = getDataByRule;
 	exports.getRow = getRow;
@@ -7119,11 +5614,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getRowIdsByIndices = getRowIdsByIndices;
 
 /***/ },
-/* 42 */
+/* 34 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -7132,30 +5627,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-08 09:59:01
 	 */
-	
+
 	/**
 	 * 获取焦点行
 	 */
 	var getFocusRow = function getFocusRow() {
 	  if (this.focusIndex() != -1) return this.getRow(this.focusIndex());else return null;
 	};
-	
+
 	/**
 	 * 获取焦点行
 	 */
 	var getFocusIndex = function getFocusIndex() {
 	  return this.focusIndex();
 	};
-	
+
 	exports.getFocusRow = getFocusRow;
 	exports.getFocusIndex = getFocusIndex;
 
 /***/ },
-/* 43 */
+/* 35 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -7164,7 +5659,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-07-30 14:34:01
 	 */
-	
+
 	/**
 	 * 获取meta信息，先取row上的信息，没有时，取dataTable上的信息
 	 * @param {Object} fieldName
@@ -7173,28 +5668,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var getMeta = function getMeta(fieldName, key) {
 	    if (arguments.length === 0) return this.meta;else if (arguments.length === 1) return this.meta[fieldName];
-	
+
 	    if (this.meta[fieldName] && typeof this.meta[fieldName][key] !== 'undefined') {
 	        return this.meta[fieldName][key];
 	    } else {
 	        return null;
 	    }
 	};
-	
+
 	var getRowMeta = function getRowMeta(fieldName, key) {
 	    var row = this.getCurrentRow();
 	    if (row) return row.getMeta(fieldName, key);else return this.getMeta(fieldName, key);
 	};
-	
+
 	exports.getMeta = getMeta;
 	exports.getRowMeta = getRowMeta;
 
 /***/ },
-/* 44 */
+/* 36 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -7203,30 +5698,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-08-01 14:34:01
 	 */
-	
+
 	var getPage = function getPage(pageIndex) {
 	    if (this.pageCache) {
 	        return this.cachedPages[pageIndex];
 	    }
 	    return -1;
 	};
-	
+
 	var getPages = function getPages() {
 	    if (this.pageCache) {
 	        return this.cachedPages;
 	    }
 	    return [];
 	};
-	
+
 	exports.getPage = getPage;
 	exports.getPages = getPages;
 
 /***/ },
-/* 45 */
+/* 37 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -7235,19 +5730,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-07-30 14:34:01
 	 */
-	
+
 	var getParam = function getParam(key) {
 	  return this.params[key];
 	};
-	
+
 	exports.getParam = getParam;
 
 /***/ },
-/* 46 */
+/* 38 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -7256,7 +5751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-01 14:34:01
 	 */
-	
+
 	/**
 	 * 获取选中行索引，多选时，只返回第一个行索引
 	 */
@@ -7265,7 +5760,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (selectedIndices == null || selectedIndices.length == 0) return -1;
 	    return selectedIndices[0];
 	};
-	
+
 	/**
 	 *获取选中的所有行索引数组索引
 	 */
@@ -7274,14 +5769,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (selectedIndices == null || selectedIndices.length == 0) return [];
 	    return selectedIndices;
 	};
-	
+
 	/**
 	 * 兼容保留，不要用
 	 */
 	var getSelectedIndexs = function getSelectedIndexs() {
 	    return this.getSelectedIndices();
 	};
-	
+
 	/**
 	 * 获取选中行数据
 	 */
@@ -7298,7 +5793,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return datas;
 	};
-	
+
 	/**
 	 * 取选中行
 	 */
@@ -7315,7 +5810,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return selectRows;
 	};
-	
+
 	exports.getSelectedIndex = getSelectedIndex;
 	exports.getSelectedIndices = getSelectedIndices;
 	exports.getSelectedIndexs = getSelectedIndexs;
@@ -7323,11 +5818,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getSelectedRows = getSelectedRows;
 
 /***/ },
-/* 47 */
+/* 39 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -7336,7 +5831,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-08-01 14:34:01
 	 */
-	
+
 	/**
 	 * 获取数据,只取字段名与字段值
 	 */
@@ -7346,7 +5841,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _rowData = [],
 	        type = options['type'] || 'all',
 	        fields = options['fields'] || null;
-	
+
 	    if (type === 'all') {
 	        rows = this.rows.peek();
 	    } else if (type === 'current') {
@@ -7360,33 +5855,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else if (type === 'change') {
 	        rows = this.getChangedRows();
 	    }
-	
+
 	    for (var i = 0; i < rows.length; i++) {
 	        _rowData.push(rows[i].getSimpleData({ fields: fields }));
 	    }
 	    return _rowData;
 	};
-	
+
 	exports.getSimpleData = getSimpleData;
 
 /***/ },
-/* 48 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
+
 	/**
 	 * Module : kero dataTable mete
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-07-30 14:34:01
 	 */
-	
+
 	var setMeta = function setMeta(fieldName, key, value) {
 	    if (!this.meta[fieldName]) return;
 	    var oldValue = this.meta[fieldName][key];
@@ -7411,7 +5906,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	    }
 	};
-	
+
 	/**
 	 * example: meta: {supplier: {meta: {precision:'3', default: '0239900x', display:'显示名称'}}}
 	 */
@@ -7437,7 +5932,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.meta[fieldKey][propKey] = meta[fieldKey][propKey];
 	            }
 	            if (this.metaChange[fieldKey + '.' + propKey]) this.metaChange[fieldKey + '.' + propKey](-this.metaChange[fieldKey + '.' + propKey]());
-	
+
 	            this.trigger(DataTable.ON_META_CHANGE, {
 	                eventType: 'dataTableEvent',
 	                dataTable: this.id,
@@ -7449,7 +5944,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	};
-	
+
 	/**
 	 * 字段不存在时，创建字段
 	 * @param fieldName
@@ -7507,17 +6002,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	};
-	
+
 	exports.setMeta = setMeta;
 	exports.updateMeta = updateMeta;
 	exports.createField = createField;
 
 /***/ },
-/* 49 */
+/* 41 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -7526,7 +6021,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-08-01 14:34:01
 	 */
-	
+
 	var setCurrentPage = function setCurrentPage(pageIndex, notCacheCurrentPage) {
 	    if (pageIndex != this.pageIndex() && notCacheCurrentPage != true) this.cacheCurrentPage();
 	    this.pageIndex(pageIndex);
@@ -7537,7 +6032,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setRowsSelect(cachedPage.selectedIndcies);
 	    }
 	};
-	
+
 	/**
 	 * 更新分页数据
 	 */
@@ -7593,7 +6088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        page.focus = focus;
 	    }
 	};
-	
+
 	/**
 	 * 前端分页方法，不建议使用，建议在后端进行分页
 	 * @param allRows
@@ -7615,15 +6110,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.totalRow(allRows.length);
 	    this.totalPages(pageIndex + 1);
 	};
-	
+
 	var hasPage = function hasPage(pageIndex) {
 	    return this.pageCache && this.cachedPages[pageIndex] ? true : false;
 	};
-	
+
 	var clearCache = function clearCache() {
 	    this.cachedPages = [];
 	};
-	
+
 	var cacheCurrentPage = function cacheCurrentPage() {
 	    if (this.pageCache && this.pageIndex() > -1) {
 	        var page = new Page({ parent: this });
@@ -7639,7 +6134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.cachedPages[this.pageIndex()] = page;
 	    }
 	};
-	
+
 	exports.setCurrentPage = setCurrentPage;
 	exports.updatePages = updatePages;
 	exports.setPages = setPages;
@@ -7648,11 +6143,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.cacheCurrentPage = cacheCurrentPage;
 
 /***/ },
-/* 50 */
+/* 42 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -7661,26 +6156,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-07-30 14:34:01
 	 */
-	
+
 	var addParam = function addParam(key, value) {
 	    this.params[key] = value;
 	};
-	
+
 	var addParams = function addParams(params) {
 	    for (var key in params) {
 	        this.params[key] = params[key];
 	    }
 	};
-	
+
 	exports.addParam = addParam;
 	exports.addParams = addParams;
 
 /***/ },
-/* 51 */
+/* 43 */
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -7689,7 +6184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-01 14:34:01
 	 */
-	
+
 	var refSelectedRows = function refSelectedRows() {
 	    return ko.pureComputed({
 	        read: function read() {
@@ -7703,7 +6198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, owner: this
 	    });
 	};
-	
+
 	/**
 	 * 绑定字段值
 	 * @param {Object} fieldName
@@ -7727,7 +6222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        owner: this
 	    });
 	};
-	
+
 	/**
 	 * 绑定字段属性
 	 * @param {Object} fieldName
@@ -7747,7 +6242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        owner: this
 	    });
 	};
-	
+
 	var refRowMeta = function refRowMeta(fieldName, key) {
 	    if (!this.metaChange[fieldName + '.' + key]) this.metaChange[fieldName + '.' + key] = ko.observable(1);
 	    return ko.pureComputed({
@@ -7764,7 +6259,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        owner: this
 	    });
 	};
-	
+
 	var refEnable = function refEnable(fieldName) {
 	    return ko.pureComputed({
 	        //enable优先级： dataTable.enable >  row上的enable >  field中的enable定义
@@ -7778,7 +6273,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        owner: this
 	    });
 	};
-	
+
 	exports.refSelectedRows = refSelectedRows;
 	exports.ref = ref;
 	exports.refMeta = refMeta;
@@ -7786,18 +6281,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.refEnable = refEnable;
 
 /***/ },
-/* 52 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
-	
-	var _util = __webpack_require__(53);
-	
+
+	var _util = __webpack_require__(45);
+
 	var removeRowByRowId = function removeRowByRowId(rowId) {
 	    var index = this.getIndexByRowId(rowId);
 	    if (index != -1) this.removeRow(index);
@@ -7806,15 +6301,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    * Author : liuyk(liuyk@yonyou.com)
 	    * Date   : 2016-08-01 14:34:01
 	    */
-	
-	
+
+
 	var removeRow = function removeRow(index) {
 	    if (index instanceof Row) {
 	        index = this.getIndexByRowId(index.rowId);
 	    }
 	    this.removeRows([index]);
 	};
-	
+
 	var removeAllRows = function removeAllRows() {
 	    this.rows([]);
 	    this.selectedIndices([]);
@@ -7822,7 +6317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.trigger(DataTable.ON_DELETE_ALL);
 	    this.updateCurrIndex();
 	};
-	
+
 	var removeRows = function removeRows(indices) {
 	    indices = (0, _util._formatToIndicesArray)(indices);
 	    indices = indices.sort();
@@ -7850,7 +6345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	    this.updateCurrIndex();
 	};
-	
+
 	/**
 	 * 清空datatable的所有数据以及分页数据以及index
 	 */
@@ -7862,7 +6357,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.focusIndex(-1);
 	    this.selectedIndices([]);
 	};
-	
+
 	exports.removeRowByRowId = removeRowByRowId;
 	exports.removeRow = removeRow;
 	exports.removeAllRows = removeAllRows;
@@ -7870,18 +6365,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.clear = clear;
 
 /***/ },
-/* 53 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports._formatToIndicesArray = exports.isChanged = undefined;
-	
-	var _util = __webpack_require__(54);
-	
+
+	var _util = __webpack_require__(5);
+
 	var isChanged = function isChanged() {
 	    var rows = this.getAllRows();
 	    for (var i = 0; i < rows.length; i++) {
@@ -7893,8 +6388,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    * Author : liuyk(liuyk@yonyou.com)
 	    * Date   : 2016-08-08 09:59:01
 	    */
-	
-	
+
+
 	var _formatToIndicesArray = function _formatToIndicesArray(indices) {
 	    if (typeof indices == 'string' || typeof indices == 'number') {
 	        indices = [indices];
@@ -7907,160 +6402,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    return indices;
 	};
-	
+
 	exports.isChanged = isChanged;
 	exports._formatToIndicesArray = _formatToIndicesArray;
 
 /***/ },
-/* 54 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
-	/**
-	 * Module : Sparrow util tools
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-	
-	/**
-	 * 创建一个带壳的对象,防止外部修改
-	 * @param {Object} proto
-	 */
-	var createShellObject = function createShellObject(proto) {
-		var exf = function exf() {};
-		exf.prototype = proto;
-		return new exf();
-	};
-	var execIgnoreError = function execIgnoreError(a, b, c) {
-		try {
-			a.call(b, c);
-		} catch (e) {}
-	};
-	
-	var getFunction = function getFunction(target, val) {
-		if (!val || typeof val == 'function') return val;
-		if (typeof target[val] == 'function') return target[val];else if (typeof window[val] == 'function') return window[val];else if (val.indexOf('.') != -1) {
-			var func = getJSObject(target, val);
-			if (typeof func == 'function') return func;
-			func = getJSObject(window, val);
-			if (typeof func == 'function') return func;
-		}
-		return val;
-	};
-	var getJSObject = function getJSObject(target, names) {
-		if (!names) {
-			return;
-		}
-		if ((typeof names === 'undefined' ? 'undefined' : _typeof(names)) == 'object') return names;
-		var nameArr = names.split('.');
-		var obj = target;
-		for (var i = 0; i < nameArr.length; i++) {
-			obj = obj[nameArr[i]];
-			if (!obj) return null;
-		}
-		return obj;
-	};
-	var isDate = function isDate(input) {
-		return Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
-	};
-	var isNumber = function isNumber(obj) {
-		//return obj === +obj
-		return obj - parseFloat(obj) + 1 >= 0;
-	};
-	var isArray = Array.isArray || function (val) {
-		return Object.prototype.toString.call(val) === '[object Array]';
-	};
-	var isEmptyObject = function isEmptyObject(obj) {
-		var name;
-		for (name in obj) {
-			return false;
-		}
-		return true;
-	};
-	var inArray = function inArray(node, arr) {
-		if (!arr instanceof Array) {
-			throw "arguments is not Array";
-		}
-		for (var i = 0, k = arr.length; i < k; i++) {
-			if (node == arr[i]) {
-				return true;
-			}
-		}
-		return false;
-	};
-	var isDomElement = function isDomElement(obj) {
-		if (window['HTMLElement']) {
-			return obj instanceof HTMLElement;
-		} else {
-			return obj && obj.tagName && obj.nodeType === 1;
-		}
-	};
-	var each = function each(obj, callback) {
-		if (obj.forEach) {
-			obj.forEach(function (v, k) {
-				callback(k, v);
-			});
-		} else if (obj instanceof Object) {
-			for (var k in obj) {
-				callback(k, obj[k]);
-			}
-		} else {
-			return;
-		}
-	};
-	
-	NodeList.prototype.forEach = Array.prototype.forEach;
-	
-	/**
-	 * 获得字符串的字节长度
-	 */
-	String.prototype.lengthb = function () {
-		//	var str = this.replace(/[^\x800-\x10000]/g, "***");
-		var str = this.replace(/[^\x00-\xff]/g, "**");
-		return str.length;
-	};
-	
-	/**
-	 * 将AFindText全部替换为ARepText
-	 */
-	String.prototype.replaceAll = function (AFindText, ARepText) {
-		//自定义String对象的方法
-		var raRegExp = new RegExp(AFindText, "g");
-		return this.replace(raRegExp, ARepText);
-	};
-	
-	exports.createShellObject = createShellObject;
-	exports.execIgnoreError = execIgnoreError;
-	exports.getFunction = getFunction;
-	exports.getJSObject = getJSObject;
-	exports.isDate = isDate;
-	exports.isNumber = isNumber;
-	exports.isArray = isArray;
-	exports.isEmptyObject = isEmptyObject;
-	exports.inArray = inArray;
-	exports.isDomElement = isDomElement;
-	exports.each = each;
-
-/***/ },
-/* 55 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
-	
-	var _util = __webpack_require__(54);
-	
+
+	var _util = __webpack_require__(5);
+
 	/**
 	 * 设置行数据
 	 * @param {Object} rows
@@ -8103,7 +6461,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    if (insertRows.length > 0) this.addRows(insertRows);
 	};
-	
+
 	/**
 	 *追加行
 	 */
@@ -8115,31 +6473,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	var addRow = function addRow(row) {
 	    this.insertRow(this.rows().length, row);
 	};
-	
+
 	/**
 	 *追加多行
 	 */
 	var addRows = function addRows(rows) {
 	    this.insertRows(this.rows().length, rows);
 	};
-	
+
 	var insertRow = function insertRow(index, row) {
 	    if (!row) {
 	        row = new Row({ parent: this });
 	    }
 	    this.insertRows(index, [row]);
 	};
-	
+
 	var insertRows = function insertRows(index, rows) {
 	    var args = [index, 0];
 	    for (var i = 0; i < rows.length; i++) {
 	        args.push(rows[i]);
 	    }
 	    this.rows.splice.apply(this.rows, args);
-	
+
 	    this.updateSelectedIndices(index, '+', rows.length);
 	    this.updateFocusIndex(index, '+', rows.length);
-	
+
 	    this.trigger(DataTable.ON_INSERT, {
 	        index: index,
 	        rows: rows
@@ -8148,7 +6506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (this.root.valueChange[this.ns]) this.root.valueChange[this.ns](-this.root.valueChange[this.ns]());
 	    }
 	};
-	
+
 	/**
 	 * 创建空行
 	 */
@@ -8158,7 +6516,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!this.getCurrentRow()) this.setRowSelect(r);
 	    return r;
 	};
-	
+
 	exports.setRows = setRows;
 	exports.addRow = addRow;
 	exports.addRows = addRows;
@@ -8167,11 +6525,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.createEmptyRow = createEmptyRow;
 
 /***/ },
-/* 56 */
+/* 47 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -8180,7 +6538,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-08 09:59:01
 	 */
-	
+
 	var updateCurrIndex = function updateCurrIndex() {
 	    var currentIndex = this.focusIndex() != -1 ? this.focusIndex() : this.getSelectedIndex();
 	    if (this._oldCurrentIndex != currentIndex) {
@@ -8192,22 +6550,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	};
-	
+
 	exports.updateCurrIndex = updateCurrIndex;
 
 /***/ },
-/* 57 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
-	
-	var _util = __webpack_require__(53);
-	
+
+	var _util = __webpack_require__(45);
+
 	/**
 	 * 设置行删除
 	 * @param {Object} index
@@ -8218,7 +6576,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    this.setRowsDelete([index]);
 	};
-	
+
 	/**
 	 * 设置所有行删除
 	 */
@@ -8235,7 +6593,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    this.setRowsDelete(indices);
 	};
-	
+
 	/**
 	 * 设置行删除
 	 * @param {Array} indices
@@ -8259,26 +6617,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        rowIds: rowIds
 	    });
 	};
-	
+
 	exports.setRowDelete = setRowDelete;
 	exports.setAllRowsDelete = setAllRowsDelete;
 	exports.setRowsDelete = setRowsDelete;
 
 /***/ },
-/* 58 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
-	
-	var _util = __webpack_require__(54);
-	
-	var _util2 = __webpack_require__(53);
-	
+
+	var _util = __webpack_require__(5);
+
+	var _util2 = __webpack_require__(45);
+
 	/**
 	 * Module : kero dataTable rowSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -8293,7 +6651,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.allSelected(true);
 	    this.trigger(DataTable.ON_ROW_ALLSELECT, {});
 	};
-	
+
 	/**
 	 * 设置选中行，清空之前已选中的所有行
 	 */
@@ -8304,7 +6662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.setRowsSelect([index]);
 	    this.setRowFocus(this.getSelectedIndex());
 	};
-	
+
 	var setRowsSelect = function setRowsSelect(indices) {
 	    indices = indices || -1;
 	    if (indices == -1) {
@@ -8321,7 +6679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    try {
 	        this.selectedIndices(indices);
 	    } catch (e) {}
-	
+
 	    var rowIds = this.getRowIdsByIndices(indices);
 	    this.currentRowChange(-this.currentRowChange());
 	    this.trigger(DataTable.ON_ROW_SELECT, {
@@ -8330,7 +6688,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	    this.updateCurrIndex();
 	};
-	
+
 	/**
 	 * 添加选中行，不会清空之前已选中的行
 	 */
@@ -8340,7 +6698,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    this.addRowsSelect([index]);
 	};
-	
+
 	/**
 	 * 添加选中行，不会清空之前已选中的行
 	 */
@@ -8367,7 +6725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	    this.updateCurrIndex();
 	};
-	
+
 	/**
 	 * 全部取消选中
 	 */
@@ -8379,7 +6737,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.updateCurrIndex();
 	    this.allSelected(false);
 	};
-	
+
 	/**
 	 * 取消选中
 	 */
@@ -8389,14 +6747,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    this.setRowsUnSelect([index]);
 	};
-	
+
 	var setRowsUnSelect = function setRowsUnSelect(indices) {
 	    indices = (0, _util2._formatToIndicesArray)(indices);
 	    var selectedIndices = this.selectedIndices().slice();
-	
+
 	    // 避免与控件循环触发
 	    if (selectedIndices.indexOf(indices[0]) == -1) return;
-	
+
 	    for (var i = 0; i < indices.length; i++) {
 	        var index = indices[i];
 	        var pos = selectedIndices.indexOf(index);
@@ -8411,7 +6769,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.updateCurrIndex();
 	    this.allSelected(false);
 	};
-	
+
 	var toggleAllSelect = function toggleAllSelect() {
 	    if (this.allSelected()) {
 	        this.setAllRowsUnSelect();
@@ -8419,7 +6777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setAllRowsSelect();
 	    }
 	};
-	
+
 	/**
 	 *
 	 * @param {Object} index 要处理的起始行索引
@@ -8454,18 +6812,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.updateSelectedIndices = updateSelectedIndices;
 
 /***/ },
-/* 59 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
-	
-	var _util = __webpack_require__(54);
-	
+
+	var _util = __webpack_require__(5);
+
 	/**
 	 * 设置焦点行
 	 * @param {Object} index 行对象或者行index
@@ -8495,7 +6853,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	    this.updateCurrIndex();
 	};
-	
+
 	/**
 	 * 焦点行反选
 	 */
@@ -8518,7 +6876,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.focusIndex(-1);
 	    this.updateCurrIndex();
 	};
-	
+
 	var updateFocusIndex = function updateFocusIndex(opIndex, opType, num) {
 	    if (!(0, _util.isNumber)(num)) {
 	        num = 1;
@@ -8535,31 +6893,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	};
-	
+
 	exports.setRowFocus = setRowFocus;
 	exports.setRowUnFocus = setRowUnFocus;
 	exports.updateFocusIndex = updateFocusIndex;
 
 /***/ },
-/* 60 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.addSimpleData = exports.setSimpleData = undefined;
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : kero dataTable simpleData
 	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
 	                                                                                                                                                                                                                                                   * Date	  : 2016-08-01 14:34:01
 	                                                                                                                                                                                                                                                   */
-	
-	
-	var _util = __webpack_require__(54);
-	
+
+
+	var _util = __webpack_require__(5);
+
 	/**
 	 * 设置数据, 只设置字段值
 	 * @param {array} data
@@ -8570,12 +6928,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.cachedPages = [];
 	    this.focusIndex(-1);
 	    this.selectedIndices([]);
-	
+
 	    if (!data) {
 	        // throw new Error("dataTable.setSimpleData param can't be null!");
 	        return;
 	    }
-	
+
 	    var rows = [];
 	    if (!(0, _util.isArray)(data)) data = [data];
 	    for (var i = 0; i < data.length; i++) {
@@ -8595,7 +6953,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    this.setData(_data, options);
 	};
-	
+
 	/**
 	 * 追加数据
 	 * @param data
@@ -8610,23 +6968,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        r.setSimpleData(data[i], status);
 	    }
 	};
-	
+
 	exports.setSimpleData = setSimpleData;
 	exports.addSimpleData = addSimpleData;
 
 /***/ },
-/* 61 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.DateFormater = exports.NumberFormater = undefined;
-	
+
 	var _util = __webpack_require__(5);
-	
+
 	function NumberFormater(precision) {
 	    this.precision = precision;
 	} /**
@@ -8635,14 +6993,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * Date	  : 2016-07-28 15:39:01
 	   */
 	;
-	
+
 	NumberFormater.prototype.update = function (precision) {
 	    this.precision = precision;
 	};
-	
+
 	NumberFormater.prototype.format = function (value) {
 	    if (!(0, _util.isNumber)(value)) return "";
-	
+
 	    // 以0开头的数字将其前面的0去掉
 	    while ((value + "").charAt(0) == "0" && value.length > 1 && (value + "").indexOf('0.') != 0) {
 	        value = value.substring(1);
@@ -8659,64 +7017,64 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        if (result == "NaN") return "";
 	    }
-	
+
 	    return result;
 	};
-	
+
 	function DateFormater(pattern) {
 	    this.pattern = pattern;
 	};
-	
+
 	DateFormater.prototype.update = function (pattern) {
 	    this.pattern = pattern;
 	};
-	
+
 	DateFormater.prototype.format = function (value) {
 	    return moment(value).format(this.pattern);
 	};
-	
+
 	//var NumberFormater = NumberFormater;
 	//var DateFormater = DateFormater;
 	exports.NumberFormater = NumberFormater;
 	exports.DateFormater = DateFormater;
 
 /***/ },
-/* 62 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.FloatAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _event = __webpack_require__(10);
-	
+
 	var _dom = __webpack_require__(9);
-	
-	var _core = __webpack_require__(63);
-	
-	var _formater = __webpack_require__(61);
-	
+
+	var _core = __webpack_require__(54);
+
+	var _formater = __webpack_require__(52);
+
 	var _env = __webpack_require__(11);
-	
-	var _dateUtils = __webpack_require__(65);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _dateUtils = __webpack_require__(56);
+
+	var _compMgr = __webpack_require__(16);
+
 	//miss DateTimePicker
-	
+
 	//miss DataTable;
 	/**
 	 * Module : Kero float adapter
@@ -8748,7 +7106,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // this.min = this.getOption('min') || "-10000000000000000000";
 	        this.maxNotEq = this.getOption('maxNotEq');
 	        this.minNotEq = this.getOption('minNotEq');
-	
+
 	        //处理数据精度
 	        this.dataModel.refRowMeta(this.field, "precision").subscribe(function (precision) {
 	            if (precision === undefined) return;
@@ -8768,7 +7126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } catch (e) {}
 	            }
 	        });
-	
+
 	        (0, _event.on)(this.element, 'blur', function () {
 	            if (self.enable) {
 	                if (!self.doValidate() && self._needClean()) {
@@ -8798,7 +7156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            this.showValue = this.masker.format(this.formater.format(this.trueValue)).value;
 	        }
-	
+
 	        this.setShowValue(this.showValue);
 	    },
 	    onFocusin: function onFocusin() {
@@ -8822,52 +7180,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return true;
 	    }
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: FloatAdapter,
 	    name: 'float'
 	});
-	
+
 	exports.FloatAdapter = FloatAdapter;
 
 /***/ },
-/* 63 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.core = undefined;
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : Sparrow core context
 	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
 	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 13:52:19
 	                                                                                                                                                                                                                                                   */
-	
-	
+
+
 	var _extend = __webpack_require__(1);
-	
+
 	var _extend2 = _interopRequireDefault(_extend);
-	
+
 	var _util = __webpack_require__(5);
-	
-	var _cookies = __webpack_require__(64);
-	
+
+	var _cookies = __webpack_require__(55);
+
 	var _enumerables = __webpack_require__(2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	var environment = {};
 	/**
 	 * client attributes
 	 */
 	var clientAttributes = {};
-	
+
 	var sessionAttributes = {};
-	
+
 	var fn = {};
 	var maskerMeta = {
 		'float': {
@@ -8897,7 +7255,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	fn.getEnvironment = function () {
 		return (0, _util.createShellObject)(environment);
 	};
-	
+
 	/**
 	 * 获取客户端参数对象
 	 * @return {clientAttributes}
@@ -8906,7 +7264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var exf = function exf() {};
 		return (0, _util.createShellObject)(clientAttributes);
 	};
-	
+
 	fn.setContextPath = function (contextPath) {
 		return environment[IWEB_CONTEXT_PATH] = contextPath;
 	};
@@ -8929,7 +7287,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var exf = function exf() {};
 		return (0, _util.createShellObject)(sessionAttributes);
 	};
-	
+
 	/**
 	 * 设置会话级参数对象
 	 * @param {Object} k 对象名称
@@ -8939,7 +7297,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		sessionAttributes[k] = v;
 		(0, _cookies.setCookie)("ISES_" + k, v);
 	};
-	
+
 	/**
 	 * 移除客户端参数
 	 * @param {Object} k 对象名称
@@ -8950,14 +7308,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			delete clientAttributes[k];
 		});
 	};
-	
+
 	/**
 	 * 获取地区信息编码
 	 */
 	fn.getLocale = function () {
 		return this.getEnvironment().locale;
 	};
-	
+
 	/**
 	 * 获取多语信息
 	 */
@@ -8971,14 +7329,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	fn.collectEnvironment = function () {
 		var _env = this.getEnvironment();
 		var _ses = this.getSessionAttributes();
-	
+
 		for (var i in clientAttributes) {
 			_ses[i] = clientAttributes[i];
 		}
 		_env.clientAttributes = _ses;
 		return _env;
 	};
-	
+
 	/**
 	 * 设置数据格式信息
 	 * @param {String} type
@@ -9004,7 +7362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	environment.languages = (0, _cookies.getCookie)(_enumerables.U_LANGUAGES) ? (0, _cookies.getCookie)(_enumerables.U_LANGUAGES).split(',') : navigator.language ? navigator.language : 'zh-CN';
 	if (environment.languages == 'zh-cn') environment.languages = 'zh-CN';
 	if (environment.languages == 'en-us') environment.languages = 'en-US';
-	
+
 	environment.theme = (0, _cookies.getCookie)(_enumerables.U_THEME);
 	environment.locale = (0, _cookies.getCookie)(_enumerables.U_LOCALE);
 	//environment.timezoneOffset = (new Date()).getTimezoneOffset()
@@ -9013,20 +7371,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	document.cookie.replace(/ISES_(\w*)=([^;]*);?/ig, function (a, b, c) {
 		sessionAttributes[b] = c;
 	});
-	
+
 	var Core = function Core() {};
 	Core.prototype = fn;
-	
+
 	var core = new Core();
-	
+
 	exports.core = core;
 
 /***/ },
-/* 64 */
+/* 55 */
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
@@ -9035,7 +7393,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-07-27 21:46:50
 	 */
-	
+
 	var setCookie = function setCookie(sName, sValue, oExpires, sPath, sDomain, bSecure) {
 		var sCookie = sName + "=" + encodeURIComponent(sValue);
 		if (oExpires) sCookie += "; expires=" + oExpires.toGMTString();
@@ -9044,40 +7402,40 @@ return /******/ (function(modules) { // webpackBootstrap
 		if (bSecure) sCookie += "; secure=" + bSecure;
 		document.cookie = sCookie;
 	};
-	
+
 	var getCookie = function getCookie(sName) {
 		var sRE = "(?:; )?" + sName + "=([^;]*);?";
 		var oRE = new RegExp(sRE);
-	
+
 		if (oRE.test(document.cookie)) {
 			return decodeURIComponent(RegExp["$1"]);
 		} else return null;
 	};
-	
+
 	exports.setCookie = setCookie;
 	exports.getCookie = getCookie;
 
 /***/ },
-/* 65 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.date = undefined;
-	
-	var _core = __webpack_require__(63);
-	
+
+	var _core = __webpack_require__(54);
+
 	var u = {}; /**
 	             * Module : Sparrow date util
 	             * Author : Kvkens(yueming@yonyou.com)
 	             * Date	  : 2016-08-06 13:37:20
 	             */
-	
+
 	u.date = {
-	
+
 		/**
 	  * 多语言处理
 	  */
@@ -9098,9 +7456,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
 			}
 		},
-	
+
 		_formattingTokens: /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYY|YY|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
-	
+
 		leftZeroFill: function leftZeroFill(number, targetLength, forceSign) {
 			var output = '' + Math.abs(number),
 			    sign = number >= 0;
@@ -9109,7 +7467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			return (sign ? forceSign ? '+' : '' : '-') + output;
 		},
-	
+
 		_formats: {
 			//year
 			YY: function YY(date) {
@@ -9197,7 +7555,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				return u.date.leftZeroFill(date.getSeconds(), 2);
 			}
 		},
-	
+
 		/**
 	  * 日期格式化
 	  * @param date
@@ -9221,7 +7579,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			return output;
 		},
-	
+
 		_addOrSubtract: function _addOrSubtract(date, period, value, isAdding) {
 			var times = date.getTime(),
 			    d = date.getDate(),
@@ -9254,7 +7612,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			return _date;
 		},
-	
+
 		add: function add(date, period, value) {
 			return u.date._addOrSubtract(date, period, value, 1);
 		},
@@ -9307,52 +7665,52 @@ return /******/ (function(modules) { // webpackBootstrap
 			} else {
 				dateFlag = true;
 			}
-	
+
 			if (dateFlag) return _date;else return null;
 		}
-	
+
 	};
-	
+
 	var date = u.date;
 	exports.date = date;
 
 /***/ },
-/* 66 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.DateTimeAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _event = __webpack_require__(10);
-	
+
 	var _dom = __webpack_require__(9);
-	
-	var _core = __webpack_require__(63);
-	
-	var _indexDataTable = __webpack_require__(34);
-	
+
+	var _core = __webpack_require__(54);
+
+	var _indexDataTable = __webpack_require__(26);
+
 	var _env = __webpack_require__(11);
-	
-	var _neouiDatetimepicker = __webpack_require__(67);
-	
-	var _dateUtils = __webpack_require__(65);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiDatetimepicker = __webpack_require__(58);
+
+	var _dateUtils = __webpack_require__(56);
+
+	var _compMgr = __webpack_require__(16);
+
 	var DateTimeAdapter = _baseAdapter.BaseAdapter.extend({
 		mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 		init: function init(options) {
@@ -9366,7 +7724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.adapterType = 'datetime';
 				(0, _dom.addClass)(this.element, 'time');
 			}
-	
+
 			this.maskerMeta = _core.core.getMaskerMeta(this.adapterType) || {};
 			this.maskerMeta.format = this.options['format'] || this.maskerMeta.format;
 			if (this.dataModel) {
@@ -9374,9 +7732,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					self.setFormat(event.newValue);
 				});
 			}
-	
+
 			if (this.dataModel && !this.options['format']) this.options.format = this.dataModel.getMeta(this.field, "format");
-	
+
 			if (!this.options['format']) {
 				if (this.options.type === 'u-date') {
 					this.options.format = "YYYY-MM-DD";
@@ -9386,9 +7744,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			format = this.options.format;
 			this.maskerMeta.format = format || this.maskerMeta.format;
-	
+
 			this.startField = this.options.startField ? this.options.startField : this.dataModel.getMeta(this.field, "startField");
-	
+
 			// this.formater = new $.DateFormater(this.maskerMeta.format);
 			// this.masker = new DateTimeMasker(this.maskerMeta);
 			var op;
@@ -9419,9 +7777,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			} else {
 				this.comp = new _neouiDatetimepicker.DateTimePicker({ el: this.element, format: this.maskerMeta.format, showFix: this.options.showFix });
 			}
-	
+
 			this.element['u.DateTimePicker'] = this.comp;
-	
+
 			if (!_env.env.isMobile) {
 				this.comp.on('select', function (event) {
 					self.setValue(event.value);
@@ -9519,60 +7877,60 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			if (!_env.env.isMobile) this.comp.setEnable(enable);
 		}
-	
+
 	}); /**
 	     * Module : Kero datetime
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-09 14:59:37
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 		adapter: DateTimeAdapter,
 		name: 'u-date'
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 		adapter: DateTimeAdapter,
 		name: 'u-datetime'
 	});
-	
+
 	exports.DateTimeAdapter = DateTimeAdapter;
 
 /***/ },
-/* 67 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.DateTimePicker = undefined;
-	
-	var _extend = __webpack_require__(20);
-	
+
+	var _extend = __webpack_require__(1);
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _env = __webpack_require__(19);
-	
-	var _event = __webpack_require__(18);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _core = __webpack_require__(68);
-	
-	var _dateUtils = __webpack_require__(70);
-	
-	var _neouiValidate = __webpack_require__(71);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _env = __webpack_require__(11);
+
+	var _event = __webpack_require__(10);
+
+	var _dom = __webpack_require__(9);
+
+	var _core = __webpack_require__(54);
+
+	var _dateUtils = __webpack_require__(56);
+
+	var _neouiValidate = __webpack_require__(14);
+
+	var _compMgr = __webpack_require__(16);
+
 	var DateTimePicker = _BaseComponent.BaseComponent.extend({});
-	
+
 	DateTimePicker.fn = DateTimePicker.prototype;
-	
+
 	DateTimePicker.fn.init = function () {
-	
+
 	    var self = this,
 	        _fmt,
 	        _defaultFmt;
@@ -9586,17 +7944,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    //this._element.style.display = "inline-table"; // 存在右侧图标，因此修改display
 	    //new UText(this._element);
 	    this._input = this._element.querySelector("input");
-	
+
 	    if (_env.env.isMobile) {
 	        // setTimeout(function(){
 	        //     self._input.setAttribute('readonly','readonly');
 	        // },1000);
 	    }
-	
+
 	    setTimeout(function () {
 	        self._input.setAttribute('readonly', 'readonly');
 	    }, 1000);
-	
+
 	    (0, _event.on)(this._input, 'focus', function (e) {
 	        // 用来关闭键盘
 	        if (_env.env.isMobile) this.blur();
@@ -9606,7 +7964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        (0, _event.stopEvent)(e);
 	    });
-	
+
 	    (0, _event.on)(this._input, 'blur', function (e) {
 	        self._inputFocus = false;
 	    });
@@ -9620,7 +7978,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            (0, _event.stopEvent)(e);
 	        });
 	    }
-	
+
 	    if ((0, _dom.hasClass)(this._element, 'time')) {
 	        this.type = 'datetime';
 	        _defaultFmt = 'YYYY-MM-DD hh:mm:ss';
@@ -9632,7 +7990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.format = _fmt || this.options['format'] || _defaultFmt;
 	    this.isShow = false;
 	};
-	
+
 	/**
 	 * 轮播动画效果
 	 * @private
@@ -9658,7 +8016,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            (0, _dom.removeClass)(newPage, 'left-page');
 	        }
 	    } else {
-	
+
 	        var cleanup = function () {
 	            newPage.removeEventListener('transitionend', cleanup);
 	            newPage.removeEventListener('webkitTransitionEnd', cleanup);
@@ -9670,7 +8028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.contentPage = newPage;
 	            this._dateContent.appendChild(newPage);
 	        }.bind(this);
-	
+
 	        newPage.addEventListener('transitionend', cleanup);
 	        newPage.addEventListener('webkitTransitionEnd', cleanup);
 	        if (window.requestAnimationFrame) window.requestAnimationFrame(function () {
@@ -9684,7 +8042,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }.bind(this));
 	    }
 	};
-	
+
 	/**
 	 * 淡入动画效果
 	 * @private
@@ -9728,7 +8086,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }.bind(this));
 	    }
 	};
-	
+
 	/**
 	 *填充年份选择面板
 	 * @private
@@ -9771,7 +8129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    month = _dateUtils.date._formats['MM'](this.pickerDate, language);
 	    date = _dateUtils.date._formats['DD'](this.pickerDate, language);
 	    time = _dateUtils.date._formats['HH'](this.pickerDate, language) + ':' + _dateUtils.date._formats['mm'](this.pickerDate, language) + ':' + _dateUtils.date._formats['ss'](this.pickerDate, language);
-	
+
 	    this._yearTitle = yearPage.querySelector('.u-date-content-title');
 	    this._yearTitle.innerHTML = year;
 	    /*this._headerYear = yearPage.querySelector('.u-date-content-title-year');
@@ -9785,7 +8143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (this.type == 'date') {
 	        this._headerTime.style.display = 'none';
 	    }
-	
+
 	    /*on(this._headerYear, 'click', function(e){
 	        self._fillYear();
 	        stopEvent(e)
@@ -9798,10 +8156,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
-	
+
 	    yearDiv = yearPage.querySelector('.u-date-content-panel');
 	    for (i = 0; i < 12; i++) {
-	
+
 	        cell = (0, _dom.makeDOM)('<div class="u-date-content-year-cell">' + (this.startYear + i) + '</div>');
 	        new URipple(cell);
 	        if (this.startYear + i == _year) {
@@ -9820,7 +8178,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._updateDate();
 	        this._fillMonth();
 	    }.bind(this));
-	
+
 	    if (type === 'current') {
 	        this._zoomIn(yearPage);
 	    } else if (type === 'next') {
@@ -9830,7 +8188,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    this.currentPanel = 'year';
 	};
-	
+
 	/**
 	 * 填充月份选择面板
 	 * @private
@@ -9853,14 +8211,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    '<div class="u-date-content-title-date"></div>',
 	    '<div class="u-date-content-title-time"></div>',*/
 	    '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
-	
+
 	    monthPage = (0, _dom.makeDOM)(template);
 	    language = _core.core.getLanguages();
 	    year = _dateUtils.date._formats['YYYY'](this.pickerDate);
 	    month = _dateUtils.date._formats['MM'](this.pickerDate, language);
 	    date = _dateUtils.date._formats['DD'](this.pickerDate, language);
 	    time = _dateUtils.date._formats['HH'](this.pickerDate, language) + ':' + _dateUtils.date._formats['mm'](this.pickerDate, language) + ':' + _dateUtils.date._formats['ss'](this.pickerDate, language);
-	
+
 	    this._monthTitle = monthPage.querySelector('.u-date-content-title');
 	    this._monthTitle.innerHTML = _dateUtils.date._formats['MMM'](this.pickerDate, language);
 	    /*this._headerYear = monthPage.querySelector('.u-date-content-title-year');
@@ -9874,7 +8232,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (this.type == 'date') {
 	        this._headerTime.style.display = 'none';
 	    }
-	
+
 	    /*on(this._headerYear, 'click', function(e){
 	        self._fillYear();
 	        stopEvent(e)
@@ -9887,7 +8245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
-	
+
 	    cells = monthPage.querySelectorAll('.u-date-content-year-cell');
 	    for (i = 0; i < cells.length; i++) {
 	        if (_month - 1 == i) {
@@ -9913,7 +8271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this._zoomIn(monthPage);
 	    this.currentPanel = 'month';
 	};
-	
+
 	DateTimePicker.fn._getPickerStartDate = function (date) {
 	    var d = new Date(date);
 	    d.setDate(1);
@@ -9921,7 +8279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    d = _dateUtils.date.sub(d, 'd', day);
 	    return d;
 	};
-	
+
 	DateTimePicker.fn._getPickerEndDate = function (date) {
 	    var d = new Date(date);
 	    d.setDate(1);
@@ -9931,7 +8289,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    d = _dateUtils.date.add(d, 'd', 6 - day);
 	    return d;
 	};
-	
+
 	/**
 	 * 渲染日历
 	 * @param type : previous  current  next
@@ -9966,7 +8324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    this.startDate = this._getPickerStartDate(tempDate);
 	    this.endDate = this._getPickerEndDate(tempDate);
-	
+
 	    language = _core.core.getLanguages();
 	    year = _dateUtils.date._formats['YYYY'](tempDate);
 	    month = _dateUtils.date._formats['MM'](tempDate, language);
@@ -9985,24 +8343,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (this.type == 'date') {
 	        this._headerTime.style.display = 'none';
 	    }
-	
+
 	    (0, _event.on)(this._headerYear, 'click', function (e) {
 	        self._fillYear();
 	        (0, _event.stopEvent)(e);
 	    });
-	
+
 	    (0, _event.on)(this._headerMonth, 'click', function (e) {
 	        self._fillMonth();
 	        (0, _event.stopEvent)(e);
 	    });
-	
+
 	    (0, _event.on)(this._headerTime, 'click', function (e) {
 	        self._fillTime();
 	        (0, _event.stopEvent)(e);
 	    });
-	
+
 	    weekSpans = datePage.querySelectorAll('.u-date-week span');
-	
+
 	    for (i = 0; i < 7; i++) {
 	        weekSpans[i].innerHTML = _dateUtils.date._dateLocale[language].weekdaysMin[i];
 	    }
@@ -10013,12 +8371,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (tempDate.getFullYear() == this.pickerDate.getFullYear() && tempDate.getMonth() == this.pickerDate.getMonth() && tempDate.getDate() == this.pickerDate.getDate()) {
 	            (0, _dom.addClass)(cell, 'current');
 	        }
-	
+
 	        if (tempDate.getFullYear() < this.beginYear || tempDate.getFullYear() == this.beginYear && tempDate.getMonth() < this.beginMonth) {
 	            (0, _dom.addClass)(cell, 'u-disabled');
 	            (0, _dom.removeClass)(cell, 'current');
 	        }
-	
+
 	        if (tempDate.getFullYear() == this.beginYear && tempDate.getMonth() == this.beginMonth && tempDate.getDate() < this.beginDate) {
 	            (0, _dom.addClass)(cell, 'u-disabled');
 	            (0, _dom.removeClass)(cell, 'current');
@@ -10058,7 +8416,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    this.currentPanel = 'date';
 	};
-	
+
 	/**
 	 * 填充时间选择面板
 	 * @private
@@ -10080,13 +8438,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    this.startDate = this._getPickerStartDate(tempDate);
 	    this.endDate = this._getPickerEndDate(tempDate);
-	
+
 	    language = _core.core.getLanguages();
 	    year = _dateUtils.date._formats['YYYY'](tempDate);
 	    month = _dateUtils.date._formats['MM'](tempDate, language);
 	    date = _dateUtils.date._formats['DD'](tempDate, language);
 	    time = _dateUtils.date._formats['HH'](tempDate, language) + ':' + _dateUtils.date._formats['mm'](tempDate, language) + ':' + _dateUtils.date._formats['ss'](tempDate, language);
-	
+
 	    template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">', '<div class="u-date-content-title-year"></div>-', '<div class="u-date-content-title-month"></div>-', '<div class="u-date-content-title-date"></div>', '<div class="u-date-content-title-time"></div>', '</div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
 	    timePage = (0, _dom.makeDOM)(template);
 	    //    titleDiv = timePage.querySelector('.u-date-content-title');
@@ -10102,22 +8460,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (this.type == 'date') {
 	        this._headerTime.style.display = 'none';
 	    }
-	
+
 	    (0, _event.on)(this._headerYear, 'click', function (e) {
 	        self._fillYear();
 	        (0, _event.stopEvent)(e);
 	    });
-	
+
 	    (0, _event.on)(this._headerMonth, 'click', function (e) {
 	        self._fillMonth();
 	        (0, _event.stopEvent)(e);
 	    });
-	
+
 	    (0, _event.on)(this._headerTime, 'click', function (e) {
 	        self._fillTime();
 	        (0, _event.stopEvent)(e);
 	    });
-	
+
 	    dateDiv = timePage.querySelector('.u-date-content-panel');
 	    // tempDate = this.startDate;
 	    // while(tempDate <= this.endDate){
@@ -10158,7 +8516,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    } else {
 	                        tmph = 0;
 	                    }
-	
+
 	                    this.pickerDate.setHours(tmph);
 	                    dateDiv.querySelector(".show_hour_cell").innerHTML = tmph;
 	                } else if (_arrary[1] == "min") {
@@ -10237,13 +8595,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        }
 	                    });
 	                }
-	
+
 	                tmpinput.focus();
 	                return;
 	            } else {
 	                return false;
 	            }
-	
+
 	            this._updateDate();
 	        }.bind(this));
 	    } else {
@@ -10306,7 +8664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        cell = (0, _dom.makeDOM)(timetemplate);
 	        this.cell = cell;
 	        dateDiv.appendChild(cell);
-	
+
 	        this.hand = cell.querySelector('line');
 	        this.bg = cell.querySelector('.clockpicker-canvas-bg');
 	        this.fg = cell.querySelector('.clockpicker-canvas-fg');
@@ -10320,8 +8678,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.sec = _dateUtils.date._formats['ss'](tempDate);
 	        //this.titleHourSpan.innerHTML = this.hours;
 	        //this.titleMinSpan.innerHTML = this.min;
-	
-	
+
+
 	        (0, _event.on)(this.hourDiv, 'click', function (e) {
 	            var target = e.target;
 	            if ((0, _dom.hasClass)(target, 'clockpicker-tick')) {
@@ -10338,7 +8696,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.setHand();
 	            }
 	        }.bind(this));
-	
+
 	        (0, _event.on)(this.minDiv, 'click', function (e) {
 	            var target = e.target;
 	            if ((0, _dom.hasClass)(target, 'clockpicker-tick')) {
@@ -10356,13 +8714,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }.bind(this));
 	    }
-	
+
 	    this._zoomIn(timePage);
 	    if (!_env.env.isIE8) this.setHand();
 	    this.currentPanel = 'time';
 	    dateDiv.onselectstart = new Function("return false");
 	};
-	
+
 	DateTimePicker.fn.setHand = function () {
 	    var dialRadius = 100,
 	        innerRadius = 54,
@@ -10377,12 +8735,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        y = -Math.cos(radian) * radius;
 	    this.setHandFun(x, y);
 	};
-	
+
 	DateTimePicker.fn.setHandFun = function (x, y, roundBy5, dragging) {
 	    var dialRadius = 100,
 	        innerRadius = 54,
 	        outerRadius = 80;
-	
+
 	    var radian = Math.atan2(x, -y),
 	        isHours = this.currentView === 'hours',
 	        unit = Math.PI / (isHours ? 6 : 30),
@@ -10391,22 +8749,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        inner = isHours && z < (outerRadius + innerRadius) / 2,
 	        radius = inner ? innerRadius : outerRadius,
 	        value;
-	
+
 	    if (this.twelvehour) {
 	        radius = outerRadius;
 	    }
-	
+
 	    // Radian should in range [0, 2PI]
 	    if (radian < 0) {
 	        radian = Math.PI * 2 + radian;
 	    }
-	
+
 	    // Get the round value
 	    value = Math.round(radian / unit);
-	
+
 	    // Get the round radian
 	    radian = value * unit;
-	
+
 	    // Correct the hours or minutes
 	    if (options.twelvehour) {
 	        if (isHours) {
@@ -10436,7 +8794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    }
-	
+
 	    // Set clock hand and others' position
 	    var w = this._panel.offsetWidth;
 	    var u = w / 294;
@@ -10451,20 +8809,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.fg.setAttribute('cx', cx);
 	    this.fg.setAttribute('cy', cy);
 	};
-	
+
 	/**
 	 * 重新渲染面板
 	 * @private
 	 */
 	DateTimePicker.fn._updateDate = function () {
 	    var year, month, week, date, time, hour, minute, seconds, language;
-	
+
 	    language = _core.core.getLanguages();
 	    year = _dateUtils.date._formats['YYYY'](this.pickerDate);
 	    // week = udate._formats['ddd'](this.pickerDate, language);
 	    month = _dateUtils.date._formats['MM'](this.pickerDate, language);
 	    time = _dateUtils.date._formats['HH'](this.pickerDate, language) + ':' + _dateUtils.date._formats['mm'](this.pickerDate, language) + ':' + _dateUtils.date._formats['ss'](this.pickerDate, language);
-	
+
 	    //TODO 多语
 	    // date = udate._formats['D'](this.pickerDate) + '日';
 	    date = _dateUtils.date._formats['DD'](this.pickerDate, language);
@@ -10494,7 +8852,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	};
-	
+
 	DateTimePicker.fn._response = function () {
 	    return;
 	    var bodyHeight = document.body.offsetHeight; //395
@@ -10508,7 +8866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    //}
 	    //this._dateContent.style.height =panelHeight - 158 + 'px';   // 106 52
 	};
-	
+
 	var dateTimePickerTemplateArr = ['<div class="u-date-panel">', '<div class="u-date-body">',
 	/*'<div class="u-date-header">',
 	    '<span class="u-date-header-year"></span>',
@@ -10523,18 +8881,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	     '</div>',
 	'</div>',*/
 	'<div class="u-date-content"></div>', '</div>', '<div class="u-date-nav">', '<button class="u-button u-date-ok right primary">确定</button>', '<button class="u-button u-date-cancel right">取消</button>', '<button class="u-button u-date-clean">清空</button>', '</div>', '</div>'];
-	
+
 	/******************************
 	 *  Public method
 	 ******************************/
-	
+
 	DateTimePicker.fn.show = function (evt) {
 	    if (!this.enable) {
 	        return;
 	    }
 	    var inputValue = this._input.value;
 	    this.setDate(inputValue);
-	
+
 	    var self = this;
 	    if (!this._panel) {
 	        this._panel = (0, _dom.makeDOM)(dateTimePickerTemplateArr.join(""));
@@ -10583,13 +8941,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            self.onOk();
 	            (0, _event.stopEvent)(e);
 	        });
-	
+
 	        // this.preBtn = makeDOM('<button class="u-date-pre-button u-button flat floating mini">&lt;</button>');
 	        // this.nextBtn = makeDOM('<button class="u-date-next-button u-button flat floating mini">&gt;</button>');
 	        this.preBtn = (0, _dom.makeDOM)('<button class="u-date-pre-button u-button mini">&lt;</button>');
 	        this.nextBtn = (0, _dom.makeDOM)('<button class="u-date-next-button u-button mini">&gt;</button>');
 	        // new u.Button(this.nextBtn);
-	
+
 	        (0, _event.on)(this.preBtn, 'click', function (e) {
 	            if (self.currentPanel == 'date') {
 	                self._fillDate('preivous');
@@ -10610,7 +8968,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._dateContent.appendChild(this.preBtn);
 	        this._dateContent.appendChild(this.nextBtn);
 	        // }
-	
+
 	    }
 	    this.pickerDate = this.date || new Date();
 	    this._updateDate();
@@ -10649,19 +9007,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var inputHeight = this._input.offsetHeight;
 	            // this.top = this.element.offsetTop + inputHeight;
 	            this.top = this._input.offsetTop + inputHeight;
-	
+
 	            if (this.left + panelWidth > bodyWidth) {
 	                this.left = bodyWidth - panelWidth;
 	            }
-	
+
 	            if (this.top + panelHeight > bodyHeight) {
 	                this.top = bodyHeight - panelHeight;
 	            }
-	
+
 	            this._panel.style.left = this.left + 'px';
 	            this._panel.style.top = this.top + 'px';
 	        }
-	
+
 	        this._panel.style.marginLeft = '0px';
 	        var callback = function callback(e) {
 	            if (e !== evt && e.target !== self._input && !(0, _dom.hasClass)(e.target, 'u-date-content-year-cell') && !(0, _dom.hasClass)(e.target, 'u-date-content-year-cell') && (0, _dom.closest)(e.target, 'u-date-panel') !== self._panel && self._inputFocus != true) {
@@ -10670,7 +9028,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        };
 	        (0, _event.on)(document, 'click', callback);
-	
+
 	        //tab事件
 	        (0, _event.on)(self._input, 'keydown', function (e) {
 	            var keyCode = e.keyCode;
@@ -10679,10 +9037,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        });
 	    }
-	
+
 	    this.isShow = true;
 	};
-	
+
 	/**
 	 * 确定事件
 	 */
@@ -10695,7 +9053,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } catch (e) {}
 	    this.trigger('select', { value: this.pickerDate });
 	};
-	
+
 	/**
 	 * 确定事件
 	 */
@@ -10706,14 +9064,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        document.body.removeChild(this.overlayDiv);
 	    } catch (e) {}
 	};
-	
+
 	DateTimePicker.fn.setDate = function (value) {
 	    if (!value) {
 	        this.date = null;
 	        this._input.value = '';
 	        return;
 	    }
-	
+
 	    var _date = _dateUtils.date.getDateObj(value);
 	    if (_date) {
 	        if (this.beginDateObj) {
@@ -10731,7 +9089,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.format = format;
 	    this._input.value = _dateUtils.date.format(this.date, this.format);
 	};
-	
+
 	DateTimePicker.fn.setStartDate = function (startDate) {
 	    if (startDate) {
 	        this.beginDateObj = _dateUtils.date.getDateObj(startDate);
@@ -10747,13 +9105,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.enable = false;
 	    }
 	};
-	
+
 	_compMgr.compMgr.regComp({
 	    comp: DateTimePicker,
 	    compAsString: 'u.DateTimePicker',
 	    css: 'u-datepicker'
 	});
-	
+
 	if (document.readyState && document.readyState === 'complete') {
 	    _compMgr.compMgr.updateComp();
 	} else {
@@ -10762,1072 +9120,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _compMgr.compMgr.updateComp();
 	    });
 	}
-	
+
 	exports.DateTimePicker = DateTimePicker;
 
 /***/ },
-/* 68 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.core = undefined;
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow core context
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 13:52:19
-	                                                                                                                                                                                                                                                   */
-	
-	
-	var _extend = __webpack_require__(20);
-	
-	var _extend2 = _interopRequireDefault(_extend);
-	
-	var _util = __webpack_require__(17);
-	
-	var _cookies = __webpack_require__(69);
-	
-	var _enumerables = __webpack_require__(21);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var environment = {};
-	/**
-	 * client attributes
-	 */
-	var clientAttributes = {};
-	
-	var sessionAttributes = {};
-	
-	var fn = {};
-	var maskerMeta = {
-		'float': {
-			precision: 2
-		},
-		'datetime': {
-			format: 'YYYY-MM-DD HH:mm:ss',
-			metaType: 'DateTimeFormatMeta',
-			speratorSymbol: '-'
-		},
-		'time': {
-			format: 'HH:mm'
-		},
-		'date': {
-			format: 'YYYY-MM-DD'
-		},
-		'currency': {
-			precision: 2,
-			curSymbol: '￥'
-		},
-		'percent': {}
-	};
-	/**
-	 * 获取环境信息
-	 * @return {environment}
-	 */
-	fn.getEnvironment = function () {
-		return (0, _util.createShellObject)(environment);
-	};
-	
-	/**
-	 * 获取客户端参数对象
-	 * @return {clientAttributes}
-	 */
-	fn.getClientAttributes = function () {
-		var exf = function exf() {};
-		return (0, _util.createShellObject)(clientAttributes);
-	};
-	
-	fn.setContextPath = function (contextPath) {
-		return environment[IWEB_CONTEXT_PATH] = contextPath;
-	};
-	fn.getContextPath = function (contextPath) {
-		return environment[IWEB_CONTEXT_PATH];
-	};
-	/**
-	 * 设置客户端参数对象
-	 * @param {Object} k 对象名称
-	 * @param {Object} v 对象值(建议使用简单类型)
-	 */
-	fn.setClientAttribute = function (k, v) {
-		clientAttributes[k] = v;
-	};
-	/**
-	 * 获取会话级参数对象
-	 * @return {clientAttributes}
-	 */
-	fn.getSessionAttributes = function () {
-		var exf = function exf() {};
-		return (0, _util.createShellObject)(sessionAttributes);
-	};
-	
-	/**
-	 * 设置会话级参数对象
-	 * @param {Object} k 对象名称
-	 * @param {Object} v 对象值(建议使用简单类型)
-	 */
-	fn.setSessionAttribute = function (k, v) {
-		sessionAttributes[k] = v;
-		(0, _cookies.setCookie)("ISES_" + k, v);
-	};
-	
-	/**
-	 * 移除客户端参数
-	 * @param {Object} k 对象名称
-	 */
-	fn.removeClientAttribute = function (k) {
-		clientAttributes[k] = null;
-		execIgnoreError(function () {
-			delete clientAttributes[k];
-		});
-	};
-	
-	/**
-	 * 获取地区信息编码
-	 */
-	fn.getLocale = function () {
-		return this.getEnvironment().locale;
-	};
-	
-	/**
-	 * 获取多语信息
-	 */
-	fn.getLanguages = function () {
-		return this.getEnvironment().languages;
-	};
-	/**
-	 * 收集环境信息(包括客户端参数)
-	 * @return {Object}
-	 */
-	fn.collectEnvironment = function () {
-		var _env = this.getEnvironment();
-		var _ses = this.getSessionAttributes();
-	
-		for (var i in clientAttributes) {
-			_ses[i] = clientAttributes[i];
-		}
-		_env.clientAttributes = _ses;
-		return _env;
-	};
-	
-	/**
-	 * 设置数据格式信息
-	 * @param {String} type
-	 * @param {Object} meta
-	 */
-	fn.setMaskerMeta = function (type, meta) {
-		if (typeof type == 'function') {
-			getMetaFunc = type;
-		} else {
-			if (!maskerMeta[type]) maskerMeta[type] = meta;else {
-				if ((typeof meta === 'undefined' ? 'undefined' : _typeof(meta)) != 'object') maskerMeta[type] = meta;else for (var key in meta) {
-					maskerMeta[type][key] = meta[key];
-				}
-			}
-		}
-	};
-	fn.getMaskerMeta = function (type) {
-		if (typeof getMetaFunc == 'function') {
-			var meta = getMetaFunc.call(this);
-			return meta[type];
-		} else return (0, _extend2.default)({}, maskerMeta[type]);
-	};
-	environment.languages = (0, _cookies.getCookie)(_enumerables.U_LANGUAGES) ? (0, _cookies.getCookie)(_enumerables.U_LANGUAGES).split(',') : navigator.language ? navigator.language : 'zh-CN';
-	if (environment.languages == 'zh-cn') environment.languages = 'zh-CN';
-	if (environment.languages == 'en-us') environment.languages = 'en-US';
-	
-	environment.theme = (0, _cookies.getCookie)(_enumerables.U_THEME);
-	environment.locale = (0, _cookies.getCookie)(_enumerables.U_LOCALE);
-	//environment.timezoneOffset = (new Date()).getTimezoneOffset()
-	environment.usercode = (0, _cookies.getCookie)(_enumerables.U_USERCODE);
-	//init session attribute
-	document.cookie.replace(/ISES_(\w*)=([^;]*);?/ig, function (a, b, c) {
-		sessionAttributes[b] = c;
-	});
-	
-	var Core = function Core() {};
-	Core.prototype = fn;
-	
-	var core = new Core();
-	
-	exports.core = core;
 
-/***/ },
-/* 69 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	/**
-	 * Module : Sparrow cookies
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-	
-	var setCookie = function setCookie(sName, sValue, oExpires, sPath, sDomain, bSecure) {
-		var sCookie = sName + "=" + encodeURIComponent(sValue);
-		if (oExpires) sCookie += "; expires=" + oExpires.toGMTString();
-		if (sPath) sCookie += "; path=" + sPath;
-		if (sDomain) sCookie += "; domain=" + sDomain;
-		if (bSecure) sCookie += "; secure=" + bSecure;
-		document.cookie = sCookie;
-	};
-	
-	var getCookie = function getCookie(sName) {
-		var sRE = "(?:; )?" + sName + "=([^;]*);?";
-		var oRE = new RegExp(sRE);
-	
-		if (oRE.test(document.cookie)) {
-			return decodeURIComponent(RegExp["$1"]);
-		} else return null;
-	};
-	
-	exports.setCookie = setCookie;
-	exports.getCookie = getCookie;
-
-/***/ },
-/* 70 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.date = undefined;
-	
-	var _core = __webpack_require__(68);
-	
-	var u = {}; /**
-	             * Module : Sparrow date util
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-08-06 13:37:20
-	             */
-	
-	u.date = {
-	
-		/**
-	  * 多语言处理
-	  */
-		//TODO 后续放到多语文件中
-		_dateLocale: {
-			'zh-CN': {
-				months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
-				monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
-				weekdays: '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
-				weekdaysShort: '周日_周一_周二_周三_周四_周五_周六'.split('_'),
-				weekdaysMin: '日_一_二_三_四_五_六'.split('_')
-			},
-			'en-US': {
-				months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
-				monthsShort: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
-				weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thurday_Friday_Saturday'.split('_'),
-				weekdaysShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
-				weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
-			}
-		},
-	
-		_formattingTokens: /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYY|YY|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
-	
-		leftZeroFill: function leftZeroFill(number, targetLength, forceSign) {
-			var output = '' + Math.abs(number),
-			    sign = number >= 0;
-			while (output.length < targetLength) {
-				output = '0' + output;
-			}
-			return (sign ? forceSign ? '+' : '' : '-') + output;
-		},
-	
-		_formats: {
-			//year
-			YY: function YY(date) {
-				return u.date.leftZeroFill(date.getFullYear() % 100, 2);
-			},
-			YYYY: function YYYY(date) {
-				return date.getFullYear();
-			},
-			//month
-			M: function M(date) {
-				return date.getMonth() + 1;
-			},
-			MM: function MM(date) {
-				var m = u.date._formats.M(date);
-				return u.date.leftZeroFill(m, 2);
-			},
-			MMM: function MMM(date, language) {
-				var m = date.getMonth();
-				return u.date._dateLocale[language].monthsShort[m];
-			},
-			MMMM: function MMMM(date, language) {
-				var m = date.getMonth();
-				return u.date._dateLocale[language].months[m];
-			},
-			//date
-			D: function D(date) {
-				return date.getDate();
-			},
-			DD: function DD(date) {
-				var d = u.date._formats.D(date);
-				return u.date.leftZeroFill(d, 2);
-			},
-			// weekday
-			d: function d(date) {
-				return date.getDay();
-			},
-			dd: function dd(date, language) {
-				var d = u.date._formats.d(date);
-				return u.date._dateLocale[language].weekdaysMin[d];
-			},
-			ddd: function ddd(date, language) {
-				var d = u.date._formats.d(date);
-				return u.date._dateLocale[language].weekdaysShort[d];
-			},
-			dddd: function dddd(date, language) {
-				var d = u.date._formats.d(date);
-				return u.date._dateLocale[language].weekdays[d];
-			},
-			// am pm
-			a: function a(date) {
-				if (date.getHours() > 12) {
-					return 'pm';
-				} else {
-					return 'am';
-				}
-			},
-			//hour
-			h: function h(date) {
-				var h = date.getHours();
-				h = h > 12 ? h - 12 : h;
-				return h;
-			},
-			hh: function hh(date) {
-				var h = u.date._formats.h(date);
-				return u.date.leftZeroFill(h, 2);
-			},
-			H: function H(date) {
-				return date.getHours();
-			},
-			HH: function HH(date) {
-				return u.date.leftZeroFill(date.getHours(), 2);
-			},
-			// minutes
-			m: function m(date) {
-				return date.getMinutes();
-			},
-			mm: function mm(date) {
-				return u.date.leftZeroFill(date.getMinutes(), 2);
-			},
-			//seconds
-			s: function s(date) {
-				return date.getSeconds();
-			},
-			ss: function ss(date) {
-				return u.date.leftZeroFill(date.getSeconds(), 2);
-			}
-		},
-	
-		/**
-	  * 日期格式化
-	  * @param date
-	  * @param formatString
-	  */
-		format: function format(date, formatString, language) {
-			if (!date) return date;
-			var array = formatString.match(u.date._formattingTokens),
-			    i,
-			    length,
-			    output = '';
-			var _date = u.date.getDateObj(date);
-			if (!_date) return date;
-			language = language || _core.core.getLanguages();
-			for (i = 0, length = array.length; i < length; i++) {
-				if (u.date._formats[array[i]]) {
-					output += u.date._formats[array[i]](_date, language);
-				} else {
-					output += array[i];
-				}
-			}
-			return output;
-		},
-	
-		_addOrSubtract: function _addOrSubtract(date, period, value, isAdding) {
-			var times = date.getTime(),
-			    d = date.getDate(),
-			    m = date.getMonth(),
-			    _date = u.date.getDateObj(date);
-			if (period === 'ms') {
-				times = times + value * isAdding;
-				_date.setTime(times);
-			} else if (period == 's') {
-				times = times + value * 1000 * isAdding;
-				_date.setTime(times);
-			} else if (period == 'm') {
-				times = times + value * 60000 * isAdding;
-				_date.setTime(times);
-			} else if (period == 'h') {
-				times = times + value * 3600000 * isAdding;
-				_date.setTime(times);
-			} else if (period == 'd') {
-				d = d + value * isAdding;
-				_date.setDate(d);
-			} else if (period == 'w') {
-				d = d + value * 7 * isAdding;
-				_date.setDate(d);
-			} else if (period == 'M') {
-				m = m + value * isAdding;
-				_date.setMonth(d);
-			} else if (period == 'y') {
-				m = m + value * 12 * isAdding;
-				_date.setMonth(d);
-			}
-			return _date;
-		},
-	
-		add: function add(date, period, value) {
-			return u.date._addOrSubtract(date, period, value, 1);
-		},
-		sub: function sub(date, period, value) {
-			return u.date._addOrSubtract(date, period, value, -1);
-		},
-		getDateObj: function getDateObj(value) {
-			if (!value || typeof value == 'undefined') return value;
-			var dateFlag = false;
-			var _date = new Date(value);
-			if (isNaN(_date)) {
-				// IE的话对"2016-2-13 12:13:22"进行处理
-				var index1, index2, index3, s1, s2, s3;
-				if (value.indexOf) {
-					index1 = value.indexOf('-');
-					index2 = value.indexOf(':');
-					index3 = value.indexOf(' ');
-					if (index1 > 0 || index2 > 0 || index3 > 0) {
-						_date = new Date();
-						if (index3 > 0) {
-							s3 = value.split(' ');
-							s1 = s3[0].split('-');
-							s2 = s3[1].split(':');
-						} else if (index1 > 0) {
-							s1 = value.split('-');
-						} else if (index2 > 0) {
-							s2 = value.split(':');
-						}
-						if (s1 && s1.length > 0) {
-							_date.setYear(s1[0]);
-							_date.setMonth(parseInt(s1[1] - 1));
-							_date.setDate(s1[2] ? s1[2] : 0);
-							dateFlag = true;
-						}
-						if (s2 && s2.length > 0) {
-							_date.setHours(s2[0] ? s2[0] : 0);
-							_date.setMinutes(s2[1] ? s2[1] : 0);
-							_date.setSeconds(s2[2] ? s2[2] : 0);
-							dateFlag = true;
-						}
-					} else {
-						_date = new Date(parseInt(value));
-						if (isNaN(_date)) {
-							throw new TypeError('invalid Date parameter');
-						} else {
-							dateFlag = true;
-						}
-					}
-				}
-			} else {
-				dateFlag = true;
-			}
-	
-			if (dateFlag) return _date;else return null;
-		}
-	
-	};
-	
-	var date = u.date;
-	exports.date = date;
-
-/***/ },
-/* 71 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.doValidate = exports.validate = exports.Validate = undefined;
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : neoui-validate
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-08-06 14:03:15
-	                                                                                                                                                                                                                                                   */
-	
-	
-	var _BaseComponent = __webpack_require__(15);
-	
-	var _extend = __webpack_require__(20);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _event = __webpack_require__(18);
-	
-	var _util = __webpack_require__(17);
-	
-	var _neouiTooltip = __webpack_require__(24);
-	
-	var _i18n = __webpack_require__(25);
-	
-	var _compMgr = __webpack_require__(22);
-	
-	var Validate = _BaseComponent.BaseComponent.extend({
-	
-		init: function init() {
-			var self = this;
-			this.$element = this.element;
-			this.$form = this.form;
-			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options, JSON.parse(this.element.getAttribute('uvalidate')));
-			this.required = false;
-			this.timeout = null;
-			this.tipAliveTime = this.options['tipAliveTime'] === undefined ? 3000 : this.options['tipAliveTime'];
-			//所有属性优先级 ：  options参数  > attr属性  > 默认值
-			this.required = this.options['required'] ? this.options['required'] : false;
-			this.validType = this.options['validType'] ? this.options['validType'] : null;
-			//校验模式  blur  submit
-			this.validMode = this.options['validMode'] ? this.options['validMode'] : Validate.DEFAULTS.validMode;
-			//空提示
-			this.nullMsg = this.options['nullMsg'] ? this.options['nullMsg'] : Validate.NULLMSG[this.validType];
-			//是否必填
-			if (this.required && !this.nullMsg) this.nullMsg = Validate.NULLMSG['required'];
-			//错误必填
-			this.errorMsg = this.options['errorMsg'] ? this.options['errorMsg'] : Validate.ERRORMSG[this.validType];
-			//正则校验
-			this.regExp = this.options['reg'] ? this.options['reg'] : Validate.REG[this.validType];
-			try {
-				if (typeof this.regExp == 'string') this.regExp = eval(this.regExp);
-			} catch (e) {}
-	
-			this.notipFlag = this.options['notipFlag']; // 错误信息提示方式是否为tip，默认为true
-			this.hasSuccess = this.options['hasSuccess']; //是否含有正确提示
-	
-			this.showFix = this.options['showFix'];
-	
-			//提示div的id 为空时使用tooltop来提示
-			this.tipId = this.options['tipId'] ? this.options['tipId'] : null;
-			//校验成功提示信息的div
-			this.successId = this.options['successId'] ? this.options['successId'] : null;
-	
-			// 要求显示成功提示，并没有成功提示dom的id时，则创建成功提示dom
-			if (this.hasSuccess && !this.successId) {
-				this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-checkedsymbol" ></span>');
-	
-				if (this.$element.nextSibling) {
-					this.$element.parentNode.insertBefore(this.successId, this.$element.nextSibling);
-				} else {
-					this.$element.parentNode.appendChild(this.successId);
-				}
-			}
-			//不是默认的tip提示方式并且tipId没有定义时创建默认tipid	
-			if (this.notipFlag && !this.tipId) {
-				this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exclamationsign "></span>');
-				this.$element.parentNode.appendChild(this.tipId);
-	
-				if (this.$element.nextSibling) {
-					this.$element.parentNode.insertBefore(this.tipId, this.$element.nextSibling);
-				} else {
-					this.$element.parentNode.appendChild(this.tipId);
-				}
-			}
-			//提示框位置
-			this.placement = this.options['placement'] ? this.options['placement'] : Validate.DEFAULTS.placement;
-			//
-			this.minLength = this.options['minLength'] > 0 ? this.options['minLength'] : null;
-			this.maxLength = this.options['maxLength'] > 0 ? this.options['maxLength'] : null;
-			this.min = this.options['min'] !== undefined ? this.options['min'] : null;
-			this.max = this.options['max'] !== undefined ? this.options['max'] : null;
-			this.minNotEq = this.options['minNotEq'] !== undefined ? this.options['minNotEq'] : null;
-			this.maxNotEq = this.options['maxNotEq'] !== undefined ? this.options['maxNotEq'] : null;
-			this.min = env.isNumber(this.min) ? this.min : null;
-			this.max = env.isNumber(this.max) ? this.max : null;
-			this.minNotEq = env.isNumber(this.minNotEq) ? this.minNotEq : null;
-			this.maxNotEq = env.isNumber(this.maxNotEq) ? this.maxNotEq : null;
-			this.create();
-		}
-	});
-	
-	Validate.fn = Validate.prototype;
-	//Validate.tipTemplate = '<div class="tooltip" role="tooltip"><div class="tooltip-arrow tooltip-arrow-c"></div><div class="tooltip-arrow"></div><div class="tooltip-inner" style="color:#ed7103;border:1px solid #ed7103;background-color:#fff7f0;"></div></div>'
-	
-	Validate.DEFAULTS = {
-		validMode: 'blur',
-		placement: "top"
-	};
-	
-	Validate.NULLMSG = {
-		"required": (0, _i18n.trans)('validate.required', "不能为空！"),
-		"integer": (0, _i18n.trans)('validate.integer', "请填写整数！"),
-		"float": (0, _i18n.trans)('validate.float', "请填写数字！"),
-		"zipCode": (0, _i18n.trans)('validate.zipCode', "请填写邮政编码！"),
-		"phone": (0, _i18n.trans)('validate.phone', "请填写手机号码！"),
-		"landline": (0, _i18n.trans)('validate.landline', "请填写座机号码！"),
-		"email": (0, _i18n.trans)('validate.email', "请填写邮箱地址！"),
-		"url": (0, _i18n.trans)('validate.url', "请填写网址！"),
-		"datetime": (0, _i18n.trans)('validate.datetime', "请填写日期！")
-	
-	};
-	
-	Validate.ERRORMSG = {
-		"integer": (0, _i18n.trans)('validate.error_integer', "整数格式不对！"),
-		"float": (0, _i18n.trans)('validate.error_float', "数字格式不对！"),
-		"zipCode": (0, _i18n.trans)('validate.error_zipCode', "邮政编码格式不对！"),
-		"phone": (0, _i18n.trans)('validate.error_phone', "手机号码格式不对！"),
-		"landline": (0, _i18n.trans)('validate.error_landline', "座机号码格式不对！"),
-		"email": (0, _i18n.trans)('validate.error_email', "邮箱地址格式不对！"),
-		"url": (0, _i18n.trans)('validate.error_url', "网址格式不对！"),
-		"datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！")
-	};
-	
-	Validate.REG = {
-		"integer": /^-?\d+$/,
-		"float": /^-?\d+(\.\d+)?$/,
-		"zipCode": /^[0-9]{6}$/,
-		"phone": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
-		"landline": /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
-		"email": /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-		"url": /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
-		"datetime": /^(?:19|20)[0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/
-	};
-	
-	Validate.fn.create = function () {
-		var self = this;
-		(0, _event.on)(this.element, 'blur', function (e) {
-			if (self.validMode == 'blur') {
-				self.passed = self.doValid();
-			}
-		});
-		(0, _event.on)(this.element, 'focus', function (e) {
-			//隐藏错误信息
-			self.hideMsg();
-		});
-		(0, _event.on)(this.element, 'change', function (e) {
-			//隐藏错误信息
-			self.hideMsg();
-		});
-		(0, _event.on)(this.element, 'keydown', function (e) {
-			var event = window.event || e;
-			if (self["validType"] == "float") {
-				var tmp = self.element.value;
-				if (event.shiftKey) {
-					event.returnValue = false;
-					return false;
-				} else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
-					// tab键 左箭头 右箭头 delete键
-					return true;
-				} else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
-					//复制粘贴
-					return true;
-				} else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 110, 190, 189, 109]) > -1)) {
-					event.returnValue = false;
-					return false;
-				} else if ((!tmp || tmp.indexOf(".") > -1) && (event.keyCode == 190 || event.keyCode == 110)) {
-					event.returnValue = false;
-					return false;
-				}
-	
-				if (tmp && (tmp + '').split('.')[0].length >= 25) {
-					return false;
-				}
-			}
-			if (self["validType"] == "integer") {
-				var tmp = self.element.value;
-	
-				if (event.shiftKey) {
-					event.returnValue = false;
-					return false;
-				} else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
-					// tab键 左箭头 右箭头 delete键
-					return true;
-				} else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
-					//复制粘贴
-					return true;
-				} else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 109, 189]) > -1)) {
-					event.returnValue = false;
-					return false;
-				}
-	
-				if (tmp && (tmp + '').split('.')[0].length >= 25) {
-					return false;
-				}
-			}
-		});
-	};
-	
-	Validate.fn.updateOptions = function (options) {};
-	
-	Validate.fn.doValid = function (options) {
-		var self = this;
-		var pValue;
-		this.showMsgFlag = true;
-		if (options) {
-			pValue = options.pValue;
-			this.showMsgFlag = options.showMsg;
-		}
-		this.needClean = false;
-		//只读的也需要校验，所以注释
-		// if (this.element && this.element.getAttribute("readonly")) return {passed:true}
-		var value = null;
-		if (typeof pValue != 'undefined') value = pValue;else if (this.element) value = this.element.value;
-	
-		if (this.isEmpty(value) && this.required) {
-			this.showMsg(this.nullMsg);
-			return {
-				passed: false,
-				Msg: this.nullMsg
-			};
-		} else if (this.isEmpty(value) && !this.required) {
-			return {
-				passed: true
-			};
-		}
-		if (this.regExp) {
-			var reg = new RegExp(this.regExp);
-			if (typeof value == 'number') value = value + "";
-			var r = value.match(reg);
-			if (r === null || r === false) {
-				this.showMsg(this.errorMsg);
-				this.needClean = true;
-				return {
-					passed: false,
-					Msg: this.errorMsg
-				};
-			}
-		}
-		if (this.minLength) {
-			if (value.lengthb() < this.minLength) {
-				var Msg = "输入长度不能小于" + this.minLength + "位";
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.maxLength) {
-			if (value.lengthb() > this.maxLength) {
-				var Msg = "输入长度不能大于" + this.maxLength + "位";
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.max != undefined && this.max != null) {
-			if (parseFloat(value) > this.max) {
-				var Msg = "输入值不能大于" + this.max;
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.min != undefined && this.min != null) {
-			if (parseFloat(value) < this.min) {
-				var Msg = "输入值不能小于" + this.min;
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.maxNotEq != undefined && this.maxNotEq != null) {
-			if (parseFloat(value) >= this.maxNotEq) {
-				var Msg = "输入值不能大于或等于" + this.maxNotEq;
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.minNotEq != undefined && this.minNotEq != null) {
-			if (parseFloat(value) <= this.minNotEq) {
-				var Msg = "输入值不能小于或等于" + this.minNotEq;
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		//succes时，将成功信息显示
-		if (this.successId) {
-			// addClass(this.element.parentNode,'u-has-success');
-			var successDiv = this.successId;
-			var successleft = this.$element.offsetLeft + this.$element.offsetWidth + 5;
-			var successtop = this.$element.offsetTop + 10;
-			if (typeof successDiv === 'string') successDiv = document.getElementById(successDiv);
-			successDiv.style.display = 'inline-block';
-			successDiv.style.top = successtop + 'px';
-			successDiv.style.left = successleft + 'px';
-			clearTimeout(this.timeout);
-			this.timeout = setTimeout(function () {
-				// self.tooltip.hide();
-				successDiv.style.display = 'none';
-			}, 3000);
-		}
-		return {
-			passed: true
-		};
-	};
-	
-	Validate.fn.check = Validate.fn.doValid;
-	
-	//	Validate.fn.getValue = function() {
-	//		var inputval
-	//		if (this.$element.is(":radio")) {
-	//			inputval = this.$form.find(":radio[name='" + this.$element.attr("name") + "']:checked").val();
-	//		} else if (this.$element.is(":checkbox")) {
-	//			inputval = "";
-	//			this.$form.find(":checkbox[name='" + obj.attr("name") + "']:checked").each(function() {
-	//				inputval += $(this).val() + ',';
-	//			})
-	//		} else if (this.$element.is('div')) {
-	//			inputval = this.$element[0].trueValue;
-	//		} else {
-	//			inputval = this.$element.val();
-	//		}
-	//		inputval = $.trim(inputval);
-	//		return this.isEmpty(inputval) ? "" : inputval;
-	//	}
-	
-	Validate.fn.some = Array.prototype.some ? Array.prototype.some : function () {
-		var flag;
-		for (var i = 0; i < this.length; i++) {
-			if (typeof arguments[0] == "function") {
-				flag = arguments[0](this[i]);
-				if (flag) break;
-			}
-		}
-		return flag;
-	};
-	
-	Validate.fn.getValue = function () {
-		var inputval = '';
-		//checkbox、radio为u-meta绑定时
-		var bool = this.some.call(this.$element.querySelectorAll('[type="checkbox"],[type="radio"]'), function (ele) {
-			return ele.type == "checkbox" || ele.type == "radio";
-		});
-		if (this.$element.childNodes.length > 0 && bool) {
-			var eleArr = this.$element.querySelectorAll('[type="checkbox"],[type="radio"]');
-			var ele = eleArr[0];
-			if (ele.type == "checkbox") {
-				this.$element.querySelectorAll(":checkbox[name='" + $(ele).attr("name") + "']:checked").each(function () {
-					inputval += $(this).val() + ',';
-				});
-			} else if (ele.type == "radio") {
-				inputval = this.$element.querySelectorAll(":radio[name='" + $(ele).attr("name") + "']:checked").value;
-			}
-		} else if (this.$element.is(":radio")) {
-			//valid-type 绑定
-			inputval = this.$element.parent().querySelectorAll(":radio[name='" + this.$element.attr("name") + "']:checked").val();
-		} else if (this.$element.is(":checkbox")) {
-			inputval = "";
-			this.$element.parent().find(":checkbox[name='" + this.$element.attr("name") + "']:checked").each(function () {
-				inputval += $(this).val() + ',';
-			});
-		} else if (this.$element.find('input').length > 0) {
-			inputval = this.$element.find('input').val();
-		} else {
-			inputval = this.$element.val();
-		}
-		inputval = inputval.trim;
-		return this.isEmpty(inputval) ? "" : inputval;
-	};
-	
-	Validate.fn.isEmpty = function (val) {
-		return val === "" || val === undefined || val === null; //|| val === $.trim(this.$element.attr("tip"));
-	};
-	
-	Validate.fn.showMsg = function (msg) {
-	
-		if (this.showMsgFlag == false || this.showMsgFlag == 'false') {
-			return;
-		}
-		var self = this;
-		if (this.tipId) {
-			this.$element.style.borderColor = 'rgb(241,90,74)';
-			var tipdiv = this.tipId;
-			if (typeof tipdiv === 'string') {
-				tipdiv = document.getElementById(tipdiv);
-			}
-			tipdiv.innerHTML = msg;
-			//如果notipFlag为true说明，可能是平台创建的，需要添加left、top值
-			if (this.notipFlag) {
-				var left = this.$element.offsetLeft;
-				var top = this.$element.offsetTop + this.$element.offsetHeight + 4;
-				tipdiv.style.left = left + 'px';
-				tipdiv.style.top = top + 'px';
-			}
-	
-			tipdiv.style.display = 'block';
-			// addClass(tipdiv.parentNode,'u-has-error');
-			// $('#' + this.tipId).html(msg).show()
-		} else {
-			var tipOptions = {
-				"title": msg,
-				"trigger": "manual",
-				"selector": "validtip",
-				"placement": this.placement,
-				"showFix": this.showFix
-			};
-			if (this.options.tipTemplate) tipOptions.template = this.options.tipTemplate;
-			if (!this.tooltip) this.tooltip = new _neouiTooltip.Tooltip(this.element, tipOptions);
-			this.tooltip.setTitle(msg);
-			this.tooltip.show();
-		}
-		if (this.tipAliveTime !== -1) {
-			clearTimeout(this.timeout);
-			this.timeout = setTimeout(function () {
-				// self.tooltip.hide();
-				self.hideMsg();
-			}, this.tipAliveTime);
-		}
-	};
-	Validate.fn.hideMsg = function () {
-		//隐藏成功信息
-		// if(this.successId||this.tipId){
-		// 	document.getElementById(this.successId).style.display='none';
-		// 	document.getElementById(this.tipId).style.display='none';
-		// }
-	
-		// removeClass(this.element.parentNode,'u-has-error');
-		// removeClass(this.element.parentNode,'u-has-success');
-	
-		if (this.tipId) {
-			var tipdiv = this.tipId;
-			if (typeof tipdiv === 'string') {
-				tipdiv = document.getElementById(tipdiv);
-			}
-			tipdiv.style.display = 'none';
-			this.$element.style.borderColor = '';
-			// removeClass(tipdiv.parentNode,'u-has-error');
-		} else {
-			if (this.tooltip) this.tooltip.hide();
-		}
-	};
-	
-	/**
-	 * 只有单一元素时使用
-	 */
-	Validate.fn._needClean = function () {
-		return true; //this.validates[0].needClean
-	};
-	
-	var validate = function validate(element) {
-		var self = this,
-		    options,
-		    childEle;
-		if (typeof element === 'string') {
-			element = document.querySelector(element);
-		}
-		//element本身需要校验
-		if (element.attributes["uvalidate"]) {
-			options = element.attributes["uvalidate"] ? JSON.parse(element.attributes["uvalidate"].value) : {};
-			options = (0, _extend.extend)({
-				el: element
-			}, options);
-			element['Validate'] = new Validate(options);
-		}
-	
-		//element是个父元素，校验子元素
-		childEle = element.querySelectorAll('[uvalidate]');
-		(0, _util.each)(childEle, function (i, child) {
-			if (!child['Validate']) {
-				//如果该元素上没有校验
-				options = child.attributes["validate"] ? JSON.parse(child.attributes["validate"].value) : {};
-				options = (0, _extend.extend)({
-					el: child
-				}, options);
-				child['Validate'] = new Validate(options);
-			}
-		});
-	};
-	
-	// 对某个dom容器内的元素进行校验
-	var doValidate = function doValidate(element) {
-		var passed = true,
-		    childEle,
-		    result;
-		if (typeof element === 'string') {
-			element = document.querySelector(element);
-		}
-		childEle = element.querySelectorAll('input');
-		(0, _util.each)(childEle, function (i, child) {
-			if (child['Validate'] && child['Validate'].check) {
-				result = child['Validate'].check({
-					trueValue: true,
-					showMsg: true
-				});
-				if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) === 'object') passed = result['passed'] && passed;else passed = result && passed;
-			}
-		});
-		return passed;
-	};
-	
-	_compMgr.compMgr.regComp({
-		comp: Validate,
-		compAsString: 'u.Validate',
-		css: 'u-validate'
-	});
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-	exports.Validate = Validate;
-	exports.validate = validate;
-	exports.doValidate = doValidate;
-
-/***/ },
-/* 72 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.IntegerAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _util = __webpack_require__(5);
-	
+
 	var _event = __webpack_require__(10);
-	
+
 	var _env = __webpack_require__(11);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	var IntegerAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
@@ -11863,7 +9187,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } catch (e) {}
 	            }
 	        });
-	
+
 	        (0, _event.on)(this.element, 'blur', function () {
 	            if (self.enable) {
 	                if (!self.doValidate() && self._needClean()) {
@@ -11882,39 +9206,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-09 18:29:59
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: IntegerAdapter,
 	    name: 'integer'
 	});
-	
+
 	exports.IntegerAdapter = IntegerAdapter;
 
 /***/ },
-/* 73 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.MonthAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
-	var _neouiMonth = __webpack_require__(74);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiMonth = __webpack_require__(61);
+
+	var _compMgr = __webpack_require__(16);
+
 	var MonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(comp, options) {
 	        var self = this;
 	        MonthAdapter.superclass.initialize.apply(this, arguments);
 	        this.validType = 'month';
-	
+
 	        this.comp = new _neouiMonth.Month(this.element);
-	
+
 	        this.comp.on('valueChange', function (event) {
 	            self.slice = true;
 	            self.dataModel.setValue(self.field, event.value);
@@ -11935,35 +9259,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-09 18:46:30
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: MonthAdapter,
 	    name: 'u-month'
 	});
-	
+
 	exports.MonthAdapter = MonthAdapter;
 
 /***/ },
-/* 74 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.Month = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _event = __webpack_require__(18);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _extend = __webpack_require__(20);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _event = __webpack_require__(10);
+
+	var _dom = __webpack_require__(9);
+
+	var _extend = __webpack_require__(1);
+
+	var _compMgr = __webpack_require__(16);
+
 	var Month = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
@@ -11972,22 +9296,22 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
 			this.panelDiv = null;
 			this.input = this.element.querySelector("input");
-	
+
 			var d = new Date();
 			this.month = d.getMonth() + 1;
 			this.defaultMonth = this.month;
-	
+
 			(0, _event.on)(this.input, 'blur', function (e) {
 				self._inputFocus = false;
 				this.setValue(this.input.value);
 			}.bind(this));
-	
+
 			// 添加focus事件
 			this.focusEvent();
 			// 添加右侧图标click事件
 			this.clickEvent();
 		},
-	
+
 		createPanel: function createPanel() {
 			if (this.panelDiv) {
 				this._fillMonth();
@@ -11997,10 +9321,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.panelDiv = (0, _dom.makeDOM)('<div class="u-date-panel" style="margin:0px;"></div>');
 			this.panelContentDiv = (0, _dom.makeDOM)('<div class="u-date-content"></div>');
 			this.panelDiv.appendChild(this.panelContentDiv);
-	
+
 			this.preBtn = (0, _dom.makeDOM)('<button class="u-date-pre-button u-button flat floating mini" style="display:none;">&lt;</button>');
 			this.nextBtn = (0, _dom.makeDOM)('<button class="u-date-next-button u-button flat floating mini" style="display:none;">&gt;</button>');
-	
+
 			(0, _event.on)(this.preBtn, 'click', function (e) {
 				oThis.startYear -= 10;
 				oThis._fillYear();
@@ -12013,7 +9337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.panelContentDiv.appendChild(this.nextBtn);
 			this._fillMonth();
 		},
-	
+
 		/**
 	  * 填充月份选择面板
 	  * @private
@@ -12024,7 +9348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
 			_month = this.month;
 			template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
-	
+
 			monthPage = (0, _dom.makeDOM)(template);
 			cells = monthPage.querySelectorAll('.u-date-content-year-cell');
 			for (i = 0; i < cells.length; i++) {
@@ -12041,13 +9365,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.setValue(_m);
 				this.hide();
 			}.bind(this));
-	
+
 			this.preBtn.style.display = 'none';
 			this.nextBtn.style.display = 'none';
 			this.panelContentDiv.appendChild(monthPage);
 			this.currentPanel = 'month';
 		},
-	
+
 		setValue: function setValue(value) {
 			value = value ? value : '';
 			this.value = value;
@@ -12059,13 +9383,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.input.value = value;
 			this.trigger('valueChange', { value: value });
 		},
-	
+
 		focusEvent: function focusEvent() {
 			var self = this;
 			(0, _event.on)(this.input, 'focus', function (e) {
 				self._inputFocus = true;
 				self.show(e);
-	
+
 				if (e.stopPropagation) {
 					e.stopPropagation();
 				} else {
@@ -12073,7 +9397,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			});
 		},
-	
+
 		//下拉图标的点击事件
 		clickEvent: function clickEvent() {
 			var self = this;
@@ -12083,11 +9407,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _event.stopEvent)(e);
 			});
 		},
-	
+
 		show: function show(evt) {
 			var oThis = this;
 			this.createPanel();
-	
+
 			this.width = this.element.offsetWidth;
 			if (this.width < 300) this.width = 300;
 			if (this.options.showFix) {
@@ -12103,29 +9427,29 @@ return /******/ (function(modules) { // webpackBootstrap
 				    bodyHeight = document.body.clientHeight,
 				    panelWidth = this.panelDiv.offsetWidth,
 				    panelHeight = this.panelDiv.offsetHeight;
-	
+
 				this.element.appendChild(this.panelDiv);
 				this.element.style.position = 'relative';
 				this.left = this.input.offsetLeft;
 				var inputHeight = this.input.offsetHeight;
 				this.top = this.input.offsetTop + inputHeight;
-	
+
 				if (this.left + panelWidth > bodyWidth) {
 					this.left = bodyWidth - panelWidth;
 				}
-	
+
 				if (this.top + panelHeight > bodyHeight) {
 					this.top = bodyHeight - panelHeight;
 				}
-	
+
 				this.panelDiv.style.left = this.left + 'px';
 				this.panelDiv.style.top = this.top + 'px';
 			}
-	
+
 			this.panelDiv.style.width = 152 + 'px';
 			this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
 			(0, _dom.addClass)(this.panelDiv, 'is-visible');
-	
+
 			var callback = function (e) {
 				if (e !== evt && e.target !== this.input && !oThis.clickPanel(e.target) && self._inputFocus != true) {
 					(0, _event.off)(document, 'click', callback);
@@ -12135,7 +9459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}.bind(this);
 			(0, _event.on)(document, 'click', callback);
 		},
-	
+
 		clickPanel: function clickPanel(dom) {
 			while (dom) {
 				if (dom == this.panelDiv) {
@@ -12146,7 +9470,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			return false;
 		},
-	
+
 		hide: function hide() {
 			(0, _dom.removeClass)(this.panelDiv, 'is-visible');
 			this.panelDiv.style.zIndex = -1;
@@ -12156,8 +9480,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : liuyk(liuyk@yonyou.com)
 	     * Date	  : 2016-08-11 15:17:07
 	     */
-	
-	
+
+
 	_compMgr.compMgr.regComp({
 		comp: Month,
 		compAsString: 'u.Month',
@@ -12174,34 +9498,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Month = Month;
 
 /***/ },
-/* 75 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.NativeCheckAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _util = __webpack_require__(5);
-	
+
 	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : Kero native-checkbox
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-09 18:55:51
 	 */
-	
+
 	var NativeCheckAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin],
 	    init: function init() {
@@ -12211,7 +9535,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (this.options['datasource']) {
 	            this.isGroup = true;
 	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-	
+
 	            this.checkboxTemplateArray = [];
 	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
 	                this.checkboxTemplateArray.push(this.element.childNodes[i]);
@@ -12240,20 +9564,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            //this.radioTemplate.clone().appendTo(this.element)
 	        }
-	
+
 	        var allCheck = this.element.querySelectorAll('[type=checkbox]');
 	        var allName = this.element.querySelectorAll('[data-role=name]');
 	        for (var k = 0; k < allCheck.length; k++) {
 	            allCheck[k].value = comboData[k].pk || comboData[k].value;
 	            allName[k].innerHTML = comboData[k].name;
 	        }
-	
+
 	        this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
 	            (0, _event.on)(ele, 'click', function () {
 	                var modelValue = self.dataModel.getValue(self.field);
-	
+
 	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
-	
+
 	                if (this.checked) {
 	                    valueArr.push(this.value);
 	                } else {
@@ -12300,9 +9624,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    getValue: function getValue() {
 	        return this.trueValue;
 	    }
-	
+
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: NativeCheckAdapter,
 	    name: 'checkbox'
@@ -12310,34 +9634,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.NativeCheckAdapter = NativeCheckAdapter;
 
 /***/ },
-/* 76 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.NativeRadioAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _util = __webpack_require__(5);
-	
+
 	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : Kero native-radio
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-09 19:03:30
 	 */
-	
+
 	var NativeRadioAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin],
 	    init: function init() {
@@ -12347,7 +9671,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.isDynamic = true;
 	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
 	            //if(!u.isArray(datasource)) return;
-	
+
 	            this.radioTemplateArray = [];
 	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
 	                this.radioTemplateArray.push(this.element.childNodes[i]);
@@ -12367,16 +9691,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            //this.radioTemplate.clone().appendTo(this.element)
 	        }
-	
+
 	        var allRadio = this.element.querySelectorAll('[type=radio]');
 	        var allName = this.element.querySelectorAll('[data-role=name]');
 	        for (var k = 0; k < allRadio.length; k++) {
 	            allRadio[k].value = comboData[k].pk || comboData[k].value;
 	            allName[k].innerHTML = comboData[k].name;
 	        }
-	
+
 	        this.radioInputName = allRadio[0].name;
-	
+
 	        this.element.querySelectorAll('[type=radio][name="' + this.radioInputName + '"]').forEach(function (ele) {
 	            (0, _event.on)(ele, 'click', function () {
 	                if (this.checked) {
@@ -12405,9 +9729,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    getValue: function getValue() {
 	        return this.trueValue;
 	    }
-	
+
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: NativeRadioAdapter,
 	    name: 'radio'
@@ -12415,33 +9739,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.NativeRadioAdapter = NativeRadioAdapter;
 
 /***/ },
-/* 77 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.PaginationAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _extend = __webpack_require__(1);
-	
-	var _neouiPagination = __webpack_require__(78);
-	
+
+	var _neouiPagination = __webpack_require__(65);
+
 	var _util = __webpack_require__(5);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	var PaginationAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(comp, options) {
 	        var self = this;
 	        PaginationAdapter.superclass.initialize.apply(this, arguments);
-	
+
 	        //var Pagination = function(element, options, viewModel) {
-	
+
 	        if (!this.dataModel.pageSize() && this.options.pageSize) this.dataModel.pageSize(this.options.pageSize);
 	        this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
 	        //this.$element.pagination(options);
@@ -12452,7 +9776,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.comp.dataModel = this.dataModel;
 	        this.pageChange = (0, _util.getFunction)(this.viewModel, this.options['pageChange']);
 	        this.sizeChange = (0, _util.getFunction)(this.viewModel, this.options['sizeChange']);
-	
+
 	        this.comp.on('pageChange', function (pageIndex) {
 	            if (typeof self.pageChange == 'function') {
 	                self.pageChange(pageIndex);
@@ -12468,29 +9792,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // showMessage({msg:"没有注册sizeChange事件"});
 	            }
 	        });
-	
+
 	        this.dataModel.totalPages.subscribe(function (value) {
 	            self.comp.update({ totalPages: value });
 	        });
-	
+
 	        this.dataModel.pageSize.subscribe(function (value) {
 	            self.comp.update({ pageSize: value });
 	        });
-	
+
 	        this.dataModel.pageIndex.subscribe(function (value) {
 	            self.comp.update({ currentPage: value + 1 });
 	        });
-	
+
 	        this.dataModel.totalRow.subscribe(function (value) {
 	            self.comp.update({ totalCount: value });
 	        });
-	
+
 	        if (this.comp.options.pageList.length > 0) {
 	            this.comp.options.pageSize = this.comp.options.pageList[0];
 	            ///this.comp.trigger('sizeChange', options.pageList[0])
 	            this.dataModel.pageSize(this.comp.options.pageList[0]);
 	        }
-	
+
 	        // 如果datatable已经创建则根据datatable设置分页组件
 	        // self.comp.update({totalPages: this.dataModel.totalPages()})
 	        // self.comp.update({pageSize: this.dataModel.pageSize()})
@@ -12498,21 +9822,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // self.comp.update({totalCount: this.dataModel.totalRow()})
 	        self.comp.update({ totalPages: this.dataModel.totalPages(), pageSize: this.dataModel.pageSize(), currentPage: this.dataModel.pageIndex() + 1, totalCount: this.dataModel.totalRow() });
 	    },
-	
+
 	    defaultPageChange: function defaultPageChange(pageIndex) {
 	        if (this.dataModel.hasPage(pageIndex)) {
 	            this.dataModel.setCurrentPage(pageIndex);
 	        } else {}
 	    },
-	
+
 	    defaultSizeChange: function defaultSizeChange(size, pageIndex) {
 	        this.dataModel.pageSize(size);
 	    },
-	
+
 	    disableChangeSize: function disableChangeSize() {
 	        this.comp.disableChangeSize();
 	    },
-	
+
 	    enableChangeSize: function enableChangeSize() {
 	        this.comp.enableChangeSize();
 	    }
@@ -12521,75 +9845,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-09 19:09:39
 	     */
-	
-	
+
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: PaginationAdapter,
 	    name: 'pagination'
 	});
-	
+
 	exports.PaginationAdapter = PaginationAdapter;
 
 /***/ },
-/* 78 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.pagination = undefined;
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : neoui-pagination
 	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
 	                                                                                                                                                                                                                                                   * Date	  : 2016-08-03 08:45:49
 	                                                                                                                                                                                                                                                   */
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _extend = __webpack_require__(20);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _util = __webpack_require__(17);
-	
-	var _event = __webpack_require__(18);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _extend = __webpack_require__(1);
+
+	var _dom = __webpack_require__(9);
+
+	var _util = __webpack_require__(5);
+
+	var _event = __webpack_require__(10);
+
+	var _compMgr = __webpack_require__(16);
+
 	var pagination = _BaseComponent.BaseComponent.extend({});
-	
+
 	var PageProxy = function PageProxy(options, page) {
 		this.isCurrent = function () {
 			return page == options.currentPage;
 		};
-	
+
 		this.isFirst = function () {
 			return page == 1;
 		};
-	
+
 		this.isLast = function () {
 			return page == options.totalPages;
 		};
-	
+
 		this.isPrev = function () {
 			return page == options.currentPage - 1;
 		};
-	
+
 		this.isNext = function () {
 			return page == options.currentPage + 1;
 		};
-	
+
 		this.isLeftOuter = function () {
 			return page <= options.outerWindow;
 		};
-	
+
 		this.isRightOuter = function () {
 			return options.totalPages - page < options.outerWindow;
 		};
-	
+
 		this.isInsideWindow = function () {
 			if (options.currentPage < options.innerWindow + 1) {
 				return page <= options.innerWindow * 2 + 1;
@@ -12599,7 +9923,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				return Math.abs(options.currentPage - page) <= options.innerWindow;
 			}
 		};
-	
+
 		this.number = function () {
 			return page;
 		};
@@ -12607,35 +9931,35 @@ return /******/ (function(modules) { // webpackBootstrap
 			return options.pageSize;
 		};
 	};
-	
+
 	var View = {
 		firstPage: function firstPage(pagin, options, currentPageProxy) {
 			return '<li role="first"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a >' + options.first + '</a></li>';
 		},
-	
+
 		prevPage: function prevPage(pagin, options, currentPageProxy) {
 			return '<li role="prev"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a  rel="prev">' + options.prev + '</a></li>';
 		},
-	
+
 		nextPage: function nextPage(pagin, options, currentPageProxy) {
 			return '<li role="next"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a  rel="next">' + options.next + '</a></li>';
 		},
-	
+
 		lastPage: function lastPage(pagin, options, currentPageProxy) {
-	
+
 			return '<li role="last"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a >' + options.last + '</a></li>';
 		},
-	
+
 		gap: function gap(pagin, options) {
 			return '<li role="gap" class="disabled"><a href="#">' + options.gap + '</a></li>';
 		},
-	
+
 		page: function page(pagin, options, pageProxy) {
 			return '<li role="page"' + (pageProxy.isCurrent() ? 'class="active"' : '') + '><a ' + (pageProxy.isNext() ? ' rel="next"' : '') + (pageProxy.isPrev() ? 'rel="prev"' : '') + '>' + pageProxy.number() + '</a></li>';
 		}
-	
+
 	};
-	
+
 	//pagination.prototype.compType = 'pagination';
 	pagination.prototype.init = function (element, options) {
 		var self = this;
@@ -12645,7 +9969,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		this.$ul = this.$element; //.find("ul");
 		this.render();
 	};
-	
+
 	pagination.prototype.DEFAULTS = {
 		currentPage: 1,
 		totalPages: 1,
@@ -12666,7 +9990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			return true;
 		}
 	};
-	
+
 	pagination.prototype.update = function (options) {
 		this.$ul.innerHTML = "";
 		this.options = (0, _extend.extend)({}, this.options, options);
@@ -12674,19 +9998,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	pagination.prototype.render = function () {
 		var a = new Date().valueOf();
-	
+
 		var options = this.options;
-	
+
 		if (!options.totalPages) {
 			this.$element.style.display = "none";
 			return;
 		} else {
 			this.$element.style.display = "block";
 		}
-	
+
 		var htmlArr = [];
 		var currentPageProxy = new PageProxy(options, options.currentPage);
-	
+
 		//update pagination by pengyic@yonyou.com
 		//预设显示页码数
 		var windows = 2;
@@ -12700,9 +10024,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				pageProxy = new PageProxy(options, i);
 				htmlArr.push(View.page(this, options, pageProxy));
 			}
-	
+
 			fix = windows - (current - 1) < 0 ? 0 : windows - (current - 1);
-	
+
 			if (total - current - fix <= windows + 1) {
 				for (var i = current + 1; i <= total; i++) {
 					pageProxy = new PageProxy(options, i);
@@ -12715,14 +10039,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				//添加分割'...'
 				htmlArr.push(View.gap(this, options));
-	
+
 				pageProxy = new PageProxy(options, total);
 				htmlArr.push(View.page(this, options, pageProxy));
 			}
 		} else {
 			if (total - current <= windows + 1) {
 				fix = windows - (total - current) < 0 ? 0 : windows - (total - current);
-	
+
 				for (var i = current - windows - fix; i <= total; i++) {
 					pageProxy = new PageProxy(options, i);
 					htmlArr.push(View.page(this, options, pageProxy));
@@ -12740,10 +10064,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				//添加分割'...'
 				htmlArr.push(View.gap(this, options));
-	
+
 				pageProxy = new PageProxy(options, total);
 				htmlArr.push(View.page(this, options, pageProxy));
-	
+
 				//添加分割'...'
 				htmlArr.unshift(View.gap(this, options));
 				pageProxy = new PageProxy(options, 1);
@@ -12790,9 +10114,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		if (options.showState) {
 			var htmlStr = '<div class="pagination-state">' + options.totalText + '&nbsp;' + options.totalCount + '&nbsp;条</div>';
 			htmlArr.push(htmlStr);
-	
+
 			if (options.jumppage || options.pageSize) {
-	
+
 				var pageOption = '';
 				options.pageList.forEach(function (item) {
 					if (options.pageSize - 0 == item) {
@@ -12808,16 +10132,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				//<i class='jump_page fa fa-arrow-circle-right' style='margin-left: 8px; cursor: pointer;'></i>
 			}
 		}
-	
+
 		this.$ul.innerHTML = "";
 		this.$ul.insertAdjacentHTML('beforeEnd', htmlArr.join(''));
-	
+
 		var me = this;
 		(0, _event.on)(this.$ul.querySelector(".pagination-jump"), "click", function () {
 			var jp, pz;
 			jp = me.$ul.querySelector(".page_j").value || options.currentPage;
 			pz = me.$ul.querySelector(".page_z").value || options.pageSize;
-	
+
 			//if (pz != options.pageSize){
 			//	me.$element.trigger('sizeChange', [pz, jp - 1])
 			//}else{
@@ -12828,7 +10152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			//me.$element.trigger('sizeChange', pz)
 			return false;
 		});
-	
+
 		(0, _event.on)(this.$ul.querySelector('[role="first"] a'), 'click', function () {
 			if (options.currentPage <= 1) return;
 			me.firstPage();
@@ -12858,7 +10182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
 				me.page(parseInt(this.innerHTML), options.totalPages, pz);
 				//me.$element.trigger('pageChange', parseInt($(this).html()) - 1)
-	
+
 				return false;
 			});
 		});
@@ -12867,11 +10191,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			me.trigger('sizeChange', pz);
 		});
 	};
-	
+
 	pagination.prototype.page = function (pageIndex, totalPages, pageSize) {
-	
+
 		var options = this.options;
-	
+
 		if (totalPages === undefined) {
 			totalPages = options.totalPages;
 		}
@@ -12881,23 +10205,23 @@ return /******/ (function(modules) { // webpackBootstrap
 		var oldPageSize = options.pageSize;
 		// if (pageIndex > 0 && pageIndex <= totalPages) {
 		// 	if (options.page(pageIndex)) {
-	
+
 		// 		this.$ul.innerHTML="";
 		// 		options.pageSize = pageSize;
 		// 		options.currentPage = pageIndex;
 		// 		options.totalPages = totalPages;
 		// 		this.render();
-	
+
 		// 	}
 		// }else{
 		// 	return false;
 		// }
-	
+
 		if (options.page(pageIndex)) {
 			if (pageIndex < 0) {
 				pageIndex = 0;
 			}
-	
+
 			if (pageIndex > totalPages) {
 				pageIndex = totalPages;
 			}
@@ -12912,57 +10236,57 @@ return /******/ (function(modules) { // webpackBootstrap
 		} else {
 			this.trigger('pageChange', pageIndex - 1);
 		}
-	
+
 		//this.$element.trigger('pageChange', pageIndex)
-	
+
 		return false;
 	};
-	
+
 	pagination.prototype.firstPage = function () {
 		return this.page(1);
 	};
-	
+
 	pagination.prototype.lastPage = function () {
 		return this.page(this.options.totalPages);
 	};
-	
+
 	pagination.prototype.nextPage = function () {
 		return this.page(parseInt(this.options.currentPage) + 1);
 	};
-	
+
 	pagination.prototype.prevPage = function () {
 		return this.page(this.options.currentPage - 1);
 	};
-	
+
 	pagination.prototype.disableChangeSize = function () {
 		this.$element.querySelector('.page_z').setAttribute('readonly', true);
 	};
-	
+
 	pagination.prototype.enableChangeSize = function () {
 		this.$element.querySelector('.page_z').removeAttribute('readonly');
 	};
-	
+
 	function Plugin(option) {
 		return this.each(function () {
 			var $this = $(this);
 			var data = $this.data('u.pagination');
 			var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
-	
+
 			if (!data) $this.data('u.pagination', data = new Pagination(this, options));else data.update(options);
 		});
 	}
-	
+
 	// var old = $.fn.pagination;
-	
+
 	// $.fn.pagination = Plugin
 	// $.fn.pagination.Constructor = Pagination
-	
+
 	if (_compMgr.compMgr) _compMgr.compMgr.regComp({
 		comp: pagination,
 		compAsString: 'u.pagination',
 		css: 'u-pagination'
 	});
-	
+
 	if (document.readyState && document.readyState === 'complete') {
 		_compMgr.compMgr.updateComp();
 	} else {
@@ -12971,30 +10295,30 @@ return /******/ (function(modules) { // webpackBootstrap
 			_compMgr.compMgr.updateComp();
 		});
 	}
-	
+
 	exports.pagination = pagination;
 
 /***/ },
-/* 79 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.PassWordAdapter = undefined;
-	
-	var _string = __webpack_require__(80);
-	
+
+	var _string = __webpack_require__(67);
+
 	var _util = __webpack_require__(5);
-	
+
 	var _env = __webpack_require__(11);
-	
+
 	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * 密码控件
 	 */
@@ -13040,41 +10364,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-09 19:19:33
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: PassWordAdapter,
 	    name: 'password'
 	});
-	
+
 	exports.PassWordAdapter = PassWordAdapter;
 
 /***/ },
-/* 80 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.StringAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _extend = __webpack_require__(1);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : Kero string adapter
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -13091,7 +10415,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.validType = this.options['validType'] || 'string';
 	        this.minLength = this.getOption('minLength');
 	        this.maxLength = this.getOption('maxLength');
-	
+
 	        (0, _event.on)(this.element, 'focus', function () {
 	            if (self.enable) {
 	                self.setShowValue(self.getValue());
@@ -13104,7 +10428,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } catch (e) {}
 	            }
 	        });
-	
+
 	        (0, _event.on)(this.element, 'blur', function (e) {
 	            if (self.enable) {
 	                if (!self.doValidate() && self._needClean()) {
@@ -13123,30 +10447,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	    adapter: StringAdapter,
 	    name: 'string'
 	});
-	
+
 	exports.StringAdapter = StringAdapter;
 
 /***/ },
-/* 81 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.PercentAdapter = undefined;
-	
-	var _float = __webpack_require__(62);
-	
-	var _formater = __webpack_require__(61);
-	
-	var _masker = __webpack_require__(82);
-	
-	var _core = __webpack_require__(63);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _float = __webpack_require__(53);
+
+	var _formater = __webpack_require__(52);
+
+	var _masker = __webpack_require__(69);
+
+	var _core = __webpack_require__(54);
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * 百分比控件
 	 */
@@ -13167,7 +10491,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-09 20:02:50
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	  adapter: PercentAdapter,
 	  name: 'percent'
@@ -13175,33 +10499,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.PercentAdapter = PercentAdapter;
 
 /***/ },
-/* 82 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : Sparrow abstract formater class
 	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
 	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 19:35:26
 	                                                                                                                                                                                                                                                   */
-	
+
 	var _extend = __webpack_require__(1);
-	
+
 	function AbstractMasker() {};
-	
+
 	AbstractMasker.prototype.format = function (obj) {
 		if (obj == null) return null;
-	
+
 		var fObj = this.formatArgument(obj);
 		return this.innerFormat(fObj);
 	};
-	
+
 	/**
 	 * 统一被格式化对象结构
 	 *
@@ -13209,7 +10533,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return
 	 */
 	AbstractMasker.prototype.formatArgument = function (obj) {};
-	
+
 	/**
 	 * 格式化
 	 *
@@ -13217,21 +10541,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return
 	 */
 	AbstractMasker.prototype.innerFormat = function (obj) {};
-	
+
 	/**
 	 * 拆分算法格式化虚基类
 	 */
 	AbstractSplitMasker.prototype = new AbstractMasker();
-	
+
 	function AbstractSplitMasker() {};
 	AbstractSplitMasker.prototype.elements = new Array();
 	AbstractSplitMasker.prototype.format = function (obj) {
 		if (obj == null) return null;
-	
+
 		var fObj = this.formatArgument(obj);
 		return this.innerFormat(fObj);
 	};
-	
+
 	/**
 	 * 统一被格式化对象结构
 	 *
@@ -13241,7 +10565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	AbstractSplitMasker.prototype.formatArgument = function (obj) {
 		return obj;
 	};
-	
+
 	/**
 	 * 格式化
 	 *
@@ -13254,10 +10578,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		var result = "";
 		//dingrf 去掉concat合并数组的方式，换用多维数组来实现 提高效率
 		result = this.getElementsValue(this.elements, obj);
-	
+
 		return new FormatResult(result);
 	};
-	
+
 	/**
 	 * 合并多维数组中的elementValue
 	 * @param {} element
@@ -13275,14 +10599,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return result;
 	};
-	
+
 	AbstractSplitMasker.prototype.getExpress = function () {};
-	
+
 	AbstractSplitMasker.prototype.doSplit = function () {
 		var express = this.getExpress();
 		if (this.elements == null || this.elements.length == 0) this.elements = this.doQuotation(express, this.getSeperators(), this.getReplaceds(), 0);
 	};
-	
+
 	/**
 	 * 处理引号
 	 *
@@ -13317,7 +10641,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				fromIndex = j;
 			}
 		} while (result != null);
-	
+
 		if (fromIndex < express.length) {
 			var childElements = this.doSeperator(express.substring(fromIndex, express.length), seperators, replaced, curSeperator);
 			if (childElements != null && childElements.length > 0)
@@ -13326,7 +10650,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return elements;
 	};
-	
+
 	/**
 	 * 处理其它分隔符
 	 *
@@ -13343,7 +10667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			elements.push(this.getVarElement(express));
 			return elements;
 		}
-	
+
 		if (express.length == 0) return null;
 		var fromIndex = 0;
 		var elements = new Array();
@@ -13361,7 +10685,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							//						elements = elements.concat(childElements);
 							elements.push(childElements);
 					}
-	
+
 					if (replaced[curSeperator] != null) {
 						elements.push(new StringElement(replaced[curSeperator]));
 					} else {
@@ -13371,7 +10695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 		} while (result != null);
-	
+
 		if (fromIndex < express.length) {
 			var childElements = this.doSeperator(express.substring(fromIndex, express.length), seperators, replaced, curSeperator + 1);
 			if (childElements != null && childElements.length > 0)
@@ -13380,66 +10704,66 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return elements;
 	};
-	
+
 	/**
 	 * 地址格式
 	 */
 	AddressMasker.prototype = new AbstractSplitMasker();
-	
+
 	function AddressMasker(formatMeta) {
 		this.update(formatMeta);
 	};
-	
+
 	AddressMasker.prototype.update = function (formatMeta) {
 		this.formatMeta = (0, _extend.extend)({}, AddressMasker.DefaultFormatMeta, formatMeta);
 	};
-	
+
 	AddressMasker.prototype.getExpress = function () {
 		return this.formatMeta.express;
 	};
-	
+
 	AddressMasker.prototype.getReplaceds = function () {
 		return [this.formatMeta.separator];
 	};
-	
+
 	AddressMasker.prototype.getSeperators = function () {
 		return ["(\\s)+?"];
 	};
-	
+
 	AddressMasker.prototype.getVarElement = function (express) {
 		var ex = {};
-	
+
 		if (express == "C") ex.getValue = function (obj) {
 			return obj.country;
 		};
-	
+
 		if (express == "S") ex.getValue = function (obj) {
 			return obj.state;
 		};
-	
+
 		if (express == "T") ex.getValue = function (obj) {
 			return obj.city;
 		};
-	
+
 		if (express == "D") ex.getValue = function (obj) {
 			return obj.section;
 		};
-	
+
 		if (express == "R") ex.getValue = function (obj) {
 			return obj.road;
 		};
-	
+
 		if (express == "P") ex.getValue = function (obj) {
 			return obj.postcode;
 		};
-	
+
 		if (_typeof(ex.getValue) == undefined) return new StringElement(express);else return ex;
 	};
-	
+
 	AddressMasker.prototype.formatArgument = function (obj) {
 		return obj;
 	};
-	
+
 	/**
 	 * <b> 数字格式化  </b>
 	 *
@@ -13454,18 +10778,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	NumberMasker.prototype = new AbstractMasker();
 	NumberMasker.prototype.formatMeta = null;
-	
+
 	/**
 	 *构造方法
 	 */
 	function NumberMasker(formatMeta) {
 		this.update(formatMeta);
 	};
-	
+
 	NumberMasker.prototype.update = function (formatMeta) {
 		this.formatMeta = (0, _extend.extend)({}, NumberMasker.DefaultFormatMeta, formatMeta);
 	};
-	
+
 	/**
 	 *格式化对象
 	 */
@@ -13531,7 +10855,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return charArray;
 	};
-	
+
 	/**
 	 *默认构造方法
 	 */
@@ -13540,21 +10864,21 @@ return /******/ (function(modules) { // webpackBootstrap
 		numberObj.value = obj;
 		return numberObj;
 	};
-	
+
 	/**
 	 * 货币格式
 	 */
 	CurrencyMasker.prototype = new NumberMasker();
 	CurrencyMasker.prototype.formatMeta = null;
-	
+
 	function CurrencyMasker(formatMeta) {
 		this.update(formatMeta);
 	};
-	
+
 	CurrencyMasker.prototype.update = function (formatMeta) {
 		this.formatMeta = (0, _extend.extend)({}, CurrencyMasker.DefaultFormatMeta, formatMeta);
 	};
-	
+
 	/**
 	 * 重载格式方法
 	 * @param {} obj
@@ -13568,21 +10892,21 @@ return /******/ (function(modules) { // webpackBootstrap
 		fo.value = this.formatMeta.curSymbol + fo.value; //fo.value.replace("$", this.formatMeta.curSymbol);
 		return fo;
 	};
-	
+
 	PercentMasker.prototype = new NumberMasker();
-	
+
 	function PercentMasker(formatMeta) {
 		this.update(formatMeta);
 	};
-	
+
 	PercentMasker.prototype.update = function (formatMeta) {
 		this.formatMeta = (0, _extend.extend)({}, NumberMasker.DefaultFormatMeta, formatMeta);
 	};
-	
+
 	PercentMasker.prototype.formatArgument = function (obj) {
 		return obj;
 	};
-	
+
 	PercentMasker.prototype.innerFormat = function (value) {
 		var val = "";
 		if (value != "") {
@@ -13602,7 +10926,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: val
 		};
 	};
-	
+
 	/**
 	 * 将结果输出成HTML代码
 	 * @param {} result
@@ -13619,18 +10943,18 @@ return /******/ (function(modules) { // webpackBootstrap
 		color = result.color;
 		return '<font color="' + color + '">' + result.value + '<\/font>';
 	};
-	
+
 	/**
 	 * 格式解析后形成的单个格式单元
 	 * 适用于基于拆分算法的AbstractSplitFormat，表示拆分后的变量单元
 	 */
 	StringElement.prototype = new Object();
-	
+
 	function StringElement(value) {
 		this.value = value;
 	};
 	StringElement.prototype.value = "";
-	
+
 	StringElement.prototype.getValue = function (obj) {
 		return this.value;
 	};
@@ -13645,7 +10969,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		this.value = value;
 		this.color = color;
 	};
-	
+
 	NumberMasker.DefaultFormatMeta = {
 		isNegRed: true,
 		isMarkEnable: true,
@@ -13654,53 +10978,53 @@ return /******/ (function(modules) { // webpackBootstrap
 		positiveFormat: "n",
 		negativeFormat: "-n"
 	};
-	
+
 	CurrencyMasker.DefaultFormatMeta = (0, _extend.extend)({}, NumberMasker.DefaultFormatMeta, {
 		//curSymbol: "",
 		positiveFormat: "n",
 		negativeFormat: "-n"
 	});
-	
+
 	AddressMasker.defaultFormatMeta = {
 		express: "C S T R P",
 		separator: " "
 	};
-	
+
 	exports.AddressMasker = AddressMasker;
 	exports.NumberMasker = NumberMasker;
 	exports.CurrencyMasker = CurrencyMasker;
 	exports.PercentMasker = PercentMasker;
 
 /***/ },
-/* 83 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.ProgressAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
-	var _neouiProgress = __webpack_require__(84);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiProgress = __webpack_require__(71);
+
+	var _compMgr = __webpack_require__(16);
+
 	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(options) {
 	        var self = this;
 	        ProgressAdapter.superclass.initialize.apply(this, arguments);
-	
+
 	        this.comp = new _neouiProgress.Progress(this.element);
 	        this.element['u.Progress'] = this.comp;
-	
+
 	        this.dataModel.ref(this.field).subscribe(function (value) {
 	            self.modelValueChange(value);
 	        });
 	    },
-	
+
 	    modelValueChange: function modelValueChange(val) {
 	        this.comp.setProgress(val);
 	    }
@@ -13709,46 +11033,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-09 20:02:50
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: ProgressAdapter,
 	    name: 'u-progress'
 	});
-	
+
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 84 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.Progress = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _env = __webpack_require__(19);
-	
-	var _event = __webpack_require__(18);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _dom = __webpack_require__(9);
+
+	var _env = __webpack_require__(11);
+
+	var _event = __webpack_require__(10);
+
+	var _compMgr = __webpack_require__(16);
+
 	var Progress = _BaseComponent.BaseComponent.extend({
 		_Constant: {},
 		_CssClasses: {
 			INDETERMINATE_CLASS: 'u-progress__indeterminate'
 		},
 		setProgress: function setProgress(p) {
-	
+
 			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
 				return;
 			}
-	
+
 			this.progressbar_.style.width = p + '%';
 			return this;
 		},
@@ -13758,11 +11082,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  * @returns {u.Progress}
 	     */
 		setProgressHeight: function setProgressHeight(p) {
-	
+
 			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
 				return;
 			}
-	
+
 			this.progressbar_.style.height = p + '%';
 			this.progressbar_.style.width = '100%';
 			return this;
@@ -13773,11 +11097,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  * @returns {u.Progress}
 	  */
 		setProgressHTML: function setProgressHTML(html) {
-	
+
 			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
 				return;
 			}
-	
+
 			this.progressbar_.innerHTML = html;
 			return this;
 		},
@@ -13786,31 +11110,31 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.auxbar_.style.width = 100 - p + '%';
 			return this;
 		},
-	
+
 		init: function init() {
 			var el = document.createElement('div');
 			el.className = 'progressbar bar bar1';
 			this.element.appendChild(el);
 			this.progressbar_ = el;
-	
+
 			el = document.createElement('div');
 			el.className = 'bufferbar bar bar2';
 			this.element.appendChild(el);
 			this.bufferbar_ = el;
-	
+
 			el = document.createElement('div');
 			el.className = 'auxbar bar bar3';
 			this.element.appendChild(el);
 			this.auxbar_ = el;
-	
+
 			this.progressbar_.style.width = '0%';
 			this.bufferbar_.style.width = '100%';
 			this.auxbar_.style.width = '0%';
-	
+
 			(0, _dom.addClass)(this.element, 'is-upgraded');
-	
+
 			if (_env.env.isIE8 || _env.env.isIE9) {
-	
+
 				if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
 					var p = 0;
 					var oThis = this;
@@ -13822,13 +11146,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 		}
-	
+
 	}); /**
 	     * Module : neoui-progress
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-03 10:46:37
 	     */
-	
+
 	_compMgr.compMgr.regComp({
 		comp: Progress,
 		compAsString: 'u.Progress',
@@ -13845,42 +11169,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Progress = Progress;
 
 /***/ },
-/* 85 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.RadioAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _util = __webpack_require__(5);
-	
+
 	var _dom = __webpack_require__(9);
-	
+
 	var _event = __webpack_require__(10);
-	
-	var _neouiRadio = __webpack_require__(86);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiRadio = __webpack_require__(73);
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : Kero percent
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-10 10:33:09
 	 */
-	
+
 	var RadioAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init(options) {
@@ -13902,7 +11226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.comp = new _neouiRadio.Radio(this.element);
 	            this.element['u.Radio'] = this.comp;
 	            this.eleValue = this.comp._btnElement.value;
-	
+
 	            this.comp.on('change', function (event) {
 	                if (self.slice) return;
 	                var modelValue = self.dataModel.getValue(self.field);
@@ -13912,7 +11236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            });
 	        }
-	
+
 	        // 如果存在其他
 	        if (this.options['hasOther']) {
 	            var node = null;
@@ -13929,7 +11253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            self.otherInput = (0, _dom.makeDOM)('<input type="text" style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
 	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
 	            self.lastRadio.value = '';
-	
+
 	            var comp;
 	            if (self.lastLabel['u.Radio']) {
 	                comp = self.lastLabel['u.Radio'];
@@ -13943,7 +11267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    self.dataModel.setValue(self.field, comp._btnElement.value);
 	                }
 	            });
-	
+
 	            (0, _event.on)(self.otherInput, 'blur', function (e) {
 	                self.lastRadio.oldValue = self.lastRadio.value;
 	                self.lastRadio.value = this.value;
@@ -13953,7 +11277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                (0, _event.stopEvent)(e);
 	            });
 	        }
-	
+
 	        this.dataModel.ref(this.field).subscribe(function (value) {
 	            self.modelValueChange(value);
 	        });
@@ -13967,20 +11291,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            //this.radioTemplate.clone().appendTo(this.element)
 	        }
-	
+
 	        var allRadio = this.element.querySelectorAll('[type=radio]');
 	        var allName = this.element.querySelectorAll('.u-radio-label');
 	        for (var k = 0; k < allRadio.length; k++) {
 	            allRadio[k].value = comboData[k].pk || comboData[k].value;
 	            allName[k].innerHTML = comboData[k].name;
 	        }
-	
+
 	        this.radioInputName = allRadio[0].name;
-	
+
 	        this.element.querySelectorAll('.u-radio').forEach(function (ele) {
 	            var comp = new _neouiRadio.Radio(ele);
 	            ele['u.Radio'] = comp;
-	
+
 	            comp.on('change', function (event) {
 	                if (comp._btnElement.checked) {
 	                    self.dataModel.setValue(self.field, comp._btnElement.value);
@@ -13988,7 +11312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 	        });
 	    },
-	
+
 	    modelValueChange: function modelValueChange(value) {
 	        if (this.slice) return;
 	        var fetch = false;
@@ -14015,7 +11339,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.otherInput.value = value;
 	        }
 	    },
-	
+
 	    setEnable: function setEnable(enable) {
 	        this.enable = enable === true || enable === 'true';
 	        if (this.dynamic) {
@@ -14036,7 +11360,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: RadioAdapter,
 	    name: 'u-radio'
@@ -14044,39 +11368,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.RadioAdapter = RadioAdapter;
 
 /***/ },
-/* 86 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.Radio = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _env = __webpack_require__(19);
-	
-	var _event = __webpack_require__(18);
-	
-	var _ripple = __webpack_require__(27);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _dom = __webpack_require__(9);
+
+	var _env = __webpack_require__(11);
+
+	var _event = __webpack_require__(10);
+
+	var _ripple = __webpack_require__(20);
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : neoui-radio
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-03 11:16:00
 	 */
-	
+
 	var Radio = _BaseComponent.BaseComponent.extend({
 	    Constant_: {
 	        TINY_TIMEOUT: 0.001
 	    },
-	
+
 	    _CssClasses: {
 	        IS_FOCUSED: 'is-focused',
 	        IS_DISABLED: 'is-disabled',
@@ -14087,24 +11411,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	        RADIO_OUTER_CIRCLE: 'u-radio-outer-circle',
 	        RADIO_INNER_CIRCLE: 'u-radio-inner-circle'
 	    },
-	
+
 	    init: function init() {
 	        this._btnElement = this.element.querySelector('input');
-	
+
 	        this._boundChangeHandler = this._onChange.bind(this);
 	        this._boundFocusHandler = this._onChange.bind(this);
 	        this._boundBlurHandler = this._onBlur.bind(this);
 	        this._boundMouseUpHandler = this._onMouseup.bind(this);
-	
+
 	        var outerCircle = document.createElement('span');
 	        (0, _dom.addClass)(outerCircle, this._CssClasses.RADIO_OUTER_CIRCLE);
-	
+
 	        var innerCircle = document.createElement('span');
 	        (0, _dom.addClass)(innerCircle, this._CssClasses.RADIO_INNER_CIRCLE);
-	
+
 	        this.element.appendChild(outerCircle);
 	        this.element.appendChild(innerCircle);
-	
+
 	        var rippleContainer;
 	        //if (this.element.classList.contains( this._CssClasses.RIPPLE_EFFECT)) {
 	        //  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
@@ -14113,24 +11437,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_EFFECT);
 	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CENTER);
 	        rippleContainer.addEventListener('mouseup', this._boundMouseUpHandler);
-	
+
 	        //var ripple = document.createElement('span');
 	        //ripple.classList.add(this._CssClasses.RIPPLE);
-	
+
 	        //rippleContainer.appendChild(ripple);
 	        this.element.appendChild(rippleContainer);
 	        new _ripple.URipple(rippleContainer);
 	        //}
-	
+
 	        this._btnElement.addEventListener('change', this._boundChangeHandler);
 	        this._btnElement.addEventListener('focus', this._boundFocusHandler);
 	        this._btnElement.addEventListener('blur', this._boundBlurHandler);
 	        this.element.addEventListener('mouseup', this._boundMouseUpHandler);
-	
+
 	        this._updateClasses();
 	        (0, _dom.addClass)(this.element, this._CssClasses.IS_UPGRADED);
 	    },
-	
+
 	    _onChange: function _onChange(event) {
 	        // Since other radio buttons don't get change events, we need to look for
 	        // them to update their classes.
@@ -14146,7 +11470,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        this.trigger('change', { isChecked: this._btnElement.checked });
 	    },
-	
+
 	    /**
 	     * Handle focus.
 	     *
@@ -14156,7 +11480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _onFocus: function _onFocus(event) {
 	        (0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
 	    },
-	
+
 	    /**
 	     * Handle lost focus.
 	     *
@@ -14166,7 +11490,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _onBlur: function _onBlur(event) {
 	        (0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
 	    },
-	
+
 	    /**
 	     * Handle mouseup.
 	     *
@@ -14176,7 +11500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _onMouseup: function _onMouseup(event) {
 	        this._blur();
 	    },
-	
+
 	    /**
 	     * Update classes.
 	     *
@@ -14186,23 +11510,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.checkDisabled();
 	        this.checkToggleState();
 	    },
-	
+
 	    /**
 	     * Add blur.
 	     *
 	     * @private
 	     */
 	    _blur: function _blur() {
-	
+
 	        // TODO: figure out why there's a focus event being fired after our blur,
 	        // so that we can avoid this hack.
 	        window.setTimeout(function () {
 	            this._btnElement.blur();
 	        }.bind(this), /** @type {number} */this.Constant_.TINY_TIMEOUT);
 	    },
-	
+
 	    // Public methods.
-	
+
 	    /**
 	     * Check the components disabled state.
 	     *
@@ -14215,7 +11539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
 	        }
 	    },
-	
+
 	    /**
 	     * Check the components toggled state.
 	     *
@@ -14228,7 +11552,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
 	        }
 	    },
-	
+
 	    /**
 	     * Disable radio.
 	     *
@@ -14238,7 +11562,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._btnElement.disabled = true;
 	        this._updateClasses();
 	    },
-	
+
 	    /**
 	     * Enable radio.
 	     *
@@ -14248,7 +11572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._btnElement.disabled = false;
 	        this._updateClasses();
 	    },
-	
+
 	    /**
 	     * Check radio.
 	     *
@@ -14258,20 +11582,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._btnElement.checked = true;
 	        this._updateClasses();
 	    },
-	
+
 	    uncheck: function uncheck() {
 	        this._btnElement.checked = false;
 	        this._updateClasses();
 	    }
-	
+
 	});
-	
+
 	_compMgr.compMgr.regComp({
 	    comp: Radio,
 	    compAsString: 'u.Radio',
 	    css: 'u-radio'
 	});
-	
+
 	if (document.readyState && document.readyState === 'complete') {
 	    _compMgr.compMgr.updateComp();
 	} else {
@@ -14280,31 +11604,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _compMgr.compMgr.updateComp();
 	    });
 	}
-	
+
 	exports.Radio = Radio;
 
 /***/ },
-/* 87 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.SwitchAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
-	var _neouiSwitch = __webpack_require__(88);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiSwitch = __webpack_require__(75);
+
+	var _compMgr = __webpack_require__(16);
+
 	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(options) {
 	        var self = this;
 	        SwitchAdapter.superclass.initialize.apply(this, arguments);
-	
+
 	        this.comp = new _neouiSwitch.Switch(this.element);
 	        this.element['u.Switch'] = this.comp;
 	        this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
@@ -14317,12 +11641,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                self.dataModel.setValue(self.field, self.unCheckedValue);
 	            }
 	        });
-	
+
 	        this.dataModel.ref(this.field).subscribe(function (value) {
 	            self.modelValueChange(value);
 	        });
 	    },
-	
+
 	    modelValueChange: function modelValueChange(val) {
 	        if (this.slice) return;
 	        if (this.comp._inputElement.checked != (val === this.checkedValue)) {
@@ -14343,40 +11667,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-10 10:42:15
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: SwitchAdapter,
 	    name: 'u-switch'
 	});
-	
+
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 88 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.Switch = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _event = __webpack_require__(18);
-	
-	var _ripple = __webpack_require__(27);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _dom = __webpack_require__(9);
+
+	var _event = __webpack_require__(10);
+
+	var _ripple = __webpack_require__(20);
+
+	var _compMgr = __webpack_require__(16);
+
 	var Switch = _BaseComponent.BaseComponent.extend({
 		_Constant: {
 			TINY_TIMEOUT: 0.001
 		},
-	
+
 		_CssClasses: {
 			INPUT: 'u-switch-input',
 			TRACK: 'u-switch-track',
@@ -14386,26 +11710,26 @@ return /******/ (function(modules) { // webpackBootstrap
 			IS_DISABLED: 'is-disabled',
 			IS_CHECKED: 'is-checked'
 		},
-	
+
 		init: function init() {
 			this._inputElement = this.element.querySelector('.' + this._CssClasses.INPUT);
-	
+
 			var track = document.createElement('div');
 			(0, _dom.addClass)(track, this._CssClasses.TRACK);
-	
+
 			var thumb = document.createElement('div');
 			(0, _dom.addClass)(thumb, this._CssClasses.THUMB);
-	
+
 			var focusHelper = document.createElement('span');
 			(0, _dom.addClass)(focusHelper, this._CssClasses.FOCUS_HELPER);
-	
+
 			thumb.appendChild(focusHelper);
-	
+
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
-	
+
 			this.boundMouseUpHandler = this._onMouseUp.bind(this);
-	
+
 			//if (this.element.classList.contains(this._CssClasses.RIPPLE_EFFECT)) {
 			//  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
 			this._rippleContainerElement = document.createElement('span');
@@ -14413,52 +11737,52 @@ return /******/ (function(modules) { // webpackBootstrap
 			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_EFFECT);
 			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CENTER);
 			this._rippleContainerElement.addEventListener('mouseup', this.boundMouseUpHandler);
-	
+
 			//var ripple = document.createElement('span');
 			//ripple.classList.add(this._CssClasses.RIPPLE);
-	
+
 			//this._rippleContainerElement.appendChild(ripple);
 			this.element.appendChild(this._rippleContainerElement);
 			new _ripple.URipple(this._rippleContainerElement);
 			//}
-	
+
 			this.boundChangeHandler = this._onChange.bind(this);
 			this.boundFocusHandler = this._onFocus.bind(this);
 			this.boundBlurHandler = this._onBlur.bind(this);
-	
+
 			this._inputElement.addEventListener('change', this.boundChangeHandler);
 			this._inputElement.addEventListener('focus', this.boundFocusHandler);
 			this._inputElement.addEventListener('blur', this.boundBlurHandler);
 			this.element.addEventListener('mouseup', this.boundMouseUpHandler);
-	
+
 			this._updateClasses();
 			(0, _dom.addClass)(this.element, 'is-upgraded');
 		},
-	
+
 		_onChange: function _onChange(event) {
 			this._updateClasses();
 			this.trigger('change', {
 				isChecked: this._inputElement.checked
 			});
 		},
-	
+
 		_onFocus: function _onFocus(event) {
 			(0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
 		},
-	
+
 		_onBlur: function _onBlur(event) {
 			(0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
 		},
-	
+
 		_onMouseUp: function _onMouseUp(event) {
 			this._blur();
 		},
-	
+
 		_updateClasses: function _updateClasses() {
 			this.checkDisabled();
 			this.checkToggleState();
 		},
-	
+
 		_blur: function _blur() {
 			// TODO: figure out why there's a focus event being fired after our blur,
 			// so that we can avoid this hack.
@@ -14466,9 +11790,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				this._inputElement.blur();
 			}.bind(this), /** @type {number} */this._Constant.TINY_TIMEOUT);
 		},
-	
+
 		// Public methods.
-	
+
 		checkDisabled: function checkDisabled() {
 			if (this._inputElement.disabled) {
 				(0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
@@ -14476,7 +11800,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
 			}
 		},
-	
+
 		checkToggleState: function checkToggleState() {
 			if (this._inputElement.checked) {
 				(0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
@@ -14484,12 +11808,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
 			}
 		},
-	
+
 		isChecked: function isChecked() {
 			//return hasClass(this.element,this._CssClasses.IS_CHECKED);
 			return this._inputElement.checked;
 		},
-	
+
 		toggle: function toggle() {
 			//return;
 			if (this.isChecked()) {
@@ -14498,39 +11822,39 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.check();
 			}
 		},
-	
+
 		disable: function disable() {
 			this._inputElement.disabled = true;
 			this._updateClasses();
 		},
-	
+
 		enable: function enable() {
 			this._inputElement.disabled = false;
 			this._updateClasses();
 		},
-	
+
 		check: function check() {
 			this._inputElement.checked = true;
 			this._updateClasses();
 		},
-	
+
 		uncheck: function uncheck() {
 			this._inputElement.checked = false;
 			this._updateClasses();
 		}
-	
+
 	}); /**
 	     * Module : neoui-switch
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-03 13:39:55
 	     */
-	
+
 	_compMgr.compMgr.regComp({
 		comp: Switch,
 		compAsString: 'u.Switch',
 		css: 'u-switch'
 	});
-	
+
 	if (document.readyState && document.readyState === 'complete') {
 		_compMgr.compMgr.updateComp();
 	} else {
@@ -14539,34 +11863,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			_compMgr.compMgr.updateComp();
 		});
 	}
-	
+
 	exports.Switch = Switch;
 
 /***/ },
-/* 89 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.TextAreaAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _event = __webpack_require__(10);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
@@ -14575,7 +11899,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (!this.element) {
 	            throw new Error('not found TEXTAREA element, u-meta:' + JSON.stringify(this.options));
 	        };
-	
+
 	        (0, _event.on)(this.element, 'focus', function () {
 	            self.setShowValue(self.getValue());
 	        });
@@ -14588,39 +11912,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-10 12:40:46
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: TextAreaAdapter,
 	    name: 'textarea'
 	});
-	
+
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 90 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.TextFieldAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _extend = __webpack_require__(1);
-	
-	var _neouiTextfield = __webpack_require__(91);
-	
-	var _float = __webpack_require__(62);
-	
-	var _string = __webpack_require__(80);
-	
-	var _integer = __webpack_require__(72);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiTextfield = __webpack_require__(24);
+
+	var _float = __webpack_require__(53);
+
+	var _string = __webpack_require__(67);
+
+	var _integer = __webpack_require__(59);
+
+	var _compMgr = __webpack_require__(16);
+
 	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
 	    /**
 	     *
@@ -14638,10 +11962,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        //this.viewModel = options['model'];
 	        var dataType = this.dataModel.getMeta(this.field, 'type') || 'string';
 	        //var dataType = this.options['dataType'] || 'string';
-	
+
 	        this.comp = new _neouiTextfield.Text(this.element);
 	        this.element['u.Text'] = this.comp;
-	
+
 	        if (dataType === 'float') {
 	            this.trueAdpt = new _float.FloatAdapter(options);
 	        } else if (dataType === 'string') {
@@ -14652,7 +11976,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" + this.field + "'");
 	        }
 	        (0, _extend.extend)(this, this.trueAdpt);
-	
+
 	        this.trueAdpt.comp = this.comp;
 	        this.trueAdpt.setShowValue = function (showValue) {
 	            this.showValue = showValue;
@@ -14667,309 +11991,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-10 13:00:27
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: TextFieldAdapter,
 	    name: 'u-text'
 	    //dataType: 'float'
 	});
-	
+
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 91 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.Text = undefined;
-	
-	var _BaseComponent = __webpack_require__(15);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _env = __webpack_require__(19);
-	
-	var _event = __webpack_require__(18);
-	
-	var _compMgr = __webpack_require__(22);
-	
-	var Text = _BaseComponent.BaseComponent.extend({
-	    _Constant: {
-	        NO_MAX_ROWS: -1,
-	        MAX_ROWS_ATTRIBUTE: 'maxrows'
-	    },
-	
-	    _CssClasses: {
-	        LABEL: 'u-label',
-	        INPUT: 'u-input',
-	        IS_DIRTY: 'is-dirty',
-	        IS_FOCUSED: 'is-focused',
-	        IS_DISABLED: 'is-disabled',
-	        IS_INVALID: 'is-invalid',
-	        IS_UPGRADED: 'is-upgraded'
-	    },
-	
-	    init: function init() {
-	        var oThis = this;
-	        this.maxRows = this._Constant.NO_MAX_ROWS;
-	        this.label_ = this.element.querySelector('.' + this._CssClasses.LABEL);
-	        this._input = this.element.querySelector('input');
-	
-	        if (this._input) {
-	            if (this._input.hasAttribute(
-	            /** @type {string} */this._Constant.MAX_ROWS_ATTRIBUTE)) {
-	                this.maxRows = parseInt(this._input.getAttribute(
-	                /** @type {string} */this._Constant.MAX_ROWS_ATTRIBUTE), 10);
-	                if (isNaN(this.maxRows)) {
-	                    this.maxRows = this._Constant.NO_MAX_ROWS;
-	                }
-	            }
-	
-	            this.boundUpdateClassesHandler = this._updateClasses.bind(this);
-	            this.boundFocusHandler = this._focus.bind(this);
-	            this.boundBlurHandler = this._blur.bind(this);
-	            this.boundResetHandler = this._reset.bind(this);
-	            this._input.addEventListener('input', this.boundUpdateClassesHandler);
-	            if (_env.env.isIE8) {
-	                this._input.addEventListener('propertychange', function () {
-	                    oThis._updateClasses();
-	                });
-	            }
-	            this._input.addEventListener('focus', this.boundFocusHandler);
-	            if (_env.env.isIE8 || _env.env.isIE9) {
-	                if (this.label_) {
-	                    this.label_.addEventListener('click', function () {
-	                        this._input.focus();
-	                    }.bind(this));
-	                }
-	            }
-	
-	            this._input.addEventListener('blur', this.boundBlurHandler);
-	            this._input.addEventListener('reset', this.boundResetHandler);
-	
-	            if (this.maxRows !== this._Constant.NO_MAX_ROWS) {
-	                // TODO: This should handle pasting multi line text.
-	                // Currently doesn't.
-	                this.boundKeyDownHandler = this._down.bind(this);
-	                this._input.addEventListener('keydown', this.boundKeyDownHandler);
-	            }
-	            var invalid = (0, _dom.hasClass)(this.element, this._CssClasses.IS_INVALID);
-	            this._updateClasses();
-	            (0, _dom.addClass)(this.element, this._CssClasses.IS_UPGRADED);
-	            if (invalid) {
-	                (0, _dom.addClass)(this.element, this._CssClasses.IS_INVALID);
-	            }
-	        }
-	    },
-	
-	    /**
-	     * Handle input being entered.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _down: function _down(event) {
-	        var currentRowCount = event.target.value.split('\n').length;
-	        if (event.keyCode === 13) {
-	            if (currentRowCount >= this.maxRows) {
-	                event.preventDefault();
-	            }
-	        }
-	    },
-	    /**
-	     * Handle focus.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _focus: function _focus(event) {
-	        (0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
-	    },
-	    /**
-	     * Handle lost focus.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _blur: function _blur(event) {
-	        (0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
-	    },
-	    /**
-	     * Handle reset event from out side.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _reset: function _reset(event) {
-	        this._updateClasses();
-	    },
-	    /**
-	     * Handle class updates.
-	     *
-	     * @private
-	     */
-	    _updateClasses: function _updateClasses() {
-	        this.checkDisabled();
-	        this.checkValidity();
-	        this.checkDirty();
-	    },
-	
-	    // Public methods.
-	
-	    /**
-	     * Check the disabled state and update field accordingly.
-	     *
-	     * @public
-	     */
-	    checkDisabled: function checkDisabled() {
-	        if (this._input.disabled) {
-	            (0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
-	        } else {
-	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
-	        }
-	    },
-	    /**
-	     * Check the validity state and update field accordingly.
-	     *
-	     * @public
-	     */
-	    checkValidity: function checkValidity() {
-	        if (this._input.validity) {
-	            if (this._input.validity.valid) {
-	                (0, _dom.removeClass)(this.element, this._CssClasses.IS_INVALID);
-	            } else {
-	                (0, _dom.addClass)(this.element, this._CssClasses.IS_INVALID);
-	            }
-	        }
-	    },
-	    /**
-	     * Check the dirty state and update field accordingly.
-	     *
-	     * @public
-	     */
-	    checkDirty: function checkDirty() {
-	        if (this._input.value && this._input.value.length > 0) {
-	            (0, _dom.addClass)(this.element, this._CssClasses.IS_DIRTY);
-	        } else {
-	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_DIRTY);
-	        }
-	    },
-	    /**
-	     * Disable text field.
-	     *
-	     * @public
-	     */
-	    disable: function disable() {
-	        this._input.disabled = true;
-	        this._updateClasses();
-	    },
-	    /**
-	     * Enable text field.
-	     *
-	     * @public
-	     */
-	    enable: function enable() {
-	        this._input.disabled = false;
-	        this._updateClasses();
-	    },
-	    /**
-	     * Update text field value.
-	     *
-	     * @param {string} value The value to which to set the control (optional).
-	     * @public
-	     */
-	    change: function change(value) {
-	        this._input.value = value || '';
-	        this._updateClasses();
-	    }
-	
-	});
-	
-	//if (compMgr)
-	//    compMgr.addPlug({
-	//        name:'text',
-	//        plug: Text
-	//    })
-	
-	/**
-	 * Module : neoui-combo
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-02 14:22:46
-	 */
-	
-	_compMgr.compMgr.regComp({
-	    comp: Text,
-	    compAsString: 'u.Text',
-	    css: 'u-text'
-	});
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
-	exports.Text = Text;
 
-/***/ },
-/* 92 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.TimeAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
+
 	var _valueMixin = __webpack_require__(7);
-	
+
 	var _enableMixin = __webpack_require__(8);
-	
+
 	var _requiredMixin = __webpack_require__(12);
-	
+
 	var _validateMixin = __webpack_require__(13);
-	
+
 	var _event = __webpack_require__(10);
-	
-	var _core = __webpack_require__(63);
-	
+
+	var _core = __webpack_require__(54);
+
 	var _env = __webpack_require__(11);
-	
-	var _dateUtils = __webpack_require__(65);
-	
-	var _neouiClockpicker = __webpack_require__(93);
-	
-	var _neouiTime = __webpack_require__(94);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _dateUtils = __webpack_require__(56);
+
+	var _neouiClockpicker = __webpack_require__(79);
+
+	var _neouiTime = __webpack_require__(80);
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : Kero time adapter
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-10 12:40:46
 	 */
-	
+
 	var TimeAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(options) {
 	        var self = this;
 	        TimeAdapter.superclass.initialize.apply(this, arguments);
 	        this.validType = 'time';
-	
+
 	        this.maskerMeta = _core.core.getMaskerMeta('time') || {};
 	        this.maskerMeta.format = this.dataModel.getMeta(this.field, "format") || this.maskerMeta.format;
-	
+
 	        if (this.options.type == 'u-clockpicker' && !_env.env.isIE8) this.comp = new _neouiClockpicker.ClockPicker(this.element);else this.comp = new _neouiTime.Time(this.element);
 	        var dataType = this.dataModel.getMeta(this.field, 'type');
 	        this.dataType = dataType || 'string';
-	
+
 	        this.comp.on('valueChange', function (event) {
 	            self.slice = true;
 	            if (event.value == '') {
@@ -14993,7 +12077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    self.dataModel.setValue(self.field, event.value);
 	                }
 	            }
-	
+
 	            self.slice = false;
 	            //self.setValue(event.value);
 	        });
@@ -15014,52 +12098,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    setEnable: function setEnable(enable) {}
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: TimeAdapter,
 	    name: 'u-time'
 	});
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: TimeAdapter,
 	    name: 'u-clockpicker'
 	});
-	
+
 	exports.TimeAdapter = TimeAdapter;
 
 /***/ },
-/* 93 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.ClockPicker = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _event = __webpack_require__(18);
-	
-	var _compMgr = __webpack_require__(22);
-	
-	var _env = __webpack_require__(19);
-	
-	var _extend = __webpack_require__(20);
-	
-	var _core = __webpack_require__(68);
-	
-	var _dateUtils = __webpack_require__(70);
-	
+
+	var _dom = __webpack_require__(9);
+
+	var _event = __webpack_require__(10);
+
+	var _compMgr = __webpack_require__(16);
+
+	var _env = __webpack_require__(11);
+
+	var _extend = __webpack_require__(1);
+
+	var _core = __webpack_require__(54);
+
+	var _dateUtils = __webpack_require__(56);
+
 	/**
 	 * Module : neoui-clockpicker
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-08-11 15:17:07
 	 */
-	
+
 	var ClockPicker = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
@@ -15073,7 +12157,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.input.setAttribute('readonly', 'readonly');
 			}
 			(0, _dom.addClass)(this.element, 'u-text');
-	
+
 			this.template = '<div class="u-clock-ul popover clockpicker-popover" style="padding:0px;">';
 			this.template += '<div class="popover-title"><button class="u-button u-date-clean u-clock-clean" >清空</button><span class="clockpicker-span-hours">02</span> : <span class="clockpicker-span-minutes text-primary">01</span><span class="clockpicker-span-am-pm"></span></div>';
 			this.template += '<div class="popover-content">';
@@ -15134,12 +12218,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				self._inputFocus = false;
 				this.setValue(this.input.value);
 			}.bind(this));
-	
+
 			var d = new Date();
 			this.defaultHour = d.getHours() > 9 ? '' + d.getHours() : '0' + d.getHours();
 			this.defaultMin = d.getMinutes() > 9 ? '' + d.getMinutes() : '0' + d.getMinutes();
 			this.defaultSec = d.getSeconds() > 9 ? '' + d.getSeconds() : '0' + d.getSeconds();
-	
+
 			this.hours = this.defaultHour;
 			this.min = this.defaultMin;
 			this.sec = this.defaultSec;
@@ -15148,11 +12232,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			// 添加右侧图标click事件
 			this.clickEvent();
 		},
-	
+
 		_zoomIn: function _zoomIn(newPage) {
-	
+
 			(0, _dom.addClass)(newPage, 'zoom-in');
-	
+
 			var cleanup = function () {
 				(0, _event.off)(newPage, 'transitionend', cleanup);
 				(0, _event.off)(newPage, 'webkitTransitionEnd', cleanup);
@@ -15168,12 +12252,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _dom.removeClass)(newPage, 'zoom-in');
 			}, 150);
 		},
-	
+
 		createPanel: function createPanel() {
 			if (this.panelDiv) return;
 			var oThis = this;
 			this.panelDiv = (0, _dom.makeDOM)(this.template);
-	
+
 			this.hand = this.panelDiv.querySelector('line');
 			this.bg = this.panelDiv.querySelector('.clockpicker-canvas-bg');
 			this.fg = this.panelDiv.querySelector('.clockpicker-canvas-fg');
@@ -15197,7 +12281,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.setHand();
 				}
 			}.bind(this));
-	
+
 			(0, _event.on)(this.minDiv, 'click', function (e) {
 				var target = e.target;
 				if ((0, _dom.hasClass)(target, 'clockpicker-tick')) {
@@ -15212,13 +12296,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.hide();
 				}
 			}.bind(this));
-	
+
 			(0, _event.on)(this.btnClean, 'click', function (e) {
 				this.setValue("");
 				this.hide();
 			}.bind(this));
 		},
-	
+
 		setHand: function setHand() {
 			var dialRadius = 100,
 			    innerRadius = 54,
@@ -15233,12 +12317,12 @@ return /******/ (function(modules) { // webpackBootstrap
 			    y = -Math.cos(radian) * radius;
 			this.setHandFun(x, y);
 		},
-	
+
 		setHandFun: function setHandFun(x, y, roundBy5, dragging) {
 			var dialRadius = 100,
 			    innerRadius = 54,
 			    outerRadius = 80;
-	
+
 			var radian = Math.atan2(x, -y),
 			    isHours = this.currentView === 'hours',
 			    unit = Math.PI / (isHours ? 6 : 30),
@@ -15247,22 +12331,22 @@ return /******/ (function(modules) { // webpackBootstrap
 			    inner = isHours && z < (outerRadius + innerRadius) / 2,
 			    radius = inner ? innerRadius : outerRadius,
 			    value;
-	
+
 			if (this.twelvehour) {
 				radius = outerRadius;
 			}
-	
+
 			// Radian should in range [0, 2PI]
 			if (radian < 0) {
 				radian = Math.PI * 2 + radian;
 			}
-	
+
 			// Get the round value
 			value = Math.round(radian / unit);
-	
+
 			// Get the round radian
 			radian = value * unit;
-	
+
 			// Correct the hours or minutes
 			if (options.twelvehour) {
 				if (isHours) {
@@ -15292,7 +12376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				}
 			}
-	
+
 			// Set clock hand and others' position
 			var w = this.panelDiv.querySelector('.clockpicker-plate').offsetWidth;
 			var u = w / 200;
@@ -15300,7 +12384,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			    cy = -Math.cos(radian) * radius * u;
 			var iu = 100 * u;
 			this.panelDiv.querySelector('g').setAttribute('transform', 'translate(' + iu + ',' + iu + ')');
-	
+
 			this.hand.setAttribute('x2', cx);
 			this.hand.setAttribute('y2', cy);
 			this.bg.setAttribute('cx', cx);
@@ -15308,17 +12392,17 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.fg.setAttribute('cx', cx);
 			this.fg.setAttribute('cy', cy);
 		},
-	
+
 		setValue: function setValue(value) {
 			value = value ? value : '';
-	
+
 			if (value == '') {
 				this.input.value = '';
-	
+
 				this.trigger('valueChange', { value: '' });
 				return;
 			}
-	
+
 			if (value && value.indexOf(':') > -1) {
 				var vA = value.split(":");
 				var hour = vA[0];
@@ -15330,7 +12414,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var sec = vA[2] || 0;
 				sec = sec % 60;
 				this.sec = sec > 9 ? '' + sec : '0' + sec;
-	
+
 				value = this.hours + ':' + this.min + ':' + this.sec;
 			} else {
 				this.hours = this.defaultHour;
@@ -15343,10 +12427,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			_date.setSeconds(this.sec);
 			var showValue = _dateUtils.date.format(_date, this.format);
 			this.input.value = showValue;
-	
+
 			this.trigger('valueChange', { value: value });
 		},
-	
+
 		focusEvent: function focusEvent() {
 			var self = this;
 			(0, _event.on)(this.input, 'focus', function (e) {
@@ -15359,7 +12443,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			});
 		},
-	
+
 		//下拉图标的点击事件
 		clickEvent: function clickEvent() {
 			var self = this;
@@ -15374,12 +12458,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			});
 		},
-	
+
 		show: function show(evt) {
-	
+
 			var inputValue = this.input.value;
 			this.setValue(inputValue);
-	
+
 			var self = this;
 			this.createPanel();
 			this.minDiv.style.visibility = 'hidden';
@@ -15387,7 +12471,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.currentView = 'hours';
 			this.titleHourSpan.innerHTML = this.hours;
 			this.titleMinSpan.innerHTML = this.min;
-	
+
 			/*因为元素可能变化位置，所以显示的时候需要重新计算*/
 			if (_env.isMobile) {
 				this.panelDiv.style.position = 'fixed';
@@ -15409,36 +12493,36 @@ return /******/ (function(modules) { // webpackBootstrap
 						position: "bottomLeft"
 					});
 				} else {
-	
+
 					var bodyWidth = document.body.clientWidth,
 					    bodyHeight = document.body.clientHeight,
 					    panelWidth = this.panelDiv.offsetWidth,
 					    panelHeight = this.panelDiv.offsetHeight;
-	
+
 					this.element.appendChild(this.panelDiv);
 					this.element.style.position = 'relative';
 					this.left = this.input.offsetLeft;
 					var inputHeight = this.input.offsetHeight;
 					this.top = this.input.offsetTop + inputHeight;
-	
+
 					if (this.left + panelWidth > bodyWidth) {
 						this.left = bodyWidth - panelWidth;
 					}
-	
+
 					if (this.top + panelHeight > bodyHeight) {
 						this.top = bodyHeight - panelHeight;
 					}
-	
+
 					this.panelDiv.style.left = this.left + 'px';
 					this.panelDiv.style.top = this.top + 'px';
 				}
 			}
-	
+
 			this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
 			(0, _dom.addClass)(this.panelDiv, 'is-visible');
-	
+
 			this.setHand();
-	
+
 			var callback = function (e) {
 				if (e !== evt && e.target !== this.input && !self.clickPanel(e.target) && self._inputFocus != true) {
 					(0, _event.off)(document, 'click', callback);
@@ -15446,7 +12530,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}.bind(this);
 			(0, _event.on)(document, 'click', callback);
-	
+
 			//tab事件
 			(0, _event.on)(self.input, 'keydown', function (e) {
 				var keyCode = e.keyCode;
@@ -15455,7 +12539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			});
 		},
-	
+
 		clickPanel: function clickPanel(dom) {
 			while (dom) {
 				if (dom == this.panelDiv) {
@@ -15466,7 +12550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			return false;
 		},
-	
+
 		hide: function hide() {
 			(0, _dom.removeClass)(this.panelDiv, 'is-visible');
 			this.panelDiv.style.zIndex = -1;
@@ -15477,7 +12561,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}
 	});
-	
+
 	_compMgr.compMgr.regComp({
 		comp: ClockPicker,
 		compAsString: 'u.ClockPicker',
@@ -15494,28 +12578,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ClockPicker = ClockPicker;
 
 /***/ },
-/* 94 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.Time = undefined;
-	
-	var _extend = __webpack_require__(20);
-	
+
+	var _extend = __webpack_require__(1);
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _env = __webpack_require__(19);
-	
-	var _event = __webpack_require__(18);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _env = __webpack_require__(11);
+
+	var _event = __webpack_require__(10);
+
+	var _dom = __webpack_require__(9);
+
+	var _compMgr = __webpack_require__(16);
+
 	var Time = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
@@ -15525,21 +12609,21 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.panelDiv = null;
 			this.input = this.element.querySelector("input");
 			(0, _dom.addClass)(this.element, 'u-text');
-	
+
 			(0, _event.on)(this.input, 'blur', function (e) {
 				self._inputFocus = false;
 				this.setValue(this.input.value);
 			}.bind(this));
-	
+
 			// 添加focus事件
 			this.focusEvent();
 			// 添加右侧图标click事件
 			this.clickEvent();
 		}
 	});
-	
+
 	Time.fn = Time.prototype;
-	
+
 	Time.fn.createPanel = function () {
 		if (this.panelDiv) return;
 		var oThis = this;
@@ -15572,13 +12656,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		(0, _event.on)(this.panelCancelButton, 'click', function () {
 			oThis.hide();
 		});
-	
+
 		var d = new Date();
 		this.panelHourInput.value = d.getHours() > 9 ? '' + d.getHours() : '0' + d.getHours();
 		this.panelMinInput.value = d.getMinutes() > 9 ? '' + d.getMinutes() : '0' + d.getMinutes();
 		this.panelSecInput.value = d.getSeconds() > 9 ? '' + d.getSeconds() : '0' + d.getSeconds();
 	};
-	
+
 	Time.fn.setValue = function (value) {
 		var hour = '',
 		    min = '',
@@ -15596,18 +12680,18 @@ return /******/ (function(modules) { // webpackBootstrap
 			var sec = vA[2];
 			sec = sec % 60;
 			sec = sec > 9 ? '' + sec : '0' + sec;
-	
+
 			value = hour + ':' + min + ':' + sec;
 		}
 		this.input.value = value;
 		this.createPanel();
-	
+
 		this.panelHourInput.value = hour;
 		this.panelMinInput.value = min;
 		this.panelSecInput.value = sec;
 		this.trigger('valueChange', { value: value });
 	};
-	
+
 	Time.fn.focusEvent = function () {
 		var self = this;
 		(0, _event.on)(this.input, 'focus', function (e) {
@@ -15616,7 +12700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			(0, _event.stopEvent)(e);
 		});
 	};
-	
+
 	//下拉图标的点击事件
 	Time.fn.clickEvent = function () {
 		var self = this;
@@ -15626,19 +12710,19 @@ return /******/ (function(modules) { // webpackBootstrap
 			(0, _event.stopEvent)(e);
 		});
 	};
-	
+
 	Time.fn.show = function (evt) {
-	
+
 		var inputValue = this.input.value;
 		this.setValue(inputValue);
-	
+
 		var oThis = this;
 		this.createPanel();
-	
+
 		/*因为元素可能变化位置，所以显示的时候需要重新计算*/
 		this.width = this.element.offsetWidth;
 		if (this.width < 300) this.width = 300;
-	
+
 		this.panelDiv.style.width = this.width + 'px';
 		this.panelDiv.style.maxWidth = this.width + 'px';
 		if (this.options.showFix) {
@@ -15657,33 +12741,33 @@ return /******/ (function(modules) { // webpackBootstrap
 			// this.top = this.element.offsetTop + inputHeight;
 			// this.panelDiv.style.left = this.left + 'px';
 			// this.panelDiv.style.top = this.top + 'px';
-	
+
 			var bodyWidth = document.body.clientWidth,
 			    bodyHeight = document.body.clientHeight,
 			    panelWidth = this.panelDiv.offsetWidth,
 			    panelHeight = this.panelDiv.offsetHeight;
-	
+
 			this.element.appendChild(this.panelDiv);
 			this.element.style.position = 'relative';
 			this.left = this.input.offsetLeft;
 			var inputHeight = this.input.offsetHeight;
 			this.top = this.input.offsetTop + inputHeight;
-	
+
 			if (this.left + panelWidth > bodyWidth) {
 				this.left = bodyWidth - panelWidth;
 			}
-	
+
 			if (this.top + panelHeight > bodyHeight) {
 				this.top = bodyHeight - panelHeight;
 			}
-	
+
 			this.panelDiv.style.left = this.left + 'px';
 			this.panelDiv.style.top = this.top + 'px';
 		}
-	
+
 		this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
 		(0, _dom.addClass)(this.panelDiv, 'is-visible');
-	
+
 		var callback = function (e) {
 			if (e !== evt && e.target !== this.input && !oThis.clickPanel(e.target) && self._inputFocus != true) {
 				(0, _event.off)(document, 'click', callback);
@@ -15694,7 +12778,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		(0, _event.on)(document, 'click', callback);
 		// document.addEventListener('click', callback);
 	};
-	
+
 	Time.fn.clickPanel = function (dom) {
 		while (dom) {
 			if (dom == this.panelDiv) {
@@ -15705,12 +12789,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return false;
 	};
-	
+
 	Time.fn.hide = function () {
 		(0, _dom.removeClass)(this.panelDiv, 'is-visible');
 		this.panelDiv.style.zIndex = -1;
 	};
-	
+
 	_compMgr.compMgr.regComp({
 		comp: Time,
 		compAsString: 'u.Time',
@@ -15723,7 +12807,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			css: 'u-clockpicker'
 		});
 	}
-	
+
 	if (document.readyState && document.readyState === 'complete') {
 		_compMgr.compMgr.updateComp();
 	} else {
@@ -15732,31 +12816,31 @@ return /******/ (function(modules) { // webpackBootstrap
 			_compMgr.compMgr.updateComp();
 		});
 	}
-	
+
 	exports.Time = Time;
 
 /***/ },
-/* 95 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.UrlAdapter = undefined;
-	
-	var _string = __webpack_require__(80);
-	
+
+	var _string = __webpack_require__(67);
+
 	var _dom = __webpack_require__(9);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _compMgr = __webpack_require__(16);
+
 	var UrlAdapter = _string.StringAdapter.extend({
 	    init: function init() {
 	        UrlAdapter.superclass.init.apply(this);
 	        this.validType = 'url';
-	
+
 	        /*
 	         * 因为需要输入，因此不显示为超链接
 	         */
@@ -15797,7 +12881,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-10 13:51:26
 	     */
-	
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: UrlAdapter,
 	    name: 'url'
@@ -15805,30 +12889,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.UrlAdapter = UrlAdapter;
 
 /***/ },
-/* 96 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.YearAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
-	var _neouiYear = __webpack_require__(97);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiYear = __webpack_require__(83);
+
+	var _compMgr = __webpack_require__(16);
+
 	var YearAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(comp, options) {
 	        var self = this;
 	        YearAdapter.superclass.initialize.apply(this, arguments);
 	        this.validType = 'year';
-	
+
 	        this.comp = new _neouiYear.Year(this.element);
-	
+
 	        this.comp.on('valueChange', function (event) {
 	            self.slice = true;
 	            self.dataModel.setValue(self.field, event.value);
@@ -15849,36 +12933,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-10 12:40:46
 	     */
-	
-	
+
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: YearAdapter,
 	    name: 'u-year'
 	});
-	
+
 	exports.YearAdapter = YearAdapter;
 
 /***/ },
-/* 97 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.Year = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _event = __webpack_require__(18);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _extend = __webpack_require__(20);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _event = __webpack_require__(10);
+
+	var _dom = __webpack_require__(9);
+
+	var _extend = __webpack_require__(1);
+
+	var _compMgr = __webpack_require__(16);
+
 	var Year = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
@@ -15887,23 +12971,23 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
 			this.panelDiv = null;
 			this.input = this.element.querySelector("input");
-	
+
 			var d = new Date();
 			this.year = d.getFullYear();
 			this.defaultYear = this.year;
 			this.startYear = this.year - this.year % 10 - 1;
-	
+
 			(0, _event.on)(this.input, 'blur', function (e) {
 				self._inputFocus = false;
 				this.setValue(this.input.value);
 			}.bind(this));
-	
+
 			// 添加focus事件
 			this.focusEvent();
 			// 添加右侧图标click事件
 			this.clickEvent();
 		},
-	
+
 		createPanel: function createPanel() {
 			if (this.panelDiv) {
 				this._fillYear();
@@ -15913,10 +12997,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.panelDiv = (0, _dom.makeDOM)('<div class="u-date-panel" style="margin:0px;"></div>');
 			this.panelContentDiv = (0, _dom.makeDOM)('<div class="u-date-content"></div>');
 			this.panelDiv.appendChild(this.panelContentDiv);
-	
+
 			this.preBtn = (0, _dom.makeDOM)('<button class="u-date-pre-button u-button mini">&lt;</button>');
 			this.nextBtn = (0, _dom.makeDOM)('<button class="u-date-next-button u-button mini">&gt;</button>');
-	
+
 			(0, _event.on)(this.preBtn, 'click', function (e) {
 				oThis.startYear -= 10;
 				oThis._fillYear();
@@ -15929,7 +13013,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.panelContentDiv.appendChild(this.nextBtn);
 			this._fillYear();
 		},
-	
+
 		/**
 	  *填充年份选择面板
 	  * @private
@@ -15959,14 +13043,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.hide();
 				(0, _event.stopEvent)(e);
 			}.bind(this));
-	
+
 			this.preBtn.style.display = 'block';
 			this.nextBtn.style.display = 'block';
 			this.panelContentDiv.appendChild(yearPage);
-	
+
 			this.currentPanel = 'year';
 		},
-	
+
 		setValue: function setValue(value) {
 			value = value ? value : '';
 			this.value = value;
@@ -15979,7 +13063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.input.value = value;
 			this.trigger('valueChange', { value: value });
 		},
-	
+
 		focusEvent: function focusEvent() {
 			var self = this;
 			(0, _event.on)(this.input, 'focus', function (e) {
@@ -15988,7 +13072,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _event.stopEvent)(e);
 			});
 		},
-	
+
 		//下拉图标的点击事件
 		clickEvent: function clickEvent() {
 			var self = this;
@@ -15998,14 +13082,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _event.stopEvent)(e);
 			});
 		},
-	
+
 		show: function show(evt) {
 			var oThis = this;
 			this.createPanel();
-	
+
 			this.width = this.element.offsetWidth;
 			if (this.width < 300) this.width = 300;
-	
+
 			this.panelDiv.style.width = 152 + 'px';
 			if (this.options.showFix) {
 				document.body.appendChild(this.panelDiv);
@@ -16020,27 +13104,27 @@ return /******/ (function(modules) { // webpackBootstrap
 				    bodyHeight = document.body.clientHeight,
 				    panelWidth = this.panelDiv.offsetWidth,
 				    panelHeight = this.panelDiv.offsetHeight;
-	
+
 				this.element.appendChild(this.panelDiv);
 				this.element.style.position = 'relative';
 				this.left = this.input.offsetLeft;
 				var inputHeight = this.input.offsetHeight;
 				this.top = this.input.offsetTop + inputHeight;
-	
+
 				if (this.left + panelWidth > bodyWidth) {
 					this.left = bodyWidth - panelWidth;
 				}
-	
+
 				if (this.top + panelHeight > bodyHeight) {
 					this.top = bodyHeight - panelHeight;
 				}
-	
+
 				this.panelDiv.style.left = this.left + 'px';
 				this.panelDiv.style.top = this.top + 'px';
 			}
 			this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
 			(0, _dom.addClass)(this.panelDiv, 'is-visible');
-	
+
 			var callback = function (e) {
 				if (e !== evt && e.target !== this.input && !oThis.clickPanel(e.target) && self._inputFocus != true) {
 					(0, _event.off)(document, 'click', callback);
@@ -16051,7 +13135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			(0, _event.on)(document, 'click', callback);
 			// document.addEventListener('click', callback);
 		},
-	
+
 		clickPanel: function clickPanel(dom) {
 			while (dom) {
 				if (dom == this.panelDiv) {
@@ -16071,7 +13155,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : liuyk(liuyk@yonyou.com)
 	     * Date	  : 2016-08-11 15:17:07
 	     */
-	
+
 	_compMgr.compMgr.regComp({
 		comp: Year,
 		compAsString: 'u.Year',
@@ -16088,30 +13172,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Year = Year;
 
 /***/ },
-/* 98 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.YearMonthAdapter = undefined;
-	
+
 	var _baseAdapter = __webpack_require__(3);
-	
-	var _neouiYearmonth = __webpack_require__(99);
-	
-	var _compMgr = __webpack_require__(28);
-	
+
+	var _neouiYearmonth = __webpack_require__(85);
+
+	var _compMgr = __webpack_require__(16);
+
 	var YearMonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(comp, options) {
 	        var self = this;
 	        YearMonthAdapter.superclass.initialize.apply(this, arguments);
 	        this.validType = 'yearmonth';
-	
+
 	        this.comp = new _neouiYearmonth.YearMonth(this.element);
-	
+
 	        this.comp.on('valueChange', function (event) {
 	            self.slice = true;
 	            self.dataModel.setValue(self.field, event.value);
@@ -16132,44 +13216,44 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Author : Kvkens(yueming@yonyou.com)
 	     * Date	  : 2016-08-10 14:11:50
 	     */
-	
-	
+
+
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: YearMonthAdapter,
 	    name: 'u-yearmonth'
 	});
-	
+
 	exports.YearMonthAdapter = YearMonthAdapter;
 
 /***/ },
-/* 99 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.YearMonth = undefined;
-	
+
 	var _BaseComponent = __webpack_require__(15);
-	
-	var _event = __webpack_require__(18);
-	
-	var _dom = __webpack_require__(23);
-	
-	var _extend = __webpack_require__(20);
-	
-	var _env = __webpack_require__(19);
-	
-	var _compMgr = __webpack_require__(22);
-	
+
+	var _event = __webpack_require__(10);
+
+	var _dom = __webpack_require__(9);
+
+	var _extend = __webpack_require__(1);
+
+	var _env = __webpack_require__(11);
+
+	var _compMgr = __webpack_require__(16);
+
 	/**
 	 * Module : neoui-year
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-11 15:17:07
 	 */
-	
+
 	var YearMonth = _BaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
 	    init: function init() {
@@ -16178,23 +13262,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
 	        this.panelDiv = null;
 	        this.input = this.element.querySelector("input");
-	
+
 	        var d = new Date();
 	        this.year = d.getFullYear();
 	        this.startYear = this.year - this.year % 10 - 1;
 	        this.month = d.getMonth() + 1;
-	
+
 	        (0, _event.on)(this.input, 'blur', function (e) {
 	            self._inputFocus = false;
 	            this.setValue(this.input.value);
 	        }.bind(this));
-	
+
 	        // 添加focus事件
 	        this.focusEvent();
 	        // 添加右侧图标click事件
 	        this.clickEvent();
 	    },
-	
+
 	    createPanel: function createPanel() {
 	        if (this.panelDiv) {
 	            this._fillYear();
@@ -16204,12 +13288,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.panelDiv = (0, _dom.makeDOM)('<div class="u-date-panel" style="margin:0px;"></div>');
 	        this.panelContentDiv = (0, _dom.makeDOM)('<div class="u-date-content"></div>');
 	        this.panelDiv.appendChild(this.panelContentDiv);
-	
+
 	        // this.preBtn = makeDOM('<button class="u-date-pre-button u-button flat floating mini" style="display:none;">&lt;</button>');
 	        // this.nextBtn = makeDOM('<button class="u-date-next-button u-button flat floating mini" style="display:none;">&gt;</button>');
 	        this.preBtn = (0, _dom.makeDOM)('<button class="u-date-pre-button u-button mini">&lt;</button>');
 	        this.nextBtn = (0, _dom.makeDOM)('<button class="u-date-next-button u-button mini">&gt;</button>');
-	
+
 	        (0, _event.on)(this.preBtn, 'click', function (e) {
 	            oThis.startYear -= 10;
 	            oThis._fillYear();
@@ -16222,7 +13306,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.panelContentDiv.appendChild(this.nextBtn);
 	        this._fillYear();
 	    },
-	
+
 	    /**
 	     *填充年份选择面板
 	     * @private
@@ -16252,7 +13336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            oThis._fillMonth();
 	            (0, _event.stopEvent)(e);
 	        });
-	
+
 	        this.preBtn.style.display = 'block';
 	        this.nextBtn.style.display = 'block';
 	        // this._zoomIn(yearPage);
@@ -16260,7 +13344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.contentPage = yearPage;
 	        this.currentPanel = 'year';
 	    },
-	
+
 	    /**
 	     * 填充月份选择面板
 	     * @private
@@ -16271,7 +13355,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
 	        _month = this.month;
 	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
-	
+
 	        monthPage = (0, _dom.makeDOM)(template);
 	        cells = monthPage.querySelectorAll('.u-date-content-year-cell');
 	        for (i = 0; i < cells.length; i++) {
@@ -16289,13 +13373,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            oThis.setValue(oThis.year + '-' + oThis.month);
 	            oThis.hide();
 	        });
-	
+
 	        this.preBtn.style.display = 'none';
 	        this.nextBtn.style.display = 'none';
 	        this._zoomIn(monthPage);
 	        this.currentPanel = 'month';
 	    },
-	
+
 	    /**
 	     * 淡入动画效果
 	     * @private
@@ -16327,7 +13411,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }.bind(this));
 	        }
 	    },
-	
+
 	    setValue: function setValue(value) {
 	        value = value ? value : '';
 	        if (value && value.indexOf('-') > -1) {
@@ -16336,14 +13420,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var month = vA[1];
 	            this.month = month % 12;
 	            if (this.month == 0) this.month = 12;
-	
+
 	            value = this.year + '-' + this.month;
 	        }
 	        this.value = value;
 	        this.input.value = value;
 	        this.trigger('valueChange', { value: value });
 	    },
-	
+
 	    focusEvent: function focusEvent() {
 	        var self = this;
 	        (0, _event.on)(this.input, 'focus', function (e) {
@@ -16352,7 +13436,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            (0, _event.stopEvent)(e);
 	        });
 	    },
-	
+
 	    //下拉图标的点击事件
 	    clickEvent: function clickEvent() {
 	        var self = this;
@@ -16362,7 +13446,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            (0, _event.stopEvent)(e);
 	        });
 	    },
-	
+
 	    show: function show(evt) {
 	        var oThis = this;
 	        if (this.value && this.value.indexOf('-') > -1) {
@@ -16376,9 +13460,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /*因为元素可能变化位置，所以显示的时候需要重新计算*/
 	        this.width = this.element.offsetWidth;
 	        if (this.width < 300) this.width = 300;
-	
+
 	        this.panelDiv.style.width = this.width + 'px';
-	
+
 	        if (this.options.showFix) {
 	            document.body.appendChild(this.panelDiv);
 	            this.panelDiv.style.position = 'fixed';
@@ -16395,30 +13479,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	            //    this.top = this.element.offsetTop + inputHeight;
 	            //    this.panelDiv.style.left = this.left + 'px';
 	            //    this.panelDiv.style.top = this.top + 'px';
-	
+
 	            var bodyWidth = document.body.clientWidth,
 	                bodyHeight = document.body.clientHeight,
 	                panelWidth = this.panelDiv.offsetWidth,
 	                panelHeight = this.panelDiv.offsetHeight;
-	
+
 	            this.element.appendChild(this.panelDiv);
 	            this.element.style.position = 'relative';
 	            this.left = this.input.offsetLeft;
 	            var inputHeight = this.input.offsetHeight;
 	            this.top = this.input.offsetTop + inputHeight;
-	
+
 	            if (this.left + panelWidth > bodyWidth) {
 	                this.left = bodyWidth - panelWidth;
 	            }
-	
+
 	            if (this.top + panelHeight > bodyHeight) {
 	                this.top = bodyHeight - panelHeight;
 	            }
-	
+
 	            this.panelDiv.style.left = this.left + 'px';
 	            this.panelDiv.style.top = this.top + 'px';
 	        }
-	
+
 	        this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
 	        (0, _dom.addClass)(this.panelDiv, 'is-visible');
 	        var oThis = this;
@@ -16432,7 +13516,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        (0, _event.on)(document, 'click', callback);
 	        // document.addEventListener('click', callback);
 	    },
-	
+
 	    clickPanel: function clickPanel(dom) {
 	        while (dom) {
 	            if (dom == this.panelDiv) {
@@ -16443,13 +13527,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        return false;
 	    },
-	
+
 	    hide: function hide() {
 	        (0, _dom.removeClass)(this.panelDiv, 'is-visible');
 	        this.panelDiv.style.zIndex = -1;
 	    }
 	});
-	
+
 	_compMgr.compMgr.regComp({
 	    comp: YearMonth,
 	    compAsString: 'u.YearMonth',
@@ -16469,4 +13553,3 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-//# sourceMappingURL=kero-adapter.js.map

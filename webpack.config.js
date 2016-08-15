@@ -25,9 +25,9 @@ if(env === 'build') {
 
 var config = {
 	entry: __dirname + '/js/index.js',
-	devtool: 'source-map',
+	// devtool: 'source-map',
 	output: {
-		path: __dirname + '/dist',
+		path: __dirname + '/dist/js',
 		filename: outputFile,
 		//library: 'u',
 		libraryTarget: 'umd',
