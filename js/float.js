@@ -17,6 +17,7 @@ import {env} from 'neoui-sparrow/js/env';
 //miss DateTimePicker
 import {date} from 'neoui-sparrow/js/util/dateUtils';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {NumberMasker} from 'neoui-sparrow/js/util/masker';
 
 var FloatAdapter = BaseAdapter.extend({
     mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],
