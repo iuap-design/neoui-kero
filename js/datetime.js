@@ -6,9 +6,9 @@
 
 import {BaseAdapter} from './baseAdapter';
 import {ValueMixin} from './valueMixin';
-import {EnableMixin} from './valueMixin';
-import {RequiredMixin} from './valueMixin';
-import {ValidateMixin} from './valueMixin';
+import {EnableMixin} from './enableMixin';
+import {RequiredMixin} from './requiredMixin';
+import {ValidateMixin} from './validateMixin';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
 import {addClass,removeClass} from 'neoui-sparrow/js/dom';
 import {core} from 'neoui-sparrow/js/core';

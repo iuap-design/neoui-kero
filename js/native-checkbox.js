@@ -6,7 +6,7 @@
 
 import {BaseAdapter} from './baseAdapter';
 import {ValueMixin} from './valueMixin';
-import {EnableMixin} from './valueMixin';
+import {EnableMixin} from './enableMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
 import {on} from 'neoui-sparrow/js/event';
 import {compMgr} from 'neoui-sparrow/js/compMgr';

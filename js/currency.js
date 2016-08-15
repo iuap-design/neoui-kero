@@ -6,9 +6,9 @@
 
 import {BaseAdapter} from './baseAdapter';
 import {ValueMixin} from './valueMixin';
-import {EnableMixin} from './valueMixin';
-import {RequiredMixin} from './valueMixin';
-import {ValidateMixin} from './valueMixin';
+import {EnableMixin} from './enableMixin';
+import {RequiredMixin} from './requiredMixin';
+import {ValidateMixin} from './validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
 import {Checkbox} from 'neoui/js/neoui-checkbox';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';

@@ -6,9 +6,9 @@
 
 import {BaseAdapter} from './baseAdapter';
 import {ValueMixin} from './valueMixin';
-import {EnableMixin} from './valueMixin';
-import {RequiredMixin} from './valueMixin';
-import {ValidateMixin} from './valueMixin';
+import {EnableMixin} from './enableMixin';
+import {RequiredMixin} from './requiredMixin';
+import {ValidateMixin} from './validateMixin';
 import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
 import {NumberMasker,PercentMasker} from 'neoui-sparrow/js/util/masker';
