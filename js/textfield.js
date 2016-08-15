@@ -56,6 +56,10 @@ var TextFieldAdapter = BaseAdapter.extend({
             this.comp.change(showValue);
             this.element.title = showValue;
         }
+        // 解决初始设置值后，没有走这个setShowValue方法问题
+        if(this.trueAdpt.enable){
+            this.trueAdpt.setShowValue(this.trueAdpt.getValue())
+        }
         return this.trueAdpt;
     }
 });
