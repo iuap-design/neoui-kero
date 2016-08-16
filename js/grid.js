@@ -30,6 +30,7 @@ import {Validate} from 'neoui/js/neoui-validate';
 import {showMessage} from 'neoui/js/neoui-message';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {trans} from 'neoui-sparrow/js/util/i18n';
+import {core} from 'neoui-sparrow/js/core';
 
 var GridAdapter = BaseAdapter.extend({
 	initialize: function(options) {
@@ -217,7 +218,7 @@ var GridAdapter = BaseAdapter.extend({
 					if(!row)
 						return;
 					var rprec = row.getMeta(field, 'precision')
-					var maskerMeta = iweb.Core.getMaskerMeta('float') || {}
+					var maskerMeta = core.getMaskerMeta('float') || {}
 					var precision = typeof(parseFloat(rprec)) == 'number' ? rprec : maskerMeta.precision;
 					maskerMeta.precision = precision;
 
@@ -252,7 +253,7 @@ var GridAdapter = BaseAdapter.extend({
 					if(!row)
 						return;
 					var rprec =  row.getMeta(field, 'precision') || column.options.precision;
-					var maskerMeta = iweb.Core.getMaskerMeta('float') || {}
+					var maskerMeta = core.getMaskerMeta('float') || {}
 					var precision = typeof(parseFloat(rprec)) == 'number' ? rprec : maskerMeta.precision;
 					maskerMeta.precision = precision;
 
@@ -425,7 +426,7 @@ var GridAdapter = BaseAdapter.extend({
 					if(!row)
 						return;
 					var rprec =  row.getMeta(field, 'precision') || column.options.precision;
-					var maskerMeta = iweb.Core.getMaskerMeta('percent') || {}
+					var maskerMeta = core.getMaskerMeta('percent') || {}
 					var precision = typeof(parseFloat(rprec)) == 'number' ? rprec : maskerMeta.precision;
 					maskerMeta.precision = precision;
 					if (maskerMeta.precision){
@@ -452,7 +453,7 @@ var GridAdapter = BaseAdapter.extend({
 				var grid = obj.gridObj											
 				var column = obj.gridCompColumn
 				var rprec = column.options.precision;
-				var maskerMeta = iweb.Core.getMaskerMeta('float') || {}
+				var maskerMeta = core.getMaskerMeta('float') || {}
 				var precision = rprec == 0 || (rprec && typeof(parseFloat(rprec)) == 'number')? rprec : maskerMeta.precision;
 				maskerMeta.precision = precision;
 

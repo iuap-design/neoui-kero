@@ -16,6 +16,7 @@ import {NumberFormater} from 'neoui-sparrow/js/util/formater';
 import {isNumber} from 'neoui-sparrow/js/util';
 import {FloatAdapter} from './float';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {core} from 'neoui-sparrow/js/core';
 
 /**
  * 货币控件
@@ -25,7 +26,7 @@ var CurrencyAdapter = FloatAdapter.extend({
         var self = this;
         CurrencyAdapter.superclass.init.apply(this);
 
-        this.maskerMeta = iweb.Core.getMaskerMeta('currency') || {};
+        this.maskerMeta = core.getMaskerMeta('currency') || {};
         this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
         this.maskerMeta.curSymbol = this.getOption('curSymbol') || this.maskerMeta.curSymbol;
         this.validType = 'float';
