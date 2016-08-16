@@ -29,6 +29,7 @@ import {PercentAdapter} from './percent';
 import {Validate} from 'neoui/js/neoui-validate';
 import {showMessage} from 'neoui/js/neoui-message';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {trans} from 'neoui-sparrow/js/util/i18n';
 
 var GridAdapter = BaseAdapter.extend({
 	initialize: function(options) {
