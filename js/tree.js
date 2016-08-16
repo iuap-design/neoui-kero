@@ -1,12 +1,12 @@
 /**
  * Module : Kero tree adapter
  * Author : Kvkens(yueming@yonyou.com)
- * Date	  : 2016-08-10 14:23:13
+ * Date	  : 2016-08-16 10:44:14
  */
 import {BaseAdapter} from './baseAdapter';
-import {Year} from './';
+import {Year} from 'neoui/js/neoui-year';
 import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
-//miss DataTable
+import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var TreeAdapter = BaseAdapter.extend({
