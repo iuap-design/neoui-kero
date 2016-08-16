@@ -13,11 +13,12 @@ import {addClass,removeClass} from 'neoui-sparrow/js/dom';
 import {core} from 'neoui-sparrow/js/core';
 //miss DataTable;
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
-import {env} from 'neoui-sparrow/js/env';
 //miss DateTimePicker
 import {date} from 'neoui-sparrow/js/util/dateUtils';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {NumberMasker} from 'neoui-sparrow/js/util/masker';
+import {isNumber} from 'neoui-sparrow/js/util';
+
 
 var FloatAdapter = BaseAdapter.extend({
     mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],
@@ -104,7 +105,7 @@ var FloatAdapter = BaseAdapter.extend({
     },
     onFocusin: function () {
         var v = this.dataModel.getCurrentRow().getValue(this.field), vstr = v + '', focusValue = v;
-        if (env.isNumber(v) && env.isNumber(this.maskerMeta.precision)) {
+        if (isNumber(v) && isNumber(this.maskerMeta.precision)) {
             if (vstr.indexOf('.') >= 0) {
                 var sub = vstr.substr(vstr.indexOf('.') + 1);
                 if (sub.length < this.maskerMeta.precision || parseInt(sub.substr(this.maskerMeta.precision)) == 0) {
