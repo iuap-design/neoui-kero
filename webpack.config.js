@@ -9,22 +9,27 @@ var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var path = require('path');
 var env = require('yargs').argv.mode;
 
-var libraryName = 'kero-adapter';
-
 var plugins = [],
 	outputFile;
+
+var	entryAry = {
+		"kero-adapter": [__dirname + '/js/index.js'],
+		"u": __dirname + '/js/u.js',
+		"kero": [__dirname + '/js/kero.js']
+
+	};
 
 if(env === 'build') {
 	plugins.push(new UglifyJsPlugin({
 		minimize: true
 	}));
-	outputFile = libraryName + '.min.js';
+	outputFile = '[name].min.js';
 } else {
-	outputFile = libraryName + '.js';
+	outputFile = '[name].js';
 }
 
 var config = {
-	entry: __dirname + '/js/index.js',
+	entry: entryAry,
 	// devtool: 'source-map',
 	output: {
 		path: __dirname + '/dist/js',

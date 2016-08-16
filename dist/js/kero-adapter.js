@@ -61,209 +61,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	module.exports = __webpack_require__(75);
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.u = undefined;
-
-	var _extend = __webpack_require__(1);
-
-	var _baseAdapter = __webpack_require__(3);
-
-	var _checkbox = __webpack_require__(6);
-
-	var _ckeditor = __webpack_require__(21);
-
-	var _combobox = __webpack_require__(22);
-
-	var _currency = __webpack_require__(25);
-
-	var _datetime = __webpack_require__(58);
-
-	var _float = __webpack_require__(53);
-
-	var _grid = __webpack_require__(60);
-
-	var _integer = __webpack_require__(63);
-
-	var _month = __webpack_require__(70);
-
-	var _nativeCheckbox = __webpack_require__(72);
-
-	var _nativeRadio = __webpack_require__(73);
-
-	var _pagination = __webpack_require__(74);
-
-	var _password = __webpack_require__(67);
-
-	var _percent = __webpack_require__(68);
-
-	var _string = __webpack_require__(62);
-
-	var _progress = __webpack_require__(76);
-
-	var _radio = __webpack_require__(64);
-
-	var _switch = __webpack_require__(78);
-
-	var _textarea = __webpack_require__(80);
-
-	var _textfield = __webpack_require__(81);
-
-	var _time = __webpack_require__(82);
-
-	var _url = __webpack_require__(66);
-
-	var _year = __webpack_require__(85);
-
-	var _yearmonth = __webpack_require__(87);
-
-	var _tree = __webpack_require__(89);
-
-	var _enableMixin = __webpack_require__(8);
-
-	var _requiredMixin = __webpack_require__(12);
-
-	var _validateMixin = __webpack_require__(13);
-
-	var _valueMixin = __webpack_require__(7);
-
-	// console.log(TextAreaAdapter);
-
-	var ex = {
-		BaseAdapter: _baseAdapter.BaseAdapter,
-		CheckboxAdapter: _checkbox.CheckboxAdapter,
-		CkEditorAdapter: _ckeditor.CkEditorAdapter,
-		ComboboxAdapter: _combobox.ComboboxAdapter,
-		CurrencyAdapter: _currency.CurrencyAdapter,
-		DateTimeAdapter: _datetime.DateTimeAdapter,
-		FloatAdapter: _float.FloatAdapter,
-		IntegerAdapter: _integer.IntegerAdapter,
-		MonthAdapter: _month.MonthAdapter,
-		NativeCheckAdapter: _nativeCheckbox.NativeCheckAdapter,
-		NativeRadioAdapter: _nativeRadio.NativeRadioAdapter,
-		PaginationAdapter: _pagination.PaginationAdapter,
-		PassWordAdapter: _password.PassWordAdapter,
-		PercentAdapter: _percent.PercentAdapter,
-		StringAdapter: _string.StringAdapter,
-		ProgressAdapter: _progress.ProgressAdapter,
-		RadioAdapter: _radio.RadioAdapter,
-		SwitchAdapter: _switch.SwitchAdapter,
-		TextAreaAdapter: _textarea.TextAreaAdapter,
-		TextFieldAdapter: _textfield.TextFieldAdapter,
-		TimeAdapter: _time.TimeAdapter,
-		UrlAdapter: _url.UrlAdapter,
-		YearAdapter: _year.YearAdapter,
-		YearMonthAdapter: _yearmonth.YearMonthAdapter,
-		EnableMixin: _enableMixin.EnableMixin,
-		RequiredMixin: _requiredMixin.RequiredMixin,
-		ValidateMixin: _validateMixin.ValidateMixin,
-		ValueMixin: _valueMixin.ValueMixin
-	}; /**
-	    * Module : Kero webpack entry index
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-10 14:51:05
-	    */
-
-
-	(0, _extend.extend)(ex, window.u || {});
-
-	exports.u = ex;
 
 /***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.extend = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow extend
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-27 21:46:50
-	                                                                                                                                                                                                                                                   */
-
-	var _enumerables = __webpack_require__(2);
-
-	/**
-	 * 复制对象属性
-	 *
-	 * @param {Object}  目标对象
-	 * @param {config} 源对象
-	 */
-	var extend = function extend(object, config) {
-		var args = arguments,
-		    options;
-		if (args.length > 1) {
-			for (var len = 1; len < args.length; len++) {
-				options = args[len];
-				if (object && options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					var i, j, k;
-					for (i in options) {
-						object[i] = options[i];
-					}
-					if (_enumerables.enumerables) {
-						for (j = _enumerables.enumerables.length; j--;) {
-							k = _enumerables.enumerables[j];
-							if (options.hasOwnProperty && options.hasOwnProperty(k)) {
-								object[k] = options[k];
-							}
-						}
-					}
-				}
-			}
-		}
-		return object;
-	};
-
-	exports.extend = extend;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	/**
-	 * Module : Sparrow extend enum
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-
-	var U_LANGUAGES = "i_languages";
-	var U_THEME = "u_theme";
-	var U_LOCALE = "u_locale";
-	var U_USERCODE = "usercode";
-
-	var enumerables = true,
-	    enumerablesTest = {
-		toString: 1
-	},
-	    toString = Object.prototype.toString;
-	for (var i in enumerablesTest) {
-		exports.enumerables = enumerables = null;
-	}
-	if (enumerables) {
-		exports.enumerables = enumerables = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
-	}
-
-	exports.enumerables = enumerables;
-	exports.U_LANGUAGES = U_LANGUAGES;
-	exports.U_THEME = U_THEME;
-	exports.U_LOCALE = U_LOCALE;
-	exports.U_USERCODE = U_USERCODE;
-
-/***/ },
-/* 3 */
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -271,795 +76,234 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.BaseAdapter = undefined;
+	exports.compMgr = undefined;
 
-	var _class = __webpack_require__(4);
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow compMgr
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 18:41:06
+	                                                                                                                                                                                                                                                   */
 
-	var _util = __webpack_require__(5);
+	var _dom = __webpack_require__(5);
 
-	/**
-	 * adapter基类
-	 */
+	function _findRegisteredClass(name, optReplace) {
+	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
+	        if (CompMgr.registeredControls[i].className === name) {
+	            if (typeof optReplace !== 'undefined') {
+	                CompMgr.registeredControls[i] = optReplace;
+	            }
+	            return CompMgr.registeredControls[i];
+	        }
+	    }
+	    return false;
+	}
 
-	/**
-	 * Module : Kero adapter 基类
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 10:00:00
-	 */
-	var BaseAdapter = _class.Class.create({
+	function _getUpgradedListOfElement(element) {
+	    var dataUpgraded = element.getAttribute('data-upgraded');
+	    // Use `['']` as default value to conform the `,name,name...` style.
+	    return dataUpgraded === null ? [''] : dataUpgraded.split(',');
+	}
+
+	function _isElementUpgraded(element, jsClass) {
+	    var upgradedList = _getUpgradedListOfElement(element);
+	    return upgradedList.indexOf(jsClass) != -1;
+	}
+
+	function _upgradeElement(element, optJsClass) {
+	    if (!((typeof element === 'undefined' ? 'undefined' : _typeof(element)) === 'object' && element instanceof Element)) {
+	        throw new Error('Invalid argument provided to upgrade MDL element.');
+	    }
+	    var upgradedList = _getUpgradedListOfElement(element);
+	    var classesToUpgrade = [];
+	    if (!optJsClass) {
+	        var className = element.className;
+	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
+	            var component = CompMgr.registeredControls[i];
+	            if (className.indexOf(component.cssClass) > -1 && classesToUpgrade.indexOf(component) === -1 && !_isElementUpgraded(element, component.className)) {
+	                classesToUpgrade.push(component);
+	            }
+	        }
+	    } else if (!_isElementUpgraded(element, optJsClass)) {
+	        classesToUpgrade.push(_findRegisteredClass(optJsClass));
+	    }
+
+	    // Upgrade the element for each classes.
+	    for (var i = 0, n = classesToUpgrade.length, registeredClass; i < n; i++) {
+	        registeredClass = classesToUpgrade[i];
+	        if (registeredClass) {
+	            if (element[registeredClass.className]) {
+	                continue;
+	            }
+	            // Mark element as upgraded.
+	            upgradedList.push(registeredClass.className);
+	            element.setAttribute('data-upgraded', upgradedList.join(','));
+	            var instance = new registeredClass.classConstructor(element);
+	            CompMgr.createdControls.push(instance);
+	            // Call any callbacks the user has registered with this component type.
+	            for (var j = 0, m = registeredClass.callbacks.length; j < m; j++) {
+	                registeredClass.callbacks[j](element);
+	            }
+	            element[registeredClass.className] = instance;
+	        } else {
+	            throw new Error('Unable to find a registered component for the given class.');
+	        }
+	    }
+	}
+
+	function _upgradeDomInternal(optJsClass, optCssClass, ele) {
+	    if (typeof optJsClass === 'undefined' && typeof optCssClass === 'undefined') {
+	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
+	            _upgradeDomInternal(CompMgr.registeredControls[i].className, registeredControls[i].cssClass, ele);
+	        }
+	    } else {
+	        var jsClass = optJsClass;
+	        if (!optCssClass) {
+	            var registeredClass = _findRegisteredClass(jsClass);
+	            if (registeredClass) {
+	                optCssClass = registeredClass.cssClass;
+	            }
+	        }
+	        var elements;
+	        if (ele) {
+	            elements = (0, _dom.hasClass)(ele, optCssClass) ? [ele] : ele.querySelectorAll('.' + optCssClass);
+	        } else {
+	            elements = document.querySelectorAll('.' + optCssClass);
+	        }
+	        for (var n = 0; n < elements.length; n++) {
+	            _upgradeElement(elements[n], jsClass);
+	        }
+	    }
+	}
+
+	var CompMgr = {
+	    plugs: {},
+	    dataAdapters: {},
+	    /** 注册的控件*/
+	    registeredControls: [],
+	    createdControls: [],
 	    /**
 	     *
-	     * @param comp
-	     * @param options ：
-	     *      el: '#content',  对应的dom元素
-	     *      options: {},     配置
-	     *      model:{}        模型，包括数据和事件
+	     * @param options  {el:'#content', model:{}}
 	     */
-	    initialize: function initialize(options) {
-	        //组合mixin中的方法
-	        for (var i in this.mixins) {
-	            var mixin = this.mixins[i];
-	            for (var key in mixin['methods']) {
-	                if (!this[key]) {
-	                    this[key] = mixin['methods'][key];
+	    apply: function apply(options) {
+	        if (options) {
+	            var _el = options.el || document.body;
+	            var model = options.model;
+	        }
+	        if (typeof _el == 'string') {
+	            _el = document.body.querySelector(_el);
+	        }
+	        if (_el == null || (typeof _el === 'undefined' ? 'undefined' : _typeof(_el)) != 'object') _el = document.body;
+	        var comps = _el.querySelectorAll('[u-meta]');
+	        comps.forEach(function (element) {
+	            if (element['comp']) return;
+	            var options = JSON.parse(element.getAttribute('u-meta'));
+	            if (options && options['type']) {
+	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
+	                var comp = CompMgr.createDataAdapter({ el: element, options: options, model: model });
+	                if (comp) {
+	                    element['adpt'] = comp;
+	                    element['u-meta'] = comp;
 	                }
 	            }
-	        }
-
-	        //this.comp = comp;
-	        this.element = options['el'];
-	        this.options = options['options'];
-	        this.viewModel = options['model'];
-	        this.dataModel = null;
-	        this.mixins = this.mixins || [];
-	        this.parseDataModel();
-	        this.init();
-	        //执行mixin中的初始化方法
-	        for (var i in this.mixins) {
-	            var mixin = this.mixins[i];
-	            if (mixin['init']) mixin.init.call(this);
-	        }
+	        });
 	    },
-	    parseDataModel: function parseDataModel() {
-	        if (!this.options || !this.options["data"]) return;
-	        this.field = this.options["field"];
-	        var dtId = this.options["data"];
-	        this.dataModel = (0, _util.getJSObject)(this.viewModel, this.options["data"]);
-	        if (this.dataModel) {
-	            var opt = {};
-	            if (this.options.type === 'u-date') {
-	                opt.type = 'date';
+	    addPlug: function addPlug(config) {
+	        var plug = config['plug'],
+	            name = config['name'];
+	        this.plugs || (this.plugs = {});
+	        if (this.plugs[name]) {
+	            throw new Error('plug has exist:' + name);
+	        }
+	        plug.compType = name;
+	        this.plugs[name] = plug;
+	    },
+	    addDataAdapter: function addDataAdapter(config) {
+	        var adapter = config['adapter'],
+	            name = config['name'];
+	        //dataType = config['dataType'] || ''
+	        //var key = dataType ? name + '.' + dataType : name;
+	        this.dataAdapters || (dataAdapters = {});
+	        if (this.dataAdapters[name]) {
+	            throw new Error('dataAdapter has exist:' + name);
+	        }
+	        this.dataAdapters[name] = adapter;
+	    },
+	    getDataAdapter: function getDataAdapter(name) {
+	        if (!name) return;
+	        this.dataAdapters || (dataAdapters = {});
+	        //var key = dataType ? name + '.' + dataType : name;
+	        return this.dataAdapters[name];
+	    },
+	    createDataAdapter: function createDataAdapter(options) {
+	        var opt = options['options'];
+	        var type = opt['type'],
+	            id = opt['id'];
+	        var adpt = this.dataAdapters[type];
+	        if (!adpt) return null;
+	        var comp = new adpt(options);
+	        comp.type = type;
+	        comp.id = id;
+	        return comp;
+	    },
+	    _createComp: function _createComp(options) {
+	        var opt = options['options'];
+	        var type = opt['type'];
+	        var plug = this.plugs[type];
+	        if (!plug) return null;
+	        var comp = new plug(options);
+	        comp.type = type;
+	        return comp;
+	    },
+	    /**
+	     * 注册UI控件
+	     */
+	    regComp: function regComp(config) {
+	        var newConfig = {
+	            classConstructor: config.comp,
+	            className: config.compAsString || config['compAsString'],
+	            cssClass: config.css || config['css'],
+	            callbacks: []
+	        };
+	        config.comp.prototype.compType = config.compAsString;
+	        for (var i = 0; i < this.registeredControls.length; i++) {
+	            var item = this.registeredControls[i];
+	            //registeredControls.forEach(function(item) {
+	            if (item.cssClass === newConfig.cssClass) {
+	                throw new Error('The provided cssClass has already been registered: ' + item.cssClass);
 	            }
-	            if (this.field) this.dataModel.createField(this.field, opt);
-	        }
+	            if (item.className === newConfig.className) {
+	                throw new Error('The provided className has already been registered');
+	            }
+	        };
+	        this.registeredControls.push(newConfig);
 	    },
-	    getOption: function getOption(key) {
-	        var rs = this.dataModel.getRowMeta(this.field, key);
-	        if (rs === 0) {
-	            return 0;
-	        } else {
-	            return rs || this.options[key];
+	    updateComp: function updateComp(ele) {
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
 	        }
-	    },
-	    init: function init() {}
-	});
-
-	exports.BaseAdapter = BaseAdapter;
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	/**
-	 * Module : Sparrow class
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-28 08:45:39
-	 */
-
-	var Class = function Class(o) {
-		if (!(this instanceof Class) && isFunction(o)) {
-			return classify(o);
-		}
+	    }
 	};
 
-	// Create a new Class.
+	var compMgr = CompMgr;
+	exports.compMgr = compMgr;
+
+	///**
+	// * 加载控件
+	// */
 	//
-	//  var SuperPig = Class.create({
-	//    Extends: Animal,
-	//    Implements: Flyable,
-	//    initialize: function() {
-	//      SuperPig.superclass.initialize.apply(this, arguments)
-	//    },
-	//    Statics: {
-	//      COLOR: 'red'
-	//    }
-	// })
+	//if (document.readyState && document.readyState === 'complete'){
+	//    compMgr.updateComp();
+	//}else{
+	//    on(window, 'load', function() {
 	//
-	Class.create = function (parent, properties) {
-		if (!isFunction(parent)) {
-			properties = parent;
-			parent = null;
-		}
-
-		properties || (properties = {});
-		parent || (parent = properties.Extends || Class);
-		properties.Extends = parent;
-
-		// The created class constructor
-		function SubClass() {
-			var ret;
-			// Call the parent constructor.
-			parent.apply(this, arguments);
-
-			// Only call initialize in self constructor.
-			if (this.constructor === SubClass && this.initialize) {
-				ret = this.initialize.apply(this, arguments);
-			}
-			return ret ? ret : this;
-		}
-
-		// Inherit class (static) properties from parent.
-		if (parent !== Class) {
-			mix(SubClass, parent, parent.StaticsWhiteList);
-		}
-
-		// Add instance properties to the subclass.
-		implement.call(SubClass, properties);
-
-		// Make subclass extendable.
-		return classify(SubClass);
-	};
-
-	function implement(properties) {
-		var key, value;
-
-		for (key in properties) {
-			value = properties[key];
-
-			if (Class.Mutators.hasOwnProperty(key)) {
-				Class.Mutators[key].call(this, value);
-			} else {
-				this.prototype[key] = value;
-			}
-		}
-	}
-
-	// Create a sub Class based on `Class`.
-	Class.extend = function (properties) {
-		properties || (properties = {});
-		properties.Extends = this;
-
-		return Class.create(properties);
-	};
-
-	function classify(cls) {
-		cls.extend = Class.extend;
-		cls.implement = implement;
-		return cls;
-	}
-
-	// Mutators define special properties.
-	Class.Mutators = {
-
-		'Extends': function Extends(parent) {
-			var existed = this.prototype;
-			var proto = createProto(parent.prototype);
-
-			// Keep existed properties.
-			mix(proto, existed);
-
-			// Enforce the constructor to be what we expect.
-			proto.constructor = this;
-
-			// Set the prototype chain to inherit from `parent`.
-			this.prototype = proto;
-
-			// Set a convenience property in case the parent's prototype is
-			// needed later.
-			this.superclass = parent.prototype;
-		},
-
-		'Implements': function Implements(items) {
-			isArray(items) || (items = [items]);
-			var proto = this.prototype,
-			    item;
-
-			while (item = items.shift()) {
-				mix(proto, item.prototype || item);
-			}
-		},
-
-		'Statics': function Statics(staticProperties) {
-			mix(this, staticProperties);
-		}
-	};
-
-	// Shared empty constructor function to aid in prototype-chain creation.
-	function Ctor() {}
-
-	// See: http://jsperf.com/object-create-vs-new-ctor
-	var createProto = Object.__proto__ ? function (proto) {
-		return {
-			__proto__: proto
-		};
-	} : function (proto) {
-		Ctor.prototype = proto;
-		return new Ctor();
-	};
-
-	// Helpers
-	// ------------
-
-	function mix(r, s, wl) {
-		// Copy "all" properties including inherited ones.
-		for (var p in s) {
-			if (s.hasOwnProperty(p)) {
-				if (wl && indexOf(wl, p) === -1) continue;
-
-				// 在 iPhone 1 代等设备的 Safari 中，prototype 也会被枚举出来，需排除
-				if (p !== 'prototype') {
-					r[p] = s[p];
-				}
-			}
-		}
-	}
-
-	var toString = Object.prototype.toString;
-
-	var isArray = Array.isArray || function (val) {
-		return toString.call(val) === '[object Array]';
-	};
-
-	var isFunction = function isFunction(val) {
-		return toString.call(val) === '[object Function]';
-	};
-
-	var indexOf = function indexOf(arr, item) {
-		if (Array.prototype.indexOf && arr.indexOf) {
-			return arr.indexOf(item);
-		} else {
-			for (var i = 0, len = arr.length; i < len; i++) {
-				if (arr[i] === item) {
-					return i;
-				}
-			}
-			return -1;
-		}
-	};
-
-	exports.Class = Class;
-	exports.isFunction = isFunction;
+	//        //扫描并生成控件
+	//        compMgr.updateComp();
+	//    });
+	//}
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	/**
-	 * Module : Sparrow util tools
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-
-	/**
-	 * 创建一个带壳的对象,防止外部修改
-	 * @param {Object} proto
-	 */
-	var createShellObject = function createShellObject(proto) {
-		var exf = function exf() {};
-		exf.prototype = proto;
-		return new exf();
-	};
-	var execIgnoreError = function execIgnoreError(a, b, c) {
-		try {
-			a.call(b, c);
-		} catch (e) {}
-	};
-
-	var getFunction = function getFunction(target, val) {
-		if (!val || typeof val == 'function') return val;
-		if (typeof target[val] == 'function') return target[val];else if (typeof window[val] == 'function') return window[val];else if (val.indexOf('.') != -1) {
-			var func = getJSObject(target, val);
-			if (typeof func == 'function') return func;
-			func = getJSObject(window, val);
-			if (typeof func == 'function') return func;
-		}
-		return val;
-	};
-	var getJSObject = function getJSObject(target, names) {
-		if (!names) {
-			return;
-		}
-		if ((typeof names === 'undefined' ? 'undefined' : _typeof(names)) == 'object') return names;
-		var nameArr = names.split('.');
-		var obj = target;
-		for (var i = 0; i < nameArr.length; i++) {
-			obj = obj[nameArr[i]];
-			if (!obj) return null;
-		}
-		return obj;
-	};
-	var isDate = function isDate(input) {
-		return Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
-	};
-	var isNumber = function isNumber(obj) {
-		//return obj === +obj
-		return obj - parseFloat(obj) + 1 >= 0;
-	};
-	var isArray = Array.isArray || function (val) {
-		return Object.prototype.toString.call(val) === '[object Array]';
-	};
-	var isEmptyObject = function isEmptyObject(obj) {
-		var name;
-		for (name in obj) {
-			return false;
-		}
-		return true;
-	};
-	var inArray = function inArray(node, arr) {
-		if (!arr instanceof Array) {
-			throw "arguments is not Array";
-		}
-		for (var i = 0, k = arr.length; i < k; i++) {
-			if (node == arr[i]) {
-				return true;
-			}
-		}
-		return false;
-	};
-	var isDomElement = function isDomElement(obj) {
-		if (window['HTMLElement']) {
-			return obj instanceof HTMLElement;
-		} else {
-			return obj && obj.tagName && obj.nodeType === 1;
-		}
-	};
-	var each = function each(obj, callback) {
-		if (obj.forEach) {
-			obj.forEach(function (v, k) {
-				callback(k, v);
-			});
-		} else if (obj instanceof Object) {
-			for (var k in obj) {
-				callback(k, obj[k]);
-			}
-		} else {
-			return;
-		}
-	};
-
-	NodeList.prototype.forEach = Array.prototype.forEach;
-
-	/**
-	 * 获得字符串的字节长度
-	 */
-	String.prototype.lengthb = function () {
-		//	var str = this.replace(/[^\x800-\x10000]/g, "***");
-		var str = this.replace(/[^\x00-\xff]/g, "**");
-		return str.length;
-	};
-
-	/**
-	 * 将AFindText全部替换为ARepText
-	 */
-	String.prototype.replaceAll = function (AFindText, ARepText) {
-		//自定义String对象的方法
-		var raRegExp = new RegExp(AFindText, "g");
-		return this.replace(raRegExp, ARepText);
-	};
-
-	exports.createShellObject = createShellObject;
-	exports.execIgnoreError = execIgnoreError;
-	exports.getFunction = getFunction;
-	exports.getJSObject = getJSObject;
-	exports.isDate = isDate;
-	exports.isNumber = isNumber;
-	exports.isArray = isArray;
-	exports.isEmptyObject = isEmptyObject;
-	exports.inArray = inArray;
-	exports.isDomElement = isDomElement;
-	exports.each = each;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.CheckboxAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(3);
-
-	var _valueMixin = __webpack_require__(7);
-
-	var _enableMixin = __webpack_require__(8);
-
-	var _requiredMixin = __webpack_require__(12);
-
-	var _validateMixin = __webpack_require__(13);
-
-	var _util = __webpack_require__(5);
-
-	var _neouiCheckbox = __webpack_require__(19);
-
-	var _compMgr = __webpack_require__(16);
-
-	/**
-	 * Module : Kero Check Adapter
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-08 15:50:03
-	 */
-
-	var CheckboxAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init(options) {
-	        var self = this;
-	        // CheckboxAdapter.superclass.initialize.apply(this, arguments); 
-	        this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
-	        if (this.options['datasource'] || this.options['hasOther']) {
-	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
-	            this.checkboxTemplateArray = [];
-	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
-	                this.checkboxTemplateArray.push(this.element.childNodes[i]);
-	            }
-	        }
-	        if (this.options['datasource']) {
-	            this.isGroup = true;
-	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-
-	            this.setComboData(datasource);
-	        } else {
-	            if (this.element['u.Checkbox']) {
-	                this.comp = this.element['u.Checkbox'];
-	            } else {
-	                this.comp = new _neouiCheckbox.Checkbox(this.element);
-	                this.element['u.Checkbox'] = this.comp;
-	            }
-
-	            this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
-	            this.unCheckedValue = this.options["unCheckedValue"];
-
-	            this.comp.on('change', function () {
-	                if (self.slice) return;
-	                if (!self.dataModel) return;
-	                var modelValue = self.dataModel.getValue(self.field);
-	                modelValue = modelValue ? modelValue : '';
-	                if (self.isGroup) {
-	                    var valueArr = modelValue == '' ? [] : modelValue.split(',');
-
-	                    if (self.comp._inputElement.checked) {
-	                        valueArr.push(self.checkedValue);
-	                    } else {
-	                        var index = valueArr.indexOf(self.checkedValue);
-	                        valueArr.splice(index, 1);
-	                    }
-	                    self.dataModel.setValue(self.field, valueArr.join(','));
-	                } else {
-	                    if (self.comp._inputElement.checked) {
-	                        self.dataModel.setValue(self.field, self.checkedValue);
-	                    } else {
-	                        self.dataModel.setValue(self.field, self.unCheckedValue);
-	                    }
-	                }
-	            });
-	        }
-	        // 如果存在其他
-	        if (this.options['hasOther']) {
-	            var node = null;
-	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
-	                this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
-	            }
-	            var LabelS = this.element.querySelectorAll('.u-checkbox');
-	            self.lastLabel = LabelS[LabelS.length - 1];
-	            var allCheckS = this.element.querySelectorAll('[type=checkbox]');
-	            self.lastCheck = allCheckS[allCheckS.length - 1];
-	            var nameDivs = this.element.querySelectorAll('[data-role=name]');
-	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
-	            self.lastNameDiv.innerHTML = '其他';
-	            self.otherInput = makeDOM('<input type="text">');
-	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
-	            self.lastCheck.value = '';
-
-	            var comp;
-	            if (self.lastLabel['u.Checkbox']) {
-	                comp = self.lastLabel['u.Checkbox'];
-	            } else {
-	                comp = new _neouiCheckbox.Checkbox(self.lastLabel);
-	            }
-	            self.lastLabel['u.Checkbox'] = comp;
-	            self.otherComp = comp;
-	            comp.on('change', function () {
-	                if (self.slice) return;
-	                var modelValue = self.dataModel.getValue(self.field);
-	                modelValue = modelValue ? modelValue : '';
-	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
-	                if (comp._inputElement.checked) {
-	                    var oldIndex = valueArr.indexOf(comp._inputElement.oldValue);
-	                    if (oldIndex > -1) {
-	                        valueArr.splice(oldIndex, 1);
-	                    }
-	                    if (comp._inputElement.value) valueArr.push(comp._inputElement.value);
-	                } else {
-	                    var index = valueArr.indexOf(comp._inputElement.value);
-	                    if (index > -1) {
-	                        valueArr.splice(index, 1);
-	                    }
-	                }
-	                //self.slice = true;
-	                self.dataModel.setValue(self.field, valueArr.join(','));
-	                //self.slice = false;
-	            });
-
-	            on(self.otherInput, 'blur', function (e) {
-	                self.lastCheck.oldValue = self.lastCheck.value;
-	                self.lastCheck.value = this.value;
-	                self.otherComp.trigger('change');
-	            });
-	            on(self.otherInput, 'click', function (e) {
-	                stopEvent(e);
-	            });
-	        }
-
-	        if (this.dataModel) {
-	            this.dataModel.ref(this.field).subscribe(function (value) {
-	                self.modelValueChange(value);
-	            });
-	        }
-	    },
-	    setComboData: function setComboData(comboData) {
-	        var self = this;
-	        //this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len - 1; i++) {
-	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
-	                this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
-	            }
-	        }
-	        var allCheck = this.element.querySelectorAll('[type=checkbox]');
-	        var allName = this.element.querySelectorAll('[data-role=name]');
-	        for (var k = 0; k < allCheck.length; k++) {
-	            allCheck[k].value = comboData[k].pk || comboData[k].value;
-	            allName[k].innerHTML = comboData[k].name;
-	        }
-	        this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
-	            var comp;
-	            if (ele['u.Checkbox']) {
-	                comp = ele['u.Checkbox'];
-	            } else {
-	                comp = new _neouiCheckbox.Checkbox(ele);
-	            }
-	            ele['u.Checkbox'] = comp;
-	            comp.on('change', function () {
-	                if (self.slice) return;
-	                var modelValue = self.dataModel.getValue(self.field);
-	                modelValue = modelValue ? modelValue : '';
-	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
-	                if (comp._inputElement.checked) {
-	                    valueArr.push(comp._inputElement.value);
-	                } else {
-	                    var index = valueArr.indexOf(comp._inputElement.value);
-	                    valueArr.splice(index, 1);
-	                }
-	                //self.slice = true;
-	                self.dataModel.setValue(self.field, valueArr.join(','));
-	                //self.slice = false;
-	            });
-	        });
-	    },
-	    modelValueChange: function modelValueChange(val) {
-	        var self = this;
-	        if (this.slice) return;
-
-	        if (this.isGroup) {
-	            this.trueValue = val;
-	            if (this.options.hasOther) {
-	                otherVal = '';
-	                if (val) otherVal = val + ',';
-	            }
-	            this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
-	                var comp = ele['u.Checkbox'];
-	                var inputValue = comp._inputElement.value;
-	                if (inputValue && comp._inputElement.checked != (val + ',').indexOf(inputValue + ',') > -1) {
-	                    self.slice = true;
-	                    comp.toggle();
-	                    self.slice = false;
-	                }
-	                if (inputValue && (val + ',').indexOf(inputValue + ',') > -1) {
-	                    if (self.options.hasOther) {
-	                        otherVal = otherVal.replace(inputValue + ',', '');
-	                    }
-	                }
-	            });
-	            if (this.options.hasOther) {
-	                otherVal = otherVal.replace(/\,/g, '');
-	                if (otherVal) {
-	                    self.lastCheck.value = otherVal;
-	                    self.otherInput.value = otherVal;
-	                }
-	            }
-	        } else {
-	            if (this.comp._inputElement.checked != (val === this.checkedValue)) {
-	                this.slice = true;
-	                this.comp.toggle();
-	                this.slice = false;
-	            }
-	        }
-	    },
-
-	    setEnable: function setEnable(enable) {
-	        this.enable = enable === true || enable === 'true';
-	        if (this.isGroup) {
-	            this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
-	                var comp = ele['u.Checkbox'];
-	                if (enable === true || enable === 'true') {
-	                    comp.enable();
-	                } else {
-	                    comp.disable();
-	                }
-	            });
-	        } else {
-	            if (this.enable) {
-	                this.comp.enable();
-	            } else {
-	                this.comp.disable();
-	            }
-	        }
-	    }
-	});
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: CheckboxAdapter,
-	    name: 'u-checkbox'
-	});
-
-	exports.CheckboxAdapter = CheckboxAdapter;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : Kero Value Mixin
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-08 15:58:49
-	 */
-
-	var ValueMixin = {
-	    init: function init() {
-	        var self = this;
-	        this.dataModel.ref(this.field).subscribe(function (value) {
-	            self.modelValueChange(value);
-	        });
-	        this.modelValueChange(this.dataModel.getValue(this.field));
-	    },
-	    methods: {
-	        /**
-	         * 模型数据改变
-	         * @param {Object} value
-	         */
-	        modelValueChange: function modelValueChange(value) {
-	            if (this.slice) return;
-	            if (value === null || typeof value == "undefined") value = "";
-	            this.trueValue = this.formater ? this.formater.format(value) : value;
-	            //this.element.trueValue = this.trueValue;
-	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
-	            this.setShowValue(this.showValue);
-
-	            //this.trueValue = value;
-	            //this.showValue = value;
-	            //this.setShowValue(this.showValue);
-	        },
-
-	        ///**
-	        // * 设置模型值
-	        // * @param {Object} value
-	        // */
-	        //setModelValue: function (value) {
-	        //    if (!this.dataModel) return;
-	        //    this.dataModel.setValue(this.field, value)
-	        //},
-	        /**
-	         * 设置控件值
-	         * @param {Object} value
-	         */
-	        setValue: function setValue(value) {
-	            this.trueValue = this.formater ? this.formater.format(value) : value;
-	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
-	            this.setShowValue(this.showValue);
-	            this.slice = true;
-	            this.dataModel.setValue(this.field, this.trueValue);
-	            this.slice = false;
-	        },
-	        /**
-	         * 取控件的值
-	         */
-	        getValue: function getValue() {
-	            return this.trueValue;
-	        },
-	        setShowValue: function setShowValue(showValue) {
-	            this.showValue = showValue;
-	            this.element.value = showValue;
-	            this.element.title = showValue;
-	        },
-	        getShowValue: function getShowValue() {
-	            return this.showValue;
-	        },
-	        setModelValue: function setModelValue(value) {
-	            if (!this.dataModel) return;
-	            this.dataModel.setValue(this.field, value);
-	        }
-	    }
-	};
-
-	exports.ValueMixin = ValueMixin;
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.EnableMixin = undefined;
-
-	var _dom = __webpack_require__(9);
-
-	var EnableMixin = {
-	    init: function init() {
-	        var self = this;
-	        //处理只读
-	        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)) {
-	            this.setEnable(false);
-	        } else {
-	            this.dataModel.refEnable(this.field).subscribe(function (value) {
-	                self.setEnable(value);
-	            });
-	            this.setEnable(this.dataModel.isEnable(this.field));
-	        }
-	    },
-	    methods: {
-	        setEnable: function setEnable(enable) {
-	            if (enable === true || enable === 'true') {
-	                this.enable = true;
-	                this.element.removeAttribute('readonly');
-	                (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
-	            } else if (enable === false || enable === 'false') {
-	                this.enable = false;
-	                this.element.setAttribute('readonly', 'readonly');
-	                (0, _dom.addClass)(this.element.parentNode, 'disablecover');
-	            }
-	        }
-	    }
-	}; /**
-	    * Module : Kero Enable Mixin
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-08 16:32:54
-	    */
-	exports.EnableMixin = EnableMixin;
-
-/***/ },
-/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1069,7 +313,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
 	/**
 	 * 元素增加指定样式
@@ -1327,7 +571,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.showPanelByEle = showPanelByEle;
 
 /***/ },
-/* 10 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1337,7 +581,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
 	var u = {}; /**
 	             * Module : Sparrow touch event
@@ -1719,7 +963,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.event = event;
 
 /***/ },
-/* 11 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1729,7 +973,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.env = undefined;
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
 	var u = {}; /**
 	             * Module : Sparrow browser environment
@@ -1919,7 +1163,3813 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.env = env;
 
 /***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.extend = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow extend
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-27 21:46:50
+	                                                                                                                                                                                                                                                   */
+
+	var _enumerables = __webpack_require__(9);
+
+	/**
+	 * 复制对象属性
+	 *
+	 * @param {Object}  目标对象
+	 * @param {config} 源对象
+	 */
+	var extend = function extend(object, config) {
+		var args = arguments,
+		    options;
+		if (args.length > 1) {
+			for (var len = 1; len < args.length; len++) {
+				options = args[len];
+				if (object && options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					var i, j, k;
+					for (i in options) {
+						object[i] = options[i];
+					}
+					if (_enumerables.enumerables) {
+						for (j = _enumerables.enumerables.length; j--;) {
+							k = _enumerables.enumerables[j];
+							if (options.hasOwnProperty && options.hasOwnProperty(k)) {
+								object[k] = options[k];
+							}
+						}
+					}
+				}
+			}
+		}
+		return object;
+	};
+
+	exports.extend = extend;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	/**
+	 * Module : Sparrow extend enum
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-27 21:46:50
+	 */
+
+	var U_LANGUAGES = "i_languages";
+	var U_THEME = "u_theme";
+	var U_LOCALE = "u_locale";
+	var U_USERCODE = "usercode";
+
+	var enumerables = true,
+	    enumerablesTest = {
+		toString: 1
+	},
+	    toString = Object.prototype.toString;
+	for (var i in enumerablesTest) {
+		exports.enumerables = enumerables = null;
+	}
+	if (enumerables) {
+		exports.enumerables = enumerables = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
+	}
+
+	exports.enumerables = enumerables;
+	exports.U_LANGUAGES = U_LANGUAGES;
+	exports.U_THEME = U_THEME;
+	exports.U_LOCALE = U_LOCALE;
+	exports.U_USERCODE = U_USERCODE;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	/**
+	 * Module : Sparrow util tools
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-27 21:46:50
+	 */
+
+	/**
+	 * 创建一个带壳的对象,防止外部修改
+	 * @param {Object} proto
+	 */
+	var createShellObject = function createShellObject(proto) {
+		var exf = function exf() {};
+		exf.prototype = proto;
+		return new exf();
+	};
+	var execIgnoreError = function execIgnoreError(a, b, c) {
+		try {
+			a.call(b, c);
+		} catch (e) {}
+	};
+
+	var getFunction = function getFunction(target, val) {
+		if (!val || typeof val == 'function') return val;
+		if (typeof target[val] == 'function') return target[val];else if (typeof window[val] == 'function') return window[val];else if (val.indexOf('.') != -1) {
+			var func = getJSObject(target, val);
+			if (typeof func == 'function') return func;
+			func = getJSObject(window, val);
+			if (typeof func == 'function') return func;
+		}
+		return val;
+	};
+	var getJSObject = function getJSObject(target, names) {
+		if (!names) {
+			return;
+		}
+		if ((typeof names === 'undefined' ? 'undefined' : _typeof(names)) == 'object') return names;
+		var nameArr = names.split('.');
+		var obj = target;
+		for (var i = 0; i < nameArr.length; i++) {
+			obj = obj[nameArr[i]];
+			if (!obj) return null;
+		}
+		return obj;
+	};
+	var isDate = function isDate(input) {
+		return Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
+	};
+	var isNumber = function isNumber(obj) {
+		//return obj === +obj
+		return obj - parseFloat(obj) + 1 >= 0;
+	};
+	var isArray = Array.isArray || function (val) {
+		return Object.prototype.toString.call(val) === '[object Array]';
+	};
+	var isEmptyObject = function isEmptyObject(obj) {
+		var name;
+		for (name in obj) {
+			return false;
+		}
+		return true;
+	};
+	var inArray = function inArray(node, arr) {
+		if (!arr instanceof Array) {
+			throw "arguments is not Array";
+		}
+		for (var i = 0, k = arr.length; i < k; i++) {
+			if (node == arr[i]) {
+				return true;
+			}
+		}
+		return false;
+	};
+	var isDomElement = function isDomElement(obj) {
+		if (window['HTMLElement']) {
+			return obj instanceof HTMLElement;
+		} else {
+			return obj && obj.tagName && obj.nodeType === 1;
+		}
+	};
+	var each = function each(obj, callback) {
+		if (obj.forEach) {
+			obj.forEach(function (v, k) {
+				callback(k, v);
+			});
+		} else if (obj instanceof Object) {
+			for (var k in obj) {
+				callback(k, obj[k]);
+			}
+		} else {
+			return;
+		}
+	};
+
+	NodeList.prototype.forEach = Array.prototype.forEach;
+
+	/**
+	 * 获得字符串的字节长度
+	 */
+	String.prototype.lengthb = function () {
+		//	var str = this.replace(/[^\x800-\x10000]/g, "***");
+		var str = this.replace(/[^\x00-\xff]/g, "**");
+		return str.length;
+	};
+
+	/**
+	 * 将AFindText全部替换为ARepText
+	 */
+	String.prototype.replaceAll = function (AFindText, ARepText) {
+		//自定义String对象的方法
+		var raRegExp = new RegExp(AFindText, "g");
+		return this.replace(raRegExp, ARepText);
+	};
+
+	exports.createShellObject = createShellObject;
+	exports.execIgnoreError = execIgnoreError;
+	exports.getFunction = getFunction;
+	exports.getJSObject = getJSObject;
+	exports.isDate = isDate;
+	exports.isNumber = isNumber;
+	exports.isArray = isArray;
+	exports.isEmptyObject = isEmptyObject;
+	exports.inArray = inArray;
+	exports.isDomElement = isDomElement;
+	exports.each = each;
+
+/***/ },
+/* 11 */,
 /* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	/**
+	 * Module : Sparrow class
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-28 08:45:39
+	 */
+
+	var Class = function Class(o) {
+		if (!(this instanceof Class) && isFunction(o)) {
+			return classify(o);
+		}
+	};
+
+	// Create a new Class.
+	//
+	//  var SuperPig = Class.create({
+	//    Extends: Animal,
+	//    Implements: Flyable,
+	//    initialize: function() {
+	//      SuperPig.superclass.initialize.apply(this, arguments)
+	//    },
+	//    Statics: {
+	//      COLOR: 'red'
+	//    }
+	// })
+	//
+	Class.create = function (parent, properties) {
+		if (!isFunction(parent)) {
+			properties = parent;
+			parent = null;
+		}
+
+		properties || (properties = {});
+		parent || (parent = properties.Extends || Class);
+		properties.Extends = parent;
+
+		// The created class constructor
+		function SubClass() {
+			var ret;
+			// Call the parent constructor.
+			parent.apply(this, arguments);
+
+			// Only call initialize in self constructor.
+			if (this.constructor === SubClass && this.initialize) {
+				ret = this.initialize.apply(this, arguments);
+			}
+			return ret ? ret : this;
+		}
+
+		// Inherit class (static) properties from parent.
+		if (parent !== Class) {
+			mix(SubClass, parent, parent.StaticsWhiteList);
+		}
+
+		// Add instance properties to the subclass.
+		implement.call(SubClass, properties);
+
+		// Make subclass extendable.
+		return classify(SubClass);
+	};
+
+	function implement(properties) {
+		var key, value;
+
+		for (key in properties) {
+			value = properties[key];
+
+			if (Class.Mutators.hasOwnProperty(key)) {
+				Class.Mutators[key].call(this, value);
+			} else {
+				this.prototype[key] = value;
+			}
+		}
+	}
+
+	// Create a sub Class based on `Class`.
+	Class.extend = function (properties) {
+		properties || (properties = {});
+		properties.Extends = this;
+
+		return Class.create(properties);
+	};
+
+	function classify(cls) {
+		cls.extend = Class.extend;
+		cls.implement = implement;
+		return cls;
+	}
+
+	// Mutators define special properties.
+	Class.Mutators = {
+
+		'Extends': function Extends(parent) {
+			var existed = this.prototype;
+			var proto = createProto(parent.prototype);
+
+			// Keep existed properties.
+			mix(proto, existed);
+
+			// Enforce the constructor to be what we expect.
+			proto.constructor = this;
+
+			// Set the prototype chain to inherit from `parent`.
+			this.prototype = proto;
+
+			// Set a convenience property in case the parent's prototype is
+			// needed later.
+			this.superclass = parent.prototype;
+		},
+
+		'Implements': function Implements(items) {
+			isArray(items) || (items = [items]);
+			var proto = this.prototype,
+			    item;
+
+			while (item = items.shift()) {
+				mix(proto, item.prototype || item);
+			}
+		},
+
+		'Statics': function Statics(staticProperties) {
+			mix(this, staticProperties);
+		}
+	};
+
+	// Shared empty constructor function to aid in prototype-chain creation.
+	function Ctor() {}
+
+	// See: http://jsperf.com/object-create-vs-new-ctor
+	var createProto = Object.__proto__ ? function (proto) {
+		return {
+			__proto__: proto
+		};
+	} : function (proto) {
+		Ctor.prototype = proto;
+		return new Ctor();
+	};
+
+	// Helpers
+	// ------------
+
+	function mix(r, s, wl) {
+		// Copy "all" properties including inherited ones.
+		for (var p in s) {
+			if (s.hasOwnProperty(p)) {
+				if (wl && indexOf(wl, p) === -1) continue;
+
+				// 在 iPhone 1 代等设备的 Safari 中，prototype 也会被枚举出来，需排除
+				if (p !== 'prototype') {
+					r[p] = s[p];
+				}
+			}
+		}
+	}
+
+	var toString = Object.prototype.toString;
+
+	var isArray = Array.isArray || function (val) {
+		return toString.call(val) === '[object Array]';
+	};
+
+	var isFunction = function isFunction(val) {
+		return toString.call(val) === '[object Function]';
+	};
+
+	var indexOf = function indexOf(arr, item) {
+		if (Array.prototype.indexOf && arr.indexOf) {
+			return arr.indexOf(item);
+		} else {
+			for (var i = 0, len = arr.length; i < len; i++) {
+				if (arr[i] === item) {
+					return i;
+				}
+			}
+			return -1;
+		}
+	};
+
+	exports.Class = Class;
+	exports.isFunction = isFunction;
+
+/***/ },
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.DataTable = undefined;
+
+	var _indexEvents = __webpack_require__(30);
+
+	var _copyRow = __webpack_require__(32);
+
+	var _data = __webpack_require__(33);
+
+	var _enable = __webpack_require__(34);
+
+	var _getCurrent = __webpack_require__(35);
+
+	var _getData = __webpack_require__(36);
+
+	var _getFocus = __webpack_require__(37);
+
+	var _getMeta = __webpack_require__(38);
+
+	var _getPage = __webpack_require__(39);
+
+	var _getParam = __webpack_require__(40);
+
+	var _getSelect = __webpack_require__(41);
+
+	var _getSimpleData = __webpack_require__(42);
+
+	var _meta = __webpack_require__(43);
+
+	var _page = __webpack_require__(44);
+
+	var _param = __webpack_require__(45);
+
+	var _ref = __webpack_require__(46);
+
+	var _removeRow = __webpack_require__(47);
+
+	var _row = __webpack_require__(49);
+
+	var _rowCurrent = __webpack_require__(50);
+
+	var _rowDelete = __webpack_require__(51);
+
+	var _rowSelect = __webpack_require__(52);
+
+	var _rowFocus = __webpack_require__(53);
+
+	var _simpleData = __webpack_require__(54);
+
+	var _util = __webpack_require__(48);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Module : Kero webpack entry dataTable index
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Author : liuyk(liuyuekai@yonyou.com)
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Date   : 2016-08-09 15:24:46
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+	var DataTable = function (_Events) {
+	    _inherits(DataTable, _Events);
+
+	    function DataTable(options) {
+	        _classCallCheck(this, DataTable);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DataTable).call(this));
+
+	        options = options || {};
+	        _this.id = options['id'];
+	        _this.strict = options['strict'] || false;
+	        _this.meta = DataTable.createMetaItems(options['meta']);
+	        _this.enable = options['enable'] || DataTable.DEFAULTS.enable;
+	        _this.pageSize = ko.observable(options['pageSize'] || DataTable.DEFAULTS.pageSize);
+	        _this.pageIndex = ko.observable(options['pageIndex'] || DataTable.DEFAULTS.pageIndex);
+	        _this.totalPages = ko.observable(options['totalPages'] || DataTable.DEFAULTS.totalPages);
+	        _this.totalRow = ko.observable();
+	        _this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
+	        _this.rows = ko.observableArray([]);
+	        _this.selectedIndices = ko.observableArray([]);
+	        _this._oldCurrentIndex = -1;
+	        _this.focusIndex = ko.observable(-1);
+	        _this.cachedPages = [];
+	        _this.metaChange = {};
+	        _this.valueChange = {}; //ko.observable(1);
+	        _this.currentRowChange = ko.observable(1);
+	        _this.enableChange = ko.observable(1);
+	        _this.params = options['params'] || {};
+	        _this.master = options['master'] || '';
+	        _this.allSelected = ko.observable(false);
+	        if (options['root']) {
+	            _this.root = options['root'];
+	        } else {
+	            _this.root = _this;
+	        }
+	        if (options['ns']) {
+	            _this.ns = options['ns'];
+	        } else {
+	            _this.ns = '';
+	        }
+
+	        //copyRow
+	        _this.copyRow = _copyRow.copyRow;
+	        _this.copyRows = _copyRow.copyRows;
+
+	        //data
+	        _this.setData = _data.setData;
+	        _this.setValue = _data.setValue;
+
+	        //enable
+	        _this.isEnable = _enable.isEnable;
+	        _this.setEnable = _enable.setEnable;
+
+	        //getData
+	        _this.getData = _getData.getData;
+	        _this.getDataByRule = _getData.getDataByRule;
+	        _this.getRow = _getData.getRow;
+	        _this.getRowByRowId = _getData.getRowByRowId;
+	        _this.getRowIndex = _getData.getRowIndex;
+	        _this.getRowsByField = _getData.getRowsByField;
+	        _this.getRowByField = _getData.getRowByField;
+	        _this.getAllRows = _getData.getAllRows;
+	        _this.getAllPageRows = _getData.getAllPageRows;
+	        _this.getChangedDatas = _getData.getChangedDatas;
+	        _this.getChangedRows = _getData.getChangedRows;
+	        _this.getValue = _getData.getValue;
+	        _this.getIndexByRowId = _getData.getIndexByRowId;
+	        _this.getAllDatas = _getData.getAllDatas;
+	        _this.getRowIdsByIndices = _getData.getRowIdsByIndices;
+
+	        //getCurrent
+	        _this.getCurrentRow = _getCurrent.getCurrentRow;
+	        _this.getCurrentIndex = _getCurrent.getCurrentIndex;
+
+	        //getFocus
+	        _this.getFocusRow = _getFocus.getFocusRow;
+	        _this.getFocusIndex = _getFocus.getFocusIndex;
+
+	        //getMeta
+	        _this.getMeta = _getMeta.getMeta;
+	        _this.getRowMeta = _getMeta.getRowMeta;
+
+	        //getPage
+	        _this.getPage = _getPage.getPage;
+	        _this.getPages = _getPage.getPages;
+
+	        //getParam
+	        _this.getParam = _getParam.getParam;
+
+	        //getSelect
+	        _this.getSelectedIndex = _getSelect.getSelectedIndex;
+	        _this.getSelectedIndices = _getSelect.getSelectedIndices;
+	        _this.getSelectedIndexs = _getSelect.getSelectedIndexs;
+	        _this.getSelectedDatas = _getSelect.getSelectedDatas;
+	        _this.getSelectedRows = _getSelect.getSelectedRows;
+
+	        //getSimpleData
+	        _this.getSimpleData = _getSimpleData.getSimpleData;
+
+	        //meta
+	        _this.setMeta = _meta.setMeta;
+	        _this.updateMeta = _meta.updateMeta;
+	        _this.createField = _meta.createField;
+
+	        //page
+	        _this.setCurrentPage = _page.setCurrentPage;
+	        _this.updatePages = _page.updatePages;
+	        _this.setPages = _page.setPages;
+	        _this.hasPage = _page.hasPage;
+	        _this.clearCache = _page.clearCache;
+	        _this.cacheCurrentPage = _page.cacheCurrentPage;
+
+	        //param
+	        _this.addParam = _param.addParam;
+	        _this.addParams = _param.addParams;
+
+	        //ref
+	        _this.refSelectedRows = _ref.refSelectedRows;
+	        _this.ref = _ref.ref;
+	        _this.refMeta = _ref.refMeta;
+	        _this.refRowMeta = _ref.refRowMeta;
+	        _this.refEnable = _ref.refEnable;
+
+	        //row
+	        _this.setRows = _row.setRows;
+	        _this.addRow = _row.addRow;
+	        _this.addRows = _row.addRows;
+	        _this.insertRow = _row.insertRow;
+	        _this.insertRows = _row.insertRows;
+	        _this.createEmptyRow = _row.createEmptyRow;
+
+	        //removeRow
+	        _this.removeRowByRowId = _removeRow.removeRowByRowId;
+	        _this.removeRow = _removeRow.removeRow;
+	        _this.removeAllRows = _removeRow.removeAllRows;
+	        _this.removeRows = _removeRow.removeRows;
+	        _this.clear = _removeRow.clear;
+
+	        //rowCurrent
+	        _this.updateCurrIndex = _rowCurrent.updateCurrIndex;
+
+	        //rowDelete
+	        _this.setRowDelete = _rowDelete.setRowDelete;
+	        _this.setAllRowsDelete = _rowDelete.setAllRowsDelete;
+	        _this.setRowsDelete = _rowDelete.setRowsDelete;
+
+	        //rowFocus
+	        _this.setRowFocus = _rowFocus.setRowFocus;
+	        _this.setRowUnFocus = _rowFocus.setRowUnFocus;
+	        _this.updateFocusIndex = _rowFocus.updateFocusIndex;
+
+	        //rowSelect
+	        _this.setAllRowsSelect = _rowSelect.setAllRowsSelect;
+	        _this.setRowSelect = _rowSelect.setRowSelect;
+	        _this.setRowsSelect = _rowSelect.setRowsSelect;
+	        _this.addRowSelect = _rowSelect.addRowSelect;
+	        _this.addRowsSelect = _rowSelect.addRowsSelect;
+	        _this.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
+	        _this.setRowUnSelect = _rowSelect.setRowUnSelect;
+	        _this.setRowsUnSelect = _rowSelect.setRowsUnSelect;
+	        _this.toggleAllSelect = _rowSelect.toggleAllSelect;
+	        _this.updateSelectedIndices = _rowSelect.updateSelectedIndices;
+
+	        //simpleData
+	        _this.setSimpleData = _simpleData.setSimpleData;
+	        _this.addSimpleData = _simpleData.addSimpleData;
+
+	        //util
+	        _this.isChanged = _util.isChanged;
+	        return _this;
+	    }
+
+	    return DataTable;
+	}(_indexEvents.Events);
+
+	DataTable.DEFAULTS = {
+	    pageSize: 20,
+	    pageIndex: 0,
+	    totalPages: 20,
+	    pageCache: false,
+	    enable: true
+	};
+
+	DataTable.META_DEFAULTS = {
+	    enable: true,
+	    required: false,
+	    descs: {}
+	};
+
+	//事件类型
+	DataTable.ON_ROW_SELECT = 'select';
+	DataTable.ON_ROW_UNSELECT = 'unSelect';
+	DataTable.ON_ROW_ALLSELECT = 'allSelect';
+	DataTable.ON_ROW_ALLUNSELECT = 'allUnselect';
+	DataTable.ON_VALUE_CHANGE = 'valueChange';
+	DataTable.ON_CURRENT_VALUE_CHANGE = 'currentValueChange'; //当前行变化
+	//  DataTable.ON_AFTER_VALUE_CHANGE = 'afterValueChange'
+	//  DataTable.ON_ADD_ROW = 'addRow'
+	DataTable.ON_INSERT = 'insert';
+	DataTable.ON_UPDATE = 'update';
+	DataTable.ON_CURRENT_UPDATE = 'currentUpdate';
+	DataTable.ON_DELETE = 'delete';
+	DataTable.ON_DELETE_ALL = 'deleteAll';
+	DataTable.ON_ROW_FOCUS = 'focus';
+	DataTable.ON_ROW_UNFOCUS = 'unFocus';
+	DataTable.ON_LOAD = 'load';
+	DataTable.ON_ENABLE_CHANGE = 'enableChange';
+	DataTable.ON_META_CHANGE = 'metaChange';
+	DataTable.ON_ROW_META_CHANGE = 'rowMetaChange';
+	DataTable.ON_CURRENT_META_CHANGE = 'currentMetaChange';
+	DataTable.ON_CURRENT_ROW_CHANGE = 'currentRowChange';
+
+	DataTable.SUBMIT = {
+	    current: 'current',
+	    focus: 'focus',
+	    all: 'all',
+	    select: 'select',
+	    change: 'change',
+	    empty: 'empty',
+	    allSelect: 'allSelect',
+	    allPages: 'allPages'
+	};
+
+	DataTable.createMetaItems = function (metas) {
+	    var newMetas = {};
+	    for (var key in metas) {
+	        var meta = metas[key];
+	        if (typeof meta == 'string') meta = {};
+	        newMetas[key] = u.extend({}, DataTable.META_DEFAULTS, meta);
+	    }
+	    return newMetas;
+	};
+
+	exports.DataTable = DataTable;
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Events = undefined;
+
+	var _events = __webpack_require__(31);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
+	                                                                                                                                                           * Module : Kero webpack entry events index
+	                                                                                                                                                           * Author : liuyk(liuyuekai@yonyou.com)
+	                                                                                                                                                           * Date   : 2016-08-09 15:24:46
+	                                                                                                                                                           */
+
+	//相关依赖导入
+
+
+	var Events = function Events() {
+	    _classCallCheck(this, Events);
+
+	    this.on = _events.on;
+	    this.off = _events.off;
+	    this.one = _events.one;
+	    this.trigger = _events.trigger;
+	    this.getEvent = _events.getEvent;
+	};
+
+	exports.Events = Events;
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	/**
+	 * Module : kero dataTable events
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-07-30 14:34:01
+	 */
+
+	/**
+	 * 绑定事件
+	 * 支持的格式： 1. on(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
+	 * 2. on([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
+	 * 3. on({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
+	 */
+	var on = function on(name, _callback, one) {
+	    var self = this,
+	        origCb = _callback;
+	    if (Object.prototype.toString.call(name) == '[object Array]') {
+	        // 数组
+	        for (var i in name) {
+	            this.on(name[i], _callback);
+	        }
+	        return this;
+	    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
+	        // map
+	        for (var key in name) {
+	            this.on(key, name[key]);
+	        }
+	        return this;
+	    }
+	    if (one) {
+	        _callback = function callback() {
+	            self.off(name, _callback);
+	            origCb.apply(this, arguments);
+	        };
+	    }
+	    name = name.toLowerCase();
+	    this._events || (this._events = {});
+	    var events = this._events[name] || (this._events[name] = []);
+	    events.push({
+	        callback: _callback
+	    });
+	    return this;
+	};
+
+	/**
+	 * 解绑事件
+	 * 
+	**/
+	var off = function off(name, callback) {
+	    if (Object.prototype.toString.call(name) == '[object Array]') {
+	        // 数组
+	        for (var i in name) {
+	            this.off(name[i], callback);
+	        }
+	        return this;
+	    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
+	        // map
+	        for (var key in name) {
+	            this.off(key, name[key]);
+	        }
+	        return this;
+	    }
+	    var cbs = this._events[name];
+	    if (!cbs) return this;
+	    if (!callback) {
+	        // 解绑所有事件
+	        cbs = null;
+	    } else {
+	        for (var i = cbs.length - 1; i >= 0; i--) {
+	            if (cbs[i] == callback) {
+	                cbs.splice(i, 1);
+	            }
+	        }
+	    }
+	    return this;
+	};
+
+	/**
+	 * 
+	**/
+	var one = function one(name, callback) {
+	    this.on(name, callback, 1);
+	};
+
+	/**
+	 * 触发事件
+	 */
+	var trigger = function trigger(name) {
+	    name = name.toLowerCase();
+	    if (!this._events || !this._events[name]) return this;
+	    var args = Array.prototype.slice.call(arguments, 1);
+	    var events = this._events[name];
+	    for (var i = 0, count = events.length; i < count; i++) {
+	        events[i].callback.apply(this, args);
+	    }
+	    return this;
+	};
+
+	var getEvent = function getEvent(name) {
+	    name = name.toLowerCase();
+	    this._events || (this._events = {});
+	    return this._events[name];
+	};
+
+	exports.on = on;
+	exports.off = off;
+	exports.one = one;
+	exports.trigger = trigger;
+	exports.getEvent = getEvent;
+
+/***/ },
+/* 32 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable copyRow
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-01 14:34:01
+	 */
+
+	var copyRow = function copyRow(index, row) {
+	    this.copyRows(index, [row]);
+	};
+
+	var copyRows = function copyRows(index, rows) {
+	    for (var i = 0; i < rows.length; i++) {
+	        var newRow = new Row({ parent: this });
+	        if (rows[i]) {
+	            newRow.setData(rows[i].getData());
+	        }
+	        this.insertRows(index === undefined ? this.rows().length : index, [newRow]);
+	    }
+	};
+
+	exports.copyRow = copyRow;
+	exports.copyRows = copyRows;
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable data
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-07-30 14:34:01
+	 */
+
+	/** 
+	 *设置数据
+	 *
+	 */
+	var setData = function setData(data, options) {
+	    if (data.pageIndex || data.pageIndex === 0) {
+	        var newIndex = data.pageIndex;
+	    } else {
+	        var newIndex = this.pageIndex();
+	    }
+	    if (data.pageSize || data.pageSize === 0) {
+	        var newSize = data.pageSize;
+	    } else {
+	        var newSize = this.pageSize();
+	    }
+	    if (data.totalPages || data.totalPages === 0) {
+	        var newTotalPages = data.totalPages;
+	    } else {
+	        var newTotalPages = this.totalPages();
+	    }
+	    if (data.totalRow || data.totalRow === 0) {
+	        var newTotalRow = data.totalRow;
+	    } else {
+	        var newTotalRow = data.rows.length; //后续要考虑状态，del的不计算在内
+	    }
+	    var select,
+	        focus,
+	        unSelect = options ? options.unSelect : false;
+
+	    this.pageCache = data.pageCache || this.pageCache;
+	    if (this.pageCache === true) {
+	        this.updatePages(data.pages);
+	        if (newIndex != this.pageIndex()) {
+	            this.setCurrentPage(newIndex, true);
+	            this.totalPages(newTotalPages);
+	            this.totalRow(newTotalRow);
+	            return;
+	        } else {
+	            select = this.getPage(newIndex).selectedIndices;
+	            focus = this.getPage(newIndex).focus;
+	            this.setRows(this.getPage(newIndex).rows);
+	        }
+	    } else {
+	        select = data.select || (!unSelect ? [0] : []);
+	        focus = data.focus;
+	        this.setRows(data.rows);
+	    }
+	    this.pageIndex(newIndex);
+	    this.pageSize(newSize);
+	    this.totalPages(newTotalPages);
+	    this.totalRow(newTotalRow);
+
+	    this.updateSelectedIndices();
+
+	    if (select && select.length > 0 && this.rows().length > 0) this.setRowsSelect(select);
+	    if (focus) this.setRowFocus(focus);
+	};
+
+	var setValue = function setValue(fieldName, value, row, ctx) {
+	    if (arguments.length === 1) {
+	        value = fieldName;
+	        fieldName = '$data';
+	    }
+
+	    row = row ? row : this.getCurrentRow();
+	    if (row) row.setValue(fieldName, value, ctx);
+	};
+
+	exports.setData = setData;
+	exports.setValue = setValue;
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable enable
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-08 09:59:01
+	 */
+
+	var isEnable = function isEnable(fieldName) {
+	    var fieldEnable = this.getMeta(fieldName, 'enable');
+	    if (typeof fieldEnable == 'undefined' || fieldEnable == null) fieldEnable = true;
+	    return fieldEnable && this.enable;
+	};
+
+	var setEnable = function setEnable(enable) {
+	    if (this.enable == enable) return;
+	    //当传入的参数不为false时，默认enable为true
+	    if (enable === false) {
+	        enable = false;
+	    } else {
+	        enable = true;
+	    }
+	    this.enable = enable;
+	    this.enableChange(-this.enableChange());
+	    this.trigger(DataTable.ON_ENABLE_CHANGE, {
+	        enable: this.enable
+	    });
+	};
+
+	exports.isEnable = isEnable;
+	exports.setEnable = setEnable;
+
+/***/ },
+/* 35 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable getCurrent
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-08 09:59:01
+	 */
+
+	/**
+	 * 获取当前操作行
+	 * 规则： focus 行优先，没有focus行时，取第一选中行
+	 */
+	var getCurrentRow = function getCurrentRow() {
+	    if (this.focusIndex() != -1) return this.getFocusRow();
+	    var index = this.getSelectedIndex();
+	    if (index == -1) return null;else return this.getRow(index);
+	};
+
+	var getCurrentIndex = function getCurrentIndex() {
+	    if (this.focusIndex() != -1) return this.focusIndex();
+	    var index = this.getSelectedIndex();
+	    if (index == -1) return -1;else return index;
+	};
+
+	exports.getCurrentRow = getCurrentRow;
+	exports.getCurrentIndex = getCurrentIndex;
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable getData
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-07-30 14:34:01
+	 */
+
+	/**
+	 * 获取当前页数据
+	 */
+	var getData = function getData() {
+	    var datas = [],
+	        rows = this.rows();
+	    for (var i = 0; i < rows.length; i++) {
+	        datas.push(rows[i].getData());
+	    }
+	    return datas;
+	};
+
+	var getDataByRule = function getDataByRule(rule) {
+	    var returnData = {},
+	        datas = null,
+	        rows;
+	    returnData.meta = this.meta;
+	    returnData.params = this.params;
+	    rule = rule || DataTable.SUBMIT.current;
+	    if (rule == DataTable.SUBMIT.current) {
+	        datas = [];
+	        var currIndex = this.focusIndex();
+	        if (currIndex == -1) currIndex = this.getSelectedIndex();
+	        rows = this.rows();
+	        for (var i = 0, count = rows.length; i < count; i++) {
+	            if (i == currIndex) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
+	        }
+	    } else if (rule == DataTable.SUBMIT.focus) {
+	        datas = [];
+	        rows = this.rows();
+	        for (var i = 0, count = rows.length; i < count; i++) {
+	            if (i == this.focusIndex()) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
+	        }
+	    } else if (rule == DataTable.SUBMIT.all) {
+	        datas = this.getData();
+	    } else if (rule == DataTable.SUBMIT.select) {
+	        datas = this.getSelectedDatas(true);
+	    } else if (rule == DataTable.SUBMIT.change) {
+	        datas = this.getChangedDatas();
+	    } else if (rule === DataTable.SUBMIT.empty) {
+	        datas = [];
+	    }
+	    if (this.pageCache && datas != null) {
+	        datas = [{ index: this.pageIndex(), select: this.getSelectedIndexs(), focus: this.focusIndex(), rows: datas }];
+	    }
+	    if (rule == DataTable.SUBMIT.allSelect) {
+	        datas = [];
+	        var totalPages = this.totalPages();
+	        //缓存页数据
+	        for (var i = 0; i < totalPages; i++) {
+	            if (i == this.pageIndex()) {
+	                //当前页数据
+	                datas.push({
+	                    index: this.pageIndex(),
+	                    select: this.getSelectedIndexs(),
+	                    focus: this.focusIndex(),
+	                    rows: this.getSelectedDatas()
+	                });
+	            } else {
+	                var page = this.cachedPages[i];
+	                if (page) {
+	                    datas.push({
+	                        index: i,
+	                        select: page.selectedIndices,
+	                        focus: page.focus,
+	                        rows: page.getSelectDatas()
+	                    });
+	                }
+	            }
+	        }
+	    } else if (rule == DataTable.SUBMIT.allPages) {
+	        datas = [];
+	        var totalPages = this.totalPages();
+	        //缓存页数据
+	        for (var i = 0; i < totalPages; i++) {
+	            if (i == this.pageIndex()) {
+	                //当前页数据
+	                datas.push({
+	                    index: this.pageIndex(),
+	                    select: this.getSelectedIndexs(),
+	                    focus: this.focusIndex(),
+	                    rows: this.getData()
+	                });
+	            } else {
+	                var page = this.cachedPages[i];
+	                if (page) {
+	                    datas.push({ index: i, select: page.selectedIndices, focus: page.focus, rows: page.getData() });
+	                }
+	            }
+	        }
+	    }
+	    if (this.pageCache) {
+	        returnData.pages = datas;
+	    } else {
+	        returnData.rows = datas;
+	        returnData.select = this.getSelectedIndexs();
+	        returnData.focus = this.getFocusIndex();
+	    }
+
+	    returnData.pageSize = this.pageSize();
+	    returnData.pageIndex = this.pageIndex();
+	    returnData.isChanged = this.isChanged();
+	    returnData.master = this.master;
+	    returnData.pageCache = this.pageCache;
+	    return returnData;
+	};
+
+	var getRow = function getRow(index) {
+	    //return this.rows()[index]   //modify by licza.   improve performance
+	    return this.rows.peek()[index];
+	};
+
+	/**
+	 * 根据rowid取row对象
+	 * @param rowid
+	 * @returns {*}
+	 */
+	var getRowByRowId = function getRowByRowId(rowid) {
+	    var rows = this.rows.peek();
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (rows[i].rowId == rowid) return rows[i];
+	    }
+	    return null;
+	};
+
+	/**
+	 * 取行索引
+	 * @param row
+	 * @returns {*}
+	 */
+	var getRowIndex = function getRowIndex(row) {
+	    var rows = this.rows.peek();
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (rows[i].rowId === row.rowId) return i;
+	    }
+	    return -1;
+	};
+
+	var getRowsByField = function getRowsByField(field, value) {
+	    var rows = this.rows.peek();
+	    var returnRows = new Array();
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (rows[i].getValue(field) === value) returnRows.push(rows[i]);
+	    }
+	    return returnRows;
+	};
+
+	var getRowByField = function getRowByField(field, value) {
+	    var rows = this.rows.peek();
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (rows[i].getValue(field) === value) return rows[i];
+	    }
+	    return null;
+	};
+
+	var getAllRows = function getAllRows() {
+	    return this.rows.peek();
+	};
+
+	var getAllPageRows = function getAllPageRows() {
+	    var datas = [],
+	        rows;
+	    for (var i = 0; i < this.totalPages(); i++) {
+	        rows = [];
+	        if (i == this.pageIndex()) {
+	            rows = this.getData();
+	        } else {
+	            var page = this.cachedPages[i];
+	            if (page) {
+	                rows = page.getData();
+	            }
+	        }
+	        for (var j = 0; j < rows.length; j++) {
+	            datas.push(rows[j]);
+	        }
+	    }
+	    return datas;
+	};
+
+	/**
+	 * 获取变动的数据(新增、修改)
+	 */
+	var getChangedDatas = function getChangedDatas(withEmptyRow) {
+	    var datas = [],
+	        rows = this.rows();
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (rows[i] && rows[i].status != Row.STATUS.NORMAL) {
+	            datas.push(rows[i].getData());
+	        } else if (withEmptyRow == true) {
+	            datas.push(rows[i].getEmptyData());
+	        }
+	    }
+	    return datas;
+	};
+
+	/**
+	 * 取改变的行
+	 */
+	var getChangedRows = function getChangedRows() {
+	    var changedRows = [],
+	        rows = this.rows.peek();
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (rows[i] && rows[i].status != Row.STATUS.NORMAL) {
+	            changedRows.push(rows[i]);
+	        }
+	    }
+	    return changedRows;
+	};
+
+	var getValue = function getValue(fieldName, row) {
+	    row = row || this.getCurrentRow();
+	    if (row) return row.getValue(fieldName);else return '';
+	};
+
+	/**
+	 * 根据行号获取行索引
+	 * @param {String} rowId
+	 */
+	var getIndexByRowId = function getIndexByRowId(rowId) {
+	    var rows = this.rows();
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (rows[i].rowId == rowId) return i;
+	    }
+	    return -1;
+	};
+
+	/**
+	 * 获取所有行数据
+	 */
+	var getAllDatas = function getAllDatas() {
+	    var rows = this.getAllRows();
+	    var datas = [];
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (rows[i]) datas.push(rows[i].getData());
+	    }return datas;
+	};
+
+	/**
+	 * 根据索引取rowid
+	 * @param {Object} indices
+	 */
+	var getRowIdsByIndices = function getRowIdsByIndices(indices) {
+	    var rowIds = [];
+	    for (var i = 0; i < indices.length; i++) {
+	        rowIds.push(this.getRow(indices[i]).rowId);
+	    }
+	    return rowIds;
+	};
+
+	exports.getData = getData;
+	exports.getDataByRule = getDataByRule;
+	exports.getRow = getRow;
+	exports.getRowByRowId = getRowByRowId;
+	exports.getRowIndex = getRowIndex;
+	exports.getRowsByField = getRowsByField;
+	exports.getRowByField = getRowByField;
+	exports.getAllRows = getAllRows;
+	exports.getAllPageRows = getAllPageRows;
+	exports.getChangedDatas = getChangedDatas;
+	exports.getChangedRows = getChangedRows;
+	exports.getValue = getValue;
+	exports.getIndexByRowId = getIndexByRowId;
+	exports.getAllDatas = getAllDatas;
+	exports.getRowIdsByIndices = getRowIdsByIndices;
+
+/***/ },
+/* 37 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Module : kero dataTable getFocus
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-08 09:59:01
+	 */
+
+	/**
+	 * 获取焦点行
+	 */
+	var getFocusRow = function getFocusRow() {
+	  if (this.focusIndex() != -1) return this.getRow(this.focusIndex());else return null;
+	};
+
+	/**
+	 * 获取焦点行
+	 */
+	var getFocusIndex = function getFocusIndex() {
+	  return this.focusIndex();
+	};
+
+	exports.getFocusRow = getFocusRow;
+	exports.getFocusIndex = getFocusIndex;
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable getMete
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-07-30 14:34:01
+	 */
+
+	/**
+	 * 获取meta信息，先取row上的信息，没有时，取dataTable上的信息
+	 * @param {Object} fieldName
+	 * @param {Object} key
+	 * @param {Object} row
+	 */
+	var getMeta = function getMeta(fieldName, key) {
+	    if (arguments.length === 0) return this.meta;else if (arguments.length === 1) return this.meta[fieldName];
+
+	    if (this.meta[fieldName] && typeof this.meta[fieldName][key] !== 'undefined') {
+	        return this.meta[fieldName][key];
+	    } else {
+	        return null;
+	    }
+	};
+
+	var getRowMeta = function getRowMeta(fieldName, key) {
+	    var row = this.getCurrentRow();
+	    if (row) return row.getMeta(fieldName, key);else return this.getMeta(fieldName, key);
+	};
+
+	exports.getMeta = getMeta;
+	exports.getRowMeta = getRowMeta;
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable getPage
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-01 14:34:01
+	 */
+
+	var getPage = function getPage(pageIndex) {
+	    if (this.pageCache) {
+	        return this.cachedPages[pageIndex];
+	    }
+	    return -1;
+	};
+
+	var getPages = function getPages() {
+	    if (this.pageCache) {
+	        return this.cachedPages;
+	    }
+	    return [];
+	};
+
+	exports.getPage = getPage;
+	exports.getPages = getPages;
+
+/***/ },
+/* 40 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Module : kero dataTable getParam
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-07-30 14:34:01
+	 */
+
+	var getParam = function getParam(key) {
+	  return this.params[key];
+	};
+
+	exports.getParam = getParam;
+
+/***/ },
+/* 41 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable getSelect
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-01 14:34:01
+	 */
+
+	/**
+	 * 获取选中行索引，多选时，只返回第一个行索引
+	 */
+	var getSelectedIndex = function getSelectedIndex() {
+	    var selectedIndices = this.selectedIndices();
+	    if (selectedIndices == null || selectedIndices.length == 0) return -1;
+	    return selectedIndices[0];
+	};
+
+	/**
+	 *获取选中的所有行索引数组索引
+	 */
+	var getSelectedIndices = function getSelectedIndices() {
+	    var selectedIndices = this.selectedIndices();
+	    if (selectedIndices == null || selectedIndices.length == 0) return [];
+	    return selectedIndices;
+	};
+
+	/**
+	 * 兼容保留，不要用
+	 */
+	var getSelectedIndexs = function getSelectedIndexs() {
+	    return this.getSelectedIndices();
+	};
+
+	/**
+	 * 获取选中行数据
+	 */
+	var getSelectedDatas = function getSelectedDatas(withEmptyRow) {
+	    var selectedIndices = this.selectedIndices();
+	    var datas = [];
+	    var sIndices = [];
+	    for (var i = 0, count = selectedIndices.length; i < count; i++) {
+	        sIndices.push(selectedIndices[i]);
+	    }
+	    var rows = this.rows();
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (sIndices.indexOf(i) != -1) datas.push(rows[i].getData());else if (withEmptyRow == true) datas.push(rows[i].getEmptyData());
+	    }
+	    return datas;
+	};
+
+	/**
+	 * 取选中行
+	 */
+	var getSelectedRows = function getSelectedRows() {
+	    var selectedIndices = this.selectedIndices();
+	    var selectRows = [];
+	    var rows = this.rows.peek();
+	    var sIndices = [];
+	    for (var i = 0, count = selectedIndices.length; i < count; i++) {
+	        sIndices.push(selectedIndices[i]);
+	    }
+	    for (var i = 0, count = rows.length; i < count; i++) {
+	        if (sIndices.indexOf(i) != -1) selectRows.push(rows[i]);
+	    }
+	    return selectRows;
+	};
+
+	exports.getSelectedIndex = getSelectedIndex;
+	exports.getSelectedIndices = getSelectedIndices;
+	exports.getSelectedIndexs = getSelectedIndexs;
+	exports.getSelectedDatas = getSelectedDatas;
+	exports.getSelectedRows = getSelectedRows;
+
+/***/ },
+/* 42 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable getSimpleData
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-01 14:34:01
+	 */
+
+	/**
+	 * 获取数据,只取字段名与字段值
+	 */
+	var getSimpleData = function getSimpleData(options) {
+	    options = options || {};
+	    var rows,
+	        _rowData = [],
+	        type = options['type'] || 'all',
+	        fields = options['fields'] || null;
+
+	    if (type === 'all') {
+	        rows = this.rows.peek();
+	    } else if (type === 'current') {
+	        var currRow = this.getCurrentRow();
+	        rows = currRow == null ? [] : [currRow];
+	    } else if (type === 'focus') {
+	        var focusRow = this.getFocusRow();
+	        rows = focusRow == null ? [] : [focusRow];
+	    } else if (type === 'select') {
+	        rows = this.getSelectedRows();
+	    } else if (type === 'change') {
+	        rows = this.getChangedRows();
+	    }
+
+	    for (var i = 0; i < rows.length; i++) {
+	        _rowData.push(rows[i].getSimpleData({ fields: fields }));
+	    }
+	    return _rowData;
+	};
+
+	exports.getSimpleData = getSimpleData;
+
+/***/ },
+/* 43 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	/**
+	 * Module : kero dataTable mete
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-07-30 14:34:01
+	 */
+
+	var setMeta = function setMeta(fieldName, key, value) {
+	    if (!this.meta[fieldName]) return;
+	    var oldValue = this.meta[fieldName][key];
+	    var currRow = this.getCurrentRow();
+	    this.meta[fieldName][key] = value;
+	    if (this.metaChange[fieldName + '.' + key]) this.metaChange[fieldName + '.' + key](-this.metaChange[fieldName + '.' + key]());
+	    if (key == 'enable') this.enableChange(-this.enableChange());
+	    this.trigger(DataTable.ON_META_CHANGE, {
+	        eventType: 'dataTableEvent',
+	        dataTable: this.id,
+	        field: fieldName,
+	        meta: key,
+	        oldValue: oldValue,
+	        newValue: value
+	    });
+	    if (currRow && !currRow.getMeta(fieldName, key, false)) {
+	        this.trigger(fieldName + '.' + key + '.' + DataTable.ON_CURRENT_META_CHANGE, {
+	            eventType: 'dataTableEvent',
+	            dataTable: this.id,
+	            oldValue: oldValue,
+	            newValue: value
+	        });
+	    }
+	};
+
+	/**
+	 * example: meta: {supplier: {meta: {precision:'3', default: '0239900x', display:'显示名称'}}}
+	 */
+	var updateMeta = function updateMeta(meta) {
+	    if (!meta) {
+	        return;
+	    }
+	    for (var fieldKey in meta) {
+	        for (var propKey in meta[fieldKey]) {
+	            var oldValue = this.meta[fieldKey][propKey];
+	            var newValue = meta[fieldKey][propKey];
+	            if (propKey === 'default') {
+	                if (!this.meta[fieldKey]['default']) {
+	                    this.meta[fieldKey]['default'] = {};
+	                }
+	                this.meta[fieldKey]['default'].value = meta[fieldKey][propKey];
+	            } else if (propKey === 'display') {
+	                if (!this.meta[fieldKey]['default']) {
+	                    this.meta[fieldKey]['default'] = {};
+	                }
+	                this.meta[fieldKey]['default'].display = meta[fieldKey][propKey];
+	            } else {
+	                this.meta[fieldKey][propKey] = meta[fieldKey][propKey];
+	            }
+	            if (this.metaChange[fieldKey + '.' + propKey]) this.metaChange[fieldKey + '.' + propKey](-this.metaChange[fieldKey + '.' + propKey]());
+
+	            this.trigger(DataTable.ON_META_CHANGE, {
+	                eventType: 'dataTableEvent',
+	                dataTable: this.id,
+	                field: fieldKey,
+	                meta: propKey,
+	                oldValue: oldValue,
+	                newValue: newValue
+	            });
+	        }
+	    }
+	};
+
+	/**
+	 * 字段不存在时，创建字段
+	 * @param fieldName
+	 * @param options
+	 */
+	var createField = function createField(fieldName, options) {
+	    //字段不主动定义，则不创建
+	    if (this.root.strict == true) return;
+	    //有子表的情况不创建字段
+	    if (fieldName.indexOf('.') != -1) {
+	        var fNames = fieldName.split('.');
+	        var _name = fNames[0];
+	        for (var i = 0, count = fNames.length; i < count; i++) {
+	            if (this.meta[_name] && this.meta[_name]['type'] === 'child') return;
+	            if (i + 1 < count) _name = _name + '.' + fNames[i + 1];
+	        }
+	    }
+	    if (!this.meta[fieldName]) {
+	        this.meta[fieldName] = {};
+	    }
+	    if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+	        if (options['meta']) {
+	            for (var key in options['meta']) {
+	                //if (!this.meta[fieldName][key]){
+	                this.meta[fieldName]['meta'][key] = options['meta'][key];
+	                //}
+	            }
+	        } else {
+	            for (var key in options) {
+	                //if (!this.meta[fieldName][key]){
+	                this.meta[fieldName][key] = options[key];
+	                //}
+	            }
+	        }
+	    }
+	    // 在顶层dataTable上定义field信息
+	    if (this.root !== this) {
+	        var nsArr = this.ns.split('.');
+	        var _fieldMeta = this.root.meta;
+	        for (var i = 0; i < nsArr.length; i++) {
+	            _fieldMeta[nsArr[i]] = _fieldMeta[nsArr[i]] || {};
+	            _fieldMeta[nsArr[i]]['type'] = _fieldMeta[nsArr[i]]['type'] || 'child';
+	            _fieldMeta[nsArr[i]]['meta'] = _fieldMeta[nsArr[i]]['meta'] || {};
+	            _fieldMeta = _fieldMeta[nsArr[i]]['meta'];
+	        }
+	        if (!_fieldMeta[fieldName]) {
+	            _fieldMeta[fieldName] = {};
+	        }
+	        if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+	            for (var key in options) {
+	                if (!_fieldMeta[fieldName][key]) {
+	                    _fieldMeta[fieldName][key] = options[key];
+	                }
+	            }
+	        }
+	    }
+	};
+
+	exports.setMeta = setMeta;
+	exports.updateMeta = updateMeta;
+	exports.createField = createField;
+
+/***/ },
+/* 44 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable page
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-01 14:34:01
+	 */
+
+	var setCurrentPage = function setCurrentPage(pageIndex, notCacheCurrentPage) {
+	    if (pageIndex != this.pageIndex() && notCacheCurrentPage != true) this.cacheCurrentPage();
+	    this.pageIndex(pageIndex);
+	    var cachedPage = this.cachedPages[this.pageIndex()];
+	    if (cachedPage) {
+	        this.removeAllRows();
+	        this.setRows(cachedPage.rows);
+	        this.setRowsSelect(cachedPage.selectedIndcies);
+	    }
+	};
+
+	/**
+	 * 更新分页数据
+	 */
+	var updatePages = function updatePages(pages) {
+	    var pageSize = this.pageSize(),
+	        pageIndex = 0,
+	        page,
+	        r,
+	        row;
+	    var page, index, i, rows, focus, selectIndices, status, j, row, originRow;
+	    for (i = 0; i < pages.length; i++) {
+	        index = pages[i].index;
+	        rows = pages[i].rows;
+	        focus = pages[i].current;
+	        selectIndices = pages[i].select;
+	        status = pages[i].status;
+	        if (status === 'del') {
+	            this.cachedPages[index] = null;
+	            continue;
+	        }
+	        if (!this.cachedPages[index]) {
+	            page = new Page({ parent: this });
+	            page.rows = rows;
+	            for (var j = 0; j < page.rows.length; j++) {
+	                page.rows[j].rowId = page.rows[j].id;
+	                delete page.rows[j].id;
+	            }
+	            this.cachedPages[index] = page;
+	        } else {
+	            //如果是当前页，先把this.rows数据更新到page中
+	            if (index == this.pageIndex()) {
+	                this.cacheCurrentPage();
+	            }
+	            page = this.cachedPages[index];
+	            for (var j = 0; j < rows.length; j++) {
+	                r = rows[j];
+	                if (!r.id) r.id = Row.getRandomRowId();
+	                if (r.status == Row.STATUS.DELETE) {
+	                    this.removeRowByRowId(r.id);
+	                } else {
+	                    row = page.getRowByRowId(r.id);
+	                    if (row) {
+	                        page.updateRow(row, r);
+	                    } else {
+	                        r.rowId = r.id;
+	                        delete r.id;
+	                        page.rows.push(r);
+	                    }
+	                }
+	            }
+	        }
+	        page.selectedIndices = selectIndices;
+	        page.focus = focus;
+	    }
+	};
+
+	/**
+	 * 前端分页方法，不建议使用，建议在后端进行分页
+	 * @param allRows
+	 */
+	var setPages = function setPages(allRows) {
+	    var pageSize = this.pageSize(),
+	        pageIndex = 0,
+	        page;
+	    this.cachedPages = [];
+	    for (var i = 0; i < allRows.length; i++) {
+	        pageIndex = Math.floor(i / pageSize);
+	        if (!this.cachedPages[pageIndex]) {
+	            page = new Page({ parent: this });
+	            this.cachedPages[pageIndex] = page;
+	        }
+	        page.rows.push(allRows[i]);
+	    }
+	    if (this.pageIndex() > -1) this.setCurrentPage(this.pageIndex());
+	    this.totalRow(allRows.length);
+	    this.totalPages(pageIndex + 1);
+	};
+
+	var hasPage = function hasPage(pageIndex) {
+	    return this.pageCache && this.cachedPages[pageIndex] ? true : false;
+	};
+
+	var clearCache = function clearCache() {
+	    this.cachedPages = [];
+	};
+
+	var cacheCurrentPage = function cacheCurrentPage() {
+	    if (this.pageCache && this.pageIndex() > -1) {
+	        var page = new Page({ parent: this });
+	        page.focus = this.getFocusIndex();
+	        page.selectedIndices = this.selectedIndices().slice();
+	        var rows = this.rows.peek();
+	        for (var i = 0; i < rows.length; i++) {
+	            var r = rows[i].getData();
+	            r.rowId = r.id;
+	            delete r.id;
+	            page.rows.push(r);
+	        }
+	        this.cachedPages[this.pageIndex()] = page;
+	    }
+	};
+
+	exports.setCurrentPage = setCurrentPage;
+	exports.updatePages = updatePages;
+	exports.setPages = setPages;
+	exports.hasPage = hasPage;
+	exports.clearCache = clearCache;
+	exports.cacheCurrentPage = cacheCurrentPage;
+
+/***/ },
+/* 45 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable param
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-07-30 14:34:01
+	 */
+
+	var addParam = function addParam(key, value) {
+	    this.params[key] = value;
+	};
+
+	var addParams = function addParams(params) {
+	    for (var key in params) {
+	        this.params[key] = params[key];
+	    }
+	};
+
+	exports.addParam = addParam;
+	exports.addParams = addParams;
+
+/***/ },
+/* 46 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable ref
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-01 14:34:01
+	 */
+
+	var refSelectedRows = function refSelectedRows() {
+	    return ko.pureComputed({
+	        read: function read() {
+	            var ins = this.selectedIndices() || [];
+	            var rs = this.rows();
+	            var selectedRows = [];
+	            for (var i = 0; i < ins.length; i++) {
+	                selectedRows.push(rs[i]);
+	            }
+	            return selectedRows;
+	        }, owner: this
+	    });
+	};
+
+	/**
+	 * 绑定字段值
+	 * @param {Object} fieldName
+	 */
+	var ref = function ref(fieldName) {
+	    this.createField(fieldName);
+	    if (!this.valueChange[fieldName]) this.valueChange[fieldName] = ko.observable(1);
+	    return ko.pureComputed({
+	        read: function read() {
+	            this.valueChange[fieldName]();
+	            this.currentRowChange();
+	            var row = this.getCurrentRow();
+	            if (row) {
+	                return row.getChildValue(fieldName);
+	            } else return '';
+	        },
+	        write: function write(value) {
+	            var row = this.getCurrentRow();
+	            if (row) row.setChildValue(fieldName, value);
+	        },
+	        owner: this
+	    });
+	};
+
+	/**
+	 * 绑定字段属性
+	 * @param {Object} fieldName
+	 * @param {Object} key
+	 */
+	var refMeta = function refMeta(fieldName, key) {
+	    if (!this.metaChange[fieldName + '.' + key]) this.metaChange[fieldName + '.' + key] = ko.observable(1);
+	    return ko.pureComputed({
+	        read: function read() {
+	            this.metaChange[fieldName + '.' + key]();
+	            this.currentRowChange();
+	            return this.getMeta(fieldName, key);
+	        },
+	        write: function write(value) {
+	            this.setMeta(fieldName, key, value);
+	        },
+	        owner: this
+	    });
+	};
+
+	var refRowMeta = function refRowMeta(fieldName, key) {
+	    if (!this.metaChange[fieldName + '.' + key]) this.metaChange[fieldName + '.' + key] = ko.observable(1);
+	    return ko.pureComputed({
+	        read: function read() {
+	            this.metaChange[fieldName + '.' + key]();
+	            this.currentRowChange();
+	            var row = this.getCurrentRow();
+	            if (row) return row.getMeta(fieldName, key);else return this.getMeta(fieldName, key);
+	        },
+	        write: function write(value) {
+	            var row = this.getCurrentRow();
+	            if (row) row.setMeta(fieldName, value);
+	        },
+	        owner: this
+	    });
+	};
+
+	var refEnable = function refEnable(fieldName) {
+	    return ko.pureComputed({
+	        //enable优先级： dataTable.enable >  row上的enable >  field中的enable定义
+	        read: function read() {
+	            this.enableChange();
+	            if (!fieldName) return this.enable;
+	            var fieldEnable = this.getRowMeta(fieldName, 'enable');
+	            if (typeof fieldEnable == 'undefined' || fieldEnable == null) fieldEnable = true;
+	            return fieldEnable && this.enable;
+	        },
+	        owner: this
+	    });
+	};
+
+	exports.refSelectedRows = refSelectedRows;
+	exports.ref = ref;
+	exports.refMeta = refMeta;
+	exports.refRowMeta = refRowMeta;
+	exports.refEnable = refEnable;
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
+
+	var _util = __webpack_require__(48);
+
+	var removeRowByRowId = function removeRowByRowId(rowId) {
+	    var index = this.getIndexByRowId(rowId);
+	    if (index != -1) this.removeRow(index);
+	}; /**
+	    * Module : kero dataTable removeRow
+	    * Author : liuyk(liuyk@yonyou.com)
+	    * Date   : 2016-08-01 14:34:01
+	    */
+
+
+	var removeRow = function removeRow(index) {
+	    if (index instanceof Row) {
+	        index = this.getIndexByRowId(index.rowId);
+	    }
+	    this.removeRows([index]);
+	};
+
+	var removeAllRows = function removeAllRows() {
+	    this.rows([]);
+	    this.selectedIndices([]);
+	    this.focusIndex(-1);
+	    this.trigger(DataTable.ON_DELETE_ALL);
+	    this.updateCurrIndex();
+	};
+
+	var removeRows = function removeRows(indices) {
+	    indices = (0, _util._formatToIndicesArray)(this, indices);
+	    indices = indices.sort();
+	    var rowIds = [],
+	        rows = this.rows(),
+	        deleteRows = [];
+	    for (var i = indices.length - 1; i >= 0; i--) {
+	        var index = indices[i];
+	        var delRow = rows[index];
+	        if (delRow == null) {
+	            continue;
+	        }
+	        rowIds.push(delRow.rowId);
+	        var deleteRow = rows.splice(index, 1);
+	        deleteRows.push(deleteRow[0]);
+	        this.updateSelectedIndices(index, '-');
+	        this.updateFocusIndex(index, '-');
+	    }
+	    this.rows(rows);
+	    this.deleteRows = deleteRows;
+	    this.trigger(DataTable.ON_DELETE, {
+	        indices: indices,
+	        rowIds: rowIds,
+	        deleteRows: deleteRows
+	    });
+	    this.updateCurrIndex();
+	};
+
+	/**
+	 * 清空datatable的所有数据以及分页数据以及index
+	 */
+	var clear = function clear() {
+	    this.removeAllRows();
+	    this.cachedPages = [];
+	    this.totalPages(1);
+	    this.pageIndex(0);
+	    this.focusIndex(-1);
+	    this.selectedIndices([]);
+	};
+
+	exports.removeRowByRowId = removeRowByRowId;
+	exports.removeRow = removeRow;
+	exports.removeAllRows = removeAllRows;
+	exports.removeRows = removeRows;
+	exports.clear = clear;
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports._formatToIndicesArray = exports.isChanged = undefined;
+
+	var _util = __webpack_require__(10);
+
+	var isChanged = function isChanged() {
+	    var rows = this.getAllRows();
+	    for (var i = 0; i < rows.length; i++) {
+	        if (rows[i].status != Row.STATUS.NORMAL) return true;
+	    }
+	    return false;
+	}; /**
+	    * Module : kero dataTable util
+	    * Author : liuyk(liuyk@yonyou.com)
+	    * Date   : 2016-08-08 09:59:01
+	    */
+
+
+	var _formatToIndicesArray = function _formatToIndicesArray(dataTableObj, indices) {
+	    if (typeof indices == 'string' || typeof indices == 'number') {
+	        indices = [indices];
+	    } else if (indices instanceof Row) {
+	        indices = dataTableObj.getIndexByRowId(indices.rowId);
+	    } else if ((0, _util.isArray)(indices) && indices.length > 0 && indices[0] instanceof Row) {
+	        for (var i = 0; i < indices.length; i++) {
+	            indices[i] = dataTableObj.getIndexByRowId(indices[i].rowId);
+	        }
+	    }
+	    return indices;
+	};
+
+	exports.isChanged = isChanged;
+	exports._formatToIndicesArray = _formatToIndicesArray;
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
+
+	var _util = __webpack_require__(10);
+
+	/**
+	 * 设置行数据
+	 * @param {Object} rows
+	 */
+	var setRows = function setRows(rows) {
+	    var insertRows = [],
+	        _id;
+	    for (var i = 0; i < rows.length; i++) {
+	        var r = rows[i];
+	        _id = r.rowId || r.id;
+	        if (!_id) _id = Row.getRandomRowId();
+	        if (r.status == Row.STATUS.DELETE) {
+	            this.removeRowByRowId(_id);
+	        } else {
+	            var row = this.getRowByRowId(_id);
+	            if (row) {
+	                row.updateRow(r);
+	                if (!(0, _util.isEmptyObject)(r.data)) {
+	                    this.trigger(DataTable.ON_UPDATE, {
+	                        index: i,
+	                        rows: [row]
+	                    });
+	                    if (row == this.getCurrentRow()) {
+	                        this.currentRowChange(-this.currentRowChange());
+	                        row.currentRowChange(-row.currentRowChange());
+	                        this.trigger(DataTable.ON_CURRENT_UPDATE, {
+	                            index: i,
+	                            rows: [row]
+	                        });
+	                    } else {
+	                        row.currentRowChange(-row.currentRowChange());
+	                    }
+	                }
+	            } else {
+	                row = new Row({ parent: this, id: _id });
+	                row.setData(rows[i]);
+	                insertRows.push(row);
+	            }
+	        }
+	    }
+	    if (insertRows.length > 0) this.addRows(insertRows);
+	};
+
+	/**
+	 *追加行
+	 */
+	/**
+	 * Module : kero dataTable row
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-01 14:34:01
+	 */
+	var addRow = function addRow(row) {
+	    this.insertRow(this.rows().length, row);
+	};
+
+	/**
+	 *追加多行
+	 */
+	var addRows = function addRows(rows) {
+	    this.insertRows(this.rows().length, rows);
+	};
+
+	var insertRow = function insertRow(index, row) {
+	    if (!row) {
+	        row = new Row({ parent: this });
+	    }
+	    this.insertRows(index, [row]);
+	};
+
+	var insertRows = function insertRows(index, rows) {
+	    var args = [index, 0];
+	    for (var i = 0; i < rows.length; i++) {
+	        args.push(rows[i]);
+	    }
+	    this.rows.splice.apply(this.rows, args);
+
+	    this.updateSelectedIndices(index, '+', rows.length);
+	    this.updateFocusIndex(index, '+', rows.length);
+
+	    this.trigger(DataTable.ON_INSERT, {
+	        index: index,
+	        rows: rows
+	    });
+	    if (this.ns) {
+	        if (this.root.valueChange[this.ns]) this.root.valueChange[this.ns](-this.root.valueChange[this.ns]());
+	    }
+	};
+
+	/**
+	 * 创建空行
+	 */
+	var createEmptyRow = function createEmptyRow() {
+	    var r = new Row({ parent: this });
+	    this.addRow(r);
+	    if (!this.getCurrentRow()) this.setRowSelect(r);
+	    return r;
+	};
+
+	exports.setRows = setRows;
+	exports.addRow = addRow;
+	exports.addRows = addRows;
+	exports.insertRow = insertRow;
+	exports.insertRows = insertRows;
+	exports.createEmptyRow = createEmptyRow;
+
+/***/ },
+/* 50 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : kero dataTable rowCurrent
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-08 09:59:01
+	 */
+
+	var updateCurrIndex = function updateCurrIndex() {
+	    var currentIndex = this.focusIndex() != -1 ? this.focusIndex() : this.getSelectedIndex();
+	    if (this._oldCurrentIndex != currentIndex) {
+	        this._oldCurrentIndex = currentIndex;
+	        this.trigger(DataTable.ON_CURRENT_ROW_CHANGE);
+	        this.currentRowChange(-this.currentRowChange());
+	        if (this.ns) {
+	            if (this.root.valueChange[this.ns]) this.root.valueChange[this.ns](-this.root.valueChange[this.ns]());
+	        }
+	    }
+	};
+
+	exports.updateCurrIndex = updateCurrIndex;
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
+
+	var _util = __webpack_require__(48);
+
+	/**
+	 * 设置行删除
+	 * @param {Object} index
+	 */
+	var setRowDelete = function setRowDelete(index) {
+	    if (index instanceof Row) {
+	        index = this.getIndexByRowId(index.rowId);
+	    }
+	    this.setRowsDelete([index]);
+	};
+
+	/**
+	 * 设置所有行删除
+	 */
+	/**
+	 * Module : kero dataTable rowDelete
+	 * Desc: 不建议使用此库方法
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-01 14:34:01
+	 */
+	var setAllRowsDelete = function setAllRowsDelete() {
+	    var indices = new Array(this.rows().length);
+	    for (var i = 0; i < indices.length; i++) {
+	        indices[i] = i;
+	    }
+	    this.setRowsDelete(indices);
+	};
+
+	/**
+	 * 设置行删除
+	 * @param {Array} indices
+	 */
+	var setRowsDelete = function setRowsDelete(indices) {
+	    indices = (0, _util._formatToIndicesArray)(this, indices);
+	    for (var i = 0; i < indices.length; i++) {
+	        var row = this.getRow(indices[i]);
+	        if (row.status == Row.STATUS.NEW) {
+	            this.rows(this.rows().splice(indices[i], 1));
+	            this.updateSelectedIndices(indices[i], '-');
+	            this.updateFocusIndex(index, '-');
+	        } else {
+	            row.status = Row.STATUS.FALSE_DELETE;
+	        }
+	    }
+	    var rowIds = this.getRowIdsByIndices(indices);
+	    this.trigger(DataTable.ON_ROW_DELETE, {
+	        falseDelete: true,
+	        indices: indices,
+	        rowIds: rowIds
+	    });
+	};
+
+	exports.setRowDelete = setRowDelete;
+	exports.setAllRowsDelete = setAllRowsDelete;
+	exports.setRowsDelete = setRowsDelete;
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
+
+	var _util = __webpack_require__(10);
+
+	var _util2 = __webpack_require__(48);
+
+	/**
+	 * Module : kero dataTable rowSelect
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-01 14:34:01
+	 */
+	var setAllRowsSelect = function setAllRowsSelect() {
+	    var indices = new Array(this.rows().length);
+	    for (var i = 0; i < indices.length; i++) {
+	        indices[i] = i;
+	    }
+	    this.setRowsSelect(indices);
+	    this.allSelected(true);
+	    this.trigger(DataTable.ON_ROW_ALLSELECT, {});
+	};
+
+	/**
+	 * 设置选中行，清空之前已选中的所有行
+	 */
+	var setRowSelect = function setRowSelect(index) {
+	    if (index instanceof Row) {
+	        index = this.getIndexByRowId(index.rowId);
+	    }
+	    this.setRowsSelect([index]);
+	    this.setRowFocus(this.getSelectedIndex());
+	};
+
+	var setRowsSelect = function setRowsSelect(indices) {
+	    indices = indices || -1;
+	    if (indices == -1) {
+	        this.setAllRowsUnSelect({ quiet: true });
+	        return;
+	    }
+	    indices = (0, _util2._formatToIndicesArray)(this, indices);
+	    var sIns = this.selectedIndices();
+	    if ((0, _util.isArray)(indices) && (0, _util.isArray)(sIns) && indices.join() == sIns.join()) {
+	        // 避免与控件循环触发
+	        return;
+	    }
+	    this.setAllRowsUnSelect({ quiet: true });
+	    try {
+	        this.selectedIndices(indices);
+	    } catch (e) {}
+
+	    var rowIds = this.getRowIdsByIndices(indices);
+	    this.currentRowChange(-this.currentRowChange());
+	    this.trigger(DataTable.ON_ROW_SELECT, {
+	        indices: indices,
+	        rowIds: rowIds
+	    });
+	    this.updateCurrIndex();
+	};
+
+	/**
+	 * 添加选中行，不会清空之前已选中的行
+	 */
+	var addRowSelect = function addRowSelect(index) {
+	    if (index instanceof Row) {
+	        index = this.getIndexByRowId(index.rowId);
+	    }
+	    this.addRowsSelect([index]);
+	};
+
+	/**
+	 * 添加选中行，不会清空之前已选中的行
+	 */
+	var addRowsSelect = function addRowsSelect(indices) {
+	    indices = (0, _util2._formatToIndicesArray)(this, indices);
+	    var selectedIndices = this.selectedIndices().slice();
+	    for (var i = 0; i < indices.length; i++) {
+	        var ind = indices[i],
+	            toAdd = true;
+	        for (var j = 0; j < selectedIndices.length; j++) {
+	            if (selectedIndices[j] == ind) {
+	                toAdd = false;
+	            }
+	        }
+	        if (toAdd) {
+	            selectedIndices.push(indices[i]);
+	        }
+	    }
+	    this.selectedIndices(selectedIndices);
+	    var rowIds = this.getRowIdsByIndices(indices);
+	    this.trigger(DataTable.ON_ROW_SELECT, {
+	        indices: indices,
+	        rowIds: rowIds
+	    });
+	    this.updateCurrIndex();
+	};
+
+	/**
+	 * 全部取消选中
+	 */
+	var setAllRowsUnSelect = function setAllRowsUnSelect(options) {
+	    this.selectedIndices([]);
+	    if (!(options && options.quiet)) {
+	        this.trigger(DataTable.ON_ROW_ALLUNSELECT);
+	    }
+	    this.updateCurrIndex();
+	    this.allSelected(false);
+	};
+
+	/**
+	 * 取消选中
+	 */
+	var setRowUnSelect = function setRowUnSelect(index) {
+	    if (index instanceof Row) {
+	        index = this.getIndexByRowId(index.rowId);
+	    }
+	    this.setRowsUnSelect([index]);
+	};
+
+	var setRowsUnSelect = function setRowsUnSelect(indices) {
+	    indices = (0, _util2._formatToIndicesArray)(this, indices);
+	    var selectedIndices = this.selectedIndices().slice();
+
+	    // 避免与控件循环触发
+	    if (selectedIndices.indexOf(indices[0]) == -1) return;
+
+	    for (var i = 0; i < indices.length; i++) {
+	        var index = indices[i];
+	        var pos = selectedIndices.indexOf(index);
+	        if (pos != -1) selectedIndices.splice(pos, 1);
+	    }
+	    this.selectedIndices(selectedIndices);
+	    var rowIds = this.getRowIdsByIndices(indices);
+	    this.trigger(DataTable.ON_ROW_UNSELECT, {
+	        indices: indices,
+	        rowIds: rowIds
+	    });
+	    this.updateCurrIndex();
+	    this.allSelected(false);
+	};
+
+	var toggleAllSelect = function toggleAllSelect() {
+	    if (this.allSelected()) {
+	        this.setAllRowsUnSelect();
+	    } else {
+	        this.setAllRowsSelect();
+	    }
+	};
+
+	/**
+	 *
+	 * @param {Object} index 要处理的起始行索引
+	 * @param {Object} type   增加或减少  + -
+	 */
+	var updateSelectedIndices = function updateSelectedIndices(index, type, num) {
+	    if (!(0, _util.isNumber)(num)) {
+	        num = 1;
+	    }
+	    var selectedIndices = this.selectedIndices().slice();
+	    if (selectedIndices == null || selectedIndices.length == 0) return;
+	    for (var i = 0, count = selectedIndices.length; i < count; i++) {
+	        if (type == '+') {
+	            if (selectedIndices[i] >= index) selectedIndices[i] = parseInt(selectedIndices[i]) + num;
+	        } else if (type == '-') {
+	            if (selectedIndices[i] >= index && selectedIndices[i] <= index + num - 1) {
+	                selectedIndices.splice(i, 1);
+	            } else if (selectedIndices[i] > index + num - 1) selectedIndices[i] = selectedIndices[i] - num;
+	        }
+	    }
+	    this.selectedIndices(selectedIndices);
+	};
+	exports.setAllRowsSelect = setAllRowsSelect;
+	exports.setRowSelect = setRowSelect;
+	exports.setRowsSelect = setRowsSelect;
+	exports.addRowSelect = addRowSelect;
+	exports.addRowsSelect = addRowsSelect;
+	exports.setAllRowsUnSelect = setAllRowsUnSelect;
+	exports.setRowUnSelect = setRowUnSelect;
+	exports.setRowsUnSelect = setRowsUnSelect;
+	exports.toggleAllSelect = toggleAllSelect;
+	exports.updateSelectedIndices = updateSelectedIndices;
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
+
+	var _util = __webpack_require__(10);
+
+	/**
+	 * 设置焦点行
+	 * @param {Object} index 行对象或者行index
+	 * @param quiet 不触发事件
+	 * @param force 当index行与已focus的行相等时，仍然触发事件
+	 */
+	var setRowFocus = function setRowFocus(index, quiet, force) {
+	    var rowId = null;
+	    if (index instanceof Row) {
+	        index = this.getIndexByRowId(index.rowId);
+	        rowId = index.rowId;
+	    }
+	    if (index === -1 || index === this.focusIndex() && !force) {
+	        return;
+	    }
+	    this.focusIndex(index);
+	    if (quiet) {
+	        return;
+	    }
+	    this.currentRowChange(-this.currentRowChange());
+	    if (!rowId) {
+	        rowId = this.getRow(index).rowId;
+	    }
+	    this.trigger(DataTable.ON_ROW_FOCUS, {
+	        index: index,
+	        rowId: rowId
+	    });
+	    this.updateCurrIndex();
+	};
+
+	/**
+	 * 焦点行反选
+	 */
+	/**
+	 * Module : kero dataTable rowFocus
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-08 09:59:01
+	 */
+	var setRowUnFocus = function setRowUnFocus() {
+	    this.currentRowChange(-this.currentRowChange());
+	    var indx = this.focusIndex(),
+	        rowId = null;
+	    if (indx !== -1) {
+	        rowId = this.getRow(indx).rowId;
+	    }
+	    this.trigger(DataTable.ON_ROW_UNFOCUS, {
+	        index: indx,
+	        rowId: rowId
+	    });
+	    this.focusIndex(-1);
+	    this.updateCurrIndex();
+	};
+
+	var updateFocusIndex = function updateFocusIndex(opIndex, opType, num) {
+	    if (!(0, _util.isNumber)(num)) {
+	        num = 1;
+	    }
+	    if (opIndex <= this.focusIndex() && this.focusIndex() != -1) {
+	        if (opType === '+') {
+	            this.focusIndex(this.focusIndex() + num);
+	        } else if (opType === '-') {
+	            if (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1) {
+	                this.focusIndex(this.focusIndex() - 1);
+	            } else if (this.focusIndex() > opIndex + num - 1) {
+	                this.focusIndex(this.focusIndex() - num);
+	            }
+	        }
+	    }
+	};
+
+	exports.setRowFocus = setRowFocus;
+	exports.setRowUnFocus = setRowUnFocus;
+	exports.updateFocusIndex = updateFocusIndex;
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.addSimpleData = exports.setSimpleData = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : kero dataTable simpleData
+	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-01 14:34:01
+	                                                                                                                                                                                                                                                   */
+
+
+	var _util = __webpack_require__(10);
+
+	/**
+	 * 设置数据, 只设置字段值
+	 * @param {array} data
+	 *options{} unSelect为true：不选中，为false则选中，默认选中0行
+	 */
+	var setSimpleData = function setSimpleData(data, options) {
+	    this.removeAllRows();
+	    this.cachedPages = [];
+	    this.focusIndex(-1);
+	    this.selectedIndices([]);
+
+	    if (!data) {
+	        // throw new Error("dataTable.setSimpleData param can't be null!");
+	        return;
+	    }
+
+	    var rows = [];
+	    if (!(0, _util.isArray)(data)) data = [data];
+	    for (var i = 0; i < data.length; i++) {
+	        var _data = data[i];
+	        /* 判断data中的字段在datatable中是否存在，如果不存在则创建 */
+	        // for(var f in _data){
+	        //     this.createField(f)
+	        // }
+	        if (_typeof(data[i]) !== 'object') _data = { $data: data[i] };
+	        rows.push({
+	            status: Row.STATUS.NORMAL,
+	            data: _data
+	        });
+	    }
+	    var _data = {
+	        rows: rows
+	    };
+	    this.setData(_data, options);
+	};
+
+	/**
+	 * 追加数据
+	 * @param data
+	 */
+	var addSimpleData = function addSimpleData(data, status) {
+	    if (!data) {
+	        throw new Error("dataTable.addSimpleData param can't be null!");
+	    }
+	    if (!(0, _util.isArray)(data)) data = [data];
+	    for (var i = 0; i < data.length; i++) {
+	        var r = this.createEmptyRow();
+	        r.setSimpleData(data[i], status);
+	    }
+	};
+
+	exports.setSimpleData = setSimpleData;
+	exports.addSimpleData = addSimpleData;
+
+/***/ },
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.date = undefined;
+
+	var _core = __webpack_require__(71);
+
+	var u = {}; /**
+	             * Module : Sparrow date util
+	             * Author : Kvkens(yueming@yonyou.com)
+	             * Date	  : 2016-08-06 13:37:20
+	             */
+
+	u.date = {
+
+		/**
+	  * 多语言处理
+	  */
+		//TODO 后续放到多语文件中
+		_dateLocale: {
+			'zh-CN': {
+				months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
+				monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+				weekdays: '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+				weekdaysShort: '周日_周一_周二_周三_周四_周五_周六'.split('_'),
+				weekdaysMin: '日_一_二_三_四_五_六'.split('_')
+			},
+			'en-US': {
+				months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+				monthsShort: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
+				weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thurday_Friday_Saturday'.split('_'),
+				weekdaysShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+				weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
+			}
+		},
+
+		_formattingTokens: /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYY|YY|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
+
+		leftZeroFill: function leftZeroFill(number, targetLength, forceSign) {
+			var output = '' + Math.abs(number),
+			    sign = number >= 0;
+			while (output.length < targetLength) {
+				output = '0' + output;
+			}
+			return (sign ? forceSign ? '+' : '' : '-') + output;
+		},
+
+		_formats: {
+			//year
+			YY: function YY(date) {
+				return u.date.leftZeroFill(date.getFullYear() % 100, 2);
+			},
+			YYYY: function YYYY(date) {
+				return date.getFullYear();
+			},
+			//month
+			M: function M(date) {
+				return date.getMonth() + 1;
+			},
+			MM: function MM(date) {
+				var m = u.date._formats.M(date);
+				return u.date.leftZeroFill(m, 2);
+			},
+			MMM: function MMM(date, language) {
+				var m = date.getMonth();
+				return u.date._dateLocale[language].monthsShort[m];
+			},
+			MMMM: function MMMM(date, language) {
+				var m = date.getMonth();
+				return u.date._dateLocale[language].months[m];
+			},
+			//date
+			D: function D(date) {
+				return date.getDate();
+			},
+			DD: function DD(date) {
+				var d = u.date._formats.D(date);
+				return u.date.leftZeroFill(d, 2);
+			},
+			// weekday
+			d: function d(date) {
+				return date.getDay();
+			},
+			dd: function dd(date, language) {
+				var d = u.date._formats.d(date);
+				return u.date._dateLocale[language].weekdaysMin[d];
+			},
+			ddd: function ddd(date, language) {
+				var d = u.date._formats.d(date);
+				return u.date._dateLocale[language].weekdaysShort[d];
+			},
+			dddd: function dddd(date, language) {
+				var d = u.date._formats.d(date);
+				return u.date._dateLocale[language].weekdays[d];
+			},
+			// am pm
+			a: function a(date) {
+				if (date.getHours() > 12) {
+					return 'pm';
+				} else {
+					return 'am';
+				}
+			},
+			//hour
+			h: function h(date) {
+				var h = date.getHours();
+				h = h > 12 ? h - 12 : h;
+				return h;
+			},
+			hh: function hh(date) {
+				var h = u.date._formats.h(date);
+				return u.date.leftZeroFill(h, 2);
+			},
+			H: function H(date) {
+				return date.getHours();
+			},
+			HH: function HH(date) {
+				return u.date.leftZeroFill(date.getHours(), 2);
+			},
+			// minutes
+			m: function m(date) {
+				return date.getMinutes();
+			},
+			mm: function mm(date) {
+				return u.date.leftZeroFill(date.getMinutes(), 2);
+			},
+			//seconds
+			s: function s(date) {
+				return date.getSeconds();
+			},
+			ss: function ss(date) {
+				return u.date.leftZeroFill(date.getSeconds(), 2);
+			}
+		},
+
+		/**
+	  * 日期格式化
+	  * @param date
+	  * @param formatString
+	  */
+		format: function format(date, formatString, language) {
+			if (!date) return date;
+			var array = formatString.match(u.date._formattingTokens),
+			    i,
+			    length,
+			    output = '';
+			var _date = u.date.getDateObj(date);
+			if (!_date) return date;
+			language = language || _core.core.getLanguages();
+			for (i = 0, length = array.length; i < length; i++) {
+				if (u.date._formats[array[i]]) {
+					output += u.date._formats[array[i]](_date, language);
+				} else {
+					output += array[i];
+				}
+			}
+			return output;
+		},
+
+		_addOrSubtract: function _addOrSubtract(date, period, value, isAdding) {
+			var times = date.getTime(),
+			    d = date.getDate(),
+			    m = date.getMonth(),
+			    _date = u.date.getDateObj(date);
+			if (period === 'ms') {
+				times = times + value * isAdding;
+				_date.setTime(times);
+			} else if (period == 's') {
+				times = times + value * 1000 * isAdding;
+				_date.setTime(times);
+			} else if (period == 'm') {
+				times = times + value * 60000 * isAdding;
+				_date.setTime(times);
+			} else if (period == 'h') {
+				times = times + value * 3600000 * isAdding;
+				_date.setTime(times);
+			} else if (period == 'd') {
+				d = d + value * isAdding;
+				_date.setDate(d);
+			} else if (period == 'w') {
+				d = d + value * 7 * isAdding;
+				_date.setDate(d);
+			} else if (period == 'M') {
+				m = m + value * isAdding;
+				_date.setMonth(d);
+			} else if (period == 'y') {
+				m = m + value * 12 * isAdding;
+				_date.setMonth(d);
+			}
+			return _date;
+		},
+
+		add: function add(date, period, value) {
+			return u.date._addOrSubtract(date, period, value, 1);
+		},
+		sub: function sub(date, period, value) {
+			return u.date._addOrSubtract(date, period, value, -1);
+		},
+		getDateObj: function getDateObj(value) {
+			if (!value || typeof value == 'undefined') return value;
+			var dateFlag = false;
+			var _date = new Date(value);
+			if (isNaN(_date)) {
+				// IE的话对"2016-2-13 12:13:22"进行处理
+				var index1, index2, index3, s1, s2, s3;
+				if (value.indexOf) {
+					index1 = value.indexOf('-');
+					index2 = value.indexOf(':');
+					index3 = value.indexOf(' ');
+					if (index1 > 0 || index2 > 0 || index3 > 0) {
+						_date = new Date();
+						if (index3 > 0) {
+							s3 = value.split(' ');
+							s1 = s3[0].split('-');
+							s2 = s3[1].split(':');
+						} else if (index1 > 0) {
+							s1 = value.split('-');
+						} else if (index2 > 0) {
+							s2 = value.split(':');
+						}
+						if (s1 && s1.length > 0) {
+							_date.setYear(s1[0]);
+							_date.setMonth(parseInt(s1[1] - 1));
+							_date.setDate(s1[2] ? s1[2] : 0);
+							dateFlag = true;
+						}
+						if (s2 && s2.length > 0) {
+							_date.setHours(s2[0] ? s2[0] : 0);
+							_date.setMinutes(s2[1] ? s2[1] : 0);
+							_date.setSeconds(s2[2] ? s2[2] : 0);
+							dateFlag = true;
+						}
+					} else {
+						_date = new Date(parseInt(value));
+						if (isNaN(_date)) {
+							throw new TypeError('invalid Date parameter');
+						} else {
+							dateFlag = true;
+						}
+					}
+				}
+			} else {
+				dateFlag = true;
+			}
+
+			if (dateFlag) return _date;else return null;
+		}
+
+	};
+
+	var date = u.date;
+	exports.date = date;
+
+/***/ },
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.core = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow core context
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 13:52:19
+	                                                                                                                                                                                                                                                   */
+
+
+	var _extend = __webpack_require__(8);
+
+	var _util = __webpack_require__(10);
+
+	var _cookies = __webpack_require__(72);
+
+	var _enumerables = __webpack_require__(9);
+
+	var environment = {};
+	/**
+	 * client attributes
+	 */
+	var clientAttributes = {};
+
+	var sessionAttributes = {};
+
+	var fn = {};
+	var maskerMeta = {
+		'float': {
+			precision: 2
+		},
+		'datetime': {
+			format: 'YYYY-MM-DD HH:mm:ss',
+			metaType: 'DateTimeFormatMeta',
+			speratorSymbol: '-'
+		},
+		'time': {
+			format: 'HH:mm'
+		},
+		'date': {
+			format: 'YYYY-MM-DD'
+		},
+		'currency': {
+			precision: 2,
+			curSymbol: '￥'
+		},
+		'percent': {}
+	};
+	/**
+	 * 获取环境信息
+	 * @return {environment}
+	 */
+	fn.getEnvironment = function () {
+		return (0, _util.createShellObject)(environment);
+	};
+
+	/**
+	 * 获取客户端参数对象
+	 * @return {clientAttributes}
+	 */
+	fn.getClientAttributes = function () {
+		var exf = function exf() {};
+		return (0, _util.createShellObject)(clientAttributes);
+	};
+
+	fn.setContextPath = function (contextPath) {
+		return environment[IWEB_CONTEXT_PATH] = contextPath;
+	};
+	fn.getContextPath = function (contextPath) {
+		return environment[IWEB_CONTEXT_PATH];
+	};
+	/**
+	 * 设置客户端参数对象
+	 * @param {Object} k 对象名称
+	 * @param {Object} v 对象值(建议使用简单类型)
+	 */
+	fn.setClientAttribute = function (k, v) {
+		clientAttributes[k] = v;
+	};
+	/**
+	 * 获取会话级参数对象
+	 * @return {clientAttributes}
+	 */
+	fn.getSessionAttributes = function () {
+		var exf = function exf() {};
+		return (0, _util.createShellObject)(sessionAttributes);
+	};
+
+	/**
+	 * 设置会话级参数对象
+	 * @param {Object} k 对象名称
+	 * @param {Object} v 对象值(建议使用简单类型)
+	 */
+	fn.setSessionAttribute = function (k, v) {
+		sessionAttributes[k] = v;
+		(0, _cookies.setCookie)("ISES_" + k, v);
+	};
+
+	/**
+	 * 移除客户端参数
+	 * @param {Object} k 对象名称
+	 */
+	fn.removeClientAttribute = function (k) {
+		clientAttributes[k] = null;
+		execIgnoreError(function () {
+			delete clientAttributes[k];
+		});
+	};
+
+	/**
+	 * 获取地区信息编码
+	 */
+	fn.getLocale = function () {
+		return this.getEnvironment().locale;
+	};
+
+	/**
+	 * 获取多语信息
+	 */
+	fn.getLanguages = function () {
+		return this.getEnvironment().languages;
+	};
+	/**
+	 * 收集环境信息(包括客户端参数)
+	 * @return {Object}
+	 */
+	fn.collectEnvironment = function () {
+		var _env = this.getEnvironment();
+		var _ses = this.getSessionAttributes();
+
+		for (var i in clientAttributes) {
+			_ses[i] = clientAttributes[i];
+		}
+		_env.clientAttributes = _ses;
+		return _env;
+	};
+
+	/**
+	 * 设置数据格式信息
+	 * @param {String} type
+	 * @param {Object} meta
+	 */
+	fn.setMaskerMeta = function (type, meta) {
+		if (typeof type == 'function') {
+			getMetaFunc = type;
+		} else {
+			if (!maskerMeta[type]) maskerMeta[type] = meta;else {
+				if ((typeof meta === 'undefined' ? 'undefined' : _typeof(meta)) != 'object') maskerMeta[type] = meta;else for (var key in meta) {
+					maskerMeta[type][key] = meta[key];
+				}
+			}
+		}
+	};
+	fn.getMaskerMeta = function (type) {
+		if (typeof getMetaFunc == 'function') {
+			var meta = getMetaFunc.call(this);
+			return meta[type];
+		} else return (0, _extend.extend)({}, maskerMeta[type]);
+	};
+	environment.languages = (0, _cookies.getCookie)(_enumerables.U_LANGUAGES) ? (0, _cookies.getCookie)(_enumerables.U_LANGUAGES).split(',') : navigator.language ? navigator.language : 'zh-CN';
+	if (environment.languages == 'zh-cn') environment.languages = 'zh-CN';
+	if (environment.languages == 'en-us') environment.languages = 'en-US';
+
+	environment.theme = (0, _cookies.getCookie)(_enumerables.U_THEME);
+	environment.locale = (0, _cookies.getCookie)(_enumerables.U_LOCALE);
+	//environment.timezoneOffset = (new Date()).getTimezoneOffset()
+	environment.usercode = (0, _cookies.getCookie)(_enumerables.U_USERCODE);
+	//init session attribute
+	document.cookie.replace(/ISES_(\w*)=([^;]*);?/ig, function (a, b, c) {
+		sessionAttributes[b] = c;
+	});
+
+	var Core = function Core() {};
+	Core.prototype = fn;
+
+	var core = new Core();
+
+	exports.core = core;
+
+/***/ },
+/* 72 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	/**
+	 * Module : Sparrow cookies
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-27 21:46:50
+	 */
+
+	var setCookie = function setCookie(sName, sValue, oExpires, sPath, sDomain, bSecure) {
+		var sCookie = sName + "=" + encodeURIComponent(sValue);
+		if (oExpires) sCookie += "; expires=" + oExpires.toGMTString();
+		if (sPath) sCookie += "; path=" + sPath;
+		if (sDomain) sCookie += "; domain=" + sDomain;
+		if (bSecure) sCookie += "; secure=" + bSecure;
+		document.cookie = sCookie;
+	};
+
+	var getCookie = function getCookie(sName) {
+		var sRE = "(?:; )?" + sName + "=([^;]*);?";
+		var oRE = new RegExp(sRE);
+
+		if (oRE.test(document.cookie)) {
+			return decodeURIComponent(RegExp["$1"]);
+		} else return null;
+	};
+
+	exports.setCookie = setCookie;
+	exports.getCookie = getCookie;
+
+/***/ },
+/* 73 */,
+/* 74 */,
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.u = undefined;
+
+	var _extend = __webpack_require__(8);
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _checkbox = __webpack_require__(77);
+
+	var _ckeditor = __webpack_require__(88);
+
+	var _combobox = __webpack_require__(89);
+
+	var _currency = __webpack_require__(92);
+
+	var _datetime = __webpack_require__(96);
+
+	var _float = __webpack_require__(94);
+
+	var _grid = __webpack_require__(98);
+
+	var _integer = __webpack_require__(101);
+
+	var _month = __webpack_require__(108);
+
+	var _nativeCheckbox = __webpack_require__(110);
+
+	var _nativeRadio = __webpack_require__(111);
+
+	var _pagination = __webpack_require__(112);
+
+	var _password = __webpack_require__(105);
+
+	var _percent = __webpack_require__(106);
+
+	var _string = __webpack_require__(100);
+
+	var _progress = __webpack_require__(114);
+
+	var _radio = __webpack_require__(102);
+
+	var _switch = __webpack_require__(116);
+
+	var _textarea = __webpack_require__(118);
+
+	var _textfield = __webpack_require__(119);
+
+	var _time = __webpack_require__(120);
+
+	var _url = __webpack_require__(104);
+
+	var _year = __webpack_require__(123);
+
+	var _yearmonth = __webpack_require__(125);
+
+	var _tree = __webpack_require__(127);
+
+	var _enableMixin = __webpack_require__(79);
+
+	var _requiredMixin = __webpack_require__(80);
+
+	var _validateMixin = __webpack_require__(81);
+
+	var _valueMixin = __webpack_require__(78);
+
+	// console.log(TextAreaAdapter);
+
+	var ex = {
+		BaseAdapter: _baseAdapter.BaseAdapter,
+		CheckboxAdapter: _checkbox.CheckboxAdapter,
+		CkEditorAdapter: _ckeditor.CkEditorAdapter,
+		ComboboxAdapter: _combobox.ComboboxAdapter,
+		CurrencyAdapter: _currency.CurrencyAdapter,
+		DateTimeAdapter: _datetime.DateTimeAdapter,
+		FloatAdapter: _float.FloatAdapter,
+		IntegerAdapter: _integer.IntegerAdapter,
+		MonthAdapter: _month.MonthAdapter,
+		NativeCheckAdapter: _nativeCheckbox.NativeCheckAdapter,
+		NativeRadioAdapter: _nativeRadio.NativeRadioAdapter,
+		PaginationAdapter: _pagination.PaginationAdapter,
+		PassWordAdapter: _password.PassWordAdapter,
+		PercentAdapter: _percent.PercentAdapter,
+		StringAdapter: _string.StringAdapter,
+		ProgressAdapter: _progress.ProgressAdapter,
+		RadioAdapter: _radio.RadioAdapter,
+		SwitchAdapter: _switch.SwitchAdapter,
+		TextAreaAdapter: _textarea.TextAreaAdapter,
+		TextFieldAdapter: _textfield.TextFieldAdapter,
+		TimeAdapter: _time.TimeAdapter,
+		UrlAdapter: _url.UrlAdapter,
+		YearAdapter: _year.YearAdapter,
+		YearMonthAdapter: _yearmonth.YearMonthAdapter,
+		EnableMixin: _enableMixin.EnableMixin,
+		RequiredMixin: _requiredMixin.RequiredMixin,
+		ValidateMixin: _validateMixin.ValidateMixin,
+		ValueMixin: _valueMixin.ValueMixin
+	}; /**
+	    * Module : Kero webpack entry index
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-10 14:51:05
+	    */
+
+
+	(0, _extend.extend)(ex, window.u || {});
+
+	exports.u = ex;
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.BaseAdapter = undefined;
+
+	var _class = __webpack_require__(12);
+
+	var _util = __webpack_require__(10);
+
+	/**
+	 * adapter基类
+	 */
+
+	/**
+	 * Module : Kero adapter 基类
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-09 10:00:00
+	 */
+	var BaseAdapter = _class.Class.create({
+	    /**
+	     *
+	     * @param comp
+	     * @param options ：
+	     *      el: '#content',  对应的dom元素
+	     *      options: {},     配置
+	     *      model:{}        模型，包括数据和事件
+	     */
+	    initialize: function initialize(options) {
+	        //组合mixin中的方法
+	        for (var i in this.mixins) {
+	            var mixin = this.mixins[i];
+	            for (var key in mixin['methods']) {
+	                if (!this[key]) {
+	                    this[key] = mixin['methods'][key];
+	                }
+	            }
+	        }
+
+	        //this.comp = comp;
+	        this.element = options['el'];
+	        this.options = options['options'];
+	        this.viewModel = options['model'];
+	        this.dataModel = null;
+	        this.mixins = this.mixins || [];
+	        this.parseDataModel();
+	        this.init();
+	        //执行mixin中的初始化方法
+	        for (var i in this.mixins) {
+	            var mixin = this.mixins[i];
+	            if (mixin['init']) mixin.init.call(this);
+	        }
+	    },
+	    parseDataModel: function parseDataModel() {
+	        if (!this.options || !this.options["data"]) return;
+	        this.field = this.options["field"];
+	        var dtId = this.options["data"];
+	        this.dataModel = (0, _util.getJSObject)(this.viewModel, this.options["data"]);
+	        if (this.dataModel) {
+	            var opt = {};
+	            if (this.options.type === 'u-date') {
+	                opt.type = 'date';
+	            }
+	            if (this.field) this.dataModel.createField(this.field, opt);
+	        }
+	    },
+	    getOption: function getOption(key) {
+	        var rs = this.dataModel.getRowMeta(this.field, key);
+	        if (rs === 0) {
+	            return 0;
+	        } else {
+	            return rs || this.options[key];
+	        }
+	    },
+	    init: function init() {}
+	});
+
+	exports.BaseAdapter = BaseAdapter;
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.CheckboxAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _valueMixin = __webpack_require__(78);
+
+	var _enableMixin = __webpack_require__(79);
+
+	var _requiredMixin = __webpack_require__(80);
+
+	var _validateMixin = __webpack_require__(81);
+
+	var _util = __webpack_require__(10);
+
+	var _neouiCheckbox = __webpack_require__(86);
+
+	var _compMgr = __webpack_require__(4);
+
+	/**
+	 * Module : Kero Check Adapter
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-08 15:50:03
+	 */
+
+	var CheckboxAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
+	    init: function init(options) {
+	        var self = this;
+	        // CheckboxAdapter.superclass.initialize.apply(this, arguments); 
+	        this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
+	        if (this.options['datasource'] || this.options['hasOther']) {
+	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
+	            this.checkboxTemplateArray = [];
+	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
+	                this.checkboxTemplateArray.push(this.element.childNodes[i]);
+	            }
+	        }
+	        if (this.options['datasource']) {
+	            this.isGroup = true;
+	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
+
+	            this.setComboData(datasource);
+	        } else {
+	            if (this.element['u.Checkbox']) {
+	                this.comp = this.element['u.Checkbox'];
+	            } else {
+	                this.comp = new _neouiCheckbox.Checkbox(this.element);
+	                this.element['u.Checkbox'] = this.comp;
+	            }
+
+	            this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
+	            this.unCheckedValue = this.options["unCheckedValue"];
+
+	            this.comp.on('change', function () {
+	                if (self.slice) return;
+	                if (!self.dataModel) return;
+	                var modelValue = self.dataModel.getValue(self.field);
+	                modelValue = modelValue ? modelValue : '';
+	                if (self.isGroup) {
+	                    var valueArr = modelValue == '' ? [] : modelValue.split(',');
+
+	                    if (self.comp._inputElement.checked) {
+	                        valueArr.push(self.checkedValue);
+	                    } else {
+	                        var index = valueArr.indexOf(self.checkedValue);
+	                        valueArr.splice(index, 1);
+	                    }
+	                    self.dataModel.setValue(self.field, valueArr.join(','));
+	                } else {
+	                    if (self.comp._inputElement.checked) {
+	                        self.dataModel.setValue(self.field, self.checkedValue);
+	                    } else {
+	                        self.dataModel.setValue(self.field, self.unCheckedValue);
+	                    }
+	                }
+	            });
+	        }
+	        // 如果存在其他
+	        if (this.options['hasOther']) {
+	            var node = null;
+	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
+	                this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
+	            }
+	            var LabelS = this.element.querySelectorAll('.u-checkbox');
+	            self.lastLabel = LabelS[LabelS.length - 1];
+	            var allCheckS = this.element.querySelectorAll('[type=checkbox]');
+	            self.lastCheck = allCheckS[allCheckS.length - 1];
+	            var nameDivs = this.element.querySelectorAll('[data-role=name]');
+	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
+	            self.lastNameDiv.innerHTML = '其他';
+	            self.otherInput = makeDOM('<input type="text">');
+	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
+	            self.lastCheck.value = '';
+
+	            var comp;
+	            if (self.lastLabel['u.Checkbox']) {
+	                comp = self.lastLabel['u.Checkbox'];
+	            } else {
+	                comp = new _neouiCheckbox.Checkbox(self.lastLabel);
+	            }
+	            self.lastLabel['u.Checkbox'] = comp;
+	            self.otherComp = comp;
+	            comp.on('change', function () {
+	                if (self.slice) return;
+	                var modelValue = self.dataModel.getValue(self.field);
+	                modelValue = modelValue ? modelValue : '';
+	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
+	                if (comp._inputElement.checked) {
+	                    var oldIndex = valueArr.indexOf(comp._inputElement.oldValue);
+	                    if (oldIndex > -1) {
+	                        valueArr.splice(oldIndex, 1);
+	                    }
+	                    if (comp._inputElement.value) valueArr.push(comp._inputElement.value);
+	                } else {
+	                    var index = valueArr.indexOf(comp._inputElement.value);
+	                    if (index > -1) {
+	                        valueArr.splice(index, 1);
+	                    }
+	                }
+	                //self.slice = true;
+	                self.dataModel.setValue(self.field, valueArr.join(','));
+	                //self.slice = false;
+	            });
+
+	            on(self.otherInput, 'blur', function (e) {
+	                self.lastCheck.oldValue = self.lastCheck.value;
+	                self.lastCheck.value = this.value;
+	                self.otherComp.trigger('change');
+	            });
+	            on(self.otherInput, 'click', function (e) {
+	                stopEvent(e);
+	            });
+	        }
+
+	        if (this.dataModel) {
+	            this.dataModel.ref(this.field).subscribe(function (value) {
+	                self.modelValueChange(value);
+	            });
+	        }
+	    },
+	    setComboData: function setComboData(comboData) {
+	        var self = this;
+	        //this.element.innerHTML = '';
+	        for (var i = 0, len = comboData.length; i < len - 1; i++) {
+	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
+	                this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
+	            }
+	        }
+	        var allCheck = this.element.querySelectorAll('[type=checkbox]');
+	        var allName = this.element.querySelectorAll('[data-role=name]');
+	        for (var k = 0; k < allCheck.length; k++) {
+	            allCheck[k].value = comboData[k].pk || comboData[k].value;
+	            allName[k].innerHTML = comboData[k].name;
+	        }
+	        this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
+	            var comp;
+	            if (ele['u.Checkbox']) {
+	                comp = ele['u.Checkbox'];
+	            } else {
+	                comp = new _neouiCheckbox.Checkbox(ele);
+	            }
+	            ele['u.Checkbox'] = comp;
+	            comp.on('change', function () {
+	                if (self.slice) return;
+	                var modelValue = self.dataModel.getValue(self.field);
+	                modelValue = modelValue ? modelValue : '';
+	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
+	                if (comp._inputElement.checked) {
+	                    valueArr.push(comp._inputElement.value);
+	                } else {
+	                    var index = valueArr.indexOf(comp._inputElement.value);
+	                    valueArr.splice(index, 1);
+	                }
+	                //self.slice = true;
+	                self.dataModel.setValue(self.field, valueArr.join(','));
+	                //self.slice = false;
+	            });
+	        });
+	    },
+	    modelValueChange: function modelValueChange(val) {
+	        var self = this;
+	        if (this.slice) return;
+
+	        if (this.isGroup) {
+	            this.trueValue = val;
+	            if (this.options.hasOther) {
+	                otherVal = '';
+	                if (val) otherVal = val + ',';
+	            }
+	            this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
+	                var comp = ele['u.Checkbox'];
+	                var inputValue = comp._inputElement.value;
+	                if (inputValue && comp._inputElement.checked != (val + ',').indexOf(inputValue + ',') > -1) {
+	                    self.slice = true;
+	                    comp.toggle();
+	                    self.slice = false;
+	                }
+	                if (inputValue && (val + ',').indexOf(inputValue + ',') > -1) {
+	                    if (self.options.hasOther) {
+	                        otherVal = otherVal.replace(inputValue + ',', '');
+	                    }
+	                }
+	            });
+	            if (this.options.hasOther) {
+	                otherVal = otherVal.replace(/\,/g, '');
+	                if (otherVal) {
+	                    self.lastCheck.value = otherVal;
+	                    self.otherInput.value = otherVal;
+	                }
+	            }
+	        } else {
+	            if (this.comp._inputElement.checked != (val === this.checkedValue)) {
+	                this.slice = true;
+	                this.comp.toggle();
+	                this.slice = false;
+	            }
+	        }
+	    },
+
+	    setEnable: function setEnable(enable) {
+	        this.enable = enable === true || enable === 'true';
+	        if (this.isGroup) {
+	            this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
+	                var comp = ele['u.Checkbox'];
+	                if (enable === true || enable === 'true') {
+	                    comp.enable();
+	                } else {
+	                    comp.disable();
+	                }
+	            });
+	        } else {
+	            if (this.enable) {
+	                this.comp.enable();
+	            } else {
+	                this.comp.disable();
+	            }
+	        }
+	    }
+	});
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: CheckboxAdapter,
+	    name: 'u-checkbox'
+	});
+
+	exports.CheckboxAdapter = CheckboxAdapter;
+
+/***/ },
+/* 78 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Module : Kero Value Mixin
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-08 15:58:49
+	 */
+
+	var ValueMixin = {
+	    init: function init() {
+	        var self = this;
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	        this.modelValueChange(this.dataModel.getValue(this.field));
+	    },
+	    methods: {
+	        /**
+	         * 模型数据改变
+	         * @param {Object} value
+	         */
+	        modelValueChange: function modelValueChange(value) {
+	            if (this.slice) return;
+	            if (value === null || typeof value == "undefined") value = "";
+	            this.trueValue = this.formater ? this.formater.format(value) : value;
+	            //this.element.trueValue = this.trueValue;
+	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
+	            this.setShowValue(this.showValue);
+
+	            //this.trueValue = value;
+	            //this.showValue = value;
+	            //this.setShowValue(this.showValue);
+	        },
+
+	        ///**
+	        // * 设置模型值
+	        // * @param {Object} value
+	        // */
+	        //setModelValue: function (value) {
+	        //    if (!this.dataModel) return;
+	        //    this.dataModel.setValue(this.field, value)
+	        //},
+	        /**
+	         * 设置控件值
+	         * @param {Object} value
+	         */
+	        setValue: function setValue(value) {
+	            this.trueValue = this.formater ? this.formater.format(value) : value;
+	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
+	            this.setShowValue(this.showValue);
+	            this.slice = true;
+	            this.dataModel.setValue(this.field, this.trueValue);
+	            this.slice = false;
+	        },
+	        /**
+	         * 取控件的值
+	         */
+	        getValue: function getValue() {
+	            return this.trueValue;
+	        },
+	        setShowValue: function setShowValue(showValue) {
+	            this.showValue = showValue;
+	            this.element.value = showValue;
+	            this.element.title = showValue;
+	        },
+	        getShowValue: function getShowValue() {
+	            return this.showValue;
+	        },
+	        setModelValue: function setModelValue(value) {
+	            if (!this.dataModel) return;
+	            this.dataModel.setValue(this.field, value);
+	        }
+	    }
+	};
+
+	exports.ValueMixin = ValueMixin;
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.EnableMixin = undefined;
+
+	var _dom = __webpack_require__(5);
+
+	var EnableMixin = {
+	    init: function init() {
+	        var self = this;
+	        //处理只读
+	        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)) {
+	            this.setEnable(false);
+	        } else {
+	            this.dataModel.refEnable(this.field).subscribe(function (value) {
+	                self.setEnable(value);
+	            });
+	            this.setEnable(this.dataModel.isEnable(this.field));
+	        }
+	    },
+	    methods: {
+	        setEnable: function setEnable(enable) {
+	            if (enable === true || enable === 'true') {
+	                this.enable = true;
+	                this.element.removeAttribute('readonly');
+	                (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
+	            } else if (enable === false || enable === 'false') {
+	                this.enable = false;
+	                this.element.setAttribute('readonly', 'readonly');
+	                (0, _dom.addClass)(this.element.parentNode, 'disablecover');
+	            }
+	        }
+	    }
+	}; /**
+	    * Module : Kero Enable Mixin
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-08 16:32:54
+	    */
+	exports.EnableMixin = EnableMixin;
+
+/***/ },
+/* 80 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1956,7 +5006,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.RequiredMixin = RequiredMixin;
 
 /***/ },
-/* 13 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1966,7 +5016,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.ValidateMixin = undefined;
 
-	var _neouiValidate = __webpack_require__(14);
+	var _neouiValidate = __webpack_require__(82);
 
 	var ValidateMixin = {
 	    init: function init() {
@@ -2038,7 +5088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ValidateMixin = ValidateMixin;
 
 /***/ },
-/* 14 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2055,21 +5105,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                                                                                                                                                                                                                                   */
 
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _neouiTooltip = __webpack_require__(17);
+	var _neouiTooltip = __webpack_require__(84);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(85);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var Validate = _BaseComponent.BaseComponent.extend({
 
@@ -2586,7 +5636,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.doValidate = doValidate;
 
 /***/ },
-/* 15 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2596,13 +5646,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.BaseComponent = undefined;
 
-	var _class = __webpack_require__(4);
+	var _class = __webpack_require__(12);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * Module : Sparrow base component
@@ -2727,242 +5777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.BaseComponent = BaseComponent;
 
 /***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.compMgr = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow compMgr
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 18:41:06
-	                                                                                                                                                                                                                                                   */
-
-	var _dom = __webpack_require__(9);
-
-	function _findRegisteredClass(name, optReplace) {
-	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	        if (CompMgr.registeredControls[i].className === name) {
-	            if (typeof optReplace !== 'undefined') {
-	                CompMgr.registeredControls[i] = optReplace;
-	            }
-	            return CompMgr.registeredControls[i];
-	        }
-	    }
-	    return false;
-	}
-
-	function _getUpgradedListOfElement(element) {
-	    var dataUpgraded = element.getAttribute('data-upgraded');
-	    // Use `['']` as default value to conform the `,name,name...` style.
-	    return dataUpgraded === null ? [''] : dataUpgraded.split(',');
-	}
-
-	function _isElementUpgraded(element, jsClass) {
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    return upgradedList.indexOf(jsClass) != -1;
-	}
-
-	function _upgradeElement(element, optJsClass) {
-	    if (!((typeof element === 'undefined' ? 'undefined' : _typeof(element)) === 'object' && element instanceof Element)) {
-	        throw new Error('Invalid argument provided to upgrade MDL element.');
-	    }
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    var classesToUpgrade = [];
-	    if (!optJsClass) {
-	        var className = element.className;
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            var component = CompMgr.registeredControls[i];
-	            if (className.indexOf(component.cssClass) > -1 && classesToUpgrade.indexOf(component) === -1 && !_isElementUpgraded(element, component.className)) {
-	                classesToUpgrade.push(component);
-	            }
-	        }
-	    } else if (!_isElementUpgraded(element, optJsClass)) {
-	        classesToUpgrade.push(_findRegisteredClass(optJsClass));
-	    }
-
-	    // Upgrade the element for each classes.
-	    for (var i = 0, n = classesToUpgrade.length, registeredClass; i < n; i++) {
-	        registeredClass = classesToUpgrade[i];
-	        if (registeredClass) {
-	            if (element[registeredClass.className]) {
-	                continue;
-	            }
-	            // Mark element as upgraded.
-	            upgradedList.push(registeredClass.className);
-	            element.setAttribute('data-upgraded', upgradedList.join(','));
-	            var instance = new registeredClass.classConstructor(element);
-	            CompMgr.createdControls.push(instance);
-	            // Call any callbacks the user has registered with this component type.
-	            for (var j = 0, m = registeredClass.callbacks.length; j < m; j++) {
-	                registeredClass.callbacks[j](element);
-	            }
-	            element[registeredClass.className] = instance;
-	        } else {
-	            throw new Error('Unable to find a registered component for the given class.');
-	        }
-	    }
-	}
-
-	function _upgradeDomInternal(optJsClass, optCssClass, ele) {
-	    if (typeof optJsClass === 'undefined' && typeof optCssClass === 'undefined') {
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            _upgradeDomInternal(CompMgr.registeredControls[i].className, registeredControls[i].cssClass, ele);
-	        }
-	    } else {
-	        var jsClass = optJsClass;
-	        if (!optCssClass) {
-	            var registeredClass = _findRegisteredClass(jsClass);
-	            if (registeredClass) {
-	                optCssClass = registeredClass.cssClass;
-	            }
-	        }
-	        var elements;
-	        if (ele) {
-	            elements = (0, _dom.hasClass)(ele, optCssClass) ? [ele] : ele.querySelectorAll('.' + optCssClass);
-	        } else {
-	            elements = document.querySelectorAll('.' + optCssClass);
-	        }
-	        for (var n = 0; n < elements.length; n++) {
-	            _upgradeElement(elements[n], jsClass);
-	        }
-	    }
-	}
-
-	var CompMgr = {
-	    plugs: {},
-	    dataAdapters: {},
-	    /** 注册的控件*/
-	    registeredControls: [],
-	    createdControls: [],
-	    /**
-	     *
-	     * @param options  {el:'#content', model:{}}
-	     */
-	    apply: function apply(options) {
-	        if (options) {
-	            var _el = options.el || document.body;
-	            var model = options.model;
-	        }
-	        if (typeof _el == 'string') {
-	            _el = document.body.querySelector(_el);
-	        }
-	        if (_el == null || (typeof _el === 'undefined' ? 'undefined' : _typeof(_el)) != 'object') _el = document.body;
-	        var comps = _el.querySelectorAll('[u-meta]');
-	        comps.forEach(function (element) {
-	            if (element['comp']) return;
-	            var options = JSON.parse(element.getAttribute('u-meta'));
-	            if (options && options['type']) {
-	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
-	                var comp = CompMgr.createDataAdapter({ el: element, options: options, model: model });
-	                if (comp) {
-	                    element['adpt'] = comp;
-	                    element['u-meta'] = comp;
-	                }
-	            }
-	        });
-	    },
-	    addPlug: function addPlug(config) {
-	        var plug = config['plug'],
-	            name = config['name'];
-	        this.plugs || (this.plugs = {});
-	        if (this.plugs[name]) {
-	            throw new Error('plug has exist:' + name);
-	        }
-	        plug.compType = name;
-	        this.plugs[name] = plug;
-	    },
-	    addDataAdapter: function addDataAdapter(config) {
-	        var adapter = config['adapter'],
-	            name = config['name'];
-	        //dataType = config['dataType'] || ''
-	        //var key = dataType ? name + '.' + dataType : name;
-	        this.dataAdapters || (dataAdapters = {});
-	        if (this.dataAdapters[name]) {
-	            throw new Error('dataAdapter has exist:' + name);
-	        }
-	        this.dataAdapters[name] = adapter;
-	    },
-	    getDataAdapter: function getDataAdapter(name) {
-	        if (!name) return;
-	        this.dataAdapters || (dataAdapters = {});
-	        //var key = dataType ? name + '.' + dataType : name;
-	        return this.dataAdapters[name];
-	    },
-	    createDataAdapter: function createDataAdapter(options) {
-	        var opt = options['options'];
-	        var type = opt['type'],
-	            id = opt['id'];
-	        var adpt = this.dataAdapters[type];
-	        if (!adpt) return null;
-	        var comp = new adpt(options);
-	        comp.type = type;
-	        comp.id = id;
-	        return comp;
-	    },
-	    _createComp: function _createComp(options) {
-	        var opt = options['options'];
-	        var type = opt['type'];
-	        var plug = this.plugs[type];
-	        if (!plug) return null;
-	        var comp = new plug(options);
-	        comp.type = type;
-	        return comp;
-	    },
-	    /**
-	     * 注册UI控件
-	     */
-	    regComp: function regComp(config) {
-	        var newConfig = {
-	            classConstructor: config.comp,
-	            className: config.compAsString || config['compAsString'],
-	            cssClass: config.css || config['css'],
-	            callbacks: []
-	        };
-	        config.comp.prototype.compType = config.compAsString;
-	        for (var i = 0; i < this.registeredControls.length; i++) {
-	            var item = this.registeredControls[i];
-	            //registeredControls.forEach(function(item) {
-	            if (item.cssClass === newConfig.cssClass) {
-	                throw new Error('The provided cssClass has already been registered: ' + item.cssClass);
-	            }
-	            if (item.className === newConfig.className) {
-	                throw new Error('The provided className has already been registered');
-	            }
-	        };
-	        this.registeredControls.push(newConfig);
-	    },
-	    updateComp: function updateComp(ele) {
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
-	        }
-	    }
-	};
-
-	var compMgr = CompMgr;
-	exports.compMgr = compMgr;
-
-	///**
-	// * 加载控件
-	// */
-	//
-	//if (document.readyState && document.readyState === 'complete'){
-	//    compMgr.updateComp();
-	//}else{
-	//    on(window, 'load', function() {
-	//
-	//        //扫描并生成控件
-	//        compMgr.updateComp();
-	//    });
-	//}
-
-/***/ },
-/* 17 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2972,11 +5787,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Tooltip = undefined;
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
 	var Tooltip = function Tooltip(element, options) {
 		this.init(element, options);
@@ -3260,7 +6075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Tooltip = Tooltip;
 
 /***/ },
-/* 18 */
+/* 85 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3282,7 +6097,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.trans = trans;
 
 /***/ },
-/* 19 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3292,15 +6107,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Checkbox = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(87);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var Checkbox = _BaseComponent.BaseComponent.extend({
 	    _Constant: {
@@ -3519,7 +6334,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Checkbox = Checkbox;
 
 /***/ },
-/* 20 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3529,11 +6344,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.URipple = exports.Ripple = undefined;
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
 	var URipple = function URipple(element) {
 	  if (_env.isIE8) return;
@@ -3748,7 +6563,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.URipple = URipple;
 
 /***/ },
-/* 21 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3758,17 +6573,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.CkEditorAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * Module : Kero webpack entry index
@@ -3861,7 +6676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.CkEditorAdapter = CkEditorAdapter;
 
 /***/ },
-/* 22 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3871,27 +6686,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.ComboboxAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _neouiCombo = __webpack_require__(23);
+	var _neouiCombo = __webpack_require__(90);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var ComboboxAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -3991,7 +6806,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ComboboxAdapter = ComboboxAdapter;
 
 /***/ },
-/* 23 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4001,19 +6816,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Combo = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _neouiTextfield = __webpack_require__(24);
+	var _neouiTextfield = __webpack_require__(91);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(87);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var Combo = _BaseComponent.BaseComponent.extend({
 
@@ -4339,7 +7154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Combo = Combo;
 
 /***/ },
-/* 24 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4349,15 +7164,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Text = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var Text = _BaseComponent.BaseComponent.extend({
 	    _Constant: {
@@ -4579,7 +7394,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Text = Text;
 
 /***/ },
-/* 25 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4589,29 +7404,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.CurrencyAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _neouiCheckbox = __webpack_require__(19);
+	var _neouiCheckbox = __webpack_require__(86);
 
-	var _indexDataTable = __webpack_require__(26);
+	var _indexDataTable = __webpack_require__(29);
 
-	var _formater = __webpack_require__(52);
+	var _formater = __webpack_require__(93);
 
-	var _float = __webpack_require__(53);
+	var _float = __webpack_require__(94);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
-	var _core = __webpack_require__(54);
+	var _core = __webpack_require__(71);
 
 	/**
 	 * 货币控件
@@ -4691,2296 +7506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.CurrencyAdapter = CurrencyAdapter;
 
 /***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.DataTable = undefined;
-
-	var _indexEvents = __webpack_require__(27);
-
-	var _copyRow = __webpack_require__(29);
-
-	var _data = __webpack_require__(30);
-
-	var _enable = __webpack_require__(31);
-
-	var _getCurrent = __webpack_require__(32);
-
-	var _getData = __webpack_require__(33);
-
-	var _getFocus = __webpack_require__(34);
-
-	var _getMeta = __webpack_require__(35);
-
-	var _getPage = __webpack_require__(36);
-
-	var _getParam = __webpack_require__(37);
-
-	var _getSelect = __webpack_require__(38);
-
-	var _getSimpleData = __webpack_require__(39);
-
-	var _meta = __webpack_require__(40);
-
-	var _page = __webpack_require__(41);
-
-	var _param = __webpack_require__(42);
-
-	var _ref = __webpack_require__(43);
-
-	var _removeRow = __webpack_require__(44);
-
-	var _row = __webpack_require__(46);
-
-	var _rowCurrent = __webpack_require__(47);
-
-	var _rowDelete = __webpack_require__(48);
-
-	var _rowSelect = __webpack_require__(49);
-
-	var _rowFocus = __webpack_require__(50);
-
-	var _simpleData = __webpack_require__(51);
-
-	var _util = __webpack_require__(45);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Module : Kero webpack entry dataTable index
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Author : liuyk(liuyuekai@yonyou.com)
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Date   : 2016-08-09 15:24:46
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-	var DataTable = function (_Events) {
-	    _inherits(DataTable, _Events);
-
-	    function DataTable(options) {
-	        _classCallCheck(this, DataTable);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DataTable).call(this));
-
-	        options = options || {};
-	        _this.id = options['id'];
-	        _this.strict = options['strict'] || false;
-	        _this.meta = DataTable.createMetaItems(options['meta']);
-	        _this.enable = options['enable'] || DataTable.DEFAULTS.enable;
-	        _this.pageSize = ko.observable(options['pageSize'] || DataTable.DEFAULTS.pageSize);
-	        _this.pageIndex = ko.observable(options['pageIndex'] || DataTable.DEFAULTS.pageIndex);
-	        _this.totalPages = ko.observable(options['totalPages'] || DataTable.DEFAULTS.totalPages);
-	        _this.totalRow = ko.observable();
-	        _this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
-	        _this.rows = ko.observableArray([]);
-	        _this.selectedIndices = ko.observableArray([]);
-	        _this._oldCurrentIndex = -1;
-	        _this.focusIndex = ko.observable(-1);
-	        _this.cachedPages = [];
-	        _this.metaChange = {};
-	        _this.valueChange = {}; //ko.observable(1);
-	        _this.currentRowChange = ko.observable(1);
-	        _this.enableChange = ko.observable(1);
-	        _this.params = options['params'] || {};
-	        _this.master = options['master'] || '';
-	        _this.allSelected = ko.observable(false);
-	        if (options['root']) {
-	            _this.root = options['root'];
-	        } else {
-	            _this.root = _this;
-	        }
-	        if (options['ns']) {
-	            _this.ns = options['ns'];
-	        } else {
-	            _this.ns = '';
-	        }
-
-	        //copyRow
-	        _this.copyRow = _copyRow.copyRow;
-	        _this.copyRows = _copyRow.copyRows;
-
-	        //data
-	        _this.setData = _data.setData;
-	        _this.setValue = _data.setValue;
-
-	        //enable
-	        _this.isEnable = _enable.isEnable;
-	        _this.setEnable = _enable.setEnable;
-
-	        //getData
-	        _this.getData = _getData.getData;
-	        _this.getDataByRule = _getData.getDataByRule;
-	        _this.getRow = _getData.getRow;
-	        _this.getRowByRowId = _getData.getRowByRowId;
-	        _this.getRowIndex = _getData.getRowIndex;
-	        _this.getRowsByField = _getData.getRowsByField;
-	        _this.getRowByField = _getData.getRowByField;
-	        _this.getAllRows = _getData.getAllRows;
-	        _this.getAllPageRows = _getData.getAllPageRows;
-	        _this.getChangedDatas = _getData.getChangedDatas;
-	        _this.getChangedRows = _getData.getChangedRows;
-	        _this.getValue = _getData.getValue;
-	        _this.getIndexByRowId = _getData.getIndexByRowId;
-	        _this.getAllDatas = _getData.getAllDatas;
-	        _this.getRowIdsByIndices = _getData.getRowIdsByIndices;
-
-	        //getCurrent
-	        _this.getCurrentRow = _getCurrent.getCurrentRow;
-	        _this.getCurrentIndex = _getCurrent.getCurrentIndex;
-
-	        //getFocus
-	        _this.getFocusRow = _getFocus.getFocusRow;
-	        _this.getFocusIndex = _getFocus.getFocusIndex;
-
-	        //getMeta
-	        _this.getMeta = _getMeta.getMeta;
-	        _this.getRowMeta = _getMeta.getRowMeta;
-
-	        //getPage
-	        _this.getPage = _getPage.getPage;
-	        _this.getPages = _getPage.getPages;
-
-	        //getParam
-	        _this.getParam = _getParam.getParam;
-
-	        //getSelect
-	        _this.getSelectedIndex = _getSelect.getSelectedIndex;
-	        _this.getSelectedIndices = _getSelect.getSelectedIndices;
-	        _this.getSelectedIndexs = _getSelect.getSelectedIndexs;
-	        _this.getSelectedDatas = _getSelect.getSelectedDatas;
-	        _this.getSelectedRows = _getSelect.getSelectedRows;
-
-	        //getSimpleData
-	        _this.getSimpleData = _getSimpleData.getSimpleData;
-
-	        //meta
-	        _this.setMeta = _meta.setMeta;
-	        _this.updateMeta = _meta.updateMeta;
-	        _this.createField = _meta.createField;
-
-	        //page
-	        _this.setCurrentPage = _page.setCurrentPage;
-	        _this.updatePages = _page.updatePages;
-	        _this.setPages = _page.setPages;
-	        _this.hasPage = _page.hasPage;
-	        _this.clearCache = _page.clearCache;
-	        _this.cacheCurrentPage = _page.cacheCurrentPage;
-
-	        //param
-	        _this.addParam = _param.addParam;
-	        _this.addParams = _param.addParams;
-
-	        //ref
-	        _this.refSelectedRows = _ref.refSelectedRows;
-	        _this.ref = _ref.ref;
-	        _this.refMeta = _ref.refMeta;
-	        _this.refRowMeta = _ref.refRowMeta;
-	        _this.refEnable = _ref.refEnable;
-
-	        //row
-	        _this.setRows = _row.setRows;
-	        _this.addRow = _row.addRow;
-	        _this.addRows = _row.addRows;
-	        _this.insertRow = _row.insertRow;
-	        _this.insertRows = _row.insertRows;
-	        _this.createEmptyRow = _row.createEmptyRow;
-
-	        //removeRow
-	        _this.removeRowByRowId = _removeRow.removeRowByRowId;
-	        _this.removeRow = _removeRow.removeRow;
-	        _this.removeAllRows = _removeRow.removeAllRows;
-	        _this.removeRows = _removeRow.removeRows;
-	        _this.clear = _removeRow.clear;
-
-	        //rowCurrent
-	        _this.updateCurrIndex = _rowCurrent.updateCurrIndex;
-
-	        //rowDelete
-	        _this.setRowDelete = _rowDelete.setRowDelete;
-	        _this.setAllRowsDelete = _rowDelete.setAllRowsDelete;
-	        _this.setRowsDelete = _rowDelete.setRowsDelete;
-
-	        //rowFocus
-	        _this.setRowFocus = _rowFocus.setRowFocus;
-	        _this.setRowUnFocus = _rowFocus.setRowUnFocus;
-	        _this.updateFocusIndex = _rowFocus.updateFocusIndex;
-
-	        //rowSelect
-	        _this.setAllRowsSelect = _rowSelect.setAllRowsSelect;
-	        _this.setRowSelect = _rowSelect.setRowSelect;
-	        _this.setRowsSelect = _rowSelect.setRowsSelect;
-	        _this.addRowSelect = _rowSelect.addRowSelect;
-	        _this.addRowsSelect = _rowSelect.addRowsSelect;
-	        _this.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
-	        _this.setRowUnSelect = _rowSelect.setRowUnSelect;
-	        _this.setRowsUnSelect = _rowSelect.setRowsUnSelect;
-	        _this.toggleAllSelect = _rowSelect.toggleAllSelect;
-	        _this.updateSelectedIndices = _rowSelect.updateSelectedIndices;
-
-	        //simpleData
-	        _this.setSimpleData = _simpleData.setSimpleData;
-	        _this.addSimpleData = _simpleData.addSimpleData;
-
-	        //util
-	        _this.isChanged = _util.isChanged;
-	        return _this;
-	    }
-
-	    return DataTable;
-	}(_indexEvents.Events);
-
-	DataTable.DEFAULTS = {
-	    pageSize: 20,
-	    pageIndex: 0,
-	    totalPages: 20,
-	    pageCache: false,
-	    enable: true
-	};
-
-	DataTable.META_DEFAULTS = {
-	    enable: true,
-	    required: false,
-	    descs: {}
-	};
-
-	//事件类型
-	DataTable.ON_ROW_SELECT = 'select';
-	DataTable.ON_ROW_UNSELECT = 'unSelect';
-	DataTable.ON_ROW_ALLSELECT = 'allSelect';
-	DataTable.ON_ROW_ALLUNSELECT = 'allUnselect';
-	DataTable.ON_VALUE_CHANGE = 'valueChange';
-	DataTable.ON_CURRENT_VALUE_CHANGE = 'currentValueChange'; //当前行变化
-	//  DataTable.ON_AFTER_VALUE_CHANGE = 'afterValueChange'
-	//  DataTable.ON_ADD_ROW = 'addRow'
-	DataTable.ON_INSERT = 'insert';
-	DataTable.ON_UPDATE = 'update';
-	DataTable.ON_CURRENT_UPDATE = 'currentUpdate';
-	DataTable.ON_DELETE = 'delete';
-	DataTable.ON_DELETE_ALL = 'deleteAll';
-	DataTable.ON_ROW_FOCUS = 'focus';
-	DataTable.ON_ROW_UNFOCUS = 'unFocus';
-	DataTable.ON_LOAD = 'load';
-	DataTable.ON_ENABLE_CHANGE = 'enableChange';
-	DataTable.ON_META_CHANGE = 'metaChange';
-	DataTable.ON_ROW_META_CHANGE = 'rowMetaChange';
-	DataTable.ON_CURRENT_META_CHANGE = 'currentMetaChange';
-	DataTable.ON_CURRENT_ROW_CHANGE = 'currentRowChange';
-
-	DataTable.SUBMIT = {
-	    current: 'current',
-	    focus: 'focus',
-	    all: 'all',
-	    select: 'select',
-	    change: 'change',
-	    empty: 'empty',
-	    allSelect: 'allSelect',
-	    allPages: 'allPages'
-	};
-
-	DataTable.createMetaItems = function (metas) {
-	    var newMetas = {};
-	    for (var key in metas) {
-	        var meta = metas[key];
-	        if (typeof meta == 'string') meta = {};
-	        newMetas[key] = u.extend({}, DataTable.META_DEFAULTS, meta);
-	    }
-	    return newMetas;
-	};
-
-	exports.DataTable = DataTable;
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.Events = undefined;
-
-	var _events = __webpack_require__(28);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
-	                                                                                                                                                           * Module : Kero webpack entry events index
-	                                                                                                                                                           * Author : liuyk(liuyuekai@yonyou.com)
-	                                                                                                                                                           * Date   : 2016-08-09 15:24:46
-	                                                                                                                                                           */
-
-	//相关依赖导入
-
-
-	var Events = function Events() {
-	    _classCallCheck(this, Events);
-
-	    this.on = _events.on;
-	    this.off = _events.off;
-	    this.one = _events.one;
-	    this.trigger = _events.trigger;
-	    this.getEvent = _events.getEvent;
-	};
-
-	exports.Events = Events;
-
-/***/ },
-/* 28 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	/**
-	 * Module : kero dataTable events
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-07-30 14:34:01
-	 */
-
-	/**
-	 * 绑定事件
-	 * 支持的格式： 1. on(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
-	 * 2. on([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
-	 * 3. on({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
-	 */
-	var on = function on(name, _callback, one) {
-	    var self = this,
-	        origCb = _callback;
-	    if (Object.prototype.toString.call(name) == '[object Array]') {
-	        // 数组
-	        for (var i in name) {
-	            this.on(name[i], _callback);
-	        }
-	        return this;
-	    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
-	        // map
-	        for (var key in name) {
-	            this.on(key, name[key]);
-	        }
-	        return this;
-	    }
-	    if (one) {
-	        _callback = function callback() {
-	            self.off(name, _callback);
-	            origCb.apply(this, arguments);
-	        };
-	    }
-	    name = name.toLowerCase();
-	    this._events || (this._events = {});
-	    var events = this._events[name] || (this._events[name] = []);
-	    events.push({
-	        callback: _callback
-	    });
-	    return this;
-	};
-
-	/**
-	 * 解绑事件
-	 * 
-	**/
-	var off = function off(name, callback) {
-	    if (Object.prototype.toString.call(name) == '[object Array]') {
-	        // 数组
-	        for (var i in name) {
-	            this.off(name[i], callback);
-	        }
-	        return this;
-	    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
-	        // map
-	        for (var key in name) {
-	            this.off(key, name[key]);
-	        }
-	        return this;
-	    }
-	    var cbs = this._events[name];
-	    if (!cbs) return this;
-	    if (!callback) {
-	        // 解绑所有事件
-	        cbs = null;
-	    } else {
-	        for (var i = cbs.length - 1; i >= 0; i--) {
-	            if (cbs[i] == callback) {
-	                cbs.splice(i, 1);
-	            }
-	        }
-	    }
-	    return this;
-	};
-
-	/**
-	 * 
-	**/
-	var one = function one(name, callback) {
-	    this.on(name, callback, 1);
-	};
-
-	/**
-	 * 触发事件
-	 */
-	var trigger = function trigger(name) {
-	    name = name.toLowerCase();
-	    if (!this._events || !this._events[name]) return this;
-	    var args = Array.prototype.slice.call(arguments, 1);
-	    var events = this._events[name];
-	    for (var i = 0, count = events.length; i < count; i++) {
-	        events[i].callback.apply(this, args);
-	    }
-	    return this;
-	};
-
-	var getEvent = function getEvent(name) {
-	    name = name.toLowerCase();
-	    this._events || (this._events = {});
-	    return this._events[name];
-	};
-
-	exports.on = on;
-	exports.off = off;
-	exports.one = one;
-	exports.trigger = trigger;
-	exports.getEvent = getEvent;
-
-/***/ },
-/* 29 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable copyRow
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-08-01 14:34:01
-	 */
-
-	var copyRow = function copyRow(index, row) {
-	    this.copyRows(index, [row]);
-	};
-
-	var copyRows = function copyRows(index, rows) {
-	    for (var i = 0; i < rows.length; i++) {
-	        var newRow = new Row({ parent: this });
-	        if (rows[i]) {
-	            newRow.setData(rows[i].getData());
-	        }
-	        this.insertRows(index === undefined ? this.rows().length : index, [newRow]);
-	    }
-	};
-
-	exports.copyRow = copyRow;
-	exports.copyRows = copyRows;
-
-/***/ },
-/* 30 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable data
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-07-30 14:34:01
-	 */
-
-	/** 
-	 *设置数据
-	 *
-	 */
-	var setData = function setData(data, options) {
-	    if (data.pageIndex || data.pageIndex === 0) {
-	        var newIndex = data.pageIndex;
-	    } else {
-	        var newIndex = this.pageIndex();
-	    }
-	    if (data.pageSize || data.pageSize === 0) {
-	        var newSize = data.pageSize;
-	    } else {
-	        var newSize = this.pageSize();
-	    }
-	    if (data.totalPages || data.totalPages === 0) {
-	        var newTotalPages = data.totalPages;
-	    } else {
-	        var newTotalPages = this.totalPages();
-	    }
-	    if (data.totalRow || data.totalRow === 0) {
-	        var newTotalRow = data.totalRow;
-	    } else {
-	        var newTotalRow = data.rows.length; //后续要考虑状态，del的不计算在内
-	    }
-	    var select,
-	        focus,
-	        unSelect = options ? options.unSelect : false;
-
-	    this.pageCache = data.pageCache || this.pageCache;
-	    if (this.pageCache === true) {
-	        this.updatePages(data.pages);
-	        if (newIndex != this.pageIndex()) {
-	            this.setCurrentPage(newIndex, true);
-	            this.totalPages(newTotalPages);
-	            this.totalRow(newTotalRow);
-	            return;
-	        } else {
-	            select = this.getPage(newIndex).selectedIndices;
-	            focus = this.getPage(newIndex).focus;
-	            this.setRows(this.getPage(newIndex).rows);
-	        }
-	    } else {
-	        select = data.select || (!unSelect ? [0] : []);
-	        focus = data.focus;
-	        this.setRows(data.rows);
-	    }
-	    this.pageIndex(newIndex);
-	    this.pageSize(newSize);
-	    this.totalPages(newTotalPages);
-	    this.totalRow(newTotalRow);
-
-	    this.updateSelectedIndices();
-
-	    if (select && select.length > 0 && this.rows().length > 0) this.setRowsSelect(select);
-	    if (focus) this.setRowFocus(focus);
-	};
-
-	var setValue = function setValue(fieldName, value, row, ctx) {
-	    if (arguments.length === 1) {
-	        value = fieldName;
-	        fieldName = '$data';
-	    }
-
-	    row = row ? row : this.getCurrentRow();
-	    if (row) row.setValue(fieldName, value, ctx);
-	};
-
-	exports.setData = setData;
-	exports.setValue = setValue;
-
-/***/ },
-/* 31 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable enable
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-08 09:59:01
-	 */
-
-	var isEnable = function isEnable(fieldName) {
-	    var fieldEnable = this.getMeta(fieldName, 'enable');
-	    if (typeof fieldEnable == 'undefined' || fieldEnable == null) fieldEnable = true;
-	    return fieldEnable && this.enable;
-	};
-
-	var setEnable = function setEnable(enable) {
-	    if (this.enable == enable) return;
-	    //当传入的参数不为false时，默认enable为true
-	    if (enable === false) {
-	        enable = false;
-	    } else {
-	        enable = true;
-	    }
-	    this.enable = enable;
-	    this.enableChange(-this.enableChange());
-	    this.trigger(DataTable.ON_ENABLE_CHANGE, {
-	        enable: this.enable
-	    });
-	};
-
-	exports.isEnable = isEnable;
-	exports.setEnable = setEnable;
-
-/***/ },
-/* 32 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable getCurrent
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-08 09:59:01
-	 */
-
-	/**
-	 * 获取当前操作行
-	 * 规则： focus 行优先，没有focus行时，取第一选中行
-	 */
-	var getCurrentRow = function getCurrentRow() {
-	    if (this.focusIndex() != -1) return this.getFocusRow();
-	    var index = this.getSelectedIndex();
-	    if (index == -1) return null;else return this.getRow(index);
-	};
-
-	var getCurrentIndex = function getCurrentIndex() {
-	    if (this.focusIndex() != -1) return this.focusIndex();
-	    var index = this.getSelectedIndex();
-	    if (index == -1) return -1;else return index;
-	};
-
-	exports.getCurrentRow = getCurrentRow;
-	exports.getCurrentIndex = getCurrentIndex;
-
-/***/ },
-/* 33 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable getData
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-07-30 14:34:01
-	 */
-
-	/**
-	 * 获取当前页数据
-	 */
-	var getData = function getData() {
-	    var datas = [],
-	        rows = this.rows();
-	    for (var i = 0; i < rows.length; i++) {
-	        datas.push(rows[i].getData());
-	    }
-	    return datas;
-	};
-
-	var getDataByRule = function getDataByRule(rule) {
-	    var returnData = {},
-	        datas = null,
-	        rows;
-	    returnData.meta = this.meta;
-	    returnData.params = this.params;
-	    rule = rule || DataTable.SUBMIT.current;
-	    if (rule == DataTable.SUBMIT.current) {
-	        datas = [];
-	        var currIndex = this.focusIndex();
-	        if (currIndex == -1) currIndex = this.getSelectedIndex();
-	        rows = this.rows();
-	        for (var i = 0, count = rows.length; i < count; i++) {
-	            if (i == currIndex) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
-	        }
-	    } else if (rule == DataTable.SUBMIT.focus) {
-	        datas = [];
-	        rows = this.rows();
-	        for (var i = 0, count = rows.length; i < count; i++) {
-	            if (i == this.focusIndex()) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
-	        }
-	    } else if (rule == DataTable.SUBMIT.all) {
-	        datas = this.getData();
-	    } else if (rule == DataTable.SUBMIT.select) {
-	        datas = this.getSelectedDatas(true);
-	    } else if (rule == DataTable.SUBMIT.change) {
-	        datas = this.getChangedDatas();
-	    } else if (rule === DataTable.SUBMIT.empty) {
-	        datas = [];
-	    }
-	    if (this.pageCache && datas != null) {
-	        datas = [{ index: this.pageIndex(), select: this.getSelectedIndexs(), focus: this.focusIndex(), rows: datas }];
-	    }
-	    if (rule == DataTable.SUBMIT.allSelect) {
-	        datas = [];
-	        var totalPages = this.totalPages();
-	        //缓存页数据
-	        for (var i = 0; i < totalPages; i++) {
-	            if (i == this.pageIndex()) {
-	                //当前页数据
-	                datas.push({
-	                    index: this.pageIndex(),
-	                    select: this.getSelectedIndexs(),
-	                    focus: this.focusIndex(),
-	                    rows: this.getSelectedDatas()
-	                });
-	            } else {
-	                var page = this.cachedPages[i];
-	                if (page) {
-	                    datas.push({
-	                        index: i,
-	                        select: page.selectedIndices,
-	                        focus: page.focus,
-	                        rows: page.getSelectDatas()
-	                    });
-	                }
-	            }
-	        }
-	    } else if (rule == DataTable.SUBMIT.allPages) {
-	        datas = [];
-	        var totalPages = this.totalPages();
-	        //缓存页数据
-	        for (var i = 0; i < totalPages; i++) {
-	            if (i == this.pageIndex()) {
-	                //当前页数据
-	                datas.push({
-	                    index: this.pageIndex(),
-	                    select: this.getSelectedIndexs(),
-	                    focus: this.focusIndex(),
-	                    rows: this.getData()
-	                });
-	            } else {
-	                var page = this.cachedPages[i];
-	                if (page) {
-	                    datas.push({ index: i, select: page.selectedIndices, focus: page.focus, rows: page.getData() });
-	                }
-	            }
-	        }
-	    }
-	    if (this.pageCache) {
-	        returnData.pages = datas;
-	    } else {
-	        returnData.rows = datas;
-	        returnData.select = this.getSelectedIndexs();
-	        returnData.focus = this.getFocusIndex();
-	    }
-
-	    returnData.pageSize = this.pageSize();
-	    returnData.pageIndex = this.pageIndex();
-	    returnData.isChanged = this.isChanged();
-	    returnData.master = this.master;
-	    returnData.pageCache = this.pageCache;
-	    return returnData;
-	};
-
-	var getRow = function getRow(index) {
-	    //return this.rows()[index]   //modify by licza.   improve performance
-	    return this.rows.peek()[index];
-	};
-
-	/**
-	 * 根据rowid取row对象
-	 * @param rowid
-	 * @returns {*}
-	 */
-	var getRowByRowId = function getRowByRowId(rowid) {
-	    var rows = this.rows.peek();
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (rows[i].rowId == rowid) return rows[i];
-	    }
-	    return null;
-	};
-
-	/**
-	 * 取行索引
-	 * @param row
-	 * @returns {*}
-	 */
-	var getRowIndex = function getRowIndex(row) {
-	    var rows = this.rows.peek();
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (rows[i].rowId === row.rowId) return i;
-	    }
-	    return -1;
-	};
-
-	var getRowsByField = function getRowsByField(field, value) {
-	    var rows = this.rows.peek();
-	    var returnRows = new Array();
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (rows[i].getValue(field) === value) returnRows.push(rows[i]);
-	    }
-	    return returnRows;
-	};
-
-	var getRowByField = function getRowByField(field, value) {
-	    var rows = this.rows.peek();
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (rows[i].getValue(field) === value) return rows[i];
-	    }
-	    return null;
-	};
-
-	var getAllRows = function getAllRows() {
-	    return this.rows.peek();
-	};
-
-	var getAllPageRows = function getAllPageRows() {
-	    var datas = [],
-	        rows;
-	    for (var i = 0; i < this.totalPages(); i++) {
-	        rows = [];
-	        if (i == this.pageIndex()) {
-	            rows = this.getData();
-	        } else {
-	            var page = this.cachedPages[i];
-	            if (page) {
-	                rows = page.getData();
-	            }
-	        }
-	        for (var j = 0; j < rows.length; j++) {
-	            datas.push(rows[j]);
-	        }
-	    }
-	    return datas;
-	};
-
-	/**
-	 * 获取变动的数据(新增、修改)
-	 */
-	var getChangedDatas = function getChangedDatas(withEmptyRow) {
-	    var datas = [],
-	        rows = this.rows();
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (rows[i] && rows[i].status != Row.STATUS.NORMAL) {
-	            datas.push(rows[i].getData());
-	        } else if (withEmptyRow == true) {
-	            datas.push(rows[i].getEmptyData());
-	        }
-	    }
-	    return datas;
-	};
-
-	/**
-	 * 取改变的行
-	 */
-	var getChangedRows = function getChangedRows() {
-	    var changedRows = [],
-	        rows = this.rows.peek();
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (rows[i] && rows[i].status != Row.STATUS.NORMAL) {
-	            changedRows.push(rows[i]);
-	        }
-	    }
-	    return changedRows;
-	};
-
-	var getValue = function getValue(fieldName, row) {
-	    row = row || this.getCurrentRow();
-	    if (row) return row.getValue(fieldName);else return '';
-	};
-
-	/**
-	 * 根据行号获取行索引
-	 * @param {String} rowId
-	 */
-	var getIndexByRowId = function getIndexByRowId(rowId) {
-	    var rows = this.rows();
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (rows[i].rowId == rowId) return i;
-	    }
-	    return -1;
-	};
-
-	/**
-	 * 获取所有行数据
-	 */
-	var getAllDatas = function getAllDatas() {
-	    var rows = this.getAllRows();
-	    var datas = [];
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (rows[i]) datas.push(rows[i].getData());
-	    }return datas;
-	};
-
-	/**
-	 * 根据索引取rowid
-	 * @param {Object} indices
-	 */
-	var getRowIdsByIndices = function getRowIdsByIndices(indices) {
-	    var rowIds = [];
-	    for (var i = 0; i < indices.length; i++) {
-	        rowIds.push(this.getRow(indices[i]).rowId);
-	    }
-	    return rowIds;
-	};
-
-	exports.getData = getData;
-	exports.getDataByRule = getDataByRule;
-	exports.getRow = getRow;
-	exports.getRowByRowId = getRowByRowId;
-	exports.getRowIndex = getRowIndex;
-	exports.getRowsByField = getRowsByField;
-	exports.getRowByField = getRowByField;
-	exports.getAllRows = getAllRows;
-	exports.getAllPageRows = getAllPageRows;
-	exports.getChangedDatas = getChangedDatas;
-	exports.getChangedRows = getChangedRows;
-	exports.getValue = getValue;
-	exports.getIndexByRowId = getIndexByRowId;
-	exports.getAllDatas = getAllDatas;
-	exports.getRowIdsByIndices = getRowIdsByIndices;
-
-/***/ },
-/* 34 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/**
-	 * Module : kero dataTable getFocus
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-08 09:59:01
-	 */
-
-	/**
-	 * 获取焦点行
-	 */
-	var getFocusRow = function getFocusRow() {
-	  if (this.focusIndex() != -1) return this.getRow(this.focusIndex());else return null;
-	};
-
-	/**
-	 * 获取焦点行
-	 */
-	var getFocusIndex = function getFocusIndex() {
-	  return this.focusIndex();
-	};
-
-	exports.getFocusRow = getFocusRow;
-	exports.getFocusIndex = getFocusIndex;
-
-/***/ },
-/* 35 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable getMete
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-07-30 14:34:01
-	 */
-
-	/**
-	 * 获取meta信息，先取row上的信息，没有时，取dataTable上的信息
-	 * @param {Object} fieldName
-	 * @param {Object} key
-	 * @param {Object} row
-	 */
-	var getMeta = function getMeta(fieldName, key) {
-	    if (arguments.length === 0) return this.meta;else if (arguments.length === 1) return this.meta[fieldName];
-
-	    if (this.meta[fieldName] && typeof this.meta[fieldName][key] !== 'undefined') {
-	        return this.meta[fieldName][key];
-	    } else {
-	        return null;
-	    }
-	};
-
-	var getRowMeta = function getRowMeta(fieldName, key) {
-	    var row = this.getCurrentRow();
-	    if (row) return row.getMeta(fieldName, key);else return this.getMeta(fieldName, key);
-	};
-
-	exports.getMeta = getMeta;
-	exports.getRowMeta = getRowMeta;
-
-/***/ },
-/* 36 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable getPage
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-08-01 14:34:01
-	 */
-
-	var getPage = function getPage(pageIndex) {
-	    if (this.pageCache) {
-	        return this.cachedPages[pageIndex];
-	    }
-	    return -1;
-	};
-
-	var getPages = function getPages() {
-	    if (this.pageCache) {
-	        return this.cachedPages;
-	    }
-	    return [];
-	};
-
-	exports.getPage = getPage;
-	exports.getPages = getPages;
-
-/***/ },
-/* 37 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/**
-	 * Module : kero dataTable getParam
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-07-30 14:34:01
-	 */
-
-	var getParam = function getParam(key) {
-	  return this.params[key];
-	};
-
-	exports.getParam = getParam;
-
-/***/ },
-/* 38 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable getSelect
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-01 14:34:01
-	 */
-
-	/**
-	 * 获取选中行索引，多选时，只返回第一个行索引
-	 */
-	var getSelectedIndex = function getSelectedIndex() {
-	    var selectedIndices = this.selectedIndices();
-	    if (selectedIndices == null || selectedIndices.length == 0) return -1;
-	    return selectedIndices[0];
-	};
-
-	/**
-	 *获取选中的所有行索引数组索引
-	 */
-	var getSelectedIndices = function getSelectedIndices() {
-	    var selectedIndices = this.selectedIndices();
-	    if (selectedIndices == null || selectedIndices.length == 0) return [];
-	    return selectedIndices;
-	};
-
-	/**
-	 * 兼容保留，不要用
-	 */
-	var getSelectedIndexs = function getSelectedIndexs() {
-	    return this.getSelectedIndices();
-	};
-
-	/**
-	 * 获取选中行数据
-	 */
-	var getSelectedDatas = function getSelectedDatas(withEmptyRow) {
-	    var selectedIndices = this.selectedIndices();
-	    var datas = [];
-	    var sIndices = [];
-	    for (var i = 0, count = selectedIndices.length; i < count; i++) {
-	        sIndices.push(selectedIndices[i]);
-	    }
-	    var rows = this.rows();
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (sIndices.indexOf(i) != -1) datas.push(rows[i].getData());else if (withEmptyRow == true) datas.push(rows[i].getEmptyData());
-	    }
-	    return datas;
-	};
-
-	/**
-	 * 取选中行
-	 */
-	var getSelectedRows = function getSelectedRows() {
-	    var selectedIndices = this.selectedIndices();
-	    var selectRows = [];
-	    var rows = this.rows.peek();
-	    var sIndices = [];
-	    for (var i = 0, count = selectedIndices.length; i < count; i++) {
-	        sIndices.push(selectedIndices[i]);
-	    }
-	    for (var i = 0, count = rows.length; i < count; i++) {
-	        if (sIndices.indexOf(i) != -1) selectRows.push(rows[i]);
-	    }
-	    return selectRows;
-	};
-
-	exports.getSelectedIndex = getSelectedIndex;
-	exports.getSelectedIndices = getSelectedIndices;
-	exports.getSelectedIndexs = getSelectedIndexs;
-	exports.getSelectedDatas = getSelectedDatas;
-	exports.getSelectedRows = getSelectedRows;
-
-/***/ },
-/* 39 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable getSimpleData
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-08-01 14:34:01
-	 */
-
-	/**
-	 * 获取数据,只取字段名与字段值
-	 */
-	var getSimpleData = function getSimpleData(options) {
-	    options = options || {};
-	    var rows,
-	        _rowData = [],
-	        type = options['type'] || 'all',
-	        fields = options['fields'] || null;
-
-	    if (type === 'all') {
-	        rows = this.rows.peek();
-	    } else if (type === 'current') {
-	        var currRow = this.getCurrentRow();
-	        rows = currRow == null ? [] : [currRow];
-	    } else if (type === 'focus') {
-	        var focusRow = this.getFocusRow();
-	        rows = focusRow == null ? [] : [focusRow];
-	    } else if (type === 'select') {
-	        rows = this.getSelectedRows();
-	    } else if (type === 'change') {
-	        rows = this.getChangedRows();
-	    }
-
-	    for (var i = 0; i < rows.length; i++) {
-	        _rowData.push(rows[i].getSimpleData({ fields: fields }));
-	    }
-	    return _rowData;
-	};
-
-	exports.getSimpleData = getSimpleData;
-
-/***/ },
-/* 40 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	/**
-	 * Module : kero dataTable mete
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-07-30 14:34:01
-	 */
-
-	var setMeta = function setMeta(fieldName, key, value) {
-	    if (!this.meta[fieldName]) return;
-	    var oldValue = this.meta[fieldName][key];
-	    var currRow = this.getCurrentRow();
-	    this.meta[fieldName][key] = value;
-	    if (this.metaChange[fieldName + '.' + key]) this.metaChange[fieldName + '.' + key](-this.metaChange[fieldName + '.' + key]());
-	    if (key == 'enable') this.enableChange(-this.enableChange());
-	    this.trigger(DataTable.ON_META_CHANGE, {
-	        eventType: 'dataTableEvent',
-	        dataTable: this.id,
-	        field: fieldName,
-	        meta: key,
-	        oldValue: oldValue,
-	        newValue: value
-	    });
-	    if (currRow && !currRow.getMeta(fieldName, key, false)) {
-	        this.trigger(fieldName + '.' + key + '.' + DataTable.ON_CURRENT_META_CHANGE, {
-	            eventType: 'dataTableEvent',
-	            dataTable: this.id,
-	            oldValue: oldValue,
-	            newValue: value
-	        });
-	    }
-	};
-
-	/**
-	 * example: meta: {supplier: {meta: {precision:'3', default: '0239900x', display:'显示名称'}}}
-	 */
-	var updateMeta = function updateMeta(meta) {
-	    if (!meta) {
-	        return;
-	    }
-	    for (var fieldKey in meta) {
-	        for (var propKey in meta[fieldKey]) {
-	            var oldValue = this.meta[fieldKey][propKey];
-	            var newValue = meta[fieldKey][propKey];
-	            if (propKey === 'default') {
-	                if (!this.meta[fieldKey]['default']) {
-	                    this.meta[fieldKey]['default'] = {};
-	                }
-	                this.meta[fieldKey]['default'].value = meta[fieldKey][propKey];
-	            } else if (propKey === 'display') {
-	                if (!this.meta[fieldKey]['default']) {
-	                    this.meta[fieldKey]['default'] = {};
-	                }
-	                this.meta[fieldKey]['default'].display = meta[fieldKey][propKey];
-	            } else {
-	                this.meta[fieldKey][propKey] = meta[fieldKey][propKey];
-	            }
-	            if (this.metaChange[fieldKey + '.' + propKey]) this.metaChange[fieldKey + '.' + propKey](-this.metaChange[fieldKey + '.' + propKey]());
-
-	            this.trigger(DataTable.ON_META_CHANGE, {
-	                eventType: 'dataTableEvent',
-	                dataTable: this.id,
-	                field: fieldKey,
-	                meta: propKey,
-	                oldValue: oldValue,
-	                newValue: newValue
-	            });
-	        }
-	    }
-	};
-
-	/**
-	 * 字段不存在时，创建字段
-	 * @param fieldName
-	 * @param options
-	 */
-	var createField = function createField(fieldName, options) {
-	    //字段不主动定义，则不创建
-	    if (this.root.strict == true) return;
-	    //有子表的情况不创建字段
-	    if (fieldName.indexOf('.') != -1) {
-	        var fNames = fieldName.split('.');
-	        var _name = fNames[0];
-	        for (var i = 0, count = fNames.length; i < count; i++) {
-	            if (this.meta[_name] && this.meta[_name]['type'] === 'child') return;
-	            if (i + 1 < count) _name = _name + '.' + fNames[i + 1];
-	        }
-	    }
-	    if (!this.meta[fieldName]) {
-	        this.meta[fieldName] = {};
-	    }
-	    if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-	        if (options['meta']) {
-	            for (var key in options['meta']) {
-	                //if (!this.meta[fieldName][key]){
-	                this.meta[fieldName]['meta'][key] = options['meta'][key];
-	                //}
-	            }
-	        } else {
-	            for (var key in options) {
-	                //if (!this.meta[fieldName][key]){
-	                this.meta[fieldName][key] = options[key];
-	                //}
-	            }
-	        }
-	    }
-	    // 在顶层dataTable上定义field信息
-	    if (this.root !== this) {
-	        var nsArr = this.ns.split('.');
-	        var _fieldMeta = this.root.meta;
-	        for (var i = 0; i < nsArr.length; i++) {
-	            _fieldMeta[nsArr[i]] = _fieldMeta[nsArr[i]] || {};
-	            _fieldMeta[nsArr[i]]['type'] = _fieldMeta[nsArr[i]]['type'] || 'child';
-	            _fieldMeta[nsArr[i]]['meta'] = _fieldMeta[nsArr[i]]['meta'] || {};
-	            _fieldMeta = _fieldMeta[nsArr[i]]['meta'];
-	        }
-	        if (!_fieldMeta[fieldName]) {
-	            _fieldMeta[fieldName] = {};
-	        }
-	        if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-	            for (var key in options) {
-	                if (!_fieldMeta[fieldName][key]) {
-	                    _fieldMeta[fieldName][key] = options[key];
-	                }
-	            }
-	        }
-	    }
-	};
-
-	exports.setMeta = setMeta;
-	exports.updateMeta = updateMeta;
-	exports.createField = createField;
-
-/***/ },
-/* 41 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable page
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-08-01 14:34:01
-	 */
-
-	var setCurrentPage = function setCurrentPage(pageIndex, notCacheCurrentPage) {
-	    if (pageIndex != this.pageIndex() && notCacheCurrentPage != true) this.cacheCurrentPage();
-	    this.pageIndex(pageIndex);
-	    var cachedPage = this.cachedPages[this.pageIndex()];
-	    if (cachedPage) {
-	        this.removeAllRows();
-	        this.setRows(cachedPage.rows);
-	        this.setRowsSelect(cachedPage.selectedIndcies);
-	    }
-	};
-
-	/**
-	 * 更新分页数据
-	 */
-	var updatePages = function updatePages(pages) {
-	    var pageSize = this.pageSize(),
-	        pageIndex = 0,
-	        page,
-	        r,
-	        row;
-	    var page, index, i, rows, focus, selectIndices, status, j, row, originRow;
-	    for (i = 0; i < pages.length; i++) {
-	        index = pages[i].index;
-	        rows = pages[i].rows;
-	        focus = pages[i].current;
-	        selectIndices = pages[i].select;
-	        status = pages[i].status;
-	        if (status === 'del') {
-	            this.cachedPages[index] = null;
-	            continue;
-	        }
-	        if (!this.cachedPages[index]) {
-	            page = new Page({ parent: this });
-	            page.rows = rows;
-	            for (var j = 0; j < page.rows.length; j++) {
-	                page.rows[j].rowId = page.rows[j].id;
-	                delete page.rows[j].id;
-	            }
-	            this.cachedPages[index] = page;
-	        } else {
-	            //如果是当前页，先把this.rows数据更新到page中
-	            if (index == this.pageIndex()) {
-	                this.cacheCurrentPage();
-	            }
-	            page = this.cachedPages[index];
-	            for (var j = 0; j < rows.length; j++) {
-	                r = rows[j];
-	                if (!r.id) r.id = Row.getRandomRowId();
-	                if (r.status == Row.STATUS.DELETE) {
-	                    this.removeRowByRowId(r.id);
-	                } else {
-	                    row = page.getRowByRowId(r.id);
-	                    if (row) {
-	                        page.updateRow(row, r);
-	                    } else {
-	                        r.rowId = r.id;
-	                        delete r.id;
-	                        page.rows.push(r);
-	                    }
-	                }
-	            }
-	        }
-	        page.selectedIndices = selectIndices;
-	        page.focus = focus;
-	    }
-	};
-
-	/**
-	 * 前端分页方法，不建议使用，建议在后端进行分页
-	 * @param allRows
-	 */
-	var setPages = function setPages(allRows) {
-	    var pageSize = this.pageSize(),
-	        pageIndex = 0,
-	        page;
-	    this.cachedPages = [];
-	    for (var i = 0; i < allRows.length; i++) {
-	        pageIndex = Math.floor(i / pageSize);
-	        if (!this.cachedPages[pageIndex]) {
-	            page = new Page({ parent: this });
-	            this.cachedPages[pageIndex] = page;
-	        }
-	        page.rows.push(allRows[i]);
-	    }
-	    if (this.pageIndex() > -1) this.setCurrentPage(this.pageIndex());
-	    this.totalRow(allRows.length);
-	    this.totalPages(pageIndex + 1);
-	};
-
-	var hasPage = function hasPage(pageIndex) {
-	    return this.pageCache && this.cachedPages[pageIndex] ? true : false;
-	};
-
-	var clearCache = function clearCache() {
-	    this.cachedPages = [];
-	};
-
-	var cacheCurrentPage = function cacheCurrentPage() {
-	    if (this.pageCache && this.pageIndex() > -1) {
-	        var page = new Page({ parent: this });
-	        page.focus = this.getFocusIndex();
-	        page.selectedIndices = this.selectedIndices().slice();
-	        var rows = this.rows.peek();
-	        for (var i = 0; i < rows.length; i++) {
-	            var r = rows[i].getData();
-	            r.rowId = r.id;
-	            delete r.id;
-	            page.rows.push(r);
-	        }
-	        this.cachedPages[this.pageIndex()] = page;
-	    }
-	};
-
-	exports.setCurrentPage = setCurrentPage;
-	exports.updatePages = updatePages;
-	exports.setPages = setPages;
-	exports.hasPage = hasPage;
-	exports.clearCache = clearCache;
-	exports.cacheCurrentPage = cacheCurrentPage;
-
-/***/ },
-/* 42 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable param
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-07-30 14:34:01
-	 */
-
-	var addParam = function addParam(key, value) {
-	    this.params[key] = value;
-	};
-
-	var addParams = function addParams(params) {
-	    for (var key in params) {
-	        this.params[key] = params[key];
-	    }
-	};
-
-	exports.addParam = addParam;
-	exports.addParams = addParams;
-
-/***/ },
-/* 43 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable ref
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-01 14:34:01
-	 */
-
-	var refSelectedRows = function refSelectedRows() {
-	    return ko.pureComputed({
-	        read: function read() {
-	            var ins = this.selectedIndices() || [];
-	            var rs = this.rows();
-	            var selectedRows = [];
-	            for (var i = 0; i < ins.length; i++) {
-	                selectedRows.push(rs[i]);
-	            }
-	            return selectedRows;
-	        }, owner: this
-	    });
-	};
-
-	/**
-	 * 绑定字段值
-	 * @param {Object} fieldName
-	 */
-	var ref = function ref(fieldName) {
-	    this.createField(fieldName);
-	    if (!this.valueChange[fieldName]) this.valueChange[fieldName] = ko.observable(1);
-	    return ko.pureComputed({
-	        read: function read() {
-	            this.valueChange[fieldName]();
-	            this.currentRowChange();
-	            var row = this.getCurrentRow();
-	            if (row) {
-	                return row.getChildValue(fieldName);
-	            } else return '';
-	        },
-	        write: function write(value) {
-	            var row = this.getCurrentRow();
-	            if (row) row.setChildValue(fieldName, value);
-	        },
-	        owner: this
-	    });
-	};
-
-	/**
-	 * 绑定字段属性
-	 * @param {Object} fieldName
-	 * @param {Object} key
-	 */
-	var refMeta = function refMeta(fieldName, key) {
-	    if (!this.metaChange[fieldName + '.' + key]) this.metaChange[fieldName + '.' + key] = ko.observable(1);
-	    return ko.pureComputed({
-	        read: function read() {
-	            this.metaChange[fieldName + '.' + key]();
-	            this.currentRowChange();
-	            return this.getMeta(fieldName, key);
-	        },
-	        write: function write(value) {
-	            this.setMeta(fieldName, key, value);
-	        },
-	        owner: this
-	    });
-	};
-
-	var refRowMeta = function refRowMeta(fieldName, key) {
-	    if (!this.metaChange[fieldName + '.' + key]) this.metaChange[fieldName + '.' + key] = ko.observable(1);
-	    return ko.pureComputed({
-	        read: function read() {
-	            this.metaChange[fieldName + '.' + key]();
-	            this.currentRowChange();
-	            var row = this.getCurrentRow();
-	            if (row) return row.getMeta(fieldName, key);else return this.getMeta(fieldName, key);
-	        },
-	        write: function write(value) {
-	            var row = this.getCurrentRow();
-	            if (row) row.setMeta(fieldName, value);
-	        },
-	        owner: this
-	    });
-	};
-
-	var refEnable = function refEnable(fieldName) {
-	    return ko.pureComputed({
-	        //enable优先级： dataTable.enable >  row上的enable >  field中的enable定义
-	        read: function read() {
-	            this.enableChange();
-	            if (!fieldName) return this.enable;
-	            var fieldEnable = this.getRowMeta(fieldName, 'enable');
-	            if (typeof fieldEnable == 'undefined' || fieldEnable == null) fieldEnable = true;
-	            return fieldEnable && this.enable;
-	        },
-	        owner: this
-	    });
-	};
-
-	exports.refSelectedRows = refSelectedRows;
-	exports.ref = ref;
-	exports.refMeta = refMeta;
-	exports.refRowMeta = refRowMeta;
-	exports.refEnable = refEnable;
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
-
-	var _util = __webpack_require__(45);
-
-	var removeRowByRowId = function removeRowByRowId(rowId) {
-	    var index = this.getIndexByRowId(rowId);
-	    if (index != -1) this.removeRow(index);
-	}; /**
-	    * Module : kero dataTable removeRow
-	    * Author : liuyk(liuyk@yonyou.com)
-	    * Date   : 2016-08-01 14:34:01
-	    */
-
-
-	var removeRow = function removeRow(index) {
-	    if (index instanceof Row) {
-	        index = this.getIndexByRowId(index.rowId);
-	    }
-	    this.removeRows([index]);
-	};
-
-	var removeAllRows = function removeAllRows() {
-	    this.rows([]);
-	    this.selectedIndices([]);
-	    this.focusIndex(-1);
-	    this.trigger(DataTable.ON_DELETE_ALL);
-	    this.updateCurrIndex();
-	};
-
-	var removeRows = function removeRows(indices) {
-	    indices = (0, _util._formatToIndicesArray)(this, indices);
-	    indices = indices.sort();
-	    var rowIds = [],
-	        rows = this.rows(),
-	        deleteRows = [];
-	    for (var i = indices.length - 1; i >= 0; i--) {
-	        var index = indices[i];
-	        var delRow = rows[index];
-	        if (delRow == null) {
-	            continue;
-	        }
-	        rowIds.push(delRow.rowId);
-	        var deleteRow = rows.splice(index, 1);
-	        deleteRows.push(deleteRow[0]);
-	        this.updateSelectedIndices(index, '-');
-	        this.updateFocusIndex(index, '-');
-	    }
-	    this.rows(rows);
-	    this.deleteRows = deleteRows;
-	    this.trigger(DataTable.ON_DELETE, {
-	        indices: indices,
-	        rowIds: rowIds,
-	        deleteRows: deleteRows
-	    });
-	    this.updateCurrIndex();
-	};
-
-	/**
-	 * 清空datatable的所有数据以及分页数据以及index
-	 */
-	var clear = function clear() {
-	    this.removeAllRows();
-	    this.cachedPages = [];
-	    this.totalPages(1);
-	    this.pageIndex(0);
-	    this.focusIndex(-1);
-	    this.selectedIndices([]);
-	};
-
-	exports.removeRowByRowId = removeRowByRowId;
-	exports.removeRow = removeRow;
-	exports.removeAllRows = removeAllRows;
-	exports.removeRows = removeRows;
-	exports.clear = clear;
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports._formatToIndicesArray = exports.isChanged = undefined;
-
-	var _util = __webpack_require__(5);
-
-	var isChanged = function isChanged() {
-	    var rows = this.getAllRows();
-	    for (var i = 0; i < rows.length; i++) {
-	        if (rows[i].status != Row.STATUS.NORMAL) return true;
-	    }
-	    return false;
-	}; /**
-	    * Module : kero dataTable util
-	    * Author : liuyk(liuyk@yonyou.com)
-	    * Date   : 2016-08-08 09:59:01
-	    */
-
-
-	var _formatToIndicesArray = function _formatToIndicesArray(dataTableObj, indices) {
-	    if (typeof indices == 'string' || typeof indices == 'number') {
-	        indices = [indices];
-	    } else if (indices instanceof Row) {
-	        indices = dataTableObj.getIndexByRowId(indices.rowId);
-	    } else if ((0, _util.isArray)(indices) && indices.length > 0 && indices[0] instanceof Row) {
-	        for (var i = 0; i < indices.length; i++) {
-	            indices[i] = dataTableObj.getIndexByRowId(indices[i].rowId);
-	        }
-	    }
-	    return indices;
-	};
-
-	exports.isChanged = isChanged;
-	exports._formatToIndicesArray = _formatToIndicesArray;
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
-
-	var _util = __webpack_require__(5);
-
-	/**
-	 * 设置行数据
-	 * @param {Object} rows
-	 */
-	var setRows = function setRows(rows) {
-	    var insertRows = [],
-	        _id;
-	    for (var i = 0; i < rows.length; i++) {
-	        var r = rows[i];
-	        _id = r.rowId || r.id;
-	        if (!_id) _id = Row.getRandomRowId();
-	        if (r.status == Row.STATUS.DELETE) {
-	            this.removeRowByRowId(_id);
-	        } else {
-	            var row = this.getRowByRowId(_id);
-	            if (row) {
-	                row.updateRow(r);
-	                if (!(0, _util.isEmptyObject)(r.data)) {
-	                    this.trigger(DataTable.ON_UPDATE, {
-	                        index: i,
-	                        rows: [row]
-	                    });
-	                    if (row == this.getCurrentRow()) {
-	                        this.currentRowChange(-this.currentRowChange());
-	                        row.currentRowChange(-row.currentRowChange());
-	                        this.trigger(DataTable.ON_CURRENT_UPDATE, {
-	                            index: i,
-	                            rows: [row]
-	                        });
-	                    } else {
-	                        row.currentRowChange(-row.currentRowChange());
-	                    }
-	                }
-	            } else {
-	                row = new Row({ parent: this, id: _id });
-	                row.setData(rows[i]);
-	                insertRows.push(row);
-	            }
-	        }
-	    }
-	    if (insertRows.length > 0) this.addRows(insertRows);
-	};
-
-	/**
-	 *追加行
-	 */
-	/**
-	 * Module : kero dataTable row
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-08-01 14:34:01
-	 */
-	var addRow = function addRow(row) {
-	    this.insertRow(this.rows().length, row);
-	};
-
-	/**
-	 *追加多行
-	 */
-	var addRows = function addRows(rows) {
-	    this.insertRows(this.rows().length, rows);
-	};
-
-	var insertRow = function insertRow(index, row) {
-	    if (!row) {
-	        row = new Row({ parent: this });
-	    }
-	    this.insertRows(index, [row]);
-	};
-
-	var insertRows = function insertRows(index, rows) {
-	    var args = [index, 0];
-	    for (var i = 0; i < rows.length; i++) {
-	        args.push(rows[i]);
-	    }
-	    this.rows.splice.apply(this.rows, args);
-
-	    this.updateSelectedIndices(index, '+', rows.length);
-	    this.updateFocusIndex(index, '+', rows.length);
-
-	    this.trigger(DataTable.ON_INSERT, {
-	        index: index,
-	        rows: rows
-	    });
-	    if (this.ns) {
-	        if (this.root.valueChange[this.ns]) this.root.valueChange[this.ns](-this.root.valueChange[this.ns]());
-	    }
-	};
-
-	/**
-	 * 创建空行
-	 */
-	var createEmptyRow = function createEmptyRow() {
-	    var r = new Row({ parent: this });
-	    this.addRow(r);
-	    if (!this.getCurrentRow()) this.setRowSelect(r);
-	    return r;
-	};
-
-	exports.setRows = setRows;
-	exports.addRow = addRow;
-	exports.addRows = addRows;
-	exports.insertRow = insertRow;
-	exports.insertRows = insertRows;
-	exports.createEmptyRow = createEmptyRow;
-
-/***/ },
-/* 47 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : kero dataTable rowCurrent
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-08 09:59:01
-	 */
-
-	var updateCurrIndex = function updateCurrIndex() {
-	    var currentIndex = this.focusIndex() != -1 ? this.focusIndex() : this.getSelectedIndex();
-	    if (this._oldCurrentIndex != currentIndex) {
-	        this._oldCurrentIndex = currentIndex;
-	        this.trigger(DataTable.ON_CURRENT_ROW_CHANGE);
-	        this.currentRowChange(-this.currentRowChange());
-	        if (this.ns) {
-	            if (this.root.valueChange[this.ns]) this.root.valueChange[this.ns](-this.root.valueChange[this.ns]());
-	        }
-	    }
-	};
-
-	exports.updateCurrIndex = updateCurrIndex;
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
-
-	var _util = __webpack_require__(45);
-
-	/**
-	 * 设置行删除
-	 * @param {Object} index
-	 */
-	var setRowDelete = function setRowDelete(index) {
-	    if (index instanceof Row) {
-	        index = this.getIndexByRowId(index.rowId);
-	    }
-	    this.setRowsDelete([index]);
-	};
-
-	/**
-	 * 设置所有行删除
-	 */
-	/**
-	 * Module : kero dataTable rowDelete
-	 * Desc: 不建议使用此库方法
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-01 14:34:01
-	 */
-	var setAllRowsDelete = function setAllRowsDelete() {
-	    var indices = new Array(this.rows().length);
-	    for (var i = 0; i < indices.length; i++) {
-	        indices[i] = i;
-	    }
-	    this.setRowsDelete(indices);
-	};
-
-	/**
-	 * 设置行删除
-	 * @param {Array} indices
-	 */
-	var setRowsDelete = function setRowsDelete(indices) {
-	    indices = (0, _util._formatToIndicesArray)(this, indices);
-	    for (var i = 0; i < indices.length; i++) {
-	        var row = this.getRow(indices[i]);
-	        if (row.status == Row.STATUS.NEW) {
-	            this.rows(this.rows().splice(indices[i], 1));
-	            this.updateSelectedIndices(indices[i], '-');
-	            this.updateFocusIndex(index, '-');
-	        } else {
-	            row.status = Row.STATUS.FALSE_DELETE;
-	        }
-	    }
-	    var rowIds = this.getRowIdsByIndices(indices);
-	    this.trigger(DataTable.ON_ROW_DELETE, {
-	        falseDelete: true,
-	        indices: indices,
-	        rowIds: rowIds
-	    });
-	};
-
-	exports.setRowDelete = setRowDelete;
-	exports.setAllRowsDelete = setAllRowsDelete;
-	exports.setRowsDelete = setRowsDelete;
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
-
-	var _util = __webpack_require__(5);
-
-	var _util2 = __webpack_require__(45);
-
-	/**
-	 * Module : kero dataTable rowSelect
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-01 14:34:01
-	 */
-	var setAllRowsSelect = function setAllRowsSelect() {
-	    var indices = new Array(this.rows().length);
-	    for (var i = 0; i < indices.length; i++) {
-	        indices[i] = i;
-	    }
-	    this.setRowsSelect(indices);
-	    this.allSelected(true);
-	    this.trigger(DataTable.ON_ROW_ALLSELECT, {});
-	};
-
-	/**
-	 * 设置选中行，清空之前已选中的所有行
-	 */
-	var setRowSelect = function setRowSelect(index) {
-	    if (index instanceof Row) {
-	        index = this.getIndexByRowId(index.rowId);
-	    }
-	    this.setRowsSelect([index]);
-	    this.setRowFocus(this.getSelectedIndex());
-	};
-
-	var setRowsSelect = function setRowsSelect(indices) {
-	    indices = indices || -1;
-	    if (indices == -1) {
-	        this.setAllRowsUnSelect({ quiet: true });
-	        return;
-	    }
-	    indices = (0, _util2._formatToIndicesArray)(this, indices);
-	    var sIns = this.selectedIndices();
-	    if ((0, _util.isArray)(indices) && (0, _util.isArray)(sIns) && indices.join() == sIns.join()) {
-	        // 避免与控件循环触发
-	        return;
-	    }
-	    this.setAllRowsUnSelect({ quiet: true });
-	    try {
-	        this.selectedIndices(indices);
-	    } catch (e) {}
-
-	    var rowIds = this.getRowIdsByIndices(indices);
-	    this.currentRowChange(-this.currentRowChange());
-	    this.trigger(DataTable.ON_ROW_SELECT, {
-	        indices: indices,
-	        rowIds: rowIds
-	    });
-	    this.updateCurrIndex();
-	};
-
-	/**
-	 * 添加选中行，不会清空之前已选中的行
-	 */
-	var addRowSelect = function addRowSelect(index) {
-	    if (index instanceof Row) {
-	        index = this.getIndexByRowId(index.rowId);
-	    }
-	    this.addRowsSelect([index]);
-	};
-
-	/**
-	 * 添加选中行，不会清空之前已选中的行
-	 */
-	var addRowsSelect = function addRowsSelect(indices) {
-	    indices = (0, _util2._formatToIndicesArray)(this, indices);
-	    var selectedIndices = this.selectedIndices().slice();
-	    for (var i = 0; i < indices.length; i++) {
-	        var ind = indices[i],
-	            toAdd = true;
-	        for (var j = 0; j < selectedIndices.length; j++) {
-	            if (selectedIndices[j] == ind) {
-	                toAdd = false;
-	            }
-	        }
-	        if (toAdd) {
-	            selectedIndices.push(indices[i]);
-	        }
-	    }
-	    this.selectedIndices(selectedIndices);
-	    var rowIds = this.getRowIdsByIndices(indices);
-	    this.trigger(DataTable.ON_ROW_SELECT, {
-	        indices: indices,
-	        rowIds: rowIds
-	    });
-	    this.updateCurrIndex();
-	};
-
-	/**
-	 * 全部取消选中
-	 */
-	var setAllRowsUnSelect = function setAllRowsUnSelect(options) {
-	    this.selectedIndices([]);
-	    if (!(options && options.quiet)) {
-	        this.trigger(DataTable.ON_ROW_ALLUNSELECT);
-	    }
-	    this.updateCurrIndex();
-	    this.allSelected(false);
-	};
-
-	/**
-	 * 取消选中
-	 */
-	var setRowUnSelect = function setRowUnSelect(index) {
-	    if (index instanceof Row) {
-	        index = this.getIndexByRowId(index.rowId);
-	    }
-	    this.setRowsUnSelect([index]);
-	};
-
-	var setRowsUnSelect = function setRowsUnSelect(indices) {
-	    indices = (0, _util2._formatToIndicesArray)(this, indices);
-	    var selectedIndices = this.selectedIndices().slice();
-
-	    // 避免与控件循环触发
-	    if (selectedIndices.indexOf(indices[0]) == -1) return;
-
-	    for (var i = 0; i < indices.length; i++) {
-	        var index = indices[i];
-	        var pos = selectedIndices.indexOf(index);
-	        if (pos != -1) selectedIndices.splice(pos, 1);
-	    }
-	    this.selectedIndices(selectedIndices);
-	    var rowIds = this.getRowIdsByIndices(indices);
-	    this.trigger(DataTable.ON_ROW_UNSELECT, {
-	        indices: indices,
-	        rowIds: rowIds
-	    });
-	    this.updateCurrIndex();
-	    this.allSelected(false);
-	};
-
-	var toggleAllSelect = function toggleAllSelect() {
-	    if (this.allSelected()) {
-	        this.setAllRowsUnSelect();
-	    } else {
-	        this.setAllRowsSelect();
-	    }
-	};
-
-	/**
-	 *
-	 * @param {Object} index 要处理的起始行索引
-	 * @param {Object} type   增加或减少  + -
-	 */
-	var updateSelectedIndices = function updateSelectedIndices(index, type, num) {
-	    if (!(0, _util.isNumber)(num)) {
-	        num = 1;
-	    }
-	    var selectedIndices = this.selectedIndices().slice();
-	    if (selectedIndices == null || selectedIndices.length == 0) return;
-	    for (var i = 0, count = selectedIndices.length; i < count; i++) {
-	        if (type == '+') {
-	            if (selectedIndices[i] >= index) selectedIndices[i] = parseInt(selectedIndices[i]) + num;
-	        } else if (type == '-') {
-	            if (selectedIndices[i] >= index && selectedIndices[i] <= index + num - 1) {
-	                selectedIndices.splice(i, 1);
-	            } else if (selectedIndices[i] > index + num - 1) selectedIndices[i] = selectedIndices[i] - num;
-	        }
-	    }
-	    this.selectedIndices(selectedIndices);
-	};
-	exports.setAllRowsSelect = setAllRowsSelect;
-	exports.setRowSelect = setRowSelect;
-	exports.setRowsSelect = setRowsSelect;
-	exports.addRowSelect = addRowSelect;
-	exports.addRowsSelect = addRowsSelect;
-	exports.setAllRowsUnSelect = setAllRowsUnSelect;
-	exports.setRowUnSelect = setRowUnSelect;
-	exports.setRowsUnSelect = setRowsUnSelect;
-	exports.toggleAllSelect = toggleAllSelect;
-	exports.updateSelectedIndices = updateSelectedIndices;
-
-/***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
-
-	var _util = __webpack_require__(5);
-
-	/**
-	 * 设置焦点行
-	 * @param {Object} index 行对象或者行index
-	 * @param quiet 不触发事件
-	 * @param force 当index行与已focus的行相等时，仍然触发事件
-	 */
-	var setRowFocus = function setRowFocus(index, quiet, force) {
-	    var rowId = null;
-	    if (index instanceof Row) {
-	        index = this.getIndexByRowId(index.rowId);
-	        rowId = index.rowId;
-	    }
-	    if (index === -1 || index === this.focusIndex() && !force) {
-	        return;
-	    }
-	    this.focusIndex(index);
-	    if (quiet) {
-	        return;
-	    }
-	    this.currentRowChange(-this.currentRowChange());
-	    if (!rowId) {
-	        rowId = this.getRow(index).rowId;
-	    }
-	    this.trigger(DataTable.ON_ROW_FOCUS, {
-	        index: index,
-	        rowId: rowId
-	    });
-	    this.updateCurrIndex();
-	};
-
-	/**
-	 * 焦点行反选
-	 */
-	/**
-	 * Module : kero dataTable rowFocus
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-08 09:59:01
-	 */
-	var setRowUnFocus = function setRowUnFocus() {
-	    this.currentRowChange(-this.currentRowChange());
-	    var indx = this.focusIndex(),
-	        rowId = null;
-	    if (indx !== -1) {
-	        rowId = this.getRow(indx).rowId;
-	    }
-	    this.trigger(DataTable.ON_ROW_UNFOCUS, {
-	        index: indx,
-	        rowId: rowId
-	    });
-	    this.focusIndex(-1);
-	    this.updateCurrIndex();
-	};
-
-	var updateFocusIndex = function updateFocusIndex(opIndex, opType, num) {
-	    if (!(0, _util.isNumber)(num)) {
-	        num = 1;
-	    }
-	    if (opIndex <= this.focusIndex() && this.focusIndex() != -1) {
-	        if (opType === '+') {
-	            this.focusIndex(this.focusIndex() + num);
-	        } else if (opType === '-') {
-	            if (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1) {
-	                this.focusIndex(this.focusIndex() - 1);
-	            } else if (this.focusIndex() > opIndex + num - 1) {
-	                this.focusIndex(this.focusIndex() - num);
-	            }
-	        }
-	    }
-	};
-
-	exports.setRowFocus = setRowFocus;
-	exports.setRowUnFocus = setRowUnFocus;
-	exports.updateFocusIndex = updateFocusIndex;
-
-/***/ },
-/* 51 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.addSimpleData = exports.setSimpleData = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : kero dataTable simpleData
-	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-08-01 14:34:01
-	                                                                                                                                                                                                                                                   */
-
-
-	var _util = __webpack_require__(5);
-
-	/**
-	 * 设置数据, 只设置字段值
-	 * @param {array} data
-	 *options{} unSelect为true：不选中，为false则选中，默认选中0行
-	 */
-	var setSimpleData = function setSimpleData(data, options) {
-	    this.removeAllRows();
-	    this.cachedPages = [];
-	    this.focusIndex(-1);
-	    this.selectedIndices([]);
-
-	    if (!data) {
-	        // throw new Error("dataTable.setSimpleData param can't be null!");
-	        return;
-	    }
-
-	    var rows = [];
-	    if (!(0, _util.isArray)(data)) data = [data];
-	    for (var i = 0; i < data.length; i++) {
-	        var _data = data[i];
-	        /* 判断data中的字段在datatable中是否存在，如果不存在则创建 */
-	        // for(var f in _data){
-	        //     this.createField(f)
-	        // }
-	        if (_typeof(data[i]) !== 'object') _data = { $data: data[i] };
-	        rows.push({
-	            status: Row.STATUS.NORMAL,
-	            data: _data
-	        });
-	    }
-	    var _data = {
-	        rows: rows
-	    };
-	    this.setData(_data, options);
-	};
-
-	/**
-	 * 追加数据
-	 * @param data
-	 */
-	var addSimpleData = function addSimpleData(data, status) {
-	    if (!data) {
-	        throw new Error("dataTable.addSimpleData param can't be null!");
-	    }
-	    if (!(0, _util.isArray)(data)) data = [data];
-	    for (var i = 0; i < data.length; i++) {
-	        var r = this.createEmptyRow();
-	        r.setSimpleData(data[i], status);
-	    }
-	};
-
-	exports.setSimpleData = setSimpleData;
-	exports.addSimpleData = addSimpleData;
-
-/***/ },
-/* 52 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6990,7 +7516,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.DateFormater = exports.NumberFormater = undefined;
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
 	function NumberFormater(precision) {
 	    this.precision = precision;
@@ -7046,7 +7572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.DateFormater = DateFormater;
 
 /***/ },
-/* 53 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7056,31 +7582,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.FloatAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _core = __webpack_require__(54);
+	var _core = __webpack_require__(71);
 
-	var _formater = __webpack_require__(52);
+	var _formater = __webpack_require__(93);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(70);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(95);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
 	var FloatAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -7195,489 +7721,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.FloatAdapter = FloatAdapter;
 
 /***/ },
-/* 54 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.core = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow core context
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 13:52:19
-	                                                                                                                                                                                                                                                   */
-
-
-	var _extend = __webpack_require__(1);
-
-	var _util = __webpack_require__(5);
-
-	var _cookies = __webpack_require__(55);
-
-	var _enumerables = __webpack_require__(2);
-
-	var environment = {};
-	/**
-	 * client attributes
-	 */
-	var clientAttributes = {};
-
-	var sessionAttributes = {};
-
-	var fn = {};
-	var maskerMeta = {
-		'float': {
-			precision: 2
-		},
-		'datetime': {
-			format: 'YYYY-MM-DD HH:mm:ss',
-			metaType: 'DateTimeFormatMeta',
-			speratorSymbol: '-'
-		},
-		'time': {
-			format: 'HH:mm'
-		},
-		'date': {
-			format: 'YYYY-MM-DD'
-		},
-		'currency': {
-			precision: 2,
-			curSymbol: '￥'
-		},
-		'percent': {}
-	};
-	/**
-	 * 获取环境信息
-	 * @return {environment}
-	 */
-	fn.getEnvironment = function () {
-		return (0, _util.createShellObject)(environment);
-	};
-
-	/**
-	 * 获取客户端参数对象
-	 * @return {clientAttributes}
-	 */
-	fn.getClientAttributes = function () {
-		var exf = function exf() {};
-		return (0, _util.createShellObject)(clientAttributes);
-	};
-
-	fn.setContextPath = function (contextPath) {
-		return environment[IWEB_CONTEXT_PATH] = contextPath;
-	};
-	fn.getContextPath = function (contextPath) {
-		return environment[IWEB_CONTEXT_PATH];
-	};
-	/**
-	 * 设置客户端参数对象
-	 * @param {Object} k 对象名称
-	 * @param {Object} v 对象值(建议使用简单类型)
-	 */
-	fn.setClientAttribute = function (k, v) {
-		clientAttributes[k] = v;
-	};
-	/**
-	 * 获取会话级参数对象
-	 * @return {clientAttributes}
-	 */
-	fn.getSessionAttributes = function () {
-		var exf = function exf() {};
-		return (0, _util.createShellObject)(sessionAttributes);
-	};
-
-	/**
-	 * 设置会话级参数对象
-	 * @param {Object} k 对象名称
-	 * @param {Object} v 对象值(建议使用简单类型)
-	 */
-	fn.setSessionAttribute = function (k, v) {
-		sessionAttributes[k] = v;
-		(0, _cookies.setCookie)("ISES_" + k, v);
-	};
-
-	/**
-	 * 移除客户端参数
-	 * @param {Object} k 对象名称
-	 */
-	fn.removeClientAttribute = function (k) {
-		clientAttributes[k] = null;
-		execIgnoreError(function () {
-			delete clientAttributes[k];
-		});
-	};
-
-	/**
-	 * 获取地区信息编码
-	 */
-	fn.getLocale = function () {
-		return this.getEnvironment().locale;
-	};
-
-	/**
-	 * 获取多语信息
-	 */
-	fn.getLanguages = function () {
-		return this.getEnvironment().languages;
-	};
-	/**
-	 * 收集环境信息(包括客户端参数)
-	 * @return {Object}
-	 */
-	fn.collectEnvironment = function () {
-		var _env = this.getEnvironment();
-		var _ses = this.getSessionAttributes();
-
-		for (var i in clientAttributes) {
-			_ses[i] = clientAttributes[i];
-		}
-		_env.clientAttributes = _ses;
-		return _env;
-	};
-
-	/**
-	 * 设置数据格式信息
-	 * @param {String} type
-	 * @param {Object} meta
-	 */
-	fn.setMaskerMeta = function (type, meta) {
-		if (typeof type == 'function') {
-			getMetaFunc = type;
-		} else {
-			if (!maskerMeta[type]) maskerMeta[type] = meta;else {
-				if ((typeof meta === 'undefined' ? 'undefined' : _typeof(meta)) != 'object') maskerMeta[type] = meta;else for (var key in meta) {
-					maskerMeta[type][key] = meta[key];
-				}
-			}
-		}
-	};
-	fn.getMaskerMeta = function (type) {
-		if (typeof getMetaFunc == 'function') {
-			var meta = getMetaFunc.call(this);
-			return meta[type];
-		} else return (0, _extend.extend)({}, maskerMeta[type]);
-	};
-	environment.languages = (0, _cookies.getCookie)(_enumerables.U_LANGUAGES) ? (0, _cookies.getCookie)(_enumerables.U_LANGUAGES).split(',') : navigator.language ? navigator.language : 'zh-CN';
-	if (environment.languages == 'zh-cn') environment.languages = 'zh-CN';
-	if (environment.languages == 'en-us') environment.languages = 'en-US';
-
-	environment.theme = (0, _cookies.getCookie)(_enumerables.U_THEME);
-	environment.locale = (0, _cookies.getCookie)(_enumerables.U_LOCALE);
-	//environment.timezoneOffset = (new Date()).getTimezoneOffset()
-	environment.usercode = (0, _cookies.getCookie)(_enumerables.U_USERCODE);
-	//init session attribute
-	document.cookie.replace(/ISES_(\w*)=([^;]*);?/ig, function (a, b, c) {
-		sessionAttributes[b] = c;
-	});
-
-	var Core = function Core() {};
-	Core.prototype = fn;
-
-	var core = new Core();
-
-	exports.core = core;
-
-/***/ },
-/* 55 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	/**
-	 * Module : Sparrow cookies
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-
-	var setCookie = function setCookie(sName, sValue, oExpires, sPath, sDomain, bSecure) {
-		var sCookie = sName + "=" + encodeURIComponent(sValue);
-		if (oExpires) sCookie += "; expires=" + oExpires.toGMTString();
-		if (sPath) sCookie += "; path=" + sPath;
-		if (sDomain) sCookie += "; domain=" + sDomain;
-		if (bSecure) sCookie += "; secure=" + bSecure;
-		document.cookie = sCookie;
-	};
-
-	var getCookie = function getCookie(sName) {
-		var sRE = "(?:; )?" + sName + "=([^;]*);?";
-		var oRE = new RegExp(sRE);
-
-		if (oRE.test(document.cookie)) {
-			return decodeURIComponent(RegExp["$1"]);
-		} else return null;
-	};
-
-	exports.setCookie = setCookie;
-	exports.getCookie = getCookie;
-
-/***/ },
-/* 56 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.date = undefined;
-
-	var _core = __webpack_require__(54);
-
-	var u = {}; /**
-	             * Module : Sparrow date util
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-08-06 13:37:20
-	             */
-
-	u.date = {
-
-		/**
-	  * 多语言处理
-	  */
-		//TODO 后续放到多语文件中
-		_dateLocale: {
-			'zh-CN': {
-				months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
-				monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
-				weekdays: '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
-				weekdaysShort: '周日_周一_周二_周三_周四_周五_周六'.split('_'),
-				weekdaysMin: '日_一_二_三_四_五_六'.split('_')
-			},
-			'en-US': {
-				months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
-				monthsShort: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
-				weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thurday_Friday_Saturday'.split('_'),
-				weekdaysShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
-				weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
-			}
-		},
-
-		_formattingTokens: /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYY|YY|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
-
-		leftZeroFill: function leftZeroFill(number, targetLength, forceSign) {
-			var output = '' + Math.abs(number),
-			    sign = number >= 0;
-			while (output.length < targetLength) {
-				output = '0' + output;
-			}
-			return (sign ? forceSign ? '+' : '' : '-') + output;
-		},
-
-		_formats: {
-			//year
-			YY: function YY(date) {
-				return u.date.leftZeroFill(date.getFullYear() % 100, 2);
-			},
-			YYYY: function YYYY(date) {
-				return date.getFullYear();
-			},
-			//month
-			M: function M(date) {
-				return date.getMonth() + 1;
-			},
-			MM: function MM(date) {
-				var m = u.date._formats.M(date);
-				return u.date.leftZeroFill(m, 2);
-			},
-			MMM: function MMM(date, language) {
-				var m = date.getMonth();
-				return u.date._dateLocale[language].monthsShort[m];
-			},
-			MMMM: function MMMM(date, language) {
-				var m = date.getMonth();
-				return u.date._dateLocale[language].months[m];
-			},
-			//date
-			D: function D(date) {
-				return date.getDate();
-			},
-			DD: function DD(date) {
-				var d = u.date._formats.D(date);
-				return u.date.leftZeroFill(d, 2);
-			},
-			// weekday
-			d: function d(date) {
-				return date.getDay();
-			},
-			dd: function dd(date, language) {
-				var d = u.date._formats.d(date);
-				return u.date._dateLocale[language].weekdaysMin[d];
-			},
-			ddd: function ddd(date, language) {
-				var d = u.date._formats.d(date);
-				return u.date._dateLocale[language].weekdaysShort[d];
-			},
-			dddd: function dddd(date, language) {
-				var d = u.date._formats.d(date);
-				return u.date._dateLocale[language].weekdays[d];
-			},
-			// am pm
-			a: function a(date) {
-				if (date.getHours() > 12) {
-					return 'pm';
-				} else {
-					return 'am';
-				}
-			},
-			//hour
-			h: function h(date) {
-				var h = date.getHours();
-				h = h > 12 ? h - 12 : h;
-				return h;
-			},
-			hh: function hh(date) {
-				var h = u.date._formats.h(date);
-				return u.date.leftZeroFill(h, 2);
-			},
-			H: function H(date) {
-				return date.getHours();
-			},
-			HH: function HH(date) {
-				return u.date.leftZeroFill(date.getHours(), 2);
-			},
-			// minutes
-			m: function m(date) {
-				return date.getMinutes();
-			},
-			mm: function mm(date) {
-				return u.date.leftZeroFill(date.getMinutes(), 2);
-			},
-			//seconds
-			s: function s(date) {
-				return date.getSeconds();
-			},
-			ss: function ss(date) {
-				return u.date.leftZeroFill(date.getSeconds(), 2);
-			}
-		},
-
-		/**
-	  * 日期格式化
-	  * @param date
-	  * @param formatString
-	  */
-		format: function format(date, formatString, language) {
-			if (!date) return date;
-			var array = formatString.match(u.date._formattingTokens),
-			    i,
-			    length,
-			    output = '';
-			var _date = u.date.getDateObj(date);
-			if (!_date) return date;
-			language = language || _core.core.getLanguages();
-			for (i = 0, length = array.length; i < length; i++) {
-				if (u.date._formats[array[i]]) {
-					output += u.date._formats[array[i]](_date, language);
-				} else {
-					output += array[i];
-				}
-			}
-			return output;
-		},
-
-		_addOrSubtract: function _addOrSubtract(date, period, value, isAdding) {
-			var times = date.getTime(),
-			    d = date.getDate(),
-			    m = date.getMonth(),
-			    _date = u.date.getDateObj(date);
-			if (period === 'ms') {
-				times = times + value * isAdding;
-				_date.setTime(times);
-			} else if (period == 's') {
-				times = times + value * 1000 * isAdding;
-				_date.setTime(times);
-			} else if (period == 'm') {
-				times = times + value * 60000 * isAdding;
-				_date.setTime(times);
-			} else if (period == 'h') {
-				times = times + value * 3600000 * isAdding;
-				_date.setTime(times);
-			} else if (period == 'd') {
-				d = d + value * isAdding;
-				_date.setDate(d);
-			} else if (period == 'w') {
-				d = d + value * 7 * isAdding;
-				_date.setDate(d);
-			} else if (period == 'M') {
-				m = m + value * isAdding;
-				_date.setMonth(d);
-			} else if (period == 'y') {
-				m = m + value * 12 * isAdding;
-				_date.setMonth(d);
-			}
-			return _date;
-		},
-
-		add: function add(date, period, value) {
-			return u.date._addOrSubtract(date, period, value, 1);
-		},
-		sub: function sub(date, period, value) {
-			return u.date._addOrSubtract(date, period, value, -1);
-		},
-		getDateObj: function getDateObj(value) {
-			if (!value || typeof value == 'undefined') return value;
-			var dateFlag = false;
-			var _date = new Date(value);
-			if (isNaN(_date)) {
-				// IE的话对"2016-2-13 12:13:22"进行处理
-				var index1, index2, index3, s1, s2, s3;
-				if (value.indexOf) {
-					index1 = value.indexOf('-');
-					index2 = value.indexOf(':');
-					index3 = value.indexOf(' ');
-					if (index1 > 0 || index2 > 0 || index3 > 0) {
-						_date = new Date();
-						if (index3 > 0) {
-							s3 = value.split(' ');
-							s1 = s3[0].split('-');
-							s2 = s3[1].split(':');
-						} else if (index1 > 0) {
-							s1 = value.split('-');
-						} else if (index2 > 0) {
-							s2 = value.split(':');
-						}
-						if (s1 && s1.length > 0) {
-							_date.setYear(s1[0]);
-							_date.setMonth(parseInt(s1[1] - 1));
-							_date.setDate(s1[2] ? s1[2] : 0);
-							dateFlag = true;
-						}
-						if (s2 && s2.length > 0) {
-							_date.setHours(s2[0] ? s2[0] : 0);
-							_date.setMinutes(s2[1] ? s2[1] : 0);
-							_date.setSeconds(s2[2] ? s2[2] : 0);
-							dateFlag = true;
-						}
-					} else {
-						_date = new Date(parseInt(value));
-						if (isNaN(_date)) {
-							throw new TypeError('invalid Date parameter');
-						} else {
-							dateFlag = true;
-						}
-					}
-				}
-			} else {
-				dateFlag = true;
-			}
-
-			if (dateFlag) return _date;else return null;
-		}
-
-	};
-
-	var date = u.date;
-	exports.date = date;
-
-/***/ },
-/* 57 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7693,7 +7737,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 19:35:26
 	                                                                                                                                                                                                                                                   */
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
 	function AbstractMasker() {};
 
@@ -8174,7 +8218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.PercentMasker = PercentMasker;
 
 /***/ },
-/* 58 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8184,31 +8228,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.DateTimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _core = __webpack_require__(54);
+	var _core = __webpack_require__(71);
 
-	var _indexDataTable = __webpack_require__(26);
+	var _indexDataTable = __webpack_require__(29);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _neouiDatetimepicker = __webpack_require__(59);
+	var _neouiDatetimepicker = __webpack_require__(97);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(70);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var DateTimeAdapter = _baseAdapter.BaseAdapter.extend({
 		mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -8396,7 +8440,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.DateTimeAdapter = DateTimeAdapter;
 
 /***/ },
-/* 59 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8406,25 +8450,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.DateTimePicker = undefined;
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _core = __webpack_require__(54);
+	var _core = __webpack_require__(71);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(70);
 
-	var _neouiValidate = __webpack_require__(14);
+	var _neouiValidate = __webpack_require__(82);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(87);
 
 	var DateTimePicker = _BaseComponent.BaseComponent.extend({});
 
@@ -9626,7 +9670,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.DateTimePicker = DateTimePicker;
 
 /***/ },
-/* 60 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9636,59 +9680,59 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.GridAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _formater = __webpack_require__(52);
+	var _formater = __webpack_require__(93);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(95);
 
-	var _dataRender = __webpack_require__(61);
+	var _dataRender = __webpack_require__(99);
 
-	var _indexDataTable = __webpack_require__(26);
+	var _indexDataTable = __webpack_require__(29);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _string = __webpack_require__(62);
+	var _string = __webpack_require__(100);
 
-	var _integer = __webpack_require__(63);
+	var _integer = __webpack_require__(101);
 
-	var _checkbox = __webpack_require__(6);
+	var _checkbox = __webpack_require__(77);
 
-	var _combobox = __webpack_require__(22);
+	var _combobox = __webpack_require__(89);
 
-	var _radio = __webpack_require__(64);
+	var _radio = __webpack_require__(102);
 
-	var _float = __webpack_require__(53);
+	var _float = __webpack_require__(94);
 
-	var _currency = __webpack_require__(25);
+	var _currency = __webpack_require__(92);
 
-	var _datetime = __webpack_require__(58);
+	var _datetime = __webpack_require__(96);
 
-	var _url = __webpack_require__(66);
+	var _url = __webpack_require__(104);
 
-	var _password = __webpack_require__(67);
+	var _password = __webpack_require__(105);
 
-	var _percent = __webpack_require__(68);
+	var _percent = __webpack_require__(106);
 
-	var _neouiValidate = __webpack_require__(14);
+	var _neouiValidate = __webpack_require__(82);
 
-	var _neouiMessage = __webpack_require__(69);
+	var _neouiMessage = __webpack_require__(107);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(85);
 
-	var _core = __webpack_require__(54);
+	var _core = __webpack_require__(71);
 
 	var GridAdapter = _baseAdapter.BaseAdapter.extend({
 		initialize: function initialize(options) {
@@ -10801,7 +10845,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.GridAdapter = GridAdapter;
 
 /***/ },
-/* 61 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10811,13 +10855,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.dateToUTCString = exports.percentRender = exports.timeRender = exports.dateTimeRender = exports.dateRender = exports.integerRender = exports.floatRender = undefined;
 
-	var _core = __webpack_require__(54);
+	var _core = __webpack_require__(71);
 
-	var _formater = __webpack_require__(52);
+	var _formater = __webpack_require__(93);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(95);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(70);
 
 	/**
 	 * Module : Sparrow data display formater
@@ -10895,7 +10939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.dateToUTCString = dateToUTCString;
 
 /***/ },
-/* 62 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10905,21 +10949,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.StringAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * Module : Kero string adapter
@@ -10973,7 +11017,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.StringAdapter = StringAdapter;
 
 /***/ },
-/* 63 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10983,23 +11027,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.IntegerAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var IntegerAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -11064,7 +11108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.IntegerAdapter = IntegerAdapter;
 
 /***/ },
-/* 64 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11074,25 +11118,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.RadioAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _neouiRadio = __webpack_require__(65);
+	var _neouiRadio = __webpack_require__(103);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * Module : Kero percent
@@ -11263,7 +11307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.RadioAdapter = RadioAdapter;
 
 /***/ },
-/* 65 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11273,17 +11317,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Radio = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(87);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * Module : neoui-radio
@@ -11503,7 +11547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Radio = Radio;
 
 /***/ },
-/* 66 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11513,11 +11557,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.UrlAdapter = undefined;
 
-	var _string = __webpack_require__(62);
+	var _string = __webpack_require__(100);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var UrlAdapter = _string.StringAdapter.extend({
 	    init: function init() {
@@ -11572,7 +11616,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.UrlAdapter = UrlAdapter;
 
 /***/ },
-/* 67 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11582,15 +11626,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.PassWordAdapter = undefined;
 
-	var _string = __webpack_require__(62);
+	var _string = __webpack_require__(100);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * 密码控件
@@ -11646,7 +11690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.PassWordAdapter = PassWordAdapter;
 
 /***/ },
-/* 68 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11656,15 +11700,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.PercentAdapter = undefined;
 
-	var _float = __webpack_require__(53);
+	var _float = __webpack_require__(94);
 
-	var _formater = __webpack_require__(52);
+	var _formater = __webpack_require__(93);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(95);
 
-	var _core = __webpack_require__(54);
+	var _core = __webpack_require__(71);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * 百分比控件
@@ -11694,7 +11738,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.PercentAdapter = PercentAdapter;
 
 /***/ },
-/* 69 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11704,9 +11748,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.showMessage = exports.showMessageDialog = undefined;
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
 	/**
 	 * Module : neoui-message
@@ -11776,7 +11820,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.showMessage = showMessage;
 
 /***/ },
-/* 70 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11786,11 +11830,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.MonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiMonth = __webpack_require__(71);
+	var _neouiMonth = __webpack_require__(109);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var MonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(comp, options) {
@@ -11829,7 +11873,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.MonthAdapter = MonthAdapter;
 
 /***/ },
-/* 71 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11839,15 +11883,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Month = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var Month = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
@@ -12059,7 +12103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Month = Month;
 
 /***/ },
-/* 72 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12069,17 +12113,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.NativeCheckAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * Module : Kero native-checkbox
@@ -12195,7 +12239,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.NativeCheckAdapter = NativeCheckAdapter;
 
 /***/ },
-/* 73 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12205,17 +12249,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.NativeRadioAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * Module : Kero native-radio
@@ -12300,7 +12344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.NativeRadioAdapter = NativeRadioAdapter;
 
 /***/ },
-/* 74 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12310,15 +12354,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.PaginationAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _neouiPagination = __webpack_require__(75);
+	var _neouiPagination = __webpack_require__(113);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var PaginationAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(comp, options) {
@@ -12416,7 +12460,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.PaginationAdapter = PaginationAdapter;
 
 /***/ },
-/* 75 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12432,17 +12476,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                                                                                                                                                                                                                                   * Date	  : 2016-08-03 08:45:49
 	                                                                                                                                                                                                                                                   */
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var pagination = _BaseComponent.BaseComponent.extend({});
 
@@ -12860,7 +12904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.pagination = pagination;
 
 /***/ },
-/* 76 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12870,11 +12914,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.ProgressAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiProgress = __webpack_require__(77);
+	var _neouiProgress = __webpack_require__(115);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(options) {
@@ -12906,7 +12950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 77 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12916,15 +12960,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Progress = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var Progress = _BaseComponent.BaseComponent.extend({
 		_Constant: {},
@@ -13033,7 +13077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Progress = Progress;
 
 /***/ },
-/* 78 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13043,11 +13087,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.SwitchAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiSwitch = __webpack_require__(79);
+	var _neouiSwitch = __webpack_require__(117);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(options) {
@@ -13101,7 +13145,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 79 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13111,15 +13155,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Switch = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(87);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var Switch = _BaseComponent.BaseComponent.extend({
 		_Constant: {
@@ -13292,7 +13336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Switch = Switch;
 
 /***/ },
-/* 80 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13302,19 +13346,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.TextAreaAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -13346,7 +13390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 81 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13356,19 +13400,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.TextFieldAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _neouiTextfield = __webpack_require__(24);
+	var _neouiTextfield = __webpack_require__(91);
 
-	var _float = __webpack_require__(53);
+	var _float = __webpack_require__(94);
 
-	var _string = __webpack_require__(62);
+	var _string = __webpack_require__(100);
 
-	var _integer = __webpack_require__(63);
+	var _integer = __webpack_require__(101);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
 	    /**
@@ -13430,7 +13474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 82 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13440,29 +13484,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.TimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(7);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(8);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(12);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(13);
+	var _validateMixin = __webpack_require__(81);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _core = __webpack_require__(54);
+	var _core = __webpack_require__(71);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(70);
 
-	var _neouiClockpicker = __webpack_require__(83);
+	var _neouiClockpicker = __webpack_require__(121);
 
-	var _neouiTime = __webpack_require__(84);
+	var _neouiTime = __webpack_require__(122);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * Module : Kero time adapter
@@ -13541,7 +13585,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TimeAdapter = TimeAdapter;
 
 /***/ },
-/* 83 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13551,21 +13595,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.ClockPicker = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _core = __webpack_require__(54);
+	var _core = __webpack_require__(71);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(70);
 
 	/**
 	 * Module : neoui-clockpicker
@@ -14007,7 +14051,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ClockPicker = ClockPicker;
 
 /***/ },
-/* 84 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14017,17 +14061,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Time = undefined;
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var Time = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
@@ -14249,7 +14293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Time = Time;
 
 /***/ },
-/* 85 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14259,11 +14303,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.YearAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiYear = __webpack_require__(86);
+	var _neouiYear = __webpack_require__(124);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var YearAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(comp, options) {
@@ -14303,7 +14347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YearAdapter = YearAdapter;
 
 /***/ },
-/* 86 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14313,15 +14357,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Year = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var Year = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
@@ -14532,7 +14576,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.Year = Year;
 
 /***/ },
-/* 87 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14542,11 +14586,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.YearMonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiYearmonth = __webpack_require__(88);
+	var _neouiYearmonth = __webpack_require__(126);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var YearMonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    initialize: function initialize(comp, options) {
@@ -14586,7 +14630,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YearMonthAdapter = YearMonthAdapter;
 
 /***/ },
-/* 88 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14596,17 +14640,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.YearMonth = undefined;
 
-	var _BaseComponent = __webpack_require__(15);
+	var _BaseComponent = __webpack_require__(83);
 
-	var _event = __webpack_require__(10);
+	var _event = __webpack_require__(6);
 
-	var _dom = __webpack_require__(9);
+	var _dom = __webpack_require__(5);
 
-	var _extend = __webpack_require__(1);
+	var _extend = __webpack_require__(8);
 
-	var _env = __webpack_require__(11);
+	var _env = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	/**
 	 * Module : neoui-year
@@ -14910,7 +14954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.YearMonth = YearMonth;
 
 /***/ },
-/* 89 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14920,15 +14964,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.TreeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(3);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiYear = __webpack_require__(86);
+	var _neouiYear = __webpack_require__(124);
 
-	var _util = __webpack_require__(5);
+	var _util = __webpack_require__(10);
 
-	var _indexDataTable = __webpack_require__(26);
+	var _indexDataTable = __webpack_require__(29);
 
-	var _compMgr = __webpack_require__(16);
+	var _compMgr = __webpack_require__(4);
 
 	var TreeAdapter = _baseAdapter.BaseAdapter.extend({
 
