@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "es": "babel js -d lib",
     "dist": "webpack --progress --colors  --mode=dev && webpack --colors --progress --mode=build && node version --mode=dev &&  node version --mode=build",
     "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
-    "product": "npm run build && npm run dev"
+    "product": "npm run build && npm run dev && gulp dist"
   },
   "dependencies": {
     "kero": "^3.4.0",
@@ -28,6 +28,7 @@
     "chai": "^3.5.0",
     "eslint": "^3.2.2",
     "eslint-loader": "^1.5.0",
+    "gulp": "^3.9.1",
     "mocha": "^3.0.2",
     "webpack": "^1.13.1",
     "yargs": "^4.8.1"
