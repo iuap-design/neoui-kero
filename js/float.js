@@ -11,9 +11,7 @@ import {ValidateMixin} from './validateMixin';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
 import {addClass,removeClass} from 'neoui-sparrow/js/dom';
 import {core} from 'neoui-sparrow/js/core';
-//miss DataTable;
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
-//miss DateTimePicker
 import {date} from 'neoui-sparrow/js/util/dateUtils';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {NumberMasker} from 'neoui-sparrow/js/util/masker';
