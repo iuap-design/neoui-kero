@@ -800,6 +800,7 @@ var GridAdapter = BaseAdapter.extend({
 	},
 	createDefaultEdit:function(eType,eOptions,options,viewModel,column){
 		var oThis = this;
+		var compDiv,comp;
 		if(eType == 'string'){
 			compDiv = $('<div><input type="text" class="u-grid-edit-item-string"></div>');
 			if(!options.editType || options.editType =="default" ){
