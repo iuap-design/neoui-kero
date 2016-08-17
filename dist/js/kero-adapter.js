@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v1.5.0
+ * kero-adapter v1.5.1
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -7443,9 +7443,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _core = __webpack_require__(71);
 
+	var _masker = __webpack_require__(95);
+
 	/**
 	 * 货币控件
 	 */
+	/**
+	 * Module : Kero currency
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-09 13:42:14
+	 */
+
 	var CurrencyAdapter = _float.FloatAdapter.extend({
 	    init: function init() {
 	        var self = this;
@@ -7459,7 +7467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            self.setCurSymbol(event.newValue);
 	        });
 	        this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
-	        this.masker = new CurrencyMasker(this.maskerMeta);
+	        this.masker = new _masker.CurrencyMasker(this.maskerMeta);
 	    },
 	    /**
 	     * 修改精度
@@ -7469,7 +7477,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (this.maskerMeta.precision == precision) return;
 	        this.maskerMeta.precision = precision;
 	        this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
-	        this.masker = new CurrencyMasker(this.maskerMeta);
+	        this.masker = new _masker.CurrencyMasker(this.maskerMeta);
 	        var currentRow = this.dataModel.getCurrentRow();
 	        if (currentRow) {
 	            var v = this.dataModel.getCurrentRow().getValue(this.field);
@@ -7507,11 +7515,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        this.setShowValue(focusValue);
 	    }
-	}); /**
-	     * Module : Kero currency
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 13:42:14
-	     */
+	});
 
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: CurrencyAdapter,
@@ -11941,6 +11945,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _compMgr = __webpack_require__(4);
 
+	var _ripple = __webpack_require__(87);
+
+	/**
+	 * Module : neoui-month
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-11 15:17:07
+	 */
 	var Month = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
@@ -12009,7 +12020,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					(0, _dom.addClass)(cells[i], 'current');
 				}
 				cells[i]._value = i + 1;
-				new URipple(cells[i]);
+				new _ripple.URipple(cells[i]);
 			}
 			(0, _event.on)(monthPage, 'click', function (e) {
 				var _m = e.target._value;
@@ -12128,12 +12139,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			(0, _dom.removeClass)(this.panelDiv, 'is-visible');
 			this.panelDiv.style.zIndex = -1;
 		}
-	}); /**
-	     * Module : neoui-month
-	     * Author : liuyk(liuyk@yonyou.com)
-	     * Date	  : 2016-08-11 15:17:07
-	     */
-
+	});
 
 	_compMgr.compMgr.regComp({
 		comp: Month,
@@ -14415,6 +14421,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _compMgr = __webpack_require__(4);
 
+	var _ripple = __webpack_require__(87);
+
+	/**
+	 * Module : neoui-year
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-11 15:17:07
+	 */
+
 	var Year = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
@@ -14481,7 +14495,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			yearDiv = yearPage.querySelector('.u-date-content-panel');
 			for (i = 0; i < 12; i++) {
 				cell = (0, _dom.makeDOM)('<div class="u-date-content-year-cell">' + (this.startYear + i) + '</div>');
-				new URipple(cell);
+				new _ripple.URipple(cell);
 				if (this.startYear + i == this.year) {
 					(0, _dom.addClass)(cell, 'current');
 				}
@@ -14602,11 +14616,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			(0, _dom.removeClass)(this.panelDiv, 'is-visible');
 			this.panelDiv.style.zIndex = -1;
 		}
-	}); /**
-	     * Module : neoui-year
-	     * Author : liuyk(liuyk@yonyou.com)
-	     * Date	  : 2016-08-11 15:17:07
-	     */
+	});
 
 	_compMgr.compMgr.regComp({
 		comp: Year,
@@ -14700,11 +14710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _compMgr = __webpack_require__(4);
 
-	/**
-	 * Module : neoui-year
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-08-11 15:17:07
-	 */
+	var _ripple = __webpack_require__(87);
 
 	var YearMonth = _BaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
@@ -14774,7 +14780,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        yearDiv = yearPage.querySelector('.u-date-content-panel');
 	        for (i = 0; i < 12; i++) {
 	            cell = (0, _dom.makeDOM)('<div class="u-date-content-year-cell">' + (this.startYear + i) + '</div>');
-	            new URipple(cell);
+	            new _ripple.URipple(cell);
 	            if (this.startYear + i == this.year) {
 	                (0, _dom.addClass)(cell, 'current');
 	            }
@@ -14815,7 +14821,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                (0, _dom.addClass)(cells[i], 'current');
 	            }
 	            cells[i]._value = i + 1;
-	            new URipple(cells[i]);
+	            new _ripple.URipple(cells[i]);
 	        }
 	        var oThis = this;
 	        (0, _event.on)(monthPage, 'click', function (e) {
@@ -14984,7 +14990,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        (0, _dom.removeClass)(this.panelDiv, 'is-visible');
 	        this.panelDiv.style.zIndex = -1;
 	    }
-	});
+	}); /**
+	     * Module : neoui-year
+	     * Author : liuyk(liuyk@yonyou.com)
+	     * Date   : 2016-08-11 15:17:07
+	     */
 
 	_compMgr.compMgr.regComp({
 	    comp: YearMonth,

@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "kero": "^3.4.1",
-    "neoui": "^3.4.1",
+    "neoui": "^3.4.3",
     "neoui-sparrow": "^1.4.0"
   },
   "devDependencies": {

@@ -17,6 +17,7 @@ import {isNumber} from 'neoui-sparrow/js/util';
 import {FloatAdapter} from './float';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {core} from 'neoui-sparrow/js/core';
+import {CurrencyMasker} from 'neoui-sparrow/js/util/masker';
 
 /**
  * 货币控件
