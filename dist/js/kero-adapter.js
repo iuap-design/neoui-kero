@@ -4681,7 +4681,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var nameDivs = this.element.querySelectorAll('[data-role=name]');
 	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
 	            self.lastNameDiv.innerHTML = '其他';
-	            self.otherInput = makeDOM('<input type="text">');
+	            self.otherInput = makeDOM('<input disabled type="text">');
 	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
 	            self.lastCheck.value = '';
 
@@ -4703,12 +4703,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    if (oldIndex > -1) {
 	                        valueArr.splice(oldIndex, 1);
 	                    }
-	                    if (comp._inputElement.value) valueArr.push(comp._inputElement.value);
+	                    if (comp._inputElement.value) {
+	                        valueArr.push(comp._inputElement.value);
+	                    }
+	                    // 选中后可编辑
+	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
+	                        ele.removeAttribute('disabled');
+	                    });
 	                } else {
 	                    var index = valueArr.indexOf(comp._inputElement.value);
 	                    if (index > -1) {
 	                        valueArr.splice(index, 1);
 	                    }
+
+	                    // 未选中则不可编辑
+	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
+	                        ele.setAttribute('disabled', 'true');
+	                    });
 	                }
 	                //self.slice = true;
 	                self.dataModel.setValue(self.field, valueArr.join(','));
@@ -5051,7 +5062,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            min: this.min,
 	            maxNotEq: this.maxNotEq,
 	            minNotEq: this.minNotEq,
-	            reg: this.regExp
+	            reg: this.regExp,
+	            showFix: this.showFix
 	        });
 	        // };
 	    },
@@ -6751,6 +6763,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.comp.setValue(value);
 	        // this.trueValue = this.formater ? this.formater.format(value) : value;
 	        // this.element.trueValue = this.trueValue;
+	        //下面两句会在校验中用到
+	        this.trueValue = this.formater ? this.formater.format(value) : value;
+	        this.element.trueValue = this.trueValue;
 	        // this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
 	        // this.setShowValue(this.showValue);
 	    },
@@ -9817,6 +9832,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				eOptions.field = column['field'];
 				// 默认按照string处理
 				if (eType == '') eType = 'string';
+				if (eType == 'number') // 兼容之前版本
+					eType = 'integer';
 				if (eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime' || eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent') {
 					oThis.createDefaultEdit(eType, eOptions, options, viewModel, column);
 					column.editType = function (obj) {
@@ -10478,6 +10495,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		createDefaultEdit: function createDefaultEdit(eType, eOptions, options, viewModel, column) {
 			var oThis = this;
+			eOptions.showFix = true;
 			var compDiv, comp;
 			if (eType == 'string') {
 				compDiv = $('<div><input type="text" class="u-grid-edit-item-string"></div>');
@@ -10527,7 +10545,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				//	options:eOptions,
 				//	model: viewModel
 				//});
-				eOptions.showFix = true;
 				if ($.Combobox) {
 					//兼容旧版本
 					compDiv = $('<div class="input-group  form_date u-grid-edit-item-comb"><div  type="text" class="form-control grid-combox"></div><i class="input-group-addon" ><i class="uf uf-anglearrowdown"></i></i></div>');
@@ -10585,7 +10602,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 			} else if (eType == 'datetime') {
 				compDiv = $('<div class="input-group u-grid-edit-item-datetime" ><input class="form-control" /><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div>');
-				eOptions.showFix = true;
+
 				//comp = new $.compManager.plugs.datetime(compDiv[0],eOptions,viewModel);
 				if ($.DateTime) {
 					comp = new $.DateTime(compDiv[0], eOptions, viewModel);
@@ -10605,7 +10622,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			} else if (eType == 'date') {
 				compDiv = $('<div class="input-group u-grid-edit-item-date" ><input class="form-control" /><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div>');
-				eOptions.showFix = true;
+
 				//comp = new $.compManager.plugs.date(compDiv[0],eOptions,viewModel);
 				if ($.DateComp) {
 					comp = new $.DateComp(compDiv[0], eOptions, viewModel);
@@ -11138,12 +11155,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _compMgr = __webpack_require__(4);
 
-	/**
-	 * Module : Kero percent
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 10:33:09
-	 */
-
 	var RadioAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init(options) {
@@ -11189,7 +11200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var nameDivs = this.element.querySelectorAll('.u-radio-label');
 	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
 	            self.lastNameDiv.innerHTML = '其他';
-	            self.otherInput = (0, _dom.makeDOM)('<input type="text" style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
+	            self.otherInput = (0, _dom.makeDOM)('<input type="text" disabled style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
 	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
 	            self.lastRadio.value = '';
 
@@ -11204,6 +11215,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            comp.on('change', function () {
 	                if (comp._btnElement.checked) {
 	                    self.dataModel.setValue(self.field, comp._btnElement.value);
+	                    // 选中后可编辑
+	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
+	                        ele.removeAttribute('disabled');
+	                    });
+	                } else {
+	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
+	                        ele.setAttribute('disabled', true);
+	                    });
 	                }
 	            });
 
@@ -11248,6 +11267,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (comp._btnElement.checked) {
 	                    self.dataModel.setValue(self.field, comp._btnElement.value);
 	                }
+	                // 其他元素input输入框不能进行编辑
+	                var allChild = comp.element.parentNode.children;
+	                var siblingAry = [];
+	                for (var i = 0; i < allChild.length; i++) {
+	                    if (allChild[i] == comp.element) {} else {
+	                        siblingAry.push(allChild[i]);
+	                    }
+	                }
+	                siblingAry.forEach(function (children) {
+	                    var childinput = children.querySelectorAll('input[type="text"]');
+	                    if (childinput) {
+	                        childinput.forEach(function (inputele) {
+	                            inputele.setAttribute('disabled', 'true');
+	                        });
+	                    }
+	                });
 	            });
 	        });
 	    },
@@ -11262,6 +11297,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var inptuValue = comp._btnElement.value;
 	                if (inptuValue && inptuValue == value) {
 	                    fetch = true;
+	                    (0, _dom.addClass)(comp.element, 'is-checked');
 	                    comp._btnElement.click();
 	                }
 	            });
@@ -11269,13 +11305,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (this.eleValue == value) {
 	                fetch = true;
 	                this.slice = true;
+	                (0, _dom.addClass)(this.comp.element, 'is-checked');
 	                this.comp._btnElement.click();
 	                this.slice = false;
 	            }
 	        }
 	        if (this.options.hasOther && !fetch && value) {
+	            if (!this.enable) {
+	                this.lastRadio.removeAttribute('disabled');
+	            }
+	            u.addClass(this.lastLabel, 'is-checked');
 	            this.lastRadio.checked = true;
 	            this.otherInput.value = value;
+	            if (!this.enable) {
+	                this.lastRadio.setAttribute('disabled', true);
+	            }
 	        }
 	    },
 
@@ -11298,7 +11342,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    }
-	});
+	}); /**
+	     * Module : Kero percent
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 10:33:09
+	     */
 
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: RadioAdapter,
@@ -15047,16 +15095,14 @@ return /******/ (function(modules) { // webpackBootstrap
 						//添加focusNode样式
 						$('#' + node.tId).addClass('focusNode');
 						$('#' + node.tId + '_a').addClass('focusNode');
-						if (oThis.tree.setting.view.selectedMulti != true) {
-							// 获取到节点的idValue
-							var idValue = node.id;
-							// 根据idValue查找到对应数据的rowId
-							var rowId = oThis.getRowIdByIdValue(idValue);
-							var index = oThis.dataTable.getIndexByRowId(rowId);
-							oThis.dataTable.setRowSelect(index);
-							if (oThis.events.onClick) {
-								(0, _util.getFunction)(viewModel, oThis.events.onClick)(e, id, node);
-							}
+						// 获取到节点的idValue
+						var idValue = node.id;
+						// 根据idValue查找到对应数据的rowId
+						var rowId = oThis.getRowIdByIdValue(idValue);
+						var index = oThis.dataTable.getIndexByRowId(rowId);
+						oThis.dataTable.setRowSelect(index);
+						if (oThis.events.onClick) {
+							(0, _util.getFunction)(viewModel, oThis.events.onClick)(e, id, node);
 						}
 					}
 				}
