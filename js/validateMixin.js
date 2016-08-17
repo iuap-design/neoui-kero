@@ -38,7 +38,8 @@ var ValidateMixin = {
                 min: this.min,
                 maxNotEq: this.maxNotEq,
                 minNotEq: this.minNotEq,
-                reg: this.regExp
+                reg: this.regExp,
+                showFix: this.showFix
             });
         // };
 

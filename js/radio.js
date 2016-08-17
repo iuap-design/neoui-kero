@@ -14,6 +14,7 @@ import {makeDOM} from 'neoui-sparrow/js/dom';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
 import {Radio} from 'neoui/js/neoui-radio';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {addClass} from 'neoui-sparrow/js/dom';
 
 var RadioAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],
@@ -60,7 +61,7 @@ var RadioAdapter = BaseAdapter.extend({
             var nameDivs = this.element.querySelectorAll('.u-radio-label');
             self.lastNameDiv = nameDivs[nameDivs.length -1];
             self.lastNameDiv.innerHTML = '其他';
-            self.otherInput = makeDOM('<input type="text" style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
+            self.otherInput = makeDOM('<input type="text" disabled style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
             self.lastNameDiv.parentNode.appendChild(self.otherInput);
             self.lastRadio.value = '';
            
@@ -76,6 +77,14 @@ var RadioAdapter = BaseAdapter.extend({
             comp.on('change', function(){
                 if (comp._btnElement.checked){
                     self.dataModel.setValue(self.field, comp._btnElement.value);
+                    // 选中后可编辑
+                    comp.element.querySelectorAll('input[type="text"]').forEach(function(ele){
+                        ele.removeAttribute('disabled');
+                    });
+                } else {
+                    comp.element.querySelectorAll('input[type="text"]').forEach(function(ele){
+                        ele.setAttribute('disabled',true);
+                    });
                 }
             });
             
@@ -123,6 +132,24 @@ var RadioAdapter = BaseAdapter.extend({
                 if (comp._btnElement.checked){
                     self.dataModel.setValue(self.field, comp._btnElement.value);
                 }
+                // 其他元素input输入框不能进行编辑
+                var allChild = comp.element.parentNode.children;
+                var siblingAry =[];
+                for(var i=0; i<allChild.length; i++){
+                    if(allChild[i] == comp.element){
+
+                    } else {
+                        siblingAry.push(allChild[i])
+                    }
+                }
+                siblingAry.forEach(function(children){
+                    var childinput = children.querySelectorAll('input[type="text"]')
+                    if(childinput){
+                        childinput.forEach(function(inputele){
+                            inputele.setAttribute('disabled','true')
+                        });
+                    }
+                });
             });
         })
     },
@@ -137,6 +164,7 @@ var RadioAdapter = BaseAdapter.extend({
                 var inptuValue = comp._btnElement.value;
                 if (inptuValue && inptuValue == value) {
                     fetch = true;
+                    addClass(comp.element,'is-checked')
                     comp._btnElement.click();
                 }
             })
@@ -144,13 +172,21 @@ var RadioAdapter = BaseAdapter.extend({
             if (this.eleValue == value){
                 fetch = true;
                 this.slice = true;
+                addClass(this.comp.element,'is-checked')
                 this.comp._btnElement.click();
                 this.slice = false;
             }
         }
         if(this.options.hasOther && !fetch && value){
+            if(!this.enable){
+                this.lastRadio.removeAttribute('disabled');
+            }
+            u.addClass(this.lastLabel,'is-checked')
             this.lastRadio.checked = true;
             this.otherInput.value = value;
+            if(!this.enable){
+                this.lastRadio.setAttribute('disabled',true);
+            }
         }
     },
 
