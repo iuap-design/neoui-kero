@@ -3461,7 +3461,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    } else {
 	        select = data.select || (!unSelect ? [0] : []);
-	        focus = data.focus;
+	        focus = data.focus !== undefined ? data.focus : data.current;
 	        this.setRows(data.rows);
 	    }
 	    this.pageIndex(newIndex);
@@ -3472,7 +3472,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.updateSelectedIndices();
 
 	    if (select && select.length > 0 && this.rows().length > 0) this.setRowsSelect(select);
-	    if (focus) this.setRowFocus(focus);
+	    if (focus !== undefined) this.setRowFocus(focus);
 	};
 
 	var setValue = function setValue(fieldName, value, row, ctx) {
