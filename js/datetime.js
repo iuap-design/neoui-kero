@@ -57,7 +57,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
 		var op;
-		if(env.isMobile){
+		if(env.isIphone || env.isAndroidPhone){
 			op = {
 				theme:"ios",
 				mode:"scroller",
@@ -87,7 +87,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 		
 		this.element['u.DateTimePicker'] = this.comp;
 
-		if(!env.isMobile){
+		if(!(env.isIphone || env.isAndroidPhone)){
 			this.comp.on('select', function(event){
 				self.setValue(event.value);
 			});
@@ -98,7 +98,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 			});
 			if(this.startField){
 				this.dataModel.ref(this.startField).subscribe(function(value) {
-					if(env.isMobile){
+					if(env.isIphone || env.isAndroidPhone){
 						var valueObj = date.getDateObj(value);
 						op.minDate = valueObj;
 						if(self.adapterType == 'date'){
@@ -122,7 +122,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 			if(this.startField){
 				var startValue = this.dataModel.getValue(this.startField);
 				if(startValue){
-					if(env.isMobile){
+					if(env.isIphone || env.isAndroidPhone){
 						op.minDate = date.getDateObj(startValue);
 						if(this.adapterType == 'date'){
 							$(this.element).mobiscroll().date(op);
@@ -141,7 +141,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 	modelValueChange: function(value){
 		if (this.slice) return;
 		this.trueValue = value;
-		if(env.isMobile){
+		if(env.isIphone || env.isAndroidPhone){
 			if(value){
 				value = date.format(value,this.options.format);
 				$(this.element).scroller('setDate', date.getDateObj(value), true);
@@ -155,7 +155,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 		if (this.maskerMeta.format == format) return;
 		this.options.format = format;
 		this.maskerMeta.format = format;
-		if(!env.isMobile)
+		if(!(env.isIphone || env.isAndroidPhone))
 			this.comp.setFormat(format);
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
@@ -172,7 +172,7 @@ var DateTimeAdapter = BaseAdapter.extend({
     setEnable: function(enable){
         if (enable === true || enable === 'true') {
             this.enable = true;
-            if(env.isMobile){
+            if(env.isIphone || env.isAndroidPhone){
             	this.element.removeAttribute('disabled');
             }else{
             	this.comp._input.removeAttribute('readonly');
@@ -180,14 +180,14 @@ var DateTimeAdapter = BaseAdapter.extend({
             removeClass(this.element.parentNode,'disablecover');
         } else if (enable === false || enable === 'false') {
             this.enable = false;
-            if(env.isMobile){
+            if(env.isIphone || env.isAndroidPhone){
             	this.element.setAttribute('disabled','disabled');
             }else{
             	this.comp._input.setAttribute('readonly', 'readonly');
             }
             addClass(this.element.parentNode,'disablecover');
         }
-        if(!env.isMobile)
+        if(!(env.isIphone || env.isAndroidPhone))
         	this.comp.setEnable(enable);
     }
 
