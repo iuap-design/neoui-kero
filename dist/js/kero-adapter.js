@@ -7458,7 +7458,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    init: function init() {
 	        var self = this;
 	        CurrencyAdapter.superclass.init.apply(this);
-
 	        this.maskerMeta = _core.core.getMaskerMeta('currency') || {};
 	        this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
 	        this.maskerMeta.curSymbol = this.getOption('curSymbol') || this.maskerMeta.curSymbol;
@@ -7683,6 +7682,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        self.element.value = self.getShowValue();
 	                    }
 	                } else self.setValue(self.element.value);
+	            }
+	        });
+
+	        (0, _event.on)(this.element, 'keydown', function (e) {
+	            if (self.enable) {
+	                var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+	                if (!(code >= 48 && code <= 57 || code == 37 || code == 39 || code == 8 || code == 46)) {
+	                    //阻止默认浏览器动作(W3C)
+	                    if (e && e.preventDefault) e.preventDefault();
+	                    //IE中阻止函数器默认动作的方式
+	                    else window.event.returnValue = false;
+	                    return false;
+	                }
 	            }
 	        });
 	    },
@@ -11204,7 +11216,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var nameDivs = this.element.querySelectorAll('.u-radio-label');
 	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
 	            self.lastNameDiv.innerHTML = '其他';
-	            self.otherInput = (0, _dom.makeDOM)('<input type="text" disabled style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
+	            self.otherInput = (0, _dom.makeDOM)('<input type="text" disabled style="height:28px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
 	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
 	            self.lastRadio.value = '';
 
@@ -11974,6 +11986,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.focusEvent();
 			// 添加右侧图标click事件
 			this.clickEvent();
+			// 添加keydown事件
+			this.keydownEvent();
 		},
 
 		createPanel: function createPanel() {
@@ -12039,13 +12053,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		setValue: function setValue(value) {
 			value = value ? value : '';
 			this.value = value;
-			if (value) {
+			if (parseInt(this.value) > 0 && parseInt(this.value) < 13) {
 				this.month = value;
+				this.input.value = this.month;
+				this.trigger('valueChange', { value: value });
 			} else {
 				this.month = this.defaultMonth;
+				this.input.value = '';
 			}
-			this.input.value = value;
-			this.trigger('valueChange', { value: value });
 		},
 
 		focusEvent: function focusEvent() {
@@ -12058,6 +12073,19 @@ return /******/ (function(modules) { // webpackBootstrap
 					e.stopPropagation();
 				} else {
 					e.cancelBubble = true;
+				}
+			});
+		},
+		keydownEvent: function keydownEvent() {
+			var self = this;
+			(0, _event.on)(self.input, "keydown", function (e) {
+				var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+				if (!(code >= 48 && code <= 57 || code == 37 || code == 39 || code == 8 || code == 46)) {
+					//阻止默认浏览器动作(W3C)
+					if (e && e.preventDefault) e.preventDefault();
+					//IE中阻止函数器默认动作的方式
+					else window.event.returnValue = false;
+					return false;
 				}
 			});
 		},
@@ -14445,13 +14473,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			(0, _event.on)(this.input, 'blur', function (e) {
 				self._inputFocus = false;
-				this.setValue(this.input.value);
-			}.bind(this));
+				self.setValue(self.input.value);
+			});
 
 			// 添加focus事件
 			this.focusEvent();
 			// 添加右侧图标click事件
 			this.clickEvent();
+			// 添加keydown事件
+			this.keydownEvent();
 		},
 
 		createPanel: function createPanel() {
@@ -14538,7 +14568,19 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _event.stopEvent)(e);
 			});
 		},
-
+		keydownEvent: function keydownEvent() {
+			var self = this;
+			(0, _event.on)(self.input, "keydown", function (e) {
+				var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+				if (!(code >= 48 && code <= 57 || code == 37 || code == 39 || code == 8 || code == 46)) {
+					//阻止默认浏览器动作(W3C)
+					if (e && e.preventDefault) e.preventDefault();
+					//IE中阻止函数器默认动作的方式
+					else window.event.returnValue = false;
+					return false;
+				}
+			});
+		},
 		//下拉图标的点击事件
 		clickEvent: function clickEvent() {
 			var self = this;

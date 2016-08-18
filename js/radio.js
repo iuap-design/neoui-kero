@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Module : Kero percent
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-10 10:33:09
@@ -61,7 +61,7 @@ var RadioAdapter = BaseAdapter.extend({
             var nameDivs = this.element.querySelectorAll('.u-radio-label');
             self.lastNameDiv = nameDivs[nameDivs.length -1];
             self.lastNameDiv.innerHTML = '其他';
-            self.otherInput = makeDOM('<input type="text" disabled style="height:32px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
+            self.otherInput = makeDOM('<input type="text" disabled style="height:28px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
             self.lastNameDiv.parentNode.appendChild(self.otherInput);
             self.lastRadio.value = '';
            

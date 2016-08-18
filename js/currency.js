@@ -26,7 +26,6 @@ var CurrencyAdapter = FloatAdapter.extend({
     init: function () {
         var self = this;
         CurrencyAdapter.superclass.init.apply(this);
-
         this.maskerMeta = core.getMaskerMeta('currency') || {};
         this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
         this.maskerMeta.curSymbol = this.getOption('curSymbol') || this.maskerMeta.curSymbol;
