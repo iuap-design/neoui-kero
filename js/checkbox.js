@@ -41,7 +41,9 @@ var CheckboxAdapter = BaseAdapter.extend({
                 this.element['u.Checkbox'] = this.comp;
             }
             
-            this.checkedValue =  this.options['checkedValue'] || this.comp._inputElement.value;
+            // 由于不同浏览器input的value不一样，所以默认checkedValue修改为true
+
+            this.checkedValue =  this.options['checkedValue'] || true;
             this.unCheckedValue =  this.options["unCheckedValue"];
 
             this.comp.on('change', function(){
