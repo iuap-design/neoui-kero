@@ -1005,7 +1005,10 @@ var GridAdapter = BaseAdapter.extend({
 			var keyCode = e.keyCode;
             if( e.keyCode == 13 || e.keyCode == 9){// 回车
             	this.blur(); //首先触发blur来将修改值反应到datatable中
-                oThis.grid.nextEditShow();
+            	// IE11会导致先触发nextEditShow后触发blur的处理
+            	setTimeout(function(){
+            		oThis.grid.nextEditShow();
+            	},100);
                 stopEvent(e);
             }
 		});
