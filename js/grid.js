@@ -1065,6 +1065,7 @@ var GridAdapter = BaseAdapter.extend({
 			rowMsg = '',
 			wholeMsg = '',
 			columnShowMsg = '';
+			hasErrow = false; 
 
 		// 遍历所有列
 		for(var j = 0; j < gridColumnArr.length;j++){
@@ -1137,8 +1138,19 @@ var GridAdapter = BaseAdapter.extend({
 			// 如果存在错误信息并且提示信息
 			if(!columnPassedFlag && options.showMsg){
 				columnShowMsg += title + ':' + columnMsg + '<br>';
+				
 			}
-			
+			if(!columnPassedFlag){
+				if(!hasErrow){
+					// 滚动条要滚动到第一次出现错误的数据列
+					hasErrow = true;
+					var ind = this.grid.getIndexOfColumn(column);
+					var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
+					var left = thDom.attrLeftTotalWidth;
+					var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
+					contentDom.scrollLeft = left;
+				}
+			}
 		}
 		if(columnShowMsg)
 			showMessage({msg:columnShowMsg,showSeconds:3})
