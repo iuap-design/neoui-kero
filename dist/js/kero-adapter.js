@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v1.5.1
+ * kero-adapter v1.5.2
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -1005,6 +1005,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		isUnix: false,
 		isLinux: false,
 		isAndroid: false,
+		isAndroidPAD: false,
+		isAndroidPhone: false,
 		isMac: false,
 		hasTouch: false,
 		isMobile: false
@@ -1060,12 +1062,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				version: match[1] || "0"
 			};
 		}
-		if (match != null) {
-			browserMatch = {
-				browser: "",
-				version: "0"
-			};
-		}
 
 		if (s = ua.match(/opera.([\d.]+)/)) {
 			u.isOpera = true;
@@ -1096,6 +1092,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			u.isIPAD = true;
 			u.isStandard = true;
 		}
+
 		if (ua.match(/iphone/i)) {
 			u.isIOS = true;
 			u.isIphone = true;
@@ -1122,6 +1119,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		u.version = version ? browserMatch.version ? browserMatch.version : 0 : 0;
+		if (u.isAndroid) {
+			if (window.screen.width >= 768 && window.screen.width < 1024) {
+				u.isAndroidPAD = true;
+			}
+			if (window.screen.width <= 768) {
+				u.isAndroidPhone = true;
+			}
+		}
 		if (u.isIE) {
 			var intVersion = parseInt(u.version);
 			var mode = document.documentMode;
@@ -1150,13 +1155,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					u.isIE9_CORE = true;
 				} else if (browserMatch.version == 11) {
 					u.isIE11 = true;
-				} else {}
+				}
 			}
 		}
 		if ("ontouchend" in document) {
 			u.hasTouch = true;
 		}
-		if (u.isIOS || u.isAndroid) u.isMobile = true;
+		if (u.isIphone || u.isAndroidPhone) u.isMobile = true;
 	})();
 
 	var env = u;
@@ -4641,7 +4646,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.element['u.Checkbox'] = this.comp;
 	            }
 
-	            this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
+	            // 由于不同浏览器input的value不一样，所以默认checkedValue修改为true
+
+	            this.checkedValue = this.options['checkedValue'] || true;
 	            this.unCheckedValue = this.options["unCheckedValue"];
 
 	            this.comp.on('change', function () {
@@ -10701,7 +10708,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (e.keyCode == 13 || e.keyCode == 9) {
 					// 回车
 					this.blur(); //首先触发blur来将修改值反应到datatable中
-					oThis.grid.nextEditShow();
+					// IE11会导致先触发nextEditShow后触发blur的处理
+					setTimeout(function () {
+						oThis.grid.nextEditShow();
+					}, 100);
 					(0, _event.stopEvent)(e);
 				}
 			});
@@ -10755,6 +10765,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			    rowMsg = '',
 			    wholeMsg = '',
 			    columnShowMsg = '';
+			hasErrow = false;
 
 			// 遍历所有列
 			for (var j = 0; j < gridColumnArr.length; j++) {
@@ -10837,6 +10848,17 @@ return /******/ (function(modules) { // webpackBootstrap
 				// 如果存在错误信息并且提示信息
 				if (!columnPassedFlag && options.showMsg) {
 					columnShowMsg += title + ':' + columnMsg + '<br>';
+				}
+				if (!columnPassedFlag) {
+					if (!hasErrow) {
+						// 滚动条要滚动到第一次出现错误的数据列
+						hasErrow = true;
+						var ind = this.grid.getIndexOfColumn(column);
+						var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
+						var left = thDom.attrLeftTotalWidth;
+						var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
+						contentDom.scrollLeft = left;
+					}
 				}
 			}
 			if (columnShowMsg) (0, _neouiMessage.showMessage)({ msg: columnShowMsg, showSeconds: 3 });
@@ -11858,21 +11880,23 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		var closeBtn = msgDom.querySelector('.u-msg-close');
 		//new Button({el:closeBtn});
-		(0, _event.on)(closeBtn, 'click', function () {
-			(0, _dom.removeClass)(msgDom, "active");
+		var closeFun = function closeFun() {
+			u.removeClass(msgDom, "active");
 			setTimeout(function () {
 				try {
 					document.body.removeChild(msgDom);
 				} catch (e) {}
 			}, 500);
-		});
+		};
+		u.on(closeBtn, 'click', closeFun);
 		document.body.appendChild(msgDom);
 
 		if (showSeconds > 0) {
 			setTimeout(function () {
-				closeBtn.click();
+				closeFun();
 			}, showSeconds * 1000);
 		}
+
 		setTimeout(function () {
 			(0, _dom.addClass)(msgDom, "active");
 		}, showSeconds * 1);
@@ -14770,8 +14794,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        (0, _event.on)(this.input, 'blur', function (e) {
 	            self._inputFocus = false;
-	            this.setValue(this.input.value);
-	        }.bind(this));
+	            self.setValue(self.input.value);
+	        });
 
 	        // 添加focus事件
 	        this.focusEvent();
