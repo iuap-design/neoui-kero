@@ -9310,7 +9310,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.onlySelect = this.options.onlySelect || false;
 	        this.showFix = this.options.showFix || false;
 	        this.validType = 'combobox';
-	        this.comp = new _neouiCombo.Combo({ el: this.element, mutilSelect: this.mutil, onlySelect: this.onlySelect, showFix: this.showFix });
+	        this.isAutoTip = this.options.isAutoTip || false;
+	        this.comp = new _neouiCombo.Combo({ el: this.element, mutilSelect: this.mutil, onlySelect: this.onlySelect, showFix: this.showFix, isAutoTip: this.isAutoTip });
 	        this.element['u.Combo'] = this.comp;
 	        if (this.datasource) {
 	            this.comp.setComboData(this.datasource);
