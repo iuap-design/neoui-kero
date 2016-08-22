@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -13,9 +13,9 @@
     "product": "npm run build && npm run dev && gulp dist"
   },
   "dependencies": {
-    "kero": "^3.4.2",
-    "neoui": "^4.1.1",
-    "neoui-sparrow": "^1.4.1"
+    "kero": "^3.4.3",
+    "neoui": "^4.1.2",
+    "neoui-sparrow": "^1.4.2"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
