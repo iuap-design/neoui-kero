@@ -12,6 +12,8 @@ import {ValidateMixin} from './validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
 import {Checkbox} from 'neoui/js/neoui-checkbox';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {makeDOM} from 'neoui-sparrow/js/dom';
+import {on} from 'neoui-sparrow/js/event';
 
 
 
@@ -193,7 +195,7 @@ var CheckboxAdapter = BaseAdapter.extend({
         if (this.isGroup){
             this.trueValue = val;
             if(this.options.hasOther){
-                otherVal = '';
+                var otherVal = '';
                 if(val)
                     otherVal = val + ',';
             }

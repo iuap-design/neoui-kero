@@ -78,13 +78,14 @@ var NativeCheckAdapter = BaseAdapter.extend({
         })
     },
     modelValueChange: function (val) {
+        var self = this;
         if (this.slice) return;
         if (this.isGroup){
             this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
                 if (ele.checked != (val + ',').indexOf(ele.value) > -1){
-                    this.slice = true;
+                    self.slice = true;
                     ele.checked = !ele.checked;
-                    this.slice = false;
+                    self.slice = false;
                 }
             })
         }else{
