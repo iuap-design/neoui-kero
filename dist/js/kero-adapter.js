@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v1.5.3
+ * kero-adapter v1.5.4
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -1911,7 +1911,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.Events = undefined;
 
@@ -1927,13 +1927,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	var Events = function Events() {
-	  _classCallCheck(this, Events);
+	    _classCallCheck(this, Events);
 
-	  this.on = _events.on;
-	  this.off = _events.off;
-	  this.one = _events.one;
-	  this.trigger = _events.trigger;
-	  this.getEvent = _events.getEvent;
+	    this.on = _events.on;
+	    this.off = _events.off;
+	    this.one = _events.one;
+	    this.trigger = _events.trigger;
+	    this.getEvent = _events.getEvent;
 	};
 
 	exports.Events = Events;
@@ -6910,9 +6910,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 
 	        this.isAutoTip = this.options['isAutoTip'] || false; //是否支持自动提示
-	        if ((0, _dom.hasClass)(this.element, 'is-auto-tip')) {
-	            this.isAutoTip = true;
-	        }
+	        //if (hasClass(this.element, 'is-auto-tip')){
+	        //    this.isAutoTip = true;
+	        //}
 	        (0, _event.on)(this._input, 'keydown', function (e) {
 	            var keyCode = e.keyCode;
 
@@ -8784,11 +8784,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -8873,11 +8873,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -11934,7 +11934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var closeBtn = msgDom.querySelector('.u-msg-close');
 		//new Button({el:closeBtn});
 		var closeFun = function closeFun() {
-			(0, _dom.removeClass)(msgDom, "active");
+			u.removeClass(msgDom, "active");
 			setTimeout(function () {
 				try {
 					document.body.removeChild(msgDom);
