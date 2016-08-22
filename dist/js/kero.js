@@ -1205,8 +1205,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		isUnix: false,
 		isLinux: false,
 		isAndroid: false,
-		isAndroidPAD: false,
-		isAndroidPhone: false,
 		isMac: false,
 		hasTouch: false,
 		isMobile: false
@@ -1262,6 +1260,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				version: match[1] || "0"
 			};
 		}
+		if (match != null) {
+			browserMatch = {
+				browser: "",
+				version: "0"
+			};
+		}
 
 		if (s = ua.match(/opera.([\d.]+)/)) {
 			u.isOpera = true;
@@ -1292,7 +1296,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			u.isIPAD = true;
 			u.isStandard = true;
 		}
-
 		if (ua.match(/iphone/i)) {
 			u.isIOS = true;
 			u.isIphone = true;
@@ -1319,14 +1322,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		u.version = version ? browserMatch.version ? browserMatch.version : 0 : 0;
-		if (u.isAndroid) {
-			if (window.screen.width >= 768 && window.screen.width < 1024) {
-				u.isAndroidPAD = true;
-			}
-			if (window.screen.width <= 768) {
-				u.isAndroidPhone = true;
-			}
-		}
 		if (u.isIE) {
 			var intVersion = parseInt(u.version);
 			var mode = document.documentMode;
@@ -1355,13 +1350,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					u.isIE9_CORE = true;
 				} else if (browserMatch.version == 11) {
 					u.isIE11 = true;
-				}
+				} else {}
 			}
 		}
 		if ("ontouchend" in document) {
 			u.hasTouch = true;
 		}
-		if (u.isIphone || u.isAndroidPhone) u.isMobile = true;
+		if (u.isIOS || u.isAndroid) u.isMobile = true;
 	})();
 
 	var env = u;
@@ -2134,24 +2129,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 16 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.compsValidateMultiParam = exports.compsValidate = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : kero app validate
-	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date   : 2016-07-29 09:34:01
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-	var _env = __webpack_require__(7);
-
-	var _dom = __webpack_require__(5);
+	/**
+	 * Module : kero app validate
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-07-29 09:34:01
+	 */
 
 	/**
 	 * 控件数据校验
@@ -2182,16 +2174,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    for (var i = 0; i < comps.length; i++) {
 	        if (comps[i].doValidate) {
 	            result = comps[i].doValidate({ trueValue: true, showMsg: showMsg });
-	            // 如果passed为true,result.passed为false说明第一次出现错误校验
-	            if (passed && !result.passed) {
-	                var off = (0, _dom.getOffset)(comps[i].element);
-	                //滚动到第一次出现错误的地方
-	                window.scrollTo(0, off.top - 30);
-	                if (_env.env.isIPAD) {
-	                    // ipad上面云表单提交校验的时候没有滚动到对应位置
-	                    window.top.scrollTo(0, off.top - 30);
-	                }
-	            }
 	            passed = result.passed && passed;
 	            if (!result.passed) {
 	                notPassedArr.push(result);

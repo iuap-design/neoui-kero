@@ -1005,8 +1005,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		isUnix: false,
 		isLinux: false,
 		isAndroid: false,
-		isAndroidPAD: false,
-		isAndroidPhone: false,
 		isMac: false,
 		hasTouch: false,
 		isMobile: false
@@ -1062,6 +1060,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				version: match[1] || "0"
 			};
 		}
+		if (match != null) {
+			browserMatch = {
+				browser: "",
+				version: "0"
+			};
+		}
 
 		if (s = ua.match(/opera.([\d.]+)/)) {
 			u.isOpera = true;
@@ -1092,7 +1096,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			u.isIPAD = true;
 			u.isStandard = true;
 		}
-
 		if (ua.match(/iphone/i)) {
 			u.isIOS = true;
 			u.isIphone = true;
@@ -1119,14 +1122,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		u.version = version ? browserMatch.version ? browserMatch.version : 0 : 0;
-		if (u.isAndroid) {
-			if (window.screen.width >= 768 && window.screen.width < 1024) {
-				u.isAndroidPAD = true;
-			}
-			if (window.screen.width <= 768) {
-				u.isAndroidPhone = true;
-			}
-		}
 		if (u.isIE) {
 			var intVersion = parseInt(u.version);
 			var mode = document.documentMode;
@@ -1155,13 +1150,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					u.isIE9_CORE = true;
 				} else if (browserMatch.version == 11) {
 					u.isIE11 = true;
-				}
+				} else {}
 			}
 		}
 		if ("ontouchend" in document) {
 			u.hasTouch = true;
 		}
-		if (u.isIphone || u.isAndroidPhone) u.isMobile = true;
+		if (u.isIOS || u.isAndroid) u.isMobile = true;
 	})();
 
 	var env = u;
@@ -11880,23 +11875,21 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		var closeBtn = msgDom.querySelector('.u-msg-close');
 		//new Button({el:closeBtn});
-		var closeFun = function closeFun() {
-			u.removeClass(msgDom, "active");
+		(0, _event.on)(closeBtn, 'click', function () {
+			(0, _dom.removeClass)(msgDom, "active");
 			setTimeout(function () {
 				try {
 					document.body.removeChild(msgDom);
 				} catch (e) {}
 			}, 500);
-		};
-		u.on(closeBtn, 'click', closeFun);
+		});
 		document.body.appendChild(msgDom);
 
 		if (showSeconds > 0) {
 			setTimeout(function () {
-				closeFun();
+				closeBtn.click();
 			}, showSeconds * 1000);
 		}
-
 		setTimeout(function () {
 			(0, _dom.addClass)(msgDom, "active");
 		}, showSeconds * 1);
@@ -12010,8 +12003,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.focusEvent();
 			// 添加右侧图标click事件
 			this.clickEvent();
-			// 添加keydown事件
-			this.keydownEvent();
 		},
 
 		createPanel: function createPanel() {
@@ -12077,14 +12068,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		setValue: function setValue(value) {
 			value = value ? value : '';
 			this.value = value;
-			if (parseInt(this.value) > 0 && parseInt(this.value) < 13) {
+			if (value) {
 				this.month = value;
-				this.input.value = this.month;
-				this.trigger('valueChange', { value: value });
 			} else {
 				this.month = this.defaultMonth;
-				this.input.value = '';
 			}
+			this.input.value = value;
+			this.trigger('valueChange', { value: value });
 		},
 
 		focusEvent: function focusEvent() {
@@ -12097,19 +12087,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					e.stopPropagation();
 				} else {
 					e.cancelBubble = true;
-				}
-			});
-		},
-		keydownEvent: function keydownEvent() {
-			var self = this;
-			(0, _event.on)(self.input, "keydown", function (e) {
-				var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-				if (!(code >= 48 && code <= 57 || code == 37 || code == 39 || code == 8 || code == 46)) {
-					//阻止默认浏览器动作(W3C)
-					if (e && e.preventDefault) e.preventDefault();
-					//IE中阻止函数器默认动作的方式
-					else window.event.returnValue = false;
-					return false;
 				}
 			});
 		},
@@ -14497,15 +14474,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			(0, _event.on)(this.input, 'blur', function (e) {
 				self._inputFocus = false;
-				self.setValue(self.input.value);
-			});
+				this.setValue(this.input.value);
+			}.bind(this));
 
 			// 添加focus事件
 			this.focusEvent();
 			// 添加右侧图标click事件
 			this.clickEvent();
-			// 添加keydown事件
-			this.keydownEvent();
 		},
 
 		createPanel: function createPanel() {
@@ -14592,19 +14567,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _event.stopEvent)(e);
 			});
 		},
-		keydownEvent: function keydownEvent() {
-			var self = this;
-			(0, _event.on)(self.input, "keydown", function (e) {
-				var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-				if (!(code >= 48 && code <= 57 || code == 37 || code == 39 || code == 8 || code == 46)) {
-					//阻止默认浏览器动作(W3C)
-					if (e && e.preventDefault) e.preventDefault();
-					//IE中阻止函数器默认动作的方式
-					else window.event.returnValue = false;
-					return false;
-				}
-			});
-		},
+
 		//下拉图标的点击事件
 		clickEvent: function clickEvent() {
 			var self = this;
@@ -14794,8 +14757,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        (0, _event.on)(this.input, 'blur', function (e) {
 	            self._inputFocus = false;
-	            self.setValue(self.input.value);
-	        });
+	            this.setValue(this.input.value);
+	        }.bind(this));
 
 	        // 添加focus事件
 	        this.focusEvent();

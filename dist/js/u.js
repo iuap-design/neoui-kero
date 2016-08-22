@@ -1190,8 +1190,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		isUnix: false,
 		isLinux: false,
 		isAndroid: false,
-		isAndroidPAD: false,
-		isAndroidPhone: false,
 		isMac: false,
 		hasTouch: false,
 		isMobile: false
@@ -1247,6 +1245,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				version: match[1] || "0"
 			};
 		}
+		if (match != null) {
+			browserMatch = {
+				browser: "",
+				version: "0"
+			};
+		}
 
 		if (s = ua.match(/opera.([\d.]+)/)) {
 			u.isOpera = true;
@@ -1277,7 +1281,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			u.isIPAD = true;
 			u.isStandard = true;
 		}
-
 		if (ua.match(/iphone/i)) {
 			u.isIOS = true;
 			u.isIphone = true;
@@ -1304,14 +1307,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		u.version = version ? browserMatch.version ? browserMatch.version : 0 : 0;
-		if (u.isAndroid) {
-			if (window.screen.width >= 768 && window.screen.width < 1024) {
-				u.isAndroidPAD = true;
-			}
-			if (window.screen.width <= 768) {
-				u.isAndroidPhone = true;
-			}
-		}
 		if (u.isIE) {
 			var intVersion = parseInt(u.version);
 			var mode = document.documentMode;
@@ -1340,13 +1335,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					u.isIE9_CORE = true;
 				} else if (browserMatch.version == 11) {
 					u.isIE11 = true;
-				}
+				} else {}
 			}
 		}
 		if ("ontouchend" in document) {
 			u.hasTouch = true;
 		}
-		if (u.isIphone || u.isAndroidPhone) u.isMobile = true;
+		if (u.isIOS || u.isAndroid) u.isMobile = true;
 	})();
 
 	var env = u;
@@ -2119,24 +2114,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 16 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.compsValidateMultiParam = exports.compsValidate = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : kero app validate
-	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date   : 2016-07-29 09:34:01
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-	var _env = __webpack_require__(7);
-
-	var _dom = __webpack_require__(5);
+	/**
+	 * Module : kero app validate
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-07-29 09:34:01
+	 */
 
 	/**
 	 * 控件数据校验
@@ -2167,16 +2159,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    for (var i = 0; i < comps.length; i++) {
 	        if (comps[i].doValidate) {
 	            result = comps[i].doValidate({ trueValue: true, showMsg: showMsg });
-	            // 如果passed为true,result.passed为false说明第一次出现错误校验
-	            if (passed && !result.passed) {
-	                var off = (0, _dom.getOffset)(comps[i].element);
-	                //滚动到第一次出现错误的地方
-	                window.scrollTo(0, off.top - 30);
-	                if (_env.env.isIPAD) {
-	                    // ipad上面云表单提交校验的时候没有滚动到对应位置
-	                    window.top.scrollTo(0, off.top - 30);
-	                }
-	            }
 	            passed = result.passed && passed;
 	            if (!result.passed) {
 	                notPassedArr.push(result);
@@ -14471,23 +14453,21 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		var closeBtn = msgDom.querySelector('.u-msg-close');
 		//new Button({el:closeBtn});
-		var closeFun = function closeFun() {
-			u.removeClass(msgDom, "active");
+		(0, _event.on)(closeBtn, 'click', function () {
+			(0, _dom.removeClass)(msgDom, "active");
 			setTimeout(function () {
 				try {
 					document.body.removeChild(msgDom);
 				} catch (e) {}
 			}, 500);
-		};
-		u.on(closeBtn, 'click', closeFun);
+		});
 		document.body.appendChild(msgDom);
 
 		if (showSeconds > 0) {
 			setTimeout(function () {
-				closeFun();
+				closeBtn.click();
 			}, showSeconds * 1000);
 		}
-
 		setTimeout(function () {
 			(0, _dom.addClass)(msgDom, "active");
 		}, showSeconds * 1);
@@ -14601,8 +14581,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.focusEvent();
 			// 添加右侧图标click事件
 			this.clickEvent();
-			// 添加keydown事件
-			this.keydownEvent();
 		},
 
 		createPanel: function createPanel() {
@@ -14668,14 +14646,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		setValue: function setValue(value) {
 			value = value ? value : '';
 			this.value = value;
-			if (parseInt(this.value) > 0 && parseInt(this.value) < 13) {
+			if (value) {
 				this.month = value;
-				this.input.value = this.month;
-				this.trigger('valueChange', { value: value });
 			} else {
 				this.month = this.defaultMonth;
-				this.input.value = '';
 			}
+			this.input.value = value;
+			this.trigger('valueChange', { value: value });
 		},
 
 		focusEvent: function focusEvent() {
@@ -14688,19 +14665,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					e.stopPropagation();
 				} else {
 					e.cancelBubble = true;
-				}
-			});
-		},
-		keydownEvent: function keydownEvent() {
-			var self = this;
-			(0, _event.on)(self.input, "keydown", function (e) {
-				var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-				if (!(code >= 48 && code <= 57 || code == 37 || code == 39 || code == 8 || code == 46)) {
-					//阻止默认浏览器动作(W3C)
-					if (e && e.preventDefault) e.preventDefault();
-					//IE中阻止函数器默认动作的方式
-					else window.event.returnValue = false;
-					return false;
 				}
 			});
 		},
@@ -17088,15 +17052,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			(0, _event.on)(this.input, 'blur', function (e) {
 				self._inputFocus = false;
-				self.setValue(self.input.value);
-			});
+				this.setValue(this.input.value);
+			}.bind(this));
 
 			// 添加focus事件
 			this.focusEvent();
 			// 添加右侧图标click事件
 			this.clickEvent();
-			// 添加keydown事件
-			this.keydownEvent();
 		},
 
 		createPanel: function createPanel() {
@@ -17183,19 +17145,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				(0, _event.stopEvent)(e);
 			});
 		},
-		keydownEvent: function keydownEvent() {
-			var self = this;
-			(0, _event.on)(self.input, "keydown", function (e) {
-				var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-				if (!(code >= 48 && code <= 57 || code == 37 || code == 39 || code == 8 || code == 46)) {
-					//阻止默认浏览器动作(W3C)
-					if (e && e.preventDefault) e.preventDefault();
-					//IE中阻止函数器默认动作的方式
-					else window.event.returnValue = false;
-					return false;
-				}
-			});
-		},
+
 		//下拉图标的点击事件
 		clickEvent: function clickEvent() {
 			var self = this;
@@ -17385,8 +17335,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        (0, _event.on)(this.input, 'blur', function (e) {
 	            self._inputFocus = false;
-	            self.setValue(self.input.value);
-	        });
+	            this.setValue(this.input.value);
+	        }.bind(this));
 
 	        // 添加focus事件
 	        this.focusEvent();
@@ -20714,29 +20664,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		templateStr = templateStr.replace('{width}', this.width ? 'width:' + this.width + ';' : '');
 		templateStr = templateStr.replace('{height}', this.height ? 'height:' + this.height + ';' : '');
 
-		var htmlReg = /^(\s*)?<[a-zA-Z]+/ig;
-		var selectReg = /^(\.|#)/;
-		if (htmlReg.test(this.content)) {
-			this.contentDom = (0, _dom.makeDOM)(this.content);
-			this.contentDomParent = this.contentDom.parentNode;
-			this.contentDom.style.display = 'block';
-		} else if (selectReg.test(this.content)) {
-			this.contentDom = document.querySelector(this.content);
+		this.contentDom = document.querySelector(this.content); //
+		this.templateDom = (0, _dom.makeDOM)(templateStr);
+		if (this.contentDom) {
+			// msg第一种方式传入选择器，如果可以查找到对应dom节点，则创建整体dialog之后在msg位置添加dom元素
 			this.contentDomParent = this.contentDom.parentNode;
 			this.contentDom.style.display = 'block';
 		} else {
+			// 如果查找不到对应dom节点，则按照字符串处理，直接将msg拼到template之后创建dialog
 			this.contentDom = (0, _dom.makeDOM)('<div><div class="u-msg-content"><p>' + this.content + '</p></div></div>');
 		}
-		this.templateDom = (0, _dom.makeDOM)(templateStr);
-
-		/*this.contentDom = document.querySelector(this.content); //
-	 this.templateDom = makeDOM(templateStr);
-	 if(this.contentDom) { // msg第一种方式传入选择器，如果可以查找到对应dom节点，则创建整体dialog之后在msg位置添加dom元素
-	 	this.contentDomParent = this.contentDom.parentNode;
-	 	this.contentDom.style.display = 'block';
-	 } else { // 如果查找不到对应dom节点，则按照字符串处理，直接将msg拼到template之后创建dialog
-	 	this.contentDom = makeDOM('<div><div class="u-msg-content"><p>' + this.content + '</p></div></div>');
-	 }*/
 		this.templateDom.appendChild(this.contentDom);
 		this.overlayDiv = (0, _dom.makeModal)(this.templateDom);
 		if (this.hasCloseMenu) {
