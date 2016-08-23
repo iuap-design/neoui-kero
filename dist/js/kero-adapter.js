@@ -5,17 +5,7 @@
  * homepage : https://github.com/iuap-design/kero-adapter#readme
  * bugs : https://github.com/iuap-design/kero-adapter/issues
  **/ 
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -1611,6 +1601,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.DataTable = undefined;
 
+	var _extend = __webpack_require__(8);
+
 	var _indexEvents = __webpack_require__(30);
 
 	var _copyRow = __webpack_require__(32);
@@ -1897,7 +1889,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    for (var key in metas) {
 	        var meta = metas[key];
 	        if (typeof meta == 'string') meta = {};
-	        newMetas[key] = u.extend({}, DataTable.META_DEFAULTS, meta);
+	        newMetas[key] = (0, _extend.extend)({}, DataTable.META_DEFAULTS, meta);
 	    }
 	    return newMetas;
 	};
@@ -1911,7 +1903,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	exports.Events = undefined;
 
@@ -1927,13 +1919,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	var Events = function Events() {
-	    _classCallCheck(this, Events);
+	  _classCallCheck(this, Events);
 
-	    this.on = _events.on;
-	    this.off = _events.off;
-	    this.one = _events.one;
-	    this.trigger = _events.trigger;
-	    this.getEvent = _events.getEvent;
+	  this.on = _events.on;
+	  this.off = _events.off;
+	  this.one = _events.one;
+	  this.trigger = _events.trigger;
+	  this.getEvent = _events.getEvent;
 	};
 
 	exports.Events = Events;
@@ -4500,7 +4492,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	(0, _extend.extend)(ex, window.u || {});
-
+	window.u = ex;
 	exports.u = ex;
 
 /***/ },
@@ -6910,9 +6902,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 
 	        this.isAutoTip = this.options['isAutoTip'] || false; //是否支持自动提示
-	        /*if (hasClass(this.element, 'is-auto-tip')){
-	            this.isAutoTip = true;
-	        }*/
+	        //if (hasClass(this.element, 'is-auto-tip')){
+	        //    this.isAutoTip = true;
+	        //}
 	        (0, _event.on)(this._input, 'keydown', function (e) {
 	            var keyCode = e.keyCode;
 
@@ -8784,11 +8776,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -8873,11 +8865,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -11934,14 +11926,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		var closeBtn = msgDom.querySelector('.u-msg-close');
 		//new Button({el:closeBtn});
 		var closeFun = function closeFun() {
-			u.removeClass(msgDom, "active");
+			(0, _dom.removeClass)(msgDom, "active");
 			setTimeout(function () {
 				try {
 					document.body.removeChild(msgDom);
 				} catch (e) {}
 			}, 500);
 		};
-		u.on(closeBtn, 'click', closeFun);
+		(0, _event.on)(closeBtn, 'click', closeFun);
 		document.body.appendChild(msgDom);
 
 		if (showSeconds > 0) {
@@ -12530,11 +12522,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        PaginationAdapter.superclass.initialize.apply(this, arguments);
 
 	        //var Pagination = function(element, options, viewModel) {
-
-	        this.options.showTotal = this.options.showTotal || true; //初始默认显示总条数 “共xxx条”
-	        this.options.showColumn = this.options.showColumn || true; //初始默认显示每页条数 “显示xx条”
-	        this.options.showJump = this.options.showJump || true; //初始默认显示跳转信息 “到xx页 确定”
-
 
 	        if (!this.dataModel.pageSize() && this.options.pageSize) this.dataModel.pageSize(this.options.pageSize);
 	        this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
@@ -15489,6 +15476,4 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.TreeAdapter = TreeAdapter;
 
 /***/ }
-/******/ ])
-});
-;
+/******/ ]);
