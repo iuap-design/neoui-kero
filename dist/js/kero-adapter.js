@@ -6910,9 +6910,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 
 	        this.isAutoTip = this.options['isAutoTip'] || false; //是否支持自动提示
-	        //if (hasClass(this.element, 'is-auto-tip')){
-	        //    this.isAutoTip = true;
-	        //}
+	        /*if (hasClass(this.element, 'is-auto-tip')){
+	            this.isAutoTip = true;
+	        }*/
 	        (0, _event.on)(this._input, 'keydown', function (e) {
 	            var keyCode = e.keyCode;
 
@@ -12531,11 +12531,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        //var Pagination = function(element, options, viewModel) {
 
+	        this.options.showTotal = this.options.showTotal || true; //初始默认显示总条数 “共xxx条”
+	        this.options.showColumn = this.options.showColumn || true; //初始默认显示每页条数 “显示xx条”
+	        this.options.showJump = this.options.showJump || true; //初始默认显示跳转信息 “到xx页 确定”
+
+
 	        if (!this.dataModel.pageSize() && this.options.pageSize) this.dataModel.pageSize(this.options.pageSize);
 	        this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
 	        //this.$element.pagination(options);
 	        //this.comp = this.$element.data('u.pagination');
-	        var options = (0, _extend.extend)({}, { el: this.element, jumppage: true }, this.options);
+	        var options = (0, _extend.extend)({}, { el: this.element }, this.options);
 	        this.comp = new _neouiPagination.pagination(options);
 	        this.element['u.pagination'] = this.comp;
 	        this.comp.dataModel = this.dataModel;

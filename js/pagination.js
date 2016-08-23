@@ -22,7 +22,7 @@ var PaginationAdapter = BaseAdapter.extend({
         this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
         //this.$element.pagination(options);
         //this.comp = this.$element.data('u.pagination');
-        var options = extend({},{el:this.element,jumppage:true},this.options);
+        var options = extend({},{el:this.element},this.options);
         this.comp = new pagination(options);
 		this.element['u.pagination'] = this.comp;
         this.comp.dataModel = this.dataModel;
