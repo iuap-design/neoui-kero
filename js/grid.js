@@ -1064,7 +1064,7 @@ var GridAdapter = BaseAdapter.extend({
 			evalStr = '',
 			rowMsg = '',
 			wholeMsg = '',
-			columnShowMsg = '';
+			columnShowMsg = '',
 			hasErrow = false; 
 
 		// 遍历所有列
