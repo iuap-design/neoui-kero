@@ -2156,7 +2156,7 @@
 	        notPassedArr = new Array();
 	    for (var i = 0; i < comps.length; i++) {
 	        if (comps[i].doValidate) {
-	            result = comps[i].doValidate({ trueValue: true, showMsg: showMsg });
+	            var result = comps[i].doValidate({ trueValue: true, showMsg: showMsg });
 	            // 如果passed为true,result.passed为false说明第一次出现错误校验
 	            if (passed && !result.passed) {
 	                var off = (0, _dom.getOffset)(comps[i].element);
@@ -2263,15 +2263,15 @@
 	 */
 
 	var getEnvironment = function getEnvironment() {
-	    return window.iweb.Core.collectEnvironment();
+	    return u.core.collectEnvironment();
 	};
 
 	var setClientAttribute = function setClientAttribute(k, v) {
-	    window.iweb.Core.setClientAttribute(k, v);
+	    u.core.setClientAttribute(k, v);
 	};
 
 	var getClientAttribute = function getClientAttribute(k) {
-	    return window.iweb.Core.getClientAttributes()[k];
+	    return u.core.getClientAttributes()[k];
 	};
 
 	exports.getEnvironment = getEnvironment;
@@ -2329,7 +2329,7 @@
 	            deferred.reject();
 	        }
 	    };
-	    if (params.data) params.data.environment = ko.utils.stringifyJson(window.iweb.Core.collectEnvironment());else params.data = { environment: ko.utils.stringifyJson(window.iweb.Core.collectEnvironment()) };
+	    if (params.data) params.data.environment = ko.utils.stringifyJson(u.core.collectEnvironment());else params.data = { environment: ko.utils.stringifyJson(u.core.collectEnvironment()) };
 	    return params;
 	};
 
@@ -2587,8 +2587,8 @@
 	    this.datas = {};
 	    this.params = {};
 	    this.event = null;
-	    this.ent = window.iweb.Core.collectEnvironment();
-	    if (!iweb.debugMode) {
+	    this.ent = u.core.collectEnvironment();
+	    if (!u.debugMode) {
 	        //此处需要修改
 	        this.compression = true;
 	    }
@@ -2830,14 +2830,16 @@
 
 	var _event = __webpack_require__(6);
 
-	/**
-	 * Module : kero app serverEvent util
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-07-29 09:34:01
-	 */
+	var _env = __webpack_require__(7);
+
 	var setCompression = function setCompression(compression) {
-	    if (!iweb.browser.isIE8 && !window.pako && compression == true) iweb.log.error("can't compression, please include  pako!");else this.compression = compression;
-	};
+	    if (!_env.env.isIE8 && !window.pako && compression == true) alert("can't compression, please include  pako!");else this.compression = compression;
+	}; /**
+	    * Module : kero app serverEvent util
+	    * Author : liuyk(liuyk@yonyou.com)
+	    * Date   : 2016-07-29 09:34:01
+	    */
+
 
 	var addParameter = function addParameter(key, value) {
 	    this.params[key] = value;
@@ -2867,7 +2869,7 @@
 	        datasJson = window.trimServerEventData(datasJson);
 	    }
 	    if (this.compression) {
-	        if (!iweb.browser.isIE8 && window.pako) {
+	        if (!_env.env.isIE8 && window.pako) {
 	            envJson = encodeBase64(window.pako.gzip(envJson));
 	            datasJson = encodeBase64(window.pako.gzip(datasJson));
 	            compression = true;
@@ -2929,6 +2931,8 @@
 	    value: true
 	});
 	exports.DataTable = undefined;
+
+	var _extend = __webpack_require__(8);
 
 	var _indexEvents = __webpack_require__(30);
 
@@ -3216,7 +3220,7 @@
 	    for (var key in metas) {
 	        var meta = metas[key];
 	        if (typeof meta == 'string') meta = {};
-	        newMetas[key] = u.extend({}, DataTable.META_DEFAULTS, meta);
+	        newMetas[key] = (0, _extend.extend)({}, DataTable.META_DEFAULTS, meta);
 	    }
 	    return newMetas;
 	};
@@ -14515,14 +14519,14 @@
 		var closeBtn = msgDom.querySelector('.u-msg-close');
 		//new Button({el:closeBtn});
 		var closeFun = function closeFun() {
-			u.removeClass(msgDom, "active");
+			(0, _dom.removeClass)(msgDom, "active");
 			setTimeout(function () {
 				try {
 					document.body.removeChild(msgDom);
 				} catch (e) {}
 			}, 500);
 		};
-		u.on(closeBtn, 'click', closeFun);
+		(0, _event.on)(closeBtn, 'click', closeFun);
 		document.body.appendChild(msgDom);
 
 		if (showSeconds > 0) {
@@ -18190,6 +18194,9 @@
 	}
 	// export api;
 	//export default api;
+	(0, _extend.extend)(api, window.u || {});
+
+	window.u = api;
 	exports.u = api;
 
 /***/ },
@@ -19110,7 +19117,7 @@
 
 	//Neoui import
 	(0, _extend.extend)(ex, window.u || {});
-
+	window.u = ex;
 	exports.u = ex;
 
 /***/ },
@@ -21886,7 +21893,8 @@
 					// manually specify position.
 				} else if ((0, _dom.hasClass)(this.element, 'u-menu-bottom-right')) {
 					// Position below the "for" element, aligned to its right.
-					this._container.style.right = forRect.right - rect.right + 'px';
+					this._container.style.left = this.for_element.offsetLeft + this.for_element.offsetWidth - this.element.offsetWidth + 'px';
+					// this._container.style.right = (forRect.right - rect.right) + 'px';
 					this._container.style.top = this.for_element.offsetTop + this.for_element.offsetHeight + 'px';
 				} else if ((0, _dom.hasClass)(this.element, 'u-menu-top-left')) {
 					// Position above the "for" element, aligned to its left.
