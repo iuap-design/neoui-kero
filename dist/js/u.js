@@ -13398,8 +13398,8 @@
 			    evalStr = '',
 			    rowMsg = '',
 			    wholeMsg = '',
-			    columnShowMsg = '';
-			hasErrow = false;
+			    columnShowMsg = '',
+			    hasErrow = false;
 
 			// 遍历所有列
 			for (var j = 0; j < gridColumnArr.length; j++) {
