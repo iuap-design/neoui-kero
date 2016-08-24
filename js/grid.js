@@ -31,6 +31,7 @@ import {showMessage} from 'neoui/js/neoui-message';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {trans} from 'neoui-sparrow/js/util/i18n';
 import {core} from 'neoui-sparrow/js/core';
+import {addClass} from 'neoui-sparrow/js/dom';
 
 var GridAdapter = BaseAdapter.extend({
 	initialize: function(options) {
@@ -1128,11 +1129,9 @@ var GridAdapter = BaseAdapter.extend({
             		var div = td.querySelector('div')
             		addClass(td,'u-grid-err-td');
             		addClass(div,'u-grid-err-td');
-            		evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}';
-					eval(evalStr);
             		var msg = '(' + title + ')' + result.Msg + ';'; 
-            		evalStr = 'obj' + i + '.arr.push(msg)';
-            		eval(evalStr);
+            		evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
+					eval(evalStr);
             	}
 			}
 			// 如果存在错误信息并且提示信息
