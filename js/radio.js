@@ -22,6 +22,7 @@ var RadioAdapter = BaseAdapter.extend({
         var self = this;
         //RadioAdapter.superclass.initialize.apply(this, arguments);
         this.dynamic = false;
+        this.otherValue = this.options['otherValue'] || 'ovOV~!';
         if(this.options['datasource'] || this.options['hasOther']){
             // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
             this.radioTemplateArray = [];
@@ -76,7 +77,11 @@ var RadioAdapter = BaseAdapter.extend({
             self.otherComp = comp;
             comp.on('change', function(){
                 if (comp._btnElement.checked){
-                    self.dataModel.setValue(self.field, comp._btnElement.value);
+                    if(self.otherInput.value){
+                        self.dataModel.setValue(self.field, self.otherInput.value);
+                    }else{
+                        self.dataModel.setValue(self.field, self.otherValue);
+                    }
                     // 选中后可编辑
                     comp.element.querySelectorAll('input[type="text"]').forEach(function(ele){
                         ele.removeAttribute('disabled');
@@ -89,13 +94,10 @@ var RadioAdapter = BaseAdapter.extend({
             });
             
             on(self.otherInput,'blur',function(e){
-                self.lastRadio.oldValue = self.lastRadio.value;
-                self.lastRadio.value = this.value;
                 self.otherComp.trigger('change');
-
             })
             on(self.otherInput,'click',function(e){
-                stopEvent(e)
+                stopEvent(e);
             })
         }
 
@@ -183,7 +185,11 @@ var RadioAdapter = BaseAdapter.extend({
             }
             u.addClass(this.lastLabel,'is-checked')
             this.lastRadio.checked = true;
-            this.otherInput.value = value;
+            if(value != this.otherValue){
+                this.otherInput.value = value;
+            }
+            this.lastRadio.removeAttribute('disabled');
+            this.otherInput.removeAttribute('disabled');
             if(!this.enable){
                 this.lastRadio.setAttribute('disabled',true);
             }
