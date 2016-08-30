@@ -13,7 +13,7 @@ import {getJSObject} from 'neoui-sparrow/js/util';
 import {Checkbox} from 'neoui/js/neoui-checkbox';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {makeDOM} from 'neoui-sparrow/js/dom';
-import {on} from 'neoui-sparrow/js/event';
+import {on,stopEvent} from 'neoui-sparrow/js/event';
 
 
 
@@ -23,6 +23,7 @@ var CheckboxAdapter = BaseAdapter.extend({
         var self = this;
         // CheckboxAdapter.superclass.initialize.apply(this, arguments); 
         this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
+        this.otherValue = this.options['otherValue'] || 'ovOV~!';
         if(this.options['datasource'] || this.options['hasOther']){
             // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
             this.checkboxTemplateArray = [];
@@ -104,21 +105,31 @@ var CheckboxAdapter = BaseAdapter.extend({
                 modelValue = modelValue ? modelValue : '';
                 var valueArr = modelValue == '' ? [] : modelValue.split(',');
                 if (comp._inputElement.checked) {
-                    var oldIndex = valueArr.indexOf(comp._inputElement.oldValue)
+                    var oldIndex = valueArr.indexOf(self.otherInput.oldValue)
                     if(oldIndex > -1){
                         valueArr.splice(oldIndex, 1);
                     }
-                    if(comp._inputElement.value){
-                        valueArr.push(comp._inputElement.value)
+                    if(self.otherInput.value){
+                        valueArr.push(self.otherInput.value)
                     }
+                    var otherValueIndex = valueArr.indexOf(self.otherValue);
+                    if(otherValueIndex < 0){
+                        valueArr.push(self.otherValue);
+                    }
+                    
                     // 选中后可编辑
                     comp.element.querySelectorAll('input[type="text"]').forEach(function(ele){
                         ele.removeAttribute('disabled');
                     });
                 } else {
-                    var index = valueArr.indexOf(comp._inputElement.value);
+                    var index = valueArr.indexOf(self.otherInput.value);
                     if(index > -1){
                         valueArr.splice(index, 1);
+                    }
+
+                    var otherValueIndex = valueArr.indexOf(self.otherValue);
+                    if(otherValueIndex > -1){
+                        valueArr.splice(otherValueIndex, 1);
                     }
 
                     // 未选中则不可编辑
@@ -132,10 +143,9 @@ var CheckboxAdapter = BaseAdapter.extend({
             });
             
             on(self.otherInput,'blur',function(e){
-                self.lastCheck.oldValue = self.lastCheck.value;
                 self.lastCheck.value = this.value;
                 self.otherComp.trigger('change');
-
+                this.oldValue = this.value;
             })
             on(self.otherInput,'click',function(e){
                 stopEvent(e)
@@ -214,10 +224,15 @@ var CheckboxAdapter = BaseAdapter.extend({
                 }
             })
             if(this.options.hasOther){
+                if(otherVal.indexOf(this.otherValue + ',') > -1){
+                    self.lastCheck.value = this.otherValue;
+                    otherVal = otherVal.replace(this.otherValue + ',','');
+                }
                 otherVal = otherVal.replace(/\,/g,'');
                 if(otherVal){
-                    self.lastCheck.value = otherVal;
+                    self.otherInput.oldValue = otherVal;
                     self.otherInput.value = otherVal;
+                    self.otherInput.removeAttribute('disabled');
                 }
             }
         }else{

@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v1.5.6
+ * kero-adapter v1.5.7
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -1902,7 +1902,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	exports.Events = undefined;
 
@@ -1918,13 +1918,13 @@
 
 
 	var Events = function Events() {
-	    _classCallCheck(this, Events);
+	  _classCallCheck(this, Events);
 
-	    this.on = _events.on;
-	    this.off = _events.off;
-	    this.one = _events.one;
-	    this.trigger = _events.trigger;
-	    this.getEvent = _events.getEvent;
+	  this.on = _events.on;
+	  this.off = _events.off;
+	  this.one = _events.one;
+	  this.trigger = _events.trigger;
+	  this.getEvent = _events.getEvent;
 	};
 
 	exports.Events = Events;
@@ -4621,6 +4621,7 @@
 	        var self = this;
 	        // CheckboxAdapter.superclass.initialize.apply(this, arguments); 
 	        this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
+	        this.otherValue = this.options['otherValue'] || 'ovOV~!';
 	        if (this.options['datasource'] || this.options['hasOther']) {
 	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
 	            this.checkboxTemplateArray = [];
@@ -4701,21 +4702,31 @@
 	                modelValue = modelValue ? modelValue : '';
 	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
 	                if (comp._inputElement.checked) {
-	                    var oldIndex = valueArr.indexOf(comp._inputElement.oldValue);
+	                    var oldIndex = valueArr.indexOf(self.otherInput.oldValue);
 	                    if (oldIndex > -1) {
 	                        valueArr.splice(oldIndex, 1);
 	                    }
-	                    if (comp._inputElement.value) {
-	                        valueArr.push(comp._inputElement.value);
+	                    if (self.otherInput.value) {
+	                        valueArr.push(self.otherInput.value);
 	                    }
+	                    var otherValueIndex = valueArr.indexOf(self.otherValue);
+	                    if (otherValueIndex < 0) {
+	                        valueArr.push(self.otherValue);
+	                    }
+
 	                    // 选中后可编辑
 	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
 	                        ele.removeAttribute('disabled');
 	                    });
 	                } else {
-	                    var index = valueArr.indexOf(comp._inputElement.value);
+	                    var index = valueArr.indexOf(self.otherInput.value);
 	                    if (index > -1) {
 	                        valueArr.splice(index, 1);
+	                    }
+
+	                    var otherValueIndex = valueArr.indexOf(self.otherValue);
+	                    if (otherValueIndex > -1) {
+	                        valueArr.splice(otherValueIndex, 1);
 	                    }
 
 	                    // 未选中则不可编辑
@@ -4729,12 +4740,12 @@
 	            });
 
 	            (0, _event.on)(self.otherInput, 'blur', function (e) {
-	                self.lastCheck.oldValue = self.lastCheck.value;
 	                self.lastCheck.value = this.value;
 	                self.otherComp.trigger('change');
+	                this.oldValue = this.value;
 	            });
 	            (0, _event.on)(self.otherInput, 'click', function (e) {
-	                stopEvent(e);
+	                (0, _event.stopEvent)(e);
 	            });
 	        }
 
@@ -4808,10 +4819,15 @@
 	                }
 	            });
 	            if (this.options.hasOther) {
+	                if (otherVal.indexOf(this.otherValue + ',') > -1) {
+	                    self.lastCheck.value = this.otherValue;
+	                    otherVal = otherVal.replace(this.otherValue + ',', '');
+	                }
 	                otherVal = otherVal.replace(/\,/g, '');
 	                if (otherVal) {
-	                    self.lastCheck.value = otherVal;
+	                    self.otherInput.oldValue = otherVal;
 	                    self.otherInput.value = otherVal;
+	                    self.otherInput.removeAttribute('disabled');
 	                }
 	            }
 	        } else {
@@ -5246,7 +5262,8 @@
 		"integer": /^-?\d+$/,
 		"float": /^-?\d+(\.\d+)?$/,
 		"zipCode": /^[0-9]{6}$/,
-		"phone": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
+		// "phone": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
+		"phone": /^1[3|4|5|7|8]\d{9}$/,
 		"landline": /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
 		"email": /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
 		"url": /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
@@ -6159,7 +6176,6 @@
 	        (0, _dom.addClass)(tickOutline, this._CssClasses.TICK_OUTLINE);
 
 	        boxOutline.appendChild(tickOutline);
-
 	        this.element.appendChild(tickContainer);
 	        this.element.appendChild(boxOutline);
 
@@ -6190,9 +6206,11 @@
 	        //this.element.addEventListener('mouseup', this.boundElementMouseUp);
 	        if (!(0, _dom.hasClass)(this.element, 'only-style')) {
 	            (0, _event.on)(this.element, 'click', function (e) {
-	                if (!this._inputElement.disabled) {
-	                    this.toggle();
-	                    (0, _event.stopEvent)(e);
+	                if (e.target.nodeName != 'INPUT') {
+	                    if (!this._inputElement.disabled) {
+	                        this.toggle();
+	                        (0, _event.stopEvent)(e);
+	                    }
 	                }
 	            }.bind(this));
 	        }
@@ -8575,11 +8593,11 @@
 	    //new UText(this._element);
 	    this._input = this._element.querySelector("input");
 
-	    if (_env.env.isMobile) {
-	        // setTimeout(function(){
-	        //     self._input.setAttribute('readonly','readonly');
-	        // },1000);
-	    }
+	    // if(env.isMobile){
+	    //     // setTimeout(function(){
+	    //     //     self._input.setAttribute('readonly','readonly');
+	    //     // },1000);
+	    // }
 
 	    setTimeout(function () {
 	        self._input.setAttribute('readonly', 'readonly');
@@ -8587,7 +8605,8 @@
 
 	    (0, _event.on)(this._input, 'focus', function (e) {
 	        // 用来关闭键盘
-	        if (_env.env.isMobile) this.blur();
+	        /*if(env.isMobile)
+	            this.blur();*/
 	        self._inputFocus = true;
 	        if (self.isShow !== true) {
 	            self.show(e);
@@ -8778,11 +8797,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -8867,11 +8886,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -9527,10 +9546,10 @@
 	    var self = this;
 	    if (!this._panel) {
 	        this._panel = (0, _dom.makeDOM)(dateTimePickerTemplateArr.join(""));
-	        if (_env.env.isMobile) {
-	            (0, _dom.removeClass)(this._panel, 'u-date-panel');
-	            (0, _dom.addClass)(this._panel, 'u-date-panel-mobile');
-	        }
+	        /*if(env.isMobile){
+	            removeClass(this._panel,'u-date-panel')
+	            addClass(this._panel,'u-date-panel-mobile');
+	        }*/
 	        this._dateNav = this._panel.querySelector('.u-date-nav');
 	        if (this.type === 'date' && !_env.env.isMobile) {
 	            this._dateNav.style.display = 'none';
@@ -9608,12 +9627,12 @@
 	    (0, _event.on)(window, 'resize', function () {
 	        self._response();
 	    });
-	    if (_env.env.isMobile) {
-	        this.overlayDiv = (0, _dom.makeModal)(this._panel);
-	        (0, _event.on)(this.overlayDiv, 'click', function () {
+	    /*if(env.isMobile){
+	        this.overlayDiv = makeModal(this._panel);
+	        on(this.overlayDiv, 'click', function(){
 	            self.onCancel();
-	        });
-	    }
+	        })
+	    }*/
 	    (0, _dom.addClass)(this._panel, 'is-visible');
 	    if (!_env.env.isMobile) {
 	        if (this.options.showFix) {
@@ -10757,19 +10776,7 @@
 					model: viewModel
 				});
 			}
-			// input输入blur时显示下一个编辑控件
-			$('input', $(compDiv)).on('keydown', function (e) {
-				var keyCode = e.keyCode;
-				if (e.keyCode == 13 || e.keyCode == 9) {
-					// 回车
-					this.blur(); //首先触发blur来将修改值反应到datatable中
-					// IE11会导致先触发nextEditShow后触发blur的处理
-					setTimeout(function () {
-						oThis.grid.nextEditShow();
-					}, 100);
-					(0, _event.stopEvent)(e);
-				}
-			});
+
 			if (comp && comp.dataAdapter) {
 				comp = comp.dataAdapter;
 			}
@@ -13307,7 +13314,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  	thumb.appendChild(focusHelper);*/
+	  		thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
