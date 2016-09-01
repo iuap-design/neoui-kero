@@ -1099,7 +1099,8 @@ var GridAdapter = BaseAdapter.extend({
                 min: min,
                 maxNotEq: maxNotEq,
                 minNotEq: minNotEq,
-                reg: reg
+                reg: reg,
+                showFix: true
         	});
 			for (var i = 0; i < rows.length; i++) {
 				var value = rows[i].value[field];
