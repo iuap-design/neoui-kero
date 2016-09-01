@@ -12,7 +12,7 @@ import {getJSObject} from 'neoui-sparrow/js/util';
 import {Combo} from 'neoui/js/neoui-combo';
 import {env} from 'neoui-sparrow/js/env';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
-import {removeClass} from 'neoui-sparrow/js/dom';
+import {addClass,removeClass} from 'neoui-sparrow/js/dom';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var ComboboxAdapter = BaseAdapter.extend({

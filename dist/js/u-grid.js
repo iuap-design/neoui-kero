@@ -340,14 +340,15 @@
 			if($('#' + this.options.id)[0])
 				$('#' + this.options.id)[0].innerHTML = '';
 			var htmlStr = '<div id="' + this.options.id + '_grid" class="u-grid-grid">';
-				htmlStr += this.createColumnMenu();
+				// htmlStr += this.createColumnMenu();
 				htmlStr += this.createHeader();
 			htmlStr += this.createContent();
 			htmlStr += '</div>';
 			if($('#' + this.options.id)[0])
 				$('#' + this.options.id).html(htmlStr);
-			this.headerFirstClassFun();
+			$(document.body).append(this.createColumnMenu());
 			this.initGridEventFun();
+			this.headerFirstClassFun();
 			this.showType = 'grid';
 			this.afterGridDivsCreate();
 			this.createGridFlag = true;
@@ -3012,7 +3013,7 @@
 
 		$(document).on('click',function(){
 			if(oThis.columnMenuMove == false && oThis.ele.createColumnMenuFlag == false){
-				$('#' + oThis.options.id + '_column_menu',oThis.$ele).css('display','none');
+				$('#' + oThis.options.id + '_column_menu').css('display','none');
 			}
 			oThis.ele.createColumnMenuFlag = false;
 		});
