@@ -3,7 +3,7 @@
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-16 10:44:14
  */
-import {BaseAdapter} from './baseAdapter';
+import {BaseAdapter} from '../core/baseAdapter';
 import {Year} from 'neoui/js/neoui-year';
 import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';

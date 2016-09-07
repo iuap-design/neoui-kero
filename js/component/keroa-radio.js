@@ -4,11 +4,11 @@
  * Date	  : 2016-08-10 10:33:09
  */
 
-import {BaseAdapter} from './baseAdapter';
-import {ValueMixin} from './valueMixin';
-import {EnableMixin} from './enableMixin';
-import {RequiredMixin} from './requiredMixin';
-import {ValidateMixin} from './validateMixin';
+import {BaseAdapter} from '../core/baseAdapter';
+import {ValueMixin} from '../core/valueMixin';
+import {EnableMixin} from '../core/enableMixin';
+import {RequiredMixin} from '../core/requiredMixin';
+import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
 import {makeDOM} from 'neoui-sparrow/js/dom';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';

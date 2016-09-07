@@ -35,7 +35,7 @@ var config = {
 		path: __dirname + '/dist/js',
 		filename: outputFile,
 		//library: 'u',
-		libraryTarget: 'var',
+		libraryTarget: 'umd',
 		umdNamedDefine: true
 	},
 	module: {

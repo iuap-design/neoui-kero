@@ -5,7 +5,17 @@
  * homepage : https://github.com/iuap-design/kero-adapter#readme
  * bugs : https://github.com/iuap-design/kero-adapter/issues
  **/ 
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -1601,8 +1611,6 @@
 	});
 	exports.DataTable = undefined;
 
-	var _extend = __webpack_require__(8);
-
 	var _indexEvents = __webpack_require__(30);
 
 	var _copyRow = __webpack_require__(32);
@@ -1651,189 +1659,190 @@
 
 	var _util = __webpack_require__(48);
 
-	var _events = __webpack_require__(31);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
-	                                                                                                                                                           * Module : Kero webpack entry dataTable index
-	                                                                                                                                                           * Author : liuyk(liuyuekai@yonyou.com)
-	                                                                                                                                                           * Date   : 2016-08-09 15:24:46
-	                                                                                                                                                           */
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	var DataTable =
-	// class DataTable extends Events{
-	function DataTable(options) {
-	    _classCallCheck(this, DataTable);
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Module : Kero webpack entry dataTable index
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Author : liuyk(liuyuekai@yonyou.com)
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Date   : 2016-08-09 15:24:46
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
-	    // IE9下转化之后的代码有问题，无法获得superClass方法
-	    // super();
-	    this.on = _events.on;
-	    this.off = _events.off;
-	    this.one = _events.one;
-	    this.trigger = _events.trigger;
-	    this.getEvent = _events.getEvent;
+	var DataTable = function (_Events) {
+	    _inherits(DataTable, _Events);
 
-	    options = options || {};
-	    this.id = options['id'];
-	    this.strict = options['strict'] || false;
-	    this.meta = DataTable.createMetaItems(options['meta']);
-	    this.enable = options['enable'] || DataTable.DEFAULTS.enable;
-	    this.pageSize = ko.observable(options['pageSize'] || DataTable.DEFAULTS.pageSize);
-	    this.pageIndex = ko.observable(options['pageIndex'] || DataTable.DEFAULTS.pageIndex);
-	    this.totalPages = ko.observable(options['totalPages'] || DataTable.DEFAULTS.totalPages);
-	    this.totalRow = ko.observable();
-	    this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
-	    this.rows = ko.observableArray([]);
-	    this.selectedIndices = ko.observableArray([]);
-	    this._oldCurrentIndex = -1;
-	    this.focusIndex = ko.observable(-1);
-	    this.cachedPages = [];
-	    this.metaChange = {};
-	    this.valueChange = {}; //ko.observable(1);
-	    this.currentRowChange = ko.observable(1);
-	    this.enableChange = ko.observable(1);
-	    this.params = options['params'] || {};
-	    this.master = options['master'] || '';
-	    this.allSelected = ko.observable(false);
-	    if (options['root']) {
-	        this.root = options['root'];
-	    } else {
-	        this.root = this;
+	    function DataTable(options) {
+	        _classCallCheck(this, DataTable);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DataTable).call(this));
+
+	        options = options || {};
+	        _this.id = options['id'];
+	        _this.strict = options['strict'] || false;
+	        _this.meta = DataTable.createMetaItems(options['meta']);
+	        _this.enable = options['enable'] || DataTable.DEFAULTS.enable;
+	        _this.pageSize = ko.observable(options['pageSize'] || DataTable.DEFAULTS.pageSize);
+	        _this.pageIndex = ko.observable(options['pageIndex'] || DataTable.DEFAULTS.pageIndex);
+	        _this.totalPages = ko.observable(options['totalPages'] || DataTable.DEFAULTS.totalPages);
+	        _this.totalRow = ko.observable();
+	        _this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
+	        _this.rows = ko.observableArray([]);
+	        _this.selectedIndices = ko.observableArray([]);
+	        _this._oldCurrentIndex = -1;
+	        _this.focusIndex = ko.observable(-1);
+	        _this.cachedPages = [];
+	        _this.metaChange = {};
+	        _this.valueChange = {}; //ko.observable(1);
+	        _this.currentRowChange = ko.observable(1);
+	        _this.enableChange = ko.observable(1);
+	        _this.params = options['params'] || {};
+	        _this.master = options['master'] || '';
+	        _this.allSelected = ko.observable(false);
+	        if (options['root']) {
+	            _this.root = options['root'];
+	        } else {
+	            _this.root = _this;
+	        }
+	        if (options['ns']) {
+	            _this.ns = options['ns'];
+	        } else {
+	            _this.ns = '';
+	        }
+
+	        //copyRow
+	        _this.copyRow = _copyRow.copyRow;
+	        _this.copyRows = _copyRow.copyRows;
+
+	        //data
+	        _this.setData = _data.setData;
+	        _this.setValue = _data.setValue;
+
+	        //enable
+	        _this.isEnable = _enable.isEnable;
+	        _this.setEnable = _enable.setEnable;
+
+	        //getData
+	        _this.getData = _getData.getData;
+	        _this.getDataByRule = _getData.getDataByRule;
+	        _this.getRow = _getData.getRow;
+	        _this.getRowByRowId = _getData.getRowByRowId;
+	        _this.getRowIndex = _getData.getRowIndex;
+	        _this.getRowsByField = _getData.getRowsByField;
+	        _this.getRowByField = _getData.getRowByField;
+	        _this.getAllRows = _getData.getAllRows;
+	        _this.getAllPageRows = _getData.getAllPageRows;
+	        _this.getChangedDatas = _getData.getChangedDatas;
+	        _this.getChangedRows = _getData.getChangedRows;
+	        _this.getValue = _getData.getValue;
+	        _this.getIndexByRowId = _getData.getIndexByRowId;
+	        _this.getAllDatas = _getData.getAllDatas;
+	        _this.getRowIdsByIndices = _getData.getRowIdsByIndices;
+
+	        //getCurrent
+	        _this.getCurrentRow = _getCurrent.getCurrentRow;
+	        _this.getCurrentIndex = _getCurrent.getCurrentIndex;
+
+	        //getFocus
+	        _this.getFocusRow = _getFocus.getFocusRow;
+	        _this.getFocusIndex = _getFocus.getFocusIndex;
+
+	        //getMeta
+	        _this.getMeta = _getMeta.getMeta;
+	        _this.getRowMeta = _getMeta.getRowMeta;
+
+	        //getPage
+	        _this.getPage = _getPage.getPage;
+	        _this.getPages = _getPage.getPages;
+
+	        //getParam
+	        _this.getParam = _getParam.getParam;
+
+	        //getSelect
+	        _this.getSelectedIndex = _getSelect.getSelectedIndex;
+	        _this.getSelectedIndices = _getSelect.getSelectedIndices;
+	        _this.getSelectedIndexs = _getSelect.getSelectedIndexs;
+	        _this.getSelectedDatas = _getSelect.getSelectedDatas;
+	        _this.getSelectedRows = _getSelect.getSelectedRows;
+
+	        //getSimpleData
+	        _this.getSimpleData = _getSimpleData.getSimpleData;
+
+	        //meta
+	        _this.setMeta = _meta.setMeta;
+	        _this.updateMeta = _meta.updateMeta;
+	        _this.createField = _meta.createField;
+
+	        //page
+	        _this.setCurrentPage = _page.setCurrentPage;
+	        _this.updatePages = _page.updatePages;
+	        _this.setPages = _page.setPages;
+	        _this.hasPage = _page.hasPage;
+	        _this.clearCache = _page.clearCache;
+	        _this.cacheCurrentPage = _page.cacheCurrentPage;
+
+	        //param
+	        _this.addParam = _param.addParam;
+	        _this.addParams = _param.addParams;
+
+	        //ref
+	        _this.refSelectedRows = _ref.refSelectedRows;
+	        _this.ref = _ref.ref;
+	        _this.refMeta = _ref.refMeta;
+	        _this.refRowMeta = _ref.refRowMeta;
+	        _this.refEnable = _ref.refEnable;
+
+	        //row
+	        _this.setRows = _row.setRows;
+	        _this.addRow = _row.addRow;
+	        _this.addRows = _row.addRows;
+	        _this.insertRow = _row.insertRow;
+	        _this.insertRows = _row.insertRows;
+	        _this.createEmptyRow = _row.createEmptyRow;
+
+	        //removeRow
+	        _this.removeRowByRowId = _removeRow.removeRowByRowId;
+	        _this.removeRow = _removeRow.removeRow;
+	        _this.removeAllRows = _removeRow.removeAllRows;
+	        _this.removeRows = _removeRow.removeRows;
+	        _this.clear = _removeRow.clear;
+
+	        //rowCurrent
+	        _this.updateCurrIndex = _rowCurrent.updateCurrIndex;
+
+	        //rowDelete
+	        _this.setRowDelete = _rowDelete.setRowDelete;
+	        _this.setAllRowsDelete = _rowDelete.setAllRowsDelete;
+	        _this.setRowsDelete = _rowDelete.setRowsDelete;
+
+	        //rowFocus
+	        _this.setRowFocus = _rowFocus.setRowFocus;
+	        _this.setRowUnFocus = _rowFocus.setRowUnFocus;
+	        _this.updateFocusIndex = _rowFocus.updateFocusIndex;
+
+	        //rowSelect
+	        _this.setAllRowsSelect = _rowSelect.setAllRowsSelect;
+	        _this.setRowSelect = _rowSelect.setRowSelect;
+	        _this.setRowsSelect = _rowSelect.setRowsSelect;
+	        _this.addRowSelect = _rowSelect.addRowSelect;
+	        _this.addRowsSelect = _rowSelect.addRowsSelect;
+	        _this.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
+	        _this.setRowUnSelect = _rowSelect.setRowUnSelect;
+	        _this.setRowsUnSelect = _rowSelect.setRowsUnSelect;
+	        _this.toggleAllSelect = _rowSelect.toggleAllSelect;
+	        _this.updateSelectedIndices = _rowSelect.updateSelectedIndices;
+
+	        //simpleData
+	        _this.setSimpleData = _simpleData.setSimpleData;
+	        _this.addSimpleData = _simpleData.addSimpleData;
+
+	        //util
+	        _this.isChanged = _util.isChanged;
+	        return _this;
 	    }
-	    if (options['ns']) {
-	        this.ns = options['ns'];
-	    } else {
-	        this.ns = '';
-	    }
 
-	    //copyRow
-	    this.copyRow = _copyRow.copyRow;
-	    this.copyRows = _copyRow.copyRows;
-
-	    //data
-	    this.setData = _data.setData;
-	    this.setValue = _data.setValue;
-
-	    //enable
-	    this.isEnable = _enable.isEnable;
-	    this.setEnable = _enable.setEnable;
-
-	    //getData
-	    this.getData = _getData.getData;
-	    this.getDataByRule = _getData.getDataByRule;
-	    this.getRow = _getData.getRow;
-	    this.getRowByRowId = _getData.getRowByRowId;
-	    this.getRowIndex = _getData.getRowIndex;
-	    this.getRowsByField = _getData.getRowsByField;
-	    this.getRowByField = _getData.getRowByField;
-	    this.getAllRows = _getData.getAllRows;
-	    this.getAllPageRows = _getData.getAllPageRows;
-	    this.getChangedDatas = _getData.getChangedDatas;
-	    this.getChangedRows = _getData.getChangedRows;
-	    this.getValue = _getData.getValue;
-	    this.getIndexByRowId = _getData.getIndexByRowId;
-	    this.getAllDatas = _getData.getAllDatas;
-	    this.getRowIdsByIndices = _getData.getRowIdsByIndices;
-
-	    //getCurrent
-	    this.getCurrentRow = _getCurrent.getCurrentRow;
-	    this.getCurrentIndex = _getCurrent.getCurrentIndex;
-
-	    //getFocus
-	    this.getFocusRow = _getFocus.getFocusRow;
-	    this.getFocusIndex = _getFocus.getFocusIndex;
-
-	    //getMeta
-	    this.getMeta = _getMeta.getMeta;
-	    this.getRowMeta = _getMeta.getRowMeta;
-
-	    //getPage
-	    this.getPage = _getPage.getPage;
-	    this.getPages = _getPage.getPages;
-
-	    //getParam
-	    this.getParam = _getParam.getParam;
-
-	    //getSelect
-	    this.getSelectedIndex = _getSelect.getSelectedIndex;
-	    this.getSelectedIndices = _getSelect.getSelectedIndices;
-	    this.getSelectedIndexs = _getSelect.getSelectedIndexs;
-	    this.getSelectedDatas = _getSelect.getSelectedDatas;
-	    this.getSelectedRows = _getSelect.getSelectedRows;
-
-	    //getSimpleData
-	    this.getSimpleData = _getSimpleData.getSimpleData;
-
-	    //meta
-	    this.setMeta = _meta.setMeta;
-	    this.updateMeta = _meta.updateMeta;
-	    this.createField = _meta.createField;
-
-	    //page
-	    this.setCurrentPage = _page.setCurrentPage;
-	    this.updatePages = _page.updatePages;
-	    this.setPages = _page.setPages;
-	    this.hasPage = _page.hasPage;
-	    this.clearCache = _page.clearCache;
-	    this.cacheCurrentPage = _page.cacheCurrentPage;
-
-	    //param
-	    this.addParam = _param.addParam;
-	    this.addParams = _param.addParams;
-
-	    //ref
-	    this.refSelectedRows = _ref.refSelectedRows;
-	    this.ref = _ref.ref;
-	    this.refMeta = _ref.refMeta;
-	    this.refRowMeta = _ref.refRowMeta;
-	    this.refEnable = _ref.refEnable;
-
-	    //row
-	    this.setRows = _row.setRows;
-	    this.addRow = _row.addRow;
-	    this.addRows = _row.addRows;
-	    this.insertRow = _row.insertRow;
-	    this.insertRows = _row.insertRows;
-	    this.createEmptyRow = _row.createEmptyRow;
-
-	    //removeRow
-	    this.removeRowByRowId = _removeRow.removeRowByRowId;
-	    this.removeRow = _removeRow.removeRow;
-	    this.removeAllRows = _removeRow.removeAllRows;
-	    this.removeRows = _removeRow.removeRows;
-	    this.clear = _removeRow.clear;
-
-	    //rowCurrent
-	    this.updateCurrIndex = _rowCurrent.updateCurrIndex;
-
-	    //rowDelete
-	    this.setRowDelete = _rowDelete.setRowDelete;
-	    this.setAllRowsDelete = _rowDelete.setAllRowsDelete;
-	    this.setRowsDelete = _rowDelete.setRowsDelete;
-
-	    //rowFocus
-	    this.setRowFocus = _rowFocus.setRowFocus;
-	    this.setRowUnFocus = _rowFocus.setRowUnFocus;
-	    this.updateFocusIndex = _rowFocus.updateFocusIndex;
-
-	    //rowSelect
-	    this.setAllRowsSelect = _rowSelect.setAllRowsSelect;
-	    this.setRowSelect = _rowSelect.setRowSelect;
-	    this.setRowsSelect = _rowSelect.setRowsSelect;
-	    this.addRowSelect = _rowSelect.addRowSelect;
-	    this.addRowsSelect = _rowSelect.addRowsSelect;
-	    this.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
-	    this.setRowUnSelect = _rowSelect.setRowUnSelect;
-	    this.setRowsUnSelect = _rowSelect.setRowsUnSelect;
-	    this.toggleAllSelect = _rowSelect.toggleAllSelect;
-	    this.updateSelectedIndices = _rowSelect.updateSelectedIndices;
-
-	    //simpleData
-	    this.setSimpleData = _simpleData.setSimpleData;
-	    this.addSimpleData = _simpleData.addSimpleData;
-
-	    //util
-	    this.isChanged = _util.isChanged;
-	};
+	    return DataTable;
+	}(_indexEvents.Events);
 
 	DataTable.DEFAULTS = {
 	    pageSize: 20,
@@ -1888,7 +1897,7 @@
 	    for (var key in metas) {
 	        var meta = metas[key];
 	        if (typeof meta == 'string') meta = {};
-	        newMetas[key] = (0, _extend.extend)({}, DataTable.META_DEFAULTS, meta);
+	        newMetas[key] = u.extend({}, DataTable.META_DEFAULTS, meta);
 	    }
 	    return newMetas;
 	};
@@ -4394,55 +4403,51 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _checkbox = __webpack_require__(77);
+	var _keroaCheckbox = __webpack_require__(77);
 
-	var _ckeditor = __webpack_require__(88);
+	var _keroaCkeditor = __webpack_require__(88);
 
-	var _combobox = __webpack_require__(89);
+	var _keroaCombo = __webpack_require__(89);
 
-	var _currency = __webpack_require__(92);
+	var _keroaCurrency = __webpack_require__(92);
 
-	var _datetime = __webpack_require__(96);
+	var _keroaDatetimepicker = __webpack_require__(96);
 
-	var _float = __webpack_require__(94);
+	var _keroaFloat = __webpack_require__(94);
 
-	var _grid = __webpack_require__(98);
+	var _keroaGrid = __webpack_require__(98);
 
-	var _integer = __webpack_require__(101);
+	var _keroaInteger = __webpack_require__(101);
 
-	var _month = __webpack_require__(108);
+	var _keroaMonth = __webpack_require__(108);
 
-	var _nativeCheckbox = __webpack_require__(110);
+	var _keroaPagination = __webpack_require__(110);
 
-	var _nativeRadio = __webpack_require__(111);
+	var _keroaPassword = __webpack_require__(105);
 
-	var _pagination = __webpack_require__(112);
+	var _keroaPercent = __webpack_require__(106);
 
-	var _password = __webpack_require__(105);
+	var _keroaString = __webpack_require__(100);
 
-	var _percent = __webpack_require__(106);
+	var _keroaProgress = __webpack_require__(112);
 
-	var _string = __webpack_require__(100);
+	var _keroaRadio = __webpack_require__(102);
 
-	var _progress = __webpack_require__(114);
+	var _keroaSwitch = __webpack_require__(114);
 
-	var _radio = __webpack_require__(102);
+	var _keroaTextarea = __webpack_require__(116);
 
-	var _switch = __webpack_require__(116);
+	var _keroaTextfield = __webpack_require__(117);
 
-	var _textarea = __webpack_require__(118);
+	var _keroaTime = __webpack_require__(118);
 
-	var _textfield = __webpack_require__(119);
+	var _keroaUrl = __webpack_require__(104);
 
-	var _time = __webpack_require__(120);
+	var _keroaYear = __webpack_require__(121);
 
-	var _url = __webpack_require__(104);
+	var _keroaYearmonth = __webpack_require__(123);
 
-	var _year = __webpack_require__(123);
-
-	var _yearmonth = __webpack_require__(125);
-
-	var _tree = __webpack_require__(127);
+	var _keroaTree = __webpack_require__(125);
 
 	var _enableMixin = __webpack_require__(79);
 
@@ -4456,29 +4461,27 @@
 
 	var ex = {
 		BaseAdapter: _baseAdapter.BaseAdapter,
-		CheckboxAdapter: _checkbox.CheckboxAdapter,
-		CkEditorAdapter: _ckeditor.CkEditorAdapter,
-		ComboboxAdapter: _combobox.ComboboxAdapter,
-		CurrencyAdapter: _currency.CurrencyAdapter,
-		DateTimeAdapter: _datetime.DateTimeAdapter,
-		FloatAdapter: _float.FloatAdapter,
-		IntegerAdapter: _integer.IntegerAdapter,
-		MonthAdapter: _month.MonthAdapter,
-		NativeCheckAdapter: _nativeCheckbox.NativeCheckAdapter,
-		NativeRadioAdapter: _nativeRadio.NativeRadioAdapter,
-		PaginationAdapter: _pagination.PaginationAdapter,
-		PassWordAdapter: _password.PassWordAdapter,
-		PercentAdapter: _percent.PercentAdapter,
-		StringAdapter: _string.StringAdapter,
-		ProgressAdapter: _progress.ProgressAdapter,
-		RadioAdapter: _radio.RadioAdapter,
-		SwitchAdapter: _switch.SwitchAdapter,
-		TextAreaAdapter: _textarea.TextAreaAdapter,
-		TextFieldAdapter: _textfield.TextFieldAdapter,
-		TimeAdapter: _time.TimeAdapter,
-		UrlAdapter: _url.UrlAdapter,
-		YearAdapter: _year.YearAdapter,
-		YearMonthAdapter: _yearmonth.YearMonthAdapter,
+		CheckboxAdapter: _keroaCheckbox.CheckboxAdapter,
+		CkEditorAdapter: _keroaCkeditor.CkEditorAdapter,
+		ComboboxAdapter: _keroaCombo.ComboboxAdapter,
+		CurrencyAdapter: _keroaCurrency.CurrencyAdapter,
+		DateTimeAdapter: _keroaDatetimepicker.DateTimeAdapter,
+		FloatAdapter: _keroaFloat.FloatAdapter,
+		IntegerAdapter: _keroaInteger.IntegerAdapter,
+		MonthAdapter: _keroaMonth.MonthAdapter,
+		PaginationAdapter: _keroaPagination.PaginationAdapter,
+		PassWordAdapter: _keroaPassword.PassWordAdapter,
+		PercentAdapter: _keroaPercent.PercentAdapter,
+		StringAdapter: _keroaString.StringAdapter,
+		ProgressAdapter: _keroaProgress.ProgressAdapter,
+		RadioAdapter: _keroaRadio.RadioAdapter,
+		SwitchAdapter: _keroaSwitch.SwitchAdapter,
+		TextAreaAdapter: _keroaTextarea.TextAreaAdapter,
+		TextFieldAdapter: _keroaTextfield.TextFieldAdapter,
+		TimeAdapter: _keroaTime.TimeAdapter,
+		UrlAdapter: _keroaUrl.UrlAdapter,
+		YearAdapter: _keroaYear.YearAdapter,
+		YearMonthAdapter: _keroaYearmonth.YearMonthAdapter,
 		EnableMixin: _enableMixin.EnableMixin,
 		RequiredMixin: _requiredMixin.RequiredMixin,
 		ValidateMixin: _validateMixin.ValidateMixin,
@@ -5262,8 +5265,7 @@
 		"integer": /^-?\d+$/,
 		"float": /^-?\d+(\.\d+)?$/,
 		"zipCode": /^[0-9]{6}$/,
-		// "phone": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
-		"phone": /^1[3|4|5|7|8]\d{9}$/,
+		"phone": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
 		"landline": /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
 		"email": /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
 		"url": /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
@@ -6176,6 +6178,7 @@
 	        (0, _dom.addClass)(tickOutline, this._CssClasses.TICK_OUTLINE);
 
 	        boxOutline.appendChild(tickOutline);
+
 	        this.element.appendChild(tickContainer);
 	        this.element.appendChild(boxOutline);
 
@@ -6206,11 +6209,9 @@
 	        //this.element.addEventListener('mouseup', this.boundElementMouseUp);
 	        if (!(0, _dom.hasClass)(this.element, 'only-style')) {
 	            (0, _event.on)(this.element, 'click', function (e) {
-	                if (e.target.nodeName != 'INPUT') {
-	                    if (!this._inputElement.disabled) {
-	                        this.toggle();
-	                        (0, _event.stopEvent)(e);
-	                    }
+	                if (!this._inputElement.disabled) {
+	                    this.toggle();
+	                    (0, _event.stopEvent)(e);
 	                }
 	            }.bind(this));
 	        }
@@ -7151,12 +7152,9 @@
 	                }
 	            }
 	            /*根据多选区域div的高度调整input的高度*/
-	            /*实际上input的高度并不需要调整*/
-	            /*var h = this._combo_name_par.offsetHeight;
-	            if(h < 25){
-	                h = 25;
-	                this._input.style.height = h + 'px';
-	            }*/
+	            var h = this._combo_name_par.offsetHeight;
+	            if (h < 25) h = 25;
+	            this._input.style.height = h + 'px';
 	        } else {
 	            for (var i = 0; i < lis.length; i++) {
 	                if (this.value == this.comboDatas[i].value) {
@@ -7509,7 +7507,7 @@
 
 	var _formater = __webpack_require__(93);
 
-	var _float = __webpack_require__(94);
+	var _keroaFloat = __webpack_require__(94);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -7526,7 +7524,7 @@
 	 * Date	  : 2016-08-09 13:42:14
 	 */
 
-	var CurrencyAdapter = _float.FloatAdapter.extend({
+	var CurrencyAdapter = _keroaFloat.FloatAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        CurrencyAdapter.superclass.init.apply(this);
@@ -8593,11 +8591,11 @@
 	    //new UText(this._element);
 	    this._input = this._element.querySelector("input");
 
-	    // if(env.isMobile){
-	    //     // setTimeout(function(){
-	    //     //     self._input.setAttribute('readonly','readonly');
-	    //     // },1000);
-	    // }
+	    if (_env.env.isMobile) {
+	        // setTimeout(function(){
+	        //     self._input.setAttribute('readonly','readonly');
+	        // },1000);
+	    }
 
 	    setTimeout(function () {
 	        self._input.setAttribute('readonly', 'readonly');
@@ -8605,8 +8603,7 @@
 
 	    (0, _event.on)(this._input, 'focus', function (e) {
 	        // 用来关闭键盘
-	        /*if(env.isMobile)
-	            this.blur();*/
+	        if (_env.env.isMobile) this.blur();
 	        self._inputFocus = true;
 	        if (self.isShow !== true) {
 	            self.show(e);
@@ -8654,7 +8651,7 @@
 	    if (_env.env.isIE8 || _env.env.isIE9 || _env.env.isFF) {
 	        // this._dateContent.removeChild(this.contentPage);
 	        var pages = this._dateContent.querySelectorAll('.u-date-content-page');
-	        for (var i = 0; i < pages.length; i++) {
+	        for (i = 0; i < pages.length; i++) {
 	            this._dateContent.removeChild(pages[i]);
 	        }
 	        this.contentPage = newPage;
@@ -8671,7 +8668,7 @@
 	            newPage.removeEventListener('webkitTransitionEnd', cleanup);
 	            // this._dateContent.removeChild(this.contentPage);
 	            var pages = this._dateContent.querySelectorAll('.u-date-content-page');
-	            for (var i = 0; i < pages.length; i++) {
+	            for (i = 0; i < pages.length; i++) {
 	                this._dateContent.removeChild(pages[i]);
 	            }
 	            this.contentPage = newPage;
@@ -8706,7 +8703,7 @@
 	    this._dateContent.appendChild(newPage);
 	    if (_env.env.isIE8 || _env.env.isIE9 || _env.env.isFF) {
 	        var pages = this._dateContent.querySelectorAll('.u-date-content-page');
-	        for (var i = 0; i < pages.length; i++) {
+	        for (i = 0; i < pages.length; i++) {
 	            this._dateContent.removeChild(pages[i]);
 	        }
 	        // this._dateContent.removeChild(this.contentPage);
@@ -8719,7 +8716,7 @@
 	            newPage.removeEventListener('webkitTransitionEnd', cleanup);
 	            // this._dateContent.removeChild(this.contentPage);
 	            var pages = this._dateContent.querySelectorAll('.u-date-content-page');
-	            for (var i = 0; i < pages.length; i++) {
+	            for (i = 0; i < pages.length; i++) {
 	                this._dateContent.removeChild(pages[i]);
 	            }
 	            this.contentPage = newPage;
@@ -8807,7 +8804,7 @@
 	    });*/
 
 	    yearDiv = yearPage.querySelector('.u-date-content-panel');
-	    for (var i = 0; i < 12; i++) {
+	    for (i = 0; i < 12; i++) {
 
 	        cell = (0, _dom.makeDOM)('<div class="u-date-content-year-cell">' + (this.startYear + i) + '</div>');
 	        new _ripple.URipple(cell);
@@ -8896,7 +8893,7 @@
 	    });*/
 
 	    cells = monthPage.querySelectorAll('.u-date-content-year-cell');
-	    for (var i = 0; i < cells.length; i++) {
+	    for (i = 0; i < cells.length; i++) {
 	        if (_month - 1 == i) {
 	            (0, _dom.addClass)(cells[i], 'current');
 	        }
@@ -9011,7 +9008,7 @@
 
 	    weekSpans = datePage.querySelectorAll('.u-date-week span');
 
-	    for (var i = 0; i < 7; i++) {
+	    for (i = 0; i < 7; i++) {
 	        weekSpans[i].innerHTML = _dateUtils.date._dateLocale[language].weekdaysMin[i];
 	    }
 	    dateDiv = datePage.querySelector('.u-date-content-panel');
@@ -9546,10 +9543,10 @@
 	    var self = this;
 	    if (!this._panel) {
 	        this._panel = (0, _dom.makeDOM)(dateTimePickerTemplateArr.join(""));
-	        /*if(env.isMobile){
-	            removeClass(this._panel,'u-date-panel')
-	            addClass(this._panel,'u-date-panel-mobile');
-	        }*/
+	        if (_env.env.isMobile) {
+	            (0, _dom.removeClass)(this._panel, 'u-date-panel');
+	            (0, _dom.addClass)(this._panel, 'u-date-panel-mobile');
+	        }
 	        this._dateNav = this._panel.querySelector('.u-date-nav');
 	        if (this.type === 'date' && !_env.env.isMobile) {
 	            this._dateNav.style.display = 'none';
@@ -9627,12 +9624,12 @@
 	    (0, _event.on)(window, 'resize', function () {
 	        self._response();
 	    });
-	    /*if(env.isMobile){
-	        this.overlayDiv = makeModal(this._panel);
-	        on(this.overlayDiv, 'click', function(){
+	    if (_env.env.isMobile) {
+	        this.overlayDiv = (0, _dom.makeModal)(this._panel);
+	        (0, _event.on)(this.overlayDiv, 'click', function () {
 	            self.onCancel();
-	        })
-	    }*/
+	        });
+	    }
 	    (0, _dom.addClass)(this._panel, 'is-visible');
 	    if (!_env.env.isMobile) {
 	        if (this.options.showFix) {
@@ -9806,27 +9803,27 @@
 
 	var _event = __webpack_require__(6);
 
-	var _string = __webpack_require__(100);
+	var _keroaString = __webpack_require__(100);
 
-	var _integer = __webpack_require__(101);
+	var _keroaInteger = __webpack_require__(101);
 
-	var _checkbox = __webpack_require__(77);
+	var _keroaCheckbox = __webpack_require__(77);
 
-	var _combobox = __webpack_require__(89);
+	var _keroaCombo = __webpack_require__(89);
 
-	var _radio = __webpack_require__(102);
+	var _keroaRadio = __webpack_require__(102);
 
-	var _float = __webpack_require__(94);
+	var _keroaFloat = __webpack_require__(94);
 
-	var _currency = __webpack_require__(92);
+	var _keroaCurrency = __webpack_require__(92);
 
-	var _datetime = __webpack_require__(96);
+	var _keroaDatetimepicker = __webpack_require__(96);
 
-	var _url = __webpack_require__(104);
+	var _keroaUrl = __webpack_require__(104);
 
-	var _password = __webpack_require__(105);
+	var _keroaPassword = __webpack_require__(105);
 
-	var _percent = __webpack_require__(106);
+	var _keroaPercent = __webpack_require__(106);
 
 	var _neouiValidate = __webpack_require__(82);
 
@@ -10600,7 +10597,7 @@
 					compDiv.addClass("eType-input");
 				}
 				eOptions.dataType = 'string';
-				comp = new _string.StringAdapter({
+				comp = new _keroaString.StringAdapter({
 					el: compDiv[0],
 					options: eOptions,
 					model: viewModel
@@ -10611,7 +10608,7 @@
 					compDiv.addClass("eType-input");
 				}
 				eOptions.dataType = 'integer';
-				comp = new _integer.IntegerAdapter({
+				comp = new _keroaInteger.IntegerAdapter({
 					el: compDiv[0],
 					options: eOptions,
 					model: viewModel
@@ -10625,7 +10622,7 @@
 				if ($.CheckboxComp) {
 					comp = new $.CheckboxComp(compDiv.find("input")[0], eOptions, viewModel);
 				} else {
-					comp = new _checkbox.CheckboxAdapter({
+					comp = new _keroaCheckbox.CheckboxAdapter({
 						el: compDiv[0],
 						options: eOptions,
 						model: viewModel
@@ -10647,7 +10644,7 @@
 					compDiv = $('<div class="input-group  form_date u-grid-edit-item-comb"><div  type="text" class="form-control grid-combox"></div><i class="input-group-addon" ><i class="uf uf-anglearrowdown"></i></i></div>');
 					comp = new $.Combobox(compDiv[0], eOptions, viewModel);
 				} else {
-					comp = new _combobox.ComboboxAdapter({
+					comp = new _keroaCombo.ComboboxAdapter({
 						el: compDiv[0],
 						options: eOptions,
 						model: viewModel
@@ -10667,7 +10664,7 @@
 				} else {
 					compDiv = $('<div class="u-grid-edit-item-radio"><input type="radio" name="identity" /><i data-role="name"></i></div>');
 					//comp = new $.compManager.plugs.radio(compDiv[0],eOptions,viewModel);
-					comp = new _radio.RadioAdapter({
+					comp = new _keroaRadio.RadioAdapter({
 						el: compDiv[0],
 						options: eOptions,
 						model: viewModel
@@ -10680,7 +10677,7 @@
 				}
 				//comp = new $.compManager.plugs.float(compDiv.find("input")[0],eOptions,viewModel);
 				eOptions.dataType = 'float';
-				comp = new _float.FloatAdapter({
+				comp = new _keroaFloat.FloatAdapter({
 					el: compDiv[0],
 					options: eOptions,
 					model: viewModel
@@ -10692,7 +10689,7 @@
 				}
 				//comp = new $.compManager.plugs.currency(compDiv.find("input")[0],eOptions,viewModel);
 				eOptions.dataType = 'currency';
-				comp = new _currency.CurrencyAdapter({
+				comp = new _keroaCurrency.CurrencyAdapter({
 					el: compDiv[0],
 					options: eOptions,
 					model: viewModel
@@ -10704,7 +10701,7 @@
 				if ($.DateTime) {
 					comp = new $.DateTime(compDiv[0], eOptions, viewModel);
 				} else {
-					comp = new _datetime.DateTimeAdapter({
+					comp = new _keroaDatetimepicker.DateTimeAdapter({
 						el: compDiv[0],
 						options: eOptions,
 						model: viewModel
@@ -10725,7 +10722,7 @@
 					comp = new $.DateComp(compDiv[0], eOptions, viewModel);
 				} else {
 					eOptions.type = 'u-date';
-					comp = new _datetime.DateTimeAdapter({
+					comp = new _keroaDatetimepicker.DateTimeAdapter({
 						el: compDiv[0],
 						options: eOptions,
 						model: viewModel
@@ -10744,7 +10741,7 @@
 					compDiv.addClass("eType-input");
 				}
 				eOptions.dataType = 'url';
-				comp = new _url.UrlAdapter({
+				comp = new _keroaUrl.UrlAdapter({
 					el: compDiv[0],
 					options: eOptions,
 					model: viewModel
@@ -10756,7 +10753,7 @@
 					compDiv.addClass("eType-input");
 				}
 				eOptions.dataType = 'password';
-				comp = new _password.PassWordAdapter({
+				comp = new _keroaPassword.PassWordAdapter({
 					el: compDiv[0],
 					options: eOptions,
 					model: viewModel
@@ -10770,7 +10767,7 @@
 				}
 				//comp = new $.compManager.plugs.float(compDiv.find("input")[0],eOptions,viewModel);
 				eOptions.dataType = 'precent';
-				comp = new _percent.PercentAdapter({
+				comp = new _keroaPercent.PercentAdapter({
 					el: compDiv[0],
 					options: eOptions,
 					model: viewModel
@@ -10881,7 +10878,8 @@
 					min: min,
 					maxNotEq: maxNotEq,
 					minNotEq: minNotEq,
-					reg: reg
+					reg: reg,
+					showFix: true
 				});
 				for (var i = 0; i < rows.length; i++) {
 					var value = rows[i].value[field];
@@ -11704,13 +11702,13 @@
 	});
 	exports.UrlAdapter = undefined;
 
-	var _string = __webpack_require__(100);
+	var _keroaString = __webpack_require__(100);
 
 	var _dom = __webpack_require__(5);
 
 	var _compMgr = __webpack_require__(4);
 
-	var UrlAdapter = _string.StringAdapter.extend({
+	var UrlAdapter = _keroaString.StringAdapter.extend({
 	    init: function init() {
 	        UrlAdapter.superclass.init.apply(this);
 	        this.validType = 'url';
@@ -11773,7 +11771,7 @@
 	});
 	exports.PassWordAdapter = undefined;
 
-	var _string = __webpack_require__(100);
+	var _keroaString = __webpack_require__(100);
 
 	var _util = __webpack_require__(10);
 
@@ -11786,7 +11784,7 @@
 	/**
 	 * 密码控件
 	 */
-	var PassWordAdapter = _string.StringAdapter.extend({
+	var PassWordAdapter = _keroaString.StringAdapter.extend({
 	    init: function init() {
 	        PassWordAdapter.superclass.init.apply(this);
 	        var oThis = this;
@@ -11847,7 +11845,7 @@
 	});
 	exports.PercentAdapter = undefined;
 
-	var _float = __webpack_require__(94);
+	var _keroaFloat = __webpack_require__(94);
 
 	var _formater = __webpack_require__(93);
 
@@ -11860,7 +11858,7 @@
 	/**
 	 * 百分比控件
 	 */
-	var PercentAdapter = _float.FloatAdapter.extend({
+	var PercentAdapter = _keroaFloat.FloatAdapter.extend({
 	  init: function init() {
 	    PercentAdapter.superclass.init.apply(this);
 	    this.validType = 'float';
@@ -11942,14 +11940,14 @@
 		var closeBtn = msgDom.querySelector('.u-msg-close');
 		//new Button({el:closeBtn});
 		var closeFun = function closeFun() {
-			(0, _dom.removeClass)(msgDom, "active");
+			u.removeClass(msgDom, "active");
 			setTimeout(function () {
 				try {
 					document.body.removeChild(msgDom);
 				} catch (e) {}
 			}, 500);
 		};
-		(0, _event.on)(closeBtn, 'click', closeFun);
+		u.on(closeBtn, 'click', closeFun);
 		document.body.appendChild(msgDom);
 
 		if (showSeconds > 0) {
@@ -12278,255 +12276,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.NativeCheckAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _valueMixin = __webpack_require__(78);
-
-	var _enableMixin = __webpack_require__(79);
-
-	var _util = __webpack_require__(10);
-
-	var _event = __webpack_require__(6);
-
-	var _compMgr = __webpack_require__(4);
-
-	/**
-	 * Module : Kero native-checkbox
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 18:55:51
-	 */
-
-	var NativeCheckAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin],
-	    init: function init() {
-	        var self = this;
-	        this.isGroup = false;
-	        //如果存在datasource，动态创建checkbox
-	        if (this.options['datasource']) {
-	            this.isGroup = true;
-	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-
-	            this.checkboxTemplateArray = [];
-	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
-	                this.checkboxTemplateArray.push(this.element.childNodes[i]);
-	            }
-	            this.setComboData(datasource);
-	        } else {
-	            this.checkedValue = this.options['checkedValue'] || 'Y';
-	            this.unCheckedValue = this.options["unCheckedValue"] || 'N';
-	            (0, _event.on)(this.element, 'click', function () {
-	                if (this.checked) {
-	                    self.dataModel.setValue(self.field, self.checkedValue);
-	                } else {
-	                    self.dataModel.setValue(self.field, self.unCheckedValue);
-	                }
-	            });
-	        }
-	    },
-	    setComboData: function setComboData(comboData) {
-	        var self = this;
-	        this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len; i++) {
-	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
-	                try {
-	                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode());
-	                } catch (e) {}
-	            }
-	            //this.radioTemplate.clone().appendTo(this.element)
-	        }
-
-	        var allCheck = this.element.querySelectorAll('[type=checkbox]');
-	        var allName = this.element.querySelectorAll('[data-role=name]');
-	        for (var k = 0; k < allCheck.length; k++) {
-	            allCheck[k].value = comboData[k].pk || comboData[k].value;
-	            allName[k].innerHTML = comboData[k].name;
-	        }
-
-	        this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
-	            (0, _event.on)(ele, 'click', function () {
-	                var modelValue = self.dataModel.getValue(self.field);
-
-	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
-
-	                if (this.checked) {
-	                    valueArr.push(this.value);
-	                } else {
-	                    var index = valueArr.indexOf(this.value);
-	                    valueArr.splice(index, 1);
-	                }
-	                self.slice = true;
-	                self.dataModel.setValue(self.field, valueArr.join(','));
-	                self.slice = false;
-	            });
-	        });
-	    },
-	    modelValueChange: function modelValueChange(val) {
-	        var self = this;
-	        if (this.slice) return;
-	        if (this.isGroup) {
-	            this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
-	                if (ele.checked != (val + ',').indexOf(ele.value) > -1) {
-	                    self.slice = true;
-	                    ele.checked = !ele.checked;
-	                    self.slice = false;
-	                }
-	            });
-	        } else {
-	            if (this.element.checked != (val === this.checkedValue)) {
-	                this.slice = true;
-	                this.element.checked = !this.element.checked;
-	                this.slice = false;
-	            }
-	        }
-	    },
-	    setValue: function setValue(value) {
-	        this.trueValue = value;
-	        this.element.querySelectorAll('[type=checkbox]').forEach(function (ele) {
-	            if (ele.value == value) {
-	                ele.checked = true;
-	            } else {
-	                ele.checked = false;
-	            }
-	        });
-	        this.slice = true;
-	        this.dataModel.setValue(this.field, this.trueValue);
-	        this.slice = false;
-	    },
-	    getValue: function getValue() {
-	        return this.trueValue;
-	    }
-
-	});
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: NativeCheckAdapter,
-	    name: 'checkbox'
-	});
-	exports.NativeCheckAdapter = NativeCheckAdapter;
-
-/***/ },
-/* 111 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.NativeRadioAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _valueMixin = __webpack_require__(78);
-
-	var _enableMixin = __webpack_require__(79);
-
-	var _util = __webpack_require__(10);
-
-	var _event = __webpack_require__(6);
-
-	var _compMgr = __webpack_require__(4);
-
-	/**
-	 * Module : Kero native-radio
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 19:03:30
-	 */
-
-	var NativeRadioAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin],
-	    init: function init() {
-	        this.isDynamic = false;
-	        //如果存在datasource，动态创建radio
-	        if (this.options['datasource']) {
-	            this.isDynamic = true;
-	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-	            //if(!u.isArray(datasource)) return;
-
-	            this.radioTemplateArray = [];
-	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
-	                this.radioTemplateArray.push(this.element.childNodes[i]);
-	            }
-	            this.setComboData(datasource);
-	        } else {}
-	    },
-	    setComboData: function setComboData(comboData) {
-	        var self = this;
-	        //if(!this.radioTemplate.is(":radio")) return;
-	        this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len; i++) {
-	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
-	                try {
-	                    this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
-	                } catch (e) {}
-	            }
-	            //this.radioTemplate.clone().appendTo(this.element)
-	        }
-
-	        var allRadio = this.element.querySelectorAll('[type=radio]');
-	        var allName = this.element.querySelectorAll('[data-role=name]');
-	        for (var k = 0; k < allRadio.length; k++) {
-	            allRadio[k].value = comboData[k].pk || comboData[k].value;
-	            allName[k].innerHTML = comboData[k].name;
-	        }
-
-	        this.radioInputName = allRadio[0].name;
-
-	        this.element.querySelectorAll('[type=radio][name="' + this.radioInputName + '"]').forEach(function (ele) {
-	            (0, _event.on)(ele, 'click', function () {
-	                if (this.checked) {
-	                    self.setValue(this.value);
-	                }
-	            });
-	        });
-	    },
-	    modelValueChange: function modelValueChange(value) {
-	        if (this.slice) return;
-	        this.setValue(value);
-	    },
-	    setValue: function setValue(value) {
-	        this.trueValue = value;
-	        this.element.querySelectorAll('[type=radio][name="' + this.radioInputName + '"]').forEach(function (ele) {
-	            if (ele.value == value) {
-	                ele.checked = true;
-	            } else {
-	                ele.checked = false;
-	            }
-	        });
-	        this.slice = true;
-	        this.dataModel.setValue(this.field, this.trueValue);
-	        this.slice = false;
-	    },
-	    getValue: function getValue() {
-	        return this.trueValue;
-	    }
-
-	});
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: NativeRadioAdapter,
-	    name: 'radio'
-	});
-	exports.NativeRadioAdapter = NativeRadioAdapter;
-
-/***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
 	exports.PaginationAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
 
 	var _extend = __webpack_require__(8);
 
-	var _neouiPagination = __webpack_require__(113);
+	var _neouiPagination = __webpack_require__(111);
 
 	var _util = __webpack_require__(10);
 
@@ -12628,7 +12384,7 @@
 	exports.PaginationAdapter = PaginationAdapter;
 
 /***/ },
-/* 113 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13034,7 +12790,7 @@
 	exports.pagination = pagination;
 
 /***/ },
-/* 114 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13046,7 +12802,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiProgress = __webpack_require__(115);
+	var _neouiProgress = __webpack_require__(113);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -13080,7 +12836,7 @@
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 115 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13207,7 +12963,7 @@
 	exports.Progress = Progress;
 
 /***/ },
-/* 116 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13219,7 +12975,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiSwitch = __webpack_require__(117);
+	var _neouiSwitch = __webpack_require__(115);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -13275,7 +13031,7 @@
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 117 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13318,10 +13074,11 @@
 
 			var thumb = document.createElement('div');
 			(0, _dom.addClass)(thumb, this._CssClasses.THUMB);
-			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
-			/*var focusHelper = document.createElement('span');
-	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  		thumb.appendChild(focusHelper);*/
+
+			var focusHelper = document.createElement('span');
+			(0, _dom.addClass)(focusHelper, this._CssClasses.FOCUS_HELPER);
+
+			thumb.appendChild(focusHelper);
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
@@ -13465,7 +13222,7 @@
 	exports.Switch = Switch;
 
 /***/ },
-/* 118 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13519,7 +13276,7 @@
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 119 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13535,11 +13292,11 @@
 
 	var _neouiTextfield = __webpack_require__(91);
 
-	var _float = __webpack_require__(94);
+	var _keroaFloat = __webpack_require__(94);
 
-	var _string = __webpack_require__(100);
+	var _keroaString = __webpack_require__(100);
 
-	var _integer = __webpack_require__(101);
+	var _keroaInteger = __webpack_require__(101);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -13565,11 +13322,11 @@
 	        this.element['u.Text'] = this.comp;
 
 	        if (dataType === 'float') {
-	            this.trueAdpt = new _float.FloatAdapter(options);
+	            this.trueAdpt = new _keroaFloat.FloatAdapter(options);
 	        } else if (dataType === 'string') {
-	            this.trueAdpt = new _string.StringAdapter(options);
+	            this.trueAdpt = new _keroaString.StringAdapter(options);
 	        } else if (dataType === 'integer') {
-	            this.trueAdpt = new _integer.IntegerAdapter(options);
+	            this.trueAdpt = new _keroaInteger.IntegerAdapter(options);
 	        } else {
 	            throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" + this.field + "'");
 	        }
@@ -13603,7 +13360,7 @@
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 120 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13631,9 +13388,9 @@
 
 	var _dateUtils = __webpack_require__(70);
 
-	var _neouiClockpicker = __webpack_require__(121);
+	var _neouiClockpicker = __webpack_require__(119);
 
-	var _neouiTime = __webpack_require__(122);
+	var _neouiTime = __webpack_require__(120);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -13714,7 +13471,7 @@
 	exports.TimeAdapter = TimeAdapter;
 
 /***/ },
-/* 121 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14180,7 +13937,7 @@
 	exports.ClockPicker = ClockPicker;
 
 /***/ },
-/* 122 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14422,7 +14179,7 @@
 	exports.Time = Time;
 
 /***/ },
-/* 123 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14434,7 +14191,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiYear = __webpack_require__(124);
+	var _neouiYear = __webpack_require__(122);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -14476,7 +14233,7 @@
 	exports.YearAdapter = YearAdapter;
 
 /***/ },
-/* 124 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14723,7 +14480,7 @@
 	exports.Year = Year;
 
 /***/ },
-/* 125 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14735,7 +14492,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiYearmonth = __webpack_require__(126);
+	var _neouiYearmonth = __webpack_require__(124);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -14777,7 +14534,7 @@
 	exports.YearMonthAdapter = YearMonthAdapter;
 
 /***/ },
-/* 126 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15101,7 +14858,7 @@
 	exports.YearMonth = YearMonth;
 
 /***/ },
-/* 127 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15113,7 +14870,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiYear = __webpack_require__(124);
+	var _neouiYear = __webpack_require__(122);
 
 	var _util = __webpack_require__(10);
 
@@ -15491,4 +15248,6 @@
 	exports.TreeAdapter = TreeAdapter;
 
 /***/ }
-/******/ ]);
+/******/ ])
+});
+;
