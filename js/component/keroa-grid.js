@@ -807,16 +807,17 @@ var GridAdapter = BaseAdapter.extend({
 		eOptions.showFix = true;
 		var compDiv,comp;
 		if(eType == 'string'){
-			compDiv = $('<div><input type="text" class="u-grid-edit-item-string"></div>');
+			compDiv = $('<div class="u-text"><input type="text" class="u-input"><label class="u-label"></label></div>');
 			if(!options.editType || options.editType =="default" ){
 				compDiv.addClass("eType-input")
 			}
 			eOptions.dataType = 'string';
-			comp = new StringAdapter({
+			comp = new u.TextFieldAdapter({
 				el:compDiv[0],
 				options:eOptions,
 				model: viewModel
 			});
+			//$.compManager.plugs.string(compDiv.find("input")[0],eOptions,viewModel);
 
 		}else if(eType == 'integer'){
 			compDiv = $('<div><input type="text" class="u-grid-edit-item-integer"></div>');

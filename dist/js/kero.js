@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -463,7 +453,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            classConstructor: config.comp,
 	            className: config.compAsString || config['compAsString'],
 	            cssClass: config.css || config['css'],
-	            callbacks: []
+	            callbacks: [],
+	            dependencies: config.dependencies || []
 	        };
 	        config.comp.prototype.compType = config.compAsString;
 	        for (var i = 0; i < this.registeredControls.length; i++) {
@@ -478,9 +469,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	        this.registeredControls.push(newConfig);
 	    },
+
 	    updateComp: function updateComp(ele) {
+	        this._reorderComps();
 	        for (var n = 0; n < this.registeredControls.length; n++) {
 	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
+	        }
+	    },
+	    // 后续遍历registeredControls，重新排列
+	    _reorderComps: function _reorderComps() {
+	        var tmpArray = [];
+	        var dictory = {};
+
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            dictory[this.registeredControls[n].className] = this.registeredControls[n];
+	        }
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            traverse(this.registeredControls[n]);
+	        }
+
+	        this.registeredControls = tmpArray;
+
+	        function traverse(control) {
+	            if (u.inArray(control, tmpArray)) return;
+	            if (control.dependencies.length > 0) {
+	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
+	                    var childControl = dictory[control.dependencies[i]];
+	                    traverse(childControl);
+	                }
+	            }
+	            tmpArray.push(control);
 	        }
 	    }
 	};
@@ -2181,7 +2199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        notPassedArr = new Array();
 	    for (var i = 0; i < comps.length; i++) {
 	        if (comps[i].doValidate) {
-	            result = comps[i].doValidate({ trueValue: true, showMsg: showMsg });
+	            var result = comps[i].doValidate({ trueValue: true, showMsg: showMsg });
 	            // 如果passed为true,result.passed为false说明第一次出现错误校验
 	            if (passed && !result.passed) {
 	                var off = (0, _dom.getOffset)(comps[i].element);
@@ -2288,15 +2306,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var getEnvironment = function getEnvironment() {
-	    return window.iweb.Core.collectEnvironment();
+	    return u.core.collectEnvironment();
 	};
 
 	var setClientAttribute = function setClientAttribute(k, v) {
-	    window.iweb.Core.setClientAttribute(k, v);
+	    u.core.setClientAttribute(k, v);
 	};
 
 	var getClientAttribute = function getClientAttribute(k) {
-	    return window.iweb.Core.getClientAttributes()[k];
+	    return u.core.getClientAttributes()[k];
 	};
 
 	exports.getEnvironment = getEnvironment;
@@ -2354,7 +2372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            deferred.reject();
 	        }
 	    };
-	    if (params.data) params.data.environment = ko.utils.stringifyJson(window.iweb.Core.collectEnvironment());else params.data = { environment: ko.utils.stringifyJson(window.iweb.Core.collectEnvironment()) };
+	    if (params.data) params.data.environment = ko.utils.stringifyJson(u.core.collectEnvironment());else params.data = { environment: ko.utils.stringifyJson(u.core.collectEnvironment()) };
 	    return params;
 	};
 
@@ -2612,8 +2630,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.datas = {};
 	    this.params = {};
 	    this.event = null;
-	    this.ent = window.iweb.Core.collectEnvironment();
-	    if (!iweb.debugMode) {
+	    this.ent = u.core.collectEnvironment();
+	    if (!u.debugMode) {
 	        //此处需要修改
 	        this.compression = true;
 	    }
@@ -2627,6 +2645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // fire
 	    this.fire = _serverFire.fire;
 	    this.setSuccessFunc = _serverFire.setSuccessFunc;
+	    this._successFunc = _serverFire._successFunc;
 
 	    // processXHRError
 	    this.processXHRError = _serverProcessXHRError.processXHRError;
@@ -2732,7 +2751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.setSuccessFunc = exports.fire = undefined;
+	exports.setSuccessFunc = exports._successFunc = exports.fire = undefined;
 
 	var _extend = __webpack_require__(8);
 
@@ -2807,6 +2826,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	exports.fire = fire;
+	exports._successFunc = _successFunc;
 	exports.setSuccessFunc = setSuccessFunc;
 
 /***/ },
@@ -2855,14 +2875,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _event = __webpack_require__(6);
 
-	/**
-	 * Module : kero app serverEvent util
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-07-29 09:34:01
-	 */
+	var _env = __webpack_require__(7);
+
 	var setCompression = function setCompression(compression) {
-	    if (!iweb.browser.isIE8 && !window.pako && compression == true) iweb.log.error("can't compression, please include  pako!");else this.compression = compression;
-	};
+	    if (!_env.env.isIE8 && !window.pako && compression == true) alert("can't compression, please include  pako!");else this.compression = compression;
+	}; /**
+	    * Module : kero app serverEvent util
+	    * Author : liuyk(liuyk@yonyou.com)
+	    * Date   : 2016-07-29 09:34:01
+	    */
+
 
 	var addParameter = function addParameter(key, value) {
 	    this.params[key] = value;
@@ -2892,7 +2914,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        datasJson = window.trimServerEventData(datasJson);
 	    }
 	    if (this.compression) {
-	        if (!iweb.browser.isIE8 && window.pako) {
+	        if (!_env.env.isIE8 && window.pako) {
 	            envJson = encodeBase64(window.pako.gzip(envJson));
 	            datasJson = encodeBase64(window.pako.gzip(datasJson));
 	            compression = true;
@@ -2955,6 +2977,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.DataTable = undefined;
 
+	var _extend = __webpack_require__(8);
+
 	var _indexEvents = __webpack_require__(30);
 
 	var _copyRow = __webpack_require__(32);
@@ -3003,190 +3027,189 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _util = __webpack_require__(48);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _events = __webpack_require__(31);
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
+	                                                                                                                                                           * Module : Kero webpack entry dataTable index
+	                                                                                                                                                           * Author : liuyk(liuyuekai@yonyou.com)
+	                                                                                                                                                           * Date   : 2016-08-09 15:24:46
+	                                                                                                                                                           */
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Module : Kero webpack entry dataTable index
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Author : liuyk(liuyuekai@yonyou.com)
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Date   : 2016-08-09 15:24:46
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	var DataTable =
+	// class DataTable extends Events{
+	function DataTable(options) {
+	    _classCallCheck(this, DataTable);
 
-	var DataTable = function (_Events) {
-	    _inherits(DataTable, _Events);
+	    // IE9下转化之后的代码有问题，无法获得superClass方法
+	    // super();
+	    this.on = _events.on;
+	    this.off = _events.off;
+	    this.one = _events.one;
+	    this.trigger = _events.trigger;
+	    this.getEvent = _events.getEvent;
 
-	    function DataTable(options) {
-	        _classCallCheck(this, DataTable);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DataTable).call(this));
-
-	        options = options || {};
-	        _this.id = options['id'];
-	        _this.strict = options['strict'] || false;
-	        _this.meta = DataTable.createMetaItems(options['meta']);
-	        _this.enable = options['enable'] || DataTable.DEFAULTS.enable;
-	        _this.pageSize = ko.observable(options['pageSize'] || DataTable.DEFAULTS.pageSize);
-	        _this.pageIndex = ko.observable(options['pageIndex'] || DataTable.DEFAULTS.pageIndex);
-	        _this.totalPages = ko.observable(options['totalPages'] || DataTable.DEFAULTS.totalPages);
-	        _this.totalRow = ko.observable();
-	        _this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
-	        _this.rows = ko.observableArray([]);
-	        _this.selectedIndices = ko.observableArray([]);
-	        _this._oldCurrentIndex = -1;
-	        _this.focusIndex = ko.observable(-1);
-	        _this.cachedPages = [];
-	        _this.metaChange = {};
-	        _this.valueChange = {}; //ko.observable(1);
-	        _this.currentRowChange = ko.observable(1);
-	        _this.enableChange = ko.observable(1);
-	        _this.params = options['params'] || {};
-	        _this.master = options['master'] || '';
-	        _this.allSelected = ko.observable(false);
-	        if (options['root']) {
-	            _this.root = options['root'];
-	        } else {
-	            _this.root = _this;
-	        }
-	        if (options['ns']) {
-	            _this.ns = options['ns'];
-	        } else {
-	            _this.ns = '';
-	        }
-
-	        //copyRow
-	        _this.copyRow = _copyRow.copyRow;
-	        _this.copyRows = _copyRow.copyRows;
-
-	        //data
-	        _this.setData = _data.setData;
-	        _this.setValue = _data.setValue;
-
-	        //enable
-	        _this.isEnable = _enable.isEnable;
-	        _this.setEnable = _enable.setEnable;
-
-	        //getData
-	        _this.getData = _getData.getData;
-	        _this.getDataByRule = _getData.getDataByRule;
-	        _this.getRow = _getData.getRow;
-	        _this.getRowByRowId = _getData.getRowByRowId;
-	        _this.getRowIndex = _getData.getRowIndex;
-	        _this.getRowsByField = _getData.getRowsByField;
-	        _this.getRowByField = _getData.getRowByField;
-	        _this.getAllRows = _getData.getAllRows;
-	        _this.getAllPageRows = _getData.getAllPageRows;
-	        _this.getChangedDatas = _getData.getChangedDatas;
-	        _this.getChangedRows = _getData.getChangedRows;
-	        _this.getValue = _getData.getValue;
-	        _this.getIndexByRowId = _getData.getIndexByRowId;
-	        _this.getAllDatas = _getData.getAllDatas;
-	        _this.getRowIdsByIndices = _getData.getRowIdsByIndices;
-
-	        //getCurrent
-	        _this.getCurrentRow = _getCurrent.getCurrentRow;
-	        _this.getCurrentIndex = _getCurrent.getCurrentIndex;
-
-	        //getFocus
-	        _this.getFocusRow = _getFocus.getFocusRow;
-	        _this.getFocusIndex = _getFocus.getFocusIndex;
-
-	        //getMeta
-	        _this.getMeta = _getMeta.getMeta;
-	        _this.getRowMeta = _getMeta.getRowMeta;
-
-	        //getPage
-	        _this.getPage = _getPage.getPage;
-	        _this.getPages = _getPage.getPages;
-
-	        //getParam
-	        _this.getParam = _getParam.getParam;
-
-	        //getSelect
-	        _this.getSelectedIndex = _getSelect.getSelectedIndex;
-	        _this.getSelectedIndices = _getSelect.getSelectedIndices;
-	        _this.getSelectedIndexs = _getSelect.getSelectedIndexs;
-	        _this.getSelectedDatas = _getSelect.getSelectedDatas;
-	        _this.getSelectedRows = _getSelect.getSelectedRows;
-
-	        //getSimpleData
-	        _this.getSimpleData = _getSimpleData.getSimpleData;
-
-	        //meta
-	        _this.setMeta = _meta.setMeta;
-	        _this.updateMeta = _meta.updateMeta;
-	        _this.createField = _meta.createField;
-
-	        //page
-	        _this.setCurrentPage = _page.setCurrentPage;
-	        _this.updatePages = _page.updatePages;
-	        _this.setPages = _page.setPages;
-	        _this.hasPage = _page.hasPage;
-	        _this.clearCache = _page.clearCache;
-	        _this.cacheCurrentPage = _page.cacheCurrentPage;
-
-	        //param
-	        _this.addParam = _param.addParam;
-	        _this.addParams = _param.addParams;
-
-	        //ref
-	        _this.refSelectedRows = _ref.refSelectedRows;
-	        _this.ref = _ref.ref;
-	        _this.refMeta = _ref.refMeta;
-	        _this.refRowMeta = _ref.refRowMeta;
-	        _this.refEnable = _ref.refEnable;
-
-	        //row
-	        _this.setRows = _row.setRows;
-	        _this.addRow = _row.addRow;
-	        _this.addRows = _row.addRows;
-	        _this.insertRow = _row.insertRow;
-	        _this.insertRows = _row.insertRows;
-	        _this.createEmptyRow = _row.createEmptyRow;
-
-	        //removeRow
-	        _this.removeRowByRowId = _removeRow.removeRowByRowId;
-	        _this.removeRow = _removeRow.removeRow;
-	        _this.removeAllRows = _removeRow.removeAllRows;
-	        _this.removeRows = _removeRow.removeRows;
-	        _this.clear = _removeRow.clear;
-
-	        //rowCurrent
-	        _this.updateCurrIndex = _rowCurrent.updateCurrIndex;
-
-	        //rowDelete
-	        _this.setRowDelete = _rowDelete.setRowDelete;
-	        _this.setAllRowsDelete = _rowDelete.setAllRowsDelete;
-	        _this.setRowsDelete = _rowDelete.setRowsDelete;
-
-	        //rowFocus
-	        _this.setRowFocus = _rowFocus.setRowFocus;
-	        _this.setRowUnFocus = _rowFocus.setRowUnFocus;
-	        _this.updateFocusIndex = _rowFocus.updateFocusIndex;
-
-	        //rowSelect
-	        _this.setAllRowsSelect = _rowSelect.setAllRowsSelect;
-	        _this.setRowSelect = _rowSelect.setRowSelect;
-	        _this.setRowsSelect = _rowSelect.setRowsSelect;
-	        _this.addRowSelect = _rowSelect.addRowSelect;
-	        _this.addRowsSelect = _rowSelect.addRowsSelect;
-	        _this.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
-	        _this.setRowUnSelect = _rowSelect.setRowUnSelect;
-	        _this.setRowsUnSelect = _rowSelect.setRowsUnSelect;
-	        _this.toggleAllSelect = _rowSelect.toggleAllSelect;
-	        _this.updateSelectedIndices = _rowSelect.updateSelectedIndices;
-
-	        //simpleData
-	        _this.setSimpleData = _simpleData.setSimpleData;
-	        _this.addSimpleData = _simpleData.addSimpleData;
-
-	        //util
-	        _this.isChanged = _util.isChanged;
-	        return _this;
+	    options = options || {};
+	    this.id = options['id'];
+	    this.strict = options['strict'] || false;
+	    this.meta = DataTable.createMetaItems(options['meta']);
+	    this.enable = options['enable'] || DataTable.DEFAULTS.enable;
+	    this.pageSize = ko.observable(options['pageSize'] || DataTable.DEFAULTS.pageSize);
+	    this.pageIndex = ko.observable(options['pageIndex'] || DataTable.DEFAULTS.pageIndex);
+	    this.totalPages = ko.observable(options['totalPages'] || DataTable.DEFAULTS.totalPages);
+	    this.totalRow = ko.observable();
+	    this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
+	    this.rows = ko.observableArray([]);
+	    this.selectedIndices = ko.observableArray([]);
+	    this._oldCurrentIndex = -1;
+	    this.focusIndex = ko.observable(-1);
+	    this.cachedPages = [];
+	    this.metaChange = {};
+	    this.valueChange = {}; //ko.observable(1);
+	    this.currentRowChange = ko.observable(1);
+	    this.enableChange = ko.observable(1);
+	    this.params = options['params'] || {};
+	    this.master = options['master'] || '';
+	    this.allSelected = ko.observable(false);
+	    if (options['root']) {
+	        this.root = options['root'];
+	    } else {
+	        this.root = this;
+	    }
+	    if (options['ns']) {
+	        this.ns = options['ns'];
+	    } else {
+	        this.ns = '';
 	    }
 
-	    return DataTable;
-	}(_indexEvents.Events);
+	    //copyRow
+	    this.copyRow = _copyRow.copyRow;
+	    this.copyRows = _copyRow.copyRows;
+
+	    //data
+	    this.setData = _data.setData;
+	    this.setValue = _data.setValue;
+
+	    //enable
+	    this.isEnable = _enable.isEnable;
+	    this.setEnable = _enable.setEnable;
+
+	    //getData
+	    this.getData = _getData.getData;
+	    this.getDataByRule = _getData.getDataByRule;
+	    this.getRow = _getData.getRow;
+	    this.getRowByRowId = _getData.getRowByRowId;
+	    this.getRowIndex = _getData.getRowIndex;
+	    this.getRowsByField = _getData.getRowsByField;
+	    this.getRowByField = _getData.getRowByField;
+	    this.getAllRows = _getData.getAllRows;
+	    this.getAllPageRows = _getData.getAllPageRows;
+	    this.getChangedDatas = _getData.getChangedDatas;
+	    this.getChangedRows = _getData.getChangedRows;
+	    this.getValue = _getData.getValue;
+	    this.getIndexByRowId = _getData.getIndexByRowId;
+	    this.getAllDatas = _getData.getAllDatas;
+	    this.getRowIdsByIndices = _getData.getRowIdsByIndices;
+
+	    //getCurrent
+	    this.getCurrentRow = _getCurrent.getCurrentRow;
+	    this.getCurrentIndex = _getCurrent.getCurrentIndex;
+
+	    //getFocus
+	    this.getFocusRow = _getFocus.getFocusRow;
+	    this.getFocusIndex = _getFocus.getFocusIndex;
+
+	    //getMeta
+	    this.getMeta = _getMeta.getMeta;
+	    this.getRowMeta = _getMeta.getRowMeta;
+
+	    //getPage
+	    this.getPage = _getPage.getPage;
+	    this.getPages = _getPage.getPages;
+
+	    //getParam
+	    this.getParam = _getParam.getParam;
+
+	    //getSelect
+	    this.getSelectedIndex = _getSelect.getSelectedIndex;
+	    this.getSelectedIndices = _getSelect.getSelectedIndices;
+	    this.getSelectedIndexs = _getSelect.getSelectedIndexs;
+	    this.getSelectedDatas = _getSelect.getSelectedDatas;
+	    this.getSelectedRows = _getSelect.getSelectedRows;
+
+	    //getSimpleData
+	    this.getSimpleData = _getSimpleData.getSimpleData;
+
+	    //meta
+	    this.setMeta = _meta.setMeta;
+	    this.updateMeta = _meta.updateMeta;
+	    this.createField = _meta.createField;
+
+	    //page
+	    this.setCurrentPage = _page.setCurrentPage;
+	    this.updatePages = _page.updatePages;
+	    this.setPages = _page.setPages;
+	    this.hasPage = _page.hasPage;
+	    this.clearCache = _page.clearCache;
+	    this.cacheCurrentPage = _page.cacheCurrentPage;
+
+	    //param
+	    this.addParam = _param.addParam;
+	    this.addParams = _param.addParams;
+
+	    //ref
+	    this.refSelectedRows = _ref.refSelectedRows;
+	    this.ref = _ref.ref;
+	    this.refMeta = _ref.refMeta;
+	    this.refRowMeta = _ref.refRowMeta;
+	    this.refEnable = _ref.refEnable;
+
+	    //row
+	    this.setRows = _row.setRows;
+	    this.addRow = _row.addRow;
+	    this.addRows = _row.addRows;
+	    this.insertRow = _row.insertRow;
+	    this.insertRows = _row.insertRows;
+	    this.createEmptyRow = _row.createEmptyRow;
+
+	    //removeRow
+	    this.removeRowByRowId = _removeRow.removeRowByRowId;
+	    this.removeRow = _removeRow.removeRow;
+	    this.removeAllRows = _removeRow.removeAllRows;
+	    this.removeRows = _removeRow.removeRows;
+	    this.clear = _removeRow.clear;
+
+	    //rowCurrent
+	    this.updateCurrIndex = _rowCurrent.updateCurrIndex;
+
+	    //rowDelete
+	    this.setRowDelete = _rowDelete.setRowDelete;
+	    this.setAllRowsDelete = _rowDelete.setAllRowsDelete;
+	    this.setRowsDelete = _rowDelete.setRowsDelete;
+
+	    //rowFocus
+	    this.setRowFocus = _rowFocus.setRowFocus;
+	    this.setRowUnFocus = _rowFocus.setRowUnFocus;
+	    this.updateFocusIndex = _rowFocus.updateFocusIndex;
+
+	    //rowSelect
+	    this.setAllRowsSelect = _rowSelect.setAllRowsSelect;
+	    this.setRowSelect = _rowSelect.setRowSelect;
+	    this.setRowsSelect = _rowSelect.setRowsSelect;
+	    this.addRowSelect = _rowSelect.addRowSelect;
+	    this.addRowsSelect = _rowSelect.addRowsSelect;
+	    this.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
+	    this.setRowUnSelect = _rowSelect.setRowUnSelect;
+	    this.setRowsUnSelect = _rowSelect.setRowsUnSelect;
+	    this.toggleAllSelect = _rowSelect.toggleAllSelect;
+	    this.updateSelectedIndices = _rowSelect.updateSelectedIndices;
+
+	    //simpleData
+	    this.setSimpleData = _simpleData.setSimpleData;
+	    this.addSimpleData = _simpleData.addSimpleData;
+
+	    //util
+	    this.isChanged = _util.isChanged;
+	};
 
 	DataTable.DEFAULTS = {
 	    pageSize: 20,
@@ -3241,7 +3264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    for (var key in metas) {
 	        var meta = metas[key];
 	        if (typeof meta == 'string') meta = {};
-	        newMetas[key] = u.extend({}, DataTable.META_DEFAULTS, meta);
+	        newMetas[key] = (0, _extend.extend)({}, DataTable.META_DEFAULTS, meta);
 	    }
 	    return newMetas;
 	};
@@ -4861,22 +4884,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var setRowsDelete = function setRowsDelete(indices) {
 	    indices = (0, _util._formatToIndicesArray)(this, indices);
-	    for (var i = 0; i < indices.length; i++) {
-	        var row = this.getRow(indices[i]);
-	        if (row.status == Row.STATUS.NEW) {
-	            this.rows(this.rows().splice(indices[i], 1));
-	            this.updateSelectedIndices(indices[i], '-');
-	            this.updateFocusIndex(index, '-');
-	        } else {
-	            row.status = Row.STATUS.FALSE_DELETE;
-	        }
-	    }
 	    var rowIds = this.getRowIdsByIndices(indices);
-	    this.trigger(DataTable.ON_ROW_DELETE, {
+	    this.trigger(DataTable.ON_DELETE, {
 	        falseDelete: true,
 	        indices: indices,
 	        rowIds: rowIds
 	    });
+	    for (var i = 0; i < indices.length; i++) {
+	        var row = this.getRow(indices[i]);
+	        if (row.status == Row.STATUS.NEW) {
+	            this.rows().splice(indices[i], 1);
+	            this.updateSelectedIndices(indices[i], '-');
+	            this.updateFocusIndex(index, '-');
+	        } else {
+	            row.status = Row.STATUS.FALSE_DELETE;
+	            var temprows = this.rows().splice(indices[i], 1);
+	            this.rows().push(temprows[0]);
+	        }
+	    }
 	};
 
 	exports.setRowDelete = setRowDelete;
@@ -4936,6 +4961,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // 避免与控件循环触发
 	        return;
 	    }
+
+	    if (u.isArray(indices)) {
+	        var rowNum = this.rows().length;
+	        for (var i = 0; i < indices.length; i++) {
+	            if (indices[i] < 0 || indices[i] >= rowNum) indices.splice(i, 1);
+	        }
+	    }
+
 	    this.setAllRowsUnSelect({ quiet: true });
 	    try {
 	        this.selectedIndices(indices);
@@ -5736,7 +5769,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if ((typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') rowObj.parent.createField(key);
 	        //if (typeof this.parent.meta[key] === 'undefined') continue;
 	        if (valueObj == null || (typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') {
-	            targetData[key]['value'] = rowObj.formatValue(key, valueObj);
+	            // 子表的话只有valueObj为datatable的时候才赋值
+	            if (!targetData[key].isChild) {
+	                targetData[key]['value'] = rowObj.formatValue(key, valueObj);
+	            }
 	            if (subscribe === true && oldValue !== targetData[key]['value']) {
 	                (0, _rowUtil._triggerChange)(rowObj, key, oldValue);
 	            }
@@ -6995,6 +7031,4 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.setSimpleData = setSimpleData;
 
 /***/ }
-/******/ ])
-});
-;
+/******/ ]);
