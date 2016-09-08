@@ -4,7 +4,7 @@
  * Date	  : 2016-08-09 20:02:50
  */
 
-import {BaseAdapter} from './baseAdapter';
+import {BaseAdapter} from '../core/baseAdapter';
 import {Progress} from 'neoui/js/neoui-progress';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 

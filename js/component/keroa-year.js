@@ -1,19 +1,19 @@
 /**
- * Module : Kero yearmonth adapter
+ * Module : Kero year adapter
  * Author : Kvkens(yueming@yonyou.com)
- * Date	  : 2016-08-10 14:11:50
+ * Date	  : 2016-08-10 12:40:46
  */
-import {BaseAdapter} from './baseAdapter';
-import {YearMonth} from 'neoui/js/neoui-yearmonth';
+import {BaseAdapter} from '../core/baseAdapter';
+import {Year} from 'neoui/js/neoui-year';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 
-var YearMonthAdapter = BaseAdapter.extend({
+var YearAdapter = BaseAdapter.extend({
     initialize: function (comp, options) {
         var self = this;
-        YearMonthAdapter.superclass.initialize.apply(this, arguments);
-        this.validType = 'yearmonth';
+        YearAdapter.superclass.initialize.apply(this, arguments);
+        this.validType = 'year';
 
-        this.comp = new YearMonth(this.element);
+        this.comp = new Year(this.element);
 
 
         this.comp.on('valueChange', function(event){
@@ -37,10 +37,10 @@ var YearMonthAdapter = BaseAdapter.extend({
 });
 
 compMgr.addDataAdapter({
-	adapter: YearMonthAdapter,
-	name: 'u-yearmonth'
+	adapter: YearAdapter,
+	name: 'u-year'
 });
 
+export {YearAdapter};
 
-export {YearMonthAdapter};
 

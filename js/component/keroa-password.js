@@ -4,7 +4,7 @@
  * Date	  : 2016-08-09 19:19:33
  */
 
-import {StringAdapter} from './string';
+import {StringAdapter} from './keroa-string';
 import {getJSObject} from 'neoui-sparrow/js/util';
 import {env} from 'neoui-sparrow/js/env';
 import {on} from 'neoui-sparrow/js/event';
