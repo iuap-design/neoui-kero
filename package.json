@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "1.5.9",
+  "version": "1.5.10",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "kero": "^3.4.9",
-    "neoui": "^4.1.8",
+    "neoui": "^4.1.9",
     "neoui-grid": "^1.0.6",
     "neoui-polyfill": "^1.2.8",
     "neoui-sparrow": "^1.4.10",
@@ -32,6 +32,9 @@
     "eslint": "^3.2.2",
     "eslint-loader": "^1.5.0",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
     "mocha": "^3.0.2",
     "webpack": "^1.13.1",
     "yargs": "^5.0.0"

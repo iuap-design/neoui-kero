@@ -253,8 +253,7 @@
 	            classConstructor: config.comp,
 	            className: config.compAsString || config['compAsString'],
 	            cssClass: config.css || config['css'],
-	            callbacks: [],
-	            dependencies: config.dependencies || []
+	            callbacks: []
 	        };
 	        config.comp.prototype.compType = config.compAsString;
 	        for (var i = 0; i < this.registeredControls.length; i++) {
@@ -269,36 +268,9 @@
 	        };
 	        this.registeredControls.push(newConfig);
 	    },
-
 	    updateComp: function updateComp(ele) {
-	        this._reorderComps();
 	        for (var n = 0; n < this.registeredControls.length; n++) {
 	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
-	        }
-	    },
-	    // 后续遍历registeredControls，重新排列
-	    _reorderComps: function _reorderComps() {
-	        var tmpArray = [];
-	        var dictory = {};
-
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            dictory[this.registeredControls[n].className] = this.registeredControls[n];
-	        }
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            traverse(this.registeredControls[n]);
-	        }
-
-	        this.registeredControls = tmpArray;
-
-	        function traverse(control) {
-	            if (u.inArray(control, tmpArray)) return;
-	            if (control.dependencies.length > 0) {
-	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
-	                    var childControl = dictory[control.dependencies[i]];
-	                    traverse(childControl);
-	                }
-	            }
-	            tmpArray.push(control);
 	        }
 	    }
 	};
@@ -1930,7 +1902,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.Events = undefined;
 
@@ -1946,13 +1918,13 @@
 
 
 	var Events = function Events() {
-	  _classCallCheck(this, Events);
+	    _classCallCheck(this, Events);
 
-	  this.on = _events.on;
-	  this.off = _events.off;
-	  this.one = _events.one;
-	  this.trigger = _events.trigger;
-	  this.getEvent = _events.getEvent;
+	    this.on = _events.on;
+	    this.off = _events.off;
+	    this.one = _events.one;
+	    this.trigger = _events.trigger;
+	    this.getEvent = _events.getEvent;
 	};
 
 	exports.Events = Events;
@@ -3536,24 +3508,22 @@
 	 */
 	var setRowsDelete = function setRowsDelete(indices) {
 	    indices = (0, _util._formatToIndicesArray)(this, indices);
-	    var rowIds = this.getRowIdsByIndices(indices);
-	    this.trigger(DataTable.ON_DELETE, {
-	        falseDelete: true,
-	        indices: indices,
-	        rowIds: rowIds
-	    });
 	    for (var i = 0; i < indices.length; i++) {
 	        var row = this.getRow(indices[i]);
 	        if (row.status == Row.STATUS.NEW) {
-	            this.rows().splice(indices[i], 1);
+	            this.rows(this.rows().splice(indices[i], 1));
 	            this.updateSelectedIndices(indices[i], '-');
 	            this.updateFocusIndex(index, '-');
 	        } else {
 	            row.status = Row.STATUS.FALSE_DELETE;
-	            var temprows = this.rows().splice(indices[i], 1);
-	            this.rows().push(temprows[0]);
 	        }
 	    }
+	    var rowIds = this.getRowIdsByIndices(indices);
+	    this.trigger(DataTable.ON_ROW_DELETE, {
+	        falseDelete: true,
+	        indices: indices,
+	        rowIds: rowIds
+	    });
 	};
 
 	exports.setRowDelete = setRowDelete;
@@ -3613,14 +3583,6 @@
 	        // 避免与控件循环触发
 	        return;
 	    }
-
-	    if (u.isArray(indices)) {
-	        var rowNum = this.rows().length;
-	        for (var i = 0; i < indices.length; i++) {
-	            if (indices[i] < 0 || indices[i] >= rowNum) indices.splice(i, 1);
-	        }
-	    }
-
 	    this.setAllRowsUnSelect({ quiet: true });
 	    try {
 	        this.selectedIndices(indices);
@@ -8871,11 +8833,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -8960,11 +8922,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -10669,16 +10631,17 @@
 			eOptions.showFix = true;
 			var compDiv, comp;
 			if (eType == 'string') {
-				compDiv = $('<div><input type="text" class="u-grid-edit-item-string"></div>');
+				compDiv = $('<div class="u-text"><input type="text" class="u-input"><label class="u-label"></label></div>');
 				if (!options.editType || options.editType == "default") {
 					compDiv.addClass("eType-input");
 				}
 				eOptions.dataType = 'string';
-				comp = new _keroaString.StringAdapter({
+				comp = new u.TextFieldAdapter({
 					el: compDiv[0],
 					options: eOptions,
 					model: viewModel
 				});
+				//$.compManager.plugs.string(compDiv.find("input")[0],eOptions,viewModel);
 			} else if (eType == 'integer') {
 				compDiv = $('<div><input type="text" class="u-grid-edit-item-integer"></div>');
 				if (!options.editType || options.editType == "default") {
@@ -13154,7 +13117,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  		thumb.appendChild(focusHelper);*/
+	  	thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
