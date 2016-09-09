@@ -1,5 +1,7 @@
 # kero-adapter
 
+[![npm](https://img.shields.io/npm/v/kero-adapter.svg)](https://www.npmjs.com/package/kero-adapter)[![Bower](https://img.shields.io/bower/v/kero-adapter.svg)](https://github.com/iuap-design/kero-adapter)
+
 `kero-adapter` 是[kero](https://github.com/iuap-design/kero)的适配器
 
 ## 开发技术说明
