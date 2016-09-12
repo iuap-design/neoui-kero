@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v1.5.10
+ * kero-adapter v1.5.11
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
