@@ -731,6 +731,7 @@
 			rowObj.keyValue = keyValue;
 			var parentKeyValue = this.getString($(row).attr(parentKeyField), '');
 			rowObj.parentKeyValue = parentKeyValue;
+			var parentChildLength;
 			/* 判断是否存在父项/子项 */
 			$.each(this.dataSourceObj.rows, function (i) {
 				var value = this.value;
@@ -863,7 +864,7 @@
 		this.getAllChildRowFun(row, row.allChildRow);
 		return row.allChildRow;
 	};
-	var getChildRowIndex = function getChildRowIndex(row) {
+	var re_getChildRowIndex = function re_getChildRowIndex(row) {
 		var result = [];
 		if (row.childRow && row.childRow.length > 0) {
 			$.each(row.childRow, function () {
@@ -1013,7 +1014,7 @@
 				childRowArray.push(this);
 				var index = parseInt(oThis.rows.length - 1);
 				childRowIndexArray.push(index);
-				oThis.hasParentRows.splice(i, 0);
+				oThis.hasParentRows.splice(i, 1);
 				oThis.pushChildRows(this, nowLevel);
 			}
 		});
@@ -1028,7 +1029,7 @@
 	exports.re_addOneRowTreeHasChildF = re_addOneRowTreeHasChildF;
 	exports.re_updateValueAtTree = re_updateValueAtTree;
 	exports.getAllChildRow = getAllChildRow;
-	exports.getChildRowIndex = getChildRowIndex;
+	exports.re_getChildRowIndex = re_getChildRowIndex;
 	exports.getAllChildRowIndex = getAllChildRowIndex;
 	exports.getAllChildRowFun = getAllChildRowFun;
 	exports.getAllChildRowIndexFun = getAllChildRowIndexFun;
@@ -1310,6 +1311,7 @@
 	gridComp.prototype.getAllRows = _gridCompGet.getAllRows;
 	gridComp.prototype.getRowByIndex = _gridCompGet.getRowByIndex;
 	gridComp.prototype.getRowIndexByValue = _gridCompGet.getRowIndexByValue;
+	gridComp.prototype.getChildRowIndex = _gridCompGet.getChildRowIndex;
 	
 	gridComp.prototype.init = _gridCompInit.init;
 	gridComp.prototype.getBooleanOptions = _gridCompInit.getBooleanOptions;
@@ -1607,7 +1609,7 @@
 	gridCompProto.addOneRowTreeHasChildF = _re_gridCompTree.re_addOneRowTreeHasChildF;
 	gridCompProto.updateValueAtTree = _re_gridCompTree.re_updateValueAtTree;
 	gridCompProto.getAllChildRow = _re_gridCompTree.getAllChildRow;
-	gridCompProto.getChildRowIndex = _re_gridCompTree.getChildRowIndex;
+	gridCompProto.getChildRowIndex = _re_gridCompTree.re_getChildRowIndex;
 	gridCompProto.getAllChildRowIndex = _re_gridCompTree.getAllChildRowIndex;
 	gridCompProto.getAllChildRowFun = _re_gridCompTree.getAllChildRowFun;
 	gridCompProto.getAllChildRowIndexFun = _re_gridCompTree.getAllChildRowIndexFun;
@@ -1805,7 +1807,7 @@
 	        gridCompColumnArr,
 	        trStyle = '';
 	    if (this.options.maxHeaderLevel > 1) {
-	        trStyle = 'style="height:' + this.headerHeight + 'px;"';
+	        trStyle = 'style="height:' + (this.headerHeight - 1) + 'px;"';
 	    }
 	    var htmlStr = '<tr role="row" ' + trStyle + '>';
 	    if (createFlag == 'fixed') {
@@ -1850,7 +1852,7 @@
 	        var wh = $('#' + this.options.id)[0].offsetHeight;
 	        this.wholeHeight = wh;
 	        if (wh > 0) {
-	            this.contentHeight = parseInt(wh) - this.exceptContentHeight - 1 > 0 ? parseInt(wh) - this.exceptContentHeight - 1 : 0;
+	            this.contentHeight = parseInt(wh) - this.exceptContentHeight > 0 ? parseInt(wh) - this.exceptContentHeight : 0;
 	            if (this.contentHeight > 0) {
 	                h = 'style="height:' + this.contentHeight + 'px;"';
 	            }
@@ -2529,6 +2531,14 @@
 	    return index;
 	};
 	
+	var getChildRowIndex = function getChildRowIndex(row) {
+	    var result = [];
+	    $.each(row.childRow, function () {
+	        result.push(this.valueIndex);
+	    });
+	    return result;
+	};
+	
 	exports.getColumnAttr = getColumnAttr;
 	exports.getColumnByField = getColumnByField;
 	exports.getIndexOfColumn = getIndexOfColumn;
@@ -2541,6 +2551,7 @@
 	exports.getAllRows = getAllRows;
 	exports.getRowByIndex = getRowByIndex;
 	exports.getRowIndexByValue = getRowIndexByValue;
+	exports.getChildRowIndex = getChildRowIndex;
 
 /***/ },
 /* 13 */
@@ -2584,8 +2595,8 @@
 	    this.countContentHeight = true; // 是否计算内容区的高度（是否为流式）
 	    this.minColumnWidth = 80; // 最小列宽
 	    this.scrollBarHeight = 16; // 滚动条高度
-	    this.numWidth = 40; // 数字列宽度
-	    this.multiSelectWidth = 40; // 复选框列宽度
+	    this.numWidth = this.options.numWidth || 40; // 数字列宽度
+	    this.multiSelectWidth = this.options.multiSelectWidth || 40; // 复选框列宽度
 	    this.multiWidth = 40; // 复选框宽度
 	
 	    this.basicGridCompColumnArr = new Array(); // 存储基本的columns对象，用于清除设置
@@ -3631,6 +3642,10 @@
 	            }
 	            var tr = oThis.realtimeTableRows[trIndex],
 	                td = tr.children[i];
+	            if (oThis.iconSpan) {
+	                var iconSpan = oThis.iconSpan;
+	            }
+	
 	            if (td) {
 	                if (td.children[0].innerHTML.indexOf('u-grid-content-tree-span') != -1) {
 	                    var span = td.children[0].children[1];
@@ -3696,7 +3711,6 @@
 	                            td.title = v;
 	                            v = v.replace(/\</g, '&lt;');
 	                            v = v.replace(/\>/g, '&gt;');
-	
 	                            span.innerHTML = v;
 	                        }
 	                    } else {
@@ -3706,7 +3720,9 @@
 	                        td.title = v;
 	                        v = v.replace(/\</g, '&lt;');
 	                        v = v.replace(/\>/g, '&gt;');
-	
+	                        if (i == 0 && iconSpan) {
+	                            v = iconSpan += v;
+	                        }
 	                        span.innerHTML = v;
 	                    }
 	                }
@@ -3892,7 +3908,7 @@
 	    if ($('#' + this.options.id)[0]) {
 	        // 获取整体区域宽度
 	        var w = $('#' + this.options.id).width(); //[0].offsetWidth;
-	        if (this.wholeWidth != w) {
+	        if (this.wholeWidth != w && this.$ele.data('gridComp') == this) {
 	            this.wholeWidth = w;
 	            // 树展开/合上的时候会导致页面出现滚动条导致宽度改变，没有&&之后会重新刷新页面导致无法收起
 	            if (w > this.options.formMaxWidth && (this.showType == 'form' || this.showType == '' || !$('#' + this.options.id + '_content_div tbody')[0]) || this.options.overWidthHiddenColumn) {
@@ -3965,7 +3981,7 @@
 	            h = $('#' + this.options.id)[0].offsetHeight;
 	        this.wholeHeight = h;
 	        if (oldH != h && h > 0) {
-	            var contentH = h - this.exceptContentHeight - 1 > 0 ? h - this.exceptContentHeight - 1 : 0;
+	            var contentH = h - this.exceptContentHeight > 0 ? h - this.exceptContentHeight : 0;
 	            $('#' + this.options.id + '_content').css('height', contentH + 'px');
 	            $('#' + this.options.id + '_content_div').css('height', contentH + 'px');
 	        }
@@ -4106,7 +4122,7 @@
 				if (oThis.options.rowClickBan) {
 					return;
 				}
-				var rowChildIndex = row.childRowIndex;
+				var rowChildIndex = oThis.getChildRowIndex(row);
 				if (oThis.dataSourceObj.rows[index].focus && oThis.options.cancelFocus) {
 					oThis.setRowUnFocus(index);
 				} else {
@@ -4457,7 +4473,7 @@
 				var checkedStr = "";
 				if (this.options.visible) checkedStr = ' checked';
 				if (!this.options.canVisible) checkedStr += ' style="display:none;"';
-				htmlStr += '<div class="u-grid-column-menu-columns-div2"><input type="checkbox" ' + checkedStr + '></div>';
+				htmlStr += '<div class="u-grid-column-menu-columns-div2"><input type="checkbox" ' + checkedStr + '><label></label></div>';
 				htmlStr += '<span class="u-grid-column-menu-columns-span">' + this.options.title + '</span>';
 				htmlStr += '</div></li>';
 			}
@@ -5059,6 +5075,13 @@
 		var $tr = obj.$tr;
 		var colIndex = obj.colIndex;
 		var oThis = this;
+		if (obj.colIndex == 0) {
+			try {
+				this.iconSpan = $(td).find('.uf')[0].outerHTML;
+			} catch (e) {}
+		} else {
+			this.iconSpan = null;
+		}
 	
 		var obj = {};
 		obj.td = td;
@@ -5086,6 +5109,19 @@
 			obj.rowObj = rowObj;
 			editType.call(this, obj);
 		}
+		// input输入blur时显示下一个编辑控件
+		$('input', $(td)).on('keydown', function (e) {
+			var keyCode = e.keyCode;
+			if (e.keyCode == 13 || e.keyCode == 9) {
+				// 回车
+				this.blur(); //首先触发blur来将修改值反应到datatable中
+				// IE11会导致先触发nextEditShow后触发blur的处理
+				setTimeout(function () {
+					oThis.nextEditShow();
+				}, 100);
+				u.stopEvent(e);
+			}
+		});
 		if (this.options.editType == 'default') $('input:first', $(td)).focus();
 	};
 	/*

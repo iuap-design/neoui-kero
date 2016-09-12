@@ -253,7 +253,8 @@
 	            classConstructor: config.comp,
 	            className: config.compAsString || config['compAsString'],
 	            cssClass: config.css || config['css'],
-	            callbacks: []
+	            callbacks: [],
+	            dependencies: config.dependencies || []
 	        };
 	        config.comp.prototype.compType = config.compAsString;
 	        for (var i = 0; i < this.registeredControls.length; i++) {
@@ -268,9 +269,36 @@
 	        };
 	        this.registeredControls.push(newConfig);
 	    },
+
 	    updateComp: function updateComp(ele) {
+	        this._reorderComps();
 	        for (var n = 0; n < this.registeredControls.length; n++) {
 	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
+	        }
+	    },
+	    // 后续遍历registeredControls，重新排列
+	    _reorderComps: function _reorderComps() {
+	        var tmpArray = [];
+	        var dictory = {};
+
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            dictory[this.registeredControls[n].className] = this.registeredControls[n];
+	        }
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            traverse(this.registeredControls[n]);
+	        }
+
+	        this.registeredControls = tmpArray;
+
+	        function traverse(control) {
+	            if (u.inArray(control, tmpArray)) return;
+	            if (control.dependencies.length > 0) {
+	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
+	                    var childControl = dictory[control.dependencies[i]];
+	                    traverse(childControl);
+	                }
+	            }
+	            tmpArray.push(control);
 	        }
 	    }
 	};
@@ -1704,136 +1732,138 @@
 	    } else {
 	        this.ns = '';
 	    }
-
-	    //copyRow
-	    this.copyRow = _copyRow.copyRow;
-	    this.copyRows = _copyRow.copyRows;
-
-	    //data
-	    this.setData = _data.setData;
-	    this.setValue = _data.setValue;
-
-	    //enable
-	    this.isEnable = _enable.isEnable;
-	    this.setEnable = _enable.setEnable;
-
-	    //getData
-	    this.getData = _getData.getData;
-	    this.getDataByRule = _getData.getDataByRule;
-	    this.getRow = _getData.getRow;
-	    this.getRowByRowId = _getData.getRowByRowId;
-	    this.getRowIndex = _getData.getRowIndex;
-	    this.getRowsByField = _getData.getRowsByField;
-	    this.getRowByField = _getData.getRowByField;
-	    this.getAllRows = _getData.getAllRows;
-	    this.getAllPageRows = _getData.getAllPageRows;
-	    this.getChangedDatas = _getData.getChangedDatas;
-	    this.getChangedRows = _getData.getChangedRows;
-	    this.getValue = _getData.getValue;
-	    this.getIndexByRowId = _getData.getIndexByRowId;
-	    this.getAllDatas = _getData.getAllDatas;
-	    this.getRowIdsByIndices = _getData.getRowIdsByIndices;
-
-	    //getCurrent
-	    this.getCurrentRow = _getCurrent.getCurrentRow;
-	    this.getCurrentIndex = _getCurrent.getCurrentIndex;
-
-	    //getFocus
-	    this.getFocusRow = _getFocus.getFocusRow;
-	    this.getFocusIndex = _getFocus.getFocusIndex;
-
-	    //getMeta
-	    this.getMeta = _getMeta.getMeta;
-	    this.getRowMeta = _getMeta.getRowMeta;
-
-	    //getPage
-	    this.getPage = _getPage.getPage;
-	    this.getPages = _getPage.getPages;
-
-	    //getParam
-	    this.getParam = _getParam.getParam;
-
-	    //getSelect
-	    this.getSelectedIndex = _getSelect.getSelectedIndex;
-	    this.getSelectedIndices = _getSelect.getSelectedIndices;
-	    this.getSelectedIndexs = _getSelect.getSelectedIndexs;
-	    this.getSelectedDatas = _getSelect.getSelectedDatas;
-	    this.getSelectedRows = _getSelect.getSelectedRows;
-
-	    //getSimpleData
-	    this.getSimpleData = _getSimpleData.getSimpleData;
-
-	    //meta
-	    this.setMeta = _meta.setMeta;
-	    this.updateMeta = _meta.updateMeta;
-	    this.createField = _meta.createField;
-
-	    //page
-	    this.setCurrentPage = _page.setCurrentPage;
-	    this.updatePages = _page.updatePages;
-	    this.setPages = _page.setPages;
-	    this.hasPage = _page.hasPage;
-	    this.clearCache = _page.clearCache;
-	    this.cacheCurrentPage = _page.cacheCurrentPage;
-
-	    //param
-	    this.addParam = _param.addParam;
-	    this.addParams = _param.addParams;
-
-	    //ref
-	    this.refSelectedRows = _ref.refSelectedRows;
-	    this.ref = _ref.ref;
-	    this.refMeta = _ref.refMeta;
-	    this.refRowMeta = _ref.refRowMeta;
-	    this.refEnable = _ref.refEnable;
-
-	    //row
-	    this.setRows = _row.setRows;
-	    this.addRow = _row.addRow;
-	    this.addRows = _row.addRows;
-	    this.insertRow = _row.insertRow;
-	    this.insertRows = _row.insertRows;
-	    this.createEmptyRow = _row.createEmptyRow;
-
-	    //removeRow
-	    this.removeRowByRowId = _removeRow.removeRowByRowId;
-	    this.removeRow = _removeRow.removeRow;
-	    this.removeAllRows = _removeRow.removeAllRows;
-	    this.removeRows = _removeRow.removeRows;
-	    this.clear = _removeRow.clear;
-
-	    //rowCurrent
-	    this.updateCurrIndex = _rowCurrent.updateCurrIndex;
-
-	    //rowDelete
-	    this.setRowDelete = _rowDelete.setRowDelete;
-	    this.setAllRowsDelete = _rowDelete.setAllRowsDelete;
-	    this.setRowsDelete = _rowDelete.setRowsDelete;
-
-	    //rowFocus
-	    this.setRowFocus = _rowFocus.setRowFocus;
-	    this.setRowUnFocus = _rowFocus.setRowUnFocus;
-	    this.updateFocusIndex = _rowFocus.updateFocusIndex;
-
-	    //rowSelect
-	    this.setAllRowsSelect = _rowSelect.setAllRowsSelect;
-	    this.setRowSelect = _rowSelect.setRowSelect;
-	    this.setRowsSelect = _rowSelect.setRowsSelect;
-	    this.addRowSelect = _rowSelect.addRowSelect;
-	    this.addRowsSelect = _rowSelect.addRowsSelect;
-	    this.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
-	    this.setRowUnSelect = _rowSelect.setRowUnSelect;
-	    this.setRowsUnSelect = _rowSelect.setRowsUnSelect;
-	    this.toggleAllSelect = _rowSelect.toggleAllSelect;
-	    this.updateSelectedIndices = _rowSelect.updateSelectedIndices;
-
-	    //simpleData
-	    this.setSimpleData = _simpleData.setSimpleData;
-	    this.addSimpleData = _simpleData.addSimpleData;
-
-	    //util
-	    this.isChanged = _util.isChanged;
 	};
+
+	//copyRow
+
+
+	DataTable.prototype.copyRow = _copyRow.copyRow;
+	DataTable.prototype.copyRows = _copyRow.copyRows;
+
+	//data
+	DataTable.prototype.setData = _data.setData;
+	DataTable.prototype.setValue = _data.setValue;
+
+	//enable
+	DataTable.prototype.isEnable = _enable.isEnable;
+	DataTable.prototype.setEnable = _enable.setEnable;
+
+	//getData
+	DataTable.prototype.getData = _getData.getData;
+	DataTable.prototype.getDataByRule = _getData.getDataByRule;
+	DataTable.prototype.getRow = _getData.getRow;
+	DataTable.prototype.getRowByRowId = _getData.getRowByRowId;
+	DataTable.prototype.getRowIndex = _getData.getRowIndex;
+	DataTable.prototype.getRowsByField = _getData.getRowsByField;
+	DataTable.prototype.getRowByField = _getData.getRowByField;
+	DataTable.prototype.getAllRows = _getData.getAllRows;
+	DataTable.prototype.getAllPageRows = _getData.getAllPageRows;
+	DataTable.prototype.getChangedDatas = _getData.getChangedDatas;
+	DataTable.prototype.getChangedRows = _getData.getChangedRows;
+	DataTable.prototype.getValue = _getData.getValue;
+	DataTable.prototype.getIndexByRowId = _getData.getIndexByRowId;
+	DataTable.prototype.getAllDatas = _getData.getAllDatas;
+	DataTable.prototype.getRowIdsByIndices = _getData.getRowIdsByIndices;
+
+	//getCurrent
+	DataTable.prototype.getCurrentRow = _getCurrent.getCurrentRow;
+	DataTable.prototype.getCurrentIndex = _getCurrent.getCurrentIndex;
+
+	//getFocus
+	DataTable.prototype.getFocusRow = _getFocus.getFocusRow;
+	DataTable.prototype.getFocusIndex = _getFocus.getFocusIndex;
+
+	//getMeta
+	DataTable.prototype.getMeta = _getMeta.getMeta;
+	DataTable.prototype.getRowMeta = _getMeta.getRowMeta;
+
+	//getPage
+	DataTable.prototype.getPage = _getPage.getPage;
+	DataTable.prototype.getPages = _getPage.getPages;
+
+	//getParam
+	DataTable.prototype.getParam = _getParam.getParam;
+
+	//getSelect
+	DataTable.prototype.getSelectedIndex = _getSelect.getSelectedIndex;
+	DataTable.prototype.getSelectedIndices = _getSelect.getSelectedIndices;
+	DataTable.prototype.getSelectedIndexs = _getSelect.getSelectedIndexs;
+	DataTable.prototype.getSelectedDatas = _getSelect.getSelectedDatas;
+	DataTable.prototype.getSelectedRows = _getSelect.getSelectedRows;
+
+	//getSimpleData
+	DataTable.prototype.getSimpleData = _getSimpleData.getSimpleData;
+
+	//meta
+	DataTable.prototype.setMeta = _meta.setMeta;
+	DataTable.prototype.updateMeta = _meta.updateMeta;
+	DataTable.prototype.createField = _meta.createField;
+
+	//page
+	DataTable.prototype.setCurrentPage = _page.setCurrentPage;
+	DataTable.prototype.updatePages = _page.updatePages;
+	DataTable.prototype.setPages = _page.setPages;
+	DataTable.prototype.hasPage = _page.hasPage;
+	DataTable.prototype.clearCache = _page.clearCache;
+	DataTable.prototype.cacheCurrentPage = _page.cacheCurrentPage;
+
+	//param
+	DataTable.prototype.addParam = _param.addParam;
+	DataTable.prototype.addParams = _param.addParams;
+
+	//ref
+	DataTable.prototype.refSelectedRows = _ref.refSelectedRows;
+	DataTable.prototype.ref = _ref.ref;
+	DataTable.prototype.refMeta = _ref.refMeta;
+	DataTable.prototype.refRowMeta = _ref.refRowMeta;
+	DataTable.prototype.refEnable = _ref.refEnable;
+
+	//row
+	DataTable.prototype.setRows = _row.setRows;
+	DataTable.prototype.addRow = _row.addRow;
+	DataTable.prototype.addRows = _row.addRows;
+	DataTable.prototype.insertRow = _row.insertRow;
+	DataTable.prototype.insertRows = _row.insertRows;
+	DataTable.prototype.createEmptyRow = _row.createEmptyRow;
+
+	//removeRow
+	DataTable.prototype.removeRowByRowId = _removeRow.removeRowByRowId;
+	DataTable.prototype.removeRow = _removeRow.removeRow;
+	DataTable.prototype.removeAllRows = _removeRow.removeAllRows;
+	DataTable.prototype.removeRows = _removeRow.removeRows;
+	DataTable.prototype.clear = _removeRow.clear;
+
+	//rowCurrent
+	DataTable.prototype.updateCurrIndex = _rowCurrent.updateCurrIndex;
+
+	//rowDelete
+	DataTable.prototype.setRowDelete = _rowDelete.setRowDelete;
+	DataTable.prototype.setAllRowsDelete = _rowDelete.setAllRowsDelete;
+	DataTable.prototype.setRowsDelete = _rowDelete.setRowsDelete;
+
+	//rowFocus
+	DataTable.prototype.setRowFocus = _rowFocus.setRowFocus;
+	DataTable.prototype.setRowUnFocus = _rowFocus.setRowUnFocus;
+	DataTable.prototype.updateFocusIndex = _rowFocus.updateFocusIndex;
+
+	//rowSelect
+	DataTable.prototype.setAllRowsSelect = _rowSelect.setAllRowsSelect;
+	DataTable.prototype.setRowSelect = _rowSelect.setRowSelect;
+	DataTable.prototype.setRowsSelect = _rowSelect.setRowsSelect;
+	DataTable.prototype.addRowSelect = _rowSelect.addRowSelect;
+	DataTable.prototype.addRowsSelect = _rowSelect.addRowsSelect;
+	DataTable.prototype.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
+	DataTable.prototype.setRowUnSelect = _rowSelect.setRowUnSelect;
+	DataTable.prototype.setRowsUnSelect = _rowSelect.setRowsUnSelect;
+	DataTable.prototype.toggleAllSelect = _rowSelect.toggleAllSelect;
+	DataTable.prototype.updateSelectedIndices = _rowSelect.updateSelectedIndices;
+
+	//simpleData
+	DataTable.prototype.setSimpleData = _simpleData.setSimpleData;
+	DataTable.prototype.addSimpleData = _simpleData.addSimpleData;
+
+	//util
+	DataTable.prototype.isChanged = _util.isChanged;
 
 	DataTable.DEFAULTS = {
 	    pageSize: 20,
@@ -1902,7 +1932,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	exports.Events = undefined;
 
@@ -1918,14 +1948,14 @@
 
 
 	var Events = function Events() {
-	    _classCallCheck(this, Events);
-
-	    this.on = _events.on;
-	    this.off = _events.off;
-	    this.one = _events.one;
-	    this.trigger = _events.trigger;
-	    this.getEvent = _events.getEvent;
+	  _classCallCheck(this, Events);
 	};
+
+	Events.prototype.on = _events.on;
+	Events.prototype.off = _events.off;
+	Events.prototype.one = _events.one;
+	Events.prototype.trigger = _events.trigger;
+	Events.prototype.getEvent = _events.getEvent;
 
 	exports.Events = Events;
 
@@ -3508,22 +3538,24 @@
 	 */
 	var setRowsDelete = function setRowsDelete(indices) {
 	    indices = (0, _util._formatToIndicesArray)(this, indices);
-	    for (var i = 0; i < indices.length; i++) {
-	        var row = this.getRow(indices[i]);
-	        if (row.status == Row.STATUS.NEW) {
-	            this.rows(this.rows().splice(indices[i], 1));
-	            this.updateSelectedIndices(indices[i], '-');
-	            this.updateFocusIndex(index, '-');
-	        } else {
-	            row.status = Row.STATUS.FALSE_DELETE;
-	        }
-	    }
 	    var rowIds = this.getRowIdsByIndices(indices);
-	    this.trigger(DataTable.ON_ROW_DELETE, {
+	    this.trigger(DataTable.ON_DELETE, {
 	        falseDelete: true,
 	        indices: indices,
 	        rowIds: rowIds
 	    });
+	    for (var i = 0; i < indices.length; i++) {
+	        var row = this.getRow(indices[i]);
+	        if (row.status == Row.STATUS.NEW) {
+	            this.rows().splice(indices[i], 1);
+	            this.updateSelectedIndices(indices[i], '-');
+	            this.updateFocusIndex(index, '-');
+	        } else {
+	            row.status = Row.STATUS.FALSE_DELETE;
+	            var temprows = this.rows().splice(indices[i], 1);
+	            this.rows().push(temprows[0]);
+	        }
+	    }
 	};
 
 	exports.setRowDelete = setRowDelete;
@@ -3583,6 +3615,14 @@
 	        // 避免与控件循环触发
 	        return;
 	    }
+
+	    if (u.isArray(indices)) {
+	        var rowNum = this.rows().length;
+	        for (var i = 0; i < indices.length; i++) {
+	            if (indices[i] < 0 || indices[i] >= rowNum) indices.splice(i, 1);
+	        }
+	    }
+
 	    this.setAllRowsUnSelect({ quiet: true });
 	    try {
 	        this.selectedIndices(indices);
@@ -8833,11 +8873,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -8922,11 +8962,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });    
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -13117,7 +13157,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  	thumb.appendChild(focusHelper);*/
+	  		thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
