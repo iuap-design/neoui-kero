@@ -6,14 +6,18 @@
 import {BaseAdapter} from './baseAdapter';
 import {YearMonth} from 'neoui/js/neoui-yearmonth';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {ValueMixin} from './valueMixin';
+import {EnableMixin} from './enableMixin';
+import {RequiredMixin} from './requiredMixin';
+import {ValidateMixin} from './validateMixin';
 
 var YearMonthAdapter = BaseAdapter.extend({
-    initialize: function (comp, options) {
+    mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],
+    init: function (options) {
         var self = this;
-        YearMonthAdapter.superclass.initialize.apply(this, arguments);
         this.validType = 'yearmonth';
 
-        this.comp = new YearMonth(this.element);
+        this.comp = new YearMonth({el:this.element,showFix:this.options.showFix});
 
 
         this.comp.on('valueChange', function(event){
@@ -43,4 +47,3 @@ compMgr.addDataAdapter({
 
 
 export {YearMonthAdapter};
-
