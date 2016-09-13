@@ -940,7 +940,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.ex = undefined;
 
-	var _extend = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"neoui-sparrow/lib/extend\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _extend = __webpack_require__(1);
 
 	var polyfill = true; /**
 	                      * Created by dingrf on 2015-11-18.
@@ -1040,6 +1040,96 @@ return /******/ (function(modules) { // webpackBootstrap
 	window.u = ex;
 
 	exports.ex = ex;
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.extend = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow extend
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-27 21:46:50
+	                                                                                                                                                                                                                                                   */
+
+	var _enumerables = __webpack_require__(2);
+
+	/**
+	 * 复制对象属性
+	 *
+	 * @param {Object}  目标对象
+	 * @param {config} 源对象
+	 */
+	var extend = function extend(object, config) {
+		var args = arguments,
+		    options;
+		if (args.length > 1) {
+			for (var len = 1; len < args.length; len++) {
+				options = args[len];
+				if (object && options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					var i, j, k;
+					for (i in options) {
+						object[i] = options[i];
+					}
+					if (_enumerables.enumerables) {
+						for (j = _enumerables.enumerables.length; j--;) {
+							k = _enumerables.enumerables[j];
+							if (options.hasOwnProperty && options.hasOwnProperty(k)) {
+								object[k] = options[k];
+							}
+						}
+					}
+				}
+			}
+		}
+		return object;
+	};
+
+	exports.extend = extend;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	/**
+	 * Module : Sparrow extend enum
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-27 21:46:50
+	 */
+
+	var U_LANGUAGES = "i_languages";
+	var U_THEME = "u_theme";
+	var U_LOCALE = "u_locale";
+	var U_USERCODE = "usercode";
+
+	var enumerables = true,
+	    enumerablesTest = {
+		toString: 1
+	},
+	    toString = Object.prototype.toString;
+	for (var i in enumerablesTest) {
+		exports.enumerables = enumerables = null;
+	}
+	if (enumerables) {
+		exports.enumerables = enumerables = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
+	}
+
+	exports.enumerables = enumerables;
+	exports.U_LANGUAGES = U_LANGUAGES;
+	exports.U_THEME = U_THEME;
+	exports.U_LOCALE = U_LOCALE;
+	exports.U_USERCODE = U_USERCODE;
 
 /***/ }
 /******/ ]);
