@@ -267,9 +267,12 @@
 	                                                                                                                                                                                                                                                   * Module : Sparrow compMgr
 	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
 	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 18:41:06
+	                                                                                                                                                                                                                                                   * Update : 2016-09-13 09:26:00
 	                                                                                                                                                                                                                                                   */
 
 	var _dom = __webpack_require__(5);
+
+	var _util = __webpack_require__(10);
 
 	function _findRegisteredClass(name, optReplace) {
 	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
@@ -385,7 +388,11 @@
 	            var options = JSON.parse(element.getAttribute('u-meta'));
 	            if (options && options['type']) {
 	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
-	                var comp = CompMgr.createDataAdapter({ el: element, options: options, model: model });
+	                var comp = CompMgr.createDataAdapter({
+	                    el: element,
+	                    options: options,
+	                    model: model
+	                });
 	                if (comp) {
 	                    element['adpt'] = comp;
 	                    element['u-meta'] = comp;
@@ -486,7 +493,7 @@
 	        this.registeredControls = tmpArray;
 
 	        function traverse(control) {
-	            if (u.inArray(control, tmpArray)) return;
+	            if ((0, _util.inArray)(control, tmpArray)) return;
 	            if (control.dependencies.length > 0) {
 	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
 	                    var childControl = dictory[control.dependencies[i]];
@@ -522,7 +529,7 @@
 	'use strict';
 
 	exports.__esModule = true;
-	exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
+	exports.getElementTop = exports.getElementLeft = exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
 
 	var _event = __webpack_require__(6);
 
@@ -766,6 +773,34 @@
 		panel.style.top = top + 'px';
 	};
 
+	var getElementLeft = function getElementLeft(element) {
+		var actualLeft = element.offsetLeft;
+		var current = element.offsetParent;
+		while (current !== null) {
+			actualLeft += current.offsetLeft;
+			current = current.offsetParent;
+		}
+		if (document.compatMode == "BackCompat") {
+			var elementScrollLeft = document.body.scrollLeft;
+		} else {
+			var elementScrollLeft = document.documentElement.scrollLeft;
+		}
+		return actualLeft - elementScrollLeft;
+	};
+	var getElementTop = function getElementTop(element) {
+		var actualTop = element.offsetTop;
+		var current = element.offsetParent;
+		while (current !== null) {
+			actualTop += current.offsetTop;
+			current = current.offsetParent;
+		}
+		if (document.compatMode == "BackCompat") {
+			var elementScrollTop = document.body.scrollTop;
+		} else {
+			var elementScrollTop = document.documentElement.scrollTop;
+		}
+		return actualTop - elementScrollTop;
+	};
 	exports.addClass = addClass;
 	exports.removeClass = removeClass;
 	exports.hasClass = hasClass;
@@ -780,6 +815,8 @@
 	exports.getOffset = getOffset;
 	exports.getScroll = getScroll;
 	exports.showPanelByEle = showPanelByEle;
+	exports.getElementLeft = getElementLeft;
+	exports.getElementTop = getElementTop;
 
 /***/ },
 /* 6 */
@@ -2665,7 +2702,7 @@
 	        for (var i = 0; i < dataTables.length; i++) {
 	            var dt = dataTables[i];
 	            if (typeof dt == 'string') this.addDataTable(dt);else {
-	                for (key in dt) {
+	                for (var key in dt) {
 	                    this.addDataTable(key, dt[key]);
 	                }
 	            }
@@ -2977,10 +3014,10 @@
 	var _events = __webpack_require__(31);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
-	                                                                                                                                                           * Module : Kero webpack entry dataTable index
-	                                                                                                                                                           * Author : liuyk(liuyuekai@yonyou.com)
-	                                                                                                                                                           * Date   : 2016-08-09 15:24:46
-	                                                                                                                                                           */
+	                                                                                                                                                          * Module : Kero webpack entry dataTable index
+	                                                                                                                                                          * Author : liuyk(liuyuekai@yonyou.com)
+	                                                                                                                                                          * Date   : 2016-08-09 15:24:46
+	                                                                                                                                                          */
 
 	var DataTable =
 	// class DataTable extends Events{
@@ -3414,7 +3451,7 @@
 	 * Date	  : 2016-07-30 14:34:01
 	 */
 
-	/** 
+	/**
 	 *设置数据
 	 *
 	 */
@@ -3454,12 +3491,12 @@
 	        } else {
 	            select = this.getPage(newIndex).selectedIndices;
 	            focus = this.getPage(newIndex).focus;
-	            this.setRows(this.getPage(newIndex).rows);
+	            this.setRows(this.getPage(newIndex).rows, options);
 	        }
 	    } else {
 	        select = data.select || (!unSelect ? [0] : []);
 	        focus = data.focus !== undefined ? data.focus : data.current;
-	        this.setRows(data.rows);
+	        this.setRows(data.rows, options);
 	    }
 	    this.pageIndex(newIndex);
 	    this.pageSize(newSize);
@@ -4616,7 +4653,7 @@
 	 * 设置行数据
 	 * @param {Object} rows
 	 */
-	var setRows = function setRows(rows) {
+	var setRows = function setRows(rows, options) {
 	    var insertRows = [],
 	        _id;
 	    for (var i = 0; i < rows.length; i++) {
@@ -4647,7 +4684,7 @@
 	                }
 	            } else {
 	                row = new Row({ parent: this, id: _id });
-	                row.setData(rows[i]);
+	                row.setData(rows[i], null, options);
 	                insertRows.push(row);
 	            }
 	        }
@@ -5144,6 +5181,11 @@
 	    var _data = {
 	        rows: rows
 	    };
+	    if (options) {
+	        if (_typeof(options.fieldFlag) == undefined) {
+	            options.fieldFlag = true;
+	        }
+	    }
 	    this.setData(_data, options);
 	};
 
@@ -5642,18 +5684,25 @@
 
 	/**
 	 * [_setData description]
-	 * @param {[type]} sourceData 
-	 * @param {[type]} targetData 
-	 * @param {[type]} subscribe  
+	 * @param {[type]} sourceData
+	 * @param {[type]} targetData
+	 * @param {[type]} subscribe
 	 * @param {[type]} parentKey  [父项key，数据项为数组时获取meta值用]
 	 */
-	var _setData = function _setData(rowObj, sourceData, targetData, subscribe, parentKey) {
+	var _setData = function _setData(rowObj, sourceData, targetData, subscribe, parentKey, options) {
 	    for (var key in sourceData) {
 	        var _parentKey = parentKey || null;
 	        //if (targetData[key]) {
 	        targetData[key] = targetData[key] || {};
 	        var valueObj = sourceData[key];
-	        if ((typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') rowObj.parent.createField(key);
+	        if ((typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') {
+	            if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) == 'object') {
+	                if (options.fieldFlag) {
+	                    rowObj.parent.createField(key);
+	                }
+	            }
+	        }
+
 	        //if (typeof this.parent.meta[key] === 'undefined') continue;
 	        if (valueObj == null || (typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') {
 	            // 子表的话只有valueObj为datatable的时候才赋值
@@ -5687,7 +5736,7 @@
 	                }
 	            } else {
 	                _parentKey = _parentKey == null ? key : _parentKey + '.' + key;
-	                _setData(rowObj, valueObj, targetData[key], null, _parentKey);
+	                _setData(rowObj, valueObj, targetData[key], null, _parentKey, options);
 	            }
 	        }
 	        //}
@@ -5696,14 +5745,14 @@
 
 	/**
 	 *设置Row数据
-	 *@subscribe 是否触发监听  
+	 *@subscribe 是否触发监听
 	 */
-	var setData = function setData(data, subscribe) {
+	var setData = function setData(data, subscribe, options) {
 	    this.status = data.status;
 	    var sourceData = data.data,
 	        targetData = this.data;
 	    if (this.parent.root.strict != true) {
-	        _setData(this, sourceData, targetData, subscribe);
+	        _setData(this, sourceData, targetData, subscribe, null, options);
 	        return;
 	    }
 
@@ -6065,10 +6114,8 @@
 	                _data[key] = data[key].value;
 	            }
 	            if (meta[key] && meta[key].type) {
-	                if (meta[key].type == 'date' || meta[key].type == 'datetime') {
 
-	                    _data[key] = (0, _rowUtil._dateToUTCString)(data[key].value);
-	                }
+	                _data[key] = fun(meta[key].type, data[key].value);
 	            }
 	        } else {
 	            _data[key] = _getSimpleData(rowObj, data[key]);
@@ -6077,6 +6124,12 @@
 	    return _data;
 	};
 
+	var fun = function fun() {
+	    if (meta[key].type == 'date' || meta[key].type == 'datetime') {
+	        return (0, _rowUtil._dateToUTCString)(data[key].value);
+	    }
+	    return data[key].value;
+	};
 	var getSimpleData = function getSimpleData(options) {
 	    options = options || {};
 	    var fields = options['fields'] || null;

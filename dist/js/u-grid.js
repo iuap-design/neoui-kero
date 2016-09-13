@@ -1,5 +1,5 @@
 /** 
- * neoui-grid v1.0.8
+ * neoui-grid v1.0.9
  * grid
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/grid#readme
@@ -8,41 +8,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -52,19 +52,19 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _dataSource = __webpack_require__(1);
-	
+
 	var _column = __webpack_require__(6);
-	
+
 	var _gridComp = __webpack_require__(8);
-	
+
 	var old = $.fn.grid;
 	// 方法扩展
 	/*
 	 * 对象所支持的属性及默认值
 	 */
-	
+
 	$.fn.grid = function (options) {
 		var grid = $(this).data('gridComp');
 		if (!grid) $(this).data('gridComp', grid = new _gridComp.gridComp(this, options));
@@ -73,7 +73,7 @@
 	$.fn.grid.gridComp = _gridComp.gridComp;
 	$.fn.grid.gridCompColumn = _column.column;
 	$.fn.grid.dataSource = _dataSource.dataSource;
-	
+
 	$.fn.grid.noConflict = function () {
 		$.fn.grid = old;
 		return this;
@@ -84,47 +84,45 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	exports.dataSource = undefined;
-	
+
 	var _dataSourceInit = __webpack_require__(2);
-	
+
 	var _re_gridCompSort = __webpack_require__(3);
-	
+
 	var _re_gridCompTree = __webpack_require__(5);
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var dataSource = function dataSource(options, gridComp) {
 	    _classCallCheck(this, dataSource);
-	
+
 	    this.init(options, gridComp);
 	    this.sortRows();
 	};
-	
+
 	;
-	
+
 	var dataSourceProto = dataSource.prototype;
-	
+
 	dataSourceProto.init = _dataSourceInit.init;
 	dataSourceProto.sortRows = _dataSourceInit.sortRows;
 	dataSourceProto.basicSortRows = _dataSourceInit.basicSortRows;
 	dataSourceProto.treeSortRows = _dataSourceInit.treeSortRows;
 	dataSourceProto.getSumValue = _dataSourceInit.getSumValue;
-	
+
 	dataSourceProto.basicSortRows = _re_gridCompSort.re_basicSortRows;
-	
+
 	/*
 	 * tree
 	 */
-	
-	
+
+
 	dataSourceProto.treeSortRows = _re_gridCompTree.re_treeSortRows;
 	dataSourceProto.pushChildRows = _re_gridCompTree.pushChildRows;
-	
+
 	exports.dataSource = dataSource;
 
 /***/ },
@@ -132,10 +130,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 处理参数
 	 */
@@ -221,14 +217,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	exports.re_basicSortRows = exports.sortRowsByPrio = exports.re_deleteOneRowTree = exports.canSortable = exports.sort_initGridEventFun = exports.sort_initEventFun = undefined;
-	
+
 	var _gridCompEvent = __webpack_require__(4);
-	
+
 	var sort_initEventFun = function sort_initEventFun() {
 		// 扩展方法
 		var oThis = this;
@@ -250,7 +244,7 @@
 				}
 			} else if ($(e.target).closest('#' + oThis.options.id + '_content').length > 0) {
 				// 点击的是数据区域
-	
+
 			}
 		});
 	};
@@ -336,7 +330,7 @@
 					}
 				}
 			}
-	
+
 			oThis.repairContent();
 			oThis.afterGridDivsCreate();
 		}
@@ -363,7 +357,7 @@
 				});
 			}
 		}
-	
+
 		var evalStr = function evalStr(i) {
 			if (i == prioArray.length - 1) {
 				return 'by(prioArray[' + i + '].field, prioArray[' + i + '].sortType)';
@@ -371,7 +365,7 @@
 				return 'by(prioArray[' + i + '].field, prioArray[' + i + '].sortType,' + evalStr(i + 1) + ')';
 			}
 		};
-	
+
 		var by = function by(field, sortType, eqCall) {
 			var callee = arguments.callee;
 			return function (a, b) {
@@ -422,7 +416,7 @@
 				}
 			};
 		};
-	
+
 		this.rows.sort(eval(evalStr(0)));
 	};
 	/*
@@ -526,10 +520,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 创建完成之后顶层div添加监听
 	 */
@@ -620,7 +612,7 @@
 	            //左侧复选及数字列
 	            mousemoveIndex = $('div', $div.parent()).index($div);
 	        }
-	
+
 	        oThis.trHoverFun(mousemoveIndex);
 	    });
 	    $('#' + this.options.id + '_content').on('mouseout', function (e) {
@@ -641,7 +633,7 @@
 	        }
 	    });
 	};
-	
+
 	exports.initEventFun = initEventFun;
 	exports.initGridEventFun = initGridEventFun;
 	exports.initContentDivEventFun = initContentDivEventFun;
@@ -651,11 +643,9 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
+
+	exports.__esModule = true;
+
 	var re_initTree = function re_initTree(options, gridOptions) {
 		if (gridOptions.showTree) {
 			options.sortable = false;
@@ -671,7 +661,7 @@
 		var oThis = this,
 		    $target = $(e.target),
 		    $td = $target.closest('td');
-	
+
 		if ($td.length > 0) {
 			var $tr = $td.parent();
 			var index = this.getTrIndex($tr);
@@ -720,7 +710,8 @@
 	};
 	var re_addOneRowTree = function re_addOneRowTree(row, index, rowObj) {
 		var oThis = this,
-		    l = this.dataSourceObj.rows.length;
+		    l = this.dataSourceObj.rows.length,
+		    displayFlag;
 		// 存在树结构
 		if (this.options.showTree) {
 			this.hasParent = false;
@@ -773,7 +764,7 @@
 					if (this.options.autoExpand) {
 						displayFlag = 'block';
 					}
-	
+
 					var d = $("div:eq(0)", $pTr);
 					var openDiv = $('.uf-addsquarebutton2', $pTr);
 					var closeDiv = $('.uf-minusbutton', $pTr);
@@ -796,8 +787,11 @@
 				}
 			}
 		}
-	
-		return index;
+
+		return {
+			index: index,
+			displayFlag: displayFlag
+		};
 	};
 	var re_addOneRowTreeHasChildF = function re_addOneRowTreeHasChildF(rowObj) {
 		if (this.hasChildF) {
@@ -827,7 +821,7 @@
 			// 目前已经不适用grid源生的编辑设置了，因为树表时关闭edit
 			var hasParent = false;
 			var hasChildF = false;
-	
+
 			$.each(this.dataSourceObj.rows, function (i) {
 				var vv = this.value;
 				var nowKeyValue = oThis.getString($(vv).attr(keyField), '');
@@ -939,7 +933,7 @@
 				openDiv.click();
 			}
 		}
-	
+
 		var $Tr = $('#' + this.options.id + '_content_div').find('tbody').find('tr[role="row"]').eq(rowIndex);
 		var openDiv = $('.uf-addsquarebutton2', $Tr);
 		var firstDiv = $('.u-grid-content-td-div', $Tr);
@@ -950,6 +944,7 @@
 	 */
 	var re_treeSortRows = function re_treeSortRows(field, sortType) {
 		var oThis = this;
+		var spliceHasParentRows = new Array();
 		this.rows = new Array();
 		this.hasParentRows = new Array();
 		this.nothasParentRows = new Array();
@@ -982,9 +977,13 @@
 					}
 				});
 				if (!hasParent) {
-					oThis.hasParentRows.splice(i, 0);
+					spliceHasParentRows.push(this);
 					oThis.nothasParentRows.push(this);
 				}
+			});
+			$.each(spliceHasParentRows, function () {
+				var index = oThis.hasParentRows.indexOf(this);
+				oThis.hasParentRows.splice(index, 1);
 			});
 			oThis.rows = new Array();
 			var level = 0;
@@ -1006,6 +1005,7 @@
 		var hasChild = false;
 		var childRowArray = new Array();
 		var childRowIndexArray = new Array();
+		var spliceHasParentRows = new Array();
 		$.each(this.hasParentRows, function (i) {
 			if (this && this.parentKeyValue == keyValue) {
 				hasChild = true;
@@ -1014,9 +1014,13 @@
 				childRowArray.push(this);
 				var index = parseInt(oThis.rows.length - 1);
 				childRowIndexArray.push(index);
-				oThis.hasParentRows.splice(i, 1);
+				spliceHasParentRows.push(this);
 				oThis.pushChildRows(this, nowLevel);
 			}
+		});
+		$.each(spliceHasParentRows, function () {
+			var index = oThis.hasParentRows.indexOf(this);
+			oThis.hasParentRows.splice(index, 1);
 		});
 		row.hasChild = hasChild;
 		row.childRow = childRowArray;
@@ -1043,39 +1047,37 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	exports.column = undefined;
-	
+
 	var _columnInit = __webpack_require__(7);
-	
+
 	var _re_gridCompTree = __webpack_require__(5);
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var column = function column(options, gridComp) {
 	    _classCallCheck(this, column);
-	
+
 	    this.init(options, gridComp);
 	};
-	
+
 	;
-	
+
 	var gridCompColumnProto = column.prototype;
-	
+
 	gridCompColumnProto.init = _columnInit.init;
 	gridCompColumnProto.initTree = _columnInit.initTree;
 	gridCompColumnProto.getBooleanOptions = _columnInit.getBooleanOptions;
-	
+
 	/*
 	 * tree
 	 */
-	
-	
+
+
 	gridCompColumnProto.initTree = _re_gridCompTree.re_initTree;
-	
+
 	exports.column = column;
 
 /***/ },
@@ -1083,10 +1085,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 处理参数
 	 */
@@ -1131,7 +1131,7 @@
 	    try {
 	        if (typeof this.options.editType == 'string') this.options.editType = eval(this.options.editType);
 	    } catch (e) {}
-	
+
 	    // 转成数字
 	    this.options.width = parseInt(this.options.width);
 	    this.firstColumn = false;
@@ -1150,7 +1150,7 @@
 	    this.options.editFormShow = this.gridComp.getBoolean(this.options.editFormShow);
 	    this.options.autoExpand = this.gridComp.getBoolean(this.options.autoExpand);
 	};
-	
+
 	exports.init = init;
 	exports.initTree = initTree;
 	exports.getBooleanOptions = getBooleanOptions;
@@ -1160,71 +1160,69 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+
+	exports.__esModule = true;
 	exports.gridComp = undefined;
-	
+
 	var _gridCompCreate = __webpack_require__(9);
-	
+
 	var _gridCompCreateCal = __webpack_require__(11);
-	
+
 	var _gridCompEvent = __webpack_require__(4);
-	
+
 	var _gridCompGet = __webpack_require__(12);
-	
+
 	var _gridCompInit = __webpack_require__(13);
-	
+
 	var _gridCompOperateRow = __webpack_require__(14);
-	
+
 	var _gridCompRenderType = __webpack_require__(15);
-	
+
 	var _gridCompSet = __webpack_require__(16);
-	
+
 	var _gridCompWDChange = __webpack_require__(17);
-	
+
 	var _gridCompClick = __webpack_require__(18);
-	
+
 	var _gridCompOther = __webpack_require__(19);
-	
+
 	var _ut_utility = __webpack_require__(20);
-	
+
 	var _re_gridCompColMenu = __webpack_require__(21);
-	
+
 	var _re_gridCompDrag = __webpack_require__(22);
-	
+
 	var _re_gridCompEdit = __webpack_require__(23);
-	
+
 	var _re_gridCompEditForm = __webpack_require__(24);
-	
+
 	var _re_gridCompFixed = __webpack_require__(25);
-	
+
 	var _re_gridCompFormShow = __webpack_require__(26);
-	
+
 	var _re_gridCompHeaderLevel = __webpack_require__(27);
-	
+
 	var _re_gridCompLocalStorage = __webpack_require__(28);
-	
+
 	var _re_gridCompOverWidthHidden = __webpack_require__(29);
-	
+
 	var _re_gridCompSort = __webpack_require__(3);
-	
+
 	var _re_gridCompSumRow = __webpack_require__(30);
-	
+
 	var _re_gridCompSwap = __webpack_require__(31);
-	
+
 	var _re_gridCompTree = __webpack_require__(5);
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var gridComp = function gridComp(ele, options) {
 	  _classCallCheck(this, gridComp);
-	
+
 	  this.init(ele, options);
 	  this.initGrid();
 	};
-	
+
 	;
 	gridComp.prototype.formatWidth = _ut_utility.formatWidth;
 	gridComp.prototype.swapEle = _ut_utility.swapEle;
@@ -1235,7 +1233,7 @@
 	gridComp.prototype.DicimalFormater = _ut_utility.DicimalFormater;
 	gridComp.prototype.accAdd = _ut_utility.accAdd;
 	gridComp.prototype.getTrIndex = _ut_utility.getTrIndex;
-	
+
 	gridComp.prototype.updateLastRowFlag = _gridCompOther.updateLastRowFlag;
 	gridComp.prototype.updateNumColLastRowFlag = _gridCompOther.updateNumColLastRowFlag;
 	gridComp.prototype.columnsVisibleFun = _gridCompOther.columnsVisibleFun;
@@ -1250,13 +1248,13 @@
 	gridComp.prototype.setShowNumCol = _gridCompOther.setShowNumCol;
 	gridComp.prototype.isGridShow = _gridCompOther.isGridShow;
 	gridComp.prototype.getBoolean = _gridCompOther.getBoolean;
-	
+
 	gridComp.prototype.isDblEvent = _gridCompClick.isDblEvent;
 	gridComp.prototype.dblClickFun = _gridCompClick.dblClickFun;
 	gridComp.prototype.clickFun = _gridCompClick.clickFun;
 	gridComp.prototype.clickFunTree = _gridCompClick.clickFunTree;
 	gridComp.prototype.clickFunEdit = _gridCompClick.clickFunEdit;
-	
+
 	gridComp.prototype.createDivs = _gridCompCreate.createDivs;
 	gridComp.prototype.repaintDivs = _gridCompCreate.repaintDivs;
 	gridComp.prototype.createGridDivs = _gridCompCreate.createGridDivs;
@@ -1284,7 +1282,7 @@
 	gridComp.prototype.createContentOneRowTd = _gridCompCreate.createContentOneRowTd;
 	gridComp.prototype.createContentOneRowTdForIE = _gridCompCreate.createContentOneRowTdForIE;
 	gridComp.prototype.repairContent = _gridCompCreate.repairContent;
-	
+
 	gridComp.prototype.trHoverFun = _gridCompCreateCal.trHoverFun;
 	gridComp.prototype.setIntervalFun = _gridCompCreateCal.setIntervalFun;
 	gridComp.prototype.editorRowChangeFun = _gridCompCreateCal.editorRowChangeFun;
@@ -1294,11 +1292,11 @@
 	gridComp.prototype.afterRepaintGrid = _gridCompCreateCal.afterRepaintGrid;
 	gridComp.prototype.resetScrollLeft = _gridCompCreateCal.resetScrollLeft;
 	gridComp.prototype.hideEditMenu = _gridCompCreateCal.hideEditMenu;
-	
+
 	gridComp.prototype.initEventFun = _gridCompEvent.initEventFun;
 	gridComp.prototype.initGridEventFun = _gridCompEvent.initGridEventFun;
 	gridComp.prototype.initContentDivEventFun = _gridCompEvent.initContentDivEventFun;
-	
+
 	gridComp.prototype.getColumnAttr = _gridCompGet.getColumnAttr;
 	gridComp.prototype.getColumnByField = _gridCompGet.getColumnByField;
 	gridComp.prototype.getIndexOfColumn = _gridCompGet.getIndexOfColumn;
@@ -1312,7 +1310,7 @@
 	gridComp.prototype.getRowByIndex = _gridCompGet.getRowByIndex;
 	gridComp.prototype.getRowIndexByValue = _gridCompGet.getRowIndexByValue;
 	gridComp.prototype.getChildRowIndex = _gridCompGet.getChildRowIndex;
-	
+
 	gridComp.prototype.init = _gridCompInit.init;
 	gridComp.prototype.getBooleanOptions = _gridCompInit.getBooleanOptions;
 	gridComp.prototype.initDefault = _gridCompInit.initDefault;
@@ -1333,7 +1331,7 @@
 	gridComp.prototype.initGridCompFixedColumn = _gridCompInit.initGridCompFixedColumn;
 	gridComp.prototype.setRequired = _gridCompInit.setRequired;
 	gridComp.prototype.initDataSource = _gridCompInit.initDataSource;
-	
+
 	gridComp.prototype.addOneRow = _gridCompOperateRow.addOneRow;
 	gridComp.prototype.addOneRowTree = _gridCompOperateRow.addOneRowTree;
 	gridComp.prototype.addOneRowTreeHasChildF = _gridCompOperateRow.addOneRowTreeHasChildF;
@@ -1356,34 +1354,34 @@
 	gridComp.prototype.setRowFocus = _gridCompOperateRow.setRowFocus;
 	gridComp.prototype.setRowUnFocus = _gridCompOperateRow.setRowUnFocus;
 	gridComp.prototype.resetNumCol = _gridCompOperateRow.resetNumCol;
-	
+
 	gridComp.prototype.renderTypeFun = _gridCompRenderType.renderTypeFun;
 	gridComp.prototype.renderTypeByColumn = _gridCompRenderType.renderTypeByColumn;
 	gridComp.prototype.renderTypeSumRow = _gridCompRenderType.renderTypeSumRow;
-	
+
 	gridComp.prototype.setColumnVisibleByColumn = _gridCompSet.setColumnVisibleByColumn;
 	gridComp.prototype.setColumnVisibleByIndex = _gridCompSet.setColumnVisibleByIndex;
 	gridComp.prototype.setCoulmnWidthByField = _gridCompSet.setCoulmnWidthByField;
 	gridComp.prototype.setColumnWidth = _gridCompSet.setColumnWidth;
 	gridComp.prototype.setDataSource = _gridCompSet.setDataSource;
 	gridComp.prototype.setDataSourceFun1 = _gridCompSet.setDataSourceFun1;
-	
+
 	gridComp.prototype.widthChangeFun = _gridCompWDChange.widthChangeFun;
 	gridComp.prototype.widthChangeGridFun = _gridCompWDChange.widthChangeGridFun;
 	gridComp.prototype.widthChangeGridFunFixed = _gridCompWDChange.widthChangeGridFunFixed;
 	gridComp.prototype.widthChangeGridFunOverWidthHidden = _gridCompWDChange.widthChangeGridFunOverWidthHidden;
 	gridComp.prototype.heightChangeFun = _gridCompWDChange.heightChangeFun;
 	gridComp.prototype.contentWidthChange = _gridCompWDChange.contentWidthChange;
-	
+
 	var gridCompProto = gridComp.prototype;
-	
+
 	/*
 	 * colmuenu
 	 */
 	var oldInitGridCompColumn = gridCompProto.initGridCompColumn,
 	    oldInitEventFun = gridCompProto.initEventFun,
 	    oldInitGridEventFun = gridCompProto.initGridEventFun;
-	
+
 	gridCompProto.initGridCompColumnColumnMenuFun = _re_gridCompColMenu.re_initGridCompColumnColumnMenuFun;
 	gridCompProto.initGridCompColumn = function () {
 	  // 执行原有方法
@@ -1401,21 +1399,21 @@
 	  oldInitGridEventFun.apply(this, arguments);
 	  _re_gridCompColMenu.colMenu_initGridEventFun.apply(this, arguments);
 	};
-	
+
 	if (typeof gridCompProto.saveGridCompColumnArrToLocal == 'undefined') {
 	  gridCompProto.saveGridCompColumnArrToLocal = function () {};
 	}
 	if (typeof gridCompProto.clearLocalData == 'undefined') {
 	  gridCompProto.clearLocalData = function () {};
 	}
-	
+
 	/*
 	 * grag
 	 */
 	var oldInitEventFun_grag = gridCompProto.initEventFun;
 	var oldInitGridEventFun_grag = gridCompProto.initGridEventFun;
-	
-	
+
+
 	gridCompProto.createHeaderDrag = _re_gridCompDrag.re_createHeaderDrag;
 	gridCompProto.initEventFun = function () {
 	  // 执行原有方法
@@ -1435,13 +1433,13 @@
 	}
 	gridCompProto.headerThDrag = _re_gridCompDrag.headerThDrag;
 	gridCompProto.resetThVariableDrag = _re_gridCompDrag.re_resetThVariableDrag;
-	
+
 	/*
 	 * edit
 	 */
 	var oldInitEventFun_edit = gridCompProto.initEventFun;
-	
-	
+
+
 	gridCompProto.hideEditMenu = _re_gridCompEdit.re_hideEditMenu;
 	gridCompProto.clickFunEdit = _re_gridCompEdit.re_clickFunEdit;
 	gridCompProto.editRowFun = _re_gridCompEdit.editRowFun;
@@ -1465,14 +1463,14 @@
 	};
 	gridCompProto.setGridEditType = _re_gridCompEdit.setGridEditType;
 	gridCompProto.setGridEditTypeAndEditRow = _re_gridCompEdit.setGridEditTypeAndEditRow;
-	
+
 	/*
 	 * editForm
 	 */
 	var oldInitDefault = gridCompProto.initDefault,
 	    oldSetRequired = gridCompProto.setRequired;
-	
-	
+
+
 	gridCompProto.initDefault = function () {
 	  // 执行原有方法
 	  oldInitDefault.apply(this, arguments);
@@ -1485,13 +1483,13 @@
 	};
 	gridCompProto.editorRowChangeFun = _re_gridCompEditForm.re_editorRowChangeFun;
 	gridCompProto.formEditCell = _re_gridCompEditForm.formEditCell;
-	
+
 	/*
 	 * fixed
 	 */
 	var oldColumnsVisibleFun = gridCompProto.columnsVisibleFun;
-	
-	
+
+
 	gridCompProto.initGridCompFixedColumn = _re_gridCompFixed.re_initGridCompFixedColumn;
 	gridCompProto.columnsVisibleFun = function () {
 	  // 执行原有方法
@@ -1502,54 +1500,54 @@
 	gridCompProto.createContentTableFixed = _re_gridCompFixed.re_createContentTableFixed;
 	gridCompProto.createContentOneRowFixed = _re_gridCompFixed.re_createContentOneRowFixed;
 	gridCompProto.widthChangeGridFunFixed = _re_gridCompFixed.re_widthChangeGridFunFixed;
-	
+
 	/*
 	 * formShow
 	 */
-	
-	
+
+
 	gridCompProto.createFromDivs = _re_gridCompFormShow.createFromDivs;
 	gridCompProto.createFromContent = _re_gridCompFormShow.createFromContent;
 	gridCompProto.createFormContentRows = _re_gridCompFormShow.createFormContentRows;
 	gridCompProto.widthChangeFormFun = gridCompProto;
-	
+
 	/*
 	 * headerLevel
 	 */
-	
-	
+
+
 	gridCompProto.resetThVariableHeaderLevel = _re_gridCompHeaderLevel.re_resetThVariableHeaderLevel;
 	gridCompProto.initGridCompColumnHeaderLevelFun = _re_gridCompHeaderLevel.re_initGridCompColumnHeaderLevelFun;
 	// gridCompProto.initGridHiddenLevelColumn = initGridHiddenLevelColumn;
 	gridCompProto.getLevelTitleByField = _re_gridCompHeaderLevel.getLevelTitleByField;
-	
+
 	/*
 	 * localStorage
 	 */
-	
-	
+
+
 	gridCompProto.initGridCompColumnLoacl = _re_gridCompLocalStorage.re_initGridCompColumnLoacl;
 	gridCompProto.getLocalData = _re_gridCompLocalStorage.getLocalData;
 	gridCompProto.saveLocalData = _re_gridCompLocalStorage.saveLocalData;
 	gridCompProto.clearLocalData = _re_gridCompLocalStorage.clearLocalData;
 	gridCompProto.saveGridCompColumnArrToLocal = _re_gridCompLocalStorage.saveGridCompColumnArrToLocal;
 	gridCompProto.getGridCompColumnArrFromLocal = _re_gridCompLocalStorage.getGridCompColumnArrFromLocal;
-	
+
 	/*
 	 * overWidthColumn
 	 */
-	
-	
+
+
 	gridCompProto.initGridHiddenLevelColumn = _re_gridCompOverWidthHidden.re_initGridHiddenLevelColumn;
 	gridCompProto.widthChangeGridFunOverWidthHidden = _re_gridCompOverWidthHidden.re_widthChangeGridFunOverWidthHidden;
-	
+
 	/*
 	 * sort
 	 */
 	var oldInitEventFun_sort = gridCompProto.initEventFun;
 	var oldInitGridEventFun_sort = gridCompProto.initGridEventFun;
-	
-	
+
+
 	gridCompProto.initEventFun = function () {
 	  // 执行原有方法
 	  oldInitEventFun_sort.apply(this, arguments);
@@ -1563,12 +1561,12 @@
 	gridCompProto.canSortable = _re_gridCompSort.canSortable;
 	gridCompProto.deleteOneRowTree = _re_gridCompSort.re_deleteOneRowTree;
 	gridCompProto.sortRowsByPrio = _re_gridCompSort.sortRowsByPrio;
-	
+
 	/*
 	 * sumRow
 	 */
-	
-	
+
+
 	gridCompProto.createContentRowsSumRow = _re_gridCompSumRow.re_createContentRowsSumRow;
 	gridCompProto.createContentSumRow = _re_gridCompSumRow.re_createContentSumRow;
 	gridCompProto.createSumRow = _re_gridCompSumRow.createSumRow;
@@ -1576,14 +1574,14 @@
 	gridCompProto.repairSumRow = _re_gridCompSumRow.re_repairSumRow;
 	gridCompProto.renderSumRow = _re_gridCompSumRow.renderSumRow;
 	gridCompProto.renderTypeSumRow = _re_gridCompSumRow.re_renderTypeSumRow;
-	
+
 	/*
 	 * swap
 	 */
 	var oldInitEventFun_swap = gridCompProto.initEventFun;
 	var oldInitGridEventFun_swap = gridCompProto.initGridEventFun;
-	
-	
+
+
 	gridCompProto.initEventFun = function () {
 	  // 执行原有方法
 	  oldInitEventFun_swap.apply(this, arguments);
@@ -1597,12 +1595,12 @@
 	gridCompProto.swapColumnStart = _re_gridCompSwap.swapColumnStart;
 	gridCompProto.swapColumnFun = _re_gridCompSwap.swapColumnFun;
 	gridCompProto.swapColumnEnd = _re_gridCompSwap.swapColumnEnd;
-	
+
 	/*
 	 * tree
 	 */
-	
-	
+
+
 	gridCompProto.initOptionsTree = _re_gridCompTree.re_initOptionsTree;
 	gridCompProto.clickFunTree = _re_gridCompTree.re_clickFunTree;
 	gridCompProto.addOneRowTree = _re_gridCompTree.re_addOneRowTree;
@@ -1615,7 +1613,7 @@
 	gridCompProto.getAllChildRowIndexFun = _re_gridCompTree.getAllChildRowIndexFun;
 	gridCompProto.expandNode = _re_gridCompTree.expandNode;
 	gridCompProto.expandNodeByIndex = _re_gridCompTree.expandNodeByIndex;
-	
+
 	exports.gridComp = gridComp;
 
 /***/ },
@@ -1623,14 +1621,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	exports.repairContent = exports.createContentOneRowTdForIE = exports.createContentOneRowTd = exports.repaintRow = exports.createContentOneRowForIE = exports.createContentOneRow = exports.createContentRowsSumRow = exports.createContentRows = exports.createNoRowsDiv = exports.createContentTableFixed = exports.createContentTable = exports.createContentLeftNumColRow = exports.createContentLeftMultiSelectRow = exports.createContentLeft = exports.createContentSumRow = exports.createContent = exports.createThead = exports.createColgroup = exports.createHeaderDrag = exports.createHeaderTableFixed = exports.createHeaderTable = exports.createHeader = exports.createColumnMenu = exports.repaintGridDivs = exports.createGridDivs = exports.repaintDivs = exports.createDivs = undefined;
-	
+
 	var _gridBrowser = __webpack_require__(10);
-	
+
 	/*
 	 * 创建顶层div以及_top div层
 	 * 添加顶层div相关监听
@@ -1837,7 +1833,7 @@
 	        }*/
 	        htmlStr += '</div></th>';
 	    });
-	
+
 	    htmlStr += '</tr>';
 	    return htmlStr;
 	};
@@ -2062,7 +2058,7 @@
 	    }
 	    this.createContentOneRowTdForIE(row, rowObj, createFlag);
 	};
-	
+
 	/*
 	 * 数据更新重画当前行
 	 */
@@ -2215,7 +2211,7 @@
 	    }
 	    this.realtimeTableRows = null;
 	};
-	
+
 	exports.createDivs = createDivs;
 	exports.repaintDivs = repaintDivs;
 	exports.createGridDivs = createGridDivs;
@@ -2249,10 +2245,8 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	var gridBrowser = {},
 	    userAgent = navigator.userAgent,
 	    ua = userAgent.toLowerCase(),
@@ -2277,10 +2271,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	var trHoverFun = function trHoverFun(index) {
 	    var oThis = this;
 	    $('#' + oThis.options.id + '_content_tbody').find('tr').removeClass('u-grid-move-bg');
@@ -2351,7 +2343,7 @@
 	        $('#' + this.options.id + '_noRows').css('display', 'block');
 	    }
 	};
-	
+
 	/*
 	 * grid区域重画完成之后处理，已经执行过afterGridDivsCreate
 	 * 1、设置横向滚动条
@@ -2375,7 +2367,7 @@
 	 * 隐藏编辑按钮
 	 */
 	var hideEditMenu = function hideEditMenu() {};
-	
+
 	exports.trHoverFun = trHoverFun;
 	exports.setIntervalFun = setIntervalFun;
 	exports.editorRowChangeFun = editorRowChangeFun;
@@ -2391,10 +2383,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 获取某列对应属性
 	 */
@@ -2466,13 +2456,13 @@
 	            break;
 	        }
 	        if (!($('#' + this.options.id + '_header').find('th').eq(i).css('display') == 'none')) {
-	
+
 	            j++;
 	        }
 	    }
 	    return index;
 	};
-	
+
 	/*
 	 * 获取选中行
 	 */
@@ -2485,7 +2475,7 @@
 	var getSelectRowsIndex = function getSelectRowsIndex() {
 	    return this.selectRowsIndex;
 	};
-	
+
 	/*
 	 * 获取focus行
 	 */
@@ -2530,7 +2520,7 @@
 	    });
 	    return index;
 	};
-	
+
 	var getChildRowIndex = function getChildRowIndex(row) {
 	    var result = [];
 	    $.each(row.childRow, function () {
@@ -2538,7 +2528,7 @@
 	    });
 	    return result;
 	};
-	
+
 	exports.getColumnAttr = getColumnAttr;
 	exports.getColumnByField = getColumnByField;
 	exports.getIndexOfColumn = getIndexOfColumn;
@@ -2558,18 +2548,16 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	exports.initDataSource = exports.setRequired = exports.initGridCompFixedColumn = exports.initGridHiddenLevelColumn = exports.initGridCompColumnLoacl = exports.initGridCompColumnHeaderLevelFun = exports.initGridCompColumnColumnMenuFun = exports.initGridCompColumnFun = exports.initGridCompColumnVar = exports.initGridCompColumn = exports.initWidthVariable = exports.initDataSourceVariable = exports.initVariable = exports.initOptionsTree = exports.initOptions = exports.destroySelf = exports.initGrid = exports.initDefault = exports.getBooleanOptions = exports.init = undefined;
-	
+
 	var _gridBrowser = __webpack_require__(10);
-	
+
 	var _dataSource = __webpack_require__(1);
-	
+
 	var _column = __webpack_require__(6);
-	
+
 	/*
 	* 处理参数
 	*/
@@ -2597,8 +2585,8 @@
 	    this.scrollBarHeight = 16; // 滚动条高度
 	    this.numWidth = this.options.numWidth || 40; // 数字列宽度
 	    this.multiSelectWidth = this.options.multiSelectWidth || 40; // 复选框列宽度
-	    this.multiWidth = 40; // 复选框宽度
-	
+	    this.multiWidth = this.options.multiWidth || 40; // 复选框宽度
+
 	    this.basicGridCompColumnArr = new Array(); // 存储基本的columns对象，用于清除设置
 	    this.columnMenuWidth = 160; // column menu的宽度
 	    this.columnMenuHeight = 33; // column menu的高度
@@ -2750,7 +2738,7 @@
 	    this.allRows = new Array();
 	    this.eidtRowIndex = -1; // 当前修改行
 	};
-	
+
 	// 初始化宽度相关变量
 	var initWidthVariable = function initWidthVariable() {
 	    // 计算用变量
@@ -2837,11 +2825,9 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
+
+	exports.__esModule = true;
+
 	/*
 	 * 添加一行
 	 */
@@ -2853,9 +2839,11 @@
 	        parentChildLength = 0,
 	        l = this.dataSourceObj.rows.length,
 	        endFlag = false;
-	    rowObj.value = row;
-	
-	    index = this.addOneRowTree(row, index, rowObj);
+	    rowObj.value = row, displayFlag;
+
+	    var treeObj = this.addOneRowTree(row, index, rowObj);
+	    index = treeObj.index;
+	    displayFlag = treeObj.displayFlag;
 	    if (index != 0) {
 	        if (index && index > 0) {
 	            if (l < index) index = l;
@@ -2877,11 +2865,11 @@
 	            }
 	        });
 	    }
-	
+
 	    if (this.showType == 'grid') {
 	        //只有grid展示的时候才处理div，针对隐藏情况下还要添加数据
 	        this.editClose();
-	
+
 	        this.updateEditRowIndex('+', index);
 	        try {
 	            var htmlStr = this.createContentOneRow(rowObj, 'normal', displayFlag);
@@ -3150,7 +3138,7 @@
 	    indexss.sort(function (a, b) {
 	        return b - a;
 	    });
-	
+
 	    $.each(indexss, function (i) {
 	        oThis.deleteOneRow(this);
 	    });
@@ -3267,7 +3255,7 @@
 	    }
 	    if (this.showType == 'grid') {
 	        $(rowTr).addClass("u-grid-content-sel-row");
-	
+
 	        if (doms && doms['fixContentTrs']) fixedRowTr = doms['fixContentTrs'][rowIndex];else fixedRowTr = this.$ele.find('#' + this.options.id + '_content_fixed_tbody tr[role="row"]')[rowIndex];
 	        $(fixedRowTr).addClass("u-grid-content-sel-row");
 	        var ini = rowIndex;
@@ -3405,7 +3393,7 @@
 	        this.options.onAllRowUnSelected(obj);
 	    }
 	};
-	
+
 	/*
 	 * focus一行
 	 */
@@ -3549,10 +3537,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 处理renderType
 	 * begin为起始行，length为行数（增加行数时使用）
@@ -3617,7 +3603,7 @@
 	        idSuffix = isFixedColumn === true ? '_content_fixed_tbody' : '_content_tbody',
 	        idStr = isFixedColumn === true ? 'fixed_' : '',
 	        visibleColIndex = this.getVisibleIndexOfColumn(gridCompColumn);
-	
+
 	    if (length > 0) {
 	        end = parseInt(begin + length - 1);
 	    }
@@ -3645,7 +3631,7 @@
 	            if (oThis.iconSpan) {
 	                var iconSpan = oThis.iconSpan;
 	            }
-	
+
 	            if (td) {
 	                if (td.children[0].innerHTML.indexOf('u-grid-content-tree-span') != -1) {
 	                    var span = td.children[0].children[1];
@@ -3741,10 +3727,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 设置某列是否显示(传入column)
 	 */
@@ -3766,7 +3750,7 @@
 	                htmlStr += ' style="width:' + this.formatWidth(column.options.width) + '"';
 	            }
 	            htmlStr += '>';
-	
+
 	            $('#' + this.options.id + '_header th:eq(' + index + ')').css('display', "");
 	            $('#' + this.options.id + '_content th:eq(' + index + ')').css('display', "");
 	            $('td:eq(' + index + ')', $('#' + this.options.id + '_content tbody tr')).css('display', "");
@@ -3812,7 +3796,7 @@
 	        this.saveGridCompColumnArrToLocal();
 	    }
 	};
-	
+
 	/*
 	 * 根据field设置宽度
 	 */
@@ -3833,10 +3817,10 @@
 	            this.contentWidth = this.contentWidthChange(cWidth);
 	            $('#' + this.options.id + '_header_table col:eq(' + nowVisibleThIndex + ')').css('width', newWidth + "px");
 	            $('#' + this.options.id + '_content_table col:eq(' + nowVisibleThIndex + ')').css('width', newWidth + "px");
-	
+
 	            column.options.width = newWidth;
 	            column.options.realWidth = newWidth;
-	
+
 	            this.resetThVariable();
 	            this.saveGridCompColumnArrToLocal();
 	        }
@@ -3863,7 +3847,7 @@
 	            ,["cl15","5","cl35","cl45","cl55","cl65"]
 	            ,["cl16","6","cl36","cl46","cl56","cl66"]
 	        ]
-	
+
 	    }
 	 */
 	var setDataSourceFun1 = function setDataSourceFun1(dataSource) {
@@ -3896,10 +3880,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 整体宽度改变处理
 	 */
@@ -3998,7 +3980,7 @@
 	        $('#' + this.options.id + '_content_table col:last').css('width', this.lastVisibleColumnWidth + "px");
 	        newContentWidth = this.contentMinWidth;
 	    }
-	
+
 	    if (newContentWidth > this.contentMinWidth) {
 	        // 首先处理扩展列的宽度为原有宽度，然后再扩展最后一列
 	        var l = this.overWidthVisibleColumnArr.length;
@@ -4049,10 +4031,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 双击/单击处理
 	 */
@@ -4096,7 +4076,7 @@
 	 */
 	var clickFun = function clickFun(e) {
 		var oThis = this;
-	
+
 		// 处理focus事件
 		var $tr = $(e.target).closest('tr');
 		if ($tr.length > 0 && $tr[0].id == this.options.id + '_edit_tr') {
@@ -4116,7 +4096,7 @@
 		// 处理树表展开/合上
 		this.clickFunTree(e);
 		if ($tr.length > 0) {
-	
+
 			var row = oThis.dataSourceObj.rows[index];
 			if (row) {
 				if (oThis.options.rowClickBan) {
@@ -4147,10 +4127,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 更新最后数据行标识
 	 */
@@ -4170,7 +4148,7 @@
 	        if (i == count - 1) $(numCols[i]).addClass('last-row');else $(numCols[i]).removeClass('last-row');
 	    }
 	};
-	
+
 	/*
 	 * column是否显示处理，只在初始化gridCompColumn对象时调用，其他时候不再调用
 	 * 计算固定区域及内容区域的真实宽度
@@ -4203,7 +4181,7 @@
 	    if (this.showType != 'grid') return;
 	    var oThis = this;
 	    this.contentWidth = 0;
-	
+
 	    // 记录每列宽度及当前宽度之和
 	    $('#' + this.options.id + '_header_table th', this.$ele).each(function (i) {
 	        //会出现th多于列的情况，发现问题之后再看下为什么
@@ -4223,7 +4201,7 @@
 	};
 	var resetThVariableDrag = function resetThVariableDrag(nowTh, gridCompColumn) {};
 	var resetThVariableHeaderLevel = function resetThVariableHeaderLevel() {};
-	
+
 	/*
 	 * 修改第一列的css
 	 */
@@ -4231,7 +4209,7 @@
 	    $('#' + this.options.id + '_grid .u-grid-header-th-first').removeClass('u-grid-header-th-first');
 	    $('#' + this.options.id + '_grid').find('th').eq(0).addClass('u-grid-header-th-first');
 	};
-	
+
 	/*
 	 * 根据filed设置renderType
 	 */
@@ -4302,16 +4280,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+
+	exports.__esModule = true;
 	exports.getTrIndex = exports.accAdd = exports.DicimalFormater = exports.cloneObj = exports.getFloat = exports.getInt = exports.getString = exports.swapEle = exports.formatWidth = undefined;
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
+
 	var _gridBrowser = __webpack_require__(10);
-	
+
 	/*
 	 * 对宽度和高度进行处理
 	 */
@@ -4432,38 +4408,36 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	exports.colMenu_initGridEventFun = exports.colMenu_initEventFun = exports.re_createColumnMenu = exports.colMenu_initGridCompColumn = exports.re_initGridCompColumnColumnMenuFun = undefined;
-	
+
 	var _gridCompEvent = __webpack_require__(4);
-	
+
 	var _gridCompInit = __webpack_require__(13);
-	
+
 	var re_initGridCompColumnColumnMenuFun = function re_initGridCompColumnColumnMenuFun(columnOptions) {
 		var column1 = new this.gridCompColumn(columnOptions, this);
 		column1.options.realWidth = column1.options.width;
 		this.basicGridCompColumnArr.push(column1);
 	};
-	
+
 	var colMenu_initGridCompColumn = function colMenu_initGridCompColumn() {
 		// 扩展方法
 		this.menuColumnsHeight = this.gridCompColumnArr.length * this.columnMenuHeight;
 	};
-	
+
 	var re_createColumnMenu = function re_createColumnMenu() {
 		var oThis = this;
 		var htmlStr = '<div class="u-grid-column-menu" id="' + this.options.id + '_column_menu">';
 		htmlStr += '<ul data-role="menu" role="menubar" class="u-grid-column-menu-ul" id="' + this.options.id + '_column_menu_ul">';
-	
+
 		// 创建清除设置
 		htmlStr += '<li class="u-grid-column-menu-li" role="menuitem">';
 		htmlStr += '<div class="u-grid-column-menu-div1" id="' + this.options.id + '_clearSet">';
 		htmlStr += '<span class="u-grid-column-menu-span">' + this.transMap.ml_clear_set + '</span>';
 		htmlStr += '</div></li>';
-	
+
 		htmlStr += '<div class="u-grid-column-menu-columns" id="' + this.options.id + '_column_menu_columns">';
 		htmlStr += '<ul data-role="menu" role="menubar" class="u-grid-column-menu-columns-ul" id="' + this.options.id + '_column_menu_columns_ul">';
 		$.each(this.gridCompColumnArr, function (i) {
@@ -4479,14 +4453,14 @@
 			}
 		});
 		htmlStr += '</ul></div>';
-	
+
 		htmlStr += '</ul></div>';
-	
+
 		// 创建数据列区域
-	
+
 		return htmlStr;
 	};
-	
+
 	var colMenu_initEventFun = function colMenu_initEventFun() {
 		// 扩展方法
 		var oThis = this;
@@ -4504,7 +4478,7 @@
 					if ($(e.target).hasClass('u-grid-header-columnmenu')) {
 						//点击的是columnmenu
 						$('#' + oThis.options.id + '_column_menu').css('display', 'block');
-	
+
 						// 根据点击位置来显示column menu区域
 						var left = e.clientX - 160;
 						if (left < 0) left = 0;
@@ -4512,10 +4486,10 @@
 						$('#' + oThis.options.id + '_column_menu').css('left', left);
 						$('#' + oThis.options.id + '_column_menu').css('top', top);
 						/*数据列多的情况下处理显示的高度*/
-	
+
 						var sX = $(window).width();
 						var sH = $(window).height();
-	
+
 						// 如果数据列高度高于屏幕高度则数据列高度设置为屏幕高度-10；
 						var columnsHeight = oThis.menuColumnsHeight;
 						if (oThis.menuColumnsHeight + top + 34 > sH) {
@@ -4529,10 +4503,10 @@
 				}
 			} else if ($(e.target).closest('#' + oThis.options.id + '_content').length > 0) {
 				// 点击的是数据区域
-	
+
 			}
 		});
-	
+
 		$(document).on('click', function () {
 			if (oThis.columnMenuMove == false && oThis.ele.createColumnMenuFlag == false) {
 				$('#' + oThis.options.id + '_column_menu').css('display', 'none');
@@ -4540,11 +4514,11 @@
 			oThis.ele.createColumnMenuFlag = false;
 		});
 	};
-	
+
 	var colMenu_initGridEventFun = function colMenu_initGridEventFun() {
 		// 扩展方法
 		var oThis = this;
-	
+
 		/*header 按钮处理开始*/
 		// column按钮
 		$('#' + this.options.id + '_column_menu_ul').on('mousemove', function (e) {
@@ -4553,7 +4527,7 @@
 		$('#' + this.options.id + '_column_menu_ul').on('mouseout', function (e) {
 			oThis.columnMenuMove = false;
 		});
-	
+
 		// 清除设置按钮
 		$('#' + this.options.id + '_clearSet').on('click', function (e) {
 			oThis.clearLocalData();
@@ -4569,7 +4543,7 @@
 		$('#' + this.options.id + '_column_menu_columns_ul li input').on('click', function (e) {
 			//待完善 优化与li的click的代码整合
 			var index = $(this).closest('li').attr('index');
-	
+
 			if (oThis.gridCompColumnArr[index].options.visible) {
 				$(this)[0].checked = false;
 				var ll = $('input:checked', $('#' + oThis.options.id + '_column_menu_columns_ul')).length;
@@ -4577,7 +4551,7 @@
 					$(this)[0].checked = true;
 					return;
 				}
-	
+
 				if (document.documentMode == 8) {
 					var oldScrollTop = $('#' + oThis.options.id + '_column_menu_columns')[0].scrollTop;
 					var oldTop = $('#' + oThis.options.id + '_column_menu_columns')[0].style.top;
@@ -4593,7 +4567,7 @@
 				}
 			} else {
 				$(this)[0].checked = true;
-	
+
 				if (document.documentMode == 8) {
 					var oldScrollTop = $('#' + oThis.options.id + '_column_menu_columns')[0].scrollTop;
 					var oldTop = $('#' + oThis.options.id + '_column_menu_columns')[0].style.top;
@@ -4636,7 +4610,7 @@
 		});
 		/*header 按钮处理结束*/
 	};
-	
+
 	exports.re_initGridCompColumnColumnMenuFun = re_initGridCompColumnColumnMenuFun;
 	exports.colMenu_initGridCompColumn = colMenu_initGridCompColumn;
 	exports.re_createColumnMenu = re_createColumnMenu;
@@ -4648,22 +4622,20 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	exports.re_resetThVariableDrag = exports.headerThDrag = exports.dragEnd = exports.dragFun = exports.dragStart = exports.drag_initGridEventFun = exports.drag_initEventFun = exports.re_createHeaderDrag = undefined;
-	
+
 	var _gridCompEvent = __webpack_require__(4);
-	
+
 	var re_createHeaderDrag = function re_createHeaderDrag() {
 		return '<div class="u-grid-header-resize-handle" id="' + this.options.id + '_resize_handle"><div class="u-grid-header-resize-handle-inner"></div></div>';
 	};
-	
+
 	var drag_initEventFun = function drag_initEventFun() {
 		// 扩展方法
 		var oThis = this;
-	
+
 		$('#' + this.options.id).on('mousemove', function (e) {
 			if ($(e.target).closest('#' + oThis.options.id + '_header').length > 0) {
 				// 在header区域移动
@@ -4671,7 +4643,7 @@
 				// 将其他列的操作按钮隐藏，显示当前列的
 				oThis.headerThDrag(e, eleTh);
 			}
-	
+
 			oThis.dragFun(e);
 			e.stopPropagation();
 		});
@@ -4679,16 +4651,16 @@
 			oThis.dragFun(e);
 			e.stopPropagation();
 		});
-	
+
 		$('#' + this.options.id).on('mouseup', function (e) {
 			oThis.dragEnd(e);
 		});
-	
+
 		$('#' + this.options.id + '_top').on('mouseup', function (e) {
 			oThis.dragEnd(e);
 		});
 	};
-	
+
 	var drag_initGridEventFun = function drag_initGridEventFun() {
 		// 扩展方法
 		var oThis = this;
@@ -4724,7 +4696,7 @@
 					this.dragW = this.contentWidthChange(cWidth);
 					$('#' + this.options.id + '_header_table col:eq(' + nowVisibleThIndex + ')').css('width', newWidth + "px");
 					$('#' + this.options.id + '_content_table col:eq(' + nowVisibleThIndex + ')').css('width', newWidth + "px");
-	
+
 					column.options.width = newWidth;
 					column.options.realWidth = newWidth;
 				}
@@ -4746,7 +4718,7 @@
 		this.dragFlag = false;
 		$('#' + this.options.id + '_top').css('display', 'none');
 	};
-	
+
 	/*
 	 * 计算拖动div所在位置
 	 */
@@ -4777,18 +4749,16 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	exports.setGridEditTypeAndEditRow = exports.setGridEditType = exports.edit_initEventFun = exports.setEditable = exports.setEditType = exports.re_updateValueAtEdit = exports.re_updateEditRowIndex = exports.editValueChange = exports.nextEditShow = exports.editCell = exports.re_editClose = exports.editRow = exports.editRowIndexFun = exports.editRowFun = exports.re_clickFunEdit = exports.re_hideEditMenu = undefined;
-	
+
 	var _gridCompEvent = __webpack_require__(4);
-	
+
 	var re_hideEditMenu = function re_hideEditMenu() {
 		$('#' + this.options.id + '_content_edit_menu').css('display', 'none');
 	};
-	
+
 	var re_clickFunEdit = function re_clickFunEdit(e, index) {
 		var $tr = $(e.target).closest('tr');
 		var $td = $(e.target).closest('td');
@@ -4809,7 +4779,7 @@
 			this.editRowFun($tr, colIndex);
 		}
 	};
-	
+
 	var editRowFun = function editRowFun($tr, colIndex) {
 		if (this.eidtRowIndex != -1) {
 			this.editClose();
@@ -4868,7 +4838,7 @@
 				} else {
 					var table = $('#' + this.options.id + '_content_table')[0];
 				}
-	
+
 				var tr = table.insertRow(this.eidtRowIndex + 2);
 				tr.id = this.options.id + '_edit_tr';
 				var cell = tr.insertCell();
@@ -4898,7 +4868,7 @@
 					$div[0].insertAdjacentHTML('afterEnd', htmlStr);
 				}
 				$('#' + this.options.id + '_content_edit_menu').css('display', 'block');
-	
+
 				if (this.fixedWidth > 0) {
 					var table1 = $('#' + this.options.id + '_content_table')[0];
 					var tr1 = table1.insertRow(this.eidtRowIndex + 2);
@@ -4910,7 +4880,7 @@
 				} else {
 					var table = $('#' + this.options.id + '_content_table')[0];
 				}
-	
+
 				var tr = table.insertRow(this.eidtRowIndex + 2);
 				tr.id = this.options.id + '_edit_tr';
 				var cell = tr.insertCell();
@@ -4923,7 +4893,7 @@
 					if (this.options.editFormShow && (this.options.editable || !this.options.editable && oThis.options.noneEditableFormShow)) {
 						show = true;
 					}
-	
+
 					if (show) {
 						var field = this.options.field;
 						var value = $(row).attr(field);
@@ -4933,13 +4903,13 @@
 						htmlStr += oThis.formEditCell(value, field, title, this.options.required, headerColor);
 					}
 				});
-	
+
 				$.each(this.gridCompColumnArr, function (i) {
 					var show = false;
 					if (this.options.editFormShow && (this.options.editable || !this.options.editable && oThis.options.noneEditableFormShow)) {
 						show = true;
 					}
-	
+
 					if (show) {
 						var field = this.options.field;
 						var value = $(row).attr(field);
@@ -4951,13 +4921,13 @@
 				});
 				htmlStr += '</div>';
 				cell.innerHTML = htmlStr;
-	
+
 				$.each(this.gridCompColumnFixedArr, function (i) {
 					var show = false;
 					if (this.options.editFormShow && (this.options.editable || !this.options.editable && oThis.options.noneEditableFormShow)) {
 						show = true;
 					}
-	
+
 					if (show) {
 						var field = this.options.field;
 						var td = $('#' + oThis.options.id + '_edit_' + field)[0];
@@ -4976,13 +4946,13 @@
 						htmlStr += oThis.editCell(obj);
 					}
 				});
-	
+
 				$.each(this.gridCompColumnArr, function (i) {
 					var show = false;
 					if (this.options.editFormShow && (this.options.editable || !this.options.editable && oThis.options.noneEditableFormShow)) {
 						show = true;
 					}
-	
+
 					if (show) {
 						var field = this.options.field;
 						var td = $('#' + oThis.options.id + '_edit_' + field)[0];
@@ -5001,13 +4971,13 @@
 						htmlStr += oThis.editCell(obj);
 					}
 				});
-	
+
 				if (typeof this.options.renderEditMemu == "function") {
-	
+
 					this.options.renderEditMemu.apply(this, [$('#' + this.options.id + '_edit_form')[0], this.eidtRowIndex, this.dataSourceObj.rows.length]);
 				} else {
 					var htmlStr = '<div id="' + this.options.id + '_content_edit_menu" style="position:relative;float:left;width:100%;height:40px;"><button type="button" class="u-grid-content-edit-menu-button u-grid-content-edit-menu-button-ok" id="' + this.options.id + '_content_edit_menu_close">' + this.transMap.ml_close + '</button></div>';
-	
+
 					$('#' + this.options.id + '_edit_form')[0].insertAdjacentHTML('beforeEnd', htmlStr);
 					$('#' + this.options.id + '_content_edit_menu_close').on('click', function (e) {
 						oThis.editClose();
@@ -5027,7 +4997,7 @@
 					$div[0].insertAdjacentHTML('afterEnd', htmlStr);
 				}
 				$('#' + this.options.id + '_content_edit_menu').css('display', 'block');
-	
+
 				if (this.fixedWidth > 0) {
 					var table1 = $('#' + this.options.id + '_content_table')[0];
 					var tr1 = table1.insertRow(this.eidtRowIndex + 2);
@@ -5049,7 +5019,7 @@
 			obj.length = 1;
 			this.renderTypeFun(obj);
 		}
-	
+
 		$('#' + this.options.id + '_content_edit_menu').css('display', 'none');
 		this.repairSumRow();
 		this.noRowsShowFun();
@@ -5082,14 +5052,14 @@
 		} else {
 			this.iconSpan = null;
 		}
-	
+
 		var obj = {};
 		obj.td = td;
 		obj.field = field;
 		obj.$tr = $tr;
 		obj.colIndex = colIndex;
 		oThis.newEditObj = obj;
-	
+
 		if (editType == 'text') {
 			if (this.options.editType == 'default') {
 				td.innerHTML = '<div class="u-grid-content-td-div" style="position: relative; left: 0px;"><div class="eType-input"><input id="' + this.options.id + "_edit_field_" + field + '" type="text" value="' + value + '" field="' + field + '" style="width:100%;margin:0px;min-height:20px;font-size:12px;color:#444"></div></div>';
@@ -5216,7 +5186,7 @@
 				}
 			}
 		});
-	
+
 		u.on(document, 'scroll', function () {
 			oThis.editClose();
 		});
@@ -5252,20 +5222,18 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	exports.formEditCell = exports.re_editorRowChangeFun = exports.editForm_setRequired = exports.editForm_initDefault = undefined;
-	
+
 	var _gridCompInit = __webpack_require__(13);
-	
+
 	var editForm_initDefault = function editForm_initDefault() {
 		// 扩展方法
 		this.defaults = $.extend(true, {}, this.defaults, {
 			noneEditableFormShow: true });
 	};
-	
+
 	var editForm_setRequired = function editForm_setRequired(field, value) {
 		// 扩展方法
 		var oThis = this;
@@ -5280,7 +5248,7 @@
 			}
 		});
 	};
-	
+
 	var re_editorRowChangeFun = function re_editorRowChangeFun() {
 		if ($('#' + this.options.id + '_edit_form').length > 0) {
 			var h = $('#' + this.options.id + '_edit_form')[0].offsetHeight;
@@ -5312,14 +5280,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	exports.re_widthChangeGridFunFixed = exports.re_createContentOneRowFixed = exports.re_createContentTableFixed = exports.re_createHeaderTableFixed = exports.fixed_columnsVisibleFun = exports.re_initGridCompFixedColumn = undefined;
-	
+
 	var _gridCompOther = __webpack_require__(19);
-	
+
 	/*
 	 * 将固定列放入gridCompColumnFixedArr
 	 */
@@ -5340,7 +5306,7 @@
 			}
 		});
 	};
-	
+
 	var fixed_columnsVisibleFun = function fixed_columnsVisibleFun() {
 		// 扩展方法
 		var oThis = this,
@@ -5354,11 +5320,11 @@
 		});
 		this.fixedRealWidth = fixW;
 	};
-	
+
 	var re_createHeaderTableFixed = function re_createHeaderTableFixed() {
 		return this.createHeaderTable('fixed');
 	};
-	
+
 	var re_createContentTableFixed = function re_createContentTableFixed() {
 		return this.createContentTable('fixed');
 	};
@@ -5385,10 +5351,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	/*
 	 * 创建form形式下div
 	 */
@@ -5401,7 +5365,7 @@
 		$('#' + this.options.id)[0].insertAdjacentHTML('afterBegin', htmlStr);
 		this.createFormFlag = true;
 	};
-	
+
 	/*
 	 * 创建form形式下内容区域
 	 */
@@ -5412,7 +5376,7 @@
 		htmlStr += '</table>';
 		return htmlStr;
 	};
-	
+
 	/*
 	 * 创建form形式下内容区域所有行
 	 */
@@ -5438,7 +5402,7 @@
 		}
 		return htmlStr;
 	};
-	
+
 	/*
 	 * 整体宽度改变处理(form形式)
 	 */
@@ -5461,10 +5425,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	var re_resetThVariableHeaderLevel = function re_resetThVariableHeaderLevel() {
 		var oThis = this,
 		    oldParentHeaderStr = '',
@@ -5502,7 +5464,7 @@
 		}
 		this.parentFlag = true;
 	};
-	
+
 	var re_initGridCompColumnHeaderLevelFun = function re_initGridCompColumnHeaderLevelFun(columnOptions) {
 		// 扩展方法
 		if (columnOptions.headerLevel > 1) {
@@ -5521,9 +5483,9 @@
 		if (!this.options.overWidthHiddenColumn) return;
 		var oThis = this;
 		var w = 0;
-	
+
 		this.gridCompHiddenLevelColumnArr = this.gridCompColumnArr.slice(0);
-	
+
 		this.gridCompHiddenLevelColumnArr.sort(function (a, b) {
 			var hiddenLevel1 = a.options.hiddenLevel;
 			var hiddenLevel2 = b.options.hiddenLevel;
@@ -5534,7 +5496,7 @@
 			}
 		});
 	};
-	
+
 	var getLevelTitleByField = function getLevelTitleByField(field) {
 		for (var i = 0; i < this.gridCompLevelColumn.length; i++) {
 			var columnField = this.gridCompLevelColumn[i].field;
@@ -5554,10 +5516,8 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	var re_initGridCompColumnLoacl = function re_initGridCompColumnLoacl() {
 		var oThis = this,
 		    localGridCompColumnArr = this.getGridCompColumnArrFromLocal();
@@ -5656,17 +5616,15 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	var re_initGridHiddenLevelColumn = function re_initGridHiddenLevelColumn() {
 		if (!this.options.overWidthHiddenColumn) return;
 		var oThis = this;
 		var w = 0;
-	
+
 		this.gridCompHiddenLevelColumnArr = this.gridCompColumnArr.slice(0);
-	
+
 		this.gridCompHiddenLevelColumnArr.sort(function (a, b) {
 			var hiddenLevel1 = a.options.hiddenLevel;
 			var hiddenLevel2 = b.options.hiddenLevel;
@@ -5717,11 +5675,9 @@
 /***/ function(module, exports) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
+
+	exports.__esModule = true;
+
 	var re_createContentRowsSumRow = function re_createContentRowsSumRow(createFlag) {
 		var htmlStr = '';
 		if (this.options.showSumRow && this.dataSourceObj.rows && this.dataSourceObj.rows.length > 0) {
@@ -5784,7 +5740,7 @@
 			return htmlStr;
 		}
 	};
-	
+
 	/*
 	 * 创建合计行 for ie
 	 */
@@ -5825,7 +5781,7 @@
 				if (this.options.dataType == 'integer' || this.options.dataType == 'float') {
 					contentStyle = 'style="text-align: right;"';
 				}
-	
+
 				var htmlStr = '<div class="u-grid-content-td-div" ' + contentStyle + '>';
 				if (this.firstColumn) {
 					htmlStr += '<div class="u-gird-centent-sum-div"><span>' + oThis.transMap.ml_sum + '</span></div>';
@@ -5858,7 +5814,7 @@
 			this.renderSumRow();
 		}
 	};
-	
+
 	var renderSumRow = function renderSumRow() {
 		var oThis = this;
 		$.each(this.gridCompColumnFixedArr, function (i) {
@@ -5906,7 +5862,7 @@
 			}
 		});
 	};
-	
+
 	var re_renderTypeSumRow = function re_renderTypeSumRow(gridCompColumn, i, begin, length, isFixedColumn) {
 		var oThis = this;
 		var sumCol = gridCompColumn.options.sumCol;
@@ -5944,14 +5900,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+
+	exports.__esModule = true;
 	exports.swapColumnEnd = exports.swapColumnFun = exports.swapColumnStart = exports.swap_initGridEventFun = exports.swap_initEventFun = undefined;
-	
+
 	var _gridCompEvent = __webpack_require__(4);
-	
+
 	var swap_initEventFun = function swap_initEventFun() {
 		// 扩展方法
 		var oThis = this;
@@ -5967,7 +5921,7 @@
 				// 点击的是数据区域
 			}
 		});
-	
+
 		$('#' + this.options.id).on('mousemove', function (e) {
 			oThis.mouseMoveX = e.clientX;
 			oThis.mouseMoveY = e.clientY;
@@ -5978,7 +5932,7 @@
 			oThis.swapColumnFun(e);
 			e.stopPropagation();
 		});
-	
+
 		$('#' + this.options.id + '_top').on('mousemove', function (e) {
 			oThis.mouseMoveX = e.clientX;
 			oThis.mouseMoveY = e.clientY;
@@ -5989,7 +5943,7 @@
 			oThis.swapColumnFun(e);
 			e.stopPropagation();
 		});
-	
+
 		$('#' + this.options.id).on('mouseup', function (e) {
 			oThis.mouseUpX = e.clientX;
 			oThis.mouseUpY = e.clientY;
@@ -6001,7 +5955,7 @@
 			oThis.mouseMoveX = 'mouseMoveX';
 			oThis.mouseMoveY = 'mouseMoveY';
 		});
-	
+
 		$('#' + this.options.id + '_top').on('mouseup', function (e) {
 			oThis.mouseUpX = e.clientX;
 			oThis.mouseUpY = e.clientY;
@@ -6014,12 +5968,12 @@
 			oThis.mouseMoveY = 'mouseMoveY';
 		});
 	};
-	
+
 	var swap_initGridEventFun = function swap_initGridEventFun() {
 		// 扩展方法
 		var oThis = this;
 	};
-	
+
 	/*
 	 * 交换列位置开始，并不修改swapColumnFlag，当移动的时候才修改swapColumnFlag
 	 */
@@ -6072,7 +6026,7 @@
 				left: nowTh.attrLeftTotalWidth + changeX - oThis.scrollLeft + oThis.leftW + oThis.fixedWidth + "px",
 				top: changeY + "px"
 			});
-	
+
 			// 创建提示div
 			if ($('#' + this.options.id + '_swap_top').length == 0) {
 				var $d = $('<span class="uf uf-sortdown u-grid-header-swap-tip-span"  id="' + this.options.id + '_swap_top"/>');
@@ -6173,4 +6127,3 @@
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=u-grid.js.map
