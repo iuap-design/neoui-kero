@@ -13315,6 +13315,10 @@ small {
 .u-time .u-date-panel .u-time-nav .u-button {
   position: relative; }
 
+.u-date-panel > .u-time-nav > .u-button {
+  position: initial;
+  padding-bottom: 13px; }
+
 
 .u-clock-ul {
   background-color: #fff;
