@@ -1,23 +1,23 @@
 /**
- * Module : Kero year adapter
+ * Module : Kero yearmonth adapter
  * Author : Kvkens(yueming@yonyou.com)
- * Date	  : 2016-08-10 12:40:46
+ * Date	  : 2016-08-10 14:11:50
  */
-import {BaseAdapter} from './baseAdapter';
-import {Year} from 'neoui/js/neoui-year';
+import {BaseAdapter} from '../core/baseAdapter';
+import {YearMonth} from 'neoui/js/neoui-yearmonth';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
-import {ValueMixin} from './valueMixin';
-import {EnableMixin} from './enableMixin';
-import {RequiredMixin} from './requiredMixin';
-import {ValidateMixin} from './validateMixin';
+import {ValueMixin} from '../core/valueMixin';
+import {EnableMixin} from '../core/enableMixin';
+import {RequiredMixin} from '../core/requiredMixin';
+import {ValidateMixin} from '../core/validateMixin';
 
-var YearAdapter = BaseAdapter.extend({
+var YearMonthAdapter = BaseAdapter.extend({
     mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],
     init: function (options) {
         var self = this;
-        this.validType = 'year';
+        this.validType = 'yearmonth';
 
-        this.comp = new Year({el:this.element,showFix:this.options.showFix});
+        this.comp = new YearMonth({el:this.element,showFix:this.options.showFix});
 
 
         this.comp.on('valueChange', function(event){
@@ -41,8 +41,9 @@ var YearAdapter = BaseAdapter.extend({
 });
 
 compMgr.addDataAdapter({
-	adapter: YearAdapter,
-	name: 'u-year'
+	adapter: YearMonthAdapter,
+	name: 'u-yearmonth'
 });
 
-export {YearAdapter};
+
+export {YearMonthAdapter};

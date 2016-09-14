@@ -4,38 +4,18 @@
  * Date	  : 2016-08-09 18:29:59
  */
 
-import {
-    BaseAdapter
-} from './baseAdapter';
-import {
-    ValueMixin
-} from './valueMixin';
-import {
-    EnableMixin
-} from './enableMixin';
-import {
-    RequiredMixin
-} from './requiredMixin';
-import {
-    ValidateMixin
-} from './validateMixin';
+import {BaseAdapter} from '../core/baseAdapter';
+import {ValueMixin} from '../core/valueMixin';
+import {EnableMixin} from '../core/enableMixin';
+import {RequiredMixin} from '../core/requiredMixin';
+import {ValidateMixin} from '../core/validateMixin';
+import {isNumber} from 'neoui-sparrow/js/util';
+import {on,off,stopEvent} from 'neoui-sparrow/js/event';
 import {core} from 'neoui-sparrow/js/core';
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
 import {NumberMasker} from 'neoui-sparrow/js/util/masker';
-import {
-    isNumber
-} from 'neoui-sparrow/js/util';
-import {
-    on,
-    off,
-    stopEvent
-} from 'neoui-sparrow/js/event';
-import {
-    env
-} from 'neoui-sparrow/js/env';
-import {
-    compMgr
-} from 'neoui-sparrow/js/compMgr';
+import {env} from 'neoui-sparrow/js/env';
+import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var IntegerAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin, RequiredMixin, ValidateMixin],

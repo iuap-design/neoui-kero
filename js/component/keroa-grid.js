@@ -4,31 +4,31 @@
  * Date	  : 2016-08-09 16:17:17
  */
 
-import {BaseAdapter} from './baseAdapter';
-import {ValueMixin} from './valueMixin';
-import {EnableMixin} from './enableMixin';
-import {RequiredMixin} from './requiredMixin';
-import {ValidateMixin} from './validateMixin';
+import {BaseAdapter} from '../core/baseAdapter';
+import {ValueMixin} from '../core/valueMixin';
+import {EnableMixin} from '../core/enableMixin';
+import {RequiredMixin} from '../core/requiredMixin';
+import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
 import {NumberMasker,PercentMasker} from 'neoui-sparrow/js/util/masker';
 import {dateRender,dateTimeRender} from 'neoui-sparrow/js/util/dataRender';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {stopEvent} from 'neoui-sparrow/js/event';
-import {StringAdapter} from './string';
-import {IntegerAdapter} from './integer';
-import {CheckboxAdapter} from './checkbox';
-import {ComboboxAdapter} from './combobox';
-import {RadioAdapter} from './radio';
-import {FloatAdapter} from './float';
-import {CurrencyAdapter} from './currency';
-import {DateTimeAdapter} from './datetime';
-import {YearAdapter} from './year';
-import {MonthAdapter} from './month';
-import {YearMonthAdapter} from './yearmonth';
-import {UrlAdapter} from './url';
-import {PassWordAdapter} from './password';
-import {PercentAdapter} from './percent';
+import {YearAdapter} from './keroa-year';
+import {MonthAdapter} from './keroa-month';
+import {YearMonthAdapter} from './keroa-yearmonth';
+import {StringAdapter} from './keroa-string';
+import {IntegerAdapter} from './keroa-integer';
+import {CheckboxAdapter} from './keroa-checkbox';
+import {ComboboxAdapter} from './keroa-combo';
+import {RadioAdapter} from './keroa-radio';
+import {FloatAdapter} from './keroa-float';
+import {CurrencyAdapter} from './keroa-currency';
+import {DateTimeAdapter} from './keroa-datetimepicker';
+import {UrlAdapter} from './keroa-url';
+import {PassWordAdapter} from './keroa-password';
+import {PercentAdapter} from './keroa-percent';
 import {Validate} from 'neoui/js/neoui-validate';
 import {showMessage} from 'neoui/js/neoui-message';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
@@ -810,16 +810,17 @@ var GridAdapter = BaseAdapter.extend({
 		eOptions.showFix = true;
 		var compDiv,comp;
 		if(eType == 'string'){
-			compDiv = $('<div><input type="text" class="u-grid-edit-item-string"></div>');
+			compDiv = $('<div class="u-text"><input type="text" class="u-input"><label class="u-label"></label></div>');
 			if(!options.editType || options.editType =="default" ){
 				compDiv.addClass("eType-input")
 			}
 			eOptions.dataType = 'string';
-			comp = new StringAdapter({
+			comp = new u.TextFieldAdapter({
 				el:compDiv[0],
 				options:eOptions,
 				model: viewModel
 			});
+			//$.compManager.plugs.string(compDiv.find("input")[0],eOptions,viewModel);
 
 		}else if(eType == 'integer'){
 			compDiv = $('<div><input type="text" class="u-grid-edit-item-integer"></div>');

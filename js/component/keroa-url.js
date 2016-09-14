@@ -3,7 +3,7 @@
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-10 13:51:26
  */
-import {StringAdapter} from './string';
+import {StringAdapter} from './keroa-string';
 import {addClass,removeClass,makeDOM} from 'neoui-sparrow/js/dom';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 

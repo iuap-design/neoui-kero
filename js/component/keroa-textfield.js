@@ -4,12 +4,12 @@
  * Date	  : 2016-08-10 13:00:27
  */
 
-import {BaseAdapter} from './baseAdapter';
+import {BaseAdapter} from '../core/baseAdapter';
 import {extend} from 'neoui-sparrow/js/extend';
 import {Text} from 'neoui/js/neoui-textfield';
-import {FloatAdapter} from './float';
-import {StringAdapter} from './string';
-import {IntegerAdapter} from './integer';
+import {FloatAdapter} from './keroa-float';
+import {StringAdapter} from './keroa-string';
+import {IntegerAdapter} from './keroa-integer';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 

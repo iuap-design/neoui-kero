@@ -3,11 +3,11 @@
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-09 09:52:13
  */
-import {BaseAdapter} from './baseAdapter';
-import {ValueMixin} from './valueMixin';
-import {EnableMixin} from './enableMixin';
-import {RequiredMixin} from './requiredMixin';
-import {ValidateMixin} from './validateMixin';
+import {BaseAdapter} from '../core/baseAdapter';
+import {ValueMixin} from '../core/valueMixin';
+import {EnableMixin} from '../core/enableMixin';
+import {RequiredMixin} from '../core/requiredMixin';
+import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
 import {Combo} from 'neoui/js/neoui-combo';
 import {env} from 'neoui-sparrow/js/env';
@@ -26,14 +26,30 @@ var ComboboxAdapter = BaseAdapter.extend({
         this.showFix = this.options.showFix || false;
         this.validType = 'combobox';
         this.isAutoTip = this.options.isAutoTip || false;
-        this.comp = new Combo({el:this.element,mutilSelect:this.mutil,onlySelect:this.onlySelect,showFix:this.showFix,isAutoTip:this.isAutoTip});
-        this.element['u.Combo'] = this.comp;
+
+        if(!this.element['u.Combo']) {
+            this.comp = new u.Combo({el:this.element,mutilSelect:this.mutil,onlySelect:this.onlySelect});
+            this.element['u.Combo'] = this.comp;
+
+        } else {
+            this.comp = this.element['u.Combo']
+        }
+
+        var isDsObservable = ko.isObservable(this.datasource);
         if (this.datasource){
-            this.comp.setComboData(this.datasource);
+            this.comp.setComboData(isDsObservable ? ko.toJS(this.datasource) : this.datasource);
         }else{
-            if(env.isIE8 || env.isIE9)
+            if(u.isIE8 || u.isIE9)
                 alert("IE8/IE9必须设置datasource");
         }
+        if(isDsObservable) {
+            // datasource 发生变化时改变控件
+            this.datasource.subscribe(function(value) {
+                self.comp.setComboData(value);
+            });
+        }
+
+        
         ////TODO 后续支持多选
         //if (this.mutil) {
         //    //$(this.comboEle).on("mutilSelect", function (event, value) {

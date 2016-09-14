@@ -4,7 +4,7 @@
  * Date	  : 2016-08-10 10:42:15
  */
 
-import {BaseAdapter} from './baseAdapter';
+import {BaseAdapter} from '../core/baseAdapter';
 import {Switch} from 'neoui/js/neoui-switch';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 

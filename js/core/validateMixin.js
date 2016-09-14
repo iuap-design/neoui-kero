@@ -16,6 +16,7 @@ var ValidateMixin = {
         this.successId=this.getOption('successId');
         this.hasSuccess=this.getOption('hasSuccess');
         this.notipFlag=this.getOption('notipFlag');
+        this.showFix = this.getOption('showFix');
 
         // if (this.validType) {
             this.validate = new Validate({

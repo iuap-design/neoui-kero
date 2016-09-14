@@ -3,7 +3,7 @@
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-09 20:02:50
  */
-import {FloatAdapter} from './float';
+import {FloatAdapter} from './keroa-float';
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
 import {PercentMasker} from 'neoui-sparrow/js/util/masker';
 import {core} from 'neoui-sparrow/js/core';
