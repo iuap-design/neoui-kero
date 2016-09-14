@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "1.5.11",
+  "version": "1.5.13",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -13,12 +13,12 @@
     "product": "npm run build && npm run dev && gulp dist"
   },
   "dependencies": {
-    "kero": "^3.4.10",
-    "neoui": "^4.1.10",
-    "neoui-grid": "^1.0.8",
-    "neoui-polyfill": "^1.2.9",
-    "neoui-sparrow": "^1.4.11",
-    "neoui-tree": "^1.0.7"
+    "kero": "^3.4.11",
+    "neoui": "^4.1.11",
+    "neoui-grid": "^1.0.9",
+    "neoui-polyfill": "^1.2.11",
+    "neoui-sparrow": "^1.4.13",
+    "neoui-tree": "^1.0.8"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
@@ -27,7 +27,11 @@
     "babel-loader": "^6.2.4",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
+    "babel-plugin-transform-es3-property-literals": "^6.8.0",
     "babel-preset-es2015": "^6.13.2",
+    "babel-preset-es2015-loose": "^8.0.0",
+    "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "eslint": "^3.2.2",
     "eslint-loader": "^1.5.0",

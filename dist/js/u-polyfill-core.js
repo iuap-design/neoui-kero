@@ -533,159 +533,80 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
+/**
+ * Created by dingrf on 2015-11-18.
+ */
 
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
+var u= u || {};
 
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
+u.polyfill = true;
+u._addClass = function(element,value){
+    var classes, cur, clazz, i, finalValue,rclass = /[\t\r\n\f]/g,
+        proceed = typeof value === "string" && value,rnotwhite = (/\S+/g);
 
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
+    if ( proceed ) {
+        // The disjunction here is for better compressibility (see removeClass)
+        classes = ( value || "" ).match( rnotwhite ) || [];
 
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+        cur = element.nodeType === 1 && ( element.className ?
+                ( " " + element.className + " " ).replace( rclass, " " ) : " ");
+        if ( cur ) {
+            i = 0;
+            while ( (clazz = classes[i++]) ) {
+                if ( cur.indexOf( " " + clazz + " " ) < 0 ) {cur += clazz + " ";}
+            }
+            // only assign if different to avoid unneeded rendering.
+            finalValue = (cur + "").trim();
+            if ( element.className !== finalValue ) {
+                element.className = finalValue;
+            }
+        }
+    }
+    return this;
+};
 
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
+u._removeClass = function(element, value) {
+    var classes, cur, clazz, j, finalValue,rnotwhite = (/\S+/g),rclass = /[\t\r\n\f]/g,
+        proceed = arguments.length === 0 || typeof value === "string" && value;
 
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
+    if ( proceed ) {
+        classes = ( value || "" ).match( rnotwhite ) || [];
 
+        // This expression is here for better compressibility (see addClass)
+        cur = element.nodeType === 1 && ( element.className ?
+                ( " " + element.className + " " ).replace( rclass, " " ) :"");
+        if ( cur ) {
+            j = 0;
+            while ( (clazz = classes[j++]) ) {
+                // Remove *all* instances
+                while ( cur.indexOf( " " + clazz + " " ) >= 0 ) {
+                    cur = cur.replace( " " + clazz + " ", " " );
+                }
+            }
 
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
+            // only assign if different to avoid unneeded rendering.
+            finalValue = value ? (cur + "").trim() : "";
+            if ( element.className !== finalValue ) {
+                element.className = finalValue;
+            }
+        }
+    }
+    return this;
+};
 
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
+u._hasClass = function(element,value){
+    var rclass = /[\t\r\n\f]/g;
+    if ( element.nodeType === 1 && (" " + element.className + " ").replace(rclass, " ").indexOf( value ) >= 0 ) {
+        return true;
+    }
+    return false;
+};
 
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+u._toggleClass = function(element, value){
+    if ( _hasClass(element, value) ) {
+        _removeClass(element, value);
+    } else {
+        _addClass(element, value);
+    }
+};
 
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.ex = undefined;
-
-	var _extend = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"neoui-sparrow/lib/extend\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	var polyfill = true; /**
-	                      * Created by dingrf on 2015-11-18.
-	                      */
-
-	var _addClass = function _addClass(element, value) {
-	    var classes,
-	        cur,
-	        clazz,
-	        i,
-	        finalValue,
-	        rclass = /[\t\r\n\f]/g,
-	        proceed = typeof value === "string" && value,
-	        rnotwhite = /\S+/g;
-
-	    if (proceed) {
-	        // The disjunction here is for better compressibility (see removeClass)
-	        classes = (value || "").match(rnotwhite) || [];
-
-	        cur = element.nodeType === 1 && (element.className ? (" " + element.className + " ").replace(rclass, " ") : " ");
-	        if (cur) {
-	            i = 0;
-	            while (clazz = classes[i++]) {
-	                if (cur.indexOf(" " + clazz + " ") < 0) {
-	                    cur += clazz + " ";
-	                }
-	            }
-	            // only assign if different to avoid unneeded rendering.
-	            finalValue = (cur + "").trim();
-	            if (element.className !== finalValue) {
-	                element.className = finalValue;
-	            }
-	        }
-	    }
-	    return this;
-	};
-
-	var _removeClass = function _removeClass(element, value) {
-	    var classes,
-	        cur,
-	        clazz,
-	        j,
-	        finalValue,
-	        rnotwhite = /\S+/g,
-	        rclass = /[\t\r\n\f]/g,
-	        proceed = arguments.length === 0 || typeof value === "string" && value;
-
-	    if (proceed) {
-	        classes = (value || "").match(rnotwhite) || [];
-
-	        // This expression is here for better compressibility (see addClass)
-	        cur = element.nodeType === 1 && (element.className ? (" " + element.className + " ").replace(rclass, " ") : "");
-	        if (cur) {
-	            j = 0;
-	            while (clazz = classes[j++]) {
-	                // Remove *all* instances
-	                while (cur.indexOf(" " + clazz + " ") >= 0) {
-	                    cur = cur.replace(" " + clazz + " ", " ");
-	                }
-	            }
-
-	            // only assign if different to avoid unneeded rendering.
-	            finalValue = value ? (cur + "").trim() : "";
-	            if (element.className !== finalValue) {
-	                element.className = finalValue;
-	            }
-	        }
-	    }
-	    return this;
-	};
-
-	var _hasClass = function _hasClass(element, value) {
-	    var rclass = /[\t\r\n\f]/g;
-	    if (element.nodeType === 1 && (" " + element.className + " ").replace(rclass, " ").indexOf(value) >= 0) {
-	        return true;
-	    }
-	    return false;
-	};
-
-	var _toggleClass = function _toggleClass(element, value) {
-	    if (_hasClass(element, value)) {
-	        _removeClass(element, value);
-	    } else {
-	        _addClass(element, value);
-	    }
-	};
-
-	var ex = {
-	    polyfill: polyfill,
-	    _addClass: _addClass,
-	    _removeClass: _removeClass,
-	    _hasClass: _hasClass,
-	    _toggleClass: _toggleClass
-	};
-
-	(0, _extend.extend)(ex, window.u || {});
-	window.u = ex;
-
-	exports.ex = ex;
-
-/***/ }
-/******/ ]);
