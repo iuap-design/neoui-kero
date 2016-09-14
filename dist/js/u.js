@@ -5546,6 +5546,7 @@
 	Row.prototype.getMeta = _rowGetMeta.getMeta;
 
 	//getSimpleData
+	Row.prototype.formatValueFun = _rowGetSimpleData.formatValueFun;
 	Row.prototype.getSimpleData = _rowGetSimpleData.getSimpleData;
 
 	//init
@@ -6073,7 +6074,7 @@
 	'use strict';
 
 	exports.__esModule = true;
-	exports.getSimpleData = undefined;
+	exports.getSimpleData = exports.formatValueFun = undefined;
 
 	var _rowUtil = __webpack_require__(63);
 
@@ -6103,8 +6104,12 @@
 	                _data[key] = data[key].value;
 	            }
 	            if (meta[key] && meta[key].type) {
-
-	                _data[key] = fun(meta[key].type, data[key].value);
+	                var obj = {
+	                    meta: meta,
+	                    data: data,
+	                    key: key
+	                };
+	                _data[key] = this.formatValueFun(obj);
 	            }
 	        } else {
 	            _data[key] = _getSimpleData(rowObj, data[key]);
@@ -6113,12 +6118,16 @@
 	    return _data;
 	};
 
-	var fun = function fun() {
+	var formatValueFun = function formatValueFun(obj) {
+	    var meta = obj.meta,
+	        data = obj.data,
+	        key = obj.key;
 	    if (meta[key].type == 'date' || meta[key].type == 'datetime') {
 	        return (0, _rowUtil._dateToUTCString)(data[key].value);
 	    }
 	    return data[key].value;
 	};
+
 	var getSimpleData = function getSimpleData(options) {
 	    options = options || {};
 	    var fields = options['fields'] || null;
@@ -6137,6 +6146,7 @@
 	    return _data;
 	};
 
+	exports.formatValueFun = formatValueFun;
 	exports.getSimpleData = getSimpleData;
 
 /***/ },
@@ -8446,7 +8456,7 @@
 			if (this.options.showFix) {
 				document.body.appendChild(this.tipDom);
 				this.tipDom.style.position = 'fixed';
-				showPanelByEle({
+				(0, _dom.showPanelByEle)({
 					ele: this.element,
 					panel: this.tipDom,
 					position: "top"
