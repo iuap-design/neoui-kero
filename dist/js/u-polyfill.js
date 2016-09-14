@@ -891,7 +891,7 @@ return /******/ (function(modules) { // webpackBootstrap
  * Created by dingrf on 2015-11-18.
  */
 
-var u={};
+var u= u || {};
 
 u.polyfill = true;
 u._addClass = function(element,value){

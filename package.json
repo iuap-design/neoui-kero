@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "1.5.12",
+  "version": "1.5.13",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "kero": "^3.4.11",
     "neoui": "^4.1.11",
     "neoui-grid": "^1.0.9",
-    "neoui-polyfill": "^1.2.10",
+    "neoui-polyfill": "^1.2.11",
     "neoui-sparrow": "^1.4.13",
     "neoui-tree": "^1.0.8"
   },
