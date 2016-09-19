@@ -168,6 +168,10 @@ var GridAdapter = BaseAdapter.extend({
 				column.editType = eType;
 			}
 
+
+
+
+
 			if(rType == 'booleanRender'){
 				column.renderType = function(obj){
 					var checkStr = '';
@@ -805,6 +809,367 @@ var GridAdapter = BaseAdapter.extend({
 	getName: function() {
 		return 'grid'
 	},
+
+	setRenderType: function(obj){
+		this.createDefaultRender(obj);
+	},
+
+	createDefaultRender:function(obj){
+		var field = obj.field,
+			rType = obj.rType,
+			eOptions = obj.eOptions;
+		var oThis = this;
+		var column = oThis.grid.getColumnByField(field).options;
+		if(eOptions){
+			//判断是否为json对象
+			if(typeof(eOptions) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length){
+				eOptions = eOptions;
+			//判断是否为string
+			}else if(typeof(eOptions) == "string"){
+				eOptions = JSON.parse(eOptions);
+			}
+		}else {
+			eOptions = {};
+			if(column.editOptions){
+				if(typeof(column.editOptions) == "undefined")
+					var eOptions = eval("(" + column.editOptions +")");
+				else
+					var eOptions = column.editOptions;
+			}
+			eOptions.data = options['data'];
+			eOptions.field = column['field'];
+		}
+		if(rType == 'booleanRender'){
+			var renderType = function(obj){
+				var checkStr = '';
+				if(obj.value == 'Y'){
+					checkStr = 'checked';
+				}
+				var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr +'>'
+				obj.element.innerHTML = htmlStr;
+
+				var grid = obj.gridObj
+				var datatable = grid.dataTable
+				var rowId = obj.row.value['$_#_@_id'];
+
+				var row = datatable.getRowByRowId(rowId);
+				$(obj.element).find('input').on('click',function(){
+					var value = this.checked?"Y":"N";
+					var column = obj.gridCompColumn
+					var field = column.options.field
+					row.setValue(field,value);
+				})
+
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if(rType == 'integerRender'){
+			var renderType = function(obj){
+				var grid = obj.gridObj
+				var column = obj.gridCompColumn
+				var field = column.options.field
+				obj.element.innerHTML =  obj.value
+				/*设置header为right*/
+				$('#' + grid.options.id + '_header_table').find('th[field="'+field+'"]').css('text-align', 'right');
+				$(obj.element).css('text-align', 'right')
+				$(obj.element).css('color', '#e33c37')
+				$(obj.element).find('.u-grid-header-link').css('padding-right','3em')
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if(rType == 'currencyRender'){
+			var renderType = function(obj){
+				//需要处理精度
+
+				var grid = obj.gridObj
+				var column = obj.gridCompColumn
+				var field = column.options.field
+				var rowIndex = obj.rowIndex
+				var datatable = grid.dataTable
+				var rowId =  $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+				var row = datatable.getRowByRowId(rowId);
+				if(!row)
+					return;
+				var rprec = row.getMeta(field, 'precision')
+				var maskerMeta = core.getMaskerMeta('float') || {}
+				var precision = typeof(parseFloat(rprec)) == 'number' ? rprec : maskerMeta.precision;
+				maskerMeta.precision = precision;
+
+				maskerMeta.precision = precision || maskerMeta.precision
+				var formater = new NumberFormater(maskerMeta.precision);
+				var masker = new NumberMasker(maskerMeta);
+				var svalue = masker.format(formater.format(obj.value)).value
+				obj.element.innerHTML =  svalue
+				/*设置header为right*/
+				$('#' + grid.options.id + '_header_table').find('th[field="'+field+'"]').css('text-align', 'right');
+				$(obj.element).css('text-align', 'right')
+				$(obj.element).css('color', '#e33c37')
+				$(obj.element).find('.u-grid-header-link').css('padding-right','3em')
+				$(obj.element).attr('title', svalue)
+
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if(rType == 'floatRender'){
+			var renderType = function(obj){
+				//需要处理精度
+
+				var grid = obj.gridObj
+				var column = obj.gridCompColumn
+				var field = column.options.field
+				var rowIndex = obj.rowIndex
+				var datatable = grid.dataTable
+				var rowId =  $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+				var row = datatable.getRowByRowId(rowId);
+				if(!row)
+					return;
+				var rprec =  row.getMeta(field, 'precision') || column.options.precision;
+				var maskerMeta = core.getMaskerMeta('float') || {}
+				var precision = typeof(parseFloat(rprec)) == 'number' ? rprec : maskerMeta.precision;
+				maskerMeta.precision = precision;
+
+				var formater = new NumberFormater(maskerMeta.precision);
+				var masker = new NumberMasker(maskerMeta);
+				var svalue = masker.format(formater.format(obj.value)).value
+				obj.element.innerHTML =  svalue
+				/*设置header为right*/
+				$('#' + grid.options.id + '_header_table').find('th[field="'+field+'"]').css('text-align', 'right');
+				$(obj.element).css('text-align', 'right')
+				$(obj.element).css('color', '#e33c37')
+				$(obj.element).find('.u-grid-header-link').css('padding-right','3em')
+				$(obj.element).attr('title', svalue)
+
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if(rType == 'comboRender'){
+			var renderType = function(obj){
+
+			  //需要将key转化为name
+				var ds = getJSObject(viewModel, eOptions['datasource'])
+
+				obj.element.innerHTML = '';
+				if(nameArr){
+					nameArr.length = 0
+				}
+
+				var valArr = obj.value.split(',')
+				var nameArr = []
+				for( var i=0,length=ds.length; i<length; i++){
+				  for(var j=0; j<valArr.length;j++){
+					  if(ds[i].value == valArr[j]){
+						  nameArr.push(ds[i].name)
+					  }
+				  }
+				}
+				var svalue = nameArr.toString()
+				if(!svalue)
+					svalue = obj.value;
+				obj.element.innerHTML = svalue;
+				$(obj.element).attr('title', svalue)
+
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if(rType == 'dateRender'){
+			//通过grid的dataType为Date format处理
+			var renderType = function(obj){
+				var svalue =  dateRender(obj.value, obj.gridCompColumn.options['format']);
+				obj.element.innerHTML = svalue;
+				$(obj.element).attr('title', svalue)
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if(rType == 'dateTimeRender'){
+			//通过grid的dataType为DateTime format处理
+			var renderType = function(obj){
+				var svalue = dateTimeRender(obj.value)
+				obj.element.innerHTML = svalue;
+				$(obj.element).attr('title', svalue)
+
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if (typeof rType == 'function'){
+			var renderType =  rType
+		}else if(rType == 'radioRender'){
+			var renderType = function(params){
+				//debugger
+				var ds = getJSObject(viewModel, eOptions['datasource'])
+				var value = params.value
+				var compDiv = $('<div class="u-grid-edit-item-radio"></div>');
+
+				params.element.innerHTML = ""
+				$(params.element).append(compDiv)
+
+				for(var i = 0;i < ds.length;i++){
+					if(ds[i].value==value)
+						compDiv.append('<input name="'+column.field+params.row.value['$_#_@_id']+'" type="radio" value="'+ds[i].value +'" checked="true" /><i data-role="name">' +ds[i].name+ '</i>')
+					else
+						compDiv.append('<input name="'+column.field+params.row.value['$_#_@_id']+'" type="radio" value="'+ds[i].value +'"/><i data-role="name">' +ds[i].name+ '</i>')
+				}
+				compDiv.find(":radio").each(function() {
+
+					$(this).on('click', function() {
+
+						var val = this.value
+						compDiv.find(":radio").each(function() {
+							if (this.value == val) {
+								this.checked = true;
+							}else{
+								this.checked = false;
+							}
+						})
+						var grid = params.gridObj
+						var column = params.gridCompColumn
+						var field = column.options.field
+						var datatable = grid.dataTable
+						//var rowIndex = params.rowIndex
+						//var tmprowId =  $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+						var rowId = params.row.value['$_#_@_id'];
+
+						var row = datatable.getRowByRowId(rowId);
+
+						row.setValue(field,val)
+					})
+				})
+//					var comp = new $.compManager.plugs.radio(compDiv[0],eOptions,viewModel);
+//					for( var i=0,length=rdo.length; i<length; i++){
+//					   if(rdo[i].pk==value){
+//					   	 obj.element.innerHTML = '<input type="radio" checked><i data-role="name">'+rdo[i].name+'</i>';
+//					   	 break;
+//					   }
+//					}
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if(rType == 'urlRender'){
+			//通过grid的dataType为DateTime format处理
+			var renderType = function(obj){
+				obj.element.innerHTML = '<a href="' + obj.value + '" target="_blank">' + obj.value +'</a>';
+
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if(rType == 'passwordRender'){
+			//通过grid的dataType为DateTime format处理
+			var renderType = function(obj){
+				obj.element.innerHTML = '<input type="password" disable="true" role="grid-for-edit" readonly="readonly" style="border:0px;background:none;padding:0px;" value="' + obj.value + '" title=""><span class="uf uf-eyeopen right-span" role="grid-for-edit"></span>';
+				var span = obj.element.querySelector('span');
+				var input = obj.element.querySelector('input');
+				input.value = obj.value;
+				$(span).on('click',function(){
+					if(input.type == 'password'){
+						input.type = 'text'
+					}
+					else{
+						input.type = 'password'
+					}
+				})
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}else if(rType == 'percentRender'){
+			var renderType = function(obj){
+				//需要处理精度
+
+				var grid = obj.gridObj
+				var column = obj.gridCompColumn
+				var field = column.options.field
+				var rowIndex = obj.rowIndex
+				var datatable = grid.dataTable
+				var rowId =  $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+				var row = datatable.getRowByRowId(rowId);
+				if(!row)
+					return;
+				var rprec =  row.getMeta(field, 'precision') || column.options.precision;
+				var maskerMeta = core.getMaskerMeta('percent') || {}
+				var precision = typeof(parseFloat(rprec)) == 'number' ? rprec : maskerMeta.precision;
+				maskerMeta.precision = precision;
+				if (maskerMeta.precision){
+					maskerMeta.precision = parseInt(maskerMeta.precision) + 2;
+				}
+
+				var formater = new NumberFormater(maskerMeta.precision);
+				var masker = new PercentMasker(maskerMeta)
+				var svalue = masker.format(formater.format(obj.value)).value
+				obj.element.innerHTML =  svalue
+				$(obj.element).css('text-align', 'right')
+				$(obj.element).attr('title', svalue)
+
+				// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+				if(typeof afterRType == 'function'){
+					afterRType.call(this,obj);
+				}
+			}
+		}
+		var renderArr = {};
+		renderArr[column.field] = renderType;
+
+		column.renderType = function(obj){
+			var rendertypefun = renderArr[column.field]
+
+			rendertypefun.call(this,obj);
+		}
+
+	},
+
+	setEditType: function(obj){
+		var eType = obj.eType,
+			field = obj.field,
+			eOptions = obj.eOptions;
+		var oThis = this;
+		var column = oThis.grid.getColumnByField(field).options;
+		var viewModel = oThis.grid.viewModel;
+		var options = oThis.gridOptions;
+
+		if(eOptions){
+			//判断是否为json对象
+			if(typeof(eOptions) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length){
+				eOptions = eOptions;
+			//判断是否为string
+			}else if(typeof(eOptions) == "string"){
+				eOptions = JSON.parse(eOptions);
+			}
+		}else {
+			eOptions = {};
+			if(column.editOptions){
+				if(typeof(column.editOptions) == "undefined")
+					var eOptions = eval("(" + column.editOptions +")");
+				else
+					var eOptions = column.editOptions;
+			}
+			eOptions.data = options['data'];
+			eOptions.field = column['field'];
+		}
+		if(!field){
+			return false;
+		}
+		if(column){
+			oThis.createDefaultEdit(eType, eOptions, options, viewModel, column);
+		}
+	},
+
 	createDefaultEdit:function(eType,eOptions,options,viewModel,column){
 		var oThis = this;
 		eOptions.showFix = true;
