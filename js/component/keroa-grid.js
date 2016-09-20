@@ -820,6 +820,7 @@ var GridAdapter = BaseAdapter.extend({
 			eOptions = obj.eOptions;
 		var oThis = this;
 		var column = oThis.grid.getColumnByField(field).options;
+		var viewModel = oThis.grid.viewModel;
 		if(eOptions){
 			//判断是否为json对象
 			if(typeof(eOptions) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length){
