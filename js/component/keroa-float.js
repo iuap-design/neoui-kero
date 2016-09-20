@@ -55,11 +55,11 @@ var FloatAdapter = BaseAdapter.extend({
             if(self.enable){
                 self.onFocusin()
                 try{
-                    var e = event.srcElement; 
-                    var r = e.createTextRange(); 
-                    r.moveStart('character',e.value.length); 
-                    r.collapse(true); 
-                    r.select(); 
+                    var e = event.srcElement;
+                    var r = e.createTextRange();
+                    r.moveStart('character',e.value.length);
+                    r.collapse(true);
+                    r.select();
                 }catch(e){
                 }
             }
@@ -83,7 +83,7 @@ var FloatAdapter = BaseAdapter.extend({
         on(this.element,'keydown',function(e){
             if(self.enable){
                 var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-                if (!(code >= 48 && code <= 57||code==37||code==39||code==8 ||code==46)) {
+                if (!(code >= 48 && code <= 57||code==37||code==39||code==8 ||code==46 || code == 110 || code == 190)) {
                     //阻止默认浏览器动作(W3C)
                     if ( e && e.preventDefault )
                         e.preventDefault();

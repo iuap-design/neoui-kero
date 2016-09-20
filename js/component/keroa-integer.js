@@ -11,18 +11,23 @@ import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
 import {isNumber} from 'neoui-sparrow/js/util';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
+import {core} from 'neoui-sparrow/js/core';
+import {NumberFormater} from 'neoui-sparrow/js/util/formater';
+import {NumberMasker} from 'neoui-sparrow/js/util/masker';
 import {env} from 'neoui-sparrow/js/env';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 var IntegerAdapter = BaseAdapter.extend({
-    mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],
-    init: function () {
+    mixins: [ValueMixin, EnableMixin, RequiredMixin, ValidateMixin],
+    init: function() {
         var self = this;
         this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
-        if (!this.element){
+        if (!this.element) {
             throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
         };
+        this.maskerMeta = core.getMaskerMeta('integer') || {};
         this.validType = this.options['validType'] || 'integer';
+        this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
         this.max = this.options['max'];
         this.min = this.options['min'];
         this.maxNotEq = this.options['maxNotEq'];
@@ -37,22 +42,23 @@ var IntegerAdapter = BaseAdapter.extend({
             this.minLength = isNumber(this.dataModel.getMeta(this.field, "minLength")) ? this.dataModel.getMeta(this.field, "minLength") : this.minLength;
             this.maxLength = isNumber(this.dataModel.getMeta(this.field, "maxLength")) ? this.dataModel.getMeta(this.field, "maxLength") : this.maxLength;
         }
-        on(this.element, 'focus', function(){
-            if(self.enable){
+        this.formater = new NumberFormater(this.maskerMeta.precision);
+        this.masker = new NumberMasker(this.maskerMeta);
+        on(this.element, 'focus', function() {
+            if (self.enable) {
                 self.setShowValue(self.getValue())
-                try{
-                    var e = event.srcElement; 
-                    var r = e.createTextRange(); 
-                    r.moveStart('character',e.value.length); 
-                    r.collapse(true); 
-                    r.select(); 
-                }catch(e){
-                }
+                try {
+                    var e = event.srcElement;
+                    var r = e.createTextRange();
+                    r.moveStart('character', e.value.length);
+                    r.collapse(true);
+                    r.select();
+                } catch (e) {}
             }
-        })
+        });
 
-        on(this.element, 'blur',function(){
-            if(self.enable){
+        on(this.element, 'blur', function() {
+            if (self.enable) {
                 if (!self.doValidate() && self._needClean()) {
                     if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                         // 因必输项清空导致检验没通过的情况
@@ -60,16 +66,32 @@ var IntegerAdapter = BaseAdapter.extend({
                     } else {
                         self.element.value = self.getShowValue()
                     }
-                }
-                else
+                } else
                     self.setValue(self.element.value)
+            }
+        });
+
+        on(this.element, 'keydown', function(e) {
+            if (self.enable) {
+                var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+                if (!(code >= 48 && code <= 57 || code == 37 || code == 39 || code == 8 || code == 46)) {
+                    //阻止默认浏览器动作(W3C)
+                    if (e && e.preventDefault)
+                        e.preventDefault();
+                    //IE中阻止函数器默认动作的方式
+                    else
+                        window.event.returnValue = false;
+                    return false;
+                }
             }
         });
     }
 });
 compMgr.addDataAdapter({
-	adapter: IntegerAdapter,
-	name: 'integer'
+    adapter: IntegerAdapter,
+    name: 'integer'
 });
 
-export {IntegerAdapter};
+export {
+    IntegerAdapter
+};

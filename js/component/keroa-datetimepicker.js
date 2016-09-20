@@ -37,13 +37,19 @@ var DateTimeAdapter = BaseAdapter.extend({
 				self.setFormat(event.newValue)
 			});
 		}
-		
+
 		if(this.dataModel && !this.options['format'])
 			this.options.format = this.dataModel.getMeta(this.field, "format")
 
 		if(!this.options['format']){
 			if(this.options.type === 'u-date'){
 				this.options.format = "YYYY-MM-DD";
+			}else if(this.options.type === 'year'){
+				this.options.format = "YYYY";
+			}else if(this.options.type === 'month'){
+				this.options.format = "MM";
+			}else if(this.options.type === 'yearmonth'){
+				this.options.format = "YYYY-MM";
 			}else{
 				this.options.format = "YYYY-MM-DD HH:mm:ss";
 			}
@@ -52,8 +58,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 		this.maskerMeta.format = format || this.maskerMeta.format
 
 		this.startField = this.options.startField?this.options.startField : this.dataModel.getMeta(this.field, "startField");
-		
-			
+
+
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
 		var op;
@@ -61,7 +67,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 			op = {
 				theme:"ios",
 				mode:"scroller",
-				lang: "zh",  
+				lang: "zh",
 				cancelText: null,
 				onSelect:function(val){
 					self.setValue(val);
@@ -84,7 +90,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 		}else{
 			this.comp = new DateTimePicker({el:this.element,format:this.maskerMeta.format,showFix:this.options.showFix});
 		}
-		
+
 		this.element['u.DateTimePicker'] = this.comp;
 
 		if(!env.isMobile){
@@ -116,7 +122,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 							self.dataModel.setValue(self.field,'');
 						}
 					}
-					
+
 				});
 			}
 			if(this.startField){
@@ -134,13 +140,15 @@ var DateTimeAdapter = BaseAdapter.extend({
 					}
 				}
 			}
-			
+
 		}
+
 		// 校验
 		this.comp.on('validate', function(event){
 			this.validate.check();
 		});
 			
+
 	},
 	modelValueChange: function(value){
 		if (this.slice) return;
@@ -153,7 +161,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 		}else{
 			this.comp.setDate(value);
 		}
-		
+
 	},
 	setFormat: function(format){
 		if (this.maskerMeta.format == format) return;

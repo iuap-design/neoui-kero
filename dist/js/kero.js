@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -63,9 +53,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DataTable = exports.u = undefined;
 
 	var _indexApp = __webpack_require__(2);
@@ -109,9 +97,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.createApp = exports.processXHRError = exports.App = undefined;
 
 	var _init = __webpack_require__(3);
@@ -151,43 +137,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // init
 	  this.init = _init.init;
 	  this.dataTables = {};
-	  // adjustMetaFunc
-	  this.adjustMetaFunc = _adjustMetaFunc.adjustMetaFunc;
-	  // dataTable 
-	  this.addDataTable = _dataTable.addDataTable;
-	  this.getDataTable = _dataTable.getDataTable;
-	  this.getDataTables = _dataTable.getDataTables;
-	  // comp
-	  this.createComp = _comp.createComp;
-	  this.getComp = _comp.getComp;
-	  this.getCompsByDataTable = _comp.getCompsByDataTable;
-	  this.getCompsByType = _comp.getCompsByType;
-	  this.getComps = _comp.getComps;
-	  this.showComp = _comp.showComp;
-	  // validate
-	  this.compsValidate = _validate.compsValidate;
-	  this.compsValidateMultiParam = _validate.compsValidateMultiParam;
-	  // cache
-	  this.setUserCache = _cache.setUserCache;
-	  this.getUserCache = _cache.getUserCache;
-	  this.removeUserCache = _cache.removeUserCache;
-	  this.setCache = _cache.setCache;
-	  this.getCache = _cache.getCache;
-	  this.removeCache = _cache.removeCache;
-	  this.setSessionCache = _cache.setSessionCache;
-	  this.getSessionCache = _cache.getSessionCache;
-	  this.removeSessionCache = _cache.removeSessionCache;
-	  // iwebCode
-	  this.getEnvironment = _iwebCore.getEnvironment;
-	  this.setClientAttribute = _iwebCore.setClientAttribute;
-	  this.getClientAttribute = _iwebCore.getClientAttribute;
-	  // ajax
-	  this.ajax = _ajax.ajax;
-	  // serverEvent
-	  this.serverEvent = _serverEvent.serverEvent;
-	  // util
-	  this.setEnable = _util.setEnable;
 	};
+
+	// adjustMetaFunc
+
+
+	App.prototype.adjustMetaFunc = _adjustMetaFunc.adjustMetaFunc;
+	// dataTable
+	App.prototype.addDataTable = _dataTable.addDataTable;
+	App.prototype.getDataTable = _dataTable.getDataTable;
+	App.prototype.getDataTables = _dataTable.getDataTables;
+	// comp
+	App.prototype.createComp = _comp.createComp;
+	App.prototype.getComp = _comp.getComp;
+	App.prototype.getCompsByDataTable = _comp.getCompsByDataTable;
+	App.prototype.getCompsByType = _comp.getCompsByType;
+	App.prototype.getComps = _comp.getComps;
+	App.prototype.showComp = _comp.showComp;
+	// validate
+	App.prototype.compsValidate = _validate.compsValidate;
+	App.prototype.compsValidateMultiParam = _validate.compsValidateMultiParam;
+	// cache
+	App.prototype.setUserCache = _cache.setUserCache;
+	App.prototype.getUserCache = _cache.getUserCache;
+	App.prototype.removeUserCache = _cache.removeUserCache;
+	App.prototype.setCache = _cache.setCache;
+	App.prototype.getCache = _cache.getCache;
+	App.prototype.removeCache = _cache.removeCache;
+	App.prototype.setSessionCache = _cache.setSessionCache;
+	App.prototype.getSessionCache = _cache.getSessionCache;
+	App.prototype.removeSessionCache = _cache.removeSessionCache;
+	// iwebCode
+	App.prototype.getEnvironment = _iwebCore.getEnvironment;
+	App.prototype.setClientAttribute = _iwebCore.setClientAttribute;
+	App.prototype.getClientAttribute = _iwebCore.getClientAttribute;
+	// ajax
+	App.prototype.ajax = _ajax.ajax;
+	// serverEvent
+	App.prototype.serverEvent = _serverEvent.serverEvent;
+	// util
+	App.prototype.setEnable = _util.setEnable;
 
 	var createApp = function createApp() {
 	  var app = new App();
@@ -208,9 +197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.init = undefined;
 
 	var _compMgr = __webpack_require__(4);
@@ -273,18 +260,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.compMgr = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : Sparrow compMgr
 	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
 	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 18:41:06
+	                                                                                                                                                                                                                                                   * Update : 2016-09-13 09:26:00
 	                                                                                                                                                                                                                                                   */
 
 	var _dom = __webpack_require__(5);
+
+	var _util = __webpack_require__(10);
 
 	function _findRegisteredClass(name, optReplace) {
 	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
@@ -400,7 +388,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var options = JSON.parse(element.getAttribute('u-meta'));
 	            if (options && options['type']) {
 	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
-	                var comp = CompMgr.createDataAdapter({ el: element, options: options, model: model });
+	                var comp = CompMgr.createDataAdapter({
+	                    el: element,
+	                    options: options,
+	                    model: model
+	                });
 	                if (comp) {
 	                    element['adpt'] = comp;
 	                    element['u-meta'] = comp;
@@ -463,7 +455,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            classConstructor: config.comp,
 	            className: config.compAsString || config['compAsString'],
 	            cssClass: config.css || config['css'],
-	            callbacks: []
+	            callbacks: [],
+	            dependencies: config.dependencies || []
 	        };
 	        config.comp.prototype.compType = config.compAsString;
 	        for (var i = 0; i < this.registeredControls.length; i++) {
@@ -478,9 +471,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	        this.registeredControls.push(newConfig);
 	    },
+
 	    updateComp: function updateComp(ele) {
+	        this._reorderComps();
 	        for (var n = 0; n < this.registeredControls.length; n++) {
 	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
+	        }
+	    },
+	    // 后续遍历registeredControls，重新排列
+	    _reorderComps: function _reorderComps() {
+	        var tmpArray = [];
+	        var dictory = {};
+
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            dictory[this.registeredControls[n].className] = this.registeredControls[n];
+	        }
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            traverse(this.registeredControls[n]);
+	        }
+
+	        this.registeredControls = tmpArray;
+
+	        function traverse(control) {
+	            if ((0, _util.inArray)(control, tmpArray)) return;
+	            if (control.dependencies.length > 0) {
+	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
+	                    var childControl = dictory[control.dependencies[i]];
+	                    traverse(childControl);
+	                }
+	            }
+	            tmpArray.push(control);
 	        }
 	    }
 	};
@@ -508,10 +528,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
+	exports.__esModule = true;
+	exports.getElementTop = exports.getElementLeft = exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
 
 	var _event = __webpack_require__(6);
 
@@ -755,6 +773,34 @@ return /******/ (function(modules) { // webpackBootstrap
 		panel.style.top = top + 'px';
 	};
 
+	var getElementLeft = function getElementLeft(element) {
+		var actualLeft = element.offsetLeft;
+		var current = element.offsetParent;
+		while (current !== null) {
+			actualLeft += current.offsetLeft;
+			current = current.offsetParent;
+		}
+		if (document.compatMode == "BackCompat") {
+			var elementScrollLeft = document.body.scrollLeft;
+		} else {
+			var elementScrollLeft = document.documentElement.scrollLeft;
+		}
+		return actualLeft - elementScrollLeft;
+	};
+	var getElementTop = function getElementTop(element) {
+		var actualTop = element.offsetTop;
+		var current = element.offsetParent;
+		while (current !== null) {
+			actualTop += current.offsetTop;
+			current = current.offsetParent;
+		}
+		if (document.compatMode == "BackCompat") {
+			var elementScrollTop = document.body.scrollTop;
+		} else {
+			var elementScrollTop = document.documentElement.scrollTop;
+		}
+		return actualTop - elementScrollTop;
+	};
 	exports.addClass = addClass;
 	exports.removeClass = removeClass;
 	exports.hasClass = hasClass;
@@ -769,6 +815,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getOffset = getOffset;
 	exports.getScroll = getScroll;
 	exports.showPanelByEle = showPanelByEle;
+	exports.getElementLeft = getElementLeft;
+	exports.getElementTop = getElementTop;
 
 /***/ },
 /* 6 */
@@ -776,9 +824,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
 
 	var _env = __webpack_require__(7);
@@ -1168,9 +1214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.env = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -1373,9 +1417,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.extend = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
@@ -1425,9 +1467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow extend enum
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1463,9 +1503,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
@@ -1600,9 +1638,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.hotkeys = undefined;
 
 	var _class = __webpack_require__(12);
@@ -1767,9 +1803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow class
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1956,9 +1990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app AdjustMetaFunc
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -1977,9 +2009,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app dataTable
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2008,9 +2038,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.showComp = exports.getComps = exports.getCompsByType = exports.getCompsByDataTable = exports.getComp = exports.createComp = undefined;
 
 	var _compMgr = __webpack_require__(4);
@@ -2138,9 +2166,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.compsValidateMultiParam = exports.compsValidate = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
@@ -2181,7 +2207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        notPassedArr = new Array();
 	    for (var i = 0; i < comps.length; i++) {
 	        if (comps[i].doValidate) {
-	            result = comps[i].doValidate({ trueValue: true, showMsg: showMsg });
+	            var result = comps[i].doValidate({ trueValue: true, showMsg: showMsg });
 	            // 如果passed为true,result.passed为false说明第一次出现错误校验
 	            if (passed && !result.passed) {
 	                var off = (0, _dom.getOffset)(comps[i].element);
@@ -2211,9 +2237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app cache
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2278,9 +2302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app iwebCore
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2288,15 +2310,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var getEnvironment = function getEnvironment() {
-	    return window.iweb.Core.collectEnvironment();
+	    return u.core.collectEnvironment();
 	};
 
 	var setClientAttribute = function setClientAttribute(k, v) {
-	    window.iweb.Core.setClientAttribute(k, v);
+	    u.core.setClientAttribute(k, v);
 	};
 
 	var getClientAttribute = function getClientAttribute(k) {
-	    return window.iweb.Core.getClientAttributes()[k];
+	    return u.core.getClientAttributes()[k];
 	};
 
 	exports.getEnvironment = getEnvironment;
@@ -2309,9 +2331,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ajax = undefined;
 
 	var _ajax = __webpack_require__(20);
@@ -2354,7 +2374,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            deferred.reject();
 	        }
 	    };
-	    if (params.data) params.data.environment = ko.utils.stringifyJson(window.iweb.Core.collectEnvironment());else params.data = { environment: ko.utils.stringifyJson(window.iweb.Core.collectEnvironment()) };
+	    if (params.data) params.data.environment = ko.utils.stringifyJson(u.core.collectEnvironment());else params.data = { environment: ko.utils.stringifyJson(u.core.collectEnvironment()) };
 	    return params;
 	};
 
@@ -2370,9 +2390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.ajax = undefined;
 
 	var _env = __webpack_require__(7);
@@ -2496,9 +2514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app processXHRError
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2530,9 +2546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app serverEvent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2551,9 +2565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.setEnable = undefined;
 
 	var _util = __webpack_require__(10);
@@ -2583,9 +2595,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ServerEvent = undefined;
 
 	var _serverDataTable = __webpack_require__(25);
@@ -2612,32 +2622,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.datas = {};
 	    this.params = {};
 	    this.event = null;
-	    this.ent = window.iweb.Core.collectEnvironment();
-	    if (!iweb.debugMode) {
+	    this.ent = u.core.collectEnvironment();
+	    if (!u.debugMode) {
 	        //此处需要修改
 	        this.compression = true;
 	    }
-
-	    // dataTable 
-	    this.addDataTable = _serverDataTable.addDataTable;
-	    this.addDataTables = _serverDataTable.addDataTables;
-	    this.addAllDataTables = _serverDataTable.addAllDataTables;
-	    this.updateDataTables = _serverDataTable.updateDataTables;
-
-	    // fire
-	    this.fire = _serverFire.fire;
-	    this.setSuccessFunc = _serverFire.setSuccessFunc;
-
-	    // processXHRError
-	    this.processXHRError = _serverProcessXHRError.processXHRError;
-
-	    //util
-	    this.setCompression = _serverUtil.setCompression;
-	    this.addParameter = _serverUtil.addParameter;
-	    this.setEvent = _serverUtil.setEvent;
-	    this.getData = _serverUtil.getData;
-	    this.updateDom = _serverUtil.updateDom;
 	};
+
+	// dataTable
+
+
+	ServerEvent.prototype.addDataTable = _serverDataTable.addDataTable;
+	ServerEvent.prototype.addDataTables = _serverDataTable.addDataTables;
+	ServerEvent.prototype.addAllDataTables = _serverDataTable.addAllDataTables;
+	ServerEvent.prototype.updateDataTables = _serverDataTable.updateDataTables;
+
+	// fire
+	ServerEvent.prototype.fire = _serverFire.fire;
+	ServerEvent.prototype.setSuccessFunc = _serverFire.setSuccessFunc;
+	ServerEvent.prototype._successFunc = _serverFire._successFunc;
+
+	// processXHRError
+	ServerEvent.prototype.processXHRError = _serverProcessXHRError.processXHRError;
+
+	//util
+	ServerEvent.prototype.setCompression = _serverUtil.setCompression;
+	ServerEvent.prototype.addParameter = _serverUtil.addParameter;
+	ServerEvent.prototype.setEvent = _serverUtil.setEvent;
+	ServerEvent.prototype.getData = _serverUtil.getData;
+	ServerEvent.prototype.updateDom = _serverUtil.updateDom;
 
 	ServerEvent.DEFAULT = {
 	    async: true,
@@ -2653,9 +2666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateDataTables = exports.addAllDataTables = exports.addDataTables = exports.addDataTable = undefined;
 
 	var _util = __webpack_require__(10);
@@ -2691,7 +2702,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        for (var i = 0; i < dataTables.length; i++) {
 	            var dt = dataTables[i];
 	            if (typeof dt == 'string') this.addDataTable(dt);else {
-	                for (key in dt) {
+	                for (var key in dt) {
 	                    this.addDataTable(key, dt[key]);
 	                }
 	            }
@@ -2729,10 +2740,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.setSuccessFunc = exports.fire = undefined;
+	exports.__esModule = true;
+	exports.setSuccessFunc = exports._successFunc = exports.fire = undefined;
 
 	var _extend = __webpack_require__(8);
 
@@ -2807,6 +2816,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	exports.fire = fire;
+	exports._successFunc = _successFunc;
 	exports.setSuccessFunc = setSuccessFunc;
 
 /***/ },
@@ -2815,9 +2825,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app serverEvent processXHRError
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2846,23 +2854,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateDom = exports.getData = exports.setEvent = exports.addParameter = exports.setCompression = undefined;
 
 	var _util = __webpack_require__(10);
 
 	var _event = __webpack_require__(6);
 
-	/**
-	 * Module : kero app serverEvent util
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-07-29 09:34:01
-	 */
+	var _env = __webpack_require__(7);
+
 	var setCompression = function setCompression(compression) {
-	    if (!iweb.browser.isIE8 && !window.pako && compression == true) iweb.log.error("can't compression, please include  pako!");else this.compression = compression;
-	};
+	    if (!_env.env.isIE8 && !window.pako && compression == true) alert("can't compression, please include  pako!");else this.compression = compression;
+	}; /**
+	    * Module : kero app serverEvent util
+	    * Author : liuyk(liuyk@yonyou.com)
+	    * Date   : 2016-07-29 09:34:01
+	    */
+
 
 	var addParameter = function addParameter(key, value) {
 	    this.params[key] = value;
@@ -2892,7 +2900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        datasJson = window.trimServerEventData(datasJson);
 	    }
 	    if (this.compression) {
-	        if (!iweb.browser.isIE8 && window.pako) {
+	        if (!_env.env.isIE8 && window.pako) {
 	            envJson = encodeBase64(window.pako.gzip(envJson));
 	            datasJson = encodeBase64(window.pako.gzip(datasJson));
 	            compression = true;
@@ -2950,10 +2958,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DataTable = undefined;
+
+	var _extend = __webpack_require__(8);
 
 	var _indexEvents = __webpack_require__(30);
 
@@ -3003,190 +3011,191 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _util = __webpack_require__(48);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _events = __webpack_require__(31);
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
+	                                                                                                                                                          * Module : Kero webpack entry dataTable index
+	                                                                                                                                                          * Author : liuyk(liuyuekai@yonyou.com)
+	                                                                                                                                                          * Date   : 2016-08-09 15:24:46
+	                                                                                                                                                          */
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Module : Kero webpack entry dataTable index
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Author : liuyk(liuyuekai@yonyou.com)
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Date   : 2016-08-09 15:24:46
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	var DataTable =
+	// class DataTable extends Events{
+	function DataTable(options) {
+	    _classCallCheck(this, DataTable);
 
-	var DataTable = function (_Events) {
-	    _inherits(DataTable, _Events);
+	    // IE9下转化之后的代码有问题，无法获得superClass方法
+	    // super();
+	    this.on = _events.on;
+	    this.off = _events.off;
+	    this.one = _events.one;
+	    this.trigger = _events.trigger;
+	    this.getEvent = _events.getEvent;
 
-	    function DataTable(options) {
-	        _classCallCheck(this, DataTable);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DataTable).call(this));
-
-	        options = options || {};
-	        _this.id = options['id'];
-	        _this.strict = options['strict'] || false;
-	        _this.meta = DataTable.createMetaItems(options['meta']);
-	        _this.enable = options['enable'] || DataTable.DEFAULTS.enable;
-	        _this.pageSize = ko.observable(options['pageSize'] || DataTable.DEFAULTS.pageSize);
-	        _this.pageIndex = ko.observable(options['pageIndex'] || DataTable.DEFAULTS.pageIndex);
-	        _this.totalPages = ko.observable(options['totalPages'] || DataTable.DEFAULTS.totalPages);
-	        _this.totalRow = ko.observable();
-	        _this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
-	        _this.rows = ko.observableArray([]);
-	        _this.selectedIndices = ko.observableArray([]);
-	        _this._oldCurrentIndex = -1;
-	        _this.focusIndex = ko.observable(-1);
-	        _this.cachedPages = [];
-	        _this.metaChange = {};
-	        _this.valueChange = {}; //ko.observable(1);
-	        _this.currentRowChange = ko.observable(1);
-	        _this.enableChange = ko.observable(1);
-	        _this.params = options['params'] || {};
-	        _this.master = options['master'] || '';
-	        _this.allSelected = ko.observable(false);
-	        if (options['root']) {
-	            _this.root = options['root'];
-	        } else {
-	            _this.root = _this;
-	        }
-	        if (options['ns']) {
-	            _this.ns = options['ns'];
-	        } else {
-	            _this.ns = '';
-	        }
-
-	        //copyRow
-	        _this.copyRow = _copyRow.copyRow;
-	        _this.copyRows = _copyRow.copyRows;
-
-	        //data
-	        _this.setData = _data.setData;
-	        _this.setValue = _data.setValue;
-
-	        //enable
-	        _this.isEnable = _enable.isEnable;
-	        _this.setEnable = _enable.setEnable;
-
-	        //getData
-	        _this.getData = _getData.getData;
-	        _this.getDataByRule = _getData.getDataByRule;
-	        _this.getRow = _getData.getRow;
-	        _this.getRowByRowId = _getData.getRowByRowId;
-	        _this.getRowIndex = _getData.getRowIndex;
-	        _this.getRowsByField = _getData.getRowsByField;
-	        _this.getRowByField = _getData.getRowByField;
-	        _this.getAllRows = _getData.getAllRows;
-	        _this.getAllPageRows = _getData.getAllPageRows;
-	        _this.getChangedDatas = _getData.getChangedDatas;
-	        _this.getChangedRows = _getData.getChangedRows;
-	        _this.getValue = _getData.getValue;
-	        _this.getIndexByRowId = _getData.getIndexByRowId;
-	        _this.getAllDatas = _getData.getAllDatas;
-	        _this.getRowIdsByIndices = _getData.getRowIdsByIndices;
-
-	        //getCurrent
-	        _this.getCurrentRow = _getCurrent.getCurrentRow;
-	        _this.getCurrentIndex = _getCurrent.getCurrentIndex;
-
-	        //getFocus
-	        _this.getFocusRow = _getFocus.getFocusRow;
-	        _this.getFocusIndex = _getFocus.getFocusIndex;
-
-	        //getMeta
-	        _this.getMeta = _getMeta.getMeta;
-	        _this.getRowMeta = _getMeta.getRowMeta;
-
-	        //getPage
-	        _this.getPage = _getPage.getPage;
-	        _this.getPages = _getPage.getPages;
-
-	        //getParam
-	        _this.getParam = _getParam.getParam;
-
-	        //getSelect
-	        _this.getSelectedIndex = _getSelect.getSelectedIndex;
-	        _this.getSelectedIndices = _getSelect.getSelectedIndices;
-	        _this.getSelectedIndexs = _getSelect.getSelectedIndexs;
-	        _this.getSelectedDatas = _getSelect.getSelectedDatas;
-	        _this.getSelectedRows = _getSelect.getSelectedRows;
-
-	        //getSimpleData
-	        _this.getSimpleData = _getSimpleData.getSimpleData;
-
-	        //meta
-	        _this.setMeta = _meta.setMeta;
-	        _this.updateMeta = _meta.updateMeta;
-	        _this.createField = _meta.createField;
-
-	        //page
-	        _this.setCurrentPage = _page.setCurrentPage;
-	        _this.updatePages = _page.updatePages;
-	        _this.setPages = _page.setPages;
-	        _this.hasPage = _page.hasPage;
-	        _this.clearCache = _page.clearCache;
-	        _this.cacheCurrentPage = _page.cacheCurrentPage;
-
-	        //param
-	        _this.addParam = _param.addParam;
-	        _this.addParams = _param.addParams;
-
-	        //ref
-	        _this.refSelectedRows = _ref.refSelectedRows;
-	        _this.ref = _ref.ref;
-	        _this.refMeta = _ref.refMeta;
-	        _this.refRowMeta = _ref.refRowMeta;
-	        _this.refEnable = _ref.refEnable;
-
-	        //row
-	        _this.setRows = _row.setRows;
-	        _this.addRow = _row.addRow;
-	        _this.addRows = _row.addRows;
-	        _this.insertRow = _row.insertRow;
-	        _this.insertRows = _row.insertRows;
-	        _this.createEmptyRow = _row.createEmptyRow;
-
-	        //removeRow
-	        _this.removeRowByRowId = _removeRow.removeRowByRowId;
-	        _this.removeRow = _removeRow.removeRow;
-	        _this.removeAllRows = _removeRow.removeAllRows;
-	        _this.removeRows = _removeRow.removeRows;
-	        _this.clear = _removeRow.clear;
-
-	        //rowCurrent
-	        _this.updateCurrIndex = _rowCurrent.updateCurrIndex;
-
-	        //rowDelete
-	        _this.setRowDelete = _rowDelete.setRowDelete;
-	        _this.setAllRowsDelete = _rowDelete.setAllRowsDelete;
-	        _this.setRowsDelete = _rowDelete.setRowsDelete;
-
-	        //rowFocus
-	        _this.setRowFocus = _rowFocus.setRowFocus;
-	        _this.setRowUnFocus = _rowFocus.setRowUnFocus;
-	        _this.updateFocusIndex = _rowFocus.updateFocusIndex;
-
-	        //rowSelect
-	        _this.setAllRowsSelect = _rowSelect.setAllRowsSelect;
-	        _this.setRowSelect = _rowSelect.setRowSelect;
-	        _this.setRowsSelect = _rowSelect.setRowsSelect;
-	        _this.addRowSelect = _rowSelect.addRowSelect;
-	        _this.addRowsSelect = _rowSelect.addRowsSelect;
-	        _this.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
-	        _this.setRowUnSelect = _rowSelect.setRowUnSelect;
-	        _this.setRowsUnSelect = _rowSelect.setRowsUnSelect;
-	        _this.toggleAllSelect = _rowSelect.toggleAllSelect;
-	        _this.updateSelectedIndices = _rowSelect.updateSelectedIndices;
-
-	        //simpleData
-	        _this.setSimpleData = _simpleData.setSimpleData;
-	        _this.addSimpleData = _simpleData.addSimpleData;
-
-	        //util
-	        _this.isChanged = _util.isChanged;
-	        return _this;
+	    options = options || {};
+	    this.id = options['id'];
+	    this.strict = options['strict'] || false;
+	    this.meta = DataTable.createMetaItems(options['meta']);
+	    this.enable = options['enable'] || DataTable.DEFAULTS.enable;
+	    this.pageSize = ko.observable(options['pageSize'] || DataTable.DEFAULTS.pageSize);
+	    this.pageIndex = ko.observable(options['pageIndex'] || DataTable.DEFAULTS.pageIndex);
+	    this.totalPages = ko.observable(options['totalPages'] || DataTable.DEFAULTS.totalPages);
+	    this.totalRow = ko.observable();
+	    this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
+	    this.rows = ko.observableArray([]);
+	    this.selectedIndices = ko.observableArray([]);
+	    this._oldCurrentIndex = -1;
+	    this.focusIndex = ko.observable(-1);
+	    this.cachedPages = [];
+	    this.metaChange = {};
+	    this.valueChange = {}; //ko.observable(1);
+	    this.currentRowChange = ko.observable(1);
+	    this.enableChange = ko.observable(1);
+	    this.params = options['params'] || {};
+	    this.master = options['master'] || '';
+	    this.allSelected = ko.observable(false);
+	    if (options['root']) {
+	        this.root = options['root'];
+	    } else {
+	        this.root = this;
 	    }
+	    if (options['ns']) {
+	        this.ns = options['ns'];
+	    } else {
+	        this.ns = '';
+	    }
+	};
 
-	    return DataTable;
-	}(_indexEvents.Events);
+	//copyRow
+
+
+	DataTable.prototype.copyRow = _copyRow.copyRow;
+	DataTable.prototype.copyRows = _copyRow.copyRows;
+
+	//data
+	DataTable.prototype.setData = _data.setData;
+	DataTable.prototype.setValue = _data.setValue;
+
+	//enable
+	DataTable.prototype.isEnable = _enable.isEnable;
+	DataTable.prototype.setEnable = _enable.setEnable;
+
+	//getData
+	DataTable.prototype.getData = _getData.getData;
+	DataTable.prototype.getDataByRule = _getData.getDataByRule;
+	DataTable.prototype.getRow = _getData.getRow;
+	DataTable.prototype.getRowByRowId = _getData.getRowByRowId;
+	DataTable.prototype.getRowIndex = _getData.getRowIndex;
+	DataTable.prototype.getRowsByField = _getData.getRowsByField;
+	DataTable.prototype.getRowByField = _getData.getRowByField;
+	DataTable.prototype.getAllRows = _getData.getAllRows;
+	DataTable.prototype.getAllPageRows = _getData.getAllPageRows;
+	DataTable.prototype.getChangedDatas = _getData.getChangedDatas;
+	DataTable.prototype.getChangedRows = _getData.getChangedRows;
+	DataTable.prototype.getValue = _getData.getValue;
+	DataTable.prototype.getIndexByRowId = _getData.getIndexByRowId;
+	DataTable.prototype.getAllDatas = _getData.getAllDatas;
+	DataTable.prototype.getRowIdsByIndices = _getData.getRowIdsByIndices;
+
+	//getCurrent
+	DataTable.prototype.getCurrentRow = _getCurrent.getCurrentRow;
+	DataTable.prototype.getCurrentIndex = _getCurrent.getCurrentIndex;
+
+	//getFocus
+	DataTable.prototype.getFocusRow = _getFocus.getFocusRow;
+	DataTable.prototype.getFocusIndex = _getFocus.getFocusIndex;
+
+	//getMeta
+	DataTable.prototype.getMeta = _getMeta.getMeta;
+	DataTable.prototype.getRowMeta = _getMeta.getRowMeta;
+
+	//getPage
+	DataTable.prototype.getPage = _getPage.getPage;
+	DataTable.prototype.getPages = _getPage.getPages;
+
+	//getParam
+	DataTable.prototype.getParam = _getParam.getParam;
+
+	//getSelect
+	DataTable.prototype.getSelectedIndex = _getSelect.getSelectedIndex;
+	DataTable.prototype.getSelectedIndices = _getSelect.getSelectedIndices;
+	DataTable.prototype.getSelectedIndexs = _getSelect.getSelectedIndexs;
+	DataTable.prototype.getSelectedDatas = _getSelect.getSelectedDatas;
+	DataTable.prototype.getSelectedRows = _getSelect.getSelectedRows;
+
+	//getSimpleData
+	DataTable.prototype.getSimpleData = _getSimpleData.getSimpleData;
+
+	//meta
+	DataTable.prototype.setMeta = _meta.setMeta;
+	DataTable.prototype.updateMeta = _meta.updateMeta;
+	DataTable.prototype.createField = _meta.createField;
+
+	//page
+	DataTable.prototype.setCurrentPage = _page.setCurrentPage;
+	DataTable.prototype.updatePages = _page.updatePages;
+	DataTable.prototype.setPages = _page.setPages;
+	DataTable.prototype.hasPage = _page.hasPage;
+	DataTable.prototype.clearCache = _page.clearCache;
+	DataTable.prototype.cacheCurrentPage = _page.cacheCurrentPage;
+
+	//param
+	DataTable.prototype.addParam = _param.addParam;
+	DataTable.prototype.addParams = _param.addParams;
+
+	//ref
+	DataTable.prototype.refSelectedRows = _ref.refSelectedRows;
+	DataTable.prototype.ref = _ref.ref;
+	DataTable.prototype.refMeta = _ref.refMeta;
+	DataTable.prototype.refRowMeta = _ref.refRowMeta;
+	DataTable.prototype.refEnable = _ref.refEnable;
+
+	//row
+	DataTable.prototype.setRows = _row.setRows;
+	DataTable.prototype.addRow = _row.addRow;
+	DataTable.prototype.addRows = _row.addRows;
+	DataTable.prototype.insertRow = _row.insertRow;
+	DataTable.prototype.insertRows = _row.insertRows;
+	DataTable.prototype.createEmptyRow = _row.createEmptyRow;
+
+	//removeRow
+	DataTable.prototype.removeRowByRowId = _removeRow.removeRowByRowId;
+	DataTable.prototype.removeRow = _removeRow.removeRow;
+	DataTable.prototype.removeAllRows = _removeRow.removeAllRows;
+	DataTable.prototype.removeRows = _removeRow.removeRows;
+	DataTable.prototype.clear = _removeRow.clear;
+
+	//rowCurrent
+	DataTable.prototype.updateCurrIndex = _rowCurrent.updateCurrIndex;
+
+	//rowDelete
+	DataTable.prototype.setRowDelete = _rowDelete.setRowDelete;
+	DataTable.prototype.setAllRowsDelete = _rowDelete.setAllRowsDelete;
+	DataTable.prototype.setRowsDelete = _rowDelete.setRowsDelete;
+
+	//rowFocus
+	DataTable.prototype.setRowFocus = _rowFocus.setRowFocus;
+	DataTable.prototype.setRowUnFocus = _rowFocus.setRowUnFocus;
+	DataTable.prototype.updateFocusIndex = _rowFocus.updateFocusIndex;
+
+	//rowSelect
+	DataTable.prototype.setAllRowsSelect = _rowSelect.setAllRowsSelect;
+	DataTable.prototype.setRowSelect = _rowSelect.setRowSelect;
+	DataTable.prototype.setRowsSelect = _rowSelect.setRowsSelect;
+	DataTable.prototype.addRowSelect = _rowSelect.addRowSelect;
+	DataTable.prototype.addRowsSelect = _rowSelect.addRowsSelect;
+	DataTable.prototype.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
+	DataTable.prototype.setRowUnSelect = _rowSelect.setRowUnSelect;
+	DataTable.prototype.setRowsUnSelect = _rowSelect.setRowsUnSelect;
+	DataTable.prototype.toggleAllSelect = _rowSelect.toggleAllSelect;
+	DataTable.prototype.updateSelectedIndices = _rowSelect.updateSelectedIndices;
+
+	//simpleData
+	DataTable.prototype.setSimpleData = _simpleData.setSimpleData;
+	DataTable.prototype.addSimpleData = _simpleData.addSimpleData;
+
+	//util
+	DataTable.prototype.isChanged = _util.isChanged;
 
 	DataTable.DEFAULTS = {
 	    pageSize: 20,
@@ -3241,7 +3250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    for (var key in metas) {
 	        var meta = metas[key];
 	        if (typeof meta == 'string') meta = {};
-	        newMetas[key] = u.extend({}, DataTable.META_DEFAULTS, meta);
+	        newMetas[key] = (0, _extend.extend)({}, DataTable.META_DEFAULTS, meta);
 	    }
 	    return newMetas;
 	};
@@ -3254,9 +3263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.Events = undefined;
 
 	var _events = __webpack_require__(31);
@@ -3272,13 +3279,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Events = function Events() {
 	  _classCallCheck(this, Events);
-
-	  this.on = _events.on;
-	  this.off = _events.off;
-	  this.one = _events.one;
-	  this.trigger = _events.trigger;
-	  this.getEvent = _events.getEvent;
 	};
+
+	Events.prototype.on = _events.on;
+	Events.prototype.off = _events.off;
+	Events.prototype.one = _events.one;
+	Events.prototype.trigger = _events.trigger;
+	Events.prototype.getEvent = _events.getEvent;
 
 	exports.Events = Events;
 
@@ -3288,9 +3295,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
@@ -3409,9 +3414,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable copyRow
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3441,16 +3444,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable data
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-07-30 14:34:01
 	 */
 
-	/** 
+	/**
 	 *设置数据
 	 *
 	 */
@@ -3490,12 +3491,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            select = this.getPage(newIndex).selectedIndices;
 	            focus = this.getPage(newIndex).focus;
-	            this.setRows(this.getPage(newIndex).rows);
+	            this.setRows(this.getPage(newIndex).rows, options);
 	        }
 	    } else {
 	        select = data.select || (!unSelect ? [0] : []);
 	        focus = data.focus !== undefined ? data.focus : data.current;
-	        this.setRows(data.rows);
+	        this.setRows(data.rows, options);
 	    }
 	    this.pageIndex(newIndex);
 	    this.pageSize(newSize);
@@ -3527,9 +3528,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable enable
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3566,9 +3565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3600,9 +3597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3880,9 +3875,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getFocus
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3912,9 +3905,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getMete
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3951,9 +3942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getPage
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3983,9 +3972,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getParam
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4004,9 +3991,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4084,9 +4069,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getSimpleData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4131,9 +4114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
@@ -4274,9 +4255,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4409,9 +4388,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable param
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4437,9 +4414,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable ref
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4547,9 +4522,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
 
 	var _util = __webpack_require__(48);
@@ -4631,9 +4604,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports._formatToIndicesArray = exports.isChanged = undefined;
 
 	var _util = __webpack_require__(10);
@@ -4673,9 +4644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
 
 	var _util = __webpack_require__(10);
@@ -4684,7 +4653,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * 设置行数据
 	 * @param {Object} rows
 	 */
-	var setRows = function setRows(rows) {
+	var setRows = function setRows(rows, options) {
 	    var insertRows = [],
 	        _id;
 	    for (var i = 0; i < rows.length; i++) {
@@ -4715,7 +4684,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            } else {
 	                row = new Row({ parent: this, id: _id });
-	                row.setData(rows[i]);
+	                row.setData(rows[i], null, options);
 	                insertRows.push(row);
 	            }
 	        }
@@ -4791,9 +4760,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable rowCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4820,9 +4787,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
 
 	var _util = __webpack_require__(48);
@@ -4861,22 +4826,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var setRowsDelete = function setRowsDelete(indices) {
 	    indices = (0, _util._formatToIndicesArray)(this, indices);
-	    for (var i = 0; i < indices.length; i++) {
-	        var row = this.getRow(indices[i]);
-	        if (row.status == Row.STATUS.NEW) {
-	            this.rows(this.rows().splice(indices[i], 1));
-	            this.updateSelectedIndices(indices[i], '-');
-	            this.updateFocusIndex(index, '-');
-	        } else {
-	            row.status = Row.STATUS.FALSE_DELETE;
-	        }
-	    }
 	    var rowIds = this.getRowIdsByIndices(indices);
-	    this.trigger(DataTable.ON_ROW_DELETE, {
+	    this.trigger(DataTable.ON_DELETE, {
 	        falseDelete: true,
 	        indices: indices,
 	        rowIds: rowIds
 	    });
+	    for (var i = 0; i < indices.length; i++) {
+	        var row = this.getRow(indices[i]);
+	        if (row.status == Row.STATUS.NEW) {
+	            this.rows().splice(indices[i], 1);
+	            this.updateSelectedIndices(indices[i], '-');
+	            this.updateFocusIndex(index, '-');
+	        } else {
+	            row.status = Row.STATUS.FALSE_DELETE;
+	            var temprows = this.rows().splice(indices[i], 1);
+	            this.rows().push(temprows[0]);
+	        }
+	    }
 	};
 
 	exports.setRowDelete = setRowDelete;
@@ -4889,9 +4856,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
 
 	var _util = __webpack_require__(10);
@@ -4936,6 +4901,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // 避免与控件循环触发
 	        return;
 	    }
+
+	    if (u.isArray(indices)) {
+	        var rowNum = this.rows().length;
+	        for (var i = 0; i < indices.length; i++) {
+	            if (indices[i] < 0 || indices[i] >= rowNum) indices.splice(i, 1);
+	        }
+	    }
+
 	    this.setAllRowsUnSelect({ quiet: true });
 	    try {
 	        this.selectedIndices(indices);
@@ -4966,6 +4939,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var addRowsSelect = function addRowsSelect(indices) {
 	    indices = (0, _util2._formatToIndicesArray)(this, indices);
 	    var selectedIndices = this.selectedIndices().slice();
+	    var needTrigger = false;
 	    for (var i = 0; i < indices.length; i++) {
 	        var ind = indices[i],
 	            toAdd = true;
@@ -4975,15 +4949,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	        if (toAdd) {
+	            needTrigger = true;
 	            selectedIndices.push(indices[i]);
 	        }
 	    }
 	    this.selectedIndices(selectedIndices);
 	    var rowIds = this.getRowIdsByIndices(indices);
-	    this.trigger(DataTable.ON_ROW_SELECT, {
-	        indices: indices,
-	        rowIds: rowIds
-	    });
+	    if (needTrigger) {
+	        this.trigger(DataTable.ON_ROW_SELECT, {
+	            indices: indices,
+	            rowIds: rowIds
+	        });
+	    }
 	    this.updateCurrIndex();
 	};
 
@@ -5078,9 +5055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
 
 	var _util = __webpack_require__(10);
@@ -5165,9 +5140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.addSimpleData = exports.setSimpleData = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
@@ -5212,6 +5185,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _data = {
 	        rows: rows
 	    };
+	    if (options) {
+	        if (_typeof(options.fieldFlag) == undefined) {
+	            options.fieldFlag = true;
+	        }
+	    }
 	    this.setData(_data, options);
 	};
 
@@ -5239,9 +5217,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Page = undefined;
 
 	var _pageData = __webpack_require__(56);
@@ -5267,27 +5243,29 @@ return /******/ (function(modules) { // webpackBootstrap
 		this.selectedIndices = options['selectedIndices'] || null;
 		this.rows = options['rows'] || [];
 		this.parent = options['parent'] || null;
-
-		//data
-		this.setRowValue = _pageData.setRowValue;
-		this.updateRow = _pageData.updateRow;
-
-		//getData
-		this.getData = _pageGetData.getData;
-		this.getSelectDatas = _pageGetData.getSelectDatas;
-		this.getSelectRows = _pageGetData.getSelectRows;
-		this.getRowByRowId = _pageGetData.getRowByRowId;
-		this.getRowValue = _pageGetData.getRowValue;
-
-		//getMeta
-		this.getRowMeta = _pageGetMeta.getRowMeta;
-
-		//meta
-		this.setRowMeta = _pageMeta.setRowMeta;
-
-		//removeRow
-		this.removeRowByRowId = _pageRemoveRow.removeRowByRowId;
 	};
+
+	//data
+
+
+	Page.prototype.setRowValue = _pageData.setRowValue;
+	Page.prototype.updateRow = _pageData.updateRow;
+
+	//getData
+	Page.prototype.getData = _pageGetData.getData;
+	Page.prototype.getSelectDatas = _pageGetData.getSelectDatas;
+	Page.prototype.getSelectRows = _pageGetData.getSelectRows;
+	Page.prototype.getRowByRowId = _pageGetData.getRowByRowId;
+	Page.prototype.getRowValue = _pageGetData.getRowValue;
+
+	//getMeta
+	Page.prototype.getRowMeta = _pageGetMeta.getRowMeta;
+
+	//meta
+	Page.prototype.setRowMeta = _pageMeta.setRowMeta;
+
+	//removeRow
+	Page.prototype.removeRowByRowId = _pageRemoveRow.removeRowByRowId;
 
 	exports.Page = Page;
 
@@ -5297,9 +5275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page data
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5350,9 +5326,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page getData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5420,9 +5394,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page getMeta
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5446,9 +5418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page meta
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5473,9 +5443,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page removeRow
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5496,9 +5464,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Row = undefined;
 
 	var _indexEvents = __webpack_require__(30);
@@ -5569,55 +5535,58 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        });
 
-	        //data
-	        _this.setValue = _rowData.setValue;
-	        _this.setChildValue = _rowData.setChildValue;
-	        _this.setChildSimpleDataByRowId = _rowData.setChildSimpleDataByRowId;
-	        _this.setData = _rowData.setData;
-	        _this.updateRow = _rowData.updateRow;
-
-	        //getData
-	        _this.getValue = _rowGetData.getValue;
-	        _this.getChildValue = _rowGetData.getChildValue;
-	        _this.getData = _rowGetData.getData;
-	        _this.getEmptyData = _rowGetData.getEmptyData;
-
-	        //getMeta
-	        _this.getMeta = _rowGetMeta.getMeta;
-
-	        //getSimpleData
-	        _this.getSimpleData = _rowGetSimpleData.getSimpleData;
-
-	        //init
-	        _this.init = _rowInit.init;
-
-	        //meta
-	        _this.setMeta = _rowMeta.setMeta;
-
-	        //ref
-	        _this.ref = _rowRef.ref;
-	        _this.refMeta = _rowRef.refMeta;
-	        _this.refCombo = _rowRef.refCombo;
-	        _this.refDate = _rowRef.refDate;
-	        _this.refEnum = _rowRef.refEnum;
-
-	        //rowSelect
-	        _this.toggleSelect = _rowRowSelect.toggleSelect;
-	        _this.singleSelect = _rowRowSelect.singleSelect;
-	        _this.multiSelect = _rowRowSelect.multiSelect;
-
-	        //simpleData
-	        _this.setSimpleData = _rowSimpleData.setSimpleData;
-
-	        //util
-	        _this.formatValue = _rowUtil.formatValue;
-
 	        _this.init();
 	        return _this;
 	    }
 
 	    return Row;
 	}(_indexEvents.Events);
+
+	//data
+
+
+	Row.prototype.setValue = _rowData.setValue;
+	Row.prototype.setChildValue = _rowData.setChildValue;
+	Row.prototype.setChildSimpleDataByRowId = _rowData.setChildSimpleDataByRowId;
+	Row.prototype.setData = _rowData.setData;
+	Row.prototype.updateRow = _rowData.updateRow;
+
+	//getData
+	Row.prototype.getValue = _rowGetData.getValue;
+	Row.prototype.getChildValue = _rowGetData.getChildValue;
+	Row.prototype.getData = _rowGetData.getData;
+	Row.prototype.getEmptyData = _rowGetData.getEmptyData;
+
+	//getMeta
+	Row.prototype.getMeta = _rowGetMeta.getMeta;
+
+	//getSimpleData
+	Row.prototype.formatValueFun = _rowGetSimpleData.formatValueFun;
+	Row.prototype.getSimpleData = _rowGetSimpleData.getSimpleData;
+
+	//init
+	Row.prototype.init = _rowInit.init;
+
+	//meta
+	Row.prototype.setMeta = _rowMeta.setMeta;
+
+	//ref
+	Row.prototype.ref = _rowRef.ref;
+	Row.prototype.refMeta = _rowRef.refMeta;
+	Row.prototype.refCombo = _rowRef.refCombo;
+	Row.prototype.refDate = _rowRef.refDate;
+	Row.prototype.refEnum = _rowRef.refEnum;
+
+	//rowSelect
+	Row.prototype.toggleSelect = _rowRowSelect.toggleSelect;
+	Row.prototype.singleSelect = _rowRowSelect.singleSelect;
+	Row.prototype.multiSelect = _rowRowSelect.multiSelect;
+
+	//simpleData
+	Row.prototype.setSimpleData = _rowSimpleData.setSimpleData;
+
+	//util
+	Row.prototype.formatValue = _rowUtil.formatValue;
 
 	Row.STATUS = {
 	    NORMAL: 'nrm',
@@ -5644,9 +5613,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateRow = exports.setData = exports.setChildSimpleDataByRowId = exports.setChildValue = exports.setValue = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
@@ -5722,21 +5689,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * [_setData description]
-	 * @param {[type]} sourceData 
-	 * @param {[type]} targetData 
-	 * @param {[type]} subscribe  
+	 * @param {[type]} sourceData
+	 * @param {[type]} targetData
+	 * @param {[type]} subscribe
 	 * @param {[type]} parentKey  [父项key，数据项为数组时获取meta值用]
 	 */
-	var _setData = function _setData(rowObj, sourceData, targetData, subscribe, parentKey) {
+	var _setData = function _setData(rowObj, sourceData, targetData, subscribe, parentKey, options) {
 	    for (var key in sourceData) {
 	        var _parentKey = parentKey || null;
 	        //if (targetData[key]) {
 	        targetData[key] = targetData[key] || {};
 	        var valueObj = sourceData[key];
-	        if ((typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') rowObj.parent.createField(key);
+	        if ((typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') {
+	            if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) == 'object') {
+	                if (options.fieldFlag) {
+	                    rowObj.parent.createField(key);
+	                }
+	            }
+	        }
+
 	        //if (typeof this.parent.meta[key] === 'undefined') continue;
 	        if (valueObj == null || (typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') {
-	            targetData[key]['value'] = rowObj.formatValue(key, valueObj);
+	            // 子表的话只有valueObj为datatable的时候才赋值
+	            if (!targetData[key].isChild) {
+	                targetData[key]['value'] = rowObj.formatValue(key, valueObj);
+	            }
 	            if (subscribe === true && oldValue !== targetData[key]['value']) {
 	                (0, _rowUtil._triggerChange)(rowObj, key, oldValue);
 	            }
@@ -5764,7 +5741,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            } else {
 	                _parentKey = _parentKey == null ? key : _parentKey + '.' + key;
-	                _setData(rowObj, valueObj, targetData[key], null, _parentKey);
+	                _setData(rowObj, valueObj, targetData[key], null, _parentKey, options);
 	            }
 	        }
 	        //}
@@ -5773,14 +5750,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 *设置Row数据
-	 *@subscribe 是否触发监听  
+	 *@subscribe 是否触发监听
 	 */
-	var setData = function setData(data, subscribe) {
+	var setData = function setData(data, subscribe, options) {
 	    this.status = data.status;
 	    var sourceData = data.data,
 	        targetData = this.data;
 	    if (this.parent.root.strict != true) {
-	        _setData(this, sourceData, targetData, subscribe);
+	        _setData(this, sourceData, targetData, subscribe, null, options);
 	        return;
 	    }
 
@@ -5851,9 +5828,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports._findField = exports._getField = exports.formatValue = exports._triggerChange = exports._dateToUTCString = exports.eq = undefined;
 
 	var _util = __webpack_require__(10);
@@ -5985,9 +5960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.getEmptyData = exports.getData = exports.getChildValue = exports.getValue = undefined;
 
 	var _rowUtil = __webpack_require__(63);
@@ -6082,9 +6055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.getMeta = undefined;
 
 	var _rowUtil = __webpack_require__(63);
@@ -6117,10 +6088,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.getSimpleData = undefined;
+	exports.__esModule = true;
+	exports.getSimpleData = exports.formatValueFun = undefined;
 
 	var _rowUtil = __webpack_require__(63);
 
@@ -6150,16 +6119,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                _data[key] = data[key].value;
 	            }
 	            if (meta[key] && meta[key].type) {
-	                if (meta[key].type == 'date' || meta[key].type == 'datetime') {
-
-	                    _data[key] = (0, _rowUtil._dateToUTCString)(data[key].value);
-	                }
+	                var obj = {
+	                    meta: meta,
+	                    data: data,
+	                    key: key
+	                };
+	                _data[key] = this.formatValueFun(obj);
 	            }
 	        } else {
 	            _data[key] = _getSimpleData(rowObj, data[key]);
 	        }
 	    }
 	    return _data;
+	};
+
+	var formatValueFun = function formatValueFun(obj) {
+	    var meta = obj.meta,
+	        data = obj.data,
+	        key = obj.key;
+	    if (meta[key].type == 'date' || meta[key].type == 'datetime') {
+	        return (0, _rowUtil._dateToUTCString)(data[key].value);
+	    }
+	    return data[key].value;
 	};
 
 	var getSimpleData = function getSimpleData(options) {
@@ -6180,6 +6161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _data;
 	};
 
+	exports.formatValueFun = formatValueFun;
 	exports.getSimpleData = getSimpleData;
 
 /***/ },
@@ -6188,9 +6170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
@@ -6256,9 +6236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.setMeta = undefined;
 
 	var _rowUtil = __webpack_require__(63);
@@ -6320,9 +6298,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.refEnum = exports.refDate = exports.refCombo = exports.refMeta = exports.ref = undefined;
 
 	var _util = __webpack_require__(10);
@@ -6453,9 +6429,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.date = undefined;
 
 	var _core = __webpack_require__(71);
@@ -6712,9 +6686,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.core = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
@@ -6899,9 +6871,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow cookies
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -6935,9 +6905,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable row rowSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -6975,9 +6943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable row simpleData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -6995,6 +6961,4 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.setSimpleData = setSimpleData;
 
 /***/ }
-/******/ ])
-});
-;
+/******/ ]);
