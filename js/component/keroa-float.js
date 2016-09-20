@@ -126,7 +126,8 @@ var FloatAdapter = BaseAdapter.extend({
                 focusValue = this.formater.format(v)
             }
         }
-        focusValue = parseFloat(focusValue) || '';
+
+        focusValue = parseFloat(focusValue)===0 ? parseFloat(focusValue):(parseFloat(focusValue) || '');
         this.setShowValue(focusValue)
     },
     _needClean: function () {

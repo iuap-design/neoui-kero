@@ -145,7 +145,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 
 		// 校验
 		this.comp.on('validate', function(event){
-			this.validate.check();
+			self.validate.check();
 		});
 			
 
