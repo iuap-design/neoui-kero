@@ -175,7 +175,7 @@ var GridAdapter = BaseAdapter.extend({
 			if(rType == 'booleanRender'){
 				column.renderType = function(obj){
 					var checkStr = '';
-					if(obj.value == 'Y'){
+					if(obj.value == 'Y' || obj.value == 'true'){
 						checkStr = 'checked';
 					}
 					var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr +'>'
@@ -186,7 +186,11 @@ var GridAdapter = BaseAdapter.extend({
 					var rowId = obj.row.value['$_#_@_id'];
 
 					var row = datatable.getRowByRowId(rowId);
-					$(obj.element).find('input').on('click',function(){
+					$(obj.element).find('input').on('click',function(e){
+						if(!obj.gridObj.options.editable){
+							stopEvent(e);
+							return false;
+						}
 						var value = this.checked?"Y":"N";
 						var column = obj.gridCompColumn
 						var field = column.options.field
@@ -855,6 +859,10 @@ var GridAdapter = BaseAdapter.extend({
 
 				var row = datatable.getRowByRowId(rowId);
 				$(obj.element).find('input').on('click',function(){
+					if(!obj.gridObj.options.editable){
+						stopEvent(e);
+						return false;
+					}
 					var value = this.checked?"Y":"N";
 					var column = obj.gridCompColumn
 					var field = column.options.field
