@@ -697,8 +697,11 @@
 			offset.left += Node.scrollLeft || document.documentElement.scrollLeft;
 			return offset;
 		}
-		offset.top += Node.scrollTop;
-		offset.left += Node.scrollLeft;
+		if (Node.tagName != 'INPUT') {
+			offset.top += Node.scrollTop;
+			offset.left += Node.scrollLeft;
+		}
+
 		if (Node.parentNode) return getScroll(Node.parentNode, offset);else return offset;
 	};
 	var showPanelByEle = function showPanelByEle(obj) {
@@ -6109,7 +6112,7 @@
 	                    data: data,
 	                    key: key
 	                };
-	                _data[key] = this.formatValueFun(obj);
+	                _data[key] = rowObj.formatValueFun(obj);
 	            }
 	        } else {
 	            _data[key] = _getSimpleData(rowObj, data[key]);
@@ -7698,306 +7701,310 @@
 
 	var Validate = _BaseComponent.BaseComponent.extend({
 
-		init: function init() {
-			var self = this;
-			this.$element = this.element;
-			this.$form = this.form;
-			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options, JSON.parse(this.element.getAttribute('uvalidate')));
-			this.required = false;
-			this.timeout = null;
-			this.tipAliveTime = this.options['tipAliveTime'] === undefined ? 3000 : this.options['tipAliveTime'];
-			//所有属性优先级 ：  options参数  > attr属性  > 默认值
-			this.required = this.options['required'] ? this.options['required'] : false;
-			this.validType = this.options['validType'] ? this.options['validType'] : null;
-			//校验模式  blur  submit
-			this.validMode = this.options['validMode'] ? this.options['validMode'] : Validate.DEFAULTS.validMode;
-			//空提示
-			this.nullMsg = this.options['nullMsg'] ? this.options['nullMsg'] : Validate.NULLMSG[this.validType];
-			//是否必填
-			if (this.required && !this.nullMsg) this.nullMsg = Validate.NULLMSG['required'];
-			//错误必填
-			this.errorMsg = this.options['errorMsg'] ? this.options['errorMsg'] : Validate.ERRORMSG[this.validType];
-			//正则校验
-			this.regExp = this.options['reg'] ? this.options['reg'] : Validate.REG[this.validType];
-			try {
-				if (typeof this.regExp == 'string') this.regExp = eval(this.regExp);
-			} catch (e) {}
+	    init: function init() {
+	        var self = this;
+	        this.$element = this.element;
+	        this.$form = this.form;
+	        this.referDom = this.$element;
+	        if (this.referDom.tagName !== 'INPUT') {
+	            this.referDom = this.$element.querySelector('input');
+	        }
+	        this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options, JSON.parse(this.element.getAttribute('uvalidate')));
+	        this.required = false;
+	        this.timeout = null;
+	        this.tipAliveTime = this.options['tipAliveTime'] === undefined ? 3000 : this.options['tipAliveTime'];
+	        //所有属性优先级 ：  options参数  > attr属性  > 默认值
+	        this.required = this.options['required'] ? this.options['required'] : false;
+	        this.validType = this.options['validType'] ? this.options['validType'] : null;
+	        //校验模式  blur  submit
+	        this.validMode = this.options['validMode'] ? this.options['validMode'] : Validate.DEFAULTS.validMode;
+	        //空提示
+	        this.nullMsg = this.options['nullMsg'] ? this.options['nullMsg'] : Validate.NULLMSG[this.validType];
+	        //是否必填
+	        if (this.required && !this.nullMsg) this.nullMsg = Validate.NULLMSG['required'];
+	        //错误必填
+	        this.errorMsg = this.options['errorMsg'] ? this.options['errorMsg'] : Validate.ERRORMSG[this.validType];
+	        //正则校验
+	        this.regExp = this.options['reg'] ? this.options['reg'] : Validate.REG[this.validType];
+	        try {
+	            if (typeof this.regExp == 'string') this.regExp = eval(this.regExp);
+	        } catch (e) {}
 
-			this.notipFlag = this.options['notipFlag']; // 错误信息提示方式是否为tip，默认为false
-			this.hasSuccess = this.options['hasSuccess']; //是否含有正确提示
+	        this.notipFlag = this.options['notipFlag']; // 错误信息提示方式是否为tip，默认为false
+	        this.hasSuccess = this.options['hasSuccess']; //是否含有正确提示
 
-			this.showFix = this.options['showFix'];
+	        this.showFix = this.options['showFix'];
 
-			//提示div的id 为空时使用tooltop来提示
-			this.tipId = this.options['tipId'] ? this.options['tipId'] : null;
-			//校验成功提示信息的div
-			this.successId = this.options['successId'] ? this.options['successId'] : null;
+	        //提示div的id 为空时使用tooltop来提示
+	        this.tipId = this.options['tipId'] ? this.options['tipId'] : null;
+	        //校验成功提示信息的div
+	        this.successId = this.options['successId'] ? this.options['successId'] : null;
 
-			// 要求显示成功提示，并没有成功提示dom的id时，则创建成功提示dom
-			if (this.hasSuccess && !this.successId) {
-				this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-checkedsymbol" ></span>');
+	        // 要求显示成功提示，并没有成功提示dom的id时，则创建成功提示dom
+	        if (this.hasSuccess && !this.successId) {
+	            this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-checkedsymbol" ></span>');
 
-				if (this.$element.nextSibling) {
-					this.$element.parentNode.insertBefore(this.successId, this.$element.nextSibling);
-				} else {
-					this.$element.parentNode.appendChild(this.successId);
-				}
-			}
-			//不是默认的tip提示方式并且tipId没有定义时创建默认tipid	
-			if (this.notipFlag && !this.tipId) {
-				this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exclamationsign "></span>');
-				this.$element.parentNode.appendChild(this.tipId);
+	            if (this.referDom.nextSibling) {
+	                this.referDom.parentNode.insertBefore(this.successId, this.referDom.nextSibling);
+	            } else {
+	                this.referDom.parentNode.appendChild(this.successId);
+	            }
+	        }
+	        //不是默认的tip提示方式并且tipId没有定义时创建默认tipid	
+	        if (this.notipFlag && !this.tipId) {
+	            this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exclamationsign "></span>');
+	            this.referDom.parentNode.appendChild(this.tipId);
 
-				if (this.$element.nextSibling) {
-					this.$element.parentNode.insertBefore(this.tipId, this.$element.nextSibling);
-				} else {
-					this.$element.parentNode.appendChild(this.tipId);
-				}
-			}
-			//提示框位置
-			this.placement = this.options['placement'] ? this.options['placement'] : Validate.DEFAULTS.placement;
-			//
-			this.minLength = this.options['minLength'] > 0 ? this.options['minLength'] : null;
-			this.maxLength = this.options['maxLength'] > 0 ? this.options['maxLength'] : null;
-			this.min = this.options['min'] !== undefined ? this.options['min'] : null;
-			this.max = this.options['max'] !== undefined ? this.options['max'] : null;
-			this.minNotEq = this.options['minNotEq'] !== undefined ? this.options['minNotEq'] : null;
-			this.maxNotEq = this.options['maxNotEq'] !== undefined ? this.options['maxNotEq'] : null;
-			this.min = (0, _util.isNumber)(this.min) ? this.min : null;
-			this.max = (0, _util.isNumber)(this.max) ? this.max : null;
-			this.minNotEq = (0, _util.isNumber)(this.minNotEq) ? this.minNotEq : null;
-			this.maxNotEq = (0, _util.isNumber)(this.maxNotEq) ? this.maxNotEq : null;
-			this.create();
-		}
+	            if (this.referDom.nextSibling) {
+	                this.referDom.parentNode.insertBefore(this.tipId, this.referDom.nextSibling);
+	            } else {
+	                this.referDom.parentNode.appendChild(this.tipId);
+	            }
+	        }
+	        //提示框位置
+	        this.placement = this.options['placement'] ? this.options['placement'] : Validate.DEFAULTS.placement;
+	        //
+	        this.minLength = this.options['minLength'] > 0 ? this.options['minLength'] : null;
+	        this.maxLength = this.options['maxLength'] > 0 ? this.options['maxLength'] : null;
+	        this.min = this.options['min'] !== undefined ? this.options['min'] : null;
+	        this.max = this.options['max'] !== undefined ? this.options['max'] : null;
+	        this.minNotEq = this.options['minNotEq'] !== undefined ? this.options['minNotEq'] : null;
+	        this.maxNotEq = this.options['maxNotEq'] !== undefined ? this.options['maxNotEq'] : null;
+	        this.min = (0, _util.isNumber)(this.min) ? this.min : null;
+	        this.max = (0, _util.isNumber)(this.max) ? this.max : null;
+	        this.minNotEq = (0, _util.isNumber)(this.minNotEq) ? this.minNotEq : null;
+	        this.maxNotEq = (0, _util.isNumber)(this.maxNotEq) ? this.maxNotEq : null;
+	        this.create();
+	    }
 	});
 
 	Validate.fn = Validate.prototype;
 	//Validate.tipTemplate = '<div class="tooltip" role="tooltip"><div class="tooltip-arrow tooltip-arrow-c"></div><div class="tooltip-arrow"></div><div class="tooltip-inner" style="color:#ed7103;border:1px solid #ed7103;background-color:#fff7f0;"></div></div>'
 
 	Validate.DEFAULTS = {
-		validMode: 'blur',
-		placement: "top"
+	    validMode: 'blur',
+	    placement: "top"
 	};
 
 	Validate.NULLMSG = {
-		"required": (0, _i18n.trans)('validate.required', "不能为空！"),
-		"integer": (0, _i18n.trans)('validate.integer', "请填写整数！"),
-		"float": (0, _i18n.trans)('validate.float', "请填写数字！"),
-		"zipCode": (0, _i18n.trans)('validate.zipCode', "请填写邮政编码！"),
-		"phone": (0, _i18n.trans)('validate.phone', "请填写手机号码！"),
-		"landline": (0, _i18n.trans)('validate.landline', "请填写座机号码！"),
-		"email": (0, _i18n.trans)('validate.email', "请填写邮箱地址！"),
-		"url": (0, _i18n.trans)('validate.url', "请填写网址！"),
-		"datetime": (0, _i18n.trans)('validate.datetime', "请填写日期！")
+	    "required": (0, _i18n.trans)('validate.required', "不能为空！"),
+	    "integer": (0, _i18n.trans)('validate.integer', "请填写整数！"),
+	    "float": (0, _i18n.trans)('validate.float', "请填写数字！"),
+	    "zipCode": (0, _i18n.trans)('validate.zipCode', "请填写邮政编码！"),
+	    "phone": (0, _i18n.trans)('validate.phone', "请填写手机号码！"),
+	    "landline": (0, _i18n.trans)('validate.landline', "请填写座机号码！"),
+	    "email": (0, _i18n.trans)('validate.email', "请填写邮箱地址！"),
+	    "url": (0, _i18n.trans)('validate.url', "请填写网址！"),
+	    "datetime": (0, _i18n.trans)('validate.datetime', "请填写日期！")
 
 	};
 
 	Validate.ERRORMSG = {
-		"integer": (0, _i18n.trans)('validate.error_integer', "整数格式不对！"),
-		"float": (0, _i18n.trans)('validate.error_float', "数字格式不对！"),
-		"zipCode": (0, _i18n.trans)('validate.error_zipCode', "邮政编码格式不对！"),
-		"phone": (0, _i18n.trans)('validate.error_phone', "手机号码格式不对！"),
-		"landline": (0, _i18n.trans)('validate.error_landline', "座机号码格式不对！"),
-		"email": (0, _i18n.trans)('validate.error_email', "邮箱地址格式不对！"),
-		"url": (0, _i18n.trans)('validate.error_url', "网址格式不对！"),
-		"datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！")
+	    "integer": (0, _i18n.trans)('validate.error_integer', "整数格式不对！"),
+	    "float": (0, _i18n.trans)('validate.error_float', "数字格式不对！"),
+	    "zipCode": (0, _i18n.trans)('validate.error_zipCode', "邮政编码格式不对！"),
+	    "phone": (0, _i18n.trans)('validate.error_phone', "手机号码格式不对！"),
+	    "landline": (0, _i18n.trans)('validate.error_landline', "座机号码格式不对！"),
+	    "email": (0, _i18n.trans)('validate.error_email', "邮箱地址格式不对！"),
+	    "url": (0, _i18n.trans)('validate.error_url', "网址格式不对！"),
+	    "datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！")
 	};
 
 	Validate.REG = {
-		"integer": /^-?\d+$/,
-		"float": /^-?\d+(\.\d+)?$/,
-		"zipCode": /^[0-9]{6}$/,
-		// "phone": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
-		"phone": /^1[3|4|5|7|8]\d{9}$/,
-		"landline": /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
-		"email": /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-		"url": /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
-		"datetime": /^(?:19|20)[0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/
+	    "integer": /^-?\d+$/,
+	    "float": /^-?\d+(\.\d+)?$/,
+	    "zipCode": /^[0-9]{6}$/,
+	    // "phone": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
+	    "phone": /^1[3|4|5|7|8]\d{9}$/,
+	    "landline": /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
+	    "email": /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+	    "url": /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
+	    "datetime": /^(?:19|20)[0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/
 	};
 
 	Validate.fn.create = function () {
-		var self = this;
-		(0, _event.on)(this.element, 'blur', function (e) {
-			if (self.validMode == 'blur') {
-				self.passed = self.doValid();
-			}
-		});
-		(0, _event.on)(this.element, 'focus', function (e) {
-			//隐藏错误信息
-			self.hideMsg();
-		});
-		(0, _event.on)(this.element, 'change', function (e) {
-			//隐藏错误信息
-			self.hideMsg();
-		});
-		(0, _event.on)(this.element, 'keydown', function (e) {
-			var event = window.event || e;
-			if (self["validType"] == "float") {
-				var tmp = self.element.value;
-				if (event.shiftKey) {
-					event.returnValue = false;
-					return false;
-				} else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
-					// tab键 左箭头 右箭头 delete键
-					return true;
-				} else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
-					//复制粘贴
-					return true;
-				} else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 110, 190, 189, 109]) > -1)) {
-					event.returnValue = false;
-					return false;
-				} else if ((!tmp || tmp.indexOf(".") > -1) && (event.keyCode == 190 || event.keyCode == 110)) {
-					event.returnValue = false;
-					return false;
-				}
+	    var self = this;
+	    (0, _event.on)(this.element, 'blur', function (e) {
+	        if (self.validMode == 'blur') {
+	            self.passed = self.doValid();
+	        }
+	    });
+	    (0, _event.on)(this.element, 'focus', function (e) {
+	        //隐藏错误信息
+	        self.hideMsg();
+	    });
+	    (0, _event.on)(this.element, 'change', function (e) {
+	        //隐藏错误信息
+	        self.hideMsg();
+	    });
+	    (0, _event.on)(this.element, 'keydown', function (e) {
+	        var event = window.event || e;
+	        if (self["validType"] == "float") {
+	            var tmp = self.element.value;
+	            if (event.shiftKey) {
+	                event.returnValue = false;
+	                return false;
+	            } else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
+	                // tab键 左箭头 右箭头 delete键
+	                return true;
+	            } else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
+	                //复制粘贴
+	                return true;
+	            } else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 110, 190, 189, 109]) > -1)) {
+	                event.returnValue = false;
+	                return false;
+	            } else if ((!tmp || tmp.indexOf(".") > -1) && (event.keyCode == 190 || event.keyCode == 110)) {
+	                event.returnValue = false;
+	                return false;
+	            }
 
-				if (tmp && (tmp + '').split('.')[0].length >= 25) {
-					return false;
-				}
-			}
-			if (self["validType"] == "integer") {
-				var tmp = self.element.value;
+	            if (tmp && (tmp + '').split('.')[0].length >= 25) {
+	                return false;
+	            }
+	        }
+	        if (self["validType"] == "integer") {
+	            var tmp = self.element.value;
 
-				if (event.shiftKey) {
-					event.returnValue = false;
-					return false;
-				} else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
-					// tab键 左箭头 右箭头 delete键
-					return true;
-				} else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
-					//复制粘贴
-					return true;
-				} else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 109, 189]) > -1)) {
-					event.returnValue = false;
-					return false;
-				}
+	            if (event.shiftKey) {
+	                event.returnValue = false;
+	                return false;
+	            } else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
+	                // tab键 左箭头 右箭头 delete键
+	                return true;
+	            } else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
+	                //复制粘贴
+	                return true;
+	            } else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 109, 189]) > -1)) {
+	                event.returnValue = false;
+	                return false;
+	            }
 
-				if (tmp && (tmp + '').split('.')[0].length >= 25) {
-					return false;
-				}
-			}
-		});
+	            if (tmp && (tmp + '').split('.')[0].length >= 25) {
+	                return false;
+	            }
+	        }
+	    });
 	};
 
 	Validate.fn.updateOptions = function (options) {};
 
 	Validate.fn.doValid = function (options) {
-		var self = this;
-		var pValue;
-		this.showMsgFlag = true;
-		if (options) {
-			pValue = options.pValue;
-			this.showMsgFlag = options.showMsg;
-		}
-		this.needClean = false;
-		//只读的也需要校验，所以注释
-		// if (this.element && this.element.getAttribute("readonly")) return {passed:true}
-		var value = null;
-		if (typeof pValue != 'undefined') value = pValue;else if (this.element) value = this.element.value;
+	    var self = this;
+	    var pValue;
+	    this.showMsgFlag = true;
+	    if (options) {
+	        pValue = options.pValue;
+	        this.showMsgFlag = options.showMsg;
+	    }
+	    this.needClean = false;
+	    //只读的也需要校验，所以注释
+	    // if (this.element && this.element.getAttribute("readonly")) return {passed:true}
+	    var value = null;
+	    if (typeof pValue != 'undefined') value = pValue;else if (this.element) value = this.element.value;
 
-		if (this.isEmpty(value) && this.required) {
-			this.showMsg(this.nullMsg);
-			return {
-				passed: false,
-				Msg: this.nullMsg
-			};
-		} else if (this.isEmpty(value) && !this.required) {
-			return {
-				passed: true
-			};
-		}
-		if (this.regExp) {
-			var reg = new RegExp(this.regExp);
-			if (typeof value == 'number') value = value + "";
-			var r = value.match(reg);
-			if (r === null || r === false) {
-				this.showMsg(this.errorMsg);
-				this.needClean = true;
-				return {
-					passed: false,
-					Msg: this.errorMsg
-				};
-			}
-		}
-		if (this.minLength) {
-			if (value.lengthb() < this.minLength) {
-				var Msg = "输入长度不能小于" + this.minLength + "位";
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.maxLength) {
-			if (value.lengthb() > this.maxLength) {
-				var Msg = "输入长度不能大于" + this.maxLength + "位";
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.max != undefined && this.max != null) {
-			if (parseFloat(value) > this.max) {
-				var Msg = "输入值不能大于" + this.max;
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.min != undefined && this.min != null) {
-			if (parseFloat(value) < this.min) {
-				var Msg = "输入值不能小于" + this.min;
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.maxNotEq != undefined && this.maxNotEq != null) {
-			if (parseFloat(value) >= this.maxNotEq) {
-				var Msg = "输入值不能大于或等于" + this.maxNotEq;
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		if (this.minNotEq != undefined && this.minNotEq != null) {
-			if (parseFloat(value) <= this.minNotEq) {
-				var Msg = "输入值不能小于或等于" + this.minNotEq;
-				this.showMsg(Msg);
-				return {
-					passed: false,
-					Msg: Msg
-				};
-			}
-		}
-		//succes时，将成功信息显示
-		if (this.successId) {
-			// addClass(this.element.parentNode,'u-has-success');
-			var successDiv = this.successId;
-			var successleft = this.$element.offsetLeft + this.$element.offsetWidth + 5;
-			var successtop = this.$element.offsetTop + 10;
-			if (typeof successDiv === 'string') successDiv = document.getElementById(successDiv);
-			successDiv.style.display = 'inline-block';
-			successDiv.style.top = successtop + 'px';
-			successDiv.style.left = successleft + 'px';
-			clearTimeout(this.timeout);
-			this.timeout = setTimeout(function () {
-				// self.tooltip.hide();
-				successDiv.style.display = 'none';
-			}, 3000);
-		}
-		return {
-			passed: true
-		};
+	    if (this.isEmpty(value) && this.required) {
+	        this.showMsg(this.nullMsg);
+	        return {
+	            passed: false,
+	            Msg: this.nullMsg
+	        };
+	    } else if (this.isEmpty(value) && !this.required) {
+	        return {
+	            passed: true
+	        };
+	    }
+	    if (this.regExp) {
+	        var reg = new RegExp(this.regExp);
+	        if (typeof value == 'number') value = value + "";
+	        var r = value.match(reg);
+	        if (r === null || r === false) {
+	            this.showMsg(this.errorMsg);
+	            this.needClean = true;
+	            return {
+	                passed: false,
+	                Msg: this.errorMsg
+	            };
+	        }
+	    }
+	    if (this.minLength) {
+	        if (value.lengthb() < this.minLength) {
+	            var Msg = "输入长度不能小于" + this.minLength + "位";
+	            this.showMsg(Msg);
+	            return {
+	                passed: false,
+	                Msg: Msg
+	            };
+	        }
+	    }
+	    if (this.maxLength) {
+	        if (value.lengthb() > this.maxLength) {
+	            var Msg = "输入长度不能大于" + this.maxLength + "位";
+	            this.showMsg(Msg);
+	            return {
+	                passed: false,
+	                Msg: Msg
+	            };
+	        }
+	    }
+	    if (this.max != undefined && this.max != null) {
+	        if (parseFloat(value) > this.max) {
+	            var Msg = "输入值不能大于" + this.max;
+	            this.showMsg(Msg);
+	            return {
+	                passed: false,
+	                Msg: Msg
+	            };
+	        }
+	    }
+	    if (this.min != undefined && this.min != null) {
+	        if (parseFloat(value) < this.min) {
+	            var Msg = "输入值不能小于" + this.min;
+	            this.showMsg(Msg);
+	            return {
+	                passed: false,
+	                Msg: Msg
+	            };
+	        }
+	    }
+	    if (this.maxNotEq != undefined && this.maxNotEq != null) {
+	        if (parseFloat(value) >= this.maxNotEq) {
+	            var Msg = "输入值不能大于或等于" + this.maxNotEq;
+	            this.showMsg(Msg);
+	            return {
+	                passed: false,
+	                Msg: Msg
+	            };
+	        }
+	    }
+	    if (this.minNotEq != undefined && this.minNotEq != null) {
+	        if (parseFloat(value) <= this.minNotEq) {
+	            var Msg = "输入值不能小于或等于" + this.minNotEq;
+	            this.showMsg(Msg);
+	            return {
+	                passed: false,
+	                Msg: Msg
+	            };
+	        }
+	    }
+	    //succes时，将成功信息显示
+	    if (this.successId) {
+	        // addClass(this.element.parentNode,'u-has-success');
+	        var successDiv = this.successId;
+	        var successleft = this.referDom.offsetLeft + this.referDom.offsetWidth + 5;
+	        var successtop = this.referDom.offsetTop + 10;
+	        if (typeof successDiv === 'string') successDiv = document.getElementById(successDiv);
+	        successDiv.style.display = 'inline-block';
+	        successDiv.style.top = successtop + 'px';
+	        successDiv.style.left = successleft + 'px';
+	        clearTimeout(this.successtimeout);
+	        this.successtimeout = setTimeout(function () {
+	            // self.tooltip.hide();
+	            successDiv.style.display = 'none';
+	        }, this.tipAliveTime);
+	    }
+	    return {
+	        passed: true
+	    };
 	};
 
 	Validate.fn.check = Validate.fn.doValid;
@@ -8021,191 +8028,191 @@
 	//	}
 
 	Validate.fn.some = Array.prototype.some ? Array.prototype.some : function () {
-		var flag;
-		for (var i = 0; i < this.length; i++) {
-			if (typeof arguments[0] == "function") {
-				flag = arguments[0](this[i]);
-				if (flag) break;
-			}
-		}
-		return flag;
+	    var flag;
+	    for (var i = 0; i < this.length; i++) {
+	        if (typeof arguments[0] == "function") {
+	            flag = arguments[0](this[i]);
+	            if (flag) break;
+	        }
+	    }
+	    return flag;
 	};
 
 	Validate.fn.getValue = function () {
-		var inputval = '';
-		//checkbox、radio为u-meta绑定时
-		var bool = this.some.call(this.$element.querySelectorAll('[type="checkbox"],[type="radio"]'), function (ele) {
-			return ele.type == "checkbox" || ele.type == "radio";
-		});
-		if (this.$element.childNodes.length > 0 && bool) {
-			var eleArr = this.$element.querySelectorAll('[type="checkbox"],[type="radio"]');
-			var ele = eleArr[0];
-			if (ele.type == "checkbox") {
-				this.$element.querySelectorAll(":checkbox[name='" + $(ele).attr("name") + "']:checked").each(function () {
-					inputval += $(this).val() + ',';
-				});
-			} else if (ele.type == "radio") {
-				inputval = this.$element.querySelectorAll(":radio[name='" + $(ele).attr("name") + "']:checked").value;
-			}
-		} else if (this.$element.is(":radio")) {
-			//valid-type 绑定
-			inputval = this.$element.parent().querySelectorAll(":radio[name='" + this.$element.attr("name") + "']:checked").val();
-		} else if (this.$element.is(":checkbox")) {
-			inputval = "";
-			this.$element.parent().find(":checkbox[name='" + this.$element.attr("name") + "']:checked").each(function () {
-				inputval += $(this).val() + ',';
-			});
-		} else if (this.$element.find('input').length > 0) {
-			inputval = this.$element.find('input').val();
-		} else {
-			inputval = this.$element.val();
-		}
-		inputval = inputval.trim;
-		return this.isEmpty(inputval) ? "" : inputval;
+	    var inputval = '';
+	    //checkbox、radio为u-meta绑定时
+	    var bool = this.some.call(this.$element.querySelectorAll('[type="checkbox"],[type="radio"]'), function (ele) {
+	        return ele.type == "checkbox" || ele.type == "radio";
+	    });
+	    if (this.$element.childNodes.length > 0 && bool) {
+	        var eleArr = this.$element.querySelectorAll('[type="checkbox"],[type="radio"]');
+	        var ele = eleArr[0];
+	        if (ele.type == "checkbox") {
+	            this.$element.querySelectorAll(":checkbox[name='" + $(ele).attr("name") + "']:checked").each(function () {
+	                inputval += $(this).val() + ',';
+	            });
+	        } else if (ele.type == "radio") {
+	            inputval = this.$element.querySelectorAll(":radio[name='" + $(ele).attr("name") + "']:checked").value;
+	        }
+	    } else if (this.$element.is(":radio")) {
+	        //valid-type 绑定
+	        inputval = this.$element.parent().querySelectorAll(":radio[name='" + this.$element.attr("name") + "']:checked").val();
+	    } else if (this.$element.is(":checkbox")) {
+	        inputval = "";
+	        this.$element.parent().find(":checkbox[name='" + this.$element.attr("name") + "']:checked").each(function () {
+	            inputval += $(this).val() + ',';
+	        });
+	    } else if (this.$element.find('input').length > 0) {
+	        inputval = this.$element.find('input').val();
+	    } else {
+	        inputval = this.$element.val();
+	    }
+	    inputval = inputval.trim;
+	    return this.isEmpty(inputval) ? "" : inputval;
 	};
 
 	Validate.fn.isEmpty = function (val) {
-		return val === "" || val === undefined || val === null; //|| val === $.trim(this.$element.attr("tip"));
+	    return val === "" || val === undefined || val === null; //|| val === $.trim(this.$element.attr("tip"));
 	};
 
 	Validate.fn.showMsg = function (msg) {
 
-		if (this.showMsgFlag == false || this.showMsgFlag == 'false') {
-			return;
-		}
-		var self = this;
-		if (this.tipId) {
-			this.$element.style.borderColor = 'rgb(241,90,74)';
-			var tipdiv = this.tipId;
-			if (typeof tipdiv === 'string') {
-				tipdiv = document.getElementById(tipdiv);
-			}
-			tipdiv.innerHTML = msg;
-			//如果notipFlag为true说明，可能是平台创建的，需要添加left、top值
-			if (this.notipFlag) {
-				var left = this.$element.offsetLeft;
-				var top = this.$element.offsetTop + this.$element.offsetHeight + 4;
-				tipdiv.style.left = left + 'px';
-				tipdiv.style.top = top + 'px';
-			}
+	    if (this.showMsgFlag == false || this.showMsgFlag == 'false') {
+	        return;
+	    }
+	    var self = this;
+	    if (this.tipId) {
+	        this.referDom.style.borderColor = 'rgb(241,90,74)';
+	        var tipdiv = this.tipId;
+	        if (typeof tipdiv === 'string') {
+	            tipdiv = document.getElementById(tipdiv);
+	        }
+	        tipdiv.innerHTML = msg;
+	        //如果notipFlag为true说明，可能是平台创建的，需要添加left、top值
+	        if (this.notipFlag) {
+	            var left = this.referDom.offsetLeft;
+	            var top = this.referDom.offsetTop + this.referDom.offsetHeight + 4;
+	            tipdiv.style.left = left + 'px';
+	            tipdiv.style.top = top + 'px';
+	        }
 
-			tipdiv.style.display = 'block';
-			// addClass(tipdiv.parentNode,'u-has-error');
-			// $('#' + this.tipId).html(msg).show()
-		} else {
-			var tipOptions = {
-				"title": msg,
-				"trigger": "manual",
-				"selector": "validtip",
-				"placement": this.placement,
-				"showFix": this.showFix
-			};
-			if (this.options.tipTemplate) tipOptions.template = this.options.tipTemplate;
-			if (!this.tooltip) this.tooltip = new _neouiTooltip.Tooltip(this.element, tipOptions);
-			this.tooltip.setTitle(msg);
-			this.tooltip.show();
-		}
-		if (this.tipAliveTime !== -1) {
-			clearTimeout(this.timeout);
-			this.timeout = setTimeout(function () {
-				// self.tooltip.hide();
-				self.hideMsg();
-			}, this.tipAliveTime);
-		}
+	        tipdiv.style.display = 'block';
+	        // addClass(tipdiv.parentNode,'u-has-error');
+	        // $('#' + this.tipId).html(msg).show()
+	    } else {
+	        var tipOptions = {
+	            "title": msg,
+	            "trigger": "manual",
+	            "selector": "validtip",
+	            "placement": this.placement,
+	            "showFix": this.showFix
+	        };
+	        if (this.options.tipTemplate) tipOptions.template = this.options.tipTemplate;
+	        if (!this.tooltip) this.tooltip = new _neouiTooltip.Tooltip(this.element, tipOptions);
+	        this.tooltip.setTitle(msg);
+	        this.tooltip.show();
+	    }
+	    if (this.tipAliveTime !== -1) {
+	        clearTimeout(this.timeout);
+	        this.timeout = setTimeout(function () {
+	            // self.tooltip.hide();
+	            self.hideMsg();
+	        }, this.tipAliveTime);
+	    }
 	};
 	Validate.fn.hideMsg = function () {
-		//隐藏成功信息
-		// if(this.successId||this.tipId){
-		// 	document.getElementById(this.successId).style.display='none';
-		// 	document.getElementById(this.tipId).style.display='none';
-		// }
+	    //隐藏成功信息
+	    // if(this.successId||this.tipId){
+	    // 	document.getElementById(this.successId).style.display='none';
+	    // 	document.getElementById(this.tipId).style.display='none';
+	    // }
 
-		// removeClass(this.element.parentNode,'u-has-error');
-		// removeClass(this.element.parentNode,'u-has-success');
+	    // removeClass(this.element.parentNode,'u-has-error');
+	    // removeClass(this.element.parentNode,'u-has-success');
 
-		if (this.tipId) {
-			var tipdiv = this.tipId;
-			if (typeof tipdiv === 'string') {
-				tipdiv = document.getElementById(tipdiv);
-			}
-			tipdiv.style.display = 'none';
-			this.$element.style.borderColor = '';
-			// removeClass(tipdiv.parentNode,'u-has-error');
-		} else {
-			if (this.tooltip) this.tooltip.hide();
-		}
+	    if (this.tipId) {
+	        var tipdiv = this.tipId;
+	        if (typeof tipdiv === 'string') {
+	            tipdiv = document.getElementById(tipdiv);
+	        }
+	        tipdiv.style.display = 'none';
+	        this.referDom.style.borderColor = '';
+	        // removeClass(tipdiv.parentNode,'u-has-error');
+	    } else {
+	        if (this.tooltip) this.tooltip.hide();
+	    }
 	};
 
 	/**
 	 * 只有单一元素时使用
 	 */
 	Validate.fn._needClean = function () {
-		return true; //this.validates[0].needClean
+	    return true; //this.validates[0].needClean
 	};
 
 	var validate = function validate(element) {
-		var self = this,
-		    options,
-		    childEle;
-		if (typeof element === 'string') {
-			element = document.querySelector(element);
-		}
-		//element本身需要校验
-		if (element.attributes["uvalidate"]) {
-			options = element.attributes["uvalidate"] ? JSON.parse(element.attributes["uvalidate"].value) : {};
-			options = (0, _extend.extend)({
-				el: element
-			}, options);
-			element['Validate'] = new Validate(options);
-		}
+	    var self = this,
+	        options,
+	        childEle;
+	    if (typeof element === 'string') {
+	        element = document.querySelector(element);
+	    }
+	    //element本身需要校验
+	    if (element.attributes["uvalidate"]) {
+	        options = element.attributes["uvalidate"] ? JSON.parse(element.attributes["uvalidate"].value) : {};
+	        options = (0, _extend.extend)({
+	            el: element
+	        }, options);
+	        element['Validate'] = new Validate(options);
+	    }
 
-		//element是个父元素，校验子元素
-		childEle = element.querySelectorAll('[uvalidate]');
-		(0, _util.each)(childEle, function (i, child) {
-			if (!child['Validate']) {
-				//如果该元素上没有校验
-				options = child.attributes["validate"] ? JSON.parse(child.attributes["validate"].value) : {};
-				options = (0, _extend.extend)({
-					el: child
-				}, options);
-				child['Validate'] = new Validate(options);
-			}
-		});
+	    //element是个父元素，校验子元素
+	    childEle = element.querySelectorAll('[uvalidate]');
+	    (0, _util.each)(childEle, function (i, child) {
+	        if (!child['Validate']) {
+	            //如果该元素上没有校验
+	            options = child.attributes["validate"] ? JSON.parse(child.attributes["validate"].value) : {};
+	            options = (0, _extend.extend)({
+	                el: child
+	            }, options);
+	            child['Validate'] = new Validate(options);
+	        }
+	    });
 	};
 
 	// 对某个dom容器内的元素进行校验
 	var doValidate = function doValidate(element) {
-		var passed = true,
-		    childEle,
-		    result;
-		if (typeof element === 'string') {
-			element = document.querySelector(element);
-		}
-		childEle = element.querySelectorAll('input');
-		(0, _util.each)(childEle, function (i, child) {
-			if (child['Validate'] && child['Validate'].check) {
-				result = child['Validate'].check({
-					trueValue: true,
-					showMsg: true
-				});
-				if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) === 'object') passed = result['passed'] && passed;else passed = result && passed;
-			}
-		});
-		return passed;
+	    var passed = true,
+	        childEle,
+	        result;
+	    if (typeof element === 'string') {
+	        element = document.querySelector(element);
+	    }
+	    childEle = element.querySelectorAll('input');
+	    (0, _util.each)(childEle, function (i, child) {
+	        if (child['Validate'] && child['Validate'].check) {
+	            result = child['Validate'].check({
+	                trueValue: true,
+	                showMsg: true
+	            });
+	            if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) === 'object') passed = result['passed'] && passed;else passed = result && passed;
+	        }
+	    });
+	    return passed;
 	};
 
 	_compMgr.compMgr.regComp({
-		comp: Validate,
-		compAsString: 'u.Validate',
-		css: 'u-validate'
+	    comp: Validate,
+	    compAsString: 'u.Validate',
+	    css: 'u-validate'
 	});
 	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
+	    _compMgr.compMgr.updateComp();
 	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
+	    (0, _event.on)(window, 'load', function () {
+	        //扫描并生成控件
+	        _compMgr.compMgr.updateComp();
+	    });
 	}
 	exports.Validate = Validate;
 	exports.validate = validate;
@@ -9284,7 +9291,7 @@
 	        this.isAutoTip = this.options.isAutoTip || false;
 
 	        if (!this.element['u.Combo']) {
-	            this.comp = new u.Combo({ el: this.element, mutilSelect: this.mutil, onlySelect: this.onlySelect });
+	            this.comp = new u.Combo({ el: this.element, mutilSelect: this.mutil, onlySelect: this.onlySelect, showFix: this.showFix, isAutoTip: this.isAutoTip });
 	            this.element['u.Combo'] = this.comp;
 	        } else {
 	            this.comp = this.element['u.Combo'];
@@ -9659,7 +9666,7 @@
 
 	            if (flag == '+') {
 	                var nameDiv = (0, _dom.makeDOM)('<div class="u-combo-name" key="' + val + '">' + name + /*<a href="javascript:void(0)" class="remove">x</a>*/'</div>');
-	                var parNameDiv = (0, _dom.makeDOM)('<div class="u-combo-name-par" style="position:absolute;width:' + this.fullWidth + 'px;"></div>');
+	                var parNameDiv = (0, _dom.makeDOM)('<div class="u-combo-name-par" style="position:absolute;max-width:' + this.fullWidth + 'px;"></div>');
 	                /*var _a = nameDiv.querySelector('a');
 	                on(_a, 'click', function(){
 	                    var values = self.value.split(',');
@@ -9672,6 +9679,9 @@
 	                if (!this._combo_name_par) {
 	                    this._input.parentNode.insertBefore(parNameDiv, this._input);
 	                    this._combo_name_par = parNameDiv;
+	                    (0, _event.on)(this._combo_name_par, 'click', function (e) {
+	                        (0, _event.trigger)(self._input, 'focus');
+	                    });
 	                }
 	                this._combo_name_par.appendChild(nameDiv);
 	                var nWidth = nameDiv.offsetWidth + 20;
@@ -10015,7 +10025,7 @@
 	     * @public
 	     */
 	    change: function change(value) {
-	        this._input.value = value || '';
+	        this._input.value = value === 0 ? value : value || '';
 	        this._updateClasses();
 	    }
 
@@ -10365,7 +10375,8 @@
 	                focusValue = this.formater.format(v);
 	            }
 	        }
-	        focusValue = parseFloat(focusValue) || '';
+
+	        focusValue = parseFloat(focusValue) === 0 ? parseFloat(focusValue) : parseFloat(focusValue) || '';
 	        this.setShowValue(focusValue);
 	    },
 	    _needClean: function _needClean() {
@@ -11037,6 +11048,11 @@
 					}
 				}
 			}
+
+			// 校验
+			this.comp.on('validate', function (event) {
+				self.validate.check();
+			});
 		},
 		modelValueChange: function modelValueChange(value) {
 			if (this.slice) return;
@@ -12221,15 +12237,23 @@
 	            // this.top = this.element.offsetTop + inputHeight;
 	            this.top = this._input.offsetTop + inputHeight;
 
-	            this.abLeft = (0, _dom.getElementLeft)(this._input);
-	            this.abTop = (0, _dom.getElementLeft)(this._input);
+	            var abLeft = (0, _dom.getElementLeft)(this._input),
+	                abTop = (0, _dom.getElementTop)(this._input);
 
-	            if (this.abLeft + panelWidth > bodyWidth) {
-	                this.left = bodyWidth - panelWidth - this.abLeft;
+	            if (abLeft + panelWidth > bodyWidth) {
+	                if (abLeft - bodyWidth > 0) {
+	                    this.left = -panelWidth;
+	                } else {
+	                    this.left = bodyWidth - panelWidth - abLeft;
+	                }
 	            }
 
-	            if (this.abTop + panelHeight > bodyHeight) {
-	                this.top = bodyHeight - panelHeight - this.abTop;
+	            if (abTop + panelHeight > bodyHeight) {
+	                if (abTop - bodyHeight > 0) {
+	                    this.top = -panelHeight;
+	                } else {
+	                    this.top = bodyHeight - panelHeight - abTop;
+	                }
 	            }
 
 	            this._panel.style.left = this.left + 'px';
@@ -12268,6 +12292,7 @@
 	        document.body.removeChild(this.overlayDiv);
 	    } catch (e) {}
 	    this.trigger('select', { value: this.pickerDate });
+	    this.trigger('validate');
 	};
 
 	/**
@@ -12279,6 +12304,7 @@
 	    try {
 	        document.body.removeChild(this.overlayDiv);
 	    } catch (e) {}
+	    this.trigger('validate');
 	};
 
 	DateTimePicker.fn.setDate = function (value) {
@@ -12347,6 +12373,12 @@
 
 	exports.__esModule = true;
 	exports.GridAdapter = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Kero Grid Adapter
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-09 16:17:17
+	                                                                                                                                                                                                                                                   */
 
 	var _baseAdapter = __webpack_require__(76);
 
@@ -12534,7 +12566,7 @@
 				if (rType == 'booleanRender') {
 					column.renderType = function (obj) {
 						var checkStr = '';
-						if (obj.value == 'Y') {
+						if (obj.value == 'Y' || obj.value == 'true') {
 							checkStr = 'checked';
 						}
 						var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr + '>';
@@ -12545,7 +12577,11 @@
 						var rowId = obj.row.value['$_#_@_id'];
 
 						var row = datatable.getRowByRowId(rowId);
-						$(obj.element).find('input').on('click', function () {
+						$(obj.element).find('input').on('click', function (e) {
+							if (!obj.gridObj.options.editable) {
+								(0, _event.stopEvent)(e);
+								return false;
+							}
 							var value = this.checked ? "Y" : "N";
 							var column = obj.gridCompColumn;
 							var field = column.options.field;
@@ -12586,13 +12622,13 @@
 						var row = datatable.getRowByRowId(rowId);
 						if (!row) return;
 						var rprec = row.getMeta(field, 'precision');
-						var maskerMeta = _core.core.getMaskerMeta('float') || {};
+						var maskerMeta = _core.core.getMaskerMeta('currency') || {};
 						var precision = typeof parseFloat(rprec) == 'number' ? rprec : maskerMeta.precision;
 						maskerMeta.precision = precision;
 
 						maskerMeta.precision = precision || maskerMeta.precision;
 						var formater = new _formater.NumberFormater(maskerMeta.precision);
-						var masker = new _masker.NumberMasker(maskerMeta);
+						var masker = new _masker.CurrencyMasker(maskerMeta);
 						var svalue = masker.format(formater.format(obj.value)).value;
 						obj.element.innerHTML = svalue;
 						/*设置header为right*/
@@ -13154,6 +13190,357 @@
 		getName: function getName() {
 			return 'grid';
 		},
+
+		setRenderType: function setRenderType(obj) {
+			this.createDefaultRender(obj);
+		},
+
+		createDefaultRender: function createDefaultRender(obj) {
+			var field = obj.field,
+			    rType = obj.rType,
+			    eOptions = obj.eOptions;
+			var oThis = this;
+			var column = oThis.grid.getColumnByField(field).options;
+			var viewModel = oThis.grid.viewModel;
+			if (eOptions) {
+				//判断是否为json对象
+				if ((typeof eOptions === 'undefined' ? 'undefined' : _typeof(eOptions)) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length) {
+					eOptions = eOptions;
+					//判断是否为string
+				} else if (typeof eOptions == "string") {
+					eOptions = JSON.parse(eOptions);
+				}
+			} else {
+				eOptions = {};
+				if (column.editOptions) {
+					if (typeof column.editOptions == "undefined") var eOptions = eval("(" + column.editOptions + ")");else var eOptions = column.editOptions;
+				}
+				eOptions.data = options['data'];
+				eOptions.field = column['field'];
+			}
+			if (rType == 'booleanRender') {
+				var renderType = function renderType(obj) {
+					var checkStr = '';
+					if (obj.value == 'Y') {
+						checkStr = 'checked';
+					}
+					var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr + '>';
+					obj.element.innerHTML = htmlStr;
+
+					var grid = obj.gridObj;
+					var datatable = grid.dataTable;
+					var rowId = obj.row.value['$_#_@_id'];
+
+					var row = datatable.getRowByRowId(rowId);
+					$(obj.element).find('input').on('click', function () {
+						if (!obj.gridObj.options.editable) {
+							(0, _event.stopEvent)(e);
+							return false;
+						}
+						var value = this.checked ? "Y" : "N";
+						var column = obj.gridCompColumn;
+						var field = column.options.field;
+						row.setValue(field, value);
+					});
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'integerRender') {
+				var renderType = function renderType(obj) {
+					var grid = obj.gridObj;
+					var column = obj.gridCompColumn;
+					var field = column.options.field;
+					obj.element.innerHTML = obj.value;
+					/*设置header为right*/
+					$('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+					$(obj.element).css('text-align', 'right');
+					$(obj.element).css('color', '#e33c37');
+					$(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'currencyRender') {
+				var renderType = function renderType(obj) {
+					//需要处理精度
+
+					var grid = obj.gridObj;
+					var column = obj.gridCompColumn;
+					var field = column.options.field;
+					var rowIndex = obj.rowIndex;
+					var datatable = grid.dataTable;
+					var rowId = $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+					var row = datatable.getRowByRowId(rowId);
+					if (!row) return;
+					var rprec = row.getMeta(field, 'precision');
+					var maskerMeta = _core.core.getMaskerMeta('float') || {};
+					var precision = typeof parseFloat(rprec) == 'number' ? rprec : maskerMeta.precision;
+					maskerMeta.precision = precision;
+
+					maskerMeta.precision = precision || maskerMeta.precision;
+					var formater = new _formater.NumberFormater(maskerMeta.precision);
+					var masker = new _masker.NumberMasker(maskerMeta);
+					var svalue = masker.format(formater.format(obj.value)).value;
+					obj.element.innerHTML = svalue;
+					/*设置header为right*/
+					$('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+					$(obj.element).css('text-align', 'right');
+					$(obj.element).css('color', '#e33c37');
+					$(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'floatRender') {
+				var renderType = function renderType(obj) {
+					//需要处理精度
+
+					var grid = obj.gridObj;
+					var column = obj.gridCompColumn;
+					var field = column.options.field;
+					var rowIndex = obj.rowIndex;
+					var datatable = grid.dataTable;
+					var rowId = $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+					var row = datatable.getRowByRowId(rowId);
+					if (!row) return;
+					var rprec = row.getMeta(field, 'precision') || column.options.precision;
+					var maskerMeta = _core.core.getMaskerMeta('float') || {};
+					var precision = typeof parseFloat(rprec) == 'number' ? rprec : maskerMeta.precision;
+					maskerMeta.precision = precision;
+
+					var formater = new _formater.NumberFormater(maskerMeta.precision);
+					var masker = new _masker.NumberMasker(maskerMeta);
+					var svalue = masker.format(formater.format(obj.value)).value;
+					obj.element.innerHTML = svalue;
+					/*设置header为right*/
+					$('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+					$(obj.element).css('text-align', 'right');
+					$(obj.element).css('color', '#e33c37');
+					$(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'comboRender') {
+				var renderType = function renderType(obj) {
+
+					//需要将key转化为name
+					var ds = (0, _util.getJSObject)(viewModel, eOptions['datasource']);
+
+					obj.element.innerHTML = '';
+					if (nameArr) {
+						nameArr.length = 0;
+					}
+
+					var valArr = obj.value.split(',');
+					var nameArr = [];
+					for (var i = 0, length = ds.length; i < length; i++) {
+						for (var j = 0; j < valArr.length; j++) {
+							if (ds[i].value == valArr[j]) {
+								nameArr.push(ds[i].name);
+							}
+						}
+					}
+					var svalue = nameArr.toString();
+					if (!svalue) svalue = obj.value;
+					obj.element.innerHTML = svalue;
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'dateRender') {
+				//通过grid的dataType为Date format处理
+				var renderType = function renderType(obj) {
+					var svalue = (0, _dataRender.dateRender)(obj.value, obj.gridCompColumn.options['format']);
+					obj.element.innerHTML = svalue;
+					$(obj.element).attr('title', svalue);
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'dateTimeRender') {
+				//通过grid的dataType为DateTime format处理
+				var renderType = function renderType(obj) {
+					var svalue = (0, _dataRender.dateTimeRender)(obj.value);
+					obj.element.innerHTML = svalue;
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (typeof rType == 'function') {
+				var renderType = rType;
+			} else if (rType == 'radioRender') {
+				var renderType = function renderType(params) {
+					//debugger
+					var ds = (0, _util.getJSObject)(viewModel, eOptions['datasource']);
+					var value = params.value;
+					var compDiv = $('<div class="u-grid-edit-item-radio"></div>');
+
+					params.element.innerHTML = "";
+					$(params.element).append(compDiv);
+
+					for (var i = 0; i < ds.length; i++) {
+						if (ds[i].value == value) compDiv.append('<input name="' + column.field + params.row.value['$_#_@_id'] + '" type="radio" value="' + ds[i].value + '" checked="true" /><i data-role="name">' + ds[i].name + '</i>');else compDiv.append('<input name="' + column.field + params.row.value['$_#_@_id'] + '" type="radio" value="' + ds[i].value + '"/><i data-role="name">' + ds[i].name + '</i>');
+					}
+					compDiv.find(":radio").each(function () {
+
+						$(this).on('click', function () {
+
+							var val = this.value;
+							compDiv.find(":radio").each(function () {
+								if (this.value == val) {
+									this.checked = true;
+								} else {
+									this.checked = false;
+								}
+							});
+							var grid = params.gridObj;
+							var column = params.gridCompColumn;
+							var field = column.options.field;
+							var datatable = grid.dataTable;
+							//var rowIndex = params.rowIndex
+							//var tmprowId =  $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+							var rowId = params.row.value['$_#_@_id'];
+
+							var row = datatable.getRowByRowId(rowId);
+
+							row.setValue(field, val);
+						});
+					});
+					//					var comp = new $.compManager.plugs.radio(compDiv[0],eOptions,viewModel);
+					//					for( var i=0,length=rdo.length; i<length; i++){
+					//					   if(rdo[i].pk==value){
+					//					   	 obj.element.innerHTML = '<input type="radio" checked><i data-role="name">'+rdo[i].name+'</i>';
+					//					   	 break;
+					//					   }
+					//					}
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'urlRender') {
+				//通过grid的dataType为DateTime format处理
+				var renderType = function renderType(obj) {
+					obj.element.innerHTML = '<a href="' + obj.value + '" target="_blank">' + obj.value + '</a>';
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'passwordRender') {
+				//通过grid的dataType为DateTime format处理
+				var renderType = function renderType(obj) {
+					obj.element.innerHTML = '<input type="password" disable="true" role="grid-for-edit" readonly="readonly" style="border:0px;background:none;padding:0px;" value="' + obj.value + '" title=""><span class="uf uf-eyeopen right-span" role="grid-for-edit"></span>';
+					var span = obj.element.querySelector('span');
+					var input = obj.element.querySelector('input');
+					input.value = obj.value;
+					$(span).on('click', function () {
+						if (input.type == 'password') {
+							input.type = 'text';
+						} else {
+							input.type = 'password';
+						}
+					});
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'percentRender') {
+				var renderType = function renderType(obj) {
+					//需要处理精度
+
+					var grid = obj.gridObj;
+					var column = obj.gridCompColumn;
+					var field = column.options.field;
+					var rowIndex = obj.rowIndex;
+					var datatable = grid.dataTable;
+					var rowId = $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+					var row = datatable.getRowByRowId(rowId);
+					if (!row) return;
+					var rprec = row.getMeta(field, 'precision') || column.options.precision;
+					var maskerMeta = _core.core.getMaskerMeta('percent') || {};
+					var precision = typeof parseFloat(rprec) == 'number' ? rprec : maskerMeta.precision;
+					maskerMeta.precision = precision;
+					if (maskerMeta.precision) {
+						maskerMeta.precision = parseInt(maskerMeta.precision) + 2;
+					}
+
+					var formater = new _formater.NumberFormater(maskerMeta.precision);
+					var masker = new _masker.PercentMasker(maskerMeta);
+					var svalue = masker.format(formater.format(obj.value)).value;
+					obj.element.innerHTML = svalue;
+					$(obj.element).css('text-align', 'right');
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			}
+			var renderArr = {};
+			renderArr[column.field] = renderType;
+
+			column.renderType = function (obj) {
+				var rendertypefun = renderArr[column.field];
+
+				rendertypefun.call(this, obj);
+			};
+		},
+
+		setEditType: function setEditType(obj) {
+			var eType = obj.eType,
+			    field = obj.field,
+			    eOptions = obj.eOptions;
+			var oThis = this;
+			var column = oThis.grid.getColumnByField(field).options;
+			var viewModel = oThis.grid.viewModel;
+			var options = oThis.gridOptions;
+
+			if (eOptions) {
+				//判断是否为json对象
+				if ((typeof eOptions === 'undefined' ? 'undefined' : _typeof(eOptions)) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length) {
+					eOptions = eOptions;
+					//判断是否为string
+				} else if (typeof eOptions == "string") {
+					eOptions = JSON.parse(eOptions);
+				}
+			} else {
+				eOptions = {};
+				if (column.editOptions) {
+					if (typeof column.editOptions == "undefined") var eOptions = eval("(" + column.editOptions + ")");else var eOptions = column.editOptions;
+				}
+				eOptions.data = options['data'];
+				eOptions.field = column['field'];
+			}
+			if (!field) {
+				return false;
+			}
+			if (column) {
+				oThis.createDefaultEdit(eType, eOptions, options, viewModel, column);
+			}
+		},
+
 		createDefaultEdit: function createDefaultEdit(eType, eOptions, options, viewModel, column) {
 			var oThis = this;
 			eOptions.showFix = true;
@@ -13573,12 +13960,6 @@
 
 	//if ($.compManager)
 	//	$.compManager.addPlug(Grid)
-
-	/**
-	 * Module : Kero Grid Adapter
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 16:17:17
-	 */
 
 	_compMgr.compMgr.addDataAdapter({
 		adapter: GridAdapter,
@@ -18651,9 +19032,9 @@
 	    for (i = 0; i < al; i += key.chunkSize) {
 	        block = new BigInt();
 	        j = 0;
-	        for (k = i; k < i + key.chunkSize; ++j, k++) {
-	            block.digits[j] = a[k];
-	            block.digits[j] += a[k] << 8;
+	        for (k = i; k < i + key.chunkSize; ++j) {
+	            block.digits[j] = a[k++];
+	            block.digits[j] += a[k++] << 8;
 	        }
 	        var crypt = key.barrett.powMod(block, key.e);
 	        var text = key.radix == 16 ? RSAUtils.biToHex(crypt) : RSAUtils.biToString(crypt, key.radix);
@@ -20259,7 +20640,7 @@
 	 * @param options
 	 */
 
-	var messageDialogTemplate = '<div class="u-msg-dialog">' + '<div class="u-msg-title">' + '<h4>{title}</h4>' + '</div>' + '<div class="u-msg-content">' + '<p>{msg}</p>' + '</div>' + '<div class="u-msg-footer only-one-btn"><button class="u-msg-button u-button primary raised">{btnText}</button></div>' + '</div>';
+	var messageDialogTemplate = '<div class="u-msg-dialog">' + '<div class="u-msg-title">' + '<h4>{title}</h4>' + '</div>' + '<div class="u-msg-content">' + '<p>{msg}</p>' + '</div>' + '<div class="u-msg-footer only-one-btn"><button class="u-msg-button u-button u-button-primary raised">{btnText}</button></div>' + '</div>';
 
 	var messageDialog = function messageDialog(options) {
 		var title, msg, btnText, template;
@@ -20309,7 +20690,7 @@
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-07-29 10:21:33
 	 */
-	var confirmDialogTemplate = '<div class="u-msg-dialog">' + '<div class="u-msg-title">' + '<h4>{title}</h4>' + '</div>' + '<div class="u-msg-content">' + '<p>{msg}</p>' + '</div>' + '<div class="u-msg-footer"><button class="u-msg-ok u-button primary raised">{okText}</button><button class="u-msg-cancel u-button">{cancelText}</button></div>' + '</div>';
+	var confirmDialogTemplate = '<div class="u-msg-dialog">' + '<div class="u-msg-title">' + '<h4>{title}</h4>' + '</div>' + '<div class="u-msg-content">' + '<p>{msg}</p>' + '</div>' + '<div class="u-msg-footer"><button class="u-msg-ok u-button u-button-primary raised">{okText}</button><button class="u-msg-cancel u-button">{cancelText}</button></div>' + '</div>';
 
 	var confirmDialog = function confirmDialog(options) {
 		var title, msg, okText, cancelText, template, onOk, onCancel;
@@ -20661,7 +21042,7 @@
 			var closeStr = '<div class="u-msg-close"> <span aria-hidden="true">&times;</span></div>';
 		}
 		if (this.hasFooter) {
-			var footerStr = '<div class="u-msg-footer"><button class="u-msg-ok u-button primary raised">确定</button><button class="u-msg-cancel u-button">取消</button></div>' + '</div>';
+			var footerStr = '<div class="u-msg-footer"><button class="u-msg-ok u-button u-button-primary raised">确定</button><button class="u-msg-cancel u-button">取消</button></div>' + '</div>';
 		}
 		var templateStr = this.template.replace('{close}', closeStr);
 		templateStr = templateStr.replace('{url}', this.url);
@@ -21514,8 +21895,9 @@
 		}
 		parEle.appendChild(templateDom);
 	};
-	var hideLoader = function hideLoader() {
-		var divs = document.querySelectorAll('.u-overlay,.u-loader-container');
+	var hideLoader = function hideLoader(options) {
+		var cssStr = options.cssStr || '.u-overlay,.u-loader-container';
+		var divs = document.querySelectorAll(cssStr);
 		for (var i = 0; i < divs.length; i++) {
 			divs[i].parentNode.removeChild(divs[i]);
 		}
