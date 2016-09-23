@@ -28,7 +28,7 @@ var ComboboxAdapter = BaseAdapter.extend({
         this.isAutoTip = this.options.isAutoTip || false;
 
         if(!this.element['u.Combo']) {
-            this.comp = new u.Combo({el:this.element,mutilSelect:this.mutil,onlySelect:this.onlySelect});
+            this.comp = new u.Combo({el:this.element,mutilSelect:this.mutil,onlySelect:this.onlySelect,showFix:this.showFix,isAutoTip:this.isAutoTip});
             this.element['u.Combo'] = this.comp;
 
         } else {
