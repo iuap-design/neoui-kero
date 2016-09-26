@@ -11,7 +11,7 @@ import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
-import {NumberMasker,PercentMasker} from 'neoui-sparrow/js/util/masker';
+import {NumberMasker,PercentMasker,CurrencyMasker} from 'neoui-sparrow/js/util/masker';
 import {dateRender,dateTimeRender} from 'neoui-sparrow/js/util/dataRender';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {stopEvent} from 'neoui-sparrow/js/event';
@@ -175,7 +175,7 @@ var GridAdapter = BaseAdapter.extend({
 			if(rType == 'booleanRender'){
 				column.renderType = function(obj){
 					var checkStr = '';
-					if(obj.value == 'Y'){
+					if(obj.value == 'Y' || obj.value == 'true'){
 						checkStr = 'checked';
 					}
 					var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr +'>'
@@ -186,7 +186,11 @@ var GridAdapter = BaseAdapter.extend({
 					var rowId = obj.row.value['$_#_@_id'];
 
 					var row = datatable.getRowByRowId(rowId);
-					$(obj.element).find('input').on('click',function(){
+					$(obj.element).find('input').on('click',function(e){
+						if(!obj.gridObj.options.editable){
+							stopEvent(e);
+							return false;
+						}
 						var value = this.checked?"Y":"N";
 						var column = obj.gridCompColumn
 						var field = column.options.field
@@ -228,13 +232,13 @@ var GridAdapter = BaseAdapter.extend({
 					if(!row)
 						return;
 					var rprec = row.getMeta(field, 'precision')
-					var maskerMeta = core.getMaskerMeta('float') || {}
+					var maskerMeta = core.getMaskerMeta('currency') || {}
 					var precision = typeof(parseFloat(rprec)) == 'number' ? rprec : maskerMeta.precision;
 					maskerMeta.precision = precision;
 
 					maskerMeta.precision = precision || maskerMeta.precision
 					var formater = new NumberFormater(maskerMeta.precision);
-					var masker = new NumberMasker(maskerMeta);
+					var masker = new CurrencyMasker(maskerMeta);
 					var svalue = masker.format(formater.format(obj.value)).value
 					obj.element.innerHTML =  svalue
 					/*设置header为right*/
@@ -855,6 +859,10 @@ var GridAdapter = BaseAdapter.extend({
 
 				var row = datatable.getRowByRowId(rowId);
 				$(obj.element).find('input').on('click',function(){
+					if(!obj.gridObj.options.editable){
+						stopEvent(e);
+						return false;
+					}
 					var value = this.checked?"Y":"N";
 					var column = obj.gridCompColumn
 					var field = column.options.field
