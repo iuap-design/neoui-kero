@@ -1,9 +1,9 @@
 /**
  * Module : Kero percent
- * Author : Kvkens(yueming@yonyou.com)
+ * Author : Alex(zhoubyc@yonyou.com)
  * Date	  : 2016-08-09 20:02:50
  */
-import {FloatAdapter} from './keroa-float';
+import {IntegerAdapter} from './keroa-integer';
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
 import {PercentMasker} from 'neoui-sparrow/js/util/masker';
 import {core} from 'neoui-sparrow/js/core';
@@ -11,12 +11,12 @@ import {compMgr} from 'neoui-sparrow/js/compMgr';
 /**
  * 百分比控件
  */
-var PercentAdapter = FloatAdapter.extend({
+var PhoneNumberAdapter = IntegerAdapter.extend({
     init: function () {
-        PercentAdapter.superclass.init.apply(this);
-        this.validType = 'float';
-        this.maskerMeta = core.getMaskerMeta('percent') || {};
-        this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+        PhoneNumberAdapter.superclass.init.apply(this);
+        this.validType = 'phoneNumber';
+        this.maskerMeta = core.getMaskerMeta('phoneNumber') || {};
+        this.maskerMeta.precision = this.getOption('phoneNumber') || this.maskerMeta.phoneNumber;
         if (this.maskerMeta.precision){
             this.maskerMeta.precision = parseInt(this.maskerMeta.precision) + 2;
         }

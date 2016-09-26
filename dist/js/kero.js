@@ -5505,7 +5505,7 @@
 	    function Row(options) {
 	        _classCallCheck(this, Row);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Row).call(this));
+	        var _this = _possibleConstructorReturn(this, _Events.call(this));
 
 	        var self = _this;
 	        _this.rowId = options['id'] || Row.getRandomRowId();
@@ -6124,7 +6124,7 @@
 	                    data: data,
 	                    key: key
 	                };
-	                _data[key] = this.formatValueFun(obj);
+	                _data[key] = rowObj.formatValueFun(obj);
 	            }
 	        } else {
 	            _data[key] = _getSimpleData(rowObj, data[key]);

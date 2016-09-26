@@ -1058,9 +1058,9 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var column = function column(options, gridComp) {
-	    _classCallCheck(this, column);
+	  _classCallCheck(this, column);
 
-	    this.init(options, gridComp);
+	  this.init(options, gridComp);
 	};
 
 	;
@@ -1642,7 +1642,7 @@
 	        str += 'width:auto;';
 	    }
 	    if (this.options.height) {
-	        str += 'max-height:' + this.options.height + ';';
+	        str += 'height:' + this.options.height + ';';
 	    } else {
 	        str += 'height:auto;';
 	    }
@@ -1723,11 +1723,11 @@
 	        htmlStr += '<div id="' + this.options.id + '_header_left" class="u-grid-header-left" style="width:' + this.leftW + 'px;">';
 	        if (this.options.multiSelect) {
 	            if (_gridBrowser.gridBrowser.isIE8) {
-	                //htmlStr += '<div class="u-grid-header-multi-select" style="width:' + this.multiWidth + 'px;"><input class="u-grid-multi-input"   type="checkbox" id="' + this.options.id + '_header_multi_input"></div>'
-	                htmlStr += '<div class="u-grid-header-multi-select" style="width:' + this.multiWidth + 'px;"><span class="u-grid-checkbox-outline" id="' + this.options.id + '_header_multi_input"><span class="u-grid-checkbox-tick-outline"></span></span></div>';
+	                //htmlStr += '<div class="u-grid-header-multi-select" style="width:' + this.multiSelectWidth + 'px;"><input class="u-grid-multi-input"   type="checkbox" id="' + this.options.id + '_header_multi_input"></div>'
+	                htmlStr += '<div class="u-grid-header-multi-select" style="width:' + this.multiSelectWidth + 'px;"><span class="u-grid-checkbox-outline" id="' + this.options.id + '_header_multi_input"><span class="u-grid-checkbox-tick-outline"></span></span></div>';
 	            } else {
-	                //htmlStr += '<div class="u-grid-header-multi-select  checkbox check-success" style="width:' + this.multiWidth + 'px;"><input  class="u-grid-multi-input"  type="checkbox" id="' + this.options.id + '_header_multi_input"><label for="' + this.options.id + '_header_multi_input"></label></div>'
-	                htmlStr += '<div class="u-grid-header-multi-select  checkbox check-success" style="width:' + this.multiWidth + 'px;"><span class="u-grid-checkbox-outline" id="' + this.options.id + '_header_multi_input"><span class="u-grid-checkbox-tick-outline"></span></span></div>';
+	                //htmlStr += '<div class="u-grid-header-multi-select  checkbox check-success" style="width:' + this.multiSelectWidth + 'px;"><input  class="u-grid-multi-input"  type="checkbox" id="' + this.options.id + '_header_multi_input"><label for="' + this.options.id + '_header_multi_input"></label></div>'
+	                htmlStr += '<div class="u-grid-header-multi-select  checkbox check-success" style="width:' + this.multiSelectWidth + 'px;"><span class="u-grid-checkbox-outline" id="' + this.options.id + '_header_multi_input"><span class="u-grid-checkbox-tick-outline"></span></span></div>';
 	            }
 	        }
 	        if (this.options.showNumCol) {
@@ -2585,7 +2585,6 @@
 	    this.scrollBarHeight = 16; // 滚动条高度
 	    this.numWidth = this.options.numWidth || 40; // 数字列宽度
 	    this.multiSelectWidth = this.options.multiSelectWidth || 40; // 复选框列宽度
-	    this.multiWidth = this.options.multiWidth || 40; // 复选框宽度
 
 	    this.basicGridCompColumnArr = new Array(); // 存储基本的columns对象，用于清除设置
 	    this.columnMenuWidth = 160; // column menu的宽度
@@ -2681,7 +2680,7 @@
 	        this.leftW += this.numWidth;
 	    }
 	    if (this.options.multiSelect) {
-	        this.leftW += this.multiWidth;
+	        this.leftW += this.multiSelectWidth;
 	    }
 	    this.exceptContentHeight = 0; // 内容区域之外的高度
 	    if (this.options.showHeader) {
@@ -3963,7 +3962,7 @@
 	            h = $('#' + this.options.id)[0].offsetHeight;
 	        this.wholeHeight = h;
 	        if (oldH != h && h > 0) {
-	            var contentH = h - this.exceptContentHeight > 0 ? h - this.exceptContentHeight : 0;
+	            var contentH = h - 1 - this.exceptContentHeight > 0 ? h - 1 - this.exceptContentHeight : 0;
 	            $('#' + this.options.id + '_content').css('height', contentH + 'px');
 	            $('#' + this.options.id + '_content_div').css('height', contentH + 'px');
 	        }
@@ -4508,6 +4507,12 @@
 		});
 
 		$(document).on('click', function () {
+			if (oThis.columnMenuMove == false && oThis.ele.createColumnMenuFlag == false) {
+				$('#' + oThis.options.id + '_column_menu').css('display', 'none');
+			}
+			oThis.ele.createColumnMenuFlag = false;
+		});
+		$(document).on('scroll', function () {
 			if (oThis.columnMenuMove == false && oThis.ele.createColumnMenuFlag == false) {
 				$('#' + oThis.options.id + '_column_menu').css('display', 'none');
 			}

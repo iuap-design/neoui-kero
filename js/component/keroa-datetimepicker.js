@@ -59,6 +59,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 
 		this.startField = this.options.startField?this.options.startField : this.dataModel.getMeta(this.field, "startField");
 
+		this.endField = this.options.endField?this.options.endField : this.dataModel.getMeta(this.field, "endField");
 
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
@@ -125,6 +126,31 @@ var DateTimeAdapter = BaseAdapter.extend({
 
 				});
 			}
+
+			if(this.endField){
+				this.dataModel.ref(this.endField).subscribe(function(value) {
+					if(env.isMobile){
+						var valueObj = date.getDateObj(value);
+						op.minDate = valueObj;
+						if(self.adapterType == 'date'){
+							$(self.element).mobiscroll().date(op);
+						}else{
+							$(self.element).mobiscroll().datetime(op);
+						}
+						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
+						if(nowDate < valueObj || !value){
+							self.dataModel.setValue(self.field,'');
+						}
+					}else{
+						self.comp.setEndDate(value);
+						if(self.comp.date < date.getDateObj(value) || !value){
+							self.dataModel.setValue(self.field,'');
+						}
+					}
+
+				});
+			}
+
 			if(this.startField){
 				var startValue = this.dataModel.getValue(this.startField);
 				if(startValue){
@@ -141,14 +167,30 @@ var DateTimeAdapter = BaseAdapter.extend({
 				}
 			}
 
+			if(this.endField){
+				var endValue = this.dataModel.getValue(this.endField);
+				if(endValue){
+					if(env.isMobile){
+						op.minDate = date.getDateObj(endValue);
+						if(this.adapterType == 'date'){
+							$(this.element).mobiscroll().date(op);
+						}else{
+							$(this.element).mobiscroll().datetime(op);
+						}
+					}else{
+						self.comp.setEndDate(endValue);
+					}
+				}
+			}
+
+
 		}
-
-		// 校验
-		this.comp.on('validate', function(event){
-			self.validate.check();
-		});
-			
-
+        if(env.isMobile){
+			// 校验
+			this.comp.on('validate', function(event){
+				self.validate.doValidate();
+			});
+		}
 	},
 	modelValueChange: function(value){
 		if (this.slice) return;

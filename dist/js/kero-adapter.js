@@ -1,10 +1,3 @@
-/** 
- * kero-adapter v1.5.15
- * kero adapter
- * author : yonyou FED
- * homepage : https://github.com/iuap-design/kero-adapter#readme
- * bugs : https://github.com/iuap-design/kero-adapter/issues
- **/ 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -7104,8 +7097,8 @@
 	            }
 
 	            if (flag == '+') {
-	                var nameDiv = (0, _dom.makeDOM)('<div class="u-combo-name" key="' + val + '">' + name + /*<a href="javascript:void(0)" class="remove">x</a>*/'</div>');
-	                var parNameDiv = (0, _dom.makeDOM)('<div class="u-combo-name-par" style="position:absolute;width:' + this.fullWidth + 'px;"></div>');
+	                var nameDiv = (0, _dom.makeDOM)('<div class="u-combo-name" key="' + val + '" value="' + name + '">' + name + /*<a href="javascript:void(0)" class="remove">x</a>*/'</div>');
+	                var parNameDiv = (0, _dom.makeDOM)('<div class="u-combo-name-par" style="position:absolute;max-width:' + this.fullWidth + 'px;"></div>');
 	                /*var _a = nameDiv.querySelector('a');
 	                on(_a, 'click', function(){
 	                    var values = self.value.split(',');
@@ -7118,6 +7111,9 @@
 	                if (!this._combo_name_par) {
 	                    this._input.parentNode.insertBefore(parNameDiv, this._input);
 	                    this._combo_name_par = parNameDiv;
+	                    (0, _event.on)(this._combo_name_par, 'click', function (e) {
+	                        (0, _event.trigger)(self._input, 'focus');
+	                    });
 	                }
 	                this._combo_name_par.appendChild(nameDiv);
 	                var nWidth = nameDiv.offsetWidth + 20;
@@ -7144,7 +7140,7 @@
 	            // this.trigger('select', {value: this.value, name: name});
 	        } else {
 	            this.value = this.comboDatas[index].value;
-	            this._input.value = this.comboDatas[index].name;
+	            this._input.value = this.comboDatas[index].value;
 	            this._updateItemSelect();
 	            // this.trigger('select', {value: this.value, name: this._input.value});
 	        }
@@ -7461,7 +7457,7 @@
 	     * @public
 	     */
 	    change: function change(value) {
-	        this._input.value = value || '';
+	        this._input.value = value === 0 ? value : value || '';
 	        this._updateClasses();
 	    }
 
@@ -7811,7 +7807,8 @@
 	                focusValue = this.formater.format(v);
 	            }
 	        }
-	        focusValue = parseFloat(focusValue) || '';
+
+	        focusValue = parseFloat(focusValue) === 0 ? parseFloat(focusValue) : parseFloat(focusValue) || '';
 	        this.setShowValue(focusValue);
 	    },
 	    _needClean: function _needClean() {
@@ -8483,6 +8480,11 @@
 					}
 				}
 			}
+
+			// 校验
+			this.comp.on('validate', function (event) {
+				self.validate.check();
+			});
 		},
 		modelValueChange: function modelValueChange(value) {
 			if (this.slice) return;
@@ -8805,11 +8807,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -8894,11 +8896,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -9667,15 +9669,23 @@
 	            // this.top = this.element.offsetTop + inputHeight;
 	            this.top = this._input.offsetTop + inputHeight;
 
-	            this.abLeft = (0, _dom.getElementLeft)(this._input);
-	            this.abTop = (0, _dom.getElementLeft)(this._input);
+	            var abLeft = (0, _dom.getElementLeft)(this._input),
+	                abTop = (0, _dom.getElementTop)(this._input);
 
-	            if (this.abLeft + panelWidth > bodyWidth) {
-	                this.left = bodyWidth - panelWidth - this.abLeft;
+	            if (abLeft + panelWidth > bodyWidth) {
+	                if (abLeft - bodyWidth > 0) {
+	                    this.left = -panelWidth;
+	                } else {
+	                    this.left = bodyWidth - panelWidth - abLeft;
+	                }
 	            }
 
-	            if (this.abTop + panelHeight > bodyHeight) {
-	                this.top = bodyHeight - panelHeight - this.abTop;
+	            if (abTop + panelHeight > bodyHeight) {
+	                if (abTop - bodyHeight > 0) {
+	                    this.top = -panelHeight;
+	                } else {
+	                    this.top = bodyHeight - panelHeight - abTop;
+	                }
 	            }
 
 	            this._panel.style.left = this.left + 'px';
@@ -9714,6 +9724,7 @@
 	        document.body.removeChild(this.overlayDiv);
 	    } catch (e) {}
 	    this.trigger('select', { value: this.pickerDate });
+	    this.trigger('validate');
 	};
 
 	/**
@@ -9725,6 +9736,7 @@
 	    try {
 	        document.body.removeChild(this.overlayDiv);
 	    } catch (e) {}
+	    this.trigger('validate');
 	};
 
 	DateTimePicker.fn.setDate = function (value) {
@@ -9793,6 +9805,12 @@
 
 	exports.__esModule = true;
 	exports.GridAdapter = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Kero Grid Adapter
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-09 16:17:17
+	                                                                                                                                                                                                                                                   */
 
 	var _baseAdapter = __webpack_require__(76);
 
@@ -10600,6 +10618,353 @@
 		getName: function getName() {
 			return 'grid';
 		},
+
+		setRenderType: function setRenderType(obj) {
+			this.createDefaultRender(obj);
+		},
+
+		createDefaultRender: function createDefaultRender(obj) {
+			var field = obj.field,
+			    rType = obj.rType,
+			    eOptions = obj.eOptions;
+			var oThis = this;
+			var column = oThis.grid.getColumnByField(field).options;
+			var viewModel = oThis.grid.viewModel;
+			if (eOptions) {
+				//判断是否为json对象
+				if ((typeof eOptions === 'undefined' ? 'undefined' : _typeof(eOptions)) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length) {
+					eOptions = eOptions;
+					//判断是否为string
+				} else if (typeof eOptions == "string") {
+					eOptions = JSON.parse(eOptions);
+				}
+			} else {
+				eOptions = {};
+				if (column.editOptions) {
+					if (typeof column.editOptions == "undefined") var eOptions = eval("(" + column.editOptions + ")");else var eOptions = column.editOptions;
+				}
+				eOptions.data = options['data'];
+				eOptions.field = column['field'];
+			}
+			if (rType == 'booleanRender') {
+				var renderType = function renderType(obj) {
+					var checkStr = '';
+					if (obj.value == 'Y') {
+						checkStr = 'checked';
+					}
+					var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr + '>';
+					obj.element.innerHTML = htmlStr;
+
+					var grid = obj.gridObj;
+					var datatable = grid.dataTable;
+					var rowId = obj.row.value['$_#_@_id'];
+
+					var row = datatable.getRowByRowId(rowId);
+					$(obj.element).find('input').on('click', function () {
+						var value = this.checked ? "Y" : "N";
+						var column = obj.gridCompColumn;
+						var field = column.options.field;
+						row.setValue(field, value);
+					});
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'integerRender') {
+				var renderType = function renderType(obj) {
+					var grid = obj.gridObj;
+					var column = obj.gridCompColumn;
+					var field = column.options.field;
+					obj.element.innerHTML = obj.value;
+					/*设置header为right*/
+					$('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+					$(obj.element).css('text-align', 'right');
+					$(obj.element).css('color', '#e33c37');
+					$(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'currencyRender') {
+				var renderType = function renderType(obj) {
+					//需要处理精度
+
+					var grid = obj.gridObj;
+					var column = obj.gridCompColumn;
+					var field = column.options.field;
+					var rowIndex = obj.rowIndex;
+					var datatable = grid.dataTable;
+					var rowId = $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+					var row = datatable.getRowByRowId(rowId);
+					if (!row) return;
+					var rprec = row.getMeta(field, 'precision');
+					var maskerMeta = _core.core.getMaskerMeta('float') || {};
+					var precision = typeof parseFloat(rprec) == 'number' ? rprec : maskerMeta.precision;
+					maskerMeta.precision = precision;
+
+					maskerMeta.precision = precision || maskerMeta.precision;
+					var formater = new _formater.NumberFormater(maskerMeta.precision);
+					var masker = new _masker.NumberMasker(maskerMeta);
+					var svalue = masker.format(formater.format(obj.value)).value;
+					obj.element.innerHTML = svalue;
+					/*设置header为right*/
+					$('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+					$(obj.element).css('text-align', 'right');
+					$(obj.element).css('color', '#e33c37');
+					$(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'floatRender') {
+				var renderType = function renderType(obj) {
+					//需要处理精度
+
+					var grid = obj.gridObj;
+					var column = obj.gridCompColumn;
+					var field = column.options.field;
+					var rowIndex = obj.rowIndex;
+					var datatable = grid.dataTable;
+					var rowId = $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+					var row = datatable.getRowByRowId(rowId);
+					if (!row) return;
+					var rprec = row.getMeta(field, 'precision') || column.options.precision;
+					var maskerMeta = _core.core.getMaskerMeta('float') || {};
+					var precision = typeof parseFloat(rprec) == 'number' ? rprec : maskerMeta.precision;
+					maskerMeta.precision = precision;
+
+					var formater = new _formater.NumberFormater(maskerMeta.precision);
+					var masker = new _masker.NumberMasker(maskerMeta);
+					var svalue = masker.format(formater.format(obj.value)).value;
+					obj.element.innerHTML = svalue;
+					/*设置header为right*/
+					$('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+					$(obj.element).css('text-align', 'right');
+					$(obj.element).css('color', '#e33c37');
+					$(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'comboRender') {
+				var renderType = function renderType(obj) {
+
+					//需要将key转化为name
+					var ds = (0, _util.getJSObject)(viewModel, eOptions['datasource']);
+
+					obj.element.innerHTML = '';
+					if (nameArr) {
+						nameArr.length = 0;
+					}
+
+					var valArr = obj.value.split(',');
+					var nameArr = [];
+					for (var i = 0, length = ds.length; i < length; i++) {
+						for (var j = 0; j < valArr.length; j++) {
+							if (ds[i].value == valArr[j]) {
+								nameArr.push(ds[i].name);
+							}
+						}
+					}
+					var svalue = nameArr.toString();
+					if (!svalue) svalue = obj.value;
+					obj.element.innerHTML = svalue;
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'dateRender') {
+				//通过grid的dataType为Date format处理
+				var renderType = function renderType(obj) {
+					var svalue = (0, _dataRender.dateRender)(obj.value, obj.gridCompColumn.options['format']);
+					obj.element.innerHTML = svalue;
+					$(obj.element).attr('title', svalue);
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'dateTimeRender') {
+				//通过grid的dataType为DateTime format处理
+				var renderType = function renderType(obj) {
+					var svalue = (0, _dataRender.dateTimeRender)(obj.value);
+					obj.element.innerHTML = svalue;
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (typeof rType == 'function') {
+				var renderType = rType;
+			} else if (rType == 'radioRender') {
+				var renderType = function renderType(params) {
+					//debugger
+					var ds = (0, _util.getJSObject)(viewModel, eOptions['datasource']);
+					var value = params.value;
+					var compDiv = $('<div class="u-grid-edit-item-radio"></div>');
+
+					params.element.innerHTML = "";
+					$(params.element).append(compDiv);
+
+					for (var i = 0; i < ds.length; i++) {
+						if (ds[i].value == value) compDiv.append('<input name="' + column.field + params.row.value['$_#_@_id'] + '" type="radio" value="' + ds[i].value + '" checked="true" /><i data-role="name">' + ds[i].name + '</i>');else compDiv.append('<input name="' + column.field + params.row.value['$_#_@_id'] + '" type="radio" value="' + ds[i].value + '"/><i data-role="name">' + ds[i].name + '</i>');
+					}
+					compDiv.find(":radio").each(function () {
+
+						$(this).on('click', function () {
+
+							var val = this.value;
+							compDiv.find(":radio").each(function () {
+								if (this.value == val) {
+									this.checked = true;
+								} else {
+									this.checked = false;
+								}
+							});
+							var grid = params.gridObj;
+							var column = params.gridCompColumn;
+							var field = column.options.field;
+							var datatable = grid.dataTable;
+							//var rowIndex = params.rowIndex
+							//var tmprowId =  $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+							var rowId = params.row.value['$_#_@_id'];
+
+							var row = datatable.getRowByRowId(rowId);
+
+							row.setValue(field, val);
+						});
+					});
+					//					var comp = new $.compManager.plugs.radio(compDiv[0],eOptions,viewModel);
+					//					for( var i=0,length=rdo.length; i<length; i++){
+					//					   if(rdo[i].pk==value){
+					//					   	 obj.element.innerHTML = '<input type="radio" checked><i data-role="name">'+rdo[i].name+'</i>';
+					//					   	 break;
+					//					   }
+					//					}
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'urlRender') {
+				//通过grid的dataType为DateTime format处理
+				var renderType = function renderType(obj) {
+					obj.element.innerHTML = '<a href="' + obj.value + '" target="_blank">' + obj.value + '</a>';
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'passwordRender') {
+				//通过grid的dataType为DateTime format处理
+				var renderType = function renderType(obj) {
+					obj.element.innerHTML = '<input type="password" disable="true" role="grid-for-edit" readonly="readonly" style="border:0px;background:none;padding:0px;" value="' + obj.value + '" title=""><span class="uf uf-eyeopen right-span" role="grid-for-edit"></span>';
+					var span = obj.element.querySelector('span');
+					var input = obj.element.querySelector('input');
+					input.value = obj.value;
+					$(span).on('click', function () {
+						if (input.type == 'password') {
+							input.type = 'text';
+						} else {
+							input.type = 'password';
+						}
+					});
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			} else if (rType == 'percentRender') {
+				var renderType = function renderType(obj) {
+					//需要处理精度
+
+					var grid = obj.gridObj;
+					var column = obj.gridCompColumn;
+					var field = column.options.field;
+					var rowIndex = obj.rowIndex;
+					var datatable = grid.dataTable;
+					var rowId = $(grid.dataSourceObj.rows[rowIndex].value).attr("$_#_@_id");
+					var row = datatable.getRowByRowId(rowId);
+					if (!row) return;
+					var rprec = row.getMeta(field, 'precision') || column.options.precision;
+					var maskerMeta = _core.core.getMaskerMeta('percent') || {};
+					var precision = typeof parseFloat(rprec) == 'number' ? rprec : maskerMeta.precision;
+					maskerMeta.precision = precision;
+					if (maskerMeta.precision) {
+						maskerMeta.precision = parseInt(maskerMeta.precision) + 2;
+					}
+
+					var formater = new _formater.NumberFormater(maskerMeta.precision);
+					var masker = new _masker.PercentMasker(maskerMeta);
+					var svalue = masker.format(formater.format(obj.value)).value;
+					obj.element.innerHTML = svalue;
+					$(obj.element).css('text-align', 'right');
+					$(obj.element).attr('title', svalue);
+
+					// 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+					if (typeof afterRType == 'function') {
+						afterRType.call(this, obj);
+					}
+				};
+			}
+			var renderArr = {};
+			renderArr[column.field] = renderType;
+
+			column.renderType = function (obj) {
+				var rendertypefun = renderArr[column.field];
+
+				rendertypefun.call(this, obj);
+			};
+		},
+
+		setEditType: function setEditType(obj) {
+			var eType = obj.eType,
+			    field = obj.field,
+			    eOptions = obj.eOptions;
+			var oThis = this;
+			var column = oThis.grid.getColumnByField(field).options;
+			var viewModel = oThis.grid.viewModel;
+			var options = oThis.gridOptions;
+
+			if (eOptions) {
+				//判断是否为json对象
+				if ((typeof eOptions === 'undefined' ? 'undefined' : _typeof(eOptions)) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length) {
+					eOptions = eOptions;
+					//判断是否为string
+				} else if (typeof eOptions == "string") {
+					eOptions = JSON.parse(eOptions);
+				}
+			} else {
+				eOptions = {};
+				if (column.editOptions) {
+					if (typeof column.editOptions == "undefined") var eOptions = eval("(" + column.editOptions + ")");else var eOptions = column.editOptions;
+				}
+				eOptions.data = options['data'];
+				eOptions.field = column['field'];
+			}
+			if (!field) {
+				return false;
+			}
+			if (column) {
+				oThis.createDefaultEdit(eType, eOptions, options, viewModel, column);
+			}
+		},
+
 		createDefaultEdit: function createDefaultEdit(eType, eOptions, options, viewModel, column) {
 			var oThis = this;
 			eOptions.showFix = true;
@@ -11019,12 +11384,6 @@
 
 	//if ($.compManager)
 	//	$.compManager.addPlug(Grid)
-
-	/**
-	 * Module : Kero Grid Adapter
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 16:17:17
-	 */
 
 	_compMgr.compMgr.addDataAdapter({
 		adapter: GridAdapter,
@@ -13845,7 +14204,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  	thumb.appendChild(focusHelper);*/
+	  		thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);

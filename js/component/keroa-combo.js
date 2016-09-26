@@ -49,7 +49,7 @@ var ComboboxAdapter = BaseAdapter.extend({
             });
         }
 
-        
+
         ////TODO 后续支持多选
         //if (this.mutil) {
         //    //$(this.comboEle).on("mutilSelect", function (event, value) {
@@ -61,7 +61,7 @@ var ComboboxAdapter = BaseAdapter.extend({
             // if(self.dataModel)
             //     self.dataModel.setValue(self.field, event.value);
             // self.slice = false;
-            self.setValue(event.value);
+            self.setValue(event.name);
         });
         //if(this.dataModel){
         //    this.dataModel.ref(this.field).subscribe(function(value) {
@@ -129,5 +129,3 @@ compMgr.addDataAdapter(
     });
 
 export {ComboboxAdapter};
-
-
