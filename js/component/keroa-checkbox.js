@@ -21,9 +21,9 @@ var CheckboxAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],
     init: function (options) {
         var self = this;
-        // CheckboxAdapter.superclass.initialize.apply(this, arguments); 
+        // CheckboxAdapter.superclass.initialize.apply(this, arguments);
         this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
-        this.otherValue = this.options['otherValue'] || 'ovOV~!';
+        this.otherValue = this.options['otherValue'] || '其他';
         if(this.options['datasource'] || this.options['hasOther']){
             // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
             this.checkboxTemplateArray = [];
@@ -34,7 +34,7 @@ var CheckboxAdapter = BaseAdapter.extend({
         if (this.options['datasource']) {
             this.isGroup = true;
             var datasource = getJSObject(this.viewModel, this.options['datasource']);
-            
+
             this.setComboData(datasource);
         }else{
             if(this.element['u.Checkbox']) {
@@ -43,7 +43,7 @@ var CheckboxAdapter = BaseAdapter.extend({
                 this.comp = new Checkbox(this.element);
                 this.element['u.Checkbox'] = this.comp;
             }
-            
+
             // 由于不同浏览器input的value不一样，所以默认checkedValue修改为true
 
             this.checkedValue =  this.options['checkedValue'] || true;
@@ -89,7 +89,7 @@ var CheckboxAdapter = BaseAdapter.extend({
             self.otherInput = makeDOM('<input disabled type="text">');
             self.lastNameDiv.parentNode.appendChild(self.otherInput);
             self.lastCheck.value = '';
-           
+
 
             var comp;
             if(self.lastLabel['u.Checkbox']) {
@@ -116,7 +116,7 @@ var CheckboxAdapter = BaseAdapter.extend({
                     if(otherValueIndex < 0){
                         valueArr.push(self.otherValue);
                     }
-                    
+
                     // 选中后可编辑
                     comp.element.querySelectorAll('input[type="text"]').forEach(function(ele){
                         ele.removeAttribute('disabled');
@@ -141,7 +141,7 @@ var CheckboxAdapter = BaseAdapter.extend({
                 self.dataModel.setValue(self.field, valueArr.join(','));
                 //self.slice = false;
             });
-            
+
             on(self.otherInput,'blur',function(e){
                 self.lastCheck.value = this.value;
                 self.otherComp.trigger('change');
@@ -201,7 +201,7 @@ var CheckboxAdapter = BaseAdapter.extend({
     modelValueChange: function (val) {
         var self = this;
         if (this.slice) return;
-        
+
         if (this.isGroup){
             this.trueValue = val;
             if(this.options.hasOther){
