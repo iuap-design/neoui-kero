@@ -22,7 +22,7 @@ var RadioAdapter = BaseAdapter.extend({
         var self = this;
         //RadioAdapter.superclass.initialize.apply(this, arguments);
         this.dynamic = false;
-        this.otherValue = this.options['otherValue'] || 'ovOV~!';
+        this.otherValue = this.options['otherValue'] || '其他';
         if(this.options['datasource'] || this.options['hasOther']){
             // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
             this.radioTemplateArray = [];
@@ -65,7 +65,7 @@ var RadioAdapter = BaseAdapter.extend({
             self.otherInput = makeDOM('<input type="text" disabled style="height:28px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
             self.lastNameDiv.parentNode.appendChild(self.otherInput);
             self.lastRadio.value = '';
-           
+
 
             var comp;
             if(self.lastLabel['u.Radio']) {
@@ -92,7 +92,7 @@ var RadioAdapter = BaseAdapter.extend({
                     });
                 }
             });
-            
+
             on(self.otherInput,'blur',function(e){
                 self.otherComp.trigger('change');
             })
