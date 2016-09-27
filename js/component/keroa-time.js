@@ -20,9 +20,9 @@ import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 
 var TimeAdapter = BaseAdapter.extend({
-    initialize: function (options) {
+    mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],
+    init: function (options) {
         var self = this;
-        TimeAdapter.superclass.initialize.apply(this, arguments);
         this.validType = 'time';
 
         this.maskerMeta = core.getMaskerMeta('time') || {};
