@@ -18,6 +18,7 @@ import {stopEvent} from 'neoui-sparrow/js/event';
 import {YearAdapter} from './keroa-year';
 import {MonthAdapter} from './keroa-month';
 import {YearMonthAdapter} from './keroa-yearmonth';
+import {TimeAdapter} from './keroa-time';
 import {StringAdapter} from './keroa-string';
 import {IntegerAdapter} from './keroa-integer';
 import {CheckboxAdapter} from './keroa-checkbox';
@@ -1303,6 +1304,27 @@ var GridAdapter = BaseAdapter.extend({
 				comp = new $.DateTime(compDiv[0],eOptions,viewModel);
 			}else{
 				comp = new DateTimeAdapter({
+					el:compDiv[0],
+					options:eOptions,
+					model: viewModel
+				});
+				if(oThis.gridOptions.customEditPanelClass){
+					if(oThis.gridOptions.customEditPanelClass.indexOf('u-date-panel') < 0){
+						oThis.gridOptions.customEditPanelClass += ',u-date-panel';
+					}
+				}else{
+					oThis.gridOptions.customEditPanelClass = 'u-date-panel';
+				}
+			}
+
+		}else if(eType == 'time'){
+			compDiv = $('<div class="input-group u-grid-edit-item-datetime" ><input class="form-control" /><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div>');
+
+			//comp = new $.compManager.plugs.datetime(compDiv[0],eOptions,viewModel);
+			if($.DateTime){
+				comp = new $.DateTime(compDiv[0],eOptions,viewModel);
+			}else{
+				comp = new TimeAdapter({
 					el:compDiv[0],
 					options:eOptions,
 					model: viewModel
