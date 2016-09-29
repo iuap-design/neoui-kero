@@ -1558,60 +1558,62 @@ var GridAdapter = BaseAdapter.extend({
 
             var columnPassedFlag = true,
                 columnMsg = '';
-            var validate = new Validate({
-            	el:this.element,
-                single: true,
-                required: required,
-                validType: validType,
-                placement: placement,
-                tipId: tipId,
-                errorMsg: errorMsg,
-                nullMsg: nullMsg,
-                maxLength: maxLength,
-                minLength: minLength,
-                max: max,
-                min: min,
-                maxNotEq: maxNotEq,
-                minNotEq: minNotEq,
-                reg: reg,
-                showFix: true
-        	});
-			for (var i = 0; i < rows.length; i++) {
-				var value = rows[i].value[field];
-            	var result = validate.check({pValue:value,showMsg:false});
-            	passed = result.passed && passed;
-            	if(!result.passed){
-            		columnPassedFlag = false;
-            		if(options.showMsg && columnMsg.indexOf(result.Msg) < 0){
-            			columnMsg += result.Msg + ' ';
-            		}
-            		// 设置背景色
-            		var index = this.grid.getIndexOfColumn(column);
-            		var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
-            		var row = contentDiv.querySelectorAll('tr')[i];
-            		var td = row.querySelectorAll('td')[index];
-            		var div = td.querySelector('div')
-            		addClass(td,'u-grid-err-td');
-            		addClass(div,'u-grid-err-td');
-            		var msg = '(' + title + ')' + result.Msg + ';';
-            		evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
-					eval(evalStr);
-            	}
-			}
-			// 如果存在错误信息并且提示信息
-			if(!columnPassedFlag && options.showMsg){
-				columnShowMsg += title + ':' + columnMsg + '<br>';
+            if(this.editComponent[field] && this.editComponent[field].element){
+	            var validate = new Validate({
+	            	el:editComponent[field].element,
+	                single: true,
+	                required: required,
+	                validType: validType,
+	                placement: placement,
+	                tipId: tipId,
+	                errorMsg: errorMsg,
+	                nullMsg: nullMsg,
+	                maxLength: maxLength,
+	                minLength: minLength,
+	                max: max,
+	                min: min,
+	                maxNotEq: maxNotEq,
+	                minNotEq: minNotEq,
+	                reg: reg,
+	                showFix: true
+	        	});
+				for (var i = 0; i < rows.length; i++) {
+					var value = rows[i].value[field];
+	            	var result = validate.check({pValue:value,showMsg:false});
+	            	passed = result.passed && passed;
+	            	if(!result.passed){
+	            		columnPassedFlag = false;
+	            		if(options.showMsg && columnMsg.indexOf(result.Msg) < 0){
+	            			columnMsg += result.Msg + ' ';
+	            		}
+	            		// 设置背景色
+	            		var index = this.grid.getIndexOfColumn(column);
+	            		var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
+	            		var row = contentDiv.querySelectorAll('tr')[i];
+	            		var td = row.querySelectorAll('td')[index];
+	            		var div = td.querySelector('div')
+	            		addClass(td,'u-grid-err-td');
+	            		addClass(div,'u-grid-err-td');
+	            		var msg = '(' + title + ')' + result.Msg + ';';
+	            		evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
+						eval(evalStr);
+	            	}
+				}
+				// 如果存在错误信息并且提示信息
+				if(!columnPassedFlag && options.showMsg){
+					columnShowMsg += title + ':' + columnMsg + '<br>';
 
-			}
-			if(!columnPassedFlag){
-				if(!hasErrow){
-					// 滚动条要滚动到第一次出现错误的数据列
-					hasErrow = true;
-					var ind = this.grid.getIndexOfColumn(column);
-					var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
-					var left = thDom.attrLeftTotalWidth;
-					var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
-					contentDom.scrollLeft = left;
+				}
+				if(!columnPassedFlag){
+					if(!hasErrow){
+						// 滚动条要滚动到第一次出现错误的数据列
+						hasErrow = true;
+						var ind = this.grid.getIndexOfColumn(column);
+						var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
+						var left = thDom.attrLeftTotalWidth;
+						var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
+						contentDom.scrollLeft = left;
+					}
 				}
 			}
 		}
