@@ -236,7 +236,12 @@ var CheckboxAdapter = BaseAdapter.extend({
                 }
             }
         }else{
-            if (this.comp._inputElement.checked != (val === this.checkedValue)){
+            var flag;
+            if(this.checkedValue === true)
+                flag = (val === this.checkedValue) || (val === "true");
+            else
+                flag = (val === this.checkedValue);
+            if (this.comp._inputElement.checked != flag){
                 this.slice = true;
                 this.comp.toggle();
                 this.slice = false;

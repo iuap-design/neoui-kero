@@ -175,18 +175,23 @@ var GridAdapter = BaseAdapter.extend({
 
 			if(rType == 'booleanRender'){
 				column.renderType = function(obj){
-					var checkStr = '';
+					
+					var grid = obj.gridObj;
+					var datatable = grid.dataTable;
+					var rowId = obj.row.value['$_#_@_id'];
+					var row = datatable.getRowByRowId(rowId);
+					var checkStr = '',disableStr = '';
+
 					if(obj.value == 'Y' || obj.value == 'true'){
 						checkStr = 'checked';
 					}
-					var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr +'>'
+					if(grid.options.editType == 'form'){
+						disableStr = 'disabled'
+					}
+					var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr + " " + disableStr + '>'
 					obj.element.innerHTML = htmlStr;
 
-					var grid = obj.gridObj
-					var datatable = grid.dataTable
-					var rowId = obj.row.value['$_#_@_id'];
-
-					var row = datatable.getRowByRowId(rowId);
+					
 					$(obj.element).find('input').on('click',function(e){
 						if(!obj.gridObj.options.editable){
 							stopEvent(e);
