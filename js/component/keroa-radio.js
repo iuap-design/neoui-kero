@@ -32,8 +32,9 @@ var RadioAdapter = BaseAdapter.extend({
         }
         if (this.options['datasource']) {
             this.dynamic = true;
-            var datasource = getJSObject(this.viewModel, this.options['datasource']);
-            this.setComboData(datasource);
+            this.datasource = getJSObject(this.viewModel, this.options['datasource']);
+            if(this.datasource)
+                this.setComboData(this.datasource);
         } else {
             this.comp = new Radio(this.element);
             this.element['u.Radio'] = this.comp;
@@ -160,16 +161,18 @@ var RadioAdapter = BaseAdapter.extend({
         if (this.slice) return;
         var fetch = false;
         if (this.dynamic){
-            this.trueValue = value;
-            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-                var comp =  ele['u.Radio'];
-                var inptuValue = comp._btnElement.value;
-                if (inptuValue && inptuValue == value) {
-                    fetch = true;
-                    addClass(comp.element,'is-checked')
-                    comp._btnElement.click();
-                }
-            })
+            if(this.datasource){
+                this.trueValue = value;
+                this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+                    var comp =  ele['u.Radio'];
+                    var inptuValue = comp._btnElement.value;
+                    if (inptuValue && inptuValue == value) {
+                        fetch = true;
+                        addClass(comp.element,'is-checked')
+                        comp._btnElement.click();
+                    }
+                })
+            }
         }else{
             if (this.eleValue == value){
                 fetch = true;
@@ -199,14 +202,16 @@ var RadioAdapter = BaseAdapter.extend({
     setEnable: function (enable) {
         this.enable = (enable === true || enable === 'true');
         if (this.dynamic){
-            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-                var comp =  ele['u.Radio'];
-                if (enable === true || enable === 'true'){
-                    comp.enable();
-                }else{
-                    comp.disable();
-                }
-            })
+            if(this.datasource){
+                this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+                    var comp =  ele['u.Radio'];
+                    if (enable === true || enable === 'true'){
+                        comp.enable();
+                    }else{
+                        comp.disable();
+                    }
+                })
+            }
         }else{
             if (this.enable){
                 this.comp.enable();
