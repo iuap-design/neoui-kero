@@ -61,7 +61,8 @@ var ComboboxAdapter = BaseAdapter.extend({
             // if(self.dataModel)
             //     self.dataModel.setValue(self.field, event.value);
             // self.slice = false;
-            self.setValue(event.name);
+            self.setValue(event.value);
+
         });
         //if(this.dataModel){
         //    this.dataModel.ref(this.field).subscribe(function(value) {
@@ -83,12 +84,13 @@ var ComboboxAdapter = BaseAdapter.extend({
         // this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
         // this.setShowValue(this.showValue);
     },
-    //setValue: function (value) {
-    //    this.trueValue = value;
-    //    this.slice = true;
-    //    this.setModelValue(this.trueValue);
-    //    this.slice = false;
-    //},
+    setShowValue: function (value) {
+        console.log( this.comp._input.value);
+       this.trueValue = this.comp._input.value;
+
+       this.setModelValue(this.trueValue);
+
+    },
     //getValue: function () {
     //    return this.trueValue
     //},

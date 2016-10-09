@@ -1,5 +1,5 @@
 /** 
- * neoui-grid v1.0.11
+ * neoui-grid v1.0.12
  * grid
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/grid#readme
@@ -1925,12 +1925,21 @@
 	    if (!tmpcheck) {
 	        tmpcheck = setTimeout(function () {});
 	    }
+
+	    var rootObj = row.value;
+	    var objAry = this.selectRows;
+	    var re = objCompare(rootObj, objAry);
+
 	    if (_gridBrowser.gridBrowser.isIE8) {
 	        //var	htmlStr = '<div style="width:' + this.multiSelectWidth + 'px;' + displayStr + '" class="u-grid-content-multiSelect " ><input class="u-grid-multi-input" id="checkbox'+tmpcheck+'" type="checkbox" value="1" ></div>'
 	        var htmlStr = '<div style="width:' + this.multiSelectWidth + 'px;' + displayStr + '" class="u-grid-content-multiSelect " ><span class="u-grid-checkbox-outline" id="checkbox' + tmpcheck + '" value="1"><span class="u-grid-checkbox-tick-outline"></span></span></div>';
 	    } else {
+	        if (re) {
+	            var htmlStr = '<div style="width:' + this.multiSelectWidth + 'px;' + displayStr + '" class="u-grid-content-multiSelect checkbox check-success u-grid-content-focus-row" ><span class="u-grid-checkbox-outline" id="checkbox' + tmpcheck + '" value="1"><span class="u-grid-checkbox-tick-outline"></span></span></div>';
+	        } else {
+	            var htmlStr = '<div style="width:' + this.multiSelectWidth + 'px;' + displayStr + '" class="u-grid-content-multiSelect checkbox check-success" ><span class="u-grid-checkbox-outline" id="checkbox' + tmpcheck + '" value="1"><span class="u-grid-checkbox-tick-outline"></span></span></div>';
+	        }
 	        //var htmlStr = '<div style="width:' + this.multiSelectWidth + 'px;' + displayStr + '" class="u-grid-content-multiSelect checkbox check-success" ><input class="u-grid-multi-input" id="checkbox'+tmpcheck+'" type="checkbox" value="1" ><label for="checkbox'+tmpcheck+'"></label></div>'
-	        var htmlStr = '<div style="width:' + this.multiSelectWidth + 'px;' + displayStr + '" class="u-grid-content-multiSelect checkbox check-success" ><span class="u-grid-checkbox-outline" id="checkbox' + tmpcheck + '" value="1"><span class="u-grid-checkbox-tick-outline"></span></span></div>';
 	    }
 	    return htmlStr;
 	};
@@ -2042,7 +2051,16 @@
 	    if (!this.options.autoExpand && row.level > 0 && displayFlag != 'block') {
 	        styleStr = 'style="display:none"';
 	    }
-	    var htmlStr = '<tr role="row" ' + styleStr + '>';
+
+	    var rootObj = row.value;
+	    var objAry = this.selectRows;
+	    var re = objCompare(rootObj, objAry);
+	    var htmlStr = '';
+	    if (re) {
+	        htmlStr = '<tr role="row" class="u-grid-content-focus-row" ' + styleStr + '>';
+	    } else {
+	        htmlStr = '<tr role="row" ' + styleStr + '>';
+	    }
 	    htmlStr += this.createContentOneRowTd(row, createFlag);
 	    htmlStr += '</tr>';
 	    return htmlStr;
@@ -2210,6 +2228,20 @@
 	        $('#' + this.options.id + '_content_edit_menu').css('display', 'none');
 	    }
 	    this.realtimeTableRows = null;
+	};
+
+	/**
+	 * Object Compare with Array Object
+	 */
+	var objCompare = function objCompare(rootObj, objAry) {
+	    var aryLen = objAry.length;
+	    var rootStr = JSON.stringify(rootObj);
+	    var matchNum = 0;
+	    for (var i = 0; i < aryLen; i++) {
+	        var compareStr = JSON.stringify(objAry[i]);
+	        matchNum += rootStr == compareStr ? 1 : 0;
+	    }
+	    return matchNum > 0 ? true : false;
 	};
 
 	exports.createDivs = createDivs;
@@ -2661,6 +2693,7 @@
 	    clearInterval(this.inte);
 	    this.$ele.data('gridComp', null);
 	    this.ele.innerHTML = '';
+	    this.showTree = '';
 	};
 	/*
 	 * 对传入参数进行格式化处理
@@ -3166,6 +3199,7 @@
 	        var oThis = this,
 	            oldValue = $(this.dataSourceObj.rows[rowIndex].value).attr(field),
 	            treeRowIndex = rowIndex;
+	        if (typeof value == 'undefined') value = '';
 	        if (oldValue != value || force) {
 	            $(this.dataSourceObj.rows[rowIndex].value).attr(field, value);
 	            $(this.dataSourceObj.options.values[this.dataSourceObj.rows[rowIndex].valueIndex]).attr(field, value);
@@ -3617,7 +3651,7 @@
 	    $.each(oThis.dataSourceObj.rows, function (j) {
 	        if (begin >= 0 && j >= begin && j <= end || isNaN(begin)) {
 	            //如果当前修改此列则将变量重置
-	            if (oThis.editColIndex == visibleColIndex && oThis.eidtRowIndex == j) {
+	            if (oThis.editColIndex == visibleColIndex && oThis.eidtRowIndex == j && oThis.options.editType == 'default') {
 	                oThis.editColIndex = -1;
 	                oThis.eidtRowIndex = -1;
 	            }
@@ -4364,7 +4398,7 @@
 	    for (var i = 0; i < value.length; i++) {
 	        if ("-0123456789.".indexOf(value.charAt(i)) == -1) return "";
 	    }
-	    return this.checkDicimalInvalid(value, precision);
+	    return checkDicimalInvalid(value, precision);
 	};
 	var checkDicimalInvalid = function checkDicimalInvalid(value, precision) {
 	    if (value == null || isNaN(value)) return "";
@@ -4391,6 +4425,33 @@
 	};
 	var getTrIndex = function getTrIndex($tr) {
 	    return $('tr[id!="' + this.options.id + '_edit_tr"]', $tr.parent()).index($tr);
+	};
+
+	/**
+	 * 按字节数截取字符串 例:"e我是d".nLen(4)将返回"e我"
+	 */
+	String.prototype.substrCH = function (nLen) {
+	    var i = 0;
+	    var j = 0;
+	    while (i < nLen && j < this.length) {
+	        // 循环检查制定的结束字符串位置是否存在中文字符
+	        var charCode = this.charCodeAt(j);
+	        if (charCode > 256 && i == nLen - 1) {
+	            break;
+	        }
+	        //      else if(charCode >= 0x800 && charCode <= 0x10000){
+	        //          i = i + 3;
+	        //      }
+	        else if (charCode > 256) {
+	                // 返回指定下标字符编码，大于265表示是中文字符
+	                i = i + 2;
+	            } //是中文字符，那计数增加2
+	            else {
+	                    i = i + 1;
+	                } //是英文字符，那计数增加1
+	        j = j + 1;
+	    };
+	    return this.substr(0, j);
 	};
 	exports.formatWidth = formatWidth;
 	exports.swapEle = swapEle;
@@ -4849,6 +4910,7 @@
 				var cell = tr.insertCell();
 				cell.id = this.options.id + '_edit_td';
 				cell.style.borderBottom = '0px';
+				cell.style.background = '#fff';
 				var cWidth = parseInt(this.contentMinWidth) + parseInt(this.fixedWidth);
 				var htmlStr = '<div id="' + this.options.id + '_edit_form" class="u-grid-edit-form" style="width:' + cWidth + 'px;float:left;">';
 				htmlStr += '</div>';
@@ -5145,7 +5207,7 @@
 		if (this.eidtRowIndex == rowIndex) {
 			if ($('#' + this.options.id + "_edit_field_" + field).length > 0) {
 				if ($('#' + this.options.id + "_edit_field_" + field)[0].type == 'checkbox') {
-					if (value == 'Y' || value == 'true') {
+					if (value == 'Y' || value == 'true' || value === true) {
 						$('#' + this.options.id + "_edit_field_" + field)[0].checked = true;
 					} else {
 						$('#' + this.options.id + "_edit_field_" + field)[0].checked = false;
@@ -5168,6 +5230,7 @@
 	 */
 	var setEditable = function setEditable(editable) {
 		this.options.editable = editable;
+		this.editClose();
 	};
 	var edit_initEventFun = function edit_initEventFun() {
 		var oThis = this;
@@ -5846,6 +5909,7 @@
 		});
 		$.each(this.gridCompColumnArr, function (i) {
 			var sumCol = this.options.sumCol;
+			var dataType = this.options.dataType;
 			var sumRenderType = this.options.sumRenderType;
 			var idStr = '';
 			if (sumCol) {

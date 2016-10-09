@@ -6735,7 +6735,8 @@
 			precision: 2,
 			curSymbol: '￥'
 		},
-		'percent': {}
+		'percent': {},
+		'phoneNumber': {}
 	};
 	/**
 	 * 获取环境信息

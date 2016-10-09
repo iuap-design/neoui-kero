@@ -16,8 +16,8 @@ var PhoneNumberAdapter = IntegerAdapter.extend({
         PhoneNumberAdapter.superclass.init.apply(this);
         this.validType = 'phoneNumber';
         this.maskerMeta = core.getMaskerMeta('phoneNumber') || {};
-        this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
-        this.formater = new NumberFormater(this.maskerMeta.precision);
+        // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+        // this.formater = new NumberFormater(this.maskerMeta.precision);
         this.masker = new PhoneNumberMasker(this.maskerMeta);
     }
 });
