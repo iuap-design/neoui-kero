@@ -83,13 +83,7 @@ var ComboboxAdapter = BaseAdapter.extend({
         // this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
         // this.setShowValue(this.showValue);
     },
-    setShowValue: function (value) {
-        console.log( this.comp._input.value);
-       this.trueValue = this.comp._input.value;
-
-       this.setModelValue(this.trueValue);
-
-    },
+   
     //getValue: function () {
     //    return this.trueValue
     //},
