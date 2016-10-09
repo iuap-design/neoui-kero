@@ -160,8 +160,8 @@ var CheckboxAdapter = BaseAdapter.extend({
     },
     setComboData: function (comboData) {
         var self = this;
-        //this.element.innerHTML = '';
-        for (var i = 0, len = comboData.length; i < (len - 1); i++) {
+        this.element.innerHTML = '';
+        for (var i = 0, len = comboData.length; i < len; i++) {
             for(var j=0; j<this.checkboxTemplateArray.length; j++){
                 this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
             }
@@ -236,7 +236,12 @@ var CheckboxAdapter = BaseAdapter.extend({
                 }
             }
         }else{
-            if (this.comp._inputElement.checked != (val === this.checkedValue)){
+            var flag;
+            if(this.checkedValue === true)
+                flag = (val === this.checkedValue) || (val === "true");
+            else
+                flag = (val === this.checkedValue);
+            if (this.comp._inputElement.checked != flag){
                 this.slice = true;
                 this.comp.toggle();
                 this.slice = false;

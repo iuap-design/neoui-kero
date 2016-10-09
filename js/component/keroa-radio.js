@@ -109,8 +109,8 @@ var RadioAdapter = BaseAdapter.extend({
     },
     setComboData: function (comboData) {
         var self = this;
-        // this.element.innerHTML = '';
-        for (var i = 0, len = comboData.length; i < (len - 1); i++) {
+         this.element.innerHTML = '';
+        for (var i = 0, len = comboData.length; i < len; i++) {
             for(var j=0; j<this.radioTemplateArray.length; j++){
                 this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
             }
