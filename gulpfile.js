@@ -16,7 +16,7 @@ gulp.task('libui', function() {
 });
 
 gulp.task('dist', ['libui'], function(){
-	gulp.src(['./node_modules/tinper-neoui/dist/css/**','./node_modules/tinper-neoui-grid/dist/css/**','./node_modules/neoui-tree/dist/css/**'])
+	gulp.src(['./node_modules/tinper-neoui/dist/css/**','./node_modules/tinper-neoui-grid/dist/css/**','./node_modules/tinper-neoui-tree/dist/css/**'])
 		.pipe(gulp.dest('./dist/css'));
 
 	gulp.src('./node_modules/tinper-neoui/dist/fonts/**')
@@ -25,7 +25,7 @@ gulp.task('dist', ['libui'], function(){
 	gulp.src('./node_modules/tinper-neoui/dist/images/**')
 		.pipe(gulp.dest('./dist/images'));
 
-	gulp.src(['./node_modules/tinper-neoui-grid/dist/js/**', './node_modules/neoui-tree/dist/js/**','./node_modules/tinper-neoui-polyfill/dist/**'])
+	gulp.src(['./node_modules/tinper-neoui-grid/dist/js/**', './node_modules/tinper-neoui-tree/dist/js/**','./node_modules/tinper-neoui-polyfill/dist/**'])
 		.pipe(gulp.dest('./dist/js'));
 
 });
