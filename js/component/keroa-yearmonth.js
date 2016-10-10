@@ -4,7 +4,7 @@
  * Date	  : 2016-08-10 14:11:50
  */
 import {BaseAdapter} from '../core/baseAdapter';
-import {YearMonth} from 'neoui/js/neoui-yearmonth';
+import {YearMonth} from 'tinper-neoui/js/neoui-yearmonth';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';

@@ -10,7 +10,7 @@ import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
-import {Checkbox} from 'neoui/js/neoui-checkbox';
+import {Checkbox} from 'tinper-neoui/js/neoui-checkbox';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {makeDOM} from 'neoui-sparrow/js/dom';
 import {on,stopEvent} from 'neoui-sparrow/js/event';

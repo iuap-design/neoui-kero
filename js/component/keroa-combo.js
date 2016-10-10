@@ -9,7 +9,7 @@ import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
-import {Combo} from 'neoui/js/neoui-combo';
+import {Combo} from 'tinper-neoui/js/neoui-combo';
 import {env} from 'neoui-sparrow/js/env';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
 import {addClass,removeClass} from 'neoui-sparrow/js/dom';

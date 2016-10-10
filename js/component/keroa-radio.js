@@ -12,7 +12,7 @@ import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
 import {makeDOM} from 'neoui-sparrow/js/dom';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
-import {Radio} from 'neoui/js/neoui-radio';
+import {Radio} from 'tinper-neoui/js/neoui-radio';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {addClass} from 'neoui-sparrow/js/dom';
 

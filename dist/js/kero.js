@@ -5508,7 +5508,7 @@
 	    function Row(options) {
 	        _classCallCheck(this, Row);
 
-	        var _this = _possibleConstructorReturn(this, _Events.call(this));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Row).call(this));
 
 	        var self = _this;
 	        _this.rowId = options['id'] || Row.getRandomRowId();
@@ -6735,8 +6735,7 @@
 			precision: 2,
 			curSymbol: '￥'
 		},
-		'percent': {},
-		'phoneNumber': {}
+		'percent': {}
 	};
 	/**
 	 * 获取环境信息

@@ -6,7 +6,7 @@
 
 import {BaseAdapter} from '../core/baseAdapter';
 import {extend} from 'neoui-sparrow/js/extend';
-import {Text} from 'neoui/js/neoui-textfield';
+import {Text} from 'tinper-neoui/js/neoui-textfield';
 import {FloatAdapter} from './keroa-float';
 import {StringAdapter} from './keroa-string';
 import {IntegerAdapter} from './keroa-integer';

@@ -5,7 +5,7 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-import {Month} from 'neoui/js/neoui-month';
+import {Month} from 'tinper-neoui/js/neoui-month';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';

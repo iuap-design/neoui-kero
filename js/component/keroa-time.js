@@ -13,8 +13,8 @@ import {on} from 'neoui-sparrow/js/event';
 import {core} from 'neoui-sparrow/js/core';
 import {env} from 'neoui-sparrow/js/env';
 import {date} from 'neoui-sparrow/js/util/dateUtils';
-import {ClockPicker} from 'neoui/js/neoui-clockpicker';
-import {Time} from 'neoui/js/neoui-time';
+import {ClockPicker} from 'tinper-neoui/js/neoui-clockpicker';
+import {Time} from 'tinper-neoui/js/neoui-time';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 

@@ -1,3 +1,10 @@
+/** 
+ * kero-adapter v1.5.16
+ * kero adapter
+ * author : yonyou FED
+ * homepage : https://github.com/iuap-design/kero-adapter#readme
+ * bugs : https://github.com/iuap-design/kero-adapter/issues
+ **/ 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -4218,8 +4225,7 @@
 			precision: 2,
 			curSymbol: '￥'
 		},
-		'percent': {},
-		'phoneNumber': {}
+		'percent': {}
 	};
 	/**
 	 * 获取环境信息
@@ -4757,8 +4763,8 @@
 	    },
 	    setComboData: function setComboData(comboData) {
 	        var self = this;
-	        //this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len - 1; i++) {
+	        this.element.innerHTML = '';
+	        for (var i = 0, len = comboData.length; i < len; i++) {
 	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
 	                this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
 	            }
@@ -4831,7 +4837,9 @@
 	                }
 	            }
 	        } else {
-	            if (this.comp._inputElement.checked != (val === this.checkedValue)) {
+	            var flag;
+	            if (this.checkedValue === true) flag = val === this.checkedValue || val === "true";else flag = val === this.checkedValue;
+	            if (this.comp._inputElement.checked != flag) {
 	                this.slice = true;
 	                this.comp.toggle();
 	                this.slice = false;
@@ -5358,7 +5366,9 @@
 	    }
 	    if (this.regExp) {
 	        var reg = new RegExp(this.regExp);
-	        if (typeof value == 'number') value = value + "";
+	        if (typeof value == 'number') value = value + "";else if (typeof value == 'boolean') return {
+	            passed: true
+	        };
 	        var r = value.match(reg);
 	        if (r === null || r === false) {
 	            this.showMsg(this.errorMsg);
@@ -6765,6 +6775,7 @@
 	            //     self.dataModel.setValue(self.field, event.value);
 	            // self.slice = false;
 	            self.setValue(event.value);
+	            self.setShowValue(event.name);
 	        });
 	        //if(this.dataModel){
 	        //    this.dataModel.ref(this.field).subscribe(function(value) {
@@ -6785,12 +6796,7 @@
 	        // this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
 	        // this.setShowValue(this.showValue);
 	    },
-	    setShowValue: function setShowValue(value) {
-	        console.log(this.comp._input.value);
-	        this.trueValue = this.comp._input.value;
 
-	        this.setModelValue(this.trueValue);
-	    },
 	    //getValue: function () {
 	    //    return this.trueValue
 	    //},
@@ -7098,6 +7104,15 @@
 	            var index = (this.value + ',').indexOf(val + ',');
 	            var l = val.length + 1;
 	            var flag;
+	            if (this.fullWidth == 0) {
+	                this.fullWidth = this._input.offsetWidth;
+	                if (this.fullWidth > 0) {
+	                    if (this._combo_name_par) {
+	                        this._combo_name_par.style.maxWidth = this.fullWidth + 'px';
+	                    }
+	                }
+	            }
+
 	            if (index != -1) {
 	                // 已经选中
 	                this.value = this.value.substring(0, index) + this.value.substring(index + l);
@@ -7129,7 +7144,7 @@
 	                this._combo_name_par.appendChild(nameDiv);
 	                var nWidth = nameDiv.offsetWidth + 20;
 	                this.nowWidth += nWidth;
-	                if (this.nowWidth > this.fullWidth) {
+	                if (this.nowWidth > this.fullWidth && this.fullWidth > 0) {
 	                    this.nowWidth -= nWidth;
 	                    this._combo_name_par.removeChild(nameDiv);
 	                    (0, _dom.addClass)(this._combo_name_par, 'u-combo-overwidth');
@@ -7151,7 +7166,7 @@
 	            // this.trigger('select', {value: this.value, name: name});
 	        } else {
 	            this.value = this.comboDatas[index].value;
-	            this._input.value = this.comboDatas[index].value;
+	            this._input.value = this.comboDatas[index].name;
 	            this._updateItemSelect();
 	            // this.trigger('select', {value: this.value, name: this._input.value});
 	        }
@@ -7205,6 +7220,7 @@
 	            this.value = '';
 	        }
 	        var matched = false;
+	        this.nowWidth = 0;
 	        this.comboDatas.forEach(function (item, index) {
 	            if (this.mutilSelect === true) {
 	                if (values.indexOf(item.value) != -1) {
@@ -7846,7 +7862,7 @@
 	"use strict";
 
 	exports.__esModule = true;
-	exports.PhoneNumberMasker = exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
+	exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : Sparrow abstract formater class
@@ -8309,35 +8325,6 @@
 		this.color = color;
 	};
 
-	/**
-	 * 电话
-	 * @param {[type]} formatMeta [description]
-	 */
-	function PhoneNumberMasker(formatMeta) {
-		this.update(formatMeta);
-	}
-
-	PhoneNumberMasker.prototype = new NumberMasker();
-	PhoneNumberMasker.prototype.formatMeta = null;
-
-	PhoneNumberMasker.prototype.update = function (formatMeta) {
-		this.formatMeta = (0, _extend.extend)({}, PhoneNumberMasker.DefaultFormatMeta, formatMeta);
-	};
-
-	PhoneNumberMasker.prototype.formatArgument = function (obj) {
-		return obj;
-	};
-
-	PhoneNumberMasker.prototype.innerFormat = function (obj) {
-		if (!obj) {
-			return;
-		}
-		var val = obj;
-		return {
-			value: val
-		};
-	};
-
 	NumberMasker.DefaultFormatMeta = {
 		isNegRed: true,
 		isMarkEnable: true,
@@ -8358,13 +8345,10 @@
 		separator: " "
 	};
 
-	PhoneNumberMasker.defaultFormatMeta = {};
-
 	exports.AddressMasker = AddressMasker;
 	exports.NumberMasker = NumberMasker;
 	exports.CurrencyMasker = CurrencyMasker;
 	exports.PercentMasker = PercentMasker;
-	exports.PhoneNumberMasker = PhoneNumberMasker;
 
 /***/ },
 /* 96 */
@@ -8893,11 +8877,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -8982,11 +8966,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -10095,18 +10079,23 @@
 
 				if (rType == 'booleanRender') {
 					column.renderType = function (obj) {
-						var checkStr = '';
-						if (obj.value == 'Y' || obj.value == 'true') {
-							checkStr = 'checked';
-						}
-						var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr + '>';
-						obj.element.innerHTML = htmlStr;
 
 						var grid = obj.gridObj;
 						var datatable = grid.dataTable;
 						var rowId = obj.row.value['$_#_@_id'];
-
 						var row = datatable.getRowByRowId(rowId);
+						var checkStr = '',
+						    disableStr = '';
+
+						if (obj.value == 'Y' || obj.value == 'true') {
+							checkStr = 'checked';
+						}
+						if (grid.options.editType == 'form') {
+							disableStr = 'disabled';
+						}
+						var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr + " " + disableStr + '>';
+						obj.element.innerHTML = htmlStr;
+
 						$(obj.element).find('input').on('click', function (e) {
 							if (!obj.gridObj.options.editable) {
 								(0, _event.stopEvent)(e);
@@ -11431,59 +11420,61 @@
 
 				var columnPassedFlag = true,
 				    columnMsg = '';
-				var validate = new _neouiValidate.Validate({
-					el: this.element,
-					single: true,
-					required: required,
-					validType: validType,
-					placement: placement,
-					tipId: tipId,
-					errorMsg: errorMsg,
-					nullMsg: nullMsg,
-					maxLength: maxLength,
-					minLength: minLength,
-					max: max,
-					min: min,
-					maxNotEq: maxNotEq,
-					minNotEq: minNotEq,
-					reg: reg,
-					showFix: true
-				});
-				for (var i = 0; i < rows.length; i++) {
-					var value = rows[i].value[field];
-					var result = validate.check({ pValue: value, showMsg: false });
-					passed = result.passed && passed;
-					if (!result.passed) {
-						columnPassedFlag = false;
-						if (options.showMsg && columnMsg.indexOf(result.Msg) < 0) {
-							columnMsg += result.Msg + ' ';
+				if (this.editComponent[field] && this.editComponent[field].element) {
+					var validate = new _neouiValidate.Validate({
+						el: this.editComponent[field].element,
+						single: true,
+						required: required,
+						validType: validType,
+						placement: placement,
+						tipId: tipId,
+						errorMsg: errorMsg,
+						nullMsg: nullMsg,
+						maxLength: maxLength,
+						minLength: minLength,
+						max: max,
+						min: min,
+						maxNotEq: maxNotEq,
+						minNotEq: minNotEq,
+						reg: reg,
+						showFix: true
+					});
+					for (var i = 0; i < rows.length; i++) {
+						var value = rows[i].value[field];
+						var result = validate.check({ pValue: value, showMsg: false });
+						passed = result.passed && passed;
+						if (!result.passed) {
+							columnPassedFlag = false;
+							if (options.showMsg && columnMsg.indexOf(result.Msg) < 0) {
+								columnMsg += result.Msg + ' ';
+							}
+							// 设置背景色
+							var index = this.grid.getIndexOfColumn(column);
+							var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
+							var row = contentDiv.querySelectorAll('tr')[i];
+							var td = row.querySelectorAll('td')[index];
+							var div = td.querySelector('div');
+							(0, _dom.addClass)(td, 'u-grid-err-td');
+							(0, _dom.addClass)(div, 'u-grid-err-td');
+							var msg = '(' + title + ')' + result.Msg + ';';
+							evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
+							eval(evalStr);
 						}
-						// 设置背景色
-						var index = this.grid.getIndexOfColumn(column);
-						var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
-						var row = contentDiv.querySelectorAll('tr')[i];
-						var td = row.querySelectorAll('td')[index];
-						var div = td.querySelector('div');
-						(0, _dom.addClass)(td, 'u-grid-err-td');
-						(0, _dom.addClass)(div, 'u-grid-err-td');
-						var msg = '(' + title + ')' + result.Msg + ';';
-						evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
-						eval(evalStr);
 					}
-				}
-				// 如果存在错误信息并且提示信息
-				if (!columnPassedFlag && options.showMsg) {
-					columnShowMsg += title + ':' + columnMsg + '<br>';
-				}
-				if (!columnPassedFlag) {
-					if (!hasErrow) {
-						// 滚动条要滚动到第一次出现错误的数据列
-						hasErrow = true;
-						var ind = this.grid.getIndexOfColumn(column);
-						var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
-						var left = thDom.attrLeftTotalWidth;
-						var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
-						contentDom.scrollLeft = left;
+					// 如果存在错误信息并且提示信息
+					if (!columnPassedFlag && options.showMsg) {
+						columnShowMsg += title + ':' + columnMsg + '<br>';
+					}
+					if (!columnPassedFlag) {
+						if (!hasErrow) {
+							// 滚动条要滚动到第一次出现错误的数据列
+							hasErrow = true;
+							var ind = this.grid.getIndexOfColumn(column);
+							var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
+							var left = thDom.attrLeftTotalWidth;
+							var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
+							contentDom.scrollLeft = left;
+						}
 					}
 				}
 			}
@@ -13650,8 +13641,8 @@
 	        }
 	        if (this.options['datasource']) {
 	            this.dynamic = true;
-	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-	            this.setComboData(datasource);
+	            this.datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
+	            if (this.datasource) this.setComboData(this.datasource);
 	        } else {
 	            this.comp = new _neouiRadio.Radio(this.element);
 	            this.element['u.Radio'] = this.comp;
@@ -13724,8 +13715,8 @@
 	    },
 	    setComboData: function setComboData(comboData) {
 	        var self = this;
-	        // this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len - 1; i++) {
+	        this.element.innerHTML = '';
+	        for (var i = 0, len = comboData.length; i < len; i++) {
 	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
 	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
 	            }
@@ -13773,16 +13764,18 @@
 	        if (this.slice) return;
 	        var fetch = false;
 	        if (this.dynamic) {
-	            this.trueValue = value;
-	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-	                var comp = ele['u.Radio'];
-	                var inptuValue = comp._btnElement.value;
-	                if (inptuValue && inptuValue == value) {
-	                    fetch = true;
-	                    (0, _dom.addClass)(comp.element, 'is-checked');
-	                    comp._btnElement.click();
-	                }
-	            });
+	            if (this.datasource) {
+	                this.trueValue = value;
+	                this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	                    var comp = ele['u.Radio'];
+	                    var inptuValue = comp._btnElement.value;
+	                    if (inptuValue && inptuValue == value) {
+	                        fetch = true;
+	                        (0, _dom.addClass)(comp.element, 'is-checked');
+	                        comp._btnElement.click();
+	                    }
+	                });
+	            }
 	        } else {
 	            if (this.eleValue == value) {
 	                fetch = true;
@@ -13812,14 +13805,16 @@
 	    setEnable: function setEnable(enable) {
 	        this.enable = enable === true || enable === 'true';
 	        if (this.dynamic) {
-	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-	                var comp = ele['u.Radio'];
-	                if (enable === true || enable === 'true') {
-	                    comp.enable();
-	                } else {
-	                    comp.disable();
-	                }
-	            });
+	            if (this.datasource) {
+	                this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	                    var comp = ele['u.Radio'];
+	                    if (enable === true || enable === 'true') {
+	                        comp.enable();
+	                    } else {
+	                        comp.disable();
+	                    }
+	                });
+	            }
 	        } else {
 	            if (this.enable) {
 	                this.comp.enable();
@@ -14872,7 +14867,7 @@
 	exports.__esModule = true;
 	exports.PhoneNumberAdapter = undefined;
 
-	var _keroaInteger = __webpack_require__(110);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _formater = __webpack_require__(93);
 
@@ -14885,17 +14880,16 @@
 	/**
 	 * 手机号控件
 	 */
-	var PhoneNumberAdapter = _keroaInteger.IntegerAdapter.extend({
+	var PhoneNumberAdapter = _baseAdapter.BaseAdapter.extend({
 	  init: function init() {
 	    PhoneNumberAdapter.superclass.init.apply(this);
 	    this.validType = 'phoneNumber';
-	    this.maskerMeta = _core.core.getMaskerMeta('phoneNumber') || {};
 	    // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
 	    // this.formater = new NumberFormater(this.maskerMeta.precision);
 	    this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
 	  }
 	}); /**
-	     * Module : Kero percent
+	     * Module : Kero phonenumber
 	     * Author : Alex(zhoubyc@yonyou.com)
 	     * Date	  : 2016-08-09 20:02:50
 	     */
@@ -15186,7 +15180,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  		thumb.appendChild(focusHelper);*/
+	  	thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);

@@ -1058,9 +1058,9 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var column = function column(options, gridComp) {
-	  _classCallCheck(this, column);
+	    _classCallCheck(this, column);
 
-	  this.init(options, gridComp);
+	    this.init(options, gridComp);
 	};
 
 	;
@@ -5230,7 +5230,6 @@
 	 */
 	var setEditable = function setEditable(editable) {
 		this.options.editable = editable;
-		this.editClose();
 	};
 	var edit_initEventFun = function edit_initEventFun() {
 		var oThis = this;
@@ -5909,7 +5908,6 @@
 		});
 		$.each(this.gridCompColumnArr, function (i) {
 			var sumCol = this.options.sumCol;
-			var dataType = this.options.dataType;
 			var sumRenderType = this.options.sumRenderType;
 			var idStr = '';
 			if (sumCol) {
