@@ -1560,7 +1560,7 @@ var GridAdapter = BaseAdapter.extend({
                 columnMsg = '';
             if(this.editComponent[field] && this.editComponent[field].element){
 	            var validate = new Validate({
-	            	el:editComponent[field].element,
+	            	el: this.editComponent[field].element,
 	                single: true,
 	                required: required,
 	                validType: validType,
