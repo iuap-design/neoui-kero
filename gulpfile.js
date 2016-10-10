@@ -25,7 +25,7 @@ gulp.task('dist', ['libui'], function(){
 	gulp.src('./node_modules/neoui/dist/images/**')
 		.pipe(gulp.dest('./dist/images'));
 
-	gulp.src(['./node_modules/neoui-grid/dist/js/**', './node_modules/neoui-tree/dist/js/**','./node_modules/neoui-polyfill/dist/**'])
+	gulp.src(['./node_modules/neoui-grid/dist/js/**', './node_modules/neoui-tree/dist/js/**','./node_modules/tinper-neoui-polyfill/dist/**'])
 		.pipe(gulp.dest('./dist/js'));
 
 });

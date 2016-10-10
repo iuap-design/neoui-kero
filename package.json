@@ -16,9 +16,9 @@
     "kero": "^3.4.14",
     "neoui": "^4.1.14",
     "neoui-grid": "^1.0.12",
-    "neoui-polyfill": "^1.2.14",
     "neoui-sparrow": "^1.4.16",
-    "neoui-tree": "^1.0.11"
+    "neoui-tree": "^1.0.11",
+    "tinper-neoui-polyfill": "0.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
