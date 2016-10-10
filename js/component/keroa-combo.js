@@ -62,6 +62,7 @@ var ComboboxAdapter = BaseAdapter.extend({
             //     self.dataModel.setValue(self.field, event.value);
             // self.slice = false;
             self.setValue(event.value);
+            self.setShowValue(event.name);
         });
         //if(this.dataModel){
         //    this.dataModel.ref(this.field).subscribe(function(value) {
