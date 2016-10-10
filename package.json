@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "kero": "^3.4.14",
-    "neoui-grid": "^1.0.12",
     "neoui-sparrow": "^1.4.16",
     "neoui-tree": "^1.0.11",
     "tinper-neoui": "0.0.1",
+    "tinper-neoui-grid": "0.0.1",
     "tinper-neoui-polyfill": "0.0.1"
   },
   "devDependencies": {
