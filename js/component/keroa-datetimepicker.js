@@ -185,7 +185,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 
 
 		}
-        if(env.isMobile){
+        if(!env.isMobile){
 			// 校验
 			this.comp.on('validate', function(event){
 				self.validate.doValidate();
