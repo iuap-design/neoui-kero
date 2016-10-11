@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "1.5.17",
+  "version": "1.6.0",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -13,12 +13,12 @@
     "product": "npm run build && npm run dev && gulp dist"
   },
   "dependencies": {
-    "kero": "^3.4.15",
-    "tinper-neoui": "0.0.2",
-    "tinper-neoui-grid": "0.0.1",
-    "tinper-neoui-polyfill": "0.0.2",
-    "tinper-neoui-tree": "0.0.1",
-    "tinper-sparrow": "0.0.1"
+    "kero": "^3.5.0",
+    "tinper-neoui": "^0.1.0",
+    "tinper-neoui-grid": "^0.1.0",
+    "tinper-neoui-polyfill": "^0.1.0",
+    "tinper-neoui-tree": "^0.1.0",
+    "tinper-sparrow": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
