@@ -160,6 +160,7 @@ var CheckboxAdapter = BaseAdapter.extend({
     },
     setComboData: function (comboData) {
         var self = this;
+        this.datasource = comboData;
         this.element.innerHTML = '';
         for (var i = 0, len = comboData.length; i < len; i++) {
             for(var j=0; j<this.checkboxTemplateArray.length; j++){
