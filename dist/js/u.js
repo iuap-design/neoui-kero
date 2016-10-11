@@ -63,7 +63,7 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	// import * as u from 'neoui-sparrow/js/index';
+	// import * as u from 'tinper-sparrow/js/index';
 	// import * as neoui from 'neoui/js/index';
 	// import {DataTable, u as kero} from 'kero/js/index';
 	// import * as adapter from 'kero-adapter/js/index';
@@ -524,11 +524,14 @@
 	 * @returns {*}
 	 */
 	var addClass = function addClass(element, value) {
-		if (typeof element.classList === 'undefined') {
-			if (u._addClass) u._addClass(element, value);
-		} else {
-			element.classList.add(value);
+		if (element) {
+			if (typeof element.classList === 'undefined') {
+				if (u._addClass) u._addClass(element, value);
+			} else {
+				element.classList.add(value);
+			}
 		}
+
 		return this;
 	};
 	/**
@@ -542,10 +545,12 @@
 	 * Date	  : 2016-08-16 13:59:17
 	 */
 	var removeClass = function removeClass(element, value) {
-		if (typeof element.classList === 'undefined') {
-			if (u._removeClass) u._removeClass(element, value);
-		} else {
-			element.classList.remove(value);
+		if (element) {
+			if (typeof element.classList === 'undefined') {
+				if (u._removeClass) u._removeClass(element, value);
+			} else {
+				element.classList.remove(value);
+			}
 		}
 		return this;
 	};
@@ -3494,7 +3499,7 @@
 	    this.updateSelectedIndices();
 
 	    if (select && select.length > 0 && this.rows().length > 0) this.setRowsSelect(select);
-	    if (focus !== undefined) this.setRowFocus(focus);
+	    if (focus !== undefined && this.getRow(focus)) this.setRowFocus(focus);
 	};
 
 	var setValue = function setValue(fieldName, value, row, ctx) {
@@ -4542,7 +4547,9 @@
 
 	var removeRows = function removeRows(indices) {
 	    indices = (0, _util._formatToIndicesArray)(this, indices);
-	    indices = indices.sort();
+	    indices = indices.sort(function (a, b) {
+	        return a - b;
+	    });
 	    var rowIds = [],
 	        rows = this.rows(),
 	        deleteRows = [];
@@ -4614,7 +4621,7 @@
 	    if (typeof indices == 'string' || typeof indices == 'number') {
 	        indices = [indices];
 	    } else if (indices instanceof Row) {
-	        indices = dataTableObj.getIndexByRowId(indices.rowId);
+	        indices = [dataTableObj.getIndexByRowId(indices.rowId)];
 	    } else if ((0, _util.isArray)(indices) && indices.length > 0 && indices[0] instanceof Row) {
 	        for (var i = 0; i < indices.length; i++) {
 	            indices[i] = dataTableObj.getIndexByRowId(indices[i].rowId);
@@ -6720,7 +6727,8 @@
 			precision: 2,
 			curSymbol: '￥'
 		},
-		'percent': {}
+		'percent': {},
+		'phoneNumber': {}
 	};
 	/**
 	 * 获取环境信息
@@ -7317,6 +7325,7 @@
 	    },
 	    setComboData: function setComboData(comboData) {
 	        var self = this;
+	        this.datasource = comboData;
 	        this.element.innerHTML = '';
 	        for (var i = 0, len = comboData.length; i < len; i++) {
 	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
@@ -10416,7 +10425,7 @@
 	"use strict";
 
 	exports.__esModule = true;
-	exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
+	exports.PhoneNumberMasker = exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                   * Module : Sparrow abstract formater class
@@ -10879,6 +10888,35 @@
 		this.color = color;
 	};
 
+	/**
+	 * 电话
+	 * @param {[type]} formatMeta [description]
+	 */
+	function PhoneNumberMasker(formatMeta) {
+		this.update(formatMeta);
+	}
+
+	PhoneNumberMasker.prototype = new NumberMasker();
+	PhoneNumberMasker.prototype.formatMeta = null;
+
+	PhoneNumberMasker.prototype.update = function (formatMeta) {
+		this.formatMeta = (0, _extend.extend)({}, PhoneNumberMasker.DefaultFormatMeta, formatMeta);
+	};
+
+	PhoneNumberMasker.prototype.formatArgument = function (obj) {
+		return obj;
+	};
+
+	PhoneNumberMasker.prototype.innerFormat = function (obj) {
+		if (!obj) {
+			return;
+		}
+		var val = obj;
+		return {
+			value: val
+		};
+	};
+
 	NumberMasker.DefaultFormatMeta = {
 		isNegRed: true,
 		isMarkEnable: true,
@@ -10899,10 +10937,13 @@
 		separator: " "
 	};
 
+	PhoneNumberMasker.defaultFormatMeta = {};
+
 	exports.AddressMasker = AddressMasker;
 	exports.NumberMasker = NumberMasker;
 	exports.CurrencyMasker = CurrencyMasker;
 	exports.PercentMasker = PercentMasker;
+	exports.PhoneNumberMasker = PhoneNumberMasker;
 
 /***/ },
 /* 96 */
@@ -14071,7 +14112,7 @@
 	'use strict';
 
 	exports.__esModule = true;
-	exports.dateToUTCString = exports.percentRender = exports.timeRender = exports.dateTimeRender = exports.dateRender = exports.integerRender = exports.floatRender = undefined;
+	exports.phoneNumberRender = exports.dateToUTCString = exports.percentRender = exports.timeRender = exports.dateTimeRender = exports.dateRender = exports.integerRender = exports.floatRender = undefined;
 
 	var _core = __webpack_require__(71);
 
@@ -14140,6 +14181,17 @@
 		return maskerValue && maskerValue.value ? maskerValue.value : '';
 	};
 
+	var phoneNumberRender = function phoneNumberRender() {
+		var trueValue = value;
+		if (typeof value === 'undefined' || value === null) return value;
+		//value 为 ko对象
+		if (typeof value === 'function') trueValue = value();
+		var maskerMeta = _core.core.getMaskerMeta('phoneNumber') || {};
+		var masker = new _masker.PhoneNumberMasker(maskerMeta);
+		var maskerValue = masker.format(trueValue);
+		return maskerValue && maskerValue.value ? maskerValue.value : '';
+	};
+
 	var dateToUTCString = function dateToUTCString(date) {
 		if (!date) return '';
 		if (date.indexOf("-") > -1) date = date.replace(/\-/g, "/");
@@ -14155,6 +14207,7 @@
 	exports.timeRender = timeRender;
 	exports.percentRender = percentRender;
 	exports.dateToUTCString = dateToUTCString;
+	exports.phoneNumberRender = phoneNumberRender;
 
 /***/ },
 /* 100 */
@@ -16268,7 +16321,9 @@
 	        });
 	    },
 	    setComboData: function setComboData(comboData) {
+
 	        var self = this;
+	        this.datasource = comboData;
 	        this.element.innerHTML = '';
 	        for (var i = 0, len = comboData.length; i < len; i++) {
 	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
@@ -19422,24 +19477,24 @@
 	};
 	//extend(ex,env);
 
-	//import {setCookie,getCookie} from 'neoui-sparrow/lib/cookies';
-	//import {createShellObject,execIgnoreError,getFunction,getJSObject,isDate,isNumber,isArray,isEmptyObject,inArray,isDomElement,each} from 'neoui-sparrow/lib/util';
-	//import {env} from 'neoui-sparrow/lib/env';
-	//import {on,off,trigger,stopEvent,event} from 'neoui-sparrow/lib/event';
-	//import {addClass,removeClass,hasClass,toggleClass,closest,css,wrap,getStyle,getZIndex,makeDOM,makeModal,getOffset,getScroll,showPanelByEle} from 'neoui-sparrow/lib/dom';
-	//import {Class} from 'neoui-sparrow/lib/class';
-	//import {core} from 'neoui-sparrow/lib/core';
-	//import {compMgr} from 'neoui-sparrow/lib/compMgr';
-	//import {BaseComponent} from 'neoui-sparrow/lib/BaseComponent';
-	//import {ajax} from 'neoui-sparrow/lib/ajax';
-	//import {floatRender,integerRender,dateRender,dateTimeRender,timeRender,percentRender,dateToUTCString} from 'neoui-sparrow/lib/util/dataRender';
-	//import {NumberFormater,DateFormater} from 'neoui-sparrow/lib/util/formater';
-	//import {date} from 'neoui-sparrow/lib/util/dateUtils';
-	//import {AddressMasker,NumberMasker,CurrencyMasker,PercentMasker} from 'neoui-sparrow/lib/util/masker'
-	//import {hotkeys} from 'neoui-sparrow/lib/util/hotKeys';
-	//import {Ripple} from 'neoui-sparrow/lib/util/ripple';
-	//import {RSAUtils,BigInt,BarrettMu,twoDigit} from 'neoui-sparrow/lib/util/rsautils';
-	//import {trans} from 'neoui-sparrow/lib/util/i18n';
+	//import {setCookie,getCookie} from 'tinper-sparrow/lib/cookies';
+	//import {createShellObject,execIgnoreError,getFunction,getJSObject,isDate,isNumber,isArray,isEmptyObject,inArray,isDomElement,each} from 'tinper-sparrow/lib/util';
+	//import {env} from 'tinper-sparrow/lib/env';
+	//import {on,off,trigger,stopEvent,event} from 'tinper-sparrow/lib/event';
+	//import {addClass,removeClass,hasClass,toggleClass,closest,css,wrap,getStyle,getZIndex,makeDOM,makeModal,getOffset,getScroll,showPanelByEle} from 'tinper-sparrow/lib/dom';
+	//import {Class} from 'tinper-sparrow/lib/class';
+	//import {core} from 'tinper-sparrow/lib/core';
+	//import {compMgr} from 'tinper-sparrow/lib/compMgr';
+	//import {BaseComponent} from 'tinper-sparrow/lib/BaseComponent';
+	//import {ajax} from 'tinper-sparrow/lib/ajax';
+	//import {floatRender,integerRender,dateRender,dateTimeRender,timeRender,percentRender,dateToUTCString} from 'tinper-sparrow/lib/util/dataRender';
+	//import {NumberFormater,DateFormater} from 'tinper-sparrow/lib/util/formater';
+	//import {date} from 'tinper-sparrow/lib/util/dateUtils';
+	//import {AddressMasker,NumberMasker,CurrencyMasker,PercentMasker} from 'tinper-sparrow/lib/util/masker'
+	//import {hotkeys} from 'tinper-sparrow/lib/util/hotKeys';
+	//import {Ripple} from 'tinper-sparrow/lib/util/ripple';
+	//import {RSAUtils,BigInt,BarrettMu,twoDigit} from 'tinper-sparrow/lib/util/rsautils';
+	//import {trans} from 'tinper-sparrow/lib/util/i18n';
 
 	//Neoui import
 	(0, _extend.extend)(ex, window.u || {});

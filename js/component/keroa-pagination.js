@@ -4,10 +4,10 @@
  * Date	  : 2016-08-09 19:09:39
  */
 import {BaseAdapter} from '../core/baseAdapter';
-import {extend} from 'neoui-sparrow/js/extend';
+import {extend} from 'tinper-sparrow/js/extend';
 import {pagination} from 'tinper-neoui/js/neoui-pagination';
-import {getFunction} from 'neoui-sparrow/js/util';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {getFunction} from 'tinper-sparrow/js/util';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 
 
 var PaginationAdapter = BaseAdapter.extend({

@@ -9,15 +9,15 @@ import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
-import {getJSObject} from 'neoui-sparrow/js/util';
+import {getJSObject} from 'tinper-sparrow/js/util';
 import {Checkbox} from 'tinper-neoui/js/neoui-checkbox';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
-import {NumberFormater} from 'neoui-sparrow/js/util/formater';
-import {isNumber} from 'neoui-sparrow/js/util';
+import {NumberFormater} from 'tinper-sparrow/js/util/formater';
+import {isNumber} from 'tinper-sparrow/js/util';
 import {FloatAdapter} from './keroa-float';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
-import {core} from 'neoui-sparrow/js/core';
-import {CurrencyMasker} from 'neoui-sparrow/js/util/masker';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {core} from 'tinper-sparrow/js/core';
+import {CurrencyMasker} from 'tinper-sparrow/js/util/masker';
 
 /**
  * 货币控件

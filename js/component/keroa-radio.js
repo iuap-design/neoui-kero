@@ -9,12 +9,12 @@ import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
-import {getJSObject} from 'neoui-sparrow/js/util';
-import {makeDOM} from 'neoui-sparrow/js/dom';
-import {on,off,stopEvent} from 'neoui-sparrow/js/event';
+import {getJSObject} from 'tinper-sparrow/js/util';
+import {makeDOM} from 'tinper-sparrow/js/dom';
+import {on,off,stopEvent} from 'tinper-sparrow/js/event';
 import {Radio} from 'tinper-neoui/js/neoui-radio';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
-import {addClass} from 'neoui-sparrow/js/dom';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {addClass} from 'tinper-sparrow/js/dom';
 
 var RadioAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],

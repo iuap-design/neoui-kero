@@ -4,8 +4,8 @@
  * Date	  : 2016-08-10 13:51:26
  */
 import {StringAdapter} from './keroa-string';
-import {addClass,removeClass,makeDOM} from 'neoui-sparrow/js/dom';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {addClass,removeClass,makeDOM} from 'tinper-sparrow/js/dom';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 
 var UrlAdapter = StringAdapter.extend({
     init: function () {

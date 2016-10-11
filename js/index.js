@@ -3,7 +3,7 @@
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-10 14:51:05
  */
-import {extend} from 'neoui-sparrow/js/extend';
+import {extend} from 'tinper-sparrow/js/extend';
 
 import {BaseAdapter} from './core/baseAdapter';
 import {CheckboxAdapter} from './component/keroa-checkbox';

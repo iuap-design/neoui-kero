@@ -6,7 +6,7 @@
 
 import {BaseAdapter} from '../core/baseAdapter';
 import {Switch} from 'tinper-neoui/js/neoui-switch';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 
 
 var SwitchAdapter = BaseAdapter.extend({

@@ -4,10 +4,10 @@
  * Date	  : 2016-08-09 20:02:50
  */
 import {BaseAdapter} from '../core/baseAdapter';
-import {NumberFormater} from 'neoui-sparrow/js/util/formater';
-import {PhoneNumberMasker} from 'neoui-sparrow/js/util/masker';
-import {core} from 'neoui-sparrow/js/core';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {NumberFormater} from 'tinper-sparrow/js/util/formater';
+import {PhoneNumberMasker} from 'tinper-sparrow/js/util/masker';
+import {core} from 'tinper-sparrow/js/core';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 /**
  * 手机号控件
  */

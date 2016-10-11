@@ -6,7 +6,7 @@
 
 import {BaseAdapter} from '../core/baseAdapter';
 import {Progress} from 'tinper-neoui/js/neoui-progress';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 
 var ProgressAdapter = BaseAdapter.extend({
     initialize: function (options) {

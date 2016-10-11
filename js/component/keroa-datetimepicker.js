@@ -9,14 +9,14 @@ import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
-import {on,off,stopEvent} from 'neoui-sparrow/js/event';
-import {addClass,removeClass} from 'neoui-sparrow/js/dom';
-import {core} from 'neoui-sparrow/js/core';
+import {on,off,stopEvent} from 'tinper-sparrow/js/event';
+import {addClass,removeClass} from 'tinper-sparrow/js/dom';
+import {core} from 'tinper-sparrow/js/core';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
-import {env} from 'neoui-sparrow/js/env';
+import {env} from 'tinper-sparrow/js/env';
 import {DateTimePicker} from 'tinper-neoui/js/neoui-datetimepicker';
-import {date} from 'neoui-sparrow/js/util/dateUtils';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {date} from 'tinper-sparrow/js/util/dateUtils';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 
 var DateTimeAdapter = BaseAdapter.extend({
 	mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],

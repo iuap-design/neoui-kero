@@ -8,14 +8,14 @@ import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
-import {on,off,stopEvent} from 'neoui-sparrow/js/event';
-import {addClass,removeClass} from 'neoui-sparrow/js/dom';
-import {core} from 'neoui-sparrow/js/core';
-import {NumberFormater} from 'neoui-sparrow/js/util/formater';
-import {date} from 'neoui-sparrow/js/util/dateUtils';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
-import {NumberMasker} from 'neoui-sparrow/js/util/masker';
-import {isNumber} from 'neoui-sparrow/js/util';
+import {on,off,stopEvent} from 'tinper-sparrow/js/event';
+import {addClass,removeClass} from 'tinper-sparrow/js/dom';
+import {core} from 'tinper-sparrow/js/core';
+import {NumberFormater} from 'tinper-sparrow/js/util/formater';
+import {date} from 'tinper-sparrow/js/util/dateUtils';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {NumberMasker} from 'tinper-sparrow/js/util/masker';
+import {isNumber} from 'tinper-sparrow/js/util';
 
 
 var FloatAdapter = BaseAdapter.extend({

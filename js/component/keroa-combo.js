@@ -8,12 +8,12 @@ import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
-import {getJSObject} from 'neoui-sparrow/js/util';
+import {getJSObject} from 'tinper-sparrow/js/util';
 import {Combo} from 'tinper-neoui/js/neoui-combo';
-import {env} from 'neoui-sparrow/js/env';
-import {on,off,stopEvent} from 'neoui-sparrow/js/event';
-import {addClass,removeClass} from 'neoui-sparrow/js/dom';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {env} from 'tinper-sparrow/js/env';
+import {on,off,stopEvent} from 'tinper-sparrow/js/event';
+import {addClass,removeClass} from 'tinper-sparrow/js/dom';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 
 var ComboboxAdapter = BaseAdapter.extend({
     mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],

@@ -9,13 +9,13 @@ import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
-import {on} from 'neoui-sparrow/js/event';
-import {core} from 'neoui-sparrow/js/core';
-import {env} from 'neoui-sparrow/js/env';
-import {date} from 'neoui-sparrow/js/util/dateUtils';
+import {on} from 'tinper-sparrow/js/event';
+import {core} from 'tinper-sparrow/js/core';
+import {env} from 'tinper-sparrow/js/env';
+import {date} from 'tinper-sparrow/js/util/dateUtils';
 import {ClockPicker} from 'tinper-neoui/js/neoui-clockpicker';
 import {Time} from 'tinper-neoui/js/neoui-time';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 
 
 

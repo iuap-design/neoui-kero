@@ -539,11 +539,14 @@
 	 * @returns {*}
 	 */
 	var addClass = function addClass(element, value) {
-		if (typeof element.classList === 'undefined') {
-			if (u._addClass) u._addClass(element, value);
-		} else {
-			element.classList.add(value);
+		if (element) {
+			if (typeof element.classList === 'undefined') {
+				if (u._addClass) u._addClass(element, value);
+			} else {
+				element.classList.add(value);
+			}
 		}
+
 		return this;
 	};
 	/**
@@ -557,10 +560,12 @@
 	 * Date	  : 2016-08-16 13:59:17
 	 */
 	var removeClass = function removeClass(element, value) {
-		if (typeof element.classList === 'undefined') {
-			if (u._removeClass) u._removeClass(element, value);
-		} else {
-			element.classList.remove(value);
+		if (element) {
+			if (typeof element.classList === 'undefined') {
+				if (u._removeClass) u._removeClass(element, value);
+			} else {
+				element.classList.remove(value);
+			}
 		}
 		return this;
 	};
@@ -3509,7 +3514,7 @@
 	    this.updateSelectedIndices();
 
 	    if (select && select.length > 0 && this.rows().length > 0) this.setRowsSelect(select);
-	    if (focus !== undefined) this.setRowFocus(focus);
+	    if (focus !== undefined && this.getRow(focus)) this.setRowFocus(focus);
 	};
 
 	var setValue = function setValue(fieldName, value, row, ctx) {
@@ -4557,7 +4562,9 @@
 
 	var removeRows = function removeRows(indices) {
 	    indices = (0, _util._formatToIndicesArray)(this, indices);
-	    indices = indices.sort();
+	    indices = indices.sort(function (a, b) {
+	        return a - b;
+	    });
 	    var rowIds = [],
 	        rows = this.rows(),
 	        deleteRows = [];
@@ -4629,7 +4636,7 @@
 	    if (typeof indices == 'string' || typeof indices == 'number') {
 	        indices = [indices];
 	    } else if (indices instanceof Row) {
-	        indices = dataTableObj.getIndexByRowId(indices.rowId);
+	        indices = [dataTableObj.getIndexByRowId(indices.rowId)];
 	    } else if ((0, _util.isArray)(indices) && indices.length > 0 && indices[0] instanceof Row) {
 	        for (var i = 0; i < indices.length; i++) {
 	            indices[i] = dataTableObj.getIndexByRowId(indices[i].rowId);
@@ -6735,7 +6742,8 @@
 			precision: 2,
 			curSymbol: '￥'
 		},
-		'percent': {}
+		'percent': {},
+		'phoneNumber': {}
 	};
 	/**
 	 * 获取环境信息

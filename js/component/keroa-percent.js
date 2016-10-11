@@ -4,10 +4,10 @@
  * Date	  : 2016-08-09 20:02:50
  */
 import {FloatAdapter} from './keroa-float';
-import {NumberFormater} from 'neoui-sparrow/js/util/formater';
-import {PercentMasker} from 'neoui-sparrow/js/util/masker';
-import {core} from 'neoui-sparrow/js/core';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {NumberFormater} from 'tinper-sparrow/js/util/formater';
+import {PercentMasker} from 'tinper-sparrow/js/util/masker';
+import {core} from 'tinper-sparrow/js/core';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 /**
  * 百分比控件
  */

@@ -5,10 +5,10 @@
  */
 
 import {StringAdapter} from './keroa-string';
-import {getJSObject} from 'neoui-sparrow/js/util';
-import {env} from 'neoui-sparrow/js/env';
-import {on} from 'neoui-sparrow/js/event';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {getJSObject} from 'tinper-sparrow/js/util';
+import {env} from 'tinper-sparrow/js/env';
+import {on} from 'tinper-sparrow/js/event';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 
 
 

@@ -9,12 +9,12 @@ import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
-import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
-import {NumberFormater} from 'neoui-sparrow/js/util/formater';
-import {NumberMasker,PercentMasker,CurrencyMasker} from 'neoui-sparrow/js/util/masker';
-import {dateRender,dateTimeRender} from 'neoui-sparrow/js/util/dataRender';
+import {getJSObject,getFunction} from 'tinper-sparrow/js/util';
+import {NumberFormater} from 'tinper-sparrow/js/util/formater';
+import {NumberMasker,PercentMasker,CurrencyMasker} from 'tinper-sparrow/js/util/masker';
+import {dateRender,dateTimeRender} from 'tinper-sparrow/js/util/dataRender';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
-import {stopEvent} from 'neoui-sparrow/js/event';
+import {stopEvent} from 'tinper-sparrow/js/event';
 import {YearAdapter} from './keroa-year';
 import {MonthAdapter} from './keroa-month';
 import {YearMonthAdapter} from './keroa-yearmonth';
@@ -32,10 +32,10 @@ import {PassWordAdapter} from './keroa-password';
 import {PercentAdapter} from './keroa-percent';
 import {Validate} from 'tinper-neoui/js/neoui-validate';
 import {showMessage} from 'tinper-neoui/js/neoui-message';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
-import {trans} from 'neoui-sparrow/js/util/i18n';
-import {core} from 'neoui-sparrow/js/core';
-import {addClass} from 'neoui-sparrow/js/dom';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {trans} from 'tinper-sparrow/js/util/i18n';
+import {core} from 'tinper-sparrow/js/core';
+import {addClass} from 'tinper-sparrow/js/dom';
 
 var GridAdapter = BaseAdapter.extend({
 	initialize: function(options) {

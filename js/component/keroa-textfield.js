@@ -5,12 +5,12 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-import {extend} from 'neoui-sparrow/js/extend';
+import {extend} from 'tinper-sparrow/js/extend';
 import {Text} from 'tinper-neoui/js/neoui-textfield';
 import {FloatAdapter} from './keroa-float';
 import {StringAdapter} from './keroa-string';
 import {IntegerAdapter} from './keroa-integer';
-import {compMgr} from 'neoui-sparrow/js/compMgr';
+import {compMgr} from 'tinper-sparrow/js/compMgr';
 
 
 var TextFieldAdapter = BaseAdapter.extend({
