@@ -5493,7 +5493,7 @@
 	    function Row(options) {
 	        _classCallCheck(this, Row);
 
-	        var _this = _possibleConstructorReturn(this, _Events.call(this));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Row).call(this));
 
 	        var self = _this;
 	        _this.rowId = options['id'] || Row.getRandomRowId();
@@ -6975,33 +6975,33 @@
 
 	var _keroaGrid = __webpack_require__(98);
 
-	var _keroaInteger = __webpack_require__(107);
+	var _keroaInteger = __webpack_require__(110);
 
 	var _keroaMonth = __webpack_require__(102);
 
-	var _keroaPagination = __webpack_require__(114);
+	var _keroaPagination = __webpack_require__(117);
 
-	var _keroaPassword = __webpack_require__(111);
+	var _keroaPassword = __webpack_require__(114);
 
-	var _keroaPercent = __webpack_require__(112);
+	var _keroaPercent = __webpack_require__(115);
 
-	var _keroaPhoneNumber = __webpack_require__(116);
+	var _keroaPhoneNumber = __webpack_require__(119);
 
-	var _keroaString = __webpack_require__(106);
+	var _keroaString = __webpack_require__(109);
 
-	var _keroaProgress = __webpack_require__(117);
+	var _keroaProgress = __webpack_require__(120);
 
-	var _keroaRadio = __webpack_require__(108);
+	var _keroaRadio = __webpack_require__(111);
 
-	var _keroaSwitch = __webpack_require__(119);
+	var _keroaSwitch = __webpack_require__(122);
 
-	var _keroaTextarea = __webpack_require__(121);
+	var _keroaTextarea = __webpack_require__(124);
 
-	var _keroaTextfield = __webpack_require__(122);
+	var _keroaTextfield = __webpack_require__(125);
 
-	var _keroaTime = __webpack_require__(123);
+	var _keroaTime = __webpack_require__(106);
 
-	var _keroaUrl = __webpack_require__(110);
+	var _keroaUrl = __webpack_require__(113);
 
 	var _keroaYear = __webpack_require__(100);
 
@@ -7317,8 +7317,8 @@
 	    },
 	    setComboData: function setComboData(comboData) {
 	        var self = this;
-	        //this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len - 1; i++) {
+	        this.element.innerHTML = '';
+	        for (var i = 0, len = comboData.length; i < len; i++) {
 	            for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
 	                this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
 	            }
@@ -7391,7 +7391,9 @@
 	                }
 	            }
 	        } else {
-	            if (this.comp._inputElement.checked != (val === this.checkedValue)) {
+	            var flag;
+	            if (this.checkedValue === true) flag = val === this.checkedValue || val === "true";else flag = val === this.checkedValue;
+	            if (this.comp._inputElement.checked != flag) {
 	                this.slice = true;
 	                this.comp.toggle();
 	                this.slice = false;
@@ -7918,7 +7920,9 @@
 	    }
 	    if (this.regExp) {
 	        var reg = new RegExp(this.regExp);
-	        if (typeof value == 'number') value = value + "";
+	        if (typeof value == 'number') value = value + "";else if (typeof value == 'boolean') return {
+	            passed: true
+	        };
 	        var r = value.match(reg);
 	        if (r === null || r === false) {
 	            this.showMsg(this.errorMsg);
@@ -9324,7 +9328,8 @@
 	            // if(self.dataModel)
 	            //     self.dataModel.setValue(self.field, event.value);
 	            // self.slice = false;
-	            self.setValue(event.name);
+	            self.setValue(event.value);
+	            self.setShowValue(event.name);
 	        });
 	        //if(this.dataModel){
 	        //    this.dataModel.ref(this.field).subscribe(function(value) {
@@ -9345,12 +9350,7 @@
 	        // this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
 	        // this.setShowValue(this.showValue);
 	    },
-	    //setValue: function (value) {
-	    //    this.trueValue = value;
-	    //    this.slice = true;
-	    //    this.setModelValue(this.trueValue);
-	    //    this.slice = false;
-	    //},
+
 	    //getValue: function () {
 	    //    return this.trueValue
 	    //},
@@ -9658,6 +9658,15 @@
 	            var index = (this.value + ',').indexOf(val + ',');
 	            var l = val.length + 1;
 	            var flag;
+	            if (this.fullWidth == 0) {
+	                this.fullWidth = this._input.offsetWidth;
+	                if (this.fullWidth > 0) {
+	                    if (this._combo_name_par) {
+	                        this._combo_name_par.style.maxWidth = this.fullWidth + 'px';
+	                    }
+	                }
+	            }
+
 	            if (index != -1) {
 	                // 已经选中
 	                this.value = this.value.substring(0, index) + this.value.substring(index + l);
@@ -9689,7 +9698,7 @@
 	                this._combo_name_par.appendChild(nameDiv);
 	                var nWidth = nameDiv.offsetWidth + 20;
 	                this.nowWidth += nWidth;
-	                if (this.nowWidth > this.fullWidth) {
+	                if (this.nowWidth > this.fullWidth && this.fullWidth > 0) {
 	                    this.nowWidth -= nWidth;
 	                    this._combo_name_par.removeChild(nameDiv);
 	                    (0, _dom.addClass)(this._combo_name_par, 'u-combo-overwidth');
@@ -9711,7 +9720,7 @@
 	            // this.trigger('select', {value: this.value, name: name});
 	        } else {
 	            this.value = this.comboDatas[index].value;
-	            this._input.value = this.comboDatas[index].value;
+	            this._input.value = this.comboDatas[index].name;
 	            this._updateItemSelect();
 	            // this.trigger('select', {value: this.value, name: this._input.value});
 	        }
@@ -9765,6 +9774,7 @@
 	            this.value = '';
 	        }
 	        var matched = false;
+	        this.nowWidth = 0;
 	        this.comboDatas.forEach(function (item, index) {
 	            if (this.mutilSelect === true) {
 	                if (values.indexOf(item.value) != -1) {
@@ -11421,11 +11431,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -11510,11 +11520,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -12464,15 +12474,17 @@
 
 	var _keroaYearmonth = __webpack_require__(104);
 
-	var _keroaString = __webpack_require__(106);
+	var _keroaTime = __webpack_require__(106);
 
-	var _keroaInteger = __webpack_require__(107);
+	var _keroaString = __webpack_require__(109);
+
+	var _keroaInteger = __webpack_require__(110);
 
 	var _keroaCheckbox = __webpack_require__(77);
 
 	var _keroaCombo = __webpack_require__(89);
 
-	var _keroaRadio = __webpack_require__(108);
+	var _keroaRadio = __webpack_require__(111);
 
 	var _keroaFloat = __webpack_require__(94);
 
@@ -12480,15 +12492,15 @@
 
 	var _keroaDatetimepicker = __webpack_require__(96);
 
-	var _keroaUrl = __webpack_require__(110);
+	var _keroaUrl = __webpack_require__(113);
 
-	var _keroaPassword = __webpack_require__(111);
+	var _keroaPassword = __webpack_require__(114);
 
-	var _keroaPercent = __webpack_require__(112);
+	var _keroaPercent = __webpack_require__(115);
 
 	var _neouiValidate = __webpack_require__(82);
 
-	var _neouiMessage = __webpack_require__(113);
+	var _neouiMessage = __webpack_require__(116);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -12621,18 +12633,23 @@
 
 				if (rType == 'booleanRender') {
 					column.renderType = function (obj) {
-						var checkStr = '';
-						if (obj.value == 'Y' || obj.value == 'true') {
-							checkStr = 'checked';
-						}
-						var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr + '>';
-						obj.element.innerHTML = htmlStr;
 
 						var grid = obj.gridObj;
 						var datatable = grid.dataTable;
 						var rowId = obj.row.value['$_#_@_id'];
-
 						var row = datatable.getRowByRowId(rowId);
+						var checkStr = '',
+						    disableStr = '';
+
+						if (obj.value == 'Y' || obj.value == 'true') {
+							checkStr = 'checked';
+						}
+						if (grid.options.editType == 'form') {
+							disableStr = 'disabled';
+						}
+						var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr + " " + disableStr + '>';
+						obj.element.innerHTML = htmlStr;
+
 						$(obj.element).find('input').on('click', function (e) {
 							if (!obj.gridObj.options.editable) {
 								(0, _event.stopEvent)(e);
@@ -13725,6 +13742,26 @@
 						oThis.gridOptions.customEditPanelClass = 'u-date-panel';
 					}
 				}
+			} else if (eType == 'time') {
+				compDiv = $('<div class="input-group u-grid-edit-item-datetime" ><input class="form-control" /><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div>');
+
+				//comp = new $.compManager.plugs.datetime(compDiv[0],eOptions,viewModel);
+				if ($.DateTime) {
+					comp = new $.DateTime(compDiv[0], eOptions, viewModel);
+				} else {
+					comp = new _keroaTime.TimeAdapter({
+						el: compDiv[0],
+						options: eOptions,
+						model: viewModel
+					});
+					if (oThis.gridOptions.customEditPanelClass) {
+						if (oThis.gridOptions.customEditPanelClass.indexOf('u-date-panel') < 0) {
+							oThis.gridOptions.customEditPanelClass += ',u-date-panel';
+						}
+					} else {
+						oThis.gridOptions.customEditPanelClass = 'u-date-panel';
+					}
+				}
 			} else if (eType == 'date') {
 				compDiv = $('<div class="input-group u-grid-edit-item-date" ><input class="form-control" /><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div>');
 
@@ -13937,59 +13974,61 @@
 
 				var columnPassedFlag = true,
 				    columnMsg = '';
-				var validate = new _neouiValidate.Validate({
-					el: this.element,
-					single: true,
-					required: required,
-					validType: validType,
-					placement: placement,
-					tipId: tipId,
-					errorMsg: errorMsg,
-					nullMsg: nullMsg,
-					maxLength: maxLength,
-					minLength: minLength,
-					max: max,
-					min: min,
-					maxNotEq: maxNotEq,
-					minNotEq: minNotEq,
-					reg: reg,
-					showFix: true
-				});
-				for (var i = 0; i < rows.length; i++) {
-					var value = rows[i].value[field];
-					var result = validate.check({ pValue: value, showMsg: false });
-					passed = result.passed && passed;
-					if (!result.passed) {
-						columnPassedFlag = false;
-						if (options.showMsg && columnMsg.indexOf(result.Msg) < 0) {
-							columnMsg += result.Msg + ' ';
+				if (this.editComponent[field] && this.editComponent[field].element) {
+					var validate = new _neouiValidate.Validate({
+						el: this.editComponent[field].element,
+						single: true,
+						required: required,
+						validType: validType,
+						placement: placement,
+						tipId: tipId,
+						errorMsg: errorMsg,
+						nullMsg: nullMsg,
+						maxLength: maxLength,
+						minLength: minLength,
+						max: max,
+						min: min,
+						maxNotEq: maxNotEq,
+						minNotEq: minNotEq,
+						reg: reg,
+						showFix: true
+					});
+					for (var i = 0; i < rows.length; i++) {
+						var value = rows[i].value[field];
+						var result = validate.check({ pValue: value, showMsg: false });
+						passed = result.passed && passed;
+						if (!result.passed) {
+							columnPassedFlag = false;
+							if (options.showMsg && columnMsg.indexOf(result.Msg) < 0) {
+								columnMsg += result.Msg + ' ';
+							}
+							// 设置背景色
+							var index = this.grid.getIndexOfColumn(column);
+							var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
+							var row = contentDiv.querySelectorAll('tr')[i];
+							var td = row.querySelectorAll('td')[index];
+							var div = td.querySelector('div');
+							(0, _dom.addClass)(td, 'u-grid-err-td');
+							(0, _dom.addClass)(div, 'u-grid-err-td');
+							var msg = '(' + title + ')' + result.Msg + ';';
+							evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
+							eval(evalStr);
 						}
-						// 设置背景色
-						var index = this.grid.getIndexOfColumn(column);
-						var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
-						var row = contentDiv.querySelectorAll('tr')[i];
-						var td = row.querySelectorAll('td')[index];
-						var div = td.querySelector('div');
-						(0, _dom.addClass)(td, 'u-grid-err-td');
-						(0, _dom.addClass)(div, 'u-grid-err-td');
-						var msg = '(' + title + ')' + result.Msg + ';';
-						evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
-						eval(evalStr);
 					}
-				}
-				// 如果存在错误信息并且提示信息
-				if (!columnPassedFlag && options.showMsg) {
-					columnShowMsg += title + ':' + columnMsg + '<br>';
-				}
-				if (!columnPassedFlag) {
-					if (!hasErrow) {
-						// 滚动条要滚动到第一次出现错误的数据列
-						hasErrow = true;
-						var ind = this.grid.getIndexOfColumn(column);
-						var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
-						var left = thDom.attrLeftTotalWidth;
-						var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
-						contentDom.scrollLeft = left;
+					// 如果存在错误信息并且提示信息
+					if (!columnPassedFlag && options.showMsg) {
+						columnShowMsg += title + ':' + columnMsg + '<br>';
+					}
+					if (!columnPassedFlag) {
+						if (!hasErrow) {
+							// 滚动条要滚动到第一次出现错误的数据列
+							hasErrow = true;
+							var ind = this.grid.getIndexOfColumn(column);
+							var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
+							var left = thDom.attrLeftTotalWidth;
+							var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
+							contentDom.scrollLeft = left;
+						}
 					}
 				}
 			}
@@ -15116,2056 +15155,6 @@
 	'use strict';
 
 	exports.__esModule = true;
-	exports.StringAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _extend = __webpack_require__(8);
-
-	var _valueMixin = __webpack_require__(78);
-
-	var _enableMixin = __webpack_require__(79);
-
-	var _requiredMixin = __webpack_require__(80);
-
-	var _validateMixin = __webpack_require__(81);
-
-	var _event = __webpack_require__(6);
-
-	var _compMgr = __webpack_require__(4);
-
-	/**
-	 * Module : Kero string adapter
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 20:12:42
-	 */
-	var StringAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init() {
-	        var self = this;
-	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
-	        if (!this.element) {
-	            throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
-	        };
-	        this.validType = this.options['validType'] || 'string';
-	        this.minLength = this.getOption('minLength');
-	        this.maxLength = this.getOption('maxLength');
-
-	        (0, _event.on)(this.element, 'focus', function () {
-	            if (self.enable) {
-	                self.setShowValue(self.getValue());
-	                try {
-	                    var e = event.srcElement;
-	                    var r = e.createTextRange();
-	                    r.moveStart('character', e.value.length);
-	                    r.collapse(true);
-	                    r.select();
-	                } catch (e) {}
-	            }
-	        });
-
-	        (0, _event.on)(this.element, 'blur', function (e) {
-	            if (self.enable) {
-	                if (!self.doValidate() && self._needClean()) {
-	                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-	                        // 因必输项清空导致检验没通过的情况
-	                        self.setValue('');
-	                    } else {
-	                        self.element.value = self.getShowValue();
-	                    }
-	                } else self.setValue(self.element.value);
-	            }
-	        });
-	    }
-	});
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: StringAdapter,
-	    name: 'string'
-	});
-
-	exports.StringAdapter = StringAdapter;
-
-/***/ },
-/* 107 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.IntegerAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _valueMixin = __webpack_require__(78);
-
-	var _enableMixin = __webpack_require__(79);
-
-	var _requiredMixin = __webpack_require__(80);
-
-	var _validateMixin = __webpack_require__(81);
-
-	var _util = __webpack_require__(10);
-
-	var _event = __webpack_require__(6);
-
-	var _core = __webpack_require__(71);
-
-	var _formater = __webpack_require__(93);
-
-	var _masker = __webpack_require__(95);
-
-	var _env = __webpack_require__(7);
-
-	var _compMgr = __webpack_require__(4);
-
-	/**
-	 * Module : Kero integer
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-09 18:29:59
-	 */
-
-	var IntegerAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init() {
-	        var self = this;
-	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
-	        if (!this.element) {
-	            throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
-	        };
-	        this.maskerMeta = _core.core.getMaskerMeta('integer') || {};
-	        this.validType = this.options['validType'] || 'integer';
-	        this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
-	        this.max = this.options['max'];
-	        this.min = this.options['min'];
-	        this.maxNotEq = this.options['maxNotEq'];
-	        this.minNotEq = this.options['minNotEq'];
-	        this.maxLength = this.options['maxLength'] ? options['maxLength'] : 25;
-	        this.minLength = this.options['mixLength'] ? options['mixLength'] : 0;
-	        if (this.dataModel) {
-	            this.min = this.dataModel.getMeta(this.field, "min") !== undefined ? this.dataModel.getMeta(this.field, "min") : this.min;
-	            this.max = this.dataModel.getMeta(this.field, "max") !== undefined ? this.dataModel.getMeta(this.field, "max") : this.max;
-	            this.minNotEq = this.dataModel.getMeta(this.field, "minNotEq") !== undefined ? this.dataModel.getMeta(this.field, "minNotEq") : this.minNotEq;
-	            this.maxNotEq = this.dataModel.getMeta(this.field, "maxNotEq") !== undefined ? this.dataModel.getMeta(this.field, "maxNotEq") : this.maxNotEq;
-	            this.minLength = (0, _util.isNumber)(this.dataModel.getMeta(this.field, "minLength")) ? this.dataModel.getMeta(this.field, "minLength") : this.minLength;
-	            this.maxLength = (0, _util.isNumber)(this.dataModel.getMeta(this.field, "maxLength")) ? this.dataModel.getMeta(this.field, "maxLength") : this.maxLength;
-	        }
-	        this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
-	        this.masker = new _masker.NumberMasker(this.maskerMeta);
-	        (0, _event.on)(this.element, 'focus', function () {
-	            if (self.enable) {
-	                self.setShowValue(self.getValue());
-	                try {
-	                    var e = event.srcElement;
-	                    var r = e.createTextRange();
-	                    r.moveStart('character', e.value.length);
-	                    r.collapse(true);
-	                    r.select();
-	                } catch (e) {}
-	            }
-	        });
-
-	        (0, _event.on)(this.element, 'blur', function () {
-	            if (self.enable) {
-	                if (!self.doValidate() && self._needClean()) {
-	                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-	                        // 因必输项清空导致检验没通过的情况
-	                        self.setValue('');
-	                    } else {
-	                        self.element.value = self.getShowValue();
-	                    }
-	                } else self.setValue(self.element.value);
-	            }
-	        });
-
-	        (0, _event.on)(this.element, 'keydown', function (e) {
-	            if (self.enable) {
-	                var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-	                if (!(code >= 48 && code <= 57 || code >= 96 && code <= 105 || code == 37 || code == 39 || code == 8 || code == 46)) {
-	                    //阻止默认浏览器动作(W3C)
-	                    if (e && e.preventDefault) e.preventDefault();
-	                    //IE中阻止函数器默认动作的方式
-	                    else window.event.returnValue = false;
-	                    return false;
-	                }
-	            }
-	        });
-	    }
-	});
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: IntegerAdapter,
-	    name: 'integer'
-	});
-
-	exports.IntegerAdapter = IntegerAdapter;
-
-/***/ },
-/* 108 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.RadioAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _valueMixin = __webpack_require__(78);
-
-	var _enableMixin = __webpack_require__(79);
-
-	var _requiredMixin = __webpack_require__(80);
-
-	var _validateMixin = __webpack_require__(81);
-
-	var _util = __webpack_require__(10);
-
-	var _dom = __webpack_require__(5);
-
-	var _event = __webpack_require__(6);
-
-	var _neouiRadio = __webpack_require__(109);
-
-	var _compMgr = __webpack_require__(4);
-
-	var RadioAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init(options) {
-	        var self = this;
-	        //RadioAdapter.superclass.initialize.apply(this, arguments);
-	        this.dynamic = false;
-	        this.otherValue = this.options['otherValue'] || '其他';
-	        if (this.options['datasource'] || this.options['hasOther']) {
-	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
-	            this.radioTemplateArray = [];
-	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
-	                this.radioTemplateArray.push(this.element.childNodes[i]);
-	            }
-	        }
-	        if (this.options['datasource']) {
-	            this.dynamic = true;
-	            var datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-	            this.setComboData(datasource);
-	        } else {
-	            this.comp = new _neouiRadio.Radio(this.element);
-	            this.element['u.Radio'] = this.comp;
-	            this.eleValue = this.comp._btnElement.value;
-
-	            this.comp.on('change', function (event) {
-	                if (self.slice) return;
-	                var modelValue = self.dataModel.getValue(self.field);
-	                //var valueArr = modelValue == '' ?  [] : modelValue.split(',');
-	                if (self.comp._btnElement.checked) {
-	                    self.dataModel.setValue(self.field, self.eleValue);
-	                }
-	            });
-	        }
-
-	        // 如果存在其他
-	        if (this.options['hasOther']) {
-	            var node = null;
-	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
-	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
-	            }
-	            var LabelS = this.element.querySelectorAll('.u-radio');
-	            self.lastLabel = LabelS[LabelS.length - 1];
-	            var allRadioS = this.element.querySelectorAll('[type=radio]');
-	            self.lastRadio = allRadioS[allRadioS.length - 1];
-	            var nameDivs = this.element.querySelectorAll('.u-radio-label');
-	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
-	            self.lastNameDiv.innerHTML = '其他';
-	            self.otherInput = (0, _dom.makeDOM)('<input type="text" disabled style="height:28px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
-	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
-	            self.lastRadio.value = '';
-
-	            var comp;
-	            if (self.lastLabel['u.Radio']) {
-	                comp = self.lastLabel['u.Radio'];
-	            } else {
-	                comp = new _neouiRadio.Radio(self.lastLabel);
-	            }
-	            self.lastLabel['u.Radio'] = comp;
-	            self.otherComp = comp;
-	            comp.on('change', function () {
-	                if (comp._btnElement.checked) {
-	                    if (self.otherInput.value) {
-	                        self.dataModel.setValue(self.field, self.otherInput.value);
-	                    } else {
-	                        self.dataModel.setValue(self.field, self.otherValue);
-	                    }
-	                    // 选中后可编辑
-	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
-	                        ele.removeAttribute('disabled');
-	                    });
-	                } else {
-	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
-	                        ele.setAttribute('disabled', true);
-	                    });
-	                }
-	            });
-
-	            (0, _event.on)(self.otherInput, 'blur', function (e) {
-	                self.otherComp.trigger('change');
-	            });
-	            (0, _event.on)(self.otherInput, 'click', function (e) {
-	                (0, _event.stopEvent)(e);
-	            });
-	        }
-
-	        this.dataModel.ref(this.field).subscribe(function (value) {
-	            self.modelValueChange(value);
-	        });
-	    },
-	    setComboData: function setComboData(comboData) {
-	        var self = this;
-	        // this.element.innerHTML = '';
-	        for (var i = 0, len = comboData.length; i < len - 1; i++) {
-	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
-	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
-	            }
-	            //this.radioTemplate.clone().appendTo(this.element)
-	        }
-
-	        var allRadio = this.element.querySelectorAll('[type=radio]');
-	        var allName = this.element.querySelectorAll('.u-radio-label');
-	        for (var k = 0; k < allRadio.length; k++) {
-	            allRadio[k].value = comboData[k].pk || comboData[k].value;
-	            allName[k].innerHTML = comboData[k].name;
-	        }
-
-	        this.radioInputName = allRadio[0].name;
-
-	        this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-	            var comp = new _neouiRadio.Radio(ele);
-	            ele['u.Radio'] = comp;
-
-	            comp.on('change', function (event) {
-	                if (comp._btnElement.checked) {
-	                    self.dataModel.setValue(self.field, comp._btnElement.value);
-	                }
-	                // 其他元素input输入框不能进行编辑
-	                var allChild = comp.element.parentNode.children;
-	                var siblingAry = [];
-	                for (var i = 0; i < allChild.length; i++) {
-	                    if (allChild[i] == comp.element) {} else {
-	                        siblingAry.push(allChild[i]);
-	                    }
-	                }
-	                siblingAry.forEach(function (children) {
-	                    var childinput = children.querySelectorAll('input[type="text"]');
-	                    if (childinput) {
-	                        childinput.forEach(function (inputele) {
-	                            inputele.setAttribute('disabled', 'true');
-	                        });
-	                    }
-	                });
-	            });
-	        });
-	    },
-
-	    modelValueChange: function modelValueChange(value) {
-	        if (this.slice) return;
-	        var fetch = false;
-	        if (this.dynamic) {
-	            this.trueValue = value;
-	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-	                var comp = ele['u.Radio'];
-	                var inptuValue = comp._btnElement.value;
-	                if (inptuValue && inptuValue == value) {
-	                    fetch = true;
-	                    (0, _dom.addClass)(comp.element, 'is-checked');
-	                    comp._btnElement.click();
-	                }
-	            });
-	        } else {
-	            if (this.eleValue == value) {
-	                fetch = true;
-	                this.slice = true;
-	                (0, _dom.addClass)(this.comp.element, 'is-checked');
-	                this.comp._btnElement.click();
-	                this.slice = false;
-	            }
-	        }
-	        if (this.options.hasOther && !fetch && value) {
-	            if (!this.enable) {
-	                this.lastRadio.removeAttribute('disabled');
-	            }
-	            u.addClass(this.lastLabel, 'is-checked');
-	            this.lastRadio.checked = true;
-	            if (value != this.otherValue) {
-	                this.otherInput.value = value;
-	            }
-	            this.lastRadio.removeAttribute('disabled');
-	            this.otherInput.removeAttribute('disabled');
-	            if (!this.enable) {
-	                this.lastRadio.setAttribute('disabled', true);
-	            }
-	        }
-	    },
-
-	    setEnable: function setEnable(enable) {
-	        this.enable = enable === true || enable === 'true';
-	        if (this.dynamic) {
-	            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-	                var comp = ele['u.Radio'];
-	                if (enable === true || enable === 'true') {
-	                    comp.enable();
-	                } else {
-	                    comp.disable();
-	                }
-	            });
-	        } else {
-	            if (this.enable) {
-	                this.comp.enable();
-	            } else {
-	                this.comp.disable();
-	            }
-	        }
-	    }
-	}); /**
-	     * Module : Kero percent
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-10 10:33:09
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: RadioAdapter,
-	    name: 'u-radio'
-	});
-	exports.RadioAdapter = RadioAdapter;
-
-/***/ },
-/* 109 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.Radio = undefined;
-
-	var _BaseComponent = __webpack_require__(83);
-
-	var _dom = __webpack_require__(5);
-
-	var _env = __webpack_require__(7);
-
-	var _event = __webpack_require__(6);
-
-	var _ripple = __webpack_require__(87);
-
-	var _compMgr = __webpack_require__(4);
-
-	/**
-	 * Module : neoui-radio
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-03 11:16:00
-	 */
-
-	var Radio = _BaseComponent.BaseComponent.extend({
-	    Constant_: {
-	        TINY_TIMEOUT: 0.001
-	    },
-
-	    _CssClasses: {
-	        IS_FOCUSED: 'is-focused',
-	        IS_DISABLED: 'is-disabled',
-	        IS_CHECKED: 'is-checked',
-	        IS_UPGRADED: 'is-upgraded',
-	        JS_RADIO: 'u-radio',
-	        RADIO_BTN: 'u-radio-button',
-	        RADIO_OUTER_CIRCLE: 'u-radio-outer-circle',
-	        RADIO_INNER_CIRCLE: 'u-radio-inner-circle'
-	    },
-
-	    init: function init() {
-	        this._btnElement = this.element.querySelector('input');
-
-	        this._boundChangeHandler = this._onChange.bind(this);
-	        this._boundFocusHandler = this._onChange.bind(this);
-	        this._boundBlurHandler = this._onBlur.bind(this);
-	        this._boundMouseUpHandler = this._onMouseup.bind(this);
-
-	        var outerCircle = document.createElement('span');
-	        (0, _dom.addClass)(outerCircle, this._CssClasses.RADIO_OUTER_CIRCLE);
-
-	        var innerCircle = document.createElement('span');
-	        (0, _dom.addClass)(innerCircle, this._CssClasses.RADIO_INNER_CIRCLE);
-
-	        this.element.appendChild(outerCircle);
-	        this.element.appendChild(innerCircle);
-
-	        var rippleContainer;
-	        //if (this.element.classList.contains( this._CssClasses.RIPPLE_EFFECT)) {
-	        //  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
-	        rippleContainer = document.createElement('span');
-	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CONTAINER);
-	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_EFFECT);
-	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CENTER);
-	        rippleContainer.addEventListener('mouseup', this._boundMouseUpHandler);
-
-	        //var ripple = document.createElement('span');
-	        //ripple.classList.add(this._CssClasses.RIPPLE);
-
-	        //rippleContainer.appendChild(ripple);
-	        this.element.appendChild(rippleContainer);
-	        new _ripple.URipple(rippleContainer);
-	        //}
-
-	        this._btnElement.addEventListener('change', this._boundChangeHandler);
-	        this._btnElement.addEventListener('focus', this._boundFocusHandler);
-	        this._btnElement.addEventListener('blur', this._boundBlurHandler);
-	        this.element.addEventListener('mouseup', this._boundMouseUpHandler);
-
-	        this._updateClasses();
-	        (0, _dom.addClass)(this.element, this._CssClasses.IS_UPGRADED);
-	    },
-
-	    _onChange: function _onChange(event) {
-	        // Since other radio buttons don't get change events, we need to look for
-	        // them to update their classes.
-	        var radios = document.querySelectorAll('.' + this._CssClasses.JS_RADIO);
-	        for (var i = 0; i < radios.length; i++) {
-	            var button = radios[i].querySelector('.' + this._CssClasses.RADIO_BTN);
-	            // Different name == different group, so no point updating those.
-	            if (button.getAttribute('name') === this._btnElement.getAttribute('name')) {
-	                if (radios[i]['u.Radio']) {
-	                    radios[i]['u.Radio']._updateClasses();
-	                }
-	            }
-	        }
-	        this.trigger('change', { isChecked: this._btnElement.checked });
-	    },
-
-	    /**
-	     * Handle focus.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _onFocus: function _onFocus(event) {
-	        (0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
-	    },
-
-	    /**
-	     * Handle lost focus.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _onBlur: function _onBlur(event) {
-	        (0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
-	    },
-
-	    /**
-	     * Handle mouseup.
-	     *
-	     * @param {Event} event The event that fired.
-	     * @private
-	     */
-	    _onMouseup: function _onMouseup(event) {
-	        this._blur();
-	    },
-
-	    /**
-	     * Update classes.
-	     *
-	     * @private
-	     */
-	    _updateClasses: function _updateClasses() {
-	        this.checkDisabled();
-	        this.checkToggleState();
-	    },
-
-	    /**
-	     * Add blur.
-	     *
-	     * @private
-	     */
-	    _blur: function _blur() {
-
-	        // TODO: figure out why there's a focus event being fired after our blur,
-	        // so that we can avoid this hack.
-	        window.setTimeout(function () {
-	            this._btnElement.blur();
-	        }.bind(this), /** @type {number} */this.Constant_.TINY_TIMEOUT);
-	    },
-
-	    // Public methods.
-
-	    /**
-	     * Check the components disabled state.
-	     *
-	     * @public
-	     */
-	    checkDisabled: function checkDisabled() {
-	        if (this._btnElement.disabled) {
-	            (0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
-	        } else {
-	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
-	        }
-	    },
-
-	    /**
-	     * Check the components toggled state.
-	     *
-	     * @public
-	     */
-	    checkToggleState: function checkToggleState() {
-	        if (this._btnElement.checked) {
-	            (0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
-	        } else {
-	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
-	        }
-	    },
-
-	    /**
-	     * Disable radio.
-	     *
-	     * @public
-	     */
-	    disable: function disable() {
-	        this._btnElement.disabled = true;
-	        this._updateClasses();
-	    },
-
-	    /**
-	     * Enable radio.
-	     *
-	     * @public
-	     */
-	    enable: function enable() {
-	        this._btnElement.disabled = false;
-	        this._updateClasses();
-	    },
-
-	    /**
-	     * Check radio.
-	     *
-	     * @public
-	     */
-	    check: function check() {
-	        this._btnElement.checked = true;
-	        this._updateClasses();
-	    },
-
-	    uncheck: function uncheck() {
-	        this._btnElement.checked = false;
-	        this._updateClasses();
-	    }
-
-	});
-
-	_compMgr.compMgr.regComp({
-	    comp: Radio,
-	    compAsString: 'u.Radio',
-	    css: 'u-radio'
-	});
-
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
-
-	exports.Radio = Radio;
-
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.UrlAdapter = undefined;
-
-	var _keroaString = __webpack_require__(106);
-
-	var _dom = __webpack_require__(5);
-
-	var _compMgr = __webpack_require__(4);
-
-	var UrlAdapter = _keroaString.StringAdapter.extend({
-	    init: function init() {
-	        UrlAdapter.superclass.init.apply(this);
-	        this.validType = 'url';
-
-	        /*
-	         * 因为需要输入，因此不显示为超链接
-	         */
-	    },
-	    // 如果enable为false则显示<a>标签
-	    setEnable: function setEnable(enable) {
-	        if (enable === true || enable === 'true') {
-	            this.enable = true;
-	            this.element.removeAttribute('readonly');
-	            (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
-	            if (this.aDom) {
-	                this.aDom.style.display = 'none';
-	            }
-	        } else if (enable === false || enable === 'false') {
-	            this.enable = false;
-	            this.element.setAttribute('readonly', 'readonly');
-	            (0, _dom.addClass)(this.element.parentNode, 'disablecover');
-	            if (!this.aDom) {
-	                this.aDom = (0, _dom.makeDOM)('<div style="position:absolute;background:#fff;z-index:999;"><a href="' + this.trueValue + '" target="_blank" style="position:absolue;">' + this.trueValue + '</a></div>');
-	                var left = this.element.offsetLeft;
-	                var width = this.element.offsetWidth;
-	                var top = this.element.offsetTop;
-	                var height = this.element.offsetHeight;
-	                this.aDom.style.left = left + 'px';
-	                this.aDom.style.width = width + 'px';
-	                this.aDom.style.top = top + 'px';
-	                this.aDom.style.height = height + 'px';
-	                this.element.parentNode.appendChild(this.aDom);
-	            }
-	            var $a = $(this.aDom).find('a');
-	            $a.href = this.trueValue;
-	            $a.innerHTML = this.trueValue;
-	            this.aDom.style.display = 'block';
-	        }
-	    }
-	}); /**
-	     * Module : Kero url adapter
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-10 13:51:26
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: UrlAdapter,
-	    name: 'url'
-	});
-	exports.UrlAdapter = UrlAdapter;
-
-/***/ },
-/* 111 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.PassWordAdapter = undefined;
-
-	var _keroaString = __webpack_require__(106);
-
-	var _util = __webpack_require__(10);
-
-	var _env = __webpack_require__(7);
-
-	var _event = __webpack_require__(6);
-
-	var _compMgr = __webpack_require__(4);
-
-	/**
-	 * 密码控件
-	 */
-	var PassWordAdapter = _keroaString.StringAdapter.extend({
-	    init: function init() {
-	        PassWordAdapter.superclass.init.apply(this);
-	        var oThis = this;
-	        if (_env.env.isIE8) {
-	            var outStr = this.element.outerHTML;
-	            var l = outStr.length;
-	            outStr = outStr.substring(0, l - 1) + ' type="password"' + outStr.substring(l - 1);
-	            var newEle = document.createElement(outStr);
-	            var parent = this.element.parentNode;
-	            parent.insertBefore(newEle, this.element.nextSibling);
-	            parent.removeChild(this.element);
-	            this.element = newEle;
-	        } else {
-	            this.element.type = "password";
-	        }
-	        oThis.element.title = '';
-	        this._element = this.element.parentNode;
-	        this.span = this._element.querySelector("span");
-	        if (_env.env.isIE8) {
-	            this.span.style.display = 'none';
-	        }
-	        if (this.span) {
-	            (0, _event.on)(this.span, 'click', function () {
-	                if (oThis.element.type == 'password') {
-	                    oThis.element.type = 'text';
-	                } else {
-	                    oThis.element.type = 'password';
-	                }
-	            });
-	        }
-	    },
-	    setShowValue: function setShowValue(showValue) {
-	        this.showValue = showValue;
-	        this.element.value = showValue;
-	        this.element.title = '';
-	    }
-	}); /**
-	     * Module : Kero password
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 19:19:33
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: PassWordAdapter,
-	    name: 'password'
-	});
-
-	exports.PassWordAdapter = PassWordAdapter;
-
-/***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.PercentAdapter = undefined;
-
-	var _keroaFloat = __webpack_require__(94);
-
-	var _formater = __webpack_require__(93);
-
-	var _masker = __webpack_require__(95);
-
-	var _core = __webpack_require__(71);
-
-	var _compMgr = __webpack_require__(4);
-
-	/**
-	 * 百分比控件
-	 */
-	var PercentAdapter = _keroaFloat.FloatAdapter.extend({
-	  init: function init() {
-	    PercentAdapter.superclass.init.apply(this);
-	    this.validType = 'float';
-	    this.maskerMeta = _core.core.getMaskerMeta('percent') || {};
-	    this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
-	    if (this.maskerMeta.precision) {
-	      this.maskerMeta.precision = parseInt(this.maskerMeta.precision) + 2;
-	    }
-	    this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
-	    this.masker = new _masker.PercentMasker(this.maskerMeta);
-	  }
-	}); /**
-	     * Module : Kero percent
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 20:02:50
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	  adapter: PercentAdapter,
-	  name: 'percent'
-	});
-	exports.PercentAdapter = PercentAdapter;
-
-/***/ },
-/* 113 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.showMessage = exports.showMessageDialog = undefined;
-
-	var _dom = __webpack_require__(5);
-
-	var _event = __webpack_require__(6);
-
-	/**
-	 * Module : neoui-message
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-02 19:40:59
-	 */
-
-	var messageTemplate = '<div class="u-message"><span class="u-msg-close uf uf-removesymbol"></span>{msg}</div>';
-
-	var showMessage = function showMessage(options) {
-		var msg, position, width, height, showSeconds, msgType, template;
-		if (typeof options === 'string') {
-			options = {
-				msg: options
-			};
-		}
-		msg = options['msg'] || "";
-		position = options['position'] || "bottom-right"; //center. top-left, top-center, top-right, bottom-left, bottom-center, bottom-right,
-		//TODO 后面改规则：没设宽高时，自适应
-		width = options['width'] || "";
-		// height = options['height'] || "100px";
-		msgType = options['msgType'] || 'info';
-		//默认为当用户输入的时间，当用户输入的时间为false并且msgType=='info'时，默认显示时间为2s
-		showSeconds = parseInt(options['showSeconds']) || (msgType == 'info' ? 2 : 0);
-
-		template = options['template'] || messageTemplate;
-
-		template = template.replace('{msg}', msg);
-		var msgDom = (0, _dom.makeDOM)(template);
-		(0, _dom.addClass)(msgDom, 'u-mes' + msgType);
-		msgDom.style.width = width;
-		// msgDom.style.height = height;
-		// msgDom.style.lineHeight = height;
-		if (position == 'bottom-right') {
-			msgDom.style.bottom = '10px';
-		}
-
-		if (position == 'center') {
-			msgDom.style.bottom = '50%';
-			msgDom.style.transform = 'translateY(50%)';
-		}
-		var closeBtn = msgDom.querySelector('.u-msg-close');
-		//new Button({el:closeBtn});
-		var closeFun = function closeFun() {
-			(0, _dom.removeClass)(msgDom, "active");
-			setTimeout(function () {
-				try {
-					document.body.removeChild(msgDom);
-				} catch (e) {}
-			}, 500);
-		};
-		(0, _event.on)(closeBtn, 'click', closeFun);
-		document.body.appendChild(msgDom);
-
-		if (showSeconds > 0) {
-			setTimeout(function () {
-				closeFun();
-			}, showSeconds * 1000);
-		}
-
-		setTimeout(function () {
-			(0, _dom.addClass)(msgDom, "active");
-		}, showSeconds * 1);
-	};
-
-	var showMessageDialog = showMessage;
-
-	exports.showMessageDialog = showMessageDialog;
-	exports.showMessage = showMessage;
-
-/***/ },
-/* 114 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.PaginationAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _extend = __webpack_require__(8);
-
-	var _neouiPagination = __webpack_require__(115);
-
-	var _util = __webpack_require__(10);
-
-	var _compMgr = __webpack_require__(4);
-
-	var PaginationAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(comp, options) {
-	        var self = this;
-	        PaginationAdapter.superclass.initialize.apply(this, arguments);
-
-	        //var Pagination = function(element, options, viewModel) {
-
-	        if (!this.dataModel.pageSize() && this.options.pageSize) this.dataModel.pageSize(this.options.pageSize);
-	        this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
-	        //this.$element.pagination(options);
-	        //this.comp = this.$element.data('u.pagination');
-	        var options = (0, _extend.extend)({}, { el: this.element }, this.options);
-	        this.comp = new _neouiPagination.pagination(options);
-	        this.element['u.pagination'] = this.comp;
-	        this.comp.dataModel = this.dataModel;
-	        this.pageChange = (0, _util.getFunction)(this.viewModel, this.options['pageChange']);
-	        this.sizeChange = (0, _util.getFunction)(this.viewModel, this.options['sizeChange']);
-
-	        this.comp.on('pageChange', function (pageIndex) {
-	            if (typeof self.pageChange == 'function') {
-	                self.pageChange(pageIndex);
-	            } else {
-	                self.defaultPageChange(pageIndex);
-	            }
-	        });
-	        this.comp.on('sizeChange', function (size, pageIndex) {
-	            if (typeof self.sizeChange == 'function') {
-	                self.sizeChange(size, pageIndex);
-	            } else {
-	                self.defaultSizeChange(size, pageIndex);
-	                // showMessage({msg:"没有注册sizeChange事件"});
-	            }
-	        });
-
-	        this.dataModel.totalPages.subscribe(function (value) {
-	            self.comp.update({ totalPages: value });
-	        });
-
-	        this.dataModel.pageSize.subscribe(function (value) {
-	            self.comp.update({ pageSize: value });
-	        });
-
-	        this.dataModel.pageIndex.subscribe(function (value) {
-	            self.comp.update({ currentPage: value + 1 });
-	        });
-
-	        this.dataModel.totalRow.subscribe(function (value) {
-	            self.comp.update({ totalCount: value });
-	        });
-
-	        if (this.comp.options.pageList.length > 0) {
-	            this.comp.options.pageSize = this.comp.options.pageList[0];
-	            ///this.comp.trigger('sizeChange', options.pageList[0])
-	            this.dataModel.pageSize(this.comp.options.pageList[0]);
-	        }
-
-	        // 如果datatable已经创建则根据datatable设置分页组件
-	        // self.comp.update({totalPages: this.dataModel.totalPages()})
-	        // self.comp.update({pageSize: this.dataModel.pageSize()})
-	        // self.comp.update({currentPage: this.dataModel.pageIndex() + 1})
-	        // self.comp.update({totalCount: this.dataModel.totalRow()})
-	        self.comp.update({ totalPages: this.dataModel.totalPages(), pageSize: this.dataModel.pageSize(), currentPage: this.dataModel.pageIndex() + 1, totalCount: this.dataModel.totalRow() });
-	    },
-
-	    defaultPageChange: function defaultPageChange(pageIndex) {
-	        if (this.dataModel.hasPage(pageIndex)) {
-	            this.dataModel.setCurrentPage(pageIndex);
-	        } else {}
-	    },
-
-	    defaultSizeChange: function defaultSizeChange(size, pageIndex) {
-	        this.dataModel.pageSize(size);
-	    },
-
-	    disableChangeSize: function disableChangeSize() {
-	        this.comp.disableChangeSize();
-	    },
-
-	    enableChangeSize: function enableChangeSize() {
-	        this.comp.enableChangeSize();
-	    }
-	}); /**
-	     * Module : Kero pagination
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 19:09:39
-	     */
-
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: PaginationAdapter,
-	    name: 'pagination'
-	});
-
-	exports.PaginationAdapter = PaginationAdapter;
-
-/***/ },
-/* 115 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.pagination = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : neoui-pagination
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-08-03 08:45:49
-	                                                                                                                                                                                                                                                   */
-
-	var _BaseComponent = __webpack_require__(83);
-
-	var _extend = __webpack_require__(8);
-
-	var _dom = __webpack_require__(5);
-
-	var _util = __webpack_require__(10);
-
-	var _event = __webpack_require__(6);
-
-	var _compMgr = __webpack_require__(4);
-
-	var pagination = _BaseComponent.BaseComponent.extend({});
-
-	var PageProxy = function PageProxy(options, page) {
-		this.isCurrent = function () {
-			return page == options.currentPage;
-		};
-		this.isFirst = function () {
-			return page == 1;
-		};
-		this.isLast = function () {
-			return page == options.totalPages;
-		};
-		this.isPrev = function () {
-			return page == options.currentPage - 1;
-		};
-		this.isNext = function () {
-			return page == options.currentPage + 1;
-		};
-		this.isLeftOuter = function () {
-			return page <= options.outerWindow;
-		};
-		this.isRightOuter = function () {
-			return options.totalPages - page < options.outerWindow;
-		};
-		this.isInsideWindow = function () {
-			if (options.currentPage < options.innerWindow + 1) {
-				return page <= options.innerWindow * 2 + 1;
-			} else if (options.currentPage > options.totalPages - options.innerWindow) {
-				return options.totalPages - page <= options.innerWindow * 2;
-			} else {
-				return Math.abs(options.currentPage - page) <= options.innerWindow;
-			}
-		};
-		this.number = function () {
-			return page;
-		};
-		this.pageSize = function () {
-			return options.pageSize;
-		};
-	};
-
-	var View = {
-		firstPage: function firstPage(pagin, options, currentPageProxy) {
-			return '<li role="first"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a >' + options.first + '</a></li>';
-		},
-		prevPage: function prevPage(pagin, options, currentPageProxy) {
-			return '<li role="prev"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a  rel="prev">' + options.prev + '</a></li>';
-		},
-		nextPage: function nextPage(pagin, options, currentPageProxy) {
-			return '<li role="next"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a  rel="next">' + options.next + '</a></li>';
-		},
-		lastPage: function lastPage(pagin, options, currentPageProxy) {
-
-			return '<li role="last"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a >' + options.last + '</a></li>';
-		},
-		gap: function gap(pagin, options) {
-			return '<li role="gap" class="disabled"><a href="#">' + options.gap + '</a></li>';
-		},
-		page: function page(pagin, options, pageProxy) {
-			return '<li role="page"' + (pageProxy.isCurrent() ? 'class="active"' : '') + '><a ' + (pageProxy.isNext() ? ' rel="next"' : '') + (pageProxy.isPrev() ? 'rel="prev"' : '') + '>' + pageProxy.number() + '</a></li>';
-		}
-	};
-
-	//pagination.prototype.compType = 'pagination';
-	pagination.prototype.init = function (element, options) {
-		var self = this;
-		var element = this.element;
-		this.$element = element;
-		this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
-		this.$ul = this.$element; //.find("ul");
-		this.render();
-	};
-
-	pagination.prototype.DEFAULTS = {
-		currentPage: 1,
-		totalPages: 1,
-		pageSize: 10,
-		pageList: [5, 10, 20, 50, 100],
-		innerWindow: 2,
-		outerWindow: 0,
-		first: '&laquo;',
-		prev: '<i class="uf uf-anglepointingtoleft"></i>',
-		next: '<i class="uf uf-anglearrowpointingtoright"></i>',
-		last: '&raquo;',
-		gap: '···',
-		//totalText: '合计:',
-		totalText: '共',
-		truncate: false,
-		showState: true,
-		showTotal: true, //初始默认显示总条数 “共xxx条”
-		showColumn: true, //初始默认显示每页条数 “显示xx条”
-		showJump: true, //初始默认显示跳转信息 “到xx页 确定”
-		page: function page(_page) {
-			return true;
-		}
-	};
-
-	pagination.prototype.update = function (options) {
-		this.$ul.innerHTML = "";
-		this.options = (0, _extend.extend)({}, this.options, options);
-		this.render();
-	};
-	pagination.prototype.render = function () {
-		var a = new Date().valueOf();
-
-		var options = this.options;
-
-		if (!options.totalPages) {
-			this.$element.style.display = "none";
-			return;
-		} else {
-			this.$element.style.display = "block";
-		}
-
-		var htmlArr = [];
-		var currentPageProxy = new PageProxy(options, options.currentPage);
-
-		//update pagination by pengyic@yonyou.com
-		//预设显示页码数
-		var windows = 2;
-		var total = options.totalPages - 0;
-		var current = options.currentPage - 0;
-		//预设显示页码数截断修正
-		var fix = 0;
-		var pageProxy;
-		if (current - 2 <= windows + 1) {
-			for (var i = 1; i <= current; i++) {
-				pageProxy = new PageProxy(options, i);
-				htmlArr.push(View.page(this, options, pageProxy));
-			}
-
-			fix = windows - (current - 1) < 0 ? 0 : windows - (current - 1);
-
-			if (total - current - fix <= windows + 1) {
-				for (var i = current + 1; i <= total; i++) {
-					pageProxy = new PageProxy(options, i);
-					htmlArr.push(View.page(this, options, pageProxy));
-				}
-			} else {
-				for (var i = current + 1; i <= current + windows + fix; i++) {
-					pageProxy = new PageProxy(options, i);
-					htmlArr.push(View.page(this, options, pageProxy));
-				}
-				//添加分割'...'
-				htmlArr.push(View.gap(this, options));
-
-				pageProxy = new PageProxy(options, total);
-				htmlArr.push(View.page(this, options, pageProxy));
-			}
-		} else {
-			if (total - current <= windows + 1) {
-				fix = windows - (total - current) < 0 ? 0 : windows - (total - current);
-
-				for (var i = current - windows - fix; i <= total; i++) {
-					pageProxy = new PageProxy(options, i);
-					htmlArr.push(View.page(this, options, pageProxy));
-				}
-				if (i >= 2) {
-					//添加分割'...'
-					htmlArr.unshift(View.gap(this, options));
-					pageProxy = new PageProxy(options, 1);
-					htmlArr.unshift(View.page(this, options, pageProxy));
-				}
-			} else {
-				for (var i = current - windows; i <= current + windows; i++) {
-					pageProxy = new PageProxy(options, i);
-					htmlArr.push(View.page(this, options, pageProxy));
-				}
-				//添加分割'...'
-				htmlArr.push(View.gap(this, options));
-
-				pageProxy = new PageProxy(options, total);
-				htmlArr.push(View.page(this, options, pageProxy));
-
-				//添加分割'...'
-				htmlArr.unshift(View.gap(this, options));
-				pageProxy = new PageProxy(options, 1);
-				htmlArr.unshift(View.page(this, options, pageProxy));
-			}
-		}
-		htmlArr.unshift(View.prevPage(this, options, currentPageProxy));
-		htmlArr.push(View.nextPage(this, options, currentPageProxy));
-
-		if (options.totalCount === undefined || options.totalCount <= 0) {
-			options.totalCount = 0;
-		}
-		if (options.showState) {
-			// 处理pageOption字符串
-			var pageOption = '';
-			options.pageList.forEach(function (item) {
-				if (options.pageSize - 0 == item) {
-					pageOption += '<option selected>' + item + '</option>';
-				} else {
-					pageOption += '<option>' + item + '</option>';
-				}
-			});
-			var htmlTmp = '';
-			//分别得到分页条后“共xxx条”、“显示xx条”、“到xx页 确定”三个html片段
-			if (options.showTotal) {
-				htmlTmp += '<div class="pagination-state">' + options.totalText + '&nbsp;' + options.totalCount + '&nbsp;条</div>';
-			}
-			if (options.showColumn) {
-				htmlTmp += '<div class="pagination-state">显示<select  class="page_z">' + pageOption + '</select>条</div>';
-			}
-			if (options.showJump) {
-				htmlTmp += '<div class="pagination-state">到<input class="page_j" value=' + options.currentPage + '>页<input class="pagination-jump" type="button" value="确定"/></div>';
-			}
-
-			htmlArr.push(htmlTmp);
-		}
-
-		//在将htmlArr插入到页面之前，对htmlArr进行处理
-		this.$ul.innerHTML = "";
-		this.$ul.insertAdjacentHTML('beforeEnd', htmlArr.join(''));
-
-		var me = this;
-		(0, _event.on)(this.$ul.querySelector(".pagination-jump"), "click", function () {
-			var jp, pz;
-			jp = me.$ul.querySelector(".page_j").value || options.currentPage;
-			pz = me.$ul.querySelector(".page_z").value || options.pageSize;
-
-			//if (pz != options.pageSize){
-			//	me.$element.trigger('sizeChange', [pz, jp - 1])
-			//}else{
-			//	me.$element.trigger('pageChange', jp - 1)
-			//}
-			me.page(jp, options.totalPages, pz);
-			//me.$element.trigger('pageChange', jp - 1)
-			//me.$element.trigger('sizeChange', pz)
-			return false;
-		});
-
-		(0, _event.on)(this.$ul.querySelector('[role="first"] a'), 'click', function () {
-			if (options.currentPage <= 1) return;
-			me.firstPage();
-			//me.$element.trigger('pageChange', 0)
-			return false;
-		});
-		(0, _event.on)(this.$ul.querySelector('[role="prev"] a'), 'click', function () {
-			if (options.currentPage <= 1) return;
-			me.prevPage();
-			//me.$element.trigger('pageChange', options.currentPage - 1)
-			return false;
-		});
-		(0, _event.on)(this.$ul.querySelector('[role="next"] a'), 'click', function () {
-			if (parseInt(options.currentPage) + 1 > options.totalPages) return;
-			me.nextPage();
-			//me.$element.trigger('pageChange', parseInt(options.currentPage) + 1)
-			return false;
-		});
-		(0, _event.on)(this.$ul.querySelector('[role="last"] a'), 'click', function () {
-			if (options.currentPage == options.totalPages) return;
-			me.lastPage();
-			//me.$element.trigger('pageChange', options.totalPages - 1)
-			return false;
-		});
-		(0, _util.each)(this.$ul.querySelectorAll('[role="page"] a'), function (i, node) {
-			(0, _event.on)(node, 'click', function () {
-				var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
-				me.page(parseInt(this.innerHTML), options.totalPages, pz);
-				//me.$element.trigger('pageChange', parseInt($(this).html()) - 1)
-
-				return false;
-			});
-		});
-		(0, _event.on)(this.$ul.querySelector('.page_z'), 'change', function () {
-			var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
-			me.trigger('sizeChange', pz);
-		});
-	};
-
-	pagination.prototype.page = function (pageIndex, totalPages, pageSize) {
-
-		var options = this.options;
-
-		if (totalPages === undefined) {
-			totalPages = options.totalPages;
-		}
-		if (pageSize === undefined) {
-			pageSize = options.pageSize;
-		}
-		var oldPageSize = options.pageSize;
-		// if (pageIndex > 0 && pageIndex <= totalPages) {
-		// 	if (options.page(pageIndex)) {
-
-		// 		this.$ul.innerHTML="";
-		// 		options.pageSize = pageSize;
-		// 		options.currentPage = pageIndex;
-		// 		options.totalPages = totalPages;
-		// 		this.render();
-
-		// 	}
-		// }else{
-		// 	return false;
-		// }
-
-		if (options.page(pageIndex)) {
-			if (pageIndex < 0) {
-				pageIndex = 0;
-			}
-
-			if (pageIndex > totalPages) {
-				pageIndex = totalPages;
-			}
-			this.$ul.innerHTML = "";
-			options.pageSize = pageSize;
-			options.currentPage = pageIndex;
-			options.totalPages = totalPages;
-			this.render();
-		}
-		if (pageSize != oldPageSize) {
-			this.trigger('sizeChange', [pageSize, pageIndex - 1]);
-		} else {
-			this.trigger('pageChange', pageIndex - 1);
-		}
-
-		//this.$element.trigger('pageChange', pageIndex)
-
-		return false;
-	};
-
-	pagination.prototype.firstPage = function () {
-		return this.page(1);
-	};
-
-	pagination.prototype.lastPage = function () {
-		return this.page(this.options.totalPages);
-	};
-
-	pagination.prototype.nextPage = function () {
-		return this.page(parseInt(this.options.currentPage) + 1);
-	};
-
-	pagination.prototype.prevPage = function () {
-		return this.page(this.options.currentPage - 1);
-	};
-
-	pagination.prototype.disableChangeSize = function () {
-		this.$element.querySelector('.page_z').setAttribute('readonly', true);
-	};
-
-	pagination.prototype.enableChangeSize = function () {
-		this.$element.querySelector('.page_z').removeAttribute('readonly');
-	};
-
-	function Plugin(option) {
-		return this.each(function () {
-			var $this = $(this);
-			var data = $this.data('u.pagination');
-			var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
-
-			if (!data) $this.data('u.pagination', data = new Pagination(this, options));else data.update(options);
-		});
-	}
-
-	// var old = $.fn.pagination;
-
-	// $.fn.pagination = Plugin
-	// $.fn.pagination.Constructor = Pagination
-
-	if (_compMgr.compMgr) _compMgr.compMgr.regComp({
-		comp: pagination,
-		compAsString: 'u.pagination',
-		css: 'u-pagination'
-	});
-
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-
-	exports.pagination = pagination;
-
-/***/ },
-/* 116 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.PercentAdapter = undefined;
-
-	var _keroaInteger = __webpack_require__(107);
-
-	var _formater = __webpack_require__(93);
-
-	var _masker = __webpack_require__(95);
-
-	var _core = __webpack_require__(71);
-
-	var _compMgr = __webpack_require__(4);
-
-	/**
-	 * 百分比控件
-	 */
-	var PhoneNumberAdapter = _keroaInteger.IntegerAdapter.extend({
-	  init: function init() {
-	    PhoneNumberAdapter.superclass.init.apply(this);
-	    this.validType = 'phoneNumber';
-	    this.maskerMeta = _core.core.getMaskerMeta('phoneNumber') || {};
-	    this.maskerMeta.precision = this.getOption('phoneNumber') || this.maskerMeta.phoneNumber;
-	    if (this.maskerMeta.precision) {
-	      this.maskerMeta.precision = parseInt(this.maskerMeta.precision) + 2;
-	    }
-	    this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
-	    this.masker = new _masker.PercentMasker(this.maskerMeta);
-	  }
-	}); /**
-	     * Module : Kero percent
-	     * Author : Alex(zhoubyc@yonyou.com)
-	     * Date	  : 2016-08-09 20:02:50
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	  adapter: PercentAdapter,
-	  name: 'percent'
-	});
-	exports.PercentAdapter = PercentAdapter;
-
-/***/ },
-/* 117 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.ProgressAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _neouiProgress = __webpack_require__(118);
-
-	var _compMgr = __webpack_require__(4);
-
-	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(options) {
-	        var self = this;
-	        ProgressAdapter.superclass.initialize.apply(this, arguments);
-
-	        this.comp = new _neouiProgress.Progress(this.element);
-	        this.element['u.Progress'] = this.comp;
-
-	        this.dataModel.ref(this.field).subscribe(function (value) {
-	            self.modelValueChange(value);
-	        });
-	    },
-
-	    modelValueChange: function modelValueChange(val) {
-	        this.comp.setProgress(val);
-	    }
-	}); /**
-	     * Module : Kero percent
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-09 20:02:50
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: ProgressAdapter,
-	    name: 'u-progress'
-	});
-
-	exports.ProgressAdapter = ProgressAdapter;
-
-/***/ },
-/* 118 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.Progress = undefined;
-
-	var _BaseComponent = __webpack_require__(83);
-
-	var _dom = __webpack_require__(5);
-
-	var _env = __webpack_require__(7);
-
-	var _event = __webpack_require__(6);
-
-	var _compMgr = __webpack_require__(4);
-
-	var Progress = _BaseComponent.BaseComponent.extend({
-		_Constant: {},
-		_CssClasses: {
-			INDETERMINATE_CLASS: 'u-progress__indeterminate'
-		},
-		setProgress: function setProgress(p) {
-
-			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
-				return;
-			}
-
-			this.progressbar_.style.width = p + '%';
-			return this;
-		},
-		/**
-	  * 设置竖向进度条的进度
-	  * @param p 要设置的进度
-	  * @returns {u.Progress}
-	     */
-		setProgressHeight: function setProgressHeight(p) {
-
-			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
-				return;
-			}
-
-			this.progressbar_.style.height = p + '%';
-			this.progressbar_.style.width = '100%';
-			return this;
-		},
-		/**
-	  * 设置进度条中的html内容
-	  * @param p 要设置的html内容
-	  * @returns {u.Progress}
-	  */
-		setProgressHTML: function setProgressHTML(html) {
-
-			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
-				return;
-			}
-
-			this.progressbar_.innerHTML = html;
-			return this;
-		},
-		setBuffer: function setBuffer(p) {
-			this.bufferbar_.style.width = p + '%';
-			this.auxbar_.style.width = 100 - p + '%';
-			return this;
-		},
-
-		init: function init() {
-			var el = document.createElement('div');
-			el.className = 'progressbar bar bar1';
-			this.element.appendChild(el);
-			this.progressbar_ = el;
-
-			el = document.createElement('div');
-			el.className = 'bufferbar bar bar2';
-			this.element.appendChild(el);
-			this.bufferbar_ = el;
-
-			el = document.createElement('div');
-			el.className = 'auxbar bar bar3';
-			this.element.appendChild(el);
-			this.auxbar_ = el;
-
-			this.progressbar_.style.width = '0%';
-			this.bufferbar_.style.width = '100%';
-			this.auxbar_.style.width = '0%';
-
-			(0, _dom.addClass)(this.element, 'is-upgraded');
-
-			if (_env.env.isIE8 || _env.env.isIE9) {
-
-				if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
-					var p = 0;
-					var oThis = this;
-					setInterval(function () {
-						p += 5;
-						p = p % 100;
-						oThis.progressbar_.style.width = p + '%';
-					}, 100);
-				}
-			}
-		}
-
-	}); /**
-	     * Module : neoui-progress
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-03 10:46:37
-	     */
-
-	_compMgr.compMgr.regComp({
-		comp: Progress,
-		compAsString: 'u.Progress',
-		css: 'u-progress'
-	});
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-	exports.Progress = Progress;
-
-/***/ },
-/* 119 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.SwitchAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _neouiSwitch = __webpack_require__(120);
-
-	var _compMgr = __webpack_require__(4);
-
-	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(options) {
-	        var self = this;
-	        SwitchAdapter.superclass.initialize.apply(this, arguments);
-
-	        this.comp = new _neouiSwitch.Switch(this.element);
-	        this.element['u.Switch'] = this.comp;
-	        this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
-	        this.unCheckedValue = this.options["unCheckedValue"];
-	        this.comp.on('change', function (event) {
-	            if (self.slice) return;
-	            if (self.comp._inputElement.checked) {
-	                self.dataModel.setValue(self.field, self.checkedValue);
-	            } else {
-	                self.dataModel.setValue(self.field, self.unCheckedValue);
-	            }
-	        });
-
-	        this.dataModel.ref(this.field).subscribe(function (value) {
-	            self.modelValueChange(value);
-	        });
-	    },
-
-	    modelValueChange: function modelValueChange(val) {
-	        if (this.slice) return;
-	        if (this.comp._inputElement.checked != (val === this.checkedValue)) {
-	            this.slice = true;
-	            this.comp.toggle();
-	            this.slice = false;
-	        }
-	    },
-	    setEnable: function setEnable(enable) {
-	        if (enable === true || enable === 'true') {
-	            this.enable = true;
-	        } else if (enable === false || enable === 'false') {
-	            this.enable = false;
-	        }
-	    }
-	}); /**
-	     * Module : Kero switch adapter
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-10 10:42:15
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: SwitchAdapter,
-	    name: 'u-switch'
-	});
-
-	exports.SwitchAdapter = SwitchAdapter;
-
-/***/ },
-/* 120 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.Switch = undefined;
-
-	var _BaseComponent = __webpack_require__(83);
-
-	var _dom = __webpack_require__(5);
-
-	var _event = __webpack_require__(6);
-
-	var _ripple = __webpack_require__(87);
-
-	var _compMgr = __webpack_require__(4);
-
-	var Switch = _BaseComponent.BaseComponent.extend({
-		_Constant: {
-			TINY_TIMEOUT: 0.001
-		},
-
-		_CssClasses: {
-			INPUT: 'u-switch-input',
-			TRACK: 'u-switch-track',
-			THUMB: 'u-switch-thumb',
-			FOCUS_HELPER: 'u-switch-focus-helper',
-			IS_FOCUSED: 'is-focused',
-			IS_DISABLED: 'is-disabled',
-			IS_CHECKED: 'is-checked'
-		},
-
-		init: function init() {
-			this._inputElement = this.element.querySelector('.' + this._CssClasses.INPUT);
-
-			var track = document.createElement('div');
-			(0, _dom.addClass)(track, this._CssClasses.TRACK);
-
-			var thumb = document.createElement('div');
-			(0, _dom.addClass)(thumb, this._CssClasses.THUMB);
-			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
-			/*var focusHelper = document.createElement('span');
-	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  		thumb.appendChild(focusHelper);*/
-
-			this.element.appendChild(track);
-			this.element.appendChild(thumb);
-
-			this.boundMouseUpHandler = this._onMouseUp.bind(this);
-
-			//if (this.element.classList.contains(this._CssClasses.RIPPLE_EFFECT)) {
-			//  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
-			this._rippleContainerElement = document.createElement('span');
-			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CONTAINER);
-			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_EFFECT);
-			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CENTER);
-			this._rippleContainerElement.addEventListener('mouseup', this.boundMouseUpHandler);
-
-			//var ripple = document.createElement('span');
-			//ripple.classList.add(this._CssClasses.RIPPLE);
-
-			//this._rippleContainerElement.appendChild(ripple);
-			this.element.appendChild(this._rippleContainerElement);
-			new _ripple.URipple(this._rippleContainerElement);
-			//}
-
-			this.boundChangeHandler = this._onChange.bind(this);
-			this.boundFocusHandler = this._onFocus.bind(this);
-			this.boundBlurHandler = this._onBlur.bind(this);
-
-			this._inputElement.addEventListener('change', this.boundChangeHandler);
-			this._inputElement.addEventListener('focus', this.boundFocusHandler);
-			this._inputElement.addEventListener('blur', this.boundBlurHandler);
-			this.element.addEventListener('mouseup', this.boundMouseUpHandler);
-
-			this._updateClasses();
-			(0, _dom.addClass)(this.element, 'is-upgraded');
-		},
-
-		_onChange: function _onChange(event) {
-			this._updateClasses();
-			this.trigger('change', {
-				isChecked: this._inputElement.checked
-			});
-		},
-
-		_onFocus: function _onFocus(event) {
-			(0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
-		},
-
-		_onBlur: function _onBlur(event) {
-			(0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
-		},
-
-		_onMouseUp: function _onMouseUp(event) {
-			this._blur();
-		},
-
-		_updateClasses: function _updateClasses() {
-			this.checkDisabled();
-			this.checkToggleState();
-		},
-
-		_blur: function _blur() {
-			// TODO: figure out why there's a focus event being fired after our blur,
-			// so that we can avoid this hack.
-			window.setTimeout(function () {
-				this._inputElement.blur();
-			}.bind(this), /** @type {number} */this._Constant.TINY_TIMEOUT);
-		},
-
-		// Public methods.
-
-		checkDisabled: function checkDisabled() {
-			if (this._inputElement.disabled) {
-				(0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
-			} else {
-				(0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
-			}
-		},
-
-		checkToggleState: function checkToggleState() {
-			if (this._inputElement.checked) {
-				(0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
-			} else {
-				(0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
-			}
-		},
-
-		isChecked: function isChecked() {
-			//return hasClass(this.element,this._CssClasses.IS_CHECKED);
-			return this._inputElement.checked;
-		},
-
-		toggle: function toggle() {
-			//return;
-			if (this.isChecked()) {
-				this.uncheck();
-			} else {
-				this.check();
-			}
-		},
-
-		disable: function disable() {
-			this._inputElement.disabled = true;
-			this._updateClasses();
-		},
-
-		enable: function enable() {
-			this._inputElement.disabled = false;
-			this._updateClasses();
-		},
-
-		check: function check() {
-			this._inputElement.checked = true;
-			this._updateClasses();
-		},
-
-		uncheck: function uncheck() {
-			this._inputElement.checked = false;
-			this._updateClasses();
-		}
-
-	}); /**
-	     * Module : neoui-switch
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-03 13:39:55
-	     */
-
-	_compMgr.compMgr.regComp({
-		comp: Switch,
-		compAsString: 'u.Switch',
-		css: 'u-switch'
-	});
-
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-
-	exports.Switch = Switch;
-
-/***/ },
-/* 121 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.TextAreaAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _valueMixin = __webpack_require__(78);
-
-	var _enableMixin = __webpack_require__(79);
-
-	var _requiredMixin = __webpack_require__(80);
-
-	var _validateMixin = __webpack_require__(81);
-
-	var _event = __webpack_require__(6);
-
-	var _compMgr = __webpack_require__(4);
-
-	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init() {
-	        var self = this;
-	        this.element = this.element.nodeName === 'TEXTAREA' ? this.element : this.element.querySelector('textarea');
-	        if (!this.element) {
-	            throw new Error('not found TEXTAREA element, u-meta:' + JSON.stringify(this.options));
-	        };
-
-	        (0, _event.on)(this.element, 'focus', function () {
-	            self.setShowValue(self.getValue());
-	        });
-	        (0, _event.on)(this.element, 'blur', function () {
-	            self.setValue(self.element.value);
-	        });
-	    }
-	}); /**
-	     * Module : Kero textarea adapter
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-10 12:40:46
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: TextAreaAdapter,
-	    name: 'textarea'
-	});
-
-	exports.TextAreaAdapter = TextAreaAdapter;
-
-/***/ },
-/* 122 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.TextFieldAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(76);
-
-	var _extend = __webpack_require__(8);
-
-	var _neouiTextfield = __webpack_require__(91);
-
-	var _keroaFloat = __webpack_require__(94);
-
-	var _keroaString = __webpack_require__(106);
-
-	var _keroaInteger = __webpack_require__(107);
-
-	var _compMgr = __webpack_require__(4);
-
-	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
-	    /**
-	     *
-	     * @param comp
-	     * @param options ：
-	     *      el: '#content',  对应的dom元素
-	     *      options: {},     配置
-	     *      model:{}        模型，包括数据和事件
-	     */
-	    initialize: function initialize(options) {
-	        TextFieldAdapter.superclass.initialize.apply(this, arguments);
-	        //this.comp = comp;
-	        //this.element = options['el'];
-	        //this.options = options['options'];
-	        //this.viewModel = options['model'];
-	        var dataType = this.dataModel.getMeta(this.field, 'type') || 'string';
-	        //var dataType = this.options['dataType'] || 'string';
-
-	        this.comp = new _neouiTextfield.Text(this.element);
-	        this.element['u.Text'] = this.comp;
-
-	        if (dataType === 'float') {
-	            this.trueAdpt = new _keroaFloat.FloatAdapter(options);
-	        } else if (dataType === 'string') {
-	            this.trueAdpt = new _keroaString.StringAdapter(options);
-	        } else if (dataType === 'integer') {
-	            this.trueAdpt = new _keroaInteger.IntegerAdapter(options);
-	        } else {
-	            throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" + this.field + "'");
-	        }
-	        (0, _extend.extend)(this, this.trueAdpt);
-
-	        this.trueAdpt.comp = this.comp;
-	        this.trueAdpt.setShowValue = function (showValue) {
-	            this.showValue = showValue;
-	            //if (this.comp.compType === 'text')
-	            this.comp.change(showValue);
-	            this.element.title = showValue;
-	        };
-	        // 解决初始设置值后，没有走这个setShowValue方法问题
-	        if (this.trueAdpt.enable) {
-	            this.trueAdpt.setShowValue(this.trueAdpt.getValue());
-	        }
-	        return this.trueAdpt;
-	    }
-	}); /**
-	     * Module : Kero textfield adapter
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-10 13:00:27
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: TextFieldAdapter,
-	    name: 'u-text'
-	    //dataType: 'float'
-	});
-
-	exports.TextFieldAdapter = TextFieldAdapter;
-
-/***/ },
-/* 123 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
 	exports.TimeAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -17186,9 +15175,9 @@
 
 	var _dateUtils = __webpack_require__(70);
 
-	var _neouiClockpicker = __webpack_require__(124);
+	var _neouiClockpicker = __webpack_require__(107);
 
-	var _neouiTime = __webpack_require__(125);
+	var _neouiTime = __webpack_require__(108);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -17199,9 +15188,9 @@
 	 */
 
 	var TimeAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(options) {
+	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
+	    init: function init(options) {
 	        var self = this;
-	        TimeAdapter.superclass.initialize.apply(this, arguments);
 	        this.validType = 'time';
 
 	        this.maskerMeta = _core.core.getMaskerMeta('time') || {};
@@ -17269,7 +15258,7 @@
 	exports.TimeAdapter = TimeAdapter;
 
 /***/ },
-/* 124 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17733,7 +15722,7 @@
 	exports.ClockPicker = ClockPicker;
 
 /***/ },
-/* 125 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17971,6 +15960,2056 @@
 	}
 
 	exports.Time = Time;
+
+/***/ },
+/* 109 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.StringAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _extend = __webpack_require__(8);
+
+	var _valueMixin = __webpack_require__(78);
+
+	var _enableMixin = __webpack_require__(79);
+
+	var _requiredMixin = __webpack_require__(80);
+
+	var _validateMixin = __webpack_require__(81);
+
+	var _event = __webpack_require__(6);
+
+	var _compMgr = __webpack_require__(4);
+
+	/**
+	 * Module : Kero string adapter
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-09 20:12:42
+	 */
+	var StringAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
+	        if (!this.element) {
+	            throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
+	        };
+	        this.validType = this.options['validType'] || 'string';
+	        this.minLength = this.getOption('minLength');
+	        this.maxLength = this.getOption('maxLength');
+
+	        (0, _event.on)(this.element, 'focus', function () {
+	            if (self.enable) {
+	                self.setShowValue(self.getValue());
+	                try {
+	                    var e = event.srcElement;
+	                    var r = e.createTextRange();
+	                    r.moveStart('character', e.value.length);
+	                    r.collapse(true);
+	                    r.select();
+	                } catch (e) {}
+	            }
+	        });
+
+	        (0, _event.on)(this.element, 'blur', function (e) {
+	            if (self.enable) {
+	                if (!self.doValidate() && self._needClean()) {
+	                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+	                        // 因必输项清空导致检验没通过的情况
+	                        self.setValue('');
+	                    } else {
+	                        self.element.value = self.getShowValue();
+	                    }
+	                } else self.setValue(self.element.value);
+	            }
+	        });
+	    }
+	});
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: StringAdapter,
+	    name: 'string'
+	});
+
+	exports.StringAdapter = StringAdapter;
+
+/***/ },
+/* 110 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.IntegerAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _valueMixin = __webpack_require__(78);
+
+	var _enableMixin = __webpack_require__(79);
+
+	var _requiredMixin = __webpack_require__(80);
+
+	var _validateMixin = __webpack_require__(81);
+
+	var _util = __webpack_require__(10);
+
+	var _event = __webpack_require__(6);
+
+	var _core = __webpack_require__(71);
+
+	var _formater = __webpack_require__(93);
+
+	var _masker = __webpack_require__(95);
+
+	var _env = __webpack_require__(7);
+
+	var _compMgr = __webpack_require__(4);
+
+	/**
+	 * Module : Kero integer
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-09 18:29:59
+	 */
+
+	var IntegerAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
+	        if (!this.element) {
+	            throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
+	        };
+	        this.maskerMeta = _core.core.getMaskerMeta('integer') || {};
+	        this.validType = this.options['validType'] || 'integer';
+	        this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+	        this.max = this.options['max'];
+	        this.min = this.options['min'];
+	        this.maxNotEq = this.options['maxNotEq'];
+	        this.minNotEq = this.options['minNotEq'];
+	        this.maxLength = this.options['maxLength'] ? options['maxLength'] : 25;
+	        this.minLength = this.options['mixLength'] ? options['mixLength'] : 0;
+	        if (this.dataModel) {
+	            this.min = this.dataModel.getMeta(this.field, "min") !== undefined ? this.dataModel.getMeta(this.field, "min") : this.min;
+	            this.max = this.dataModel.getMeta(this.field, "max") !== undefined ? this.dataModel.getMeta(this.field, "max") : this.max;
+	            this.minNotEq = this.dataModel.getMeta(this.field, "minNotEq") !== undefined ? this.dataModel.getMeta(this.field, "minNotEq") : this.minNotEq;
+	            this.maxNotEq = this.dataModel.getMeta(this.field, "maxNotEq") !== undefined ? this.dataModel.getMeta(this.field, "maxNotEq") : this.maxNotEq;
+	            this.minLength = (0, _util.isNumber)(this.dataModel.getMeta(this.field, "minLength")) ? this.dataModel.getMeta(this.field, "minLength") : this.minLength;
+	            this.maxLength = (0, _util.isNumber)(this.dataModel.getMeta(this.field, "maxLength")) ? this.dataModel.getMeta(this.field, "maxLength") : this.maxLength;
+	        }
+	        this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
+	        this.masker = new _masker.NumberMasker(this.maskerMeta);
+	        (0, _event.on)(this.element, 'focus', function () {
+	            if (self.enable) {
+	                self.setShowValue(self.getValue());
+	                try {
+	                    var e = event.srcElement;
+	                    var r = e.createTextRange();
+	                    r.moveStart('character', e.value.length);
+	                    r.collapse(true);
+	                    r.select();
+	                } catch (e) {}
+	            }
+	        });
+
+	        (0, _event.on)(this.element, 'blur', function () {
+	            if (self.enable) {
+	                if (!self.doValidate() && self._needClean()) {
+	                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+	                        // 因必输项清空导致检验没通过的情况
+	                        self.setValue('');
+	                    } else {
+	                        self.element.value = self.getShowValue();
+	                    }
+	                } else self.setValue(self.element.value);
+	            }
+	        });
+
+	        (0, _event.on)(this.element, 'keydown', function (e) {
+	            if (self.enable) {
+	                var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+	                if (!(code >= 48 && code <= 57 || code >= 96 && code <= 105 || code == 37 || code == 39 || code == 8 || code == 46)) {
+	                    //阻止默认浏览器动作(W3C)
+	                    if (e && e.preventDefault) e.preventDefault();
+	                    //IE中阻止函数器默认动作的方式
+	                    else window.event.returnValue = false;
+	                    return false;
+	                }
+	            }
+	        });
+	    }
+	});
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: IntegerAdapter,
+	    name: 'integer'
+	});
+
+	exports.IntegerAdapter = IntegerAdapter;
+
+/***/ },
+/* 111 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.RadioAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _valueMixin = __webpack_require__(78);
+
+	var _enableMixin = __webpack_require__(79);
+
+	var _requiredMixin = __webpack_require__(80);
+
+	var _validateMixin = __webpack_require__(81);
+
+	var _util = __webpack_require__(10);
+
+	var _dom = __webpack_require__(5);
+
+	var _event = __webpack_require__(6);
+
+	var _neouiRadio = __webpack_require__(112);
+
+	var _compMgr = __webpack_require__(4);
+
+	var RadioAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
+	    init: function init(options) {
+	        var self = this;
+	        //RadioAdapter.superclass.initialize.apply(this, arguments);
+	        this.dynamic = false;
+	        this.otherValue = this.options['otherValue'] || '其他';
+	        if (this.options['datasource'] || this.options['hasOther']) {
+	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
+	            this.radioTemplateArray = [];
+	            for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
+	                this.radioTemplateArray.push(this.element.childNodes[i]);
+	            }
+	        }
+	        if (this.options['datasource']) {
+	            this.dynamic = true;
+	            this.datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
+	            if (this.datasource) this.setComboData(this.datasource);
+	        } else {
+	            this.comp = new _neouiRadio.Radio(this.element);
+	            this.element['u.Radio'] = this.comp;
+	            this.eleValue = this.comp._btnElement.value;
+
+	            this.comp.on('change', function (event) {
+	                if (self.slice) return;
+	                var modelValue = self.dataModel.getValue(self.field);
+	                //var valueArr = modelValue == '' ?  [] : modelValue.split(',');
+	                if (self.comp._btnElement.checked) {
+	                    self.dataModel.setValue(self.field, self.eleValue);
+	                }
+	            });
+	        }
+
+	        // 如果存在其他
+	        if (this.options['hasOther']) {
+	            var node = null;
+	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
+	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+	            }
+	            var LabelS = this.element.querySelectorAll('.u-radio');
+	            self.lastLabel = LabelS[LabelS.length - 1];
+	            var allRadioS = this.element.querySelectorAll('[type=radio]');
+	            self.lastRadio = allRadioS[allRadioS.length - 1];
+	            var nameDivs = this.element.querySelectorAll('.u-radio-label');
+	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
+	            self.lastNameDiv.innerHTML = '其他';
+	            self.otherInput = (0, _dom.makeDOM)('<input type="text" disabled style="height:28px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
+	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
+	            self.lastRadio.value = '';
+
+	            var comp;
+	            if (self.lastLabel['u.Radio']) {
+	                comp = self.lastLabel['u.Radio'];
+	            } else {
+	                comp = new _neouiRadio.Radio(self.lastLabel);
+	            }
+	            self.lastLabel['u.Radio'] = comp;
+	            self.otherComp = comp;
+	            comp.on('change', function () {
+	                if (comp._btnElement.checked) {
+	                    if (self.otherInput.value) {
+	                        self.dataModel.setValue(self.field, self.otherInput.value);
+	                    } else {
+	                        self.dataModel.setValue(self.field, self.otherValue);
+	                    }
+	                    // 选中后可编辑
+	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
+	                        ele.removeAttribute('disabled');
+	                    });
+	                } else {
+	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
+	                        ele.setAttribute('disabled', true);
+	                    });
+	                }
+	            });
+
+	            (0, _event.on)(self.otherInput, 'blur', function (e) {
+	                self.otherComp.trigger('change');
+	            });
+	            (0, _event.on)(self.otherInput, 'click', function (e) {
+	                (0, _event.stopEvent)(e);
+	            });
+	        }
+
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	    setComboData: function setComboData(comboData) {
+	        var self = this;
+	        this.element.innerHTML = '';
+	        for (var i = 0, len = comboData.length; i < len; i++) {
+	            for (var j = 0; j < this.radioTemplateArray.length; j++) {
+	                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+	            }
+	            //this.radioTemplate.clone().appendTo(this.element)
+	        }
+
+	        var allRadio = this.element.querySelectorAll('[type=radio]');
+	        var allName = this.element.querySelectorAll('.u-radio-label');
+	        for (var k = 0; k < allRadio.length; k++) {
+	            allRadio[k].value = comboData[k].pk || comboData[k].value;
+	            allName[k].innerHTML = comboData[k].name;
+	        }
+
+	        this.radioInputName = allRadio[0].name;
+
+	        this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	            var comp = new _neouiRadio.Radio(ele);
+	            ele['u.Radio'] = comp;
+
+	            comp.on('change', function (event) {
+	                if (comp._btnElement.checked) {
+	                    self.dataModel.setValue(self.field, comp._btnElement.value);
+	                }
+	                // 其他元素input输入框不能进行编辑
+	                var allChild = comp.element.parentNode.children;
+	                var siblingAry = [];
+	                for (var i = 0; i < allChild.length; i++) {
+	                    if (allChild[i] == comp.element) {} else {
+	                        siblingAry.push(allChild[i]);
+	                    }
+	                }
+	                siblingAry.forEach(function (children) {
+	                    var childinput = children.querySelectorAll('input[type="text"]');
+	                    if (childinput) {
+	                        childinput.forEach(function (inputele) {
+	                            inputele.setAttribute('disabled', 'true');
+	                        });
+	                    }
+	                });
+	            });
+	        });
+	    },
+
+	    modelValueChange: function modelValueChange(value) {
+	        if (this.slice) return;
+	        var fetch = false;
+	        if (this.dynamic) {
+	            if (this.datasource) {
+	                this.trueValue = value;
+	                this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	                    var comp = ele['u.Radio'];
+	                    var inptuValue = comp._btnElement.value;
+	                    if (inptuValue && inptuValue == value) {
+	                        fetch = true;
+	                        (0, _dom.addClass)(comp.element, 'is-checked');
+	                        comp._btnElement.click();
+	                    }
+	                });
+	            }
+	        } else {
+	            if (this.eleValue == value) {
+	                fetch = true;
+	                this.slice = true;
+	                (0, _dom.addClass)(this.comp.element, 'is-checked');
+	                this.comp._btnElement.click();
+	                this.slice = false;
+	            }
+	        }
+	        if (this.options.hasOther && !fetch && value) {
+	            if (!this.enable) {
+	                this.lastRadio.removeAttribute('disabled');
+	            }
+	            u.addClass(this.lastLabel, 'is-checked');
+	            this.lastRadio.checked = true;
+	            if (value != this.otherValue) {
+	                this.otherInput.value = value;
+	            }
+	            this.lastRadio.removeAttribute('disabled');
+	            this.otherInput.removeAttribute('disabled');
+	            if (!this.enable) {
+	                this.lastRadio.setAttribute('disabled', true);
+	            }
+	        }
+	    },
+
+	    setEnable: function setEnable(enable) {
+	        this.enable = enable === true || enable === 'true';
+	        if (this.dynamic) {
+	            if (this.datasource) {
+	                this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+	                    var comp = ele['u.Radio'];
+	                    if (enable === true || enable === 'true') {
+	                        comp.enable();
+	                    } else {
+	                        comp.disable();
+	                    }
+	                });
+	            }
+	        } else {
+	            if (this.enable) {
+	                this.comp.enable();
+	            } else {
+	                this.comp.disable();
+	            }
+	        }
+	    }
+	}); /**
+	     * Module : Kero percent
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 10:33:09
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: RadioAdapter,
+	    name: 'u-radio'
+	});
+	exports.RadioAdapter = RadioAdapter;
+
+/***/ },
+/* 112 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.Radio = undefined;
+
+	var _BaseComponent = __webpack_require__(83);
+
+	var _dom = __webpack_require__(5);
+
+	var _env = __webpack_require__(7);
+
+	var _event = __webpack_require__(6);
+
+	var _ripple = __webpack_require__(87);
+
+	var _compMgr = __webpack_require__(4);
+
+	/**
+	 * Module : neoui-radio
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-03 11:16:00
+	 */
+
+	var Radio = _BaseComponent.BaseComponent.extend({
+	    Constant_: {
+	        TINY_TIMEOUT: 0.001
+	    },
+
+	    _CssClasses: {
+	        IS_FOCUSED: 'is-focused',
+	        IS_DISABLED: 'is-disabled',
+	        IS_CHECKED: 'is-checked',
+	        IS_UPGRADED: 'is-upgraded',
+	        JS_RADIO: 'u-radio',
+	        RADIO_BTN: 'u-radio-button',
+	        RADIO_OUTER_CIRCLE: 'u-radio-outer-circle',
+	        RADIO_INNER_CIRCLE: 'u-radio-inner-circle'
+	    },
+
+	    init: function init() {
+	        this._btnElement = this.element.querySelector('input');
+
+	        this._boundChangeHandler = this._onChange.bind(this);
+	        this._boundFocusHandler = this._onChange.bind(this);
+	        this._boundBlurHandler = this._onBlur.bind(this);
+	        this._boundMouseUpHandler = this._onMouseup.bind(this);
+
+	        var outerCircle = document.createElement('span');
+	        (0, _dom.addClass)(outerCircle, this._CssClasses.RADIO_OUTER_CIRCLE);
+
+	        var innerCircle = document.createElement('span');
+	        (0, _dom.addClass)(innerCircle, this._CssClasses.RADIO_INNER_CIRCLE);
+
+	        this.element.appendChild(outerCircle);
+	        this.element.appendChild(innerCircle);
+
+	        var rippleContainer;
+	        //if (this.element.classList.contains( this._CssClasses.RIPPLE_EFFECT)) {
+	        //  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
+	        rippleContainer = document.createElement('span');
+	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CONTAINER);
+	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_EFFECT);
+	        //rippleContainer.classList.add(this._CssClasses.RIPPLE_CENTER);
+	        rippleContainer.addEventListener('mouseup', this._boundMouseUpHandler);
+
+	        //var ripple = document.createElement('span');
+	        //ripple.classList.add(this._CssClasses.RIPPLE);
+
+	        //rippleContainer.appendChild(ripple);
+	        this.element.appendChild(rippleContainer);
+	        new _ripple.URipple(rippleContainer);
+	        //}
+
+	        this._btnElement.addEventListener('change', this._boundChangeHandler);
+	        this._btnElement.addEventListener('focus', this._boundFocusHandler);
+	        this._btnElement.addEventListener('blur', this._boundBlurHandler);
+	        this.element.addEventListener('mouseup', this._boundMouseUpHandler);
+
+	        this._updateClasses();
+	        (0, _dom.addClass)(this.element, this._CssClasses.IS_UPGRADED);
+	    },
+
+	    _onChange: function _onChange(event) {
+	        // Since other radio buttons don't get change events, we need to look for
+	        // them to update their classes.
+	        var radios = document.querySelectorAll('.' + this._CssClasses.JS_RADIO);
+	        for (var i = 0; i < radios.length; i++) {
+	            var button = radios[i].querySelector('.' + this._CssClasses.RADIO_BTN);
+	            // Different name == different group, so no point updating those.
+	            if (button.getAttribute('name') === this._btnElement.getAttribute('name')) {
+	                if (radios[i]['u.Radio']) {
+	                    radios[i]['u.Radio']._updateClasses();
+	                }
+	            }
+	        }
+	        this.trigger('change', { isChecked: this._btnElement.checked });
+	    },
+
+	    /**
+	     * Handle focus.
+	     *
+	     * @param {Event} event The event that fired.
+	     * @private
+	     */
+	    _onFocus: function _onFocus(event) {
+	        (0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
+	    },
+
+	    /**
+	     * Handle lost focus.
+	     *
+	     * @param {Event} event The event that fired.
+	     * @private
+	     */
+	    _onBlur: function _onBlur(event) {
+	        (0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
+	    },
+
+	    /**
+	     * Handle mouseup.
+	     *
+	     * @param {Event} event The event that fired.
+	     * @private
+	     */
+	    _onMouseup: function _onMouseup(event) {
+	        this._blur();
+	    },
+
+	    /**
+	     * Update classes.
+	     *
+	     * @private
+	     */
+	    _updateClasses: function _updateClasses() {
+	        this.checkDisabled();
+	        this.checkToggleState();
+	    },
+
+	    /**
+	     * Add blur.
+	     *
+	     * @private
+	     */
+	    _blur: function _blur() {
+
+	        // TODO: figure out why there's a focus event being fired after our blur,
+	        // so that we can avoid this hack.
+	        window.setTimeout(function () {
+	            this._btnElement.blur();
+	        }.bind(this), /** @type {number} */this.Constant_.TINY_TIMEOUT);
+	    },
+
+	    // Public methods.
+
+	    /**
+	     * Check the components disabled state.
+	     *
+	     * @public
+	     */
+	    checkDisabled: function checkDisabled() {
+	        if (this._btnElement.disabled) {
+	            (0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
+	        } else {
+	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
+	        }
+	    },
+
+	    /**
+	     * Check the components toggled state.
+	     *
+	     * @public
+	     */
+	    checkToggleState: function checkToggleState() {
+	        if (this._btnElement.checked) {
+	            (0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
+	        } else {
+	            (0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
+	        }
+	    },
+
+	    /**
+	     * Disable radio.
+	     *
+	     * @public
+	     */
+	    disable: function disable() {
+	        this._btnElement.disabled = true;
+	        this._updateClasses();
+	    },
+
+	    /**
+	     * Enable radio.
+	     *
+	     * @public
+	     */
+	    enable: function enable() {
+	        this._btnElement.disabled = false;
+	        this._updateClasses();
+	    },
+
+	    /**
+	     * Check radio.
+	     *
+	     * @public
+	     */
+	    check: function check() {
+	        this._btnElement.checked = true;
+	        this._updateClasses();
+	    },
+
+	    uncheck: function uncheck() {
+	        this._btnElement.checked = false;
+	        this._updateClasses();
+	    }
+
+	});
+
+	_compMgr.compMgr.regComp({
+	    comp: Radio,
+	    compAsString: 'u.Radio',
+	    css: 'u-radio'
+	});
+
+	if (document.readyState && document.readyState === 'complete') {
+	    _compMgr.compMgr.updateComp();
+	} else {
+	    (0, _event.on)(window, 'load', function () {
+	        //扫描并生成控件
+	        _compMgr.compMgr.updateComp();
+	    });
+	}
+
+	exports.Radio = Radio;
+
+/***/ },
+/* 113 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.UrlAdapter = undefined;
+
+	var _keroaString = __webpack_require__(109);
+
+	var _dom = __webpack_require__(5);
+
+	var _compMgr = __webpack_require__(4);
+
+	var UrlAdapter = _keroaString.StringAdapter.extend({
+	    init: function init() {
+	        UrlAdapter.superclass.init.apply(this);
+	        this.validType = 'url';
+
+	        /*
+	         * 因为需要输入，因此不显示为超链接
+	         */
+	    },
+	    // 如果enable为false则显示<a>标签
+	    setEnable: function setEnable(enable) {
+	        if (enable === true || enable === 'true') {
+	            this.enable = true;
+	            this.element.removeAttribute('readonly');
+	            (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
+	            if (this.aDom) {
+	                this.aDom.style.display = 'none';
+	            }
+	        } else if (enable === false || enable === 'false') {
+	            this.enable = false;
+	            this.element.setAttribute('readonly', 'readonly');
+	            (0, _dom.addClass)(this.element.parentNode, 'disablecover');
+	            if (!this.aDom) {
+	                this.aDom = (0, _dom.makeDOM)('<div style="position:absolute;background:#fff;z-index:999;"><a href="' + this.trueValue + '" target="_blank" style="position:absolue;">' + this.trueValue + '</a></div>');
+	                var left = this.element.offsetLeft;
+	                var width = this.element.offsetWidth;
+	                var top = this.element.offsetTop;
+	                var height = this.element.offsetHeight;
+	                this.aDom.style.left = left + 'px';
+	                this.aDom.style.width = width + 'px';
+	                this.aDom.style.top = top + 'px';
+	                this.aDom.style.height = height + 'px';
+	                this.element.parentNode.appendChild(this.aDom);
+	            }
+	            var $a = $(this.aDom).find('a');
+	            $a.href = this.trueValue;
+	            $a.innerHTML = this.trueValue;
+	            this.aDom.style.display = 'block';
+	        }
+	    }
+	}); /**
+	     * Module : Kero url adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 13:51:26
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: UrlAdapter,
+	    name: 'url'
+	});
+	exports.UrlAdapter = UrlAdapter;
+
+/***/ },
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.PassWordAdapter = undefined;
+
+	var _keroaString = __webpack_require__(109);
+
+	var _util = __webpack_require__(10);
+
+	var _env = __webpack_require__(7);
+
+	var _event = __webpack_require__(6);
+
+	var _compMgr = __webpack_require__(4);
+
+	/**
+	 * 密码控件
+	 */
+	var PassWordAdapter = _keroaString.StringAdapter.extend({
+	    init: function init() {
+	        PassWordAdapter.superclass.init.apply(this);
+	        var oThis = this;
+	        if (_env.env.isIE8) {
+	            var outStr = this.element.outerHTML;
+	            var l = outStr.length;
+	            outStr = outStr.substring(0, l - 1) + ' type="password"' + outStr.substring(l - 1);
+	            var newEle = document.createElement(outStr);
+	            var parent = this.element.parentNode;
+	            parent.insertBefore(newEle, this.element.nextSibling);
+	            parent.removeChild(this.element);
+	            this.element = newEle;
+	        } else {
+	            this.element.type = "password";
+	        }
+	        oThis.element.title = '';
+	        this._element = this.element.parentNode;
+	        this.span = this._element.querySelector("span");
+	        if (_env.env.isIE8) {
+	            this.span.style.display = 'none';
+	        }
+	        if (this.span) {
+	            (0, _event.on)(this.span, 'click', function () {
+	                if (oThis.element.type == 'password') {
+	                    oThis.element.type = 'text';
+	                } else {
+	                    oThis.element.type = 'password';
+	                }
+	            });
+	        }
+	    },
+	    setShowValue: function setShowValue(showValue) {
+	        this.showValue = showValue;
+	        this.element.value = showValue;
+	        this.element.title = '';
+	    }
+	}); /**
+	     * Module : Kero password
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 19:19:33
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: PassWordAdapter,
+	    name: 'password'
+	});
+
+	exports.PassWordAdapter = PassWordAdapter;
+
+/***/ },
+/* 115 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.PercentAdapter = undefined;
+
+	var _keroaFloat = __webpack_require__(94);
+
+	var _formater = __webpack_require__(93);
+
+	var _masker = __webpack_require__(95);
+
+	var _core = __webpack_require__(71);
+
+	var _compMgr = __webpack_require__(4);
+
+	/**
+	 * 百分比控件
+	 */
+	var PercentAdapter = _keroaFloat.FloatAdapter.extend({
+	  init: function init() {
+	    PercentAdapter.superclass.init.apply(this);
+	    this.validType = 'float';
+	    this.maskerMeta = _core.core.getMaskerMeta('percent') || {};
+	    this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+	    if (this.maskerMeta.precision) {
+	      this.maskerMeta.precision = parseInt(this.maskerMeta.precision) + 2;
+	    }
+	    this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
+	    this.masker = new _masker.PercentMasker(this.maskerMeta);
+	  }
+	}); /**
+	     * Module : Kero percent
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 20:02:50
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	  adapter: PercentAdapter,
+	  name: 'percent'
+	});
+	exports.PercentAdapter = PercentAdapter;
+
+/***/ },
+/* 116 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.showMessage = exports.showMessageDialog = undefined;
+
+	var _dom = __webpack_require__(5);
+
+	var _event = __webpack_require__(6);
+
+	/**
+	 * Module : neoui-message
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-02 19:40:59
+	 */
+
+	var messageTemplate = '<div class="u-message"><span class="u-msg-close uf uf-removesymbol"></span>{msg}</div>';
+
+	var showMessage = function showMessage(options) {
+		var msg, position, width, height, showSeconds, msgType, template;
+		if (typeof options === 'string') {
+			options = {
+				msg: options
+			};
+		}
+		msg = options['msg'] || "";
+		position = options['position'] || "bottom-right"; //center. top-left, top-center, top-right, bottom-left, bottom-center, bottom-right,
+		//TODO 后面改规则：没设宽高时，自适应
+		width = options['width'] || "";
+		// height = options['height'] || "100px";
+		msgType = options['msgType'] || 'info';
+		//默认为当用户输入的时间，当用户输入的时间为false并且msgType=='info'时，默认显示时间为2s
+		showSeconds = parseInt(options['showSeconds']) || (msgType == 'info' ? 2 : 0);
+
+		template = options['template'] || messageTemplate;
+
+		template = template.replace('{msg}', msg);
+		var msgDom = (0, _dom.makeDOM)(template);
+		(0, _dom.addClass)(msgDom, 'u-mes' + msgType);
+		msgDom.style.width = width;
+		// msgDom.style.height = height;
+		// msgDom.style.lineHeight = height;
+		if (position == 'bottom-right') {
+			msgDom.style.bottom = '10px';
+		}
+
+		if (position == 'center') {
+			msgDom.style.bottom = '50%';
+			msgDom.style.transform = 'translateY(50%)';
+		}
+		var closeBtn = msgDom.querySelector('.u-msg-close');
+		//new Button({el:closeBtn});
+		var closeFun = function closeFun() {
+			(0, _dom.removeClass)(msgDom, "active");
+			setTimeout(function () {
+				try {
+					document.body.removeChild(msgDom);
+				} catch (e) {}
+			}, 500);
+		};
+		(0, _event.on)(closeBtn, 'click', closeFun);
+		document.body.appendChild(msgDom);
+
+		if (showSeconds > 0) {
+			setTimeout(function () {
+				closeFun();
+			}, showSeconds * 1000);
+		}
+
+		setTimeout(function () {
+			(0, _dom.addClass)(msgDom, "active");
+		}, showSeconds * 1);
+	};
+
+	var showMessageDialog = showMessage;
+
+	exports.showMessageDialog = showMessageDialog;
+	exports.showMessage = showMessage;
+
+/***/ },
+/* 117 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.PaginationAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _extend = __webpack_require__(8);
+
+	var _neouiPagination = __webpack_require__(118);
+
+	var _util = __webpack_require__(10);
+
+	var _compMgr = __webpack_require__(4);
+
+	var PaginationAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(comp, options) {
+	        var self = this;
+	        PaginationAdapter.superclass.initialize.apply(this, arguments);
+
+	        //var Pagination = function(element, options, viewModel) {
+
+	        if (!this.dataModel.pageSize() && this.options.pageSize) this.dataModel.pageSize(this.options.pageSize);
+	        this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
+	        //this.$element.pagination(options);
+	        //this.comp = this.$element.data('u.pagination');
+	        var options = (0, _extend.extend)({}, { el: this.element }, this.options);
+	        this.comp = new _neouiPagination.pagination(options);
+	        this.element['u.pagination'] = this.comp;
+	        this.comp.dataModel = this.dataModel;
+	        this.pageChange = (0, _util.getFunction)(this.viewModel, this.options['pageChange']);
+	        this.sizeChange = (0, _util.getFunction)(this.viewModel, this.options['sizeChange']);
+
+	        this.comp.on('pageChange', function (pageIndex) {
+	            if (typeof self.pageChange == 'function') {
+	                self.pageChange(pageIndex);
+	            } else {
+	                self.defaultPageChange(pageIndex);
+	            }
+	        });
+	        this.comp.on('sizeChange', function (size, pageIndex) {
+	            if (typeof self.sizeChange == 'function') {
+	                self.sizeChange(size, pageIndex);
+	            } else {
+	                self.defaultSizeChange(size, pageIndex);
+	                // showMessage({msg:"没有注册sizeChange事件"});
+	            }
+	        });
+
+	        this.dataModel.totalPages.subscribe(function (value) {
+	            self.comp.update({ totalPages: value });
+	        });
+
+	        this.dataModel.pageSize.subscribe(function (value) {
+	            self.comp.update({ pageSize: value });
+	        });
+
+	        this.dataModel.pageIndex.subscribe(function (value) {
+	            self.comp.update({ currentPage: value + 1 });
+	        });
+
+	        this.dataModel.totalRow.subscribe(function (value) {
+	            self.comp.update({ totalCount: value });
+	        });
+
+	        if (this.comp.options.pageList.length > 0) {
+	            this.comp.options.pageSize = this.comp.options.pageList[0];
+	            ///this.comp.trigger('sizeChange', options.pageList[0])
+	            this.dataModel.pageSize(this.comp.options.pageList[0]);
+	        }
+
+	        // 如果datatable已经创建则根据datatable设置分页组件
+	        // self.comp.update({totalPages: this.dataModel.totalPages()})
+	        // self.comp.update({pageSize: this.dataModel.pageSize()})
+	        // self.comp.update({currentPage: this.dataModel.pageIndex() + 1})
+	        // self.comp.update({totalCount: this.dataModel.totalRow()})
+	        self.comp.update({ totalPages: this.dataModel.totalPages(), pageSize: this.dataModel.pageSize(), currentPage: this.dataModel.pageIndex() + 1, totalCount: this.dataModel.totalRow() });
+	    },
+
+	    defaultPageChange: function defaultPageChange(pageIndex) {
+	        if (this.dataModel.hasPage(pageIndex)) {
+	            this.dataModel.setCurrentPage(pageIndex);
+	        } else {}
+	    },
+
+	    defaultSizeChange: function defaultSizeChange(size, pageIndex) {
+	        this.dataModel.pageSize(size);
+	    },
+
+	    disableChangeSize: function disableChangeSize() {
+	        this.comp.disableChangeSize();
+	    },
+
+	    enableChangeSize: function enableChangeSize() {
+	        this.comp.enableChangeSize();
+	    }
+	}); /**
+	     * Module : Kero pagination
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 19:09:39
+	     */
+
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: PaginationAdapter,
+	    name: 'pagination'
+	});
+
+	exports.PaginationAdapter = PaginationAdapter;
+
+/***/ },
+/* 118 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.pagination = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : neoui-pagination
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-03 08:45:49
+	                                                                                                                                                                                                                                                   */
+
+	var _BaseComponent = __webpack_require__(83);
+
+	var _extend = __webpack_require__(8);
+
+	var _dom = __webpack_require__(5);
+
+	var _util = __webpack_require__(10);
+
+	var _event = __webpack_require__(6);
+
+	var _compMgr = __webpack_require__(4);
+
+	var pagination = _BaseComponent.BaseComponent.extend({});
+
+	var PageProxy = function PageProxy(options, page) {
+		this.isCurrent = function () {
+			return page == options.currentPage;
+		};
+		this.isFirst = function () {
+			return page == 1;
+		};
+		this.isLast = function () {
+			return page == options.totalPages;
+		};
+		this.isPrev = function () {
+			return page == options.currentPage - 1;
+		};
+		this.isNext = function () {
+			return page == options.currentPage + 1;
+		};
+		this.isLeftOuter = function () {
+			return page <= options.outerWindow;
+		};
+		this.isRightOuter = function () {
+			return options.totalPages - page < options.outerWindow;
+		};
+		this.isInsideWindow = function () {
+			if (options.currentPage < options.innerWindow + 1) {
+				return page <= options.innerWindow * 2 + 1;
+			} else if (options.currentPage > options.totalPages - options.innerWindow) {
+				return options.totalPages - page <= options.innerWindow * 2;
+			} else {
+				return Math.abs(options.currentPage - page) <= options.innerWindow;
+			}
+		};
+		this.number = function () {
+			return page;
+		};
+		this.pageSize = function () {
+			return options.pageSize;
+		};
+	};
+
+	var View = {
+		firstPage: function firstPage(pagin, options, currentPageProxy) {
+			return '<li role="first"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a >' + options.first + '</a></li>';
+		},
+		prevPage: function prevPage(pagin, options, currentPageProxy) {
+			return '<li role="prev"' + (currentPageProxy.isFirst() ? 'class="disabled"' : '') + '><a  rel="prev">' + options.prev + '</a></li>';
+		},
+		nextPage: function nextPage(pagin, options, currentPageProxy) {
+			return '<li role="next"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a  rel="next">' + options.next + '</a></li>';
+		},
+		lastPage: function lastPage(pagin, options, currentPageProxy) {
+
+			return '<li role="last"' + (currentPageProxy.isLast() ? 'class="disabled"' : '') + '><a >' + options.last + '</a></li>';
+		},
+		gap: function gap(pagin, options) {
+			return '<li role="gap" class="disabled"><a >' + options.gap + '</a></li>';
+		},
+		page: function page(pagin, options, pageProxy) {
+			return '<li role="page"' + (pageProxy.isCurrent() ? 'class="active"' : '') + '><a ' + (pageProxy.isNext() ? ' rel="next"' : '') + (pageProxy.isPrev() ? 'rel="prev"' : '') + '>' + pageProxy.number() + '</a></li>';
+		}
+	};
+
+	//pagination.prototype.compType = 'pagination';
+	pagination.prototype.init = function (element, options) {
+		var self = this;
+		var element = this.element;
+		this.$element = element;
+		this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
+		this.$ul = this.$element; //.find("ul");
+		this.render();
+	};
+
+	pagination.prototype.DEFAULTS = {
+		currentPage: 1,
+		totalPages: 1,
+		pageSize: 10,
+		pageList: [5, 10, 20, 50, 100],
+		innerWindow: 2,
+		outerWindow: 0,
+		first: '&laquo;',
+		prev: '<i class="uf uf-anglepointingtoleft"></i>',
+		next: '<i class="uf uf-anglearrowpointingtoright"></i>',
+		last: '&raquo;',
+		gap: '···',
+		//totalText: '合计:',
+		totalText: '共',
+		truncate: false,
+		showState: true,
+		showTotal: true, //初始默认显示总条数 “共xxx条”
+		showColumn: true, //初始默认显示每页条数 “显示xx条”
+		showJump: true, //初始默认显示跳转信息 “到xx页 确定”
+		page: function page(_page) {
+			return true;
+		}
+	};
+
+	pagination.prototype.update = function (options) {
+		this.$ul.innerHTML = "";
+		this.options = (0, _extend.extend)({}, this.options, options);
+		this.render();
+	};
+	pagination.prototype.render = function () {
+		var a = new Date().valueOf();
+
+		var options = this.options;
+
+		if (!options.totalPages) {
+			this.$element.style.display = "none";
+			return;
+		} else {
+			this.$element.style.display = "block";
+		}
+
+		var htmlArr = [];
+		var currentPageProxy = new PageProxy(options, options.currentPage);
+
+		//update pagination by pengyic@yonyou.com
+		//预设显示页码数
+		var windows = 2;
+		var total = options.totalPages - 0;
+		var current = options.currentPage - 0;
+		//预设显示页码数截断修正
+		var fix = 0;
+		var pageProxy;
+		if (current - 2 <= windows + 1) {
+			for (var i = 1; i <= current; i++) {
+				pageProxy = new PageProxy(options, i);
+				htmlArr.push(View.page(this, options, pageProxy));
+			}
+
+			fix = windows - (current - 1) < 0 ? 0 : windows - (current - 1);
+
+			if (total - current - fix <= windows + 1) {
+				for (var i = current + 1; i <= total; i++) {
+					pageProxy = new PageProxy(options, i);
+					htmlArr.push(View.page(this, options, pageProxy));
+				}
+			} else {
+				for (var i = current + 1; i <= current + windows + fix; i++) {
+					pageProxy = new PageProxy(options, i);
+					htmlArr.push(View.page(this, options, pageProxy));
+				}
+				//添加分割'...'
+				htmlArr.push(View.gap(this, options));
+
+				pageProxy = new PageProxy(options, total);
+				htmlArr.push(View.page(this, options, pageProxy));
+			}
+		} else {
+			if (total - current <= windows + 1) {
+				fix = windows - (total - current) < 0 ? 0 : windows - (total - current);
+
+				for (var i = current - windows - fix; i <= total; i++) {
+					pageProxy = new PageProxy(options, i);
+					htmlArr.push(View.page(this, options, pageProxy));
+				}
+				if (i >= 2) {
+					//添加分割'...'
+					htmlArr.unshift(View.gap(this, options));
+					pageProxy = new PageProxy(options, 1);
+					htmlArr.unshift(View.page(this, options, pageProxy));
+				}
+			} else {
+				for (var i = current - windows; i <= current + windows; i++) {
+					pageProxy = new PageProxy(options, i);
+					htmlArr.push(View.page(this, options, pageProxy));
+				}
+				//添加分割'...'
+				htmlArr.push(View.gap(this, options));
+
+				pageProxy = new PageProxy(options, total);
+				htmlArr.push(View.page(this, options, pageProxy));
+
+				//添加分割'...'
+				htmlArr.unshift(View.gap(this, options));
+				pageProxy = new PageProxy(options, 1);
+				htmlArr.unshift(View.page(this, options, pageProxy));
+			}
+		}
+		htmlArr.unshift(View.prevPage(this, options, currentPageProxy));
+		htmlArr.push(View.nextPage(this, options, currentPageProxy));
+
+		if (options.totalCount === undefined || options.totalCount <= 0) {
+			options.totalCount = 0;
+		}
+		if (options.showState) {
+			// 处理pageOption字符串
+			var pageOption = '';
+			options.pageList.forEach(function (item) {
+				if (options.pageSize - 0 == item) {
+					pageOption += '<option selected>' + item + '</option>';
+				} else {
+					pageOption += '<option>' + item + '</option>';
+				}
+			});
+			var htmlTmp = '';
+			//分别得到分页条后“共xxx条”、“显示xx条”、“到xx页 确定”三个html片段
+			if (options.showTotal) {
+				htmlTmp += '<div class="pagination-state">' + options.totalText + '&nbsp;' + options.totalCount + '&nbsp;条</div>';
+			}
+			if (options.showColumn) {
+				htmlTmp += '<div class="pagination-state">显示<select  class="page_z">' + pageOption + '</select>条</div>';
+			}
+			if (options.showJump) {
+				htmlTmp += '<div class="pagination-state">到<input class="page_j" value=' + options.currentPage + '>页<input class="pagination-jump" type="button" value="确定"/></div>';
+			}
+
+			htmlArr.push(htmlTmp);
+		}
+
+		//在将htmlArr插入到页面之前，对htmlArr进行处理
+		this.$ul.innerHTML = "";
+		this.$ul.insertAdjacentHTML('beforeEnd', htmlArr.join(''));
+
+		var me = this;
+		(0, _event.on)(this.$ul.querySelector(".pagination-jump"), "click", function () {
+			var jp, pz;
+			jp = me.$ul.querySelector(".page_j").value || options.currentPage;
+			pz = me.$ul.querySelector(".page_z").value || options.pageSize;
+
+			//if (pz != options.pageSize){
+			//	me.$element.trigger('sizeChange', [pz, jp - 1])
+			//}else{
+			//	me.$element.trigger('pageChange', jp - 1)
+			//}
+			me.page(jp, options.totalPages, pz);
+			//me.$element.trigger('pageChange', jp - 1)
+			//me.$element.trigger('sizeChange', pz)
+			return false;
+		});
+
+		(0, _event.on)(this.$ul.querySelector('[role="first"] a'), 'click', function () {
+			if (options.currentPage <= 1) return;
+			me.firstPage();
+			//me.$element.trigger('pageChange', 0)
+			return false;
+		});
+		(0, _event.on)(this.$ul.querySelector('[role="prev"] a'), 'click', function () {
+			if (options.currentPage <= 1) return;
+			me.prevPage();
+			//me.$element.trigger('pageChange', options.currentPage - 1)
+			return false;
+		});
+		(0, _event.on)(this.$ul.querySelector('[role="next"] a'), 'click', function () {
+			if (parseInt(options.currentPage) + 1 > options.totalPages) return;
+			me.nextPage();
+			//me.$element.trigger('pageChange', parseInt(options.currentPage) + 1)
+			return false;
+		});
+		(0, _event.on)(this.$ul.querySelector('[role="last"] a'), 'click', function () {
+			if (options.currentPage == options.totalPages) return;
+			me.lastPage();
+			//me.$element.trigger('pageChange', options.totalPages - 1)
+			return false;
+		});
+		(0, _util.each)(this.$ul.querySelectorAll('[role="page"] a'), function (i, node) {
+			(0, _event.on)(node, 'click', function () {
+				var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
+				me.page(parseInt(this.innerHTML), options.totalPages, pz);
+				//me.$element.trigger('pageChange', parseInt($(this).html()) - 1)
+
+				return false;
+			});
+		});
+		(0, _event.on)(this.$ul.querySelector('.page_z'), 'change', function () {
+			var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
+			me.trigger('sizeChange', pz);
+		});
+	};
+
+	pagination.prototype.page = function (pageIndex, totalPages, pageSize) {
+
+		var options = this.options;
+
+		if (totalPages === undefined) {
+			totalPages = options.totalPages;
+		}
+		if (pageSize === undefined) {
+			pageSize = options.pageSize;
+		}
+		var oldPageSize = options.pageSize;
+		// if (pageIndex > 0 && pageIndex <= totalPages) {
+		// 	if (options.page(pageIndex)) {
+
+		// 		this.$ul.innerHTML="";
+		// 		options.pageSize = pageSize;
+		// 		options.currentPage = pageIndex;
+		// 		options.totalPages = totalPages;
+		// 		this.render();
+
+		// 	}
+		// }else{
+		// 	return false;
+		// }
+
+		if (options.page(pageIndex)) {
+			if (pageIndex < 0) {
+				pageIndex = 0;
+			}
+
+			if (pageIndex > totalPages) {
+				pageIndex = totalPages;
+			}
+			this.$ul.innerHTML = "";
+			options.pageSize = pageSize;
+			options.currentPage = pageIndex;
+			options.totalPages = totalPages;
+			this.render();
+		}
+		if (pageSize != oldPageSize) {
+			this.trigger('sizeChange', [pageSize, pageIndex - 1]);
+		} else {
+			this.trigger('pageChange', pageIndex - 1);
+		}
+
+		//this.$element.trigger('pageChange', pageIndex)
+
+		return false;
+	};
+
+	pagination.prototype.firstPage = function () {
+		return this.page(1);
+	};
+
+	pagination.prototype.lastPage = function () {
+		return this.page(this.options.totalPages);
+	};
+
+	pagination.prototype.nextPage = function () {
+		return this.page(parseInt(this.options.currentPage) + 1);
+	};
+
+	pagination.prototype.prevPage = function () {
+		return this.page(this.options.currentPage - 1);
+	};
+
+	pagination.prototype.disableChangeSize = function () {
+		this.$element.querySelector('.page_z').setAttribute('readonly', true);
+	};
+
+	pagination.prototype.enableChangeSize = function () {
+		this.$element.querySelector('.page_z').removeAttribute('readonly');
+	};
+
+	function Plugin(option) {
+		return this.each(function () {
+			var $this = $(this);
+			var data = $this.data('u.pagination');
+			var options = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) == 'object' && option;
+
+			if (!data) $this.data('u.pagination', data = new Pagination(this, options));else data.update(options);
+		});
+	}
+
+	// var old = $.fn.pagination;
+
+	// $.fn.pagination = Plugin
+	// $.fn.pagination.Constructor = Pagination
+
+	if (_compMgr.compMgr) _compMgr.compMgr.regComp({
+		comp: pagination,
+		compAsString: 'u.pagination',
+		css: 'u-pagination'
+	});
+
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+
+	exports.pagination = pagination;
+
+/***/ },
+/* 119 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.PhoneNumberAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _formater = __webpack_require__(93);
+
+	var _masker = __webpack_require__(95);
+
+	var _core = __webpack_require__(71);
+
+	var _compMgr = __webpack_require__(4);
+
+	/**
+	 * 手机号控件
+	 */
+	var PhoneNumberAdapter = _baseAdapter.BaseAdapter.extend({
+	  init: function init() {
+	    PhoneNumberAdapter.superclass.init.apply(this);
+	    this.validType = 'phoneNumber';
+	    // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+	    // this.formater = new NumberFormater(this.maskerMeta.precision);
+	    this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
+	  }
+	}); /**
+	     * Module : Kero phonenumber
+	     * Author : Alex(zhoubyc@yonyou.com)
+	     * Date	  : 2016-08-09 20:02:50
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	  adapter: PhoneNumberAdapter,
+	  name: 'phoneNumber'
+	});
+	exports.PhoneNumberAdapter = PhoneNumberAdapter;
+
+/***/ },
+/* 120 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.ProgressAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _neouiProgress = __webpack_require__(121);
+
+	var _compMgr = __webpack_require__(4);
+
+	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(options) {
+	        var self = this;
+	        ProgressAdapter.superclass.initialize.apply(this, arguments);
+
+	        this.comp = new _neouiProgress.Progress(this.element);
+	        this.element['u.Progress'] = this.comp;
+
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+
+	    modelValueChange: function modelValueChange(val) {
+	        this.comp.setProgress(val);
+	    }
+	}); /**
+	     * Module : Kero percent
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-09 20:02:50
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: ProgressAdapter,
+	    name: 'u-progress'
+	});
+
+	exports.ProgressAdapter = ProgressAdapter;
+
+/***/ },
+/* 121 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.Progress = undefined;
+
+	var _BaseComponent = __webpack_require__(83);
+
+	var _dom = __webpack_require__(5);
+
+	var _env = __webpack_require__(7);
+
+	var _event = __webpack_require__(6);
+
+	var _compMgr = __webpack_require__(4);
+
+	var Progress = _BaseComponent.BaseComponent.extend({
+		_Constant: {},
+		_CssClasses: {
+			INDETERMINATE_CLASS: 'u-progress__indeterminate'
+		},
+		setProgress: function setProgress(p) {
+
+			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+				return;
+			}
+
+			this.progressbar_.style.width = p + '%';
+			return this;
+		},
+		/**
+	  * 设置竖向进度条的进度
+	  * @param p 要设置的进度
+	  * @returns {u.Progress}
+	     */
+		setProgressHeight: function setProgressHeight(p) {
+
+			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+				return;
+			}
+
+			this.progressbar_.style.height = p + '%';
+			this.progressbar_.style.width = '100%';
+			return this;
+		},
+		/**
+	  * 设置进度条中的html内容
+	  * @param p 要设置的html内容
+	  * @returns {u.Progress}
+	  */
+		setProgressHTML: function setProgressHTML(html) {
+
+			if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+				return;
+			}
+
+			this.progressbar_.innerHTML = html;
+			return this;
+		},
+		setBuffer: function setBuffer(p) {
+			this.bufferbar_.style.width = p + '%';
+			this.auxbar_.style.width = 100 - p + '%';
+			return this;
+		},
+
+		init: function init() {
+			var el = document.createElement('div');
+			el.className = 'progressbar bar bar1';
+			this.element.appendChild(el);
+			this.progressbar_ = el;
+
+			el = document.createElement('div');
+			el.className = 'bufferbar bar bar2';
+			this.element.appendChild(el);
+			this.bufferbar_ = el;
+
+			el = document.createElement('div');
+			el.className = 'auxbar bar bar3';
+			this.element.appendChild(el);
+			this.auxbar_ = el;
+
+			this.progressbar_.style.width = '0%';
+			this.bufferbar_.style.width = '100%';
+			this.auxbar_.style.width = '0%';
+
+			(0, _dom.addClass)(this.element, 'is-upgraded');
+
+			if (_env.env.isIE8 || _env.env.isIE9) {
+
+				if ((0, _dom.hasClass)(this.element, this._CssClasses.INDETERMINATE_CLASS)) {
+					var p = 0;
+					var oThis = this;
+					setInterval(function () {
+						p += 5;
+						p = p % 100;
+						oThis.progressbar_.style.width = p + '%';
+					}, 100);
+				}
+			}
+		}
+
+	}); /**
+	     * Module : neoui-progress
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-03 10:46:37
+	     */
+
+	_compMgr.compMgr.regComp({
+		comp: Progress,
+		compAsString: 'u.Progress',
+		css: 'u-progress'
+	});
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+	exports.Progress = Progress;
+
+/***/ },
+/* 122 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.SwitchAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _neouiSwitch = __webpack_require__(123);
+
+	var _compMgr = __webpack_require__(4);
+
+	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
+	    initialize: function initialize(options) {
+	        var self = this;
+	        SwitchAdapter.superclass.initialize.apply(this, arguments);
+
+	        this.comp = new _neouiSwitch.Switch(this.element);
+	        this.element['u.Switch'] = this.comp;
+	        this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
+	        this.unCheckedValue = this.options["unCheckedValue"];
+	        this.comp.on('change', function (event) {
+	            if (self.slice) return;
+	            if (self.comp._inputElement.checked) {
+	                self.dataModel.setValue(self.field, self.checkedValue);
+	            } else {
+	                self.dataModel.setValue(self.field, self.unCheckedValue);
+	            }
+	        });
+
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+
+	    modelValueChange: function modelValueChange(val) {
+	        if (this.slice) return;
+	        if (this.comp._inputElement.checked != (val === this.checkedValue)) {
+	            this.slice = true;
+	            this.comp.toggle();
+	            this.slice = false;
+	        }
+	    },
+	    setEnable: function setEnable(enable) {
+	        if (enable === true || enable === 'true') {
+	            this.enable = true;
+	        } else if (enable === false || enable === 'false') {
+	            this.enable = false;
+	        }
+	    }
+	}); /**
+	     * Module : Kero switch adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 10:42:15
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: SwitchAdapter,
+	    name: 'u-switch'
+	});
+
+	exports.SwitchAdapter = SwitchAdapter;
+
+/***/ },
+/* 123 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.Switch = undefined;
+
+	var _BaseComponent = __webpack_require__(83);
+
+	var _dom = __webpack_require__(5);
+
+	var _event = __webpack_require__(6);
+
+	var _ripple = __webpack_require__(87);
+
+	var _compMgr = __webpack_require__(4);
+
+	var Switch = _BaseComponent.BaseComponent.extend({
+		_Constant: {
+			TINY_TIMEOUT: 0.001
+		},
+
+		_CssClasses: {
+			INPUT: 'u-switch-input',
+			TRACK: 'u-switch-track',
+			THUMB: 'u-switch-thumb',
+			FOCUS_HELPER: 'u-switch-focus-helper',
+			IS_FOCUSED: 'is-focused',
+			IS_DISABLED: 'is-disabled',
+			IS_CHECKED: 'is-checked'
+		},
+
+		init: function init() {
+			this._inputElement = this.element.querySelector('.' + this._CssClasses.INPUT);
+
+			var track = document.createElement('div');
+			(0, _dom.addClass)(track, this._CssClasses.TRACK);
+
+			var thumb = document.createElement('div');
+			(0, _dom.addClass)(thumb, this._CssClasses.THUMB);
+			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
+			/*var focusHelper = document.createElement('span');
+	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
+	  	thumb.appendChild(focusHelper);*/
+
+			this.element.appendChild(track);
+			this.element.appendChild(thumb);
+
+			this.boundMouseUpHandler = this._onMouseUp.bind(this);
+
+			//if (this.element.classList.contains(this._CssClasses.RIPPLE_EFFECT)) {
+			//  addClass(this.element,this._CssClasses.RIPPLE_IGNORE_EVENTS);
+			this._rippleContainerElement = document.createElement('span');
+			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CONTAINER);
+			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_EFFECT);
+			//this._rippleContainerElement.classList.add(this._CssClasses.RIPPLE_CENTER);
+			this._rippleContainerElement.addEventListener('mouseup', this.boundMouseUpHandler);
+
+			//var ripple = document.createElement('span');
+			//ripple.classList.add(this._CssClasses.RIPPLE);
+
+			//this._rippleContainerElement.appendChild(ripple);
+			this.element.appendChild(this._rippleContainerElement);
+			new _ripple.URipple(this._rippleContainerElement);
+			//}
+
+			this.boundChangeHandler = this._onChange.bind(this);
+			this.boundFocusHandler = this._onFocus.bind(this);
+			this.boundBlurHandler = this._onBlur.bind(this);
+
+			this._inputElement.addEventListener('change', this.boundChangeHandler);
+			this._inputElement.addEventListener('focus', this.boundFocusHandler);
+			this._inputElement.addEventListener('blur', this.boundBlurHandler);
+			this.element.addEventListener('mouseup', this.boundMouseUpHandler);
+
+			this._updateClasses();
+			(0, _dom.addClass)(this.element, 'is-upgraded');
+		},
+
+		_onChange: function _onChange(event) {
+			this._updateClasses();
+			this.trigger('change', {
+				isChecked: this._inputElement.checked
+			});
+		},
+
+		_onFocus: function _onFocus(event) {
+			(0, _dom.addClass)(this.element, this._CssClasses.IS_FOCUSED);
+		},
+
+		_onBlur: function _onBlur(event) {
+			(0, _dom.removeClass)(this.element, this._CssClasses.IS_FOCUSED);
+		},
+
+		_onMouseUp: function _onMouseUp(event) {
+			this._blur();
+		},
+
+		_updateClasses: function _updateClasses() {
+			this.checkDisabled();
+			this.checkToggleState();
+		},
+
+		_blur: function _blur() {
+			// TODO: figure out why there's a focus event being fired after our blur,
+			// so that we can avoid this hack.
+			window.setTimeout(function () {
+				this._inputElement.blur();
+			}.bind(this), /** @type {number} */this._Constant.TINY_TIMEOUT);
+		},
+
+		// Public methods.
+
+		checkDisabled: function checkDisabled() {
+			if (this._inputElement.disabled) {
+				(0, _dom.addClass)(this.element, this._CssClasses.IS_DISABLED);
+			} else {
+				(0, _dom.removeClass)(this.element, this._CssClasses.IS_DISABLED);
+			}
+		},
+
+		checkToggleState: function checkToggleState() {
+			if (this._inputElement.checked) {
+				(0, _dom.addClass)(this.element, this._CssClasses.IS_CHECKED);
+			} else {
+				(0, _dom.removeClass)(this.element, this._CssClasses.IS_CHECKED);
+			}
+		},
+
+		isChecked: function isChecked() {
+			//return hasClass(this.element,this._CssClasses.IS_CHECKED);
+			return this._inputElement.checked;
+		},
+
+		toggle: function toggle() {
+			//return;
+			if (this.isChecked()) {
+				this.uncheck();
+			} else {
+				this.check();
+			}
+		},
+
+		disable: function disable() {
+			this._inputElement.disabled = true;
+			this._updateClasses();
+		},
+
+		enable: function enable() {
+			this._inputElement.disabled = false;
+			this._updateClasses();
+		},
+
+		check: function check() {
+			this._inputElement.checked = true;
+			this._updateClasses();
+		},
+
+		uncheck: function uncheck() {
+			this._inputElement.checked = false;
+			this._updateClasses();
+		}
+
+	}); /**
+	     * Module : neoui-switch
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-03 13:39:55
+	     */
+
+	_compMgr.compMgr.regComp({
+		comp: Switch,
+		compAsString: 'u.Switch',
+		css: 'u-switch'
+	});
+
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+
+	exports.Switch = Switch;
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.TextAreaAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _valueMixin = __webpack_require__(78);
+
+	var _enableMixin = __webpack_require__(79);
+
+	var _requiredMixin = __webpack_require__(80);
+
+	var _validateMixin = __webpack_require__(81);
+
+	var _event = __webpack_require__(6);
+
+	var _compMgr = __webpack_require__(4);
+
+	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'TEXTAREA' ? this.element : this.element.querySelector('textarea');
+	        if (!this.element) {
+	            throw new Error('not found TEXTAREA element, u-meta:' + JSON.stringify(this.options));
+	        };
+
+	        (0, _event.on)(this.element, 'focus', function () {
+	            self.setShowValue(self.getValue());
+	        });
+	        (0, _event.on)(this.element, 'blur', function () {
+	            self.setValue(self.element.value);
+	        });
+	    }
+	}); /**
+	     * Module : Kero textarea adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 12:40:46
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TextAreaAdapter,
+	    name: 'textarea'
+	});
+
+	exports.TextAreaAdapter = TextAreaAdapter;
+
+/***/ },
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.TextFieldAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _extend = __webpack_require__(8);
+
+	var _neouiTextfield = __webpack_require__(91);
+
+	var _keroaFloat = __webpack_require__(94);
+
+	var _keroaString = __webpack_require__(109);
+
+	var _keroaInteger = __webpack_require__(110);
+
+	var _compMgr = __webpack_require__(4);
+
+	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
+	    /**
+	     *
+	     * @param comp
+	     * @param options ：
+	     *      el: '#content',  对应的dom元素
+	     *      options: {},     配置
+	     *      model:{}        模型，包括数据和事件
+	     */
+	    initialize: function initialize(options) {
+	        TextFieldAdapter.superclass.initialize.apply(this, arguments);
+	        //this.comp = comp;
+	        //this.element = options['el'];
+	        //this.options = options['options'];
+	        //this.viewModel = options['model'];
+	        var dataType = this.dataModel.getMeta(this.field, 'type') || 'string';
+	        //var dataType = this.options['dataType'] || 'string';
+
+	        this.comp = new _neouiTextfield.Text(this.element);
+	        this.element['u.Text'] = this.comp;
+
+	        if (dataType === 'float') {
+	            this.trueAdpt = new _keroaFloat.FloatAdapter(options);
+	        } else if (dataType === 'string') {
+	            this.trueAdpt = new _keroaString.StringAdapter(options);
+	        } else if (dataType === 'integer') {
+	            this.trueAdpt = new _keroaInteger.IntegerAdapter(options);
+	        } else {
+	            throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" + this.field + "'");
+	        }
+	        (0, _extend.extend)(this, this.trueAdpt);
+
+	        this.trueAdpt.comp = this.comp;
+	        this.trueAdpt.setShowValue = function (showValue) {
+	            this.showValue = showValue;
+	            //if (this.comp.compType === 'text')
+	            this.comp.change(showValue);
+	            this.element.title = showValue;
+	        };
+	        // 解决初始设置值后，没有走这个setShowValue方法问题
+	        if (this.trueAdpt.enable) {
+	            this.trueAdpt.setShowValue(this.trueAdpt.getValue());
+	        }
+	        return this.trueAdpt;
+	    }
+	}); /**
+	     * Module : Kero textfield adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 13:00:27
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TextFieldAdapter,
+	    name: 'u-text'
+	    //dataType: 'float'
+	});
+
+	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
 /* 126 */
@@ -19228,23 +19267,23 @@
 
 	var _neouiMenu = __webpack_require__(139);
 
-	var _neouiMessage = __webpack_require__(113);
+	var _neouiMessage = __webpack_require__(116);
 
 	var _neouiMultilang = __webpack_require__(140);
 
 	var _neouiNavmenu = __webpack_require__(141);
 
-	var _neouiPagination = __webpack_require__(115);
+	var _neouiPagination = __webpack_require__(118);
 
-	var _neouiProgress = __webpack_require__(118);
+	var _neouiProgress = __webpack_require__(121);
 
-	var _neouiRadio = __webpack_require__(109);
+	var _neouiRadio = __webpack_require__(112);
 
 	var _neouiRefer = __webpack_require__(142);
 
 	var _neouiSlidePanel = __webpack_require__(143);
 
-	var _neouiSwitch = __webpack_require__(120);
+	var _neouiSwitch = __webpack_require__(123);
 
 	var _neouiTabs = __webpack_require__(144);
 
@@ -19256,9 +19295,9 @@
 
 	var _neouiDatetimepicker = __webpack_require__(97);
 
-	var _neouiTime = __webpack_require__(125);
+	var _neouiTime = __webpack_require__(108);
 
-	var _neouiClockpicker = __webpack_require__(124);
+	var _neouiClockpicker = __webpack_require__(107);
 
 	var _neouiMonth = __webpack_require__(103);
 
@@ -21998,7 +22037,13 @@
 		parEle.appendChild(templateDom);
 	};
 	var hideLoader = function hideLoader(options) {
-		var cssStr = options.cssStr || '.u-overlay,.u-loader-container';
+		var cssStr;
+		if (options && options.cssStr) {
+			cssStr = options.cssStr;
+		} else {
+			cssStr = '.u-overlay,.u-loader-container';
+		}
+
 		var divs = document.querySelectorAll(cssStr);
 		for (var i = 0; i < divs.length; i++) {
 			divs[i].parentNode.removeChild(divs[i]);

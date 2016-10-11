@@ -5,7 +5,7 @@
  */
 import {BaseAdapter} from '../core/baseAdapter';
 import {extend} from 'neoui-sparrow/js/extend';
-import {pagination} from 'neoui/js/neoui-pagination';
+import {pagination} from 'tinper-neoui/js/neoui-pagination';
 import {getFunction} from 'neoui-sparrow/js/util';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 

@@ -4,7 +4,7 @@
  * Date	  : 2016-08-16 10:44:14
  */
 import {BaseAdapter} from '../core/baseAdapter';
-import {Year} from 'neoui/js/neoui-year';
+import {Year} from 'tinper-neoui/js/neoui-year';
 import {getJSObject,getFunction} from 'neoui-sparrow/js/util';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {compMgr} from 'neoui-sparrow/js/compMgr';

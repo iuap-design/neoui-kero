@@ -5,7 +5,7 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-import {Switch} from 'neoui/js/neoui-switch';
+import {Switch} from 'tinper-neoui/js/neoui-switch';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 
 

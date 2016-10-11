@@ -9,7 +9,7 @@ import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
-import {Combo} from 'neoui/js/neoui-combo';
+import {Combo} from 'tinper-neoui/js/neoui-combo';
 import {env} from 'neoui-sparrow/js/env';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
 import {addClass,removeClass} from 'neoui-sparrow/js/dom';
@@ -61,7 +61,8 @@ var ComboboxAdapter = BaseAdapter.extend({
             // if(self.dataModel)
             //     self.dataModel.setValue(self.field, event.value);
             // self.slice = false;
-            self.setValue(event.name);
+            self.setValue(event.value);
+            self.setShowValue(event.name);
         });
         //if(this.dataModel){
         //    this.dataModel.ref(this.field).subscribe(function(value) {
@@ -83,12 +84,7 @@ var ComboboxAdapter = BaseAdapter.extend({
         // this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
         // this.setShowValue(this.showValue);
     },
-    //setValue: function (value) {
-    //    this.trueValue = value;
-    //    this.slice = true;
-    //    this.setModelValue(this.trueValue);
-    //    this.slice = false;
-    //},
+   
     //getValue: function () {
     //    return this.trueValue
     //},

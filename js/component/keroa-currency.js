@@ -10,7 +10,7 @@ import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
-import {Checkbox} from 'neoui/js/neoui-checkbox';
+import {Checkbox} from 'tinper-neoui/js/neoui-checkbox';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {NumberFormater} from 'neoui-sparrow/js/util/formater';
 import {isNumber} from 'neoui-sparrow/js/util';

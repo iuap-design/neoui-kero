@@ -12,7 +12,7 @@ import {ValidateMixin} from '../core/validateMixin';
 import {getJSObject} from 'neoui-sparrow/js/util';
 import {makeDOM} from 'neoui-sparrow/js/dom';
 import {on,off,stopEvent} from 'neoui-sparrow/js/event';
-import {Radio} from 'neoui/js/neoui-radio';
+import {Radio} from 'tinper-neoui/js/neoui-radio';
 import {compMgr} from 'neoui-sparrow/js/compMgr';
 import {addClass} from 'neoui-sparrow/js/dom';
 
@@ -32,8 +32,9 @@ var RadioAdapter = BaseAdapter.extend({
         }
         if (this.options['datasource']) {
             this.dynamic = true;
-            var datasource = getJSObject(this.viewModel, this.options['datasource']);
-            this.setComboData(datasource);
+            this.datasource = getJSObject(this.viewModel, this.options['datasource']);
+            if(this.datasource)
+                this.setComboData(this.datasource);
         } else {
             this.comp = new Radio(this.element);
             this.element['u.Radio'] = this.comp;
@@ -108,9 +109,11 @@ var RadioAdapter = BaseAdapter.extend({
 
     },
     setComboData: function (comboData) {
+
         var self = this;
-        // this.element.innerHTML = '';
-        for (var i = 0, len = comboData.length; i < (len - 1); i++) {
+        this.datasource = comboData;
+        this.element.innerHTML = '';
+        for (var i = 0, len = comboData.length; i < len; i++) {
             for(var j=0; j<this.radioTemplateArray.length; j++){
                 this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
             }
@@ -160,16 +163,18 @@ var RadioAdapter = BaseAdapter.extend({
         if (this.slice) return;
         var fetch = false;
         if (this.dynamic){
-            this.trueValue = value;
-            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-                var comp =  ele['u.Radio'];
-                var inptuValue = comp._btnElement.value;
-                if (inptuValue && inptuValue == value) {
-                    fetch = true;
-                    addClass(comp.element,'is-checked')
-                    comp._btnElement.click();
-                }
-            })
+            if(this.datasource){
+                this.trueValue = value;
+                this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+                    var comp =  ele['u.Radio'];
+                    var inptuValue = comp._btnElement.value;
+                    if (inptuValue && inptuValue == value) {
+                        fetch = true;
+                        addClass(comp.element,'is-checked')
+                        comp._btnElement.click();
+                    }
+                })
+            }
         }else{
             if (this.eleValue == value){
                 fetch = true;
@@ -199,14 +204,16 @@ var RadioAdapter = BaseAdapter.extend({
     setEnable: function (enable) {
         this.enable = (enable === true || enable === 'true');
         if (this.dynamic){
-            this.element.querySelectorAll('.u-radio').forEach(function (ele) {
-                var comp =  ele['u.Radio'];
-                if (enable === true || enable === 'true'){
-                    comp.enable();
-                }else{
-                    comp.disable();
-                }
-            })
+            if(this.datasource){
+                this.element.querySelectorAll('.u-radio').forEach(function (ele) {
+                    var comp =  ele['u.Radio'];
+                    if (enable === true || enable === 'true'){
+                        comp.enable();
+                    }else{
+                        comp.disable();
+                    }
+                })
+            }
         }else{
             if (this.enable){
                 this.comp.enable();
