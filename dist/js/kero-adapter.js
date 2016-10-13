@@ -4434,17 +4434,19 @@
 
 	var _keroaPhoneNumber = __webpack_require__(119);
 
+	var _keroaLandLine = __webpack_require__(120);
+
 	var _keroaString = __webpack_require__(109);
 
-	var _keroaProgress = __webpack_require__(120);
+	var _keroaProgress = __webpack_require__(121);
 
 	var _keroaRadio = __webpack_require__(111);
 
-	var _keroaSwitch = __webpack_require__(122);
+	var _keroaSwitch = __webpack_require__(123);
 
-	var _keroaTextarea = __webpack_require__(124);
+	var _keroaTextarea = __webpack_require__(125);
 
-	var _keroaTextfield = __webpack_require__(125);
+	var _keroaTextfield = __webpack_require__(126);
 
 	var _keroaTime = __webpack_require__(106);
 
@@ -4454,7 +4456,7 @@
 
 	var _keroaYearmonth = __webpack_require__(104);
 
-	var _keroaTree = __webpack_require__(126);
+	var _keroaTree = __webpack_require__(127);
 
 	var _enableMixin = __webpack_require__(79);
 
@@ -4466,11 +4468,6 @@
 
 	// console.log(TextAreaAdapter);
 
-	/**
-	 * Module : Kero webpack entry index
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 14:51:05
-	 */
 	var ex = {
 		BaseAdapter: _baseAdapter.BaseAdapter,
 		CheckboxAdapter: _keroaCheckbox.CheckboxAdapter,
@@ -4485,6 +4482,7 @@
 		PassWordAdapter: _keroaPassword.PassWordAdapter,
 		PercentAdapter: _keroaPercent.PercentAdapter,
 		PhoneNumberAdapter: _keroaPhoneNumber.PhoneNumberAdapter,
+		LandLineAdapter: _keroaLandLine.LandLineAdapter,
 		StringAdapter: _keroaString.StringAdapter,
 		ProgressAdapter: _keroaProgress.ProgressAdapter,
 		RadioAdapter: _keroaRadio.RadioAdapter,
@@ -4499,7 +4497,12 @@
 		RequiredMixin: _requiredMixin.RequiredMixin,
 		ValidateMixin: _validateMixin.ValidateMixin,
 		ValueMixin: _valueMixin.ValueMixin
-	};
+	}; /**
+	    * Module : Kero webpack entry index
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-10 14:51:05
+	    */
+
 
 	(0, _extend.extend)(ex, window.u || {});
 	window.u = ex;
@@ -14934,7 +14937,7 @@
 	var PhoneNumberAdapter = _baseAdapter.BaseAdapter.extend({
 	  init: function init() {
 	    PhoneNumberAdapter.superclass.init.apply(this);
-	    this.validType = 'phoneNumber';
+	    this.validType = 'phone';
 	    // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
 	    // this.formater = new NumberFormater(this.maskerMeta.precision);
 	    this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
@@ -14958,11 +14961,53 @@
 	'use strict';
 
 	exports.__esModule = true;
+	exports.LandLineAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _formater = __webpack_require__(93);
+
+	var _masker = __webpack_require__(95);
+
+	var _core = __webpack_require__(71);
+
+	var _compMgr = __webpack_require__(4);
+
+	/**
+	 * 电话号码控件
+	 */
+	var LandLineAdapter = _baseAdapter.BaseAdapter.extend({
+	  init: function init() {
+	    LandLineAdapter.superclass.init.apply(this);
+	    this.validType = 'landLine';
+	    // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+	    // this.formater = new NumberFormater(this.maskerMeta.precision);
+	    this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
+	  }
+	}); /**
+	     * Module : Kero LandLine
+	     * Author : Alex(zhoubyc@yonyou.com)
+	     * Date	  : 2016-08-09 20:02:50
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	  adapter: LandLineAdapter,
+	  name: 'landLine'
+	});
+	exports.LandLineAdapter = LandLineAdapter;
+
+/***/ },
+/* 121 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
 	exports.ProgressAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiProgress = __webpack_require__(121);
+	var _neouiProgress = __webpack_require__(122);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -14996,7 +15041,7 @@
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15121,7 +15166,7 @@
 	exports.Progress = Progress;
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15131,7 +15176,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiSwitch = __webpack_require__(123);
+	var _neouiSwitch = __webpack_require__(124);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -15187,7 +15232,7 @@
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15375,7 +15420,7 @@
 	exports.Switch = Switch;
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15427,7 +15472,7 @@
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15509,7 +15554,7 @@
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

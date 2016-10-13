@@ -49,13 +49,13 @@
 	exports.__esModule = true;
 	exports.DataTable = exports.u = undefined;
 
-	var _index = __webpack_require__(127);
+	var _index = __webpack_require__(128);
 
-	var _index2 = __webpack_require__(129);
+	var _index2 = __webpack_require__(130);
 
 	var neoui = _interopRequireWildcard(_index2);
 
-	var _index3 = __webpack_require__(145);
+	var _index3 = __webpack_require__(146);
 
 	var _index4 = __webpack_require__(75);
 
@@ -6995,17 +6995,19 @@
 
 	var _keroaPhoneNumber = __webpack_require__(119);
 
+	var _keroaLandLine = __webpack_require__(120);
+
 	var _keroaString = __webpack_require__(109);
 
-	var _keroaProgress = __webpack_require__(120);
+	var _keroaProgress = __webpack_require__(121);
 
 	var _keroaRadio = __webpack_require__(111);
 
-	var _keroaSwitch = __webpack_require__(122);
+	var _keroaSwitch = __webpack_require__(123);
 
-	var _keroaTextarea = __webpack_require__(124);
+	var _keroaTextarea = __webpack_require__(125);
 
-	var _keroaTextfield = __webpack_require__(125);
+	var _keroaTextfield = __webpack_require__(126);
 
 	var _keroaTime = __webpack_require__(106);
 
@@ -7015,7 +7017,7 @@
 
 	var _keroaYearmonth = __webpack_require__(104);
 
-	var _keroaTree = __webpack_require__(126);
+	var _keroaTree = __webpack_require__(127);
 
 	var _enableMixin = __webpack_require__(79);
 
@@ -7027,11 +7029,6 @@
 
 	// console.log(TextAreaAdapter);
 
-	/**
-	 * Module : Kero webpack entry index
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 14:51:05
-	 */
 	var ex = {
 		BaseAdapter: _baseAdapter.BaseAdapter,
 		CheckboxAdapter: _keroaCheckbox.CheckboxAdapter,
@@ -7046,6 +7043,7 @@
 		PassWordAdapter: _keroaPassword.PassWordAdapter,
 		PercentAdapter: _keroaPercent.PercentAdapter,
 		PhoneNumberAdapter: _keroaPhoneNumber.PhoneNumberAdapter,
+		LandLineAdapter: _keroaLandLine.LandLineAdapter,
 		StringAdapter: _keroaString.StringAdapter,
 		ProgressAdapter: _keroaProgress.ProgressAdapter,
 		RadioAdapter: _keroaRadio.RadioAdapter,
@@ -7060,7 +7058,12 @@
 		RequiredMixin: _requiredMixin.RequiredMixin,
 		ValidateMixin: _validateMixin.ValidateMixin,
 		ValueMixin: _valueMixin.ValueMixin
-	};
+	}; /**
+	    * Module : Kero webpack entry index
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-10 14:51:05
+	    */
+
 
 	(0, _extend.extend)(ex, window.u || {});
 	window.u = ex;
@@ -17495,7 +17498,7 @@
 	var PhoneNumberAdapter = _baseAdapter.BaseAdapter.extend({
 	  init: function init() {
 	    PhoneNumberAdapter.superclass.init.apply(this);
-	    this.validType = 'phoneNumber';
+	    this.validType = 'phone';
 	    // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
 	    // this.formater = new NumberFormater(this.maskerMeta.precision);
 	    this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
@@ -17519,11 +17522,53 @@
 	'use strict';
 
 	exports.__esModule = true;
+	exports.LandLineAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _formater = __webpack_require__(93);
+
+	var _masker = __webpack_require__(95);
+
+	var _core = __webpack_require__(71);
+
+	var _compMgr = __webpack_require__(4);
+
+	/**
+	 * 电话号码控件
+	 */
+	var LandLineAdapter = _baseAdapter.BaseAdapter.extend({
+	  init: function init() {
+	    LandLineAdapter.superclass.init.apply(this);
+	    this.validType = 'landLine';
+	    // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+	    // this.formater = new NumberFormater(this.maskerMeta.precision);
+	    this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
+	  }
+	}); /**
+	     * Module : Kero LandLine
+	     * Author : Alex(zhoubyc@yonyou.com)
+	     * Date	  : 2016-08-09 20:02:50
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	  adapter: LandLineAdapter,
+	  name: 'landLine'
+	});
+	exports.LandLineAdapter = LandLineAdapter;
+
+/***/ },
+/* 121 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
 	exports.ProgressAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiProgress = __webpack_require__(121);
+	var _neouiProgress = __webpack_require__(122);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -17557,7 +17602,7 @@
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17682,7 +17727,7 @@
 	exports.Progress = Progress;
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17692,7 +17737,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiSwitch = __webpack_require__(123);
+	var _neouiSwitch = __webpack_require__(124);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -17748,7 +17793,7 @@
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17936,7 +17981,7 @@
 	exports.Switch = Switch;
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17988,7 +18033,7 @@
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18070,7 +18115,7 @@
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18458,7 +18503,7 @@
 	exports.TreeAdapter = TreeAdapter;
 
 /***/ },
-/* 127 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18500,7 +18545,7 @@
 
 	var _ripple = __webpack_require__(87);
 
-	var _rsautils = __webpack_require__(128);
+	var _rsautils = __webpack_require__(129);
 
 	var _i18n = __webpack_require__(85);
 
@@ -18587,7 +18632,7 @@
 	exports.u = api;
 
 /***/ },
-/* 128 */
+/* 129 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19291,7 +19336,7 @@
 	exports.twoDigit = twoDigit;
 
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19301,49 +19346,49 @@
 
 	var _extend = __webpack_require__(8);
 
-	var _neouiAutocomplete = __webpack_require__(130);
+	var _neouiAutocomplete = __webpack_require__(131);
 
-	var _neouiButton = __webpack_require__(131);
+	var _neouiButton = __webpack_require__(132);
 
 	var _neouiCheckbox = __webpack_require__(86);
 
 	var _neouiCombo = __webpack_require__(90);
 
-	var _neouiCombobox = __webpack_require__(132);
+	var _neouiCombobox = __webpack_require__(133);
 
-	var _neouiDataTable = __webpack_require__(133);
+	var _neouiDataTable = __webpack_require__(134);
 
-	var _neouiDialog = __webpack_require__(134);
+	var _neouiDialog = __webpack_require__(135);
 
-	var _neouiLayout = __webpack_require__(135);
+	var _neouiLayout = __webpack_require__(136);
 
-	var _neouiLayout2 = __webpack_require__(136);
+	var _neouiLayout2 = __webpack_require__(137);
 
-	var _neouiLoader = __webpack_require__(137);
+	var _neouiLoader = __webpack_require__(138);
 
-	var _neouiLoading = __webpack_require__(138);
+	var _neouiLoading = __webpack_require__(139);
 
-	var _neouiMenu = __webpack_require__(139);
+	var _neouiMenu = __webpack_require__(140);
 
 	var _neouiMessage = __webpack_require__(116);
 
-	var _neouiMultilang = __webpack_require__(140);
+	var _neouiMultilang = __webpack_require__(141);
 
-	var _neouiNavmenu = __webpack_require__(141);
+	var _neouiNavmenu = __webpack_require__(142);
 
 	var _neouiPagination = __webpack_require__(118);
 
-	var _neouiProgress = __webpack_require__(121);
+	var _neouiProgress = __webpack_require__(122);
 
 	var _neouiRadio = __webpack_require__(112);
 
-	var _neouiRefer = __webpack_require__(142);
+	var _neouiRefer = __webpack_require__(143);
 
-	var _neouiSlidePanel = __webpack_require__(143);
+	var _neouiSlidePanel = __webpack_require__(144);
 
-	var _neouiSwitch = __webpack_require__(123);
+	var _neouiSwitch = __webpack_require__(124);
 
-	var _neouiTabs = __webpack_require__(144);
+	var _neouiTabs = __webpack_require__(145);
 
 	var _neouiTextfield = __webpack_require__(91);
 
@@ -19505,7 +19550,7 @@
 	exports.u = ex;
 
 /***/ },
-/* 130 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20105,7 +20150,7 @@
 	exports.Autocomplete = Autocomplete;
 
 /***/ },
-/* 131 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20165,7 +20210,7 @@
 	exports.Button = Button;
 
 /***/ },
-/* 132 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20690,7 +20735,7 @@
 	exports.Combobox = Combobox;
 
 /***/ },
-/* 133 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20802,7 +20847,7 @@
 	exports.Table = Table;
 
 /***/ },
-/* 134 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20818,7 +20863,7 @@
 
 	var _extend = __webpack_require__(8);
 
-	var _neouiButton = __webpack_require__(131);
+	var _neouiButton = __webpack_require__(132);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -21307,7 +21352,7 @@
 	exports.iframeDialog = iframeDialog;
 
 /***/ },
-/* 135 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21325,7 +21370,7 @@
 
 	var _env = __webpack_require__(7);
 
-	var _neouiButton = __webpack_require__(131);
+	var _neouiButton = __webpack_require__(132);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -21545,7 +21590,7 @@
 	exports.MDLayout = MDLayout;
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22049,7 +22094,7 @@
 	exports.NavLayoutTab = NavLayoutTab;
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22112,7 +22157,7 @@
 	exports.hideLoader = hideLoader;
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22241,7 +22286,7 @@
 	exports.removeWaiting = removeWaiting;
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22745,7 +22790,7 @@
 	exports.Menu = Menu;
 
 /***/ },
-/* 140 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22913,7 +22958,7 @@
 	exports.Multilang = Multilang;
 
 /***/ },
-/* 141 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23019,7 +23064,7 @@
 	exports.NavMenu = NavMenu;
 
 /***/ },
-/* 142 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23037,7 +23082,7 @@
 
 	var _util = __webpack_require__(10);
 
-	var _neouiDialog = __webpack_require__(134);
+	var _neouiDialog = __webpack_require__(135);
 
 	/**
 	 * Module : neoui-refer
@@ -23209,7 +23254,7 @@
 	exports.refer = refer;
 
 /***/ },
-/* 143 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23284,7 +23329,7 @@
 	exports.slidePanel = slidePanel;
 
 /***/ },
-/* 144 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23430,7 +23475,7 @@
 	exports.Tabs = Tabs;
 
 /***/ },
-/* 145 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
