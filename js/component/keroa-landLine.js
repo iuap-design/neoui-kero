@@ -16,13 +16,13 @@ var LandLineAdapter = StringAdapter.extend({
         var self = this;
         this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
         LandLineAdapter.superclass.init.apply(this);
-        this.validType = 'landLine';
+        this.validType = 'landline';
         this.masker = new PhoneNumberMasker(this.maskerMeta);
 
         on(this.element, 'keydown', function(e) {
             if (self.enable) {
                 var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46)) {
+                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46 || code == 109 || code == 189)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
                         e.preventDefault();
