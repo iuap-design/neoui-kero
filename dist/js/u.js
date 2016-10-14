@@ -10910,17 +10910,16 @@
 	};
 
 	PhoneNumberMasker.prototype.formatArgument = function (obj) {
-		return obj;
+		var numberObj = {};
+		numberObj.value = obj;
+		return numberObj;
 	};
 
 	PhoneNumberMasker.prototype.innerFormat = function (obj) {
 		if (!obj) {
 			return;
 		}
-		var val = obj;
-		return {
-			value: val
-		};
+		return obj;
 	};
 
 	NumberMasker.DefaultFormatMeta = {
@@ -17482,7 +17481,7 @@
 	exports.__esModule = true;
 	exports.PhoneNumberAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _keroaString = __webpack_require__(109);
 
 	var _formater = __webpack_require__(93);
 
@@ -17495,14 +17494,29 @@
 	/**
 	 * 手机号控件
 	 */
-	var PhoneNumberAdapter = _baseAdapter.BaseAdapter.extend({
-	  init: function init() {
-	    PhoneNumberAdapter.superclass.init.apply(this);
-	    this.validType = 'phone';
-	    // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
-	    // this.formater = new NumberFormater(this.maskerMeta.precision);
-	    this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
-	  }
+	var PhoneNumberAdapter = _keroaString.StringAdapter.extend({
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
+	        PhoneNumberAdapter.superclass.init.apply(this);
+	        this.validType = 'phone';
+	        // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+	        // this.formater = new NumberFormater(this.maskerMeta.precision);
+	        this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
+
+	        on(this.element, 'keydown', function (e) {
+	            if (self.enable) {
+	                var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+	                if (!(code >= 48 && code <= 57 || code >= 96 && code <= 105 || code == 37 || code == 39 || code == 8 || code == 46)) {
+	                    //阻止默认浏览器动作(W3C)
+	                    if (e && e.preventDefault) e.preventDefault();
+	                    //IE中阻止函数器默认动作的方式
+	                    else window.event.returnValue = false;
+	                    return false;
+	                }
+	            }
+	        });
+	    }
 	}); /**
 	     * Module : Kero phonenumber
 	     * Author : Alex(zhoubyc@yonyou.com)
@@ -17510,8 +17524,8 @@
 	     */
 
 	_compMgr.compMgr.addDataAdapter({
-	  adapter: PhoneNumberAdapter,
-	  name: 'phoneNumber'
+	    adapter: PhoneNumberAdapter,
+	    name: 'phoneNumber'
 	});
 	exports.PhoneNumberAdapter = PhoneNumberAdapter;
 
@@ -17524,9 +17538,7 @@
 	exports.__esModule = true;
 	exports.LandLineAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
-
-	var _formater = __webpack_require__(93);
+	var _keroaString = __webpack_require__(109);
 
 	var _masker = __webpack_require__(95);
 
@@ -17534,17 +17546,32 @@
 
 	var _compMgr = __webpack_require__(4);
 
+	var _event = __webpack_require__(6);
+
 	/**
 	 * 电话号码控件
 	 */
-	var LandLineAdapter = _baseAdapter.BaseAdapter.extend({
-	  init: function init() {
-	    LandLineAdapter.superclass.init.apply(this);
-	    this.validType = 'landLine';
-	    // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
-	    // this.formater = new NumberFormater(this.maskerMeta.precision);
-	    this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
-	  }
+	var LandLineAdapter = _keroaString.StringAdapter.extend({
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
+	        LandLineAdapter.superclass.init.apply(this);
+	        this.validType = 'landline';
+	        this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
+
+	        (0, _event.on)(this.element, 'keydown', function (e) {
+	            if (self.enable) {
+	                var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+	                if (!(code >= 48 && code <= 57 || code >= 96 && code <= 105 || code == 37 || code == 39 || code == 8 || code == 46 || code == 109 || code == 189)) {
+	                    //阻止默认浏览器动作(W3C)
+	                    if (e && e.preventDefault) e.preventDefault();
+	                    //IE中阻止函数器默认动作的方式
+	                    else window.event.returnValue = false;
+	                    return false;
+	                }
+	            }
+	        });
+	    }
 	}); /**
 	     * Module : Kero LandLine
 	     * Author : Alex(zhoubyc@yonyou.com)
@@ -17552,8 +17579,8 @@
 	     */
 
 	_compMgr.compMgr.addDataAdapter({
-	  adapter: LandLineAdapter,
-	  name: 'landLine'
+	    adapter: LandLineAdapter,
+	    name: 'landLine'
 	});
 	exports.LandLineAdapter = LandLineAdapter;
 
