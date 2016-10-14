@@ -14,6 +14,7 @@ import {Checkbox} from 'tinper-neoui/js/neoui-checkbox';
 import {compMgr} from 'tinper-sparrow/js/compMgr';
 import {makeDOM} from 'tinper-sparrow/js/dom';
 import {on,stopEvent} from 'tinper-sparrow/js/event';
+import {env} from 'tinper-sparrow/js/env';
 
 
 
@@ -26,16 +27,21 @@ var CheckboxAdapter = BaseAdapter.extend({
         this.otherValue = this.options['otherValue'] || '其他';
         if(this.options['datasource'] || this.options['hasOther']){
             // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
-            this.checkboxTemplateArray = [];
-            for (var i= 0, count = this.element.childNodes.length; i< count; i++){
-                this.checkboxTemplateArray.push(this.element.childNodes[i]);
+            if(env.isIE){
+                this.checkboxTemplateHTML = this.element.innerHTML;
+            }else{
+                this.checkboxTemplateArray = [];
+                for (var i= 0, count = this.element.childNodes.length; i< count; i++){
+                    this.checkboxTemplateArray.push(this.element.childNodes[i]);
+                }            
             }
+            
         }
         if (this.options['datasource']) {
             this.isGroup = true;
-            var datasource = getJSObject(this.viewModel, this.options['datasource']);
-
-            this.setComboData(datasource);
+            this.datasource = getJSObject(this.viewModel, this.options['datasource']);
+            if(this.datasource)
+                this.setComboData(this.datasource);
         }else{
             if(this.element['u.Checkbox']) {
                 this.comp = this.element['u.Checkbox']
@@ -162,11 +168,20 @@ var CheckboxAdapter = BaseAdapter.extend({
         var self = this;
         this.datasource = comboData;
         this.element.innerHTML = '';
-        for (var i = 0, len = comboData.length; i < len; i++) {
-            for(var j=0; j<this.checkboxTemplateArray.length; j++){
-                this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
+        if(env.isIE){
+            var htmlStr = ''
+            for (var i = 0, len = comboData.length; i < len; i++) {
+                htmlStr　+= this.checkboxTemplateHTML;
+            }
+            this.element.innerHTML = htmlStr;
+        }else{
+            for (var i = 0, len = comboData.length; i < len; i++) {
+                for(var j=0; j<this.checkboxTemplateArray.length; j++){
+                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
+                }
             }
         }
+        
         var allCheck = this.element.querySelectorAll('[type=checkbox]');
         var allName = this.element.querySelectorAll('[data-role=name]');
         for (var k = 0; k < allCheck.length; k++) {
@@ -204,36 +219,38 @@ var CheckboxAdapter = BaseAdapter.extend({
         if (this.slice) return;
 
         if (this.isGroup){
-            this.trueValue = val;
-            if(this.options.hasOther){
-                var otherVal = '';
-                if(val)
-                    otherVal = val + ',';
-            }
-            this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
-                var comp =  ele['u.Checkbox'];
-                var inputValue = comp._inputElement.value;
-                if (inputValue && comp._inputElement.checked != (val + ',').indexOf(inputValue + ',') > -1){
-                    self.slice = true;
-                    comp.toggle();
-                    self.slice = false;
+            if(this.datasource){
+                this.trueValue = val;
+                if(this.options.hasOther){
+                    var otherVal = '';
+                    if(val)
+                        otherVal = val + ',';
                 }
-                if(inputValue && (val + ',').indexOf(inputValue + ',') > -1){
-                    if(self.options.hasOther){
-                        otherVal = otherVal.replace(inputValue + ',','');
+                this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
+                    var comp =  ele['u.Checkbox'];
+                    var inputValue = comp._inputElement.value;
+                    if (inputValue && comp._inputElement.checked != (val + ',').indexOf(inputValue + ',') > -1){
+                        self.slice = true;
+                        comp.toggle();
+                        self.slice = false;
                     }
-                }
-            })
-            if(this.options.hasOther){
-                if(otherVal.indexOf(this.otherValue + ',') > -1){
-                    self.lastCheck.value = this.otherValue;
-                    otherVal = otherVal.replace(this.otherValue + ',','');
-                }
-                otherVal = otherVal.replace(/\,/g,'');
-                if(otherVal){
-                    self.otherInput.oldValue = otherVal;
-                    self.otherInput.value = otherVal;
-                    self.otherInput.removeAttribute('disabled');
+                    if(inputValue && (val + ',').indexOf(inputValue + ',') > -1){
+                        if(self.options.hasOther){
+                            otherVal = otherVal.replace(inputValue + ',','');
+                        }
+                    }
+                })
+                if(this.options.hasOther){
+                    if(otherVal.indexOf(this.otherValue + ',') > -1){
+                        self.lastCheck.value = this.otherValue;
+                        otherVal = otherVal.replace(this.otherValue + ',','');
+                    }
+                    otherVal = otherVal.replace(/\,/g,'');
+                    if(otherVal){
+                        self.otherInput.oldValue = otherVal;
+                        self.otherInput.value = otherVal;
+                        self.otherInput.removeAttribute('disabled');
+                    }
                 }
             }
         }else{
@@ -253,14 +270,16 @@ var CheckboxAdapter = BaseAdapter.extend({
     setEnable: function (enable) {
         this.enable = (enable === true || enable === 'true');
         if (this.isGroup){
-            this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
-                var comp =  ele['u.Checkbox'];
-                if (enable === true || enable === 'true'){
-                    comp.enable();
-                }else{
-                    comp.disable();
-                }
-            })
+            if(this.datasource){
+                this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
+                    var comp =  ele['u.Checkbox'];
+                    if (enable === true || enable === 'true'){
+                        comp.enable();
+                    }else{
+                        comp.disable();
+                    }
+                })
+            }
         }else{
             if (this.enable){
                 this.comp.enable();

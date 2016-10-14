@@ -15,6 +15,7 @@ import {on,off,stopEvent} from 'tinper-sparrow/js/event';
 import {Radio} from 'tinper-neoui/js/neoui-radio';
 import {compMgr} from 'tinper-sparrow/js/compMgr';
 import {addClass} from 'tinper-sparrow/js/dom';
+import {env} from 'tinper-sparrow/js/env';
 
 var RadioAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],
@@ -25,10 +26,15 @@ var RadioAdapter = BaseAdapter.extend({
         this.otherValue = this.options['otherValue'] || '其他';
         if(this.options['datasource'] || this.options['hasOther']){
             // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
-            this.radioTemplateArray = [];
-            for (var i= 0, count = this.element.childNodes.length; i< count; i++){
-                this.radioTemplateArray.push(this.element.childNodes[i]);
+            if(env.isIE){
+                this.radioTemplateHTML = this.element.innerHTML;
+            }else{
+                this.radioTemplateArray = [];
+                for (var i= 0, count = this.element.childNodes.length; i< count; i++){
+                    this.radioTemplateArray.push(this.element.childNodes[i]);
+                }
             }
+            
         }
         if (this.options['datasource']) {
             this.dynamic = true;
@@ -113,12 +119,21 @@ var RadioAdapter = BaseAdapter.extend({
         var self = this;
         this.datasource = comboData;
         this.element.innerHTML = '';
-        for (var i = 0, len = comboData.length; i < len; i++) {
-            for(var j=0; j<this.radioTemplateArray.length; j++){
-                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+        if(env.isIE){
+            var htmlStr = ''
+            for (var i = 0, len = comboData.length; i < len; i++) {
+                htmlStr　+= this.radioTemplateHTML;
             }
-            //this.radioTemplate.clone().appendTo(this.element)
+            this.element.innerHTML = htmlStr;
+        }else{
+            for (var i = 0, len = comboData.length; i < len; i++) {
+                for(var j=0; j<this.radioTemplateArray.length; j++){
+                    this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+                }
+                //this.radioTemplate.clone().appendTo(this.element)
+            }
         }
+        
 
         var allRadio = this.element.querySelectorAll('[type=radio]');
         var allName = this.element.querySelectorAll('.u-radio-label');

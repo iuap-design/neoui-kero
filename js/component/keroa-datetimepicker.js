@@ -17,6 +17,7 @@ import {env} from 'tinper-sparrow/js/env';
 import {DateTimePicker} from 'tinper-neoui/js/neoui-datetimepicker';
 import {date} from 'tinper-sparrow/js/util/dateUtils';
 import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {getFunction} from 'tinper-sparrow/js/util';
 
 var DateTimeAdapter = BaseAdapter.extend({
 	mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],
@@ -29,6 +30,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 			this.adapterType = 'datetime'
 			addClass(this.element,'time');
 		}
+
+		this.beforeValueChangeFun = getFunction(this.viewModel, this.options['beforeValueChangeFun']);
 
 		this.maskerMeta = core.getMaskerMeta(this.adapterType) || {};
 		this.maskerMeta.format = this.options['format'] || this.maskerMeta.format;
@@ -71,6 +74,11 @@ var DateTimeAdapter = BaseAdapter.extend({
 				lang: "zh",
 				cancelText: null,
 				onSelect:function(val){
+					if(typeof self.options.beforeValueChangeFun == 'function'){
+				        if(!self.options.beforeValueChangeFun.call(this,this.pickerDate)){
+				            return;
+				        }
+				    }
 					self.setValue(val);
 				}
 			}
@@ -89,7 +97,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 				$(this.element).mobiscroll().datetime(op);
 			}
 		}else{
-			this.comp = new DateTimePicker({el:this.element,format:this.maskerMeta.format,showFix:this.options.showFix});
+			this.comp = new DateTimePicker({el:this.element,format:this.maskerMeta.format,showFix:this.options.showFix,beforeValueChangeFun:this.beforeValueChangeFun});
 		}
 
 		this.element['u.DateTimePicker'] = this.comp;
