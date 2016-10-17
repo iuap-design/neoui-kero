@@ -1,10 +1,3 @@
-/** 
- * kero-adapter v1.5.17
- * kero adapter
- * author : yonyou FED
- * homepage : https://github.com/iuap-design/kero-adapter#readme
- * bugs : https://github.com/iuap-design/kero-adapter/issues
- **/ 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -4441,17 +4434,19 @@
 
 	var _keroaPhoneNumber = __webpack_require__(119);
 
+	var _keroaLandLine = __webpack_require__(120);
+
 	var _keroaString = __webpack_require__(109);
 
-	var _keroaProgress = __webpack_require__(120);
+	var _keroaProgress = __webpack_require__(121);
 
 	var _keroaRadio = __webpack_require__(111);
 
-	var _keroaSwitch = __webpack_require__(122);
+	var _keroaSwitch = __webpack_require__(123);
 
-	var _keroaTextarea = __webpack_require__(124);
+	var _keroaTextarea = __webpack_require__(125);
 
-	var _keroaTextfield = __webpack_require__(125);
+	var _keroaTextfield = __webpack_require__(126);
 
 	var _keroaTime = __webpack_require__(106);
 
@@ -4461,7 +4456,7 @@
 
 	var _keroaYearmonth = __webpack_require__(104);
 
-	var _keroaTree = __webpack_require__(126);
+	var _keroaTree = __webpack_require__(127);
 
 	var _enableMixin = __webpack_require__(79);
 
@@ -4473,11 +4468,6 @@
 
 	// console.log(TextAreaAdapter);
 
-	/**
-	 * Module : Kero webpack entry index
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 14:51:05
-	 */
 	var ex = {
 		BaseAdapter: _baseAdapter.BaseAdapter,
 		CheckboxAdapter: _keroaCheckbox.CheckboxAdapter,
@@ -4492,6 +4482,7 @@
 		PassWordAdapter: _keroaPassword.PassWordAdapter,
 		PercentAdapter: _keroaPercent.PercentAdapter,
 		PhoneNumberAdapter: _keroaPhoneNumber.PhoneNumberAdapter,
+		LandLineAdapter: _keroaLandLine.LandLineAdapter,
 		StringAdapter: _keroaString.StringAdapter,
 		ProgressAdapter: _keroaProgress.ProgressAdapter,
 		RadioAdapter: _keroaRadio.RadioAdapter,
@@ -4506,7 +4497,12 @@
 		RequiredMixin: _requiredMixin.RequiredMixin,
 		ValidateMixin: _validateMixin.ValidateMixin,
 		ValueMixin: _valueMixin.ValueMixin
-	};
+	}; /**
+	    * Module : Kero webpack entry index
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-10 14:51:05
+	    */
+
 
 	(0, _extend.extend)(ex, window.u || {});
 	window.u = ex;
@@ -5210,7 +5206,7 @@
 	                this.referDom.parentNode.appendChild(this.successId);
 	            }
 	        }
-	        //不是默认的tip提示方式并且tipId没有定义时创建默认tipid	
+	        //不是默认的tip提示方式并且tipId没有定义时创建默认tipid
 	        if (this.notipFlag && !this.tipId) {
 	            this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exclamationsign "></span>');
 	            this.referDom.parentNode.appendChild(this.tipId);
@@ -5255,7 +5251,8 @@
 	    "landline": (0, _i18n.trans)('validate.landline', "请填写座机号码！"),
 	    "email": (0, _i18n.trans)('validate.email', "请填写邮箱地址！"),
 	    "url": (0, _i18n.trans)('validate.url', "请填写网址！"),
-	    "datetime": (0, _i18n.trans)('validate.datetime', "请填写日期！")
+	    "datetime": (0, _i18n.trans)('validate.datetime', "请填写日期！"),
+	    "phoneNumber": (0, _i18n.trans)('validate.phoneNumber', "请填写正确号码！")
 
 	};
 
@@ -5267,7 +5264,8 @@
 	    "landline": (0, _i18n.trans)('validate.error_landline', "座机号码格式不对！"),
 	    "email": (0, _i18n.trans)('validate.error_email', "邮箱地址格式不对！"),
 	    "url": (0, _i18n.trans)('validate.error_url', "网址格式不对！"),
-	    "datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！")
+	    "datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！"),
+	    "phoneNumber": (0, _i18n.trans)('validate.error_phoneNumber', "号码格式不对！")
 	};
 
 	Validate.REG = {
@@ -5279,7 +5277,8 @@
 	    "landline": /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
 	    "email": /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
 	    "url": /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
-	    "datetime": /^(?:19|20)[0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/
+	    "datetime": /^(?:19|20)[0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/,
+	    "PhoneNumber": /^\d+$/
 	};
 
 	Validate.fn.create = function () {
@@ -5570,7 +5569,7 @@
 	            "showFix": this.showFix
 	        };
 	        if (this.options.tipTemplate) tipOptions.template = this.options.tipTemplate;
-	        if (!this.tooltip) this.tooltip = new _neouiTooltip.Tooltip(this.element, tipOptions);
+	        if (!this.tooltip) this.tooltip = new _neouiTooltip.Tooltip(this.referDom, tipOptions);
 	        this.tooltip.setTitle(msg);
 	        this.tooltip.show();
 	    }
@@ -8350,17 +8349,16 @@
 	};
 
 	PhoneNumberMasker.prototype.formatArgument = function (obj) {
-		return obj;
+		var numberObj = {};
+		numberObj.value = obj;
+		return numberObj;
 	};
 
 	PhoneNumberMasker.prototype.innerFormat = function (obj) {
 		if (!obj) {
 			return;
 		}
-		var val = obj;
-		return {
-			value: val
-		};
+		return obj;
 	};
 
 	NumberMasker.DefaultFormatMeta = {
@@ -8918,11 +8916,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -9007,11 +9005,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -14922,7 +14920,7 @@
 	exports.__esModule = true;
 	exports.PhoneNumberAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _keroaString = __webpack_require__(109);
 
 	var _formater = __webpack_require__(93);
 
@@ -14935,14 +14933,29 @@
 	/**
 	 * 手机号控件
 	 */
-	var PhoneNumberAdapter = _baseAdapter.BaseAdapter.extend({
-	  init: function init() {
-	    PhoneNumberAdapter.superclass.init.apply(this);
-	    this.validType = 'phoneNumber';
-	    // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
-	    // this.formater = new NumberFormater(this.maskerMeta.precision);
-	    this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
-	  }
+	var PhoneNumberAdapter = _keroaString.StringAdapter.extend({
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
+	        PhoneNumberAdapter.superclass.init.apply(this);
+	        this.validType = 'phone';
+	        // this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+	        // this.formater = new NumberFormater(this.maskerMeta.precision);
+	        this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
+
+	        on(this.element, 'keydown', function (e) {
+	            if (self.enable) {
+	                var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+	                if (!(code >= 48 && code <= 57 || code >= 96 && code <= 105 || code == 37 || code == 39 || code == 8 || code == 46)) {
+	                    //阻止默认浏览器动作(W3C)
+	                    if (e && e.preventDefault) e.preventDefault();
+	                    //IE中阻止函数器默认动作的方式
+	                    else window.event.returnValue = false;
+	                    return false;
+	                }
+	            }
+	        });
+	    }
 	}); /**
 	     * Module : Kero phonenumber
 	     * Author : Alex(zhoubyc@yonyou.com)
@@ -14950,8 +14963,8 @@
 	     */
 
 	_compMgr.compMgr.addDataAdapter({
-	  adapter: PhoneNumberAdapter,
-	  name: 'phoneNumber'
+	    adapter: PhoneNumberAdapter,
+	    name: 'phoneNumber'
 	});
 	exports.PhoneNumberAdapter = PhoneNumberAdapter;
 
@@ -14962,11 +14975,66 @@
 	'use strict';
 
 	exports.__esModule = true;
+	exports.LandLineAdapter = undefined;
+
+	var _keroaString = __webpack_require__(109);
+
+	var _masker = __webpack_require__(95);
+
+	var _core = __webpack_require__(71);
+
+	var _compMgr = __webpack_require__(4);
+
+	var _event = __webpack_require__(6);
+
+	/**
+	 * 电话号码控件
+	 */
+	var LandLineAdapter = _keroaString.StringAdapter.extend({
+	    init: function init() {
+	        var self = this;
+	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
+	        LandLineAdapter.superclass.init.apply(this);
+	        this.validType = 'landline';
+	        this.masker = new _masker.PhoneNumberMasker(this.maskerMeta);
+
+	        (0, _event.on)(this.element, 'keydown', function (e) {
+	            if (self.enable) {
+	                var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+	                if (!(code >= 48 && code <= 57 || code >= 96 && code <= 105 || code == 37 || code == 39 || code == 8 || code == 46 || code == 109 || code == 189)) {
+	                    //阻止默认浏览器动作(W3C)
+	                    if (e && e.preventDefault) e.preventDefault();
+	                    //IE中阻止函数器默认动作的方式
+	                    else window.event.returnValue = false;
+	                    return false;
+	                }
+	            }
+	        });
+	    }
+	}); /**
+	     * Module : Kero LandLine
+	     * Author : Alex(zhoubyc@yonyou.com)
+	     * Date	  : 2016-08-09 20:02:50
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: LandLineAdapter,
+	    name: 'landLine'
+	});
+	exports.LandLineAdapter = LandLineAdapter;
+
+/***/ },
+/* 121 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
 	exports.ProgressAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiProgress = __webpack_require__(121);
+	var _neouiProgress = __webpack_require__(122);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -15000,7 +15068,7 @@
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15125,7 +15193,7 @@
 	exports.Progress = Progress;
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15135,7 +15203,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiSwitch = __webpack_require__(123);
+	var _neouiSwitch = __webpack_require__(124);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -15191,7 +15259,7 @@
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15235,7 +15303,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  	thumb.appendChild(focusHelper);*/
+	  		thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
@@ -15379,7 +15447,7 @@
 	exports.Switch = Switch;
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15431,7 +15499,7 @@
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15513,7 +15581,7 @@
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

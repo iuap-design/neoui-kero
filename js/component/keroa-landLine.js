@@ -1,5 +1,5 @@
 /**
- * Module : Kero phonenumber
+ * Module : Kero LandLine
  * Author : Alex(zhoubyc@yonyou.com)
  * Date	  : 2016-08-09 20:02:50
  */
@@ -9,20 +9,20 @@ import {core} from 'tinper-sparrow/js/core';
 import {compMgr} from 'tinper-sparrow/js/compMgr';
 import {on} from 'tinper-sparrow/js/event';
 /**
- * 手机号控件
+ * 电话号码控件
  */
-var PhoneNumberAdapter = StringAdapter.extend({
+var LandLineAdapter = StringAdapter.extend({
     init: function () {
         var self = this;
         this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
-        PhoneNumberAdapter.superclass.init.apply(this);
-        this.validType = 'phone';
+        LandLineAdapter.superclass.init.apply(this);
+        this.validType = 'landline';
         this.masker = new PhoneNumberMasker(this.maskerMeta);
 
         on(this.element, 'keydown', function(e) {
             if (self.enable) {
                 var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46)) {
+                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46 || code == 109 || code == 189)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
                         e.preventDefault();
@@ -33,10 +33,11 @@ var PhoneNumberAdapter = StringAdapter.extend({
                 }
             }
         });
+
     }
 });
 compMgr.addDataAdapter({
-	adapter: PhoneNumberAdapter,
-	name: 'phoneNumber'
+	adapter: LandLineAdapter,
+	name: 'landLine'
 });
-export {PhoneNumberAdapter};
+export {LandLineAdapter};

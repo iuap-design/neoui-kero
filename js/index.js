@@ -19,6 +19,7 @@ import {PaginationAdapter} from './component/keroa-pagination';
 import {PassWordAdapter} from './component/keroa-password';
 import {PercentAdapter} from './component/keroa-percent';
 import {PhoneNumberAdapter} from './component/keroa-phoneNumber';
+import {LandLineAdapter} from './component/keroa-landLine';
 import {StringAdapter} from './component/keroa-string';
 import {ProgressAdapter} from './component/keroa-progress';
 import {RadioAdapter} from './component/keroa-radio';
@@ -51,6 +52,7 @@ var ex = {
 	PassWordAdapter: PassWordAdapter,
 	PercentAdapter: PercentAdapter,
 	PhoneNumberAdapter: PhoneNumberAdapter,
+	LandLineAdapter: LandLineAdapter,
 	StringAdapter: StringAdapter,
 	ProgressAdapter: ProgressAdapter,
 	RadioAdapter: RadioAdapter,
