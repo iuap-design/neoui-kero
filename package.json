@@ -33,6 +33,7 @@
     "babel-preset-es2015-loose": "^8.0.0",
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
+    "cz-conventional-changelog": "^1.2.0",
     "eslint": "^3.2.2",
     "eslint-loader": "^1.5.0",
     "gulp": "^3.9.1",
@@ -52,5 +53,10 @@
   "bugs": {
     "url": "https://github.com/iuap-design/kero-adapter/issues"
   },
-  "homepage": "https://github.com/iuap-design/kero-adapter#readme"
+  "homepage": "https://github.com/iuap-design/kero-adapter#readme",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
