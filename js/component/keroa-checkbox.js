@@ -82,9 +82,15 @@ var CheckboxAdapter = BaseAdapter.extend({
         // 如果存在其他
         if(this.options['hasOther']){
             var node = null;
-            for(var j=0; j<this.checkboxTemplateArray.length; j++){
-                this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
+            if(env.isIE){
+                var nowHtml = this.element.innerHTML;
+                this.element.innerHTML = nowHtml + this.checkboxTemplateHTM;
+            }else{
+                for(var j=0; j<this.checkboxTemplateArray.length; j++){
+                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
+                }
             }
+           
             var LabelS = this.element.querySelectorAll('.u-checkbox');
             self.lastLabel = LabelS[LabelS.length -1];
             var allCheckS = this.element.querySelectorAll('[type=checkbox]');
@@ -228,15 +234,17 @@ var CheckboxAdapter = BaseAdapter.extend({
                 }
                 this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
                     var comp =  ele['u.Checkbox'];
-                    var inputValue = comp._inputElement.value;
-                    if (inputValue && comp._inputElement.checked != (val + ',').indexOf(inputValue + ',') > -1){
-                        self.slice = true;
-                        comp.toggle();
-                        self.slice = false;
-                    }
-                    if(inputValue && (val + ',').indexOf(inputValue + ',') > -1){
-                        if(self.options.hasOther){
-                            otherVal = otherVal.replace(inputValue + ',','');
+                    if(comp){
+                        var inputValue = comp._inputElement.value;
+                        if (inputValue && comp._inputElement.checked != (val + ',').indexOf(inputValue + ',') > -1){
+                            self.slice = true;
+                            comp.toggle();
+                            self.slice = false;
+                        }
+                        if(inputValue && (val + ',').indexOf(inputValue + ',') > -1){
+                            if(self.options.hasOther){
+                                otherVal = otherVal.replace(inputValue + ',','');
+                            }
                         }
                     }
                 })
@@ -273,10 +281,12 @@ var CheckboxAdapter = BaseAdapter.extend({
             if(this.datasource){
                 this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
                     var comp =  ele['u.Checkbox'];
-                    if (enable === true || enable === 'true'){
-                        comp.enable();
-                    }else{
-                        comp.disable();
+                    if(comp){
+                        if (enable === true || enable === 'true'){
+                            comp.enable();
+                        }else{
+                            comp.disable();
+                        }
                     }
                 })
             }

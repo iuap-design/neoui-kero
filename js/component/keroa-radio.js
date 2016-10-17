@@ -59,9 +59,15 @@ var RadioAdapter = BaseAdapter.extend({
         // 如果存在其他
         if(this.options['hasOther']){
             var node = null;
-            for(var j=0; j<this.radioTemplateArray.length; j++){
-                this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+            if(env.isIE){
+                var nowHtml = this.element.innerHTML;
+                this.element.innerHTML = nowHtml + this.radioTemplateHTML;
+            }else{
+                for(var j=0; j<this.radioTemplateArray.length; j++){
+                    this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
+                }
             }
+            
             var LabelS = this.element.querySelectorAll('.u-radio');
             self.lastLabel = LabelS[LabelS.length -1];
             var allRadioS = this.element.querySelectorAll('[type=radio]');
@@ -182,11 +188,13 @@ var RadioAdapter = BaseAdapter.extend({
                 this.trueValue = value;
                 this.element.querySelectorAll('.u-radio').forEach(function (ele) {
                     var comp =  ele['u.Radio'];
-                    var inptuValue = comp._btnElement.value;
-                    if (inptuValue && inptuValue == value) {
-                        fetch = true;
-                        addClass(comp.element,'is-checked')
-                        comp._btnElement.click();
+                    if(comp){
+                        var inptuValue = comp._btnElement.value;
+                        if (inptuValue && inptuValue == value) {
+                            fetch = true;
+                            addClass(comp.element,'is-checked')
+                            comp._btnElement.click();
+                        }
                     }
                 })
             }
@@ -222,10 +230,12 @@ var RadioAdapter = BaseAdapter.extend({
             if(this.datasource){
                 this.element.querySelectorAll('.u-radio').forEach(function (ele) {
                     var comp =  ele['u.Radio'];
-                    if (enable === true || enable === 'true'){
-                        comp.enable();
-                    }else{
-                        comp.disable();
+                    if(comp){
+                        if (enable === true || enable === 'true'){
+                            comp.enable();
+                        }else{
+                            comp.disable();
+                        }
                     }
                 })
             }
