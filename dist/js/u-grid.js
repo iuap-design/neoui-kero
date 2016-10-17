@@ -1,5 +1,5 @@
 /** 
- * tinper-neoui-grid v0.1.1
+ * tinper-neoui-grid v3.1.1
  * grid
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/tinper-neoui-grid#readme
@@ -85,9 +85,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.dataSource = undefined;
 
 	var _dataSourceInit = __webpack_require__(2);
@@ -133,9 +131,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 处理参数
 	 */
@@ -222,9 +218,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.re_basicSortRows = exports.sortRowsByPrio = exports.re_deleteOneRowTree = exports.canSortable = exports.sort_initGridEventFun = exports.sort_initEventFun = undefined;
 
 	var _gridCompEvent = __webpack_require__(4);
@@ -527,9 +521,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 创建完成之后顶层div添加监听
 	 */
@@ -652,9 +644,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 
 	var re_initTree = function re_initTree(options, gridOptions) {
 		if (gridOptions.showTree) {
@@ -1059,9 +1049,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.column = undefined;
 
 	var _columnInit = __webpack_require__(7);
@@ -1099,9 +1087,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 处理参数
 	 */
@@ -1177,9 +1163,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.gridComp = undefined;
 
 	var _gridCompCreate = __webpack_require__(9);
@@ -1251,6 +1235,7 @@
 	gridComp.prototype.DicimalFormater = _ut_utility.DicimalFormater;
 	gridComp.prototype.accAdd = _ut_utility.accAdd;
 	gridComp.prototype.getTrIndex = _ut_utility.getTrIndex;
+	gridComp.prototype.getDataTableRowIdByRow = _ut_utility.getDataTableRowIdByRow;
 
 	gridComp.prototype.updateLastRowFlag = _gridCompOther.updateLastRowFlag;
 	gridComp.prototype.updateNumColLastRowFlag = _gridCompOther.updateNumColLastRowFlag;
@@ -1641,9 +1626,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.repairContent = exports.createContentOneRowTdForIE = exports.createContentOneRowTd = exports.repaintRow = exports.createContentOneRowForIE = exports.createContentOneRow = exports.createContentRowsSumRow = exports.createContentRows = exports.createNoRowsDiv = exports.createContentTableFixed = exports.createContentTable = exports.createContentLeftNumColRow = exports.createContentLeftMultiSelectRow = exports.createContentLeft = exports.createContentSumRow = exports.createContent = exports.createThead = exports.createColgroup = exports.createHeaderDrag = exports.createHeaderTableFixed = exports.createHeaderTable = exports.createHeader = exports.createColumnMenu = exports.repaintGridDivs = exports.createGridDivs = exports.repaintDivs = exports.createDivs = undefined;
 
 	var _gridBrowser = __webpack_require__(10);
@@ -2308,9 +2291,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	var gridBrowser = {},
 	    userAgent = navigator.userAgent,
 	    ua = userAgent.toLowerCase(),
@@ -2336,9 +2317,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	var trHoverFun = function trHoverFun(index) {
 	    var oThis = this;
 	    $('#' + oThis.options.id + '_content_tbody').find('tr').removeClass('u-grid-move-bg');
@@ -2468,9 +2447,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 获取某列对应属性
 	 */
@@ -2635,9 +2612,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.initDataSource = exports.setRequired = exports.initGridCompFixedColumn = exports.initGridHiddenLevelColumn = exports.initGridCompColumnLoacl = exports.initGridCompColumnHeaderLevelFun = exports.initGridCompColumnColumnMenuFun = exports.initGridCompColumnFun = exports.initGridCompColumnVar = exports.initGridCompColumn = exports.initWidthVariable = exports.initDataSourceVariable = exports.initVariable = exports.initOptionsTree = exports.initOptions = exports.destroySelf = exports.initGrid = exports.initDefault = exports.getBooleanOptions = exports.init = undefined;
 
 	var _gridBrowser = __webpack_require__(10);
@@ -2917,9 +2892,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
 	/*
 	 * 添加一行
@@ -3633,9 +3606,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 处理renderType
 	 * begin为起始行，length为行数（增加行数时使用）
@@ -3825,9 +3796,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 设置某列是否显示(传入column)
 	 */
@@ -3980,9 +3949,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 整体宽度改变处理
 	 */
@@ -4133,9 +4100,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 双击/单击处理
 	 */
@@ -4238,9 +4203,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 更新最后数据行标识
 	 */
@@ -4393,10 +4356,8 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.getTrIndex = exports.accAdd = exports.DicimalFormater = exports.cloneObj = exports.getFloat = exports.getInt = exports.getString = exports.swapEle = exports.formatWidth = undefined;
+	exports.__esModule = true;
+	exports.getDataTableRowIdByRow = exports.getTrIndex = exports.accAdd = exports.DicimalFormater = exports.cloneObj = exports.getFloat = exports.getInt = exports.getString = exports.swapEle = exports.formatWidth = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -4508,6 +4469,10 @@
 	    return $('tr[id!="' + this.options.id + '_edit_tr"]', $tr.parent()).index($tr);
 	};
 
+	var getDataTableRowIdByRow = function getDataTableRowIdByRow(row) {
+	    return row.value['$_#_@_id'];
+	};
+
 	/**
 	 * 按字节数截取字符串 例:"e我是d".nLen(4)将返回"e我"
 	 */
@@ -4534,6 +4499,7 @@
 	    };
 	    return this.substr(0, j);
 	};
+
 	exports.formatWidth = formatWidth;
 	exports.swapEle = swapEle;
 	exports.getString = getString;
@@ -4543,6 +4509,7 @@
 	exports.DicimalFormater = DicimalFormater;
 	exports.accAdd = accAdd;
 	exports.getTrIndex = getTrIndex;
+	exports.getDataTableRowIdByRow = getDataTableRowIdByRow;
 
 /***/ },
 /* 21 */
@@ -4550,9 +4517,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.colMenu_initGridEventFun = exports.colMenu_initEventFun = exports.re_createColumnMenu = exports.colMenu_initGridCompColumn = exports.re_initGridCompColumnColumnMenuFun = undefined;
 
 	var _gridCompEvent = __webpack_require__(4);
@@ -4772,9 +4737,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.re_resetThVariableDrag = exports.headerThDrag = exports.dragEnd = exports.dragFun = exports.dragStart = exports.drag_initGridEventFun = exports.drag_initEventFun = exports.re_createHeaderDrag = undefined;
 
 	var _gridCompEvent = __webpack_require__(4);
@@ -4901,9 +4864,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.setGridEditTypeAndEditRow = exports.setGridEditType = exports.edit_initEventFun = exports.setEditable = exports.setEditType = exports.re_updateValueAtEdit = exports.re_updateEditRowIndex = exports.editValueChange = exports.nextEditShow = exports.editCell = exports.re_editClose = exports.editRow = exports.editRowIndexFun = exports.editRowFun = exports.re_clickFunEdit = exports.re_hideEditMenu = undefined;
 
 	var _gridCompEvent = __webpack_require__(4);
@@ -5383,9 +5344,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.formEditCell = exports.re_editorRowChangeFun = exports.editForm_setRequired = exports.editForm_initDefault = undefined;
 
 	var _gridCompInit = __webpack_require__(13);
@@ -5443,9 +5402,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.re_widthChangeGridFunFixed = exports.re_createContentOneRowFixed = exports.re_createContentTableFixed = exports.re_createHeaderTableFixed = exports.fixed_columnsVisibleFun = exports.re_initGridCompFixedColumn = undefined;
 
 	var _gridCompOther = __webpack_require__(19);
@@ -5516,9 +5473,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/*
 	 * 创建form形式下div
 	 */
@@ -5592,9 +5547,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	var re_resetThVariableHeaderLevel = function re_resetThVariableHeaderLevel() {
 		var oThis = this,
 		    oldParentHeaderStr = '',
@@ -5685,9 +5638,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	var re_initGridCompColumnLoacl = function re_initGridCompColumnLoacl() {
 		var oThis = this,
 		    localGridCompColumnArr = this.getGridCompColumnArrFromLocal();
@@ -5787,9 +5738,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	var re_initGridHiddenLevelColumn = function re_initGridHiddenLevelColumn() {
 		if (!this.options.overWidthHiddenColumn) return;
 		var oThis = this;
@@ -5848,9 +5797,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 
 	var re_createContentRowsSumRow = function re_createContentRowsSumRow(createFlag) {
 		var htmlStr = '';
@@ -6076,9 +6023,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.swapColumnEnd = exports.swapColumnFun = exports.swapColumnStart = exports.swap_initGridEventFun = exports.swap_initEventFun = undefined;
 
 	var _gridCompEvent = __webpack_require__(4);
