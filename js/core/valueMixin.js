@@ -90,8 +90,10 @@ var ValueMixin = {
         },
         setModelValue: function (value) {
             if (!this.dataModel) return
-            if(this.rowObj){
-                this.rowObj.setValue(this.field, value)
+             if(this.options.rowIndex > -1){
+                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+                if(rowObj)
+                    rowObj.setValue(this.field, value)
             }else{
                 this.dataModel.setValue(this.field, value)
             }
