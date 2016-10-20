@@ -14,7 +14,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && node changeSort.js && node getAllChange.js"
   },
   "dependencies": {
-    "kero": "^3.5.1",
+    "kero": "^3.1.1",
     "tinper-neoui": "^0.1.1",
     "tinper-neoui-grid": "^0.1.1",
     "tinper-neoui-polyfill": "^0.1.1",
