@@ -8607,6 +8607,66 @@
 				this.dataModel.ref(this.field).subscribe(function (value) {
 					self.modelValueChange(value);
 				});
+			}
+			this.setStartField(this.startField);
+			this.setEndField(this.endField);
+			if (!_env.env.isMobile) {
+				// 校验
+				this.comp.on('validate', function (event) {
+					self.doValidate();
+				});
+			}
+		},
+
+		setEndField: function setEndField(endField) {
+			var self = this;
+			this.endField = endField;
+			if (this.dataModel) {
+				if (this.endField) {
+					this.dataModel.ref(this.endField).subscribe(function (value) {
+						if (_env.env.isMobile) {
+							var valueObj = _dateUtils.date.getDateObj(value);
+							op.minDate = valueObj;
+							if (self.adapterType == 'date') {
+								$(self.element).mobiscroll().date(op);
+							} else {
+								$(self.element).mobiscroll().datetime(op);
+							}
+							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
+							if (nowDate < valueObj || !value) {
+								self.dataModel.setValue(self.field, '');
+							}
+						} else {
+							self.comp.setEndDate(value);
+							if (self.comp.date > _dateUtils.date.getDateObj(value) || !value) {
+								self.dataModel.setValue(self.field, '');
+							}
+						}
+					});
+				}
+
+				if (this.endField) {
+					var endValue = this.dataModel.getValue(this.endField);
+					if (endValue) {
+						if (_env.env.isMobile) {
+							op.minDate = _dateUtils.date.getDateObj(endValue);
+							if (this.adapterType == 'date') {
+								$(this.element).mobiscroll().date(op);
+							} else {
+								$(this.element).mobiscroll().datetime(op);
+							}
+						} else {
+							self.comp.setEndDate(endValue);
+						}
+					}
+				}
+			}
+		},
+
+		setStartField: function setStartField(startField) {
+			var self = this;
+			this.startField = startField;
+			if (this.dataModel) {
 				if (this.startField) {
 					this.dataModel.ref(this.startField).subscribe(function (value) {
 						if (_env.env.isMobile) {
@@ -8629,30 +8689,6 @@
 						}
 					});
 				}
-
-				if (this.endField) {
-					this.dataModel.ref(this.endField).subscribe(function (value) {
-						if (_env.env.isMobile) {
-							var valueObj = _dateUtils.date.getDateObj(value);
-							op.minDate = valueObj;
-							if (self.adapterType == 'date') {
-								$(self.element).mobiscroll().date(op);
-							} else {
-								$(self.element).mobiscroll().datetime(op);
-							}
-							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate < valueObj || !value) {
-								self.dataModel.setValue(self.field, '');
-							}
-						} else {
-							self.comp.setEndDate(value);
-							if (self.comp.date < _dateUtils.date.getDateObj(value) || !value) {
-								self.dataModel.setValue(self.field, '');
-							}
-						}
-					});
-				}
-
 				if (this.startField) {
 					var startValue = this.dataModel.getValue(this.startField);
 					if (startValue) {
@@ -8668,30 +8704,9 @@
 						}
 					}
 				}
-
-				if (this.endField) {
-					var endValue = this.dataModel.getValue(this.endField);
-					if (endValue) {
-						if (_env.env.isMobile) {
-							op.minDate = _dateUtils.date.getDateObj(endValue);
-							if (this.adapterType == 'date') {
-								$(this.element).mobiscroll().date(op);
-							} else {
-								$(this.element).mobiscroll().datetime(op);
-							}
-						} else {
-							self.comp.setEndDate(endValue);
-						}
-					}
-				}
-			}
-			if (!_env.env.isMobile) {
-				// 校验
-				this.comp.on('validate', function (event) {
-					self.doValidate();
-				});
 			}
 		},
+
 		modelValueChange: function modelValueChange(value) {
 			if (this.slice) return;
 			this.trueValue = value;
