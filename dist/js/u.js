@@ -3142,6 +3142,7 @@
 	DataTable.prototype.refMeta = _ref.refMeta;
 	DataTable.prototype.refRowMeta = _ref.refRowMeta;
 	DataTable.prototype.refEnable = _ref.refEnable;
+	DataTable.prototype.refByRow = _ref.refByRow;
 
 	//row
 	DataTable.prototype.setRows = _row.setRows;
@@ -3405,7 +3406,7 @@
 /* 32 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	exports.__esModule = true;
 	/**
@@ -3415,7 +3416,6 @@
 	 */
 
 	var copyRow = function copyRow(index, row) {
-	    console.log('sa');
 	    this.copyRows(index, [row]);
 	};
 
@@ -4453,6 +4453,28 @@
 	    });
 	};
 
+	var refByRow = function refByRow(obj) {
+	    var fieldName = obj.fieldName;
+	    this.createField(fieldName);
+	    if (!this.valueChange[fieldName]) this.valueChange[fieldName] = ko.observable(1);
+	    return ko.pureComputed({
+	        read: function read() {
+	            this.valueChange[fieldName]();
+	            this.currentRowChange();
+	            var row;
+	            if (obj.index > -1) row = this.getRow(obj.index);
+	            if (row) {
+	                return row.getChildValue(fieldName);
+	            } else return '';
+	        },
+	        write: function write(value) {
+	            var row;
+	            if (obj.index > -1) row = this.getRow(obj.index);
+	            if (row) row.setChildValue(fieldName, value);
+	        },
+	        owner: this
+	    });
+	};
 	/**
 	 * 绑定字段属性
 	 * @param {Object} fieldName
@@ -4509,6 +4531,7 @@
 	exports.refMeta = refMeta;
 	exports.refRowMeta = refRowMeta;
 	exports.refEnable = refEnable;
+	exports.refByRow = refByRow;
 
 /***/ },
 /* 47 */
@@ -7484,10 +7507,23 @@
 	var ValueMixin = {
 	    init: function init() {
 	        var self = this;
-	        this.dataModel.ref(this.field).subscribe(function (value) {
-	            self.modelValueChange(value);
-	        });
-	        this.modelValueChange(this.dataModel.getValue(this.field));
+
+	        // 如果存在行对象则处理数据都针对此行进行处理
+	        if (this.options.rowIndex > -1) {
+	            var obj = {
+	                index: this.options.rowIndex,
+	                fieldName: this.field
+	            };
+	            var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	            if (rowObj) {
+	                this.modelValueChange(rowObj.getValue(this.field));
+	            }
+	        } else {
+	            this.dataModel.ref(this.field).subscribe(function (value) {
+	                self.modelValueChange(value);
+	            });
+	            this.modelValueChange(this.dataModel.getValue(this.field));
+	        }
 	    },
 	    methods: {
 	        /**
@@ -7524,7 +7560,12 @@
 	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
 	            this.setShowValue(this.showValue);
 	            this.slice = true;
-	            this.dataModel.setValue(this.field, this.trueValue);
+	            if (this.options.rowIndex > -1) {
+	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	                if (rowObj) rowObj.setValue(this.field, this.trueValue);
+	            } else {
+	                this.dataModel.setValue(this.field, this.trueValue);
+	            }
 	            this.slice = false;
 	        },
 	        /**
@@ -7543,7 +7584,12 @@
 	        },
 	        setModelValue: function setModelValue(value) {
 	            if (!this.dataModel) return;
-	            this.dataModel.setValue(this.field, value);
+	            if (this.options.rowIndex > -1) {
+	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	                if (rowObj) rowObj.setValue(this.field, value);
+	            } else {
+	                this.dataModel.setValue(this.field, value);
+	            }
 	        }
 	    }
 	};
@@ -12257,7 +12303,7 @@
 	        '<span class="u-date-header-time"></span>',
 	     '</div>',
 	'</div>',*/
-	'<div class="u-date-content"></div>', '</div>', '<div class="u-date-nav">', '<button class="u-button u-date-ok right primary">确定</button>', '<button class="u-button u-date-cancel right">取消</button>', '<button class="u-button u-date-clean">清空</button>', '</div>', '</div>'];
+	'<div class="u-date-content"></div>', '</div>', '<div class="u-date-nav">', '<button type="button" class="u-button u-date-ok right primary">确定</button>', '<button type="button" class="u-button u-date-cancel right">取消</button>', '<button type="button" class="u-button u-date-clean">清空</button>', '</div>', '</div>'];
 
 	/******************************
 	 *  Public method
@@ -18334,17 +18380,48 @@
 			// 遍历callback先执行默认之后再执行用户自定义的。
 			var callbackObj = treeSettingDefault.callback;
 			var userCallbackObj = setting.callback;
-			for (var f in callbackObj) {
-				var fun = callbackObj[f],
-				    userFun = userCallbackObj && userCallbackObj[f];
-				if (userFun) {
-					var newF = function newF() {
-						fun.apply(this, arguments);
-						userFun.apply(this, arguments);
-					};
-					userCallbackObj[f] = newF;
-				}
+
+			var callbackObj = treeSettingDefault.callback;
+			var userCallbackObj = setting.callback;
+
+			var userBeforeClick = userCallbackObj && userCallbackObj['beforeClick'];
+			if (userBeforeClick) {
+				var newBeforeClick = function newBeforeClick() {
+					callbackObj['beforeClick'].apply(this, arguments);
+					userBeforeClick.apply(this, arguments);
+				};
+				userCallbackObj['beforeClick'] = newBeforeClick;
 			}
+
+			var userOnCheck = userCallbackObj && userCallbackObj['onCheck'];
+			if (userOnCheck) {
+				var newOnCheck = function newOnCheck() {
+					callbackObj['onCheck'].apply(this, arguments);
+					userOnCheck.apply(this, arguments);
+				};
+				userCallbackObj['onCheck'] = newOnCheck;
+			}
+
+			var userOnClick = userCallbackObj && userCallbackObj['onClick'];
+			if (userOnClick) {
+				var newOnClick = function newOnClick() {
+					callbackObj['onClick'].apply(this, arguments);
+					userOnClick.apply(this, arguments);
+				};
+				userCallbackObj['onClick'] = newOnClick;
+			}
+
+			/*for(var f in callbackObj){
+	  	var fun = callbackObj[f],
+	  		userFun = userCallbackObj && userCallbackObj[f];
+	  	if(userFun){
+	  		var newF = function(){
+	  			fun.apply(this,arguments);
+	  			userFun.apply(this,arguments);
+	  		}
+	  		userCallbackObj[f] = newF;
+	  	}
+	  }*/
 
 			var treeSetting = $.extend(true, {}, treeSettingDefault, setting);
 
@@ -21113,6 +21190,7 @@
 	 * @return {[type]} [description]
 	 */
 	var disable_mouseWheel = function disable_mouseWheel() {
+		return;
 		if (document.addEventListener) {
 			document.addEventListener('DOMMouseScroll', scrollFunc, false);
 		}
@@ -21189,7 +21267,11 @@
 		}.bind(this);
 
 		this.resizeFun();
-		(0, _event.on)(window, 'resize', this.resizeFun);
+		if (this.height) {
+			//设置高度的情况下不自动计算高度
+		} else {
+			(0, _event.on)(window, 'resize', this.resizeFun);
+		}
 	};
 
 	dialogMode.prototype.create = function () {
