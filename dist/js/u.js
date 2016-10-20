@@ -21123,7 +21123,8 @@
 			cDom.style.height = '';
 			var wholeHeight = msgDom.offsetHeight;
 			var contentHeight = msgDom.scrollHeight;
-			if (contentHeight > wholeHeight && cDom) cDom.style.height = wholeHeight - (56 + 46) + 'px';
+			// if(contentHeight > wholeHeight && cDom)
+			cDom.style.height = wholeHeight - (56 + 46) + 'px';
 		}.bind(this);
 
 		this.resizeFun();
@@ -21185,7 +21186,8 @@
 			cDom.style.height = '';
 			var wholeHeight = msgDom.offsetHeight;
 			var contentHeight = msgDom.scrollHeight;
-			if (contentHeight > wholeHeight && cDom) cDom.style.height = wholeHeight - (56 + 46) + 'px';
+			// if(contentHeight > wholeHeight && cDom)
+			cDom.style.height = wholeHeight - (56 + 46) + 'px';
 		}.bind(this);
 
 		this.resizeFun();
