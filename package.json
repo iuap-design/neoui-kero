@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -14,12 +14,12 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && node changeSort.js && node getAllChange.js"
   },
   "dependencies": {
-    "kero": "^3.1.1",
-    "tinper-neoui": "^0.1.1",
-    "tinper-neoui-grid": "^0.1.1",
-    "tinper-neoui-polyfill": "^0.1.1",
-    "tinper-neoui-tree": "^0.1.1",
-    "tinper-sparrow": "^0.1.1"
+    "kero": "^2.1.2",
+    "tinper-neoui": "^3.1.2",
+    "tinper-neoui-grid": "^3.1.2",
+    "tinper-neoui-polyfill": "^3.1.2",
+    "tinper-neoui-tree": "^3.1.2",
+    "tinper-sparrow": "^3.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

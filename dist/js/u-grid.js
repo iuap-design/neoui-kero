@@ -583,6 +583,7 @@
 	        $('#' + oThis.options.id + '_content_multiSelect').css('top', -oThis.scrollTop + "px");
 	        $('#' + oThis.options.id + '_content_numCol').css('top', -oThis.scrollTop + "px");
 	        $('#' + oThis.options.id + '_content_fixed_div').css('top', -oThis.scrollTop + "px");
+	        oThis.editClose();
 	    });
 	    // 数据行相关事件
 	    $('#' + this.options.id + '_content_tbody').on('click', function (e) {
@@ -1135,7 +1136,7 @@
 	    } catch (e) {}
 
 	    // 转成数字
-	    this.options.width = parseInt(this.options.width);
+	    this.options.width = this.options.width;
 	    this.firstColumn = false;
 	};
 	var initTree = function initTree(options) {
@@ -1376,6 +1377,7 @@
 	gridComp.prototype.widthChangeGridFunOverWidthHidden = _gridCompWDChange.widthChangeGridFunOverWidthHidden;
 	gridComp.prototype.heightChangeFun = _gridCompWDChange.heightChangeFun;
 	gridComp.prototype.contentWidthChange = _gridCompWDChange.contentWidthChange;
+	gridComp.prototype.noScrollWidthReset = _gridCompWDChange.noScrollWidthReset;
 
 	var gridCompProto = gridComp.prototype;
 
@@ -1763,7 +1765,7 @@
 	            positionStr += 'width:' + this.contentMinWidth + 'px;';
 	        }
 	    }
-	    var htmlStr = '<table role="grid" id="' + this.options.id + '_header_' + idStr + 'table" style="position:' + positionStr + ';left:' + leftW + 'px">';
+	    var htmlStr = '<table role="grid" id="' + this.options.id + '_header_' + idStr + 'table" style="position:' + positionStr + ';left:' + leftW + 'px;">';
 	    htmlStr += this.createColgroup(createFlag);
 	    htmlStr += '<thead role="rowgroup" id="' + this.options.id + '_header_' + idStr + 'thead">';
 	    htmlStr += this.createThead(createFlag);
@@ -1830,7 +1832,7 @@
 	        if (this.options.headerColor) {
 	            colorStype = 'style="color:' + this.options.headerColor + '"';
 	        }
-	        htmlStr += '<div class="u-grid-header-link" field="' + this.options.field + '" title="' + this.options.title + '" ' + colorStype + '>' + this.options.title + '</div>';
+	        htmlStr += '<div class="u-grid-header-link" field="' + this.options.field + '"  ' + colorStype + '>' + this.options.title + '</div>';
 	        /*if(oThis.options.columnMenu && createFlag != 'fixed'){
 	            // 创建右侧按钮图标
 	            htmlStr += '<div class="u-grid-header-columnmenu uf uf-reorderoption " field="' + this.options.field + '" style="display:none;"></div>';
@@ -1852,7 +1854,7 @@
 	        var wh = $('#' + this.options.id)[0].offsetHeight;
 	        this.wholeHeight = wh;
 	        if (wh > 0) {
-	            this.contentHeight = parseInt(wh) - this.exceptContentHeight > 0 ? parseInt(wh) - this.exceptContentHeight : 0;
+	            this.contentHeight = parseInt(wh) - this.exceptContentHeight - 1 > 0 ? parseInt(wh) - this.exceptContentHeight - 1 : 0;
 	            if (this.contentHeight > 0) {
 	                h = 'style="height:' + this.contentHeight + 'px;"';
 	            }
@@ -1973,6 +1975,7 @@
 	    } else {
 	        hStr = "";
 	    }
+
 	    if (createFlag == 'fixed') {
 	        leftW = parseInt(this.leftW);
 	        idStr = 'fixed_';
@@ -1987,6 +1990,9 @@
 	        if (this.contentMinWidth > 0) {
 	            styleStr += 'width:' + this.contentMinWidth + 'px;';
 	        }
+	        if (this.options.noScroll) {
+	            styleStr += 'overflow-x:hidden;';
+	        }
 	        styleStr += '"';
 	        tableStyleStr = '';
 	        if (this.contentMinWidth > 0) {
@@ -1997,6 +2003,7 @@
 	            }
 	        }
 	    }
+
 	    var htmlStr = '<div id="' + this.options.id + '_content_' + idStr + 'div" class="u-grid-content-' + cssStr + 'div" ' + styleStr + '>';
 	    htmlStr += '<div style="height:30px;position:absolute;top:-30px;width:100%;"></div><table role="grid" id="' + this.options.id + '_content_' + idStr + 'table" ' + tableStyleStr + '>';
 	    htmlStr += this.createColgroup(createFlag);
@@ -2168,7 +2175,7 @@
 	            iconStr = '<span class="' + this.options.icon + '"></span>';
 	        }
 	        // title="' + v + '" 创建td的时候不在设置title，在renderType中设置,处理现实xml的情况
-	        htmlStr += '<td role="rowcell"  ' + tdStyle + ' title="' + v.replace(/\</g, '\<').replace(/\>/g, '\>') + '"><div class="u-grid-content-td-div" ' + treeStyle + '>' + spanStr + iconStr + '<span>' + v.replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '</span></div></td>';
+	        htmlStr += '<td role="rowcell"  ' + tdStyle + ' ><div class="u-grid-content-td-div" ' + treeStyle + '>' + spanStr + iconStr + '<span>' + v.replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '</span></div></td>';
 	    });
 	    return htmlStr;
 	};
@@ -2199,7 +2206,7 @@
 	            htmlStr = '',
 	            newCell = row.insertCell();
 	        newCell.setAttribute("role", "rowcell");
-	        newCell.title = v.replace(/\</g, '\<').replace(/\>/g, '\>');
+	        // newCell.title = v.replace(/\</g,'\<').replace(/\>/g,'\>');
 	        if (oThis.options.showTree && this.firstColumn) {
 	            var l = parseInt(oThis.treeLeft) * parseInt(rowObj.level);
 	            treeStyle = 'style="position:relative;';
@@ -2674,6 +2681,7 @@
 	    this.options.autoExpand = this.getBoolean(this.options.autoExpand);
 	    this.options.needTreeSort = this.getBoolean(this.options.needTreeSort);
 	    this.options.needLocalStorage = this.getBoolean(this.options.needLocalStorage);
+	    this.options.noScroll = this.getBoolean(this.options.noScroll);
 	};
 	/*
 	 * 初始化默认参数
@@ -2698,7 +2706,8 @@
 	        showTree: false, // 是否显示树表
 	        autoExpand: true, // 是否默认展开
 	        needTreeSort: false, // 是否需要对传入数据进行排序，此设置为优化性能，如果传入数据是无序的则设置为true，如果可以保证先传入父节点后传入子节点则设置为false提高性能
-	        needLocalStorage: false };
+	        needLocalStorage: false, // 是否使用前端缓存
+	        noScroll: false };
 	};
 	/*
 	 * 创建grid
@@ -2844,6 +2853,9 @@
 	var initGridCompColumnFun = function initGridCompColumnFun(columnOptions) {
 	    var column = new _column.column(columnOptions, this);
 	    column.options.optionsWidth = column.options.width;
+	    if (column.options.optionsWidth.indexOf("%") > 0) {
+	        this.options.noScroll = 'true';
+	    }
 	    column.options.realWidth = column.options.width;
 	    this.gridCompColumnArr.push(column);
 	    this.initGridCompColumnColumnMenuFun(columnOptions);
@@ -3343,6 +3355,10 @@
 	    this.selectRowsObj.push(this.dataSourceObj.rows[rowIndex]);
 	    this.selectRowsIndex.push(rowIndex);
 	    this.dataSourceObj.rows[rowIndex].checked = true;
+	    if (this.selectRows.length == this.dataSourceObj.rows.length) {
+	        //修改全选标记为false
+	        $('#' + this.options.id + '_header_multi_input').addClass('is-checked');
+	    }
 	    if (typeof this.options.onRowSelected == 'function') {
 	        var obj = {};
 	        obj.gridObj = this;
@@ -3398,6 +3414,10 @@
 	        }
 	    });
 	    this.dataSourceObj.rows[rowIndex].checked = false;
+
+	    //修改全选标记为false
+	    $('#' + this.options.id + '_header_multi_input').removeClass('is-checked');
+
 	    if (typeof this.options.onRowUnSelected == 'function') {
 	        var obj = {};
 	        obj.gridObj = this;
@@ -3731,15 +3751,15 @@
 	                                v = u.dateTimeRender(v);
 	                            }
 	                            span.innerHTML = v;
-	                            td.title = v;
+	                            span.title = v;
 	                        } else if (dataType == 'Int') {
 	                            v = parseInt(v);
 	                            if (v) {
 	                                span.innerHTML = v;
-	                                td.title = v;
+	                                span.title = v;
 	                            } else {
 	                                span.innerHTML = "";
-	                                td.title = "";
+	                                span.title = "";
 	                            }
 	                        } else if (dataType == 'Float') {
 	                            if (precision) {
@@ -3752,17 +3772,17 @@
 	                            }
 	                            if (v) {
 	                                span.innerHTML = v;
-	                                td.title = v;
+	                                span.title = v;
 	                            } else {
 	                                span.innerHTML = "";
-	                                td.title = "";
+	                                span.title = "";
 	                            }
 	                        } else {
 	                            //此处逻辑放到渲染处，减少render执行次数。
 	                            v = oThis.getString(v, '');
 	                            var v1 = v.replace(/\</g, '\<');
 	                            v1 = v1.replace(/\>/g, '\>');
-	                            td.title = v;
+	                            span.title = v;
 	                            v = v.replace(/\</g, '&lt;');
 	                            v = v.replace(/\>/g, '&gt;');
 	                            span.innerHTML = v;
@@ -3771,7 +3791,7 @@
 	                        v = oThis.getString(v, '');
 	                        var v1 = v.replace(/\</g, '\<');
 	                        v1 = v1.replace(/\>/g, '\>');
-	                        td.title = v;
+	                        span.title = v;
 	                        v = v.replace(/\</g, '&lt;');
 	                        v = v.replace(/\>/g, '&gt;');
 	                        if (i == 0 && iconSpan) {
@@ -3960,8 +3980,9 @@
 	        var w = $('#' + this.options.id).width(); //[0].offsetWidth;
 	        if (this.wholeWidth != w && this.$ele.data('gridComp') == this) {
 	            this.wholeWidth = w;
+
 	            // 树展开/合上的时候会导致页面出现滚动条导致宽度改变，没有&&之后会重新刷新页面导致无法收起
-	            if (w > this.options.formMaxWidth && (this.showType == 'form' || this.showType == '' || !$('#' + this.options.id + '_content_div tbody')[0]) || this.options.overWidthHiddenColumn) {
+	            if (w > this.options.formMaxWidth && (this.showType == 'form' || this.showType == '' || !$('#' + this.options.id + '_content_div tbody')[0]) || this.options.overWidthHiddenColumn || this.options.noScroll) {
 	                //lyk--需要完善隐藏之后再显示同事添加数据操作
 	                oThis.widthChangeGridFun();
 	            } else if (w > 0 && w < this.options.formMaxWidth && (this.showType == 'grid' || this.showType == '')) {}
@@ -3991,6 +4012,8 @@
 	            }
 	            $('#' + oThis.options.id + '_header_table').css('width', oThis.contentMinWidth + 'px');
 	            $('#' + oThis.options.id + '_edit_form').css('width', oThis.contentMinWidth + 'px');
+
+	            this.preWholeWidth = w;
 	        }
 	    }
 	};
@@ -4000,6 +4023,7 @@
 	var widthChangeGridFun = function widthChangeGridFun() {
 	    var oThis = this,
 	        halfWholeWidth = parseInt(this.wholeWidth / 2);
+	    this.noScrollWidthReset();
 	    this.widthChangeGridFunFixed(halfWholeWidth);
 	    /* 如果宽度不足处理自动隐藏*/
 	    this.widthChangeGridFunOverWidthHidden();
@@ -4019,6 +4043,33 @@
 	    this.createGridDivs();
 	    $('#' + this.options.id + '_form').css('display', 'none');
 	    $('#' + this.options.id + '_grid').css('display', 'block');
+	};
+
+	/**
+	 * 不显示滚动条的情况下需要重置每列的宽度
+	 */
+	var noScrollWidthReset = function noScrollWidthReset() {
+	    if (this.options.noScroll) {
+	        if (this.hasNoScrollRest) {
+	            //先按100%来处理
+	            for (var i = 0; i < this.gridCompColumnArr.length; i++) {
+	                var column = this.gridCompColumnArr[i];
+	                var nowWidth = column.options.width;
+	                var newWidth = nowWidth / this.preWholeWidth * this.wholeWidth;
+	                this.setColumnWidth(column, newWidth);
+	            }
+	        } else {
+	            //先按100%来处理
+	            for (var i = 0; i < this.gridCompColumnArr.length; i++) {
+	                var column = this.gridCompColumnArr[i];
+	                var nowWidth = column.options.width;
+	                var newWidth = nowWidth.replace('%', '') * this.wholeWidth / 100;
+	                this.setColumnWidth(column, newWidth);
+	            }
+	        }
+
+	        this.hasNoScrollRest = true;
+	    }
 	};
 	var widthChangeGridFunFixed = function widthChangeGridFunFixed(halfWholeWidth) {};
 	var widthChangeGridFunOverWidthHidden = function widthChangeGridFunOverWidthHidden() {};
@@ -4093,6 +4144,7 @@
 	exports.widthChangeGridFunOverWidthHidden = widthChangeGridFunOverWidthHidden;
 	exports.heightChangeFun = heightChangeFun;
 	exports.contentWidthChange = contentWidthChange;
+	exports.noScrollWidthReset = noScrollWidthReset;
 
 /***/ },
 /* 18 */

@@ -11585,11 +11585,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -11674,11 +11674,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -18001,7 +18001,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  		thumb.appendChild(focusHelper);*/
+	  	thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
@@ -21123,8 +21123,7 @@
 			cDom.style.height = '';
 			var wholeHeight = msgDom.offsetHeight;
 			var contentHeight = msgDom.scrollHeight;
-			// if(contentHeight > wholeHeight && cDom)
-			cDom.style.height = wholeHeight - (56 + 46) + 'px';
+			if (contentHeight > wholeHeight && cDom) cDom.style.height = wholeHeight - (56 + 46) + 'px';
 		}.bind(this);
 
 		this.resizeFun();
@@ -21186,8 +21185,7 @@
 			cDom.style.height = '';
 			var wholeHeight = msgDom.offsetHeight;
 			var contentHeight = msgDom.scrollHeight;
-			// if(contentHeight > wholeHeight && cDom)
-			cDom.style.height = wholeHeight - (56 + 46) + 'px';
+			if (contentHeight > wholeHeight && cDom) cDom.style.height = wholeHeight - (56 + 46) + 'px';
 		}.bind(this);
 
 		this.resizeFun();
@@ -21280,12 +21278,15 @@
 			cDom.style.height = '';
 			var wholeHeight = this.templateDom.offsetHeight;
 			var contentHeight = this.contentDom.offsetHeight;
-			// if(contentHeight > wholeHeight && cDom)
-			cDom.style.height = wholeHeight - (56 + 46) + 'px';
+			if (contentHeight > wholeHeight && cDom) cDom.style.height = wholeHeight - (56 + 46) + 'px';
 		}.bind(this);
 
 		this.resizeFun();
-		(0, _event.on)(window, 'resize', this.resizeFun);
+		if (this.height) {
+			//设置高度的情况下不自动计算高度
+		} else {
+			(0, _event.on)(window, 'resize', this.resizeFun);
+		}
 	};
 
 	dialogMode.prototype.create = function () {
