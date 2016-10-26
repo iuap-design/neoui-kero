@@ -2684,6 +2684,8 @@
 	    this.options.needLocalStorage = this.getBoolean(this.options.needLocalStorage);
 	    this.options.noScroll = this.getBoolean(this.options.noScroll);
 	    this.options.cancelSelect = this.getBoolean(this.options.cancelSelect);
+	    this.options.contentSelect = this.getBoolean(this.options.contentSelect);
+	    this.options.contentFocus = this.getBoolean(this.options.contentFocus);
 	};
 	/*
 	 * 初始化默认参数
@@ -2710,7 +2712,9 @@
 	        autoExpand: true, // 是否默认展开
 	        needTreeSort: false, // 是否需要对传入数据进行排序，此设置为优化性能，如果传入数据是无序的则设置为true，如果可以保证先传入父节点后传入子节点则设置为false提高性能
 	        needLocalStorage: false, // 是否使用前端缓存
-	        noScroll: false };
+	        noScroll: false, // 是否显示滚动条,宽度设置百分比的话不显示滚动条
+	        contentSelect: true, // 点击内容区是否执行选中逻辑
+	        contentFocus: true };
 	};
 	/*
 	 * 创建grid
@@ -2776,6 +2780,9 @@
 	        url = url.substring(0, index);
 	    }
 	    this.localStorageId = this.options.id + url;
+
+	    // select与focus保持一致
+	    this.options.contentFocus = this.options.contentSelect;
 	};
 	var initOptionsTree = function initOptionsTree() {};
 	/*
@@ -2855,7 +2862,7 @@
 	};
 	var initGridCompColumnFun = function initGridCompColumnFun(columnOptions) {
 	    var column = new _column.column(columnOptions, this);
-	    column.options.optionsWidth = column.options.width;
+	    column.options.optionsWidth = column.options.width + '';
 	    if (column.options.optionsWidth.indexOf("%") > 0) {
 	        this.options.noScroll = 'true';
 	    }
@@ -4255,18 +4262,22 @@
 					return;
 				}
 				var rowChildIndex = oThis.getChildRowIndex(row);
-				if (oThis.dataSourceObj.rows[index].focus && oThis.options.cancelFocus) {
-					oThis.setRowUnFocus(index);
-				} else {
-					if (!oThis.dataSourceObj.rows[index].focus) {
-						oThis.setRowFocus(index);
+				if (oThis.options.contentFocus || !oThis.options.multiSelect) {
+					if (oThis.dataSourceObj.rows[index].focus && oThis.options.cancelFocus) {
+						oThis.setRowUnFocus(index);
+					} else {
+						if (!oThis.dataSourceObj.rows[index].focus) {
+							oThis.setRowFocus(index);
+						}
 					}
 				}
-				if (oThis.dataSourceObj.rows[index].checked && oThis.options.cancelSelect) {
-					oThis.setRowUnselect(index);
-				} else {
-					if (!oThis.dataSourceObj.rows[index].checked) {
-						oThis.setRowSelect(index);
+				if (oThis.options.contentSelect || !oThis.options.multiSelect) {
+					if (oThis.dataSourceObj.rows[index].checked && oThis.options.cancelSelect) {
+						oThis.setRowUnselect(index);
+					} else {
+						if (!oThis.dataSourceObj.rows[index].checked) {
+							oThis.setRowSelect(index);
+						}
 					}
 				}
 				this.clickFunEdit(e, index);
