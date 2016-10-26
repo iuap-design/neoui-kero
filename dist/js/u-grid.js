@@ -1060,9 +1060,9 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var column = function column(options, gridComp) {
-	    _classCallCheck(this, column);
+	  _classCallCheck(this, column);
 
-	    this.init(options, gridComp);
+	  this.init(options, gridComp);
 	};
 
 	;
@@ -1363,6 +1363,7 @@
 	gridComp.prototype.renderTypeFun = _gridCompRenderType.renderTypeFun;
 	gridComp.prototype.renderTypeByColumn = _gridCompRenderType.renderTypeByColumn;
 	gridComp.prototype.renderTypeSumRow = _gridCompRenderType.renderTypeSumRow;
+	gridComp.prototype.getRenderOverFlag = _gridCompRenderType.getRenderOverFlag;
 
 	gridComp.prototype.setColumnVisibleByColumn = _gridCompSet.setColumnVisibleByColumn;
 	gridComp.prototype.setColumnVisibleByIndex = _gridCompSet.setColumnVisibleByIndex;
@@ -3801,16 +3802,45 @@
 	                        }
 	                        span.innerHTML = v;
 	                    }
+
+	                    /* 增加处理判断是否需要显示... */
+	                    var obj = {
+	                        span: span,
+	                        column: gridCompColumn
+	                    };
+	                    var overFlag = oThis.getRenderOverFlag(obj);
+	                    if (overFlag) {
+	                        $(span).addClass('u-grid-content-td-div-over');
+	                    }
 	                }
 	            }
 	        }
 	    });
 	    this.renderTypeSumRow(gridCompColumn, i, begin, length, isFixedColumn);
 	};
+
+	var getRenderOverFlag = function getRenderOverFlag(obj) {
+	    var span = obj.span;
+	    var nowHeight = span.offsetHeight;
+	    var nowWidth = span.offsetWidth;
+	    var newSpan = $(span).clone()[0];
+	    var overFlag = false;
+	    obj.span.parentNode.appendChild(newSpan);
+	    newSpan.style.height = '';
+	    newSpan.style.maxHeight = '999999px';
+	    var newHeight = newSpan.offsetHeight;
+	    if (newHeight > nowHeight) {
+	        overFlag = true;
+	    }
+	    obj.span.parentNode.removeChild(newSpan);
+	    return overFlag;
+	};
+
 	var renderTypeSumRow = function renderTypeSumRow(gridCompColumn, i, begin, length, isFixedColumn) {};
 	exports.renderTypeFun = renderTypeFun;
 	exports.renderTypeByColumn = renderTypeByColumn;
 	exports.renderTypeSumRow = renderTypeSumRow;
+	exports.getRenderOverFlag = getRenderOverFlag;
 
 /***/ },
 /* 16 */
@@ -4932,6 +4962,7 @@
 		var $td = $(e.target).closest('td');
 		var colIndex = $td.index();
 		if (this.options.editable && (this.eidtRowIndex != index || this.options.editType == 'default' && this.editColIndex != colIndex)) {
+			this.editClose();
 			if (typeof this.options.onBeforeEditFun == 'function') {
 				var obj = {};
 				obj.gridObj = this;
