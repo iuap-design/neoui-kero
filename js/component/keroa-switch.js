@@ -31,6 +31,17 @@ var SwitchAdapter = BaseAdapter.extend({
         	self.modelValueChange(value)
         })
 
+        var self = this;
+        //处理只读
+        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)){
+                this.setEnable(false);
+        }else {
+            this.dataModel.refEnable(this.field).subscribe(function (value) {
+                self.setEnable(value);
+            });
+            this.setEnable(this.dataModel.isEnable(this.field));
+        }
+
 
     },
 
@@ -45,9 +56,11 @@ var SwitchAdapter = BaseAdapter.extend({
     },
     setEnable: function (enable) {
         if (enable === true || enable === 'true') {
-            this.enable = true
+            this.enable = true;
+            this.comp.enable();
         } else if (enable === false || enable === 'false') {
-            this.enable = false
+            this.enable = false;
+            this.comp.disable();
         }
     }
 })

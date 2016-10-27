@@ -139,7 +139,11 @@ var GridAdapter = BaseAdapter.extend({
 						//IE8有问题，所以需要重新创建div,将上面的代码直接拷贝
 						oThis.createDefaultEdit(eType,eOptions,options,viewModel,column);
 					}
-					var comp = oThis.editComponent[column.field]
+					var comp = oThis.editComponent[column.field];
+					var rowId = obj.rowObj['$_#_@_id'];
+					var row = oThis.dataTable.getRowByRowId(rowId);
+					var index = oThis.dataTable.getRowIndex(row);
+					comp.options.rowIndex = index;
 					if (!comp){
 						$(obj.element).parent().focus();
 						return
@@ -520,19 +524,41 @@ var GridAdapter = BaseAdapter.extend({
 		var onRowSelectedFun = this.gridOptions.onRowSelected;
 		// 选中
 		this.gridOptions.onRowSelected = function(obj) {
-			var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
-			var index = oThis.dataTable.getIndexByRowId(rowId);
-			if(oThis.grid.options.multiSelect){
-				oThis.dataTable.addRowsSelect([index]);
-			}else{
-				oThis.dataTable.setRowSelect(index);
+			if(!oThis.silence){
+				var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
+				var index = oThis.dataTable.getIndexByRowId(rowId);
+				if(oThis.grid.options.multiSelect){
+					oThis.dataTable.addRowsSelect([index]);
+				}else{
+					oThis.dataTable.setRowSelect(index);
+				}
 			}
-
 			if(onRowSelectedFun){
 				onRowSelectedFun.call(oThis,obj);
 			}
 		};
 		this.dataTable.on(DataTable.ON_ROW_SELECT, function(event) {
+			
+			var gridSelectRows = [];
+			$.each(oThis.grid.getSelectRows(),function(){
+				gridSelectRows.push(this);
+			});
+			$.each(gridSelectRows,function(){
+				var rowId = this['$_#_@_id'];
+				var unSelectFlag = true;
+				$.each(event.rowIds,function(){
+					if(this == rowId)
+						unSelectFlag = false;
+				})
+				if(unSelectFlag){
+					var index = oThis.grid.getRowIndexByValue('$_#_@_id',rowId);
+					oThis.silence = true;
+					oThis.grid.setRowUnselect(index);
+					oThis.silence = false;
+				}
+			})
+			
+			
 			/*index转化为grid的index*/
 			$.each(event.rowIds, function() {
 				var index = oThis.grid.getRowIndexByValue('$_#_@_id',this);
@@ -544,6 +570,8 @@ var GridAdapter = BaseAdapter.extend({
 					}
 				}
 			});
+
+
 		});
 
 		//全选
@@ -559,9 +587,11 @@ var GridAdapter = BaseAdapter.extend({
 		// 反选
 		var onRowUnSelectedFun = this.gridOptions.onRowUnSelected;
 		this.gridOptions.onRowUnSelected = function(obj) {
-			var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
-			var index = oThis.dataTable.getIndexByRowId(rowId);
-			oThis.dataTable.setRowUnSelect(index);
+			if(!oThis.silence){
+				var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
+				var index = oThis.dataTable.getIndexByRowId(rowId);
+				oThis.dataTable.setRowUnSelect(index);
+			}
 			if(onRowUnSelectedFun){
 				onRowUnSelectedFun.call(oThis,obj);
 			}
@@ -586,13 +616,15 @@ var GridAdapter = BaseAdapter.extend({
 		var onRowFocusFun = this.gridOptions.onRowFocus;
 		// focus
 		this.gridOptions.onRowFocus = function(obj) {
-			var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
-			var index = oThis.dataTable.getIndexByRowId(rowId);
+			if(!oThis.silence){
+				var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
+				var index = oThis.dataTable.getIndexByRowId(rowId);
 
-			if(oThis.grid.options.rowClickBan) {
-				oThis.dataTable.setRowFocus(index, true);
-			} else {
-				oThis.dataTable.setRowFocus(index);
+				if(oThis.grid.options.rowClickBan) {
+					oThis.dataTable.setRowFocus(index, true);
+				} else {
+					oThis.dataTable.setRowFocus(index);
+				}
 			}
 
 			if(onRowFocusFun){
@@ -616,9 +648,11 @@ var GridAdapter = BaseAdapter.extend({
 		// 反focus
 		var onRowUnFocusFun = this.gridOptions.onRowUnFocus;
 		this.gridOptions.onRowUnFocus = function(obj) {
-			var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
-			var index = oThis.dataTable.getIndexByRowId(rowId);
-			oThis.dataTable.setRowUnFocus(index);
+			if(!oThis.silence){
+				var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
+				var index = oThis.dataTable.getIndexByRowId(rowId);
+				oThis.dataTable.setRowUnFocus(index);
+			}
 			if(onRowUnFocusFun){
 				onRowUnFocusFun.call(oThis,obj);
 			}
@@ -685,10 +719,13 @@ var GridAdapter = BaseAdapter.extend({
 			//oThis.grid.editClose();
 		});
 
-		// 删除行,只考虑viewModel传入grid
-//		this.gridOptions.onRowDelete = function(obj){
-//			dataTable.removeRow(obj.index);
-//		};
+		this.gridOptions.onRowDelete = function(obj){
+			if(!oThis.silence){
+				var row = obj.row;
+				var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
+				oThis.dataTable.removeRow(datatableIndex);
+			}
+		};
 		this.dataTable.on(DataTable.ON_DELETE, function(event) {
 			/*index转化为grid的index*/
 			var gridIndexs = new Array();
@@ -706,13 +743,15 @@ var GridAdapter = BaseAdapter.extend({
 		// 数据改变
 		var onValueChangeFun = this.gridOptions.onValueChange;
 		this.gridOptions.onValueChange = function(obj) {
-			var row = oThis.getDataTableRow(oThis.grid.dataSourceObj.rows[obj.rowIndex].value)
-			if(row){
-				if($.type(obj.newValue) == 'object') {
-					row.setValue(obj.field, obj.newValue.trueValue);
-					row.setMeta(obj.field, 'display', obj.newValue.showValue);
-				} else {
-					row.setValue(obj.field,obj.newValue);
+			if(!oThis.silence){
+				var row = oThis.getDataTableRow(oThis.grid.dataSourceObj.rows[obj.rowIndex].value)
+				if(row){
+					if($.type(obj.newValue) == 'object') {
+						row.setValue(obj.field, obj.newValue.trueValue);
+						row.setMeta(obj.field, 'display', obj.newValue.showValue);
+					} else {
+						row.setValue(obj.field,obj.newValue);
+					}
 				}
 			}
 			if(onValueChangeFun){
@@ -1513,6 +1552,12 @@ var GridAdapter = BaseAdapter.extend({
 		if(rowIndex > -1)
 			row = this.dataTable.getRow(rowIndex);
 		return row
+	},
+
+	getDatatableRowIndexByGridRow: function(gridRow){
+		var rowId =  gridRow['$_#_@_id']
+		var rowIndex = this.dataTable.getIndexByRowId(rowId)
+		return rowIndex;
 	},
 
 	setEnable: function(enable){

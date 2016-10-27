@@ -1,7 +1,7 @@
 /**
  * Module : Kero Value Mixin
  * Author : Kvkens(yueming@yonyou.com)
- * Date	  : 2016-08-08 15:58:49
+ * Date   : 2016-08-08 15:58:49
  */
 
 
@@ -11,10 +11,18 @@ var ValueMixin = {
 
         // 如果存在行对象则处理数据都针对此行进行处理
         if(this.options.rowIndex > -1){
-            var obj = {
-                index : this.options.rowIndex,
-                fieldName : this.field
-            }
+            // 添加监听，判断当前field并且为当前行的情况下才修改值
+            this.dataModel.on(DataTable.ON_VALUE_CHANGE, function(obj) {
+                if(self.field == obj.field){
+                    var rowId = obj.rowId;
+                    var row = self.dataModel.getRowByRowId(rowId);
+                    var index = self.dataModel.getRowIndex(row);
+                    if(index == self.options.rowIndex){
+                        self.modelValueChange(obj.newValue);
+                    }
+                }
+            });
+
             var rowObj = this.dataModel.getRow(this.options.rowIndex);
             if(rowObj){
                 this.modelValueChange(rowObj.getValue(this.field));
