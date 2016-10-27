@@ -1,5 +1,5 @@
-<a name="3.1.2"></a>
-## [3.1.2](https://github.com/iuap-design/kero-adapter/compare/v3.1.1...v3.1.2) (2016-10-24)
+<a name="3.1.3"></a>
+## [3.1.3](https://github.com/iuap-design/kero-adapter/compare/v1.5.11...v3.1.3) (2016-10-25)
 
 
 ### Bug Fixes
@@ -7,11 +7,6 @@
 
 * 优化tree传入setting的处理 ([c7823fc](https://github.com/iuap-design/kero-adapter/commit/c7823fc))
 
-
-
-
-<a name="3.1.1"></a>
-## [3.1.1](https://github.com/iuap-design/kero-adapter/compare/v1.5.11...v3.1.1) (2016-10-17)
 
 
 

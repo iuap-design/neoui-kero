@@ -182,17 +182,23 @@ var GridAdapter = BaseAdapter.extend({
 					var row = datatable.getRowByRowId(rowId);
 					var checkStr = '',disableStr = '';
 
-					if(obj.value == 'Y' || obj.value == 'true'){
-						checkStr = 'checked';
+					if (obj.value == 'Y' || obj.value == 'true') {
+						checkStr = 'is-checked';
 					}
-					if(grid.options.editType == 'form'){
-						disableStr = 'disabled'
+					if (grid.options.editType == 'form') {
+						disableStr = 'is-disabled';
 					}
-					var htmlStr = '<input type="checkbox"   style="cursor:default;" ' + checkStr + " " + disableStr + '>'
+					var htmlStr = '<label class="u-checkbox is-upgraded '+checkStr+disableStr+'">'
+                        				+ '<input type="checkbox" class="u-checkbox-input">'
+                        				+ '<span class="u-checkbox-label"></span>'
+                        				+ '<span class="u-checkbox-focus-helper"></span><span class="u-checkbox-outline"><span class="u-checkbox-tick-outline"></span></span>'
+                    					+'</label>'
+
 					obj.element.innerHTML = htmlStr;
 
 					
 					$(obj.element).find('input').on('click',function(e){
+						$(this).parent().toggleClass('is-checked');
 						if(!obj.gridObj.options.editable){
 							stopEvent(e);
 							return false;
@@ -355,15 +361,25 @@ var GridAdapter = BaseAdapter.extend({
 					var ds = getJSObject(viewModel, eOptions['datasource'])
 					var value = params.value
 					var compDiv = $('<div class="u-grid-edit-item-radio"></div>');
+					var checkStr = '';
 
 					params.element.innerHTML = ""
 					$(params.element).append(compDiv)
 
 					for(var i = 0;i < ds.length;i++){
-						if(ds[i].value==value)
-							compDiv.append('<input name="'+column.field+params.row.value['$_#_@_id']+'" type="radio" value="'+ds[i].value +'" checked="true" /><i data-role="name">' +ds[i].name+ '</i>')
-						else
-							compDiv.append('<input name="'+column.field+params.row.value['$_#_@_id']+'" type="radio" value="'+ds[i].value +'"/><i data-role="name">' +ds[i].name+ '</i>')
+							// if (ds[i].value == value) compDiv.append('<input name="' + column.field + params.row.value['$_#_@_id'] + '" type="radio" value="' + ds[i].value + '" checked="true" /><i data-role="name">' + ds[i].name + '</i>');else compDiv.append('<input name="' + column.field + params.row.value['$_#_@_id'] + '" type="radio" value="' + ds[i].value + '"/><i data-role="name">' + ds[i].name + '</i>');
+							// 修改处
+						checkStr = "";
+						if (ds[i].value == value) {
+							checkStr = "is-checked";
+						}
+						var htmlStr = '<label class="u-radio is-upgraded '+ checkStr+'" for="'+column.field+ params.row.value['$_#_@_id'] +i+'" >'
+									  	+ '<input type="radio" id="'+column.field+ params.row.value['$_#_@_id'] +i+'" class="u-radio-button" name="' + column.field + params.row.value['$_#_@_id'] + '" value="' + ds[i].value + '">'
+                    				  	+ '<span class="u-radio-label">'+ ds[i].name +'</span>'
+                    					+ '<span class="u-radio-outer-circle"></span><span class="u-radio-inner-circle"></span>'
+                    					+ '</label>';
+               
+                        compDiv.append(htmlStr);
 					}
 					compDiv.find(":radio").each(function() {
 
@@ -372,9 +388,9 @@ var GridAdapter = BaseAdapter.extend({
 							var val = this.value
 							compDiv.find(":radio").each(function() {
 								if (this.value == val) {
-									this.checked = true;
+									$(this).parent().addClass('is-checked');
 								}else{
-									this.checked = false;
+									$(this).parent().removeClass('is-checked');
 								}
 							})
 							var grid = params.gridObj
@@ -1190,7 +1206,7 @@ var GridAdapter = BaseAdapter.extend({
 		eOptions.showFix = true;
 		var compDiv,comp;
 		if(eType == 'string'){
-			compDiv = $('<div class="u-text"><input type="text" class="u-input"><label class="u-label"></label></div>');
+			compDiv = $('<div ><input type="text" class="u-input"><label class="u-label"></label></div>');
 			if(!options.editType || options.editType =="default" ){
 				compDiv.addClass("eType-input")
 			}
