@@ -12,6 +12,7 @@ import {ValidateMixin} from '../core/validateMixin';
 import {on,off,stopEvent} from 'tinper-sparrow/js/event';
 import {addClass,removeClass} from 'tinper-sparrow/js/dom';
 import {core} from 'tinper-sparrow/js/core';
+
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {env} from 'tinper-sparrow/js/env';
 import {DateTimePicker} from 'tinper-neoui/js/neoui-datetimepicker';
@@ -73,6 +74,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 				mode:"scroller",
 				lang: "zh",
 				cancelText: null,
+				timeFormat: format,
 				onSelect:function(val){
 					if(typeof self.options.beforeValueChangeFun == 'function'){
 				        if(!self.options.beforeValueChangeFun.call(this,this.pickerDate)){
@@ -211,7 +213,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 				}
 			}
 		}
-	}, 
+	},
 
 	modelValueChange: function(value){
 		if (this.slice) return;
