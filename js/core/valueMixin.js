@@ -8,10 +8,24 @@
 var ValueMixin = {
     init: function(){
         var self = this;
-        this.dataModel.ref(this.field).subscribe(function(value) {
-            self.modelValueChange(value)
-        });
-        this.modelValueChange(this.dataModel.getValue(this.field));
+
+        // 如果存在行对象则处理数据都针对此行进行处理
+        if(this.options.rowIndex > -1){
+            var obj = {
+                index : this.options.rowIndex,
+                fieldName : this.field
+            }
+            var rowObj = this.dataModel.getRow(this.options.rowIndex);
+            if(rowObj){
+                this.modelValueChange(rowObj.getValue(this.field));
+            }
+        }else{
+            this.dataModel.ref(this.field).subscribe(function(value) {
+                self.modelValueChange(value)
+            });
+            this.modelValueChange(this.dataModel.getValue(this.field));
+        }
+        
 
     },
     methods:{
@@ -50,7 +64,13 @@ var ValueMixin = {
             this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
             this.setShowValue(this.showValue);
             this.slice = true;
-            this.dataModel.setValue(this.field, this.trueValue);
+            if(this.options.rowIndex > -1){
+                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+                if(rowObj)
+                    rowObj.setValue(this.field, this.trueValue);
+            }else{
+                this.dataModel.setValue(this.field, this.trueValue);
+            }
             this.slice = false;
         },
         /**
@@ -70,7 +90,13 @@ var ValueMixin = {
         },
         setModelValue: function (value) {
             if (!this.dataModel) return
-            this.dataModel.setValue(this.field, value)
+             if(this.options.rowIndex > -1){
+                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+                if(rowObj)
+                    rowObj.setValue(this.field, value)
+            }else{
+                this.dataModel.setValue(this.field, value)
+            }
         },
     }
 }

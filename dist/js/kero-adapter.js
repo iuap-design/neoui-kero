@@ -1,3 +1,10 @@
+/** 
+ * kero-adapter v3.1.3
+ * kero adapter
+ * author : yonyou FED
+ * homepage : https://github.com/iuap-design/kero-adapter#readme
+ * bugs : https://github.com/iuap-design/kero-adapter/issues
+ **/ 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -4948,10 +4955,23 @@
 	var ValueMixin = {
 	    init: function init() {
 	        var self = this;
-	        this.dataModel.ref(this.field).subscribe(function (value) {
-	            self.modelValueChange(value);
-	        });
-	        this.modelValueChange(this.dataModel.getValue(this.field));
+
+	        // 如果存在行对象则处理数据都针对此行进行处理
+	        if (this.options.rowIndex > -1) {
+	            var obj = {
+	                index: this.options.rowIndex,
+	                fieldName: this.field
+	            };
+	            var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	            if (rowObj) {
+	                this.modelValueChange(rowObj.getValue(this.field));
+	            }
+	        } else {
+	            this.dataModel.ref(this.field).subscribe(function (value) {
+	                self.modelValueChange(value);
+	            });
+	            this.modelValueChange(this.dataModel.getValue(this.field));
+	        }
 	    },
 	    methods: {
 	        /**
@@ -4988,7 +5008,12 @@
 	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
 	            this.setShowValue(this.showValue);
 	            this.slice = true;
-	            this.dataModel.setValue(this.field, this.trueValue);
+	            if (this.options.rowIndex > -1) {
+	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	                if (rowObj) rowObj.setValue(this.field, this.trueValue);
+	            } else {
+	                this.dataModel.setValue(this.field, this.trueValue);
+	            }
 	            this.slice = false;
 	        },
 	        /**
@@ -5007,7 +5032,12 @@
 	        },
 	        setModelValue: function setModelValue(value) {
 	            if (!this.dataModel) return;
-	            this.dataModel.setValue(this.field, value);
+	            if (this.options.rowIndex > -1) {
+	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	                if (rowObj) rowObj.setValue(this.field, value);
+	            } else {
+	                this.dataModel.setValue(this.field, value);
+	            }
 	        }
 	    }
 	};
@@ -8586,6 +8616,66 @@
 				this.dataModel.ref(this.field).subscribe(function (value) {
 					self.modelValueChange(value);
 				});
+			}
+			this.setStartField(this.startField);
+			this.setEndField(this.endField);
+			if (!_env.env.isMobile) {
+				// 校验
+				this.comp.on('validate', function (event) {
+					self.doValidate();
+				});
+			}
+		},
+
+		setEndField: function setEndField(endField) {
+			var self = this;
+			this.endField = endField;
+			if (this.dataModel) {
+				if (this.endField) {
+					this.dataModel.ref(this.endField).subscribe(function (value) {
+						if (_env.env.isMobile) {
+							var valueObj = _dateUtils.date.getDateObj(value);
+							op.minDate = valueObj;
+							if (self.adapterType == 'date') {
+								$(self.element).mobiscroll().date(op);
+							} else {
+								$(self.element).mobiscroll().datetime(op);
+							}
+							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
+							if (nowDate < valueObj || !value) {
+								self.dataModel.setValue(self.field, '');
+							}
+						} else {
+							self.comp.setEndDate(value);
+							if (self.comp.date > _dateUtils.date.getDateObj(value) || !value) {
+								self.dataModel.setValue(self.field, '');
+							}
+						}
+					});
+				}
+
+				if (this.endField) {
+					var endValue = this.dataModel.getValue(this.endField);
+					if (endValue) {
+						if (_env.env.isMobile) {
+							op.minDate = _dateUtils.date.getDateObj(endValue);
+							if (this.adapterType == 'date') {
+								$(this.element).mobiscroll().date(op);
+							} else {
+								$(this.element).mobiscroll().datetime(op);
+							}
+						} else {
+							self.comp.setEndDate(endValue);
+						}
+					}
+				}
+			}
+		},
+
+		setStartField: function setStartField(startField) {
+			var self = this;
+			this.startField = startField;
+			if (this.dataModel) {
 				if (this.startField) {
 					this.dataModel.ref(this.startField).subscribe(function (value) {
 						if (_env.env.isMobile) {
@@ -8608,30 +8698,6 @@
 						}
 					});
 				}
-
-				if (this.endField) {
-					this.dataModel.ref(this.endField).subscribe(function (value) {
-						if (_env.env.isMobile) {
-							var valueObj = _dateUtils.date.getDateObj(value);
-							op.minDate = valueObj;
-							if (self.adapterType == 'date') {
-								$(self.element).mobiscroll().date(op);
-							} else {
-								$(self.element).mobiscroll().datetime(op);
-							}
-							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate < valueObj || !value) {
-								self.dataModel.setValue(self.field, '');
-							}
-						} else {
-							self.comp.setEndDate(value);
-							if (self.comp.date < _dateUtils.date.getDateObj(value) || !value) {
-								self.dataModel.setValue(self.field, '');
-							}
-						}
-					});
-				}
-
 				if (this.startField) {
 					var startValue = this.dataModel.getValue(this.startField);
 					if (startValue) {
@@ -8647,30 +8713,9 @@
 						}
 					}
 				}
-
-				if (this.endField) {
-					var endValue = this.dataModel.getValue(this.endField);
-					if (endValue) {
-						if (_env.env.isMobile) {
-							op.minDate = _dateUtils.date.getDateObj(endValue);
-							if (this.adapterType == 'date') {
-								$(this.element).mobiscroll().date(op);
-							} else {
-								$(this.element).mobiscroll().datetime(op);
-							}
-						} else {
-							self.comp.setEndDate(endValue);
-						}
-					}
-				}
-			}
-			if (!_env.env.isMobile) {
-				// 校验
-				this.comp.on('validate', function (event) {
-					self.doValidate();
-				});
 			}
 		},
+
 		modelValueChange: function modelValueChange(value) {
 			if (this.slice) return;
 			this.trueValue = value;
@@ -15809,17 +15854,48 @@
 			// 遍历callback先执行默认之后再执行用户自定义的。
 			var callbackObj = treeSettingDefault.callback;
 			var userCallbackObj = setting.callback;
-			for (var f in callbackObj) {
-				var fun = callbackObj[f],
-				    userFun = userCallbackObj && userCallbackObj[f];
-				if (userFun) {
-					var newF = function newF() {
-						fun.apply(this, arguments);
-						userFun.apply(this, arguments);
-					};
-					userCallbackObj[f] = newF;
-				}
+
+			var callbackObj = treeSettingDefault.callback;
+			var userCallbackObj = setting.callback;
+
+			var userBeforeClick = userCallbackObj && userCallbackObj['beforeClick'];
+			if (userBeforeClick) {
+				var newBeforeClick = function newBeforeClick() {
+					callbackObj['beforeClick'].apply(this, arguments);
+					userBeforeClick.apply(this, arguments);
+				};
+				userCallbackObj['beforeClick'] = newBeforeClick;
 			}
+
+			var userOnCheck = userCallbackObj && userCallbackObj['onCheck'];
+			if (userOnCheck) {
+				var newOnCheck = function newOnCheck() {
+					callbackObj['onCheck'].apply(this, arguments);
+					userOnCheck.apply(this, arguments);
+				};
+				userCallbackObj['onCheck'] = newOnCheck;
+			}
+
+			var userOnClick = userCallbackObj && userCallbackObj['onClick'];
+			if (userOnClick) {
+				var newOnClick = function newOnClick() {
+					callbackObj['onClick'].apply(this, arguments);
+					userOnClick.apply(this, arguments);
+				};
+				userCallbackObj['onClick'] = newOnClick;
+			}
+
+			/*for(var f in callbackObj){
+	  	var fun = callbackObj[f],
+	  		userFun = userCallbackObj && userCallbackObj[f];
+	  	if(userFun){
+	  		var newF = function(){
+	  			fun.apply(this,arguments);
+	  			userFun.apply(this,arguments);
+	  		}
+	  		userCallbackObj[f] = newF;
+	  	}
+	  }*/
 
 			var treeSetting = $.extend(true, {}, treeSettingDefault, setting);
 

@@ -107,7 +107,39 @@ var TreeAdapter = BaseAdapter.extend({
 		// 遍历callback先执行默认之后再执行用户自定义的。
 		var callbackObj = treeSettingDefault.callback;
 		var userCallbackObj = setting.callback;
-		for(var f in callbackObj){
+
+
+		var callbackObj = treeSettingDefault.callback;
+		var userCallbackObj = setting.callback;
+
+		var userBeforeClick = userCallbackObj && userCallbackObj['beforeClick'];
+		if(userBeforeClick){
+			var newBeforeClick = function(){
+				callbackObj['beforeClick'].apply(this, arguments);
+				userBeforeClick.apply(this, arguments);
+			}
+			userCallbackObj['beforeClick'] = newBeforeClick;
+		}
+
+		var userOnCheck = userCallbackObj && userCallbackObj['onCheck'];
+		if(userOnCheck){
+			var newOnCheck = function(){
+				callbackObj['onCheck'].apply(this, arguments);
+				userOnCheck.apply(this, arguments);
+			}
+			userCallbackObj['onCheck'] = newOnCheck;
+		}
+
+		var userOnClick = userCallbackObj && userCallbackObj['onClick'];
+		if(userOnClick){
+			var newOnClick = function(){
+				callbackObj['onClick'].apply(this, arguments);
+				userOnClick.apply(this, arguments);
+			}
+			userCallbackObj['onClick'] = newOnClick;
+		}
+			
+		/*for(var f in callbackObj){
 			var fun = callbackObj[f],
 				userFun = userCallbackObj && userCallbackObj[f];
 			if(userFun){
@@ -117,7 +149,7 @@ var TreeAdapter = BaseAdapter.extend({
 				}
 				userCallbackObj[f] = newF;
 			}
-		}
+		}*/
 
 
 		var treeSetting = $.extend(true,{}, treeSettingDefault, setting);

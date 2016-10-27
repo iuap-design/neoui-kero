@@ -3,6 +3,7 @@ var path = require('path');
 
 var prodNameArr = [
 	'kero',
+	'kero-adapter',
 	'tinper-neoui',
 	'tinper-neoui-grid',
 	'tinper-neoui-polyfill',
@@ -24,7 +25,12 @@ var otherAllArr = [];
 var featAllArr = [];
 for(var i in prodNameArr){
 	var prodName = prodNameArr[i];
-	var filePath = getResolvePath('./node_modules/' + prodName + '/CHANGELOG.md');
+	if(prodName == 'kero-adapter'){
+		var filePath = getResolvePath('CHANGELOG.md');
+	}else{
+		var filePath = getResolvePath('./node_modules/' + prodName + '/CHANGELOG.md');
+	}
+	
 	// 读取原有CHANGELOG
 	if(fs.existsSync(filePath)){
 		var dStr = fs.readFileSync(filePath,'utf-8');
@@ -69,27 +75,43 @@ for(var i in prodNameArr){
 }
 var proStr = '';
 for(var i in proAllArr){
-	proStr += '* ' + proAllArr[i] + '\r\n';
+	var nowForStr = proAllArr[i];
+	var lastIndex = nowForStr.lastIndexOf(')') + 1;
+	nowForStr = nowForStr.substring(0, lastIndex);
+	proStr += '* ' + nowForStr + '\r\n\r\n';
 }
 var otherStr = '';
 for(var i in otherAllArr){
-	otherStr += '* ' + otherAllArr[i] + '\r\n';
+	var nowForStr = otherAllArr[i];
+	var lastIndex = nowForStr.lastIndexOf(')') + 1;
+	nowForStr = nowForStr.substring(0, lastIndex);
+	otherStr += '* ' + nowForStr + '\r\n\r\n';
 }
 
 var featStr = '';
 for(var i in featAllArr){
-	featStr +=  featAllArr[i] + '\r\n';
+	var nowForStr = featAllArr[i];
+	var lastIndex = nowForStr.lastIndexOf(')') + 1;
+	nowForStr = nowForStr.substring(0, lastIndex);
+	featStr +=  + nowForStr + '\r\n\r\n';
 }
 var dateObj = new Date();
 var dateStr = dateObj.getFullYear() + '-' + (dateObj.getMonth()+ 1) + '-' +  dateObj.getDate();
 var allStr = '<a name="' + version + '"></a>\r\n## [' + version + ']\\(' + dateStr + '\\)\r\n';
-allStr += '### Bug Fixes \r\n';
-allStr += proStr;
-allStr += otherStr;
-allStr += '### Features \r\n';
-allStr += featStr;
+if(proStr || otherStr){
+	allStr += '### Bug Fixes \r\n';
+	allStr += proStr;
+	allStr += otherStr;
+}
 
-fs.writeFile(allFilePath, allStr + oldStr, function(err){
+if(featStr){
+	allStr += '### Features \r\n';
+	allStr += featStr;
+}
+
+
+var writeStr = allStr + oldStr;
+fs.writeFile(allFilePath, writeStr, function(err){
 	if(err){
 		console.log('write err');
 	}else{
