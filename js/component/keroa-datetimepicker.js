@@ -67,14 +67,32 @@ var DateTimeAdapter = BaseAdapter.extend({
 
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
-		var op;
+		var op, mobileDateFormat = "", mobileTimeFormat = "";
 		if(env.isMobile){
+			switch (format) {
+				case "YYYY-MM-DD":
+					mobileDateFormat = "yy-mm-dd";
+					break;
+				case "YYYY-MM-DD HH:mm":
+					mobileDateFormat = "yy-mm-dd";
+					mobileTimeFormat = "hh:mm";
+					break;
+				case "YYYY-MM":
+					mobileDateFormat = "yy-mm";
+					break;
+				default:
+					mobileDateFormat = "yy-mm-dd";
+					mobileTimeFormat = "hh:mm:ss";
+
+			}
+
 			op = {
 				theme:"ios",
 				mode:"scroller",
 				lang: "zh",
 				cancelText: null,
-				timeFormat: format,
+				dateFormat: mobileDateFormat,
+				timeFormat: mobileTimeFormat,
 				onSelect:function(val){
 					if(typeof self.options.beforeValueChangeFun == 'function'){
 				        if(!self.options.beforeValueChangeFun.call(this,this.pickerDate)){
