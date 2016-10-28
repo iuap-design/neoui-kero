@@ -143,7 +143,9 @@ var GridAdapter = BaseAdapter.extend({
 					var rowId = obj.rowObj['$_#_@_id'];
 					var row = oThis.dataTable.getRowByRowId(rowId);
 					var index = oThis.dataTable.getRowIndex(row);
-					comp.options.rowIndex = index;
+					if(comp){
+						comp.options.rowIndex = index;
+					}
 					if (!comp){
 						$(obj.element).parent().focus();
 						return
