@@ -1,3 +1,45 @@
+<a name="3.1.4"></a>
+## [3.1.4]\(2016-10-27\)
+### Bug Fixes 
+* pro-IUAPDESIGN-104:友云采:grid左侧的复选框和编辑控件的显示不一致 ([ef520ed](https://github.com/iuap-design/kero-adapter/commit/ef520ed))
+
+* pro-IUAPDESIGN-69:营销物业管理：u-meta定义方式需要支持指定数据行 ([994e949](https://github.com/iuap-design/kero-adapter/commit/994e949))
+
+* pro-IUAPDESIGN-106:友云采：模态框需要支持设置高度 ([534509d](https://github.com/iuap-design/tinper-neoui/commit/534509d))
+
+* pro-IUAPDESIGN-88:友云采：日期控件选择确定之后会刷新页面 ([d486f8b](https://github.com/iuap-design/tinper-neoui/commit/d486f8b))
+
+* pro-IUAPDESIGN-101:友云采：grid中横向滚动时需要隐藏编辑控件 ([928fdf1](https://github.com/iuap-design/tinper-neoui-grid/commit/928fdf1))
+
+* pro-IUAPDESIGN-41:云表单：grid提供在移动端的样式修改方案 ([8b08272](https://github.com/iuap-design/tinper-neoui-grid/commit/8b08272))
+
+* pro-IUAPDESIGN-46:友云采：gird不出现左右滚动条（方案：px改为百分比） ([6c83f92](https://github.com/iuap-design/tinper-neoui-grid/commit/6c83f92))
+
+* pro-IUAPDESIGN-50:友云采：grid表格数据不显示省略号（增加各行显示） ([b6a46ac](https://github.com/iuap-design/tinper-neoui-grid/commit/b6a46ac))
+
+* pro-IUAPDESIGN-64:数字营销：grid增加参数控制点击content不触发Row选中 ([0a84f55](https://github.com/iuap-design/tinper-neoui-grid/commit/0a84f55))
+
+* pro-IUAPDESIGN-89:友云采：grid没有数据的话下面的边线没有显示 ([bfa688f](https://github.com/iuap-design/tinper-neoui-grid/commit/bfa688f))
+
+* pro-IUAPDESIGN-92:友云采：关联计算的数据在合计行的显示 ([f67aad8](https://github.com/iuap-design/tinper-neoui-grid/commit/f67aad8))
+
+* pro-IUAPDESIGN-95:友云采：内容区点击之后第一次选中，第二次取消选中 ([b42059a](https://github.com/iuap-design/tinper-neoui-grid/commit/b42059a))
+
+* pro-IUAPDESIGN-96:友云采：grid中取消选中之后的全选显示不对 ([eafb2dc](https://github.com/iuap-design/tinper-neoui-grid/commit/eafb2dc))
+
+* pro-IUAPDESIGN-98:友云采：grid中title显示为id，renderType存在时取消td的title。 ([fe1160a](https://github.com/iuap-design/tinper-neoui-grid/commit/fe1160a))
+
+* 优化tree传入setting的处理 ([c7823fc](https://github.com/iuap-design/kero-adapter/commit/c7823fc))
+
+* 选项多选选择较多时，卡片显示... 数据显示不完整，鼠标落上时 应显示tips,显示完整数据 ([bc4e89b](https://github.com/iuap-design/tinper-neoui/commit/bc4e89b))
+
+* 修改先在datatable中选中grid中显示状态不对的问题 ([f2d1769](https://github.com/iuap-design/tinper-neoui-grid/commit/f2d1769))
+
+* 增加参数noScroll控制grid不显示滚动条 ([a20304f](https://github.com/iuap-design/tinper-neoui-grid/commit/a20304f))
+
+### Features 
+NaN
+
 <a name="3.1.3"></a>
 ## [3.1.3]\(2016-10-25\)
 ### Bug Fixes 
