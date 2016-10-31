@@ -166,6 +166,8 @@ var CheckboxAdapter = BaseAdapter.extend({
 
         if(this.dataModel){
             this.dataModel.ref(this.field).subscribe(function(value) {
+                if(!value)
+                    value = "";
                 self.modelValueChange(value)
             })
         }
