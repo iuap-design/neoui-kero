@@ -67,7 +67,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
-		var op, mobileDateFormat = "", mobileTimeFormat = "";
+		this.op = {};
+		var mobileDateFormat = "", mobileTimeFormat = "";
 		if(env.isMobile){
 			switch (format) {
 				case "YYYY-MM-DD":
@@ -86,7 +87,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 
 			}
 
-			op = {
+			this.op = {
 				theme:"ios",
 				mode:"scroller",
 				lang: "zh",
@@ -112,9 +113,9 @@ var DateTimeAdapter = BaseAdapter.extend({
 		        });
 		    }
 			if(this.adapterType == 'date'){
-				$(this.element).mobiscroll().date(op);
+				$(this.element).mobiscroll().date(this.op);
 			}else{
-				$(this.element).mobiscroll().datetime(op);
+				$(this.element).mobiscroll().datetime(this.op);
 			}
 		}else{
 			this.comp = new DateTimePicker({el:this.element,format:this.maskerMeta.format,showFix:this.options.showFix,beforeValueChangeFun:this.beforeValueChangeFun});
@@ -150,11 +151,11 @@ var DateTimeAdapter = BaseAdapter.extend({
 				this.dataModel.ref(this.endField).subscribe(function(value) {
 					if(env.isMobile){
 						var valueObj = date.getDateObj(value);
-						op.minDate = valueObj;
+						this.op.minDate = valueObj;
 						if(self.adapterType == 'date'){
-							$(self.element).mobiscroll().date(op);
+							$(self.element).mobiscroll().date(this.op);
 						}else{
-							$(self.element).mobiscroll().datetime(op);
+							$(self.element).mobiscroll().datetime(this.op);
 						}
 						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
 						if(nowDate < valueObj || !value){
@@ -174,11 +175,11 @@ var DateTimeAdapter = BaseAdapter.extend({
 				var endValue = this.dataModel.getValue(this.endField);
 				if(endValue){
 					if(env.isMobile){
-						op.minDate = date.getDateObj(endValue);
+						this.op.minDate = date.getDateObj(endValue);
 						if(this.adapterType == 'date'){
-							$(this.element).mobiscroll().date(op);
+							$(this.element).mobiscroll().date(this.op);
 						}else{
-							$(this.element).mobiscroll().datetime(op);
+							$(this.element).mobiscroll().datetime(this.op);
 						}
 					}else{
 						self.comp.setEndDate(endValue);
@@ -196,11 +197,11 @@ var DateTimeAdapter = BaseAdapter.extend({
 				this.dataModel.ref(this.startField).subscribe(function(value) {
 					if(env.isMobile){
 						var valueObj = date.getDateObj(value);
-						op.minDate = valueObj;
+						this.op.minDate = valueObj;
 						if(self.adapterType == 'date'){
-							$(self.element).mobiscroll().date(op);
+							$(self.element).mobiscroll().date(this.op);
 						}else{
-							$(self.element).mobiscroll().datetime(op);
+							$(self.element).mobiscroll().datetime(this.op);
 						}
 						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
 						if(nowDate < valueObj || !value){
@@ -219,11 +220,11 @@ var DateTimeAdapter = BaseAdapter.extend({
 				var startValue = this.dataModel.getValue(this.startField);
 				if(startValue){
 					if(env.isMobile){
-						op.minDate = date.getDateObj(startValue);
+						this.op.minDate = date.getDateObj(startValue);
 						if(this.adapterType == 'date'){
-							$(this.element).mobiscroll().date(op);
+							$(this.element).mobiscroll().date(this.op);
 						}else{
-							$(this.element).mobiscroll().datetime(op);
+							$(this.element).mobiscroll().datetime(this.op);
 						}
 					}else{
 						self.comp.setStartDate(startValue);
