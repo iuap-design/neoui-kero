@@ -131,7 +131,7 @@ var GridAdapter = BaseAdapter.extend({
 					eType = 'string';
 			if(eType == 'number') // 兼容之前版本
 				eType = 'integer';
-			if(eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime'|| eType == 'year'|| eType == 'month'|| eType == 'yearmonth'|| eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent'){
+			if(eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime'|| eType == 'year'|| eType == 'month'|| eType == 'yearmonth'|| eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent' || eType == 'phoneNumber' || eType == 'landLine'){
 				oThis.createDefaultEdit(eType,eOptions,options,viewModel,column);
 				column.editType = function(obj){
 					if(oThis.editComponentDiv[column.field] && oThis.editComponentDiv[column.field][0].childNodes.length > 0){
@@ -147,6 +147,8 @@ var GridAdapter = BaseAdapter.extend({
 					obj.element.innerHTML = '';
 					var row = oThis.getDataTableRow(obj.rowObj)
 					$(obj.element).append(oThis.editComponentDiv[column.field]);
+					
+
 					if(comp.required) {
 						$(obj.element).parent().parent().find('.u-grid-edit-mustFlag').show()
 					}
@@ -1488,6 +1490,28 @@ var GridAdapter = BaseAdapter.extend({
 			comp = new PercentAdapter({
 				el:compDiv[0],
 				options:eOptions,
+				model: viewModel
+			});
+		} else if (eType == 'phoneNumber') {
+			compDiv = $('<div ><input type="text" class="u-input"></div>');
+			if (!options.editType || options.editType == "default") {
+				compDiv.addClass("eType-input");
+			}
+			eOptions.dataType = 'phoneNumber';
+			comp = new u.PhoneNumberAdapter({
+				el: compDiv[0],
+				options: eOptions,
+				model: viewModel
+			});
+		} else if (eType == 'landLine') {
+			compDiv = $('<div ><input type="text" class="u-input"></div>');
+			if (!options.editType || options.editType == "default") {
+				compDiv.addClass("eType-input");
+			}
+			eOptions.dataType = 'landLine';
+			comp = new u.LandLineAdapter({
+				el: compDiv[0],
+				options: eOptions,
 				model: viewModel
 			});
 		}
