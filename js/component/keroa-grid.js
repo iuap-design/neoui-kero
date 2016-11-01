@@ -166,7 +166,7 @@ var GridAdapter = BaseAdapter.extend({
 					// }
 					$(obj.element).parent().focus();
 					comp.modelValueChange(obj.value);
-
+					obj.gridObj.editComp = comp;
 
 					// 根据惊道需求增加editype之后的处理,此处只针对grid.js中的默认eType进行处理，非默认通过eType进行处理
 					if(typeof afterEType == 'function'){
