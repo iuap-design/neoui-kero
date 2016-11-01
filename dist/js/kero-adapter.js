@@ -59,12 +59,12 @@
 	exports.__esModule = true;
 	exports.compMgr = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow compMgr
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 18:41:06
-	                                                                                                                                                                                                                                                   * Update : 2016-09-13 09:26:00
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : Sparrow compMgr
+	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 18:41:06
+	                                                                                                                                                                                                                                                                               * Update : 2016-09-13 09:26:00
+	                                                                                                                                                                                                                                                                               */
 
 	var _dom = __webpack_require__(5);
 
@@ -1224,11 +1224,11 @@
 	exports.__esModule = true;
 	exports.extend = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow extend
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-27 21:46:50
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : Sparrow extend
+	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-27 21:46:50
+	                                                                                                                                                                                                                                                                               */
 
 	var _enumerables = __webpack_require__(9);
 
@@ -1309,7 +1309,7 @@
 
 	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : Sparrow util tools
@@ -2007,7 +2007,7 @@
 
 	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : kero dataTable events
@@ -2826,7 +2826,7 @@
 
 	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : kero dataTable mete
@@ -3878,11 +3878,11 @@
 	exports.__esModule = true;
 	exports.addSimpleData = exports.setSimpleData = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : kero dataTable simpleData
-	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-08-01 14:34:01
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : kero dataTable simpleData
+	                                                                                                                                                                                                                                                                               * Author : liuyk(liuyk@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-01 14:34:01
+	                                                                                                                                                                                                                                                                               */
 
 
 	var _util = __webpack_require__(10);
@@ -4230,11 +4230,11 @@
 	exports.__esModule = true;
 	exports.core = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow core context
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 13:52:19
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : Sparrow core context
+	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 13:52:19
+	                                                                                                                                                                                                                                                                               */
 
 
 	var _extend = __webpack_require__(8);
@@ -4733,7 +4733,7 @@
 	            var node = null;
 	            if (_env.env.isIE) {
 	                var nowHtml = this.element.innerHTML;
-	                this.element.innerHTML = nowHtml + this.checkboxTemplateHTM;
+	                this.element.innerHTML = nowHtml + this.checkboxTemplateHTML;
 	            } else {
 	                for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
 	                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
@@ -5238,11 +5238,11 @@
 	exports.__esModule = true;
 	exports.doValidate = exports.validate = exports.Validate = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : neoui-validate
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-08-06 14:03:15
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : neoui-validate
+	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-06 14:03:15
+	                                                                                                                                                                                                                                                                               */
 
 
 	var _BaseComponent = __webpack_require__(83);
@@ -5683,8 +5683,20 @@
 	            "placement": this.placement,
 	            "showFix": this.showFix
 	        };
+
 	        if (this.options.tipTemplate) tipOptions.template = this.options.tipTemplate;
-	        if (!this.tooltip) this.tooltip = new _neouiTooltip.Tooltip(this.referDom, tipOptions);
+
+	        //月凯修改
+	        // if (!this.tooltip)
+	        this.referDom = this.$element;
+	        if (this.referDom.tagName !== 'INPUT' && this.referDom.tagName !== "TEXTAREA") {
+	            this.referDom = this.$element.querySelector('input');
+	            // 如果referDom的父元素不是this.$element说明时单选框、复选框。则referDom还为$element
+	            if (!this.referDom || this.referDom.parentNode !== this.$element) {
+	                this.referDom = this.$element;
+	            }
+	        }
+	        this.tooltip = new _neouiTooltip.Tooltip(this.referDom, tipOptions);
 	        this.tooltip.setTitle(msg);
 	        this.tooltip.show();
 	    }
@@ -7992,11 +8004,11 @@
 	exports.__esModule = true;
 	exports.PhoneNumberMasker = exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Sparrow abstract formater class
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 19:35:26
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : Sparrow abstract formater class
+	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 19:35:26
+	                                                                                                                                                                                                                                                                               */
 
 	var _extend = __webpack_require__(8);
 
@@ -8600,8 +8612,8 @@
 
 			// this.formater = new $.DateFormater(this.maskerMeta.format);
 			// this.masker = new DateTimeMasker(this.maskerMeta);
-			var op,
-			    mobileDateFormat = "",
+			this.op = {};
+			var mobileDateFormat = "",
 			    mobileTimeFormat = "";
 			if (_env.env.isMobile) {
 				switch (format) {
@@ -8621,7 +8633,7 @@
 
 				}
 
-				op = {
+				this.op = {
 					theme: "ios",
 					mode: "scroller",
 					lang: "zh",
@@ -8647,9 +8659,9 @@
 					});
 				}
 				if (this.adapterType == 'date') {
-					$(this.element).mobiscroll().date(op);
+					$(this.element).mobiscroll().date(this.op);
 				} else {
-					$(this.element).mobiscroll().datetime(op);
+					$(this.element).mobiscroll().datetime(this.op);
 				}
 			} else {
 				this.comp = new _neouiDatetimepicker.DateTimePicker({ el: this.element, format: this.maskerMeta.format, showFix: this.options.showFix, beforeValueChangeFun: this.beforeValueChangeFun });
@@ -8685,11 +8697,11 @@
 					this.dataModel.ref(this.endField).subscribe(function (value) {
 						if (_env.env.isMobile) {
 							var valueObj = _dateUtils.date.getDateObj(value);
-							op.minDate = valueObj;
+							this.op.minDate = valueObj;
 							if (self.adapterType == 'date') {
-								$(self.element).mobiscroll().date(op);
+								$(self.element).mobiscroll().date(this.op);
 							} else {
-								$(self.element).mobiscroll().datetime(op);
+								$(self.element).mobiscroll().datetime(this.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
 							if (nowDate < valueObj || !value) {
@@ -8708,11 +8720,11 @@
 					var endValue = this.dataModel.getValue(this.endField);
 					if (endValue) {
 						if (_env.env.isMobile) {
-							op.minDate = _dateUtils.date.getDateObj(endValue);
+							this.op.minDate = _dateUtils.date.getDateObj(endValue);
 							if (this.adapterType == 'date') {
-								$(this.element).mobiscroll().date(op);
+								$(this.element).mobiscroll().date(this.op);
 							} else {
-								$(this.element).mobiscroll().datetime(op);
+								$(this.element).mobiscroll().datetime(this.op);
 							}
 						} else {
 							self.comp.setEndDate(endValue);
@@ -8730,11 +8742,11 @@
 					this.dataModel.ref(this.startField).subscribe(function (value) {
 						if (_env.env.isMobile) {
 							var valueObj = _dateUtils.date.getDateObj(value);
-							op.minDate = valueObj;
+							this.op.minDate = valueObj;
 							if (self.adapterType == 'date') {
-								$(self.element).mobiscroll().date(op);
+								$(self.element).mobiscroll().date(this.op);
 							} else {
-								$(self.element).mobiscroll().datetime(op);
+								$(self.element).mobiscroll().datetime(this.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
 							if (nowDate < valueObj || !value) {
@@ -8752,11 +8764,11 @@
 					var startValue = this.dataModel.getValue(this.startField);
 					if (startValue) {
 						if (_env.env.isMobile) {
-							op.minDate = _dateUtils.date.getDateObj(startValue);
+							this.op.minDate = _dateUtils.date.getDateObj(startValue);
 							if (this.adapterType == 'date') {
-								$(this.element).mobiscroll().date(op);
+								$(this.element).mobiscroll().date(this.op);
 							} else {
-								$(this.element).mobiscroll().datetime(op);
+								$(this.element).mobiscroll().datetime(this.op);
 							}
 						} else {
 							self.comp.setStartDate(startValue);
@@ -9085,11 +9097,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -9174,11 +9186,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -10137,7 +10149,7 @@
 	    if (startDate) {
 	        this.beginDateObj = _dateUtils.date.getDateObj(startDate);
 	        this.beginYear = this.beginDateObj.getFullYear();
-	        this.beginMonth = this.beginDateObj.getMonth();
+	        this.beginMonth = this.beginDateObj.getMonth() + 1;
 	        this.beginDate = this.beginDateObj.getDate();
 	    }
 	};
@@ -10146,7 +10158,7 @@
 	    if (endDate) {
 	        this.overDateObj = _dateUtils.date.getDateObj(endDate);
 	        this.overYear = this.overDateObj.getFullYear();
-	        this.overMonth = this.overDateObj.getMonth();
+	        this.overMonth = this.overDateObj.getMonth() + 1;
 	        this.overDate = this.overDateObj.getDate();
 	    }
 	};
@@ -10185,11 +10197,11 @@
 	exports.__esModule = true;
 	exports.GridAdapter = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : Kero Grid Adapter
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-08-09 16:17:17
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : Kero Grid Adapter
+	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-09 16:17:17
+	                                                                                                                                                                                                                                                                               */
 
 	var _baseAdapter = __webpack_require__(76);
 
@@ -10340,7 +10352,7 @@
 				if (eType == '') eType = 'string';
 				if (eType == 'number') // 兼容之前版本
 					eType = 'integer';
-				if (eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime' || eType == 'year' || eType == 'month' || eType == 'yearmonth' || eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent') {
+				if (eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime' || eType == 'year' || eType == 'month' || eType == 'yearmonth' || eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent' || eType == 'phoneNumber' || eType == 'landLine') {
 					oThis.createDefaultEdit(eType, eOptions, options, viewModel, column);
 					column.editType = function (obj) {
 						if (oThis.editComponentDiv[column.field] && oThis.editComponentDiv[column.field][0].childNodes.length > 0) {} else {
@@ -10351,13 +10363,9 @@
 						var rowId = obj.rowObj['$_#_@_id'];
 						var row = oThis.dataTable.getRowByRowId(rowId);
 						var index = oThis.dataTable.getRowIndex(row);
-<<<<<<< HEAD
-						comp.options.rowIndex = index;
-=======
 						if (comp) {
 							comp.options.rowIndex = index;
 						}
->>>>>>> 86c972f7973348a6bb455be738690ebf89234d91
 						if (!comp) {
 							$(obj.element).parent().focus();
 							return;
@@ -10365,6 +10373,7 @@
 						obj.element.innerHTML = '';
 						var row = oThis.getDataTableRow(obj.rowObj);
 						$(obj.element).append(oThis.editComponentDiv[column.field]);
+
 						if (comp.required) {
 							$(obj.element).parent().parent().find('.u-grid-edit-mustFlag').show();
 						}
@@ -11676,6 +11685,28 @@
 				//comp = new $.compManager.plugs.float(compDiv.find("input")[0],eOptions,viewModel);
 				eOptions.dataType = 'precent';
 				comp = new _keroaPercent.PercentAdapter({
+					el: compDiv[0],
+					options: eOptions,
+					model: viewModel
+				});
+			} else if (eType == 'phoneNumber') {
+				compDiv = $('<div ><input type="text" class="u-input"></div>');
+				if (!options.editType || options.editType == "default") {
+					compDiv.addClass("eType-input");
+				}
+				eOptions.dataType = 'phoneNumber';
+				comp = new u.PhoneNumberAdapter({
+					el: compDiv[0],
+					options: eOptions,
+					model: viewModel
+				});
+			} else if (eType == 'landLine') {
+				compDiv = $('<div ><input type="text" class="u-input"></div>');
+				if (!options.editType || options.editType == "default") {
+					compDiv.addClass("eType-input");
+				}
+				eOptions.dataType = 'landLine';
+				comp = new u.LandLineAdapter({
 					el: compDiv[0],
 					options: eOptions,
 					model: viewModel
@@ -14860,11 +14891,11 @@
 	exports.__esModule = true;
 	exports.pagination = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * Module : neoui-pagination
-	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                   * Date	  : 2016-08-03 08:45:49
-	                                                                                                                                                                                                                                                   */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : neoui-pagination
+	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-03 08:45:49
+	                                                                                                                                                                                                                                                                               */
 
 	var _BaseComponent = __webpack_require__(83);
 
@@ -15658,7 +15689,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  		thumb.appendChild(focusHelper);*/
+	  	thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
