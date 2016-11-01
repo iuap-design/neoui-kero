@@ -1060,9 +1060,9 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var column = function column(options, gridComp) {
-	    _classCallCheck(this, column);
+	  _classCallCheck(this, column);
 
-	    this.init(options, gridComp);
+	  this.init(options, gridComp);
 	};
 
 	;
@@ -5325,6 +5325,7 @@
 			editType.call(this, obj);
 		}
 		// input输入blur时显示下一个编辑控件
+		$('input', $(td)).off('keydown');
 		$('input', $(td)).on('keydown', function (e) {
 			if (oThis.options.editType == 'form') {} else {
 				var keyCode = e.keyCode;

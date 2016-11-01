@@ -34,7 +34,7 @@ var RadioAdapter = BaseAdapter.extend({
                     this.radioTemplateArray.push(this.element.childNodes[i]);
                 }
             }
-            
+
         }
         if (this.options['datasource']) {
             this.dynamic = true;
@@ -67,7 +67,7 @@ var RadioAdapter = BaseAdapter.extend({
                     this.element.appendChild(this.radioTemplateArray[j].cloneNode(true));
                 }
             }
-            
+
             var LabelS = this.element.querySelectorAll('.u-radio');
             self.lastLabel = LabelS[LabelS.length -1];
             var allRadioS = this.element.querySelectorAll('[type=radio]');
@@ -75,7 +75,7 @@ var RadioAdapter = BaseAdapter.extend({
             var nameDivs = this.element.querySelectorAll('.u-radio-label');
             self.lastNameDiv = nameDivs[nameDivs.length -1];
             self.lastNameDiv.innerHTML = '其他';
-            self.otherInput = makeDOM('<input type="text" disabled style="height:28px;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;">');
+            self.otherInput = makeDOM('<input type="text" disabled style="vertical-align: middle;line-height: normal;">');
             self.lastNameDiv.parentNode.appendChild(self.otherInput);
             self.lastRadio.value = '';
 
@@ -139,7 +139,7 @@ var RadioAdapter = BaseAdapter.extend({
                 //this.radioTemplate.clone().appendTo(this.element)
             }
         }
-        
+
 
         var allRadio = this.element.querySelectorAll('[type=radio]');
         var allName = this.element.querySelectorAll('.u-radio-label');
