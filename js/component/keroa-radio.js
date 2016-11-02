@@ -148,7 +148,10 @@ var RadioAdapter = BaseAdapter.extend({
             allName[k].innerHTML = comboData[k].name
         }
 
-        this.radioInputName = allRadio[0].name;
+        this.radioInputName = '';
+        if(allRadio.length > 0){
+            this.radioInputName = allRadio[0].name;
+        }
 
         this.element.querySelectorAll('.u-radio').forEach(function (ele) {
             var comp = new Radio(ele);

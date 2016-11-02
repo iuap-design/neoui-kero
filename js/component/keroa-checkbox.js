@@ -84,7 +84,7 @@ var CheckboxAdapter = BaseAdapter.extend({
             var node = null;
             if(env.isIE){
                 var nowHtml = this.element.innerHTML;
-                this.element.innerHTML = nowHtml + this.checkboxTemplateHTM;
+                this.element.innerHTML = nowHtml + this.checkboxTemplateHTML;
             }else{
                 for(var j=0; j<this.checkboxTemplateArray.length; j++){
                     this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
