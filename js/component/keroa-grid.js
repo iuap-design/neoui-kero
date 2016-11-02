@@ -1247,6 +1247,7 @@ var GridAdapter = BaseAdapter.extend({
 	createDefaultEdit:function(eType,eOptions,options,viewModel,column){
 		var oThis = this;
 		eOptions.showFix = true;
+		eOptions.rowIndex = 0;
 		var compDiv,comp;
 		if(eType == 'string'){
 			compDiv = $('<div ><input type="text" class="u-input"><label class="u-label"></label></div>');
