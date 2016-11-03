@@ -75,7 +75,7 @@ var RadioAdapter = BaseAdapter.extend({
             var nameDivs = this.element.querySelectorAll('.u-radio-label');
             self.lastNameDiv = nameDivs[nameDivs.length -1];
             self.lastNameDiv.innerHTML = '其他';
-            self.otherInput = makeDOM('<input type="text" disabled style="vertical-align: middle;line-height: normal;">');
+            self.otherInput = makeDOM('<input type="text" disabled style="vertical-align: middle;line-height: normal;width: 80%">');
             self.lastNameDiv.parentNode.appendChild(self.otherInput);
             self.lastRadio.value = '';
 

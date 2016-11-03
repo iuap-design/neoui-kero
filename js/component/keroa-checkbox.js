@@ -33,9 +33,9 @@ var CheckboxAdapter = BaseAdapter.extend({
                 this.checkboxTemplateArray = [];
                 for (var i= 0, count = this.element.childNodes.length; i< count; i++){
                     this.checkboxTemplateArray.push(this.element.childNodes[i]);
-                }            
+                }
             }
-            
+
         }
         if (this.options['datasource']) {
             this.isGroup = true;
@@ -90,7 +90,7 @@ var CheckboxAdapter = BaseAdapter.extend({
                     this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
                 }
             }
-           
+
             var LabelS = this.element.querySelectorAll('.u-checkbox');
             self.lastLabel = LabelS[LabelS.length -1];
             var allCheckS = this.element.querySelectorAll('[type=checkbox]');
@@ -98,7 +98,7 @@ var CheckboxAdapter = BaseAdapter.extend({
             var nameDivs = this.element.querySelectorAll('[data-role=name]');
             self.lastNameDiv = nameDivs[nameDivs.length -1];
             self.lastNameDiv.innerHTML = '其他';
-            self.otherInput = makeDOM('<input disabled type="text">');
+            self.otherInput = makeDOM('<input disabled type="text" style="width: 80%">');
             self.lastNameDiv.parentNode.appendChild(self.otherInput);
             self.lastCheck.value = '';
 
@@ -189,7 +189,7 @@ var CheckboxAdapter = BaseAdapter.extend({
                 }
             }
         }
-        
+
         var allCheck = this.element.querySelectorAll('[type=checkbox]');
         var allName = this.element.querySelectorAll('[data-role=name]');
         for (var k = 0; k < allCheck.length; k++) {
