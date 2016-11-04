@@ -196,6 +196,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 			if(self.startField){
 				self.dataModel.ref(self.startField).subscribe(function(value) {
 					if(env.isMobile){
+						value = self.comp.setMobileStartDate(value, self.options.format);
 						var valueObj = date.getDateObj(value);
 						self.op.minDate = valueObj;
 						if(self.adapterType == 'date'){
@@ -208,7 +209,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 							self.dataModel.setValue(self.field,'');
 						}
 					}else{
-						self.comp.setStartDate(value);
+						self.comp.setStartDate(value, self.options.format);
 						if(self.comp.date < date.getDateObj(value) || !value){
 							self.dataModel.setValue(self.field,'');
 						}
@@ -220,6 +221,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 				var startValue = self.dataModel.getValue(self.startField);
 				if(startValue){
 					if(env.isMobile){
+						startValue = self.comp.setMobileStartDate(startValue, self.options.format);
 						self.op.minDate = date.getDateObj(startValue);
 						if(self.adapterType == 'date'){
 							$(self.element).mobiscroll().date(self.op);
@@ -227,7 +229,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 							$(self.element).mobiscroll().datetime(self.op);
 						}
 					}else{
-						self.comp.setStartDate(startValue);
+						self.comp.setStartDate(startValue, self.options.format);
 					}
 				}
 			}
