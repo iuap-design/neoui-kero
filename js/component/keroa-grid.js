@@ -168,6 +168,15 @@ var GridAdapter = BaseAdapter.extend({
 					comp.modelValueChange(obj.value);
 					obj.gridObj.editComp = comp;
 
+					if(obj.gridObj.options.editType == 'form'){
+						//form默认为false
+						comp.options.showFix = false;
+						comp.comp.options.showFix = false;
+					}else{
+						comp.options.showFix = true;
+						comp.comp.options.showFix = true;
+					}
+
 					// 根据惊道需求增加editype之后的处理,此处只针对grid.js中的默认eType进行处理，非默认通过eType进行处理
 					if(typeof afterEType == 'function'){
 						afterEType.call(this,obj);
