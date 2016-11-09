@@ -196,8 +196,10 @@ var DateTimeAdapter = BaseAdapter.extend({
 			if(self.startField){
 				self.dataModel.ref(self.startField).subscribe(function(value) {
 					if(env.isMobile){
-						value = self.comp.setMobileStartDate(value, self.options.format);
-						var valueObj = date.getDateObj(value);
+						value = date.getDateObj(value);
+
+
+						var valueObj = self.setMobileStartDate(value, self.options.format);
 						self.op.minDate = valueObj;
 						if(self.adapterType == 'date'){
 							$(self.element).mobiscroll().date(self.op);
@@ -221,8 +223,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 				var startValue = self.dataModel.getValue(self.startField);
 				if(startValue){
 					if(env.isMobile){
-						startValue = self.comp.setMobileStartDate(startValue, self.options.format);
-						self.op.minDate = date.getDateObj(startValue);
+						startValue = date.getDateObj(startValue);
+						self.op.minDate = self.setMobileStartDate(startValue, self.options.format);
 						if(self.adapterType == 'date'){
 							$(self.element).mobiscroll().date(self.op);
 						}else{
@@ -235,6 +237,22 @@ var DateTimeAdapter = BaseAdapter.extend({
 			}
 		}
 	},
+
+	setMobileStartDate : function (startDate, type) {
+
+	    if(startDate){
+	        switch (type) {
+	            case 'YYYY-MM':
+	                startDate = date.add(startDate, 'M', 1);
+	                break;
+	            case 'YYYY-MM-DD':
+	                startDate = date.add(startDate, 'd', 1);
+	                break;
+	        }
+	    }
+	    return startDate;
+	}
+
 
 	modelValueChange: function(value){
 		if (this.slice) return;
