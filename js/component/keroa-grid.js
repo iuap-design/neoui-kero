@@ -247,6 +247,10 @@ var GridAdapter = BaseAdapter.extend({
 						afterRType.call(this,obj);
 					}
 				}
+				// 如果是booleanRender并且没有设置eType则设置eType为空方法
+				if (!column.eType && !column.editable) {
+						column.editable = false;
+					}
 			}else if(rType == 'integerRender'){
 				column.renderType = function(obj){
 					var grid = obj.gridObj
