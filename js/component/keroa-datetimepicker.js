@@ -238,7 +238,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 		}
 	},
 
-	setMobileStartDate : function (startDate, type) {
+	setMobileStartDate: function (startDate, type) {
 
 	    if(startDate){
 	        switch (type) {
@@ -251,7 +251,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 	        }
 	    }
 	    return startDate;
-	}
+	},
 
 
 	modelValueChange: function(value){
