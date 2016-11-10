@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v3.1.6
+ * kero-adapter v3.1.7
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -4241,10 +4241,10 @@
 				_date.setDate(d);
 			} else if (period == 'M') {
 				m = m + value * isAdding;
-				_date.setMonth(d);
+				_date.setMonth(m);
 			} else if (period == 'y') {
 				m = m + value * 12 * isAdding;
-				_date.setMonth(d);
+				_date.setMonth(m);
 			}
 			return _date;
 		},
@@ -7330,9 +7330,9 @@
 	        if (!(this.initialComboData && this.initialComboData.length)) {
 	            this.initialComboData = this.comboDatas;
 	        }
-
-	        this.value = '';
-	        this._input.value = '';
+	        // isAutoTip 可以输入的情况下不清空内容，后续要清空内容需要重点考虑。
+	        // this.value = '';
+	        // this._input.value = '';
 
 	        //若没有下拉的ul,新生成一个ul结构.
 	        if (!this._ul) {
@@ -7485,6 +7485,7 @@
 	        if (!value) {
 	            this._input.value = '';
 	            this.value = '';
+	            this._updateItemSelect();
 	        }
 	        var matched = false;
 	        this.nowWidth = 0;
@@ -8880,7 +8881,9 @@
 				if (self.startField) {
 					self.dataModel.ref(self.startField).subscribe(function (value) {
 						if (_env.env.isMobile) {
-							var valueObj = _dateUtils.date.getDateObj(value);
+							value = _dateUtils.date.getDateObj(value);
+
+							var valueObj = self.setMobileStartDate(value, self.options.format);
 							self.op.minDate = valueObj;
 							if (self.adapterType == 'date') {
 								$(self.element).mobiscroll().date(self.op);
@@ -8892,7 +8895,7 @@
 								self.dataModel.setValue(self.field, '');
 							}
 						} else {
-							self.comp.setStartDate(value);
+							self.comp.setStartDate(value, self.options.format);
 							if (self.comp.date < _dateUtils.date.getDateObj(value) || !value) {
 								self.dataModel.setValue(self.field, '');
 							}
@@ -8903,18 +8906,34 @@
 					var startValue = self.dataModel.getValue(self.startField);
 					if (startValue) {
 						if (_env.env.isMobile) {
-							self.op.minDate = _dateUtils.date.getDateObj(startValue);
+							startValue = _dateUtils.date.getDateObj(startValue);
+							self.op.minDate = self.setMobileStartDate(startValue, self.options.format);
 							if (self.adapterType == 'date') {
 								$(self.element).mobiscroll().date(self.op);
 							} else {
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 						} else {
-							self.comp.setStartDate(startValue);
+							self.comp.setStartDate(startValue, self.options.format);
 						}
 					}
 				}
 			}
+		},
+
+		setMobileStartDate: function setMobileStartDate(startDate, type) {
+
+			if (startDate) {
+				switch (type) {
+					case 'YYYY-MM':
+						startDate = _dateUtils.date.add(startDate, 'M', 1);
+						break;
+					case 'YYYY-MM-DD':
+						startDate = _dateUtils.date.add(startDate, 'd', 1);
+						break;
+				}
+			}
+			return startDate;
 		},
 
 		modelValueChange: function modelValueChange(value) {
@@ -9457,24 +9476,28 @@
 	    }
 	    dateDiv = datePage.querySelector('.u-date-content-panel');
 	    tempDate = this.startDate;
+
 	    while (tempDate <= this.endDate) {
-	        cell = (0, _dom.makeDOM)('<div class="u-date-cell" unselectable="on" onselectstart="return false;">' + tempDate.getDate() + '</div>');
-	        if (tempDate.getFullYear() == this.pickerDate.getFullYear() && tempDate.getMonth() == this.pickerDate.getMonth() && tempDate.getDate() == this.pickerDate.getDate()) {
+	        var tempDateMonth = tempDate.getMonth(),
+	            tempDateYear = tempDate.getFullYear(),
+	            tempDateDate = tempDate.getDate();
+	        cell = (0, _dom.makeDOM)('<div class="u-date-cell" unselectable="on" onselectstart="return false;">' + tempDateDate + '</div>');
+	        if (tempDateYear == this.pickerDate.getFullYear() && tempDateMonth == this.pickerDate.getMonth() && tempDateDate == this.pickerDate.getDate()) {
 	            (0, _dom.addClass)(cell, 'current');
 	        }
 
-	        if (tempDate.getFullYear() < this.beginYear || tempDate.getFullYear() == this.beginYear && tempDate.getMonth() < this.beginMonth || tempDate.getFullYear() == this.overYear && tempDate.getMonth() > this.overMonth || tempDate.getFullYear() > this.overYear) {
+	        if (tempDateYear < this.beginYear || tempDateYear == this.beginYear && tempDateMonth < this.beginMonth || tempDateYear == this.overYear && tempDateMonth > this.overMonth || tempDateYear > this.overYear) {
 	            (0, _dom.addClass)(cell, 'u-disabled');
 	            (0, _dom.removeClass)(cell, 'current');
 	        }
 
-	        if (tempDate.getFullYear() == this.beginYear && tempDate.getMonth() == this.beginMonth && tempDate.getDate() < this.beginDate || tempDate.getFullYear() == this.overYear && tempDate.getMonth() == this.overMonth && tempDate.getDate() > this.overDate) {
+	        if (tempDateYear == this.beginYear && tempDateMonth == this.beginMonth && tempDateDate < this.beginDate || tempDateYear == this.overYear && tempDateMonth == this.overMonth && tempDateDate > this.overDate) {
 	            (0, _dom.addClass)(cell, 'u-disabled');
 	            (0, _dom.removeClass)(cell, 'current');
 	        }
-	        cell._value = tempDate.getDate();
-	        cell._month = tempDate.getMonth();
-	        cell._year = tempDate.getFullYear();
+	        cell._value = tempDateDate;
+	        cell._month = tempDateMonth;
+	        cell._year = tempDateYear;
 	        new _ripple.URipple(cell);
 	        dateDiv.appendChild(cell);
 	        tempDate = _dateUtils.date.add(tempDate, 'd', 1);
@@ -10292,11 +10315,20 @@
 	    this._input.value = _dateUtils.date.format(this.date, this.format);
 	};
 
-	DateTimePicker.fn.setStartDate = function (startDate) {
+	DateTimePicker.fn.setStartDate = function (startDate, type) {
 	    if (startDate) {
 	        this.beginDateObj = _dateUtils.date.getDateObj(startDate);
+	        switch (type) {
+	            case 'YYYY-MM':
+	                this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'M', 1);
+	                break;
+	            case 'YYYY-MM-DD':
+	                this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'd', 1);
+	                break;
+	        }
+
 	        this.beginYear = this.beginDateObj.getFullYear();
-	        this.beginMonth = this.beginDateObj.getMonth() + 1;
+	        this.beginMonth = this.beginDateObj.getMonth();
 	        this.beginDate = this.beginDateObj.getDate();
 	    }
 	};
@@ -10305,7 +10337,7 @@
 	    if (endDate) {
 	        this.overDateObj = _dateUtils.date.getDateObj(endDate);
 	        this.overYear = this.overDateObj.getFullYear();
-	        this.overMonth = this.overDateObj.getMonth() + 1;
+	        this.overMonth = this.overDateObj.getMonth();
 	        this.overDate = this.overDateObj.getDate();
 	    }
 	};
@@ -10536,6 +10568,23 @@
 						comp.modelValueChange(obj.value);
 						obj.gridObj.editComp = comp;
 
+						if (obj.gridObj.options.editType == 'form') {
+							//form默认为false
+							try {
+								comp.options.showFix = false;
+							} catch (e) {}
+							try {
+								comp.comp.options.showFix = false;
+							} catch (e) {}
+						} else {
+							try {
+								comp.options.showFix = true;
+							} catch (e) {}
+							try {
+								comp.comp.options.showFix = true;
+							} catch (e) {}
+						}
+
 						// 根据惊道需求增加editype之后的处理,此处只针对grid.js中的默认eType进行处理，非默认通过eType进行处理
 						if (typeof afterEType == 'function') {
 							afterEType.call(this, obj);
@@ -10582,6 +10631,10 @@
 							afterRType.call(this, obj);
 						}
 					};
+					// 如果是booleanRender并且没有设置eType则设置eType为空方法
+					if (!column.eType && !column.editable) {
+						column.editable = false;
+					}
 				} else if (rType == 'integerRender') {
 					column.renderType = function (obj) {
 						var grid = obj.gridObj;
