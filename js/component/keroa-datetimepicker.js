@@ -68,23 +68,26 @@ var DateTimeAdapter = BaseAdapter.extend({
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
 		this.op = {};
-		var mobileDateFormat = "", mobileTimeFormat = "";
+		var mobileDateFormat = "", mobileTimeFormat = "", mobileOrder = "";
 		if(env.isMobile){
 			switch (format) {
 				case "YYYY-MM-DD":
 					mobileDateFormat = "yy-mm-dd";
+					mobileOrder = mobileDateFormat.replace(/-/g, '');
 					break;
 				case "YYYY-MM-DD HH:mm":
 					mobileDateFormat = "yy-mm-dd";
-					mobileTimeFormat = "HH:ii";
+					mobileTimeFormat = "HH:ii".replace(/\:/g, '');
+					mobileOrder = mobileDateFormat.replace(/-/g, '') + mobileTimeFormat.replace(/\:/g, '');
 					break;
 				case "YYYY-MM":
 					mobileDateFormat = "yy-mm";
+					mobileOrder = mobileDateFormat.replace(/-/g, '');
 					break;
 				default:
 					mobileDateFormat = "yy-mm-dd";
 					mobileTimeFormat = "HH:ii:ss";
-
+					mobileOrder = mobileDateFormat.replace(/-/g, '') + mobileTimeFormat.replace(/\:/g, '');
 			}
 
 			this.op = {
@@ -92,6 +95,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 				mode:"scroller",
 				lang: "zh",
 				cancelText: null,
+				dateOrder: mobileOrder,
 				dateFormat: mobileDateFormat,
 				timeFormat: mobileTimeFormat,
 				onSelect:function(val){
