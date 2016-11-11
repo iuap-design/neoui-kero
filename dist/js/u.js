@@ -2256,10 +2256,10 @@
 	            if (passed && !result.passed) {
 	                var off = (0, _dom.getOffset)(comps[i].element);
 	                //滚动到第一次出现错误的地方
-	                window.scrollTo(0, off.top - 30);
+	                window.scrollTo(0, off.top - 80);
 	                if (_env.env.isIPAD) {
 	                    // ipad上面云表单提交校验的时候没有滚动到对应位置
-	                    window.top.scrollTo(0, off.top - 30);
+	                    window.top.scrollTo(0, off.top - 80);
 	                }
 	            }
 	            passed = result.passed && passed;
@@ -6821,10 +6821,10 @@
 				_date.setDate(d);
 			} else if (period == 'M') {
 				m = m + value * isAdding;
-				_date.setMonth(d);
+				_date.setMonth(m);
 			} else if (period == 'y') {
 				m = m + value * 12 * isAdding;
-				_date.setMonth(d);
+				_date.setMonth(m);
 			}
 			return _date;
 		},
@@ -9973,9 +9973,9 @@
 	        if (!(this.initialComboData && this.initialComboData.length)) {
 	            this.initialComboData = this.comboDatas;
 	        }
-
-	        this.value = '';
-	        this._input.value = '';
+	        // isAutoTip 可以输入的情况下不清空内容，后续要清空内容需要重点考虑。
+	        // this.value = '';
+	        // this._input.value = '';
 
 	        //若没有下拉的ul,新生成一个ul结构.
 	        if (!this._ul) {
@@ -10128,6 +10128,7 @@
 	        if (!value) {
 	            this._input.value = '';
 	            this.value = '';
+	            this._updateItemSelect();
 	        }
 	        var matched = false;
 	        this.nowWidth = 0;
@@ -11523,7 +11524,9 @@
 				if (self.startField) {
 					self.dataModel.ref(self.startField).subscribe(function (value) {
 						if (_env.env.isMobile) {
-							var valueObj = _dateUtils.date.getDateObj(value);
+							value = _dateUtils.date.getDateObj(value);
+
+							var valueObj = self.setMobileStartDate(value, self.options.format);
 							self.op.minDate = valueObj;
 							if (self.adapterType == 'date') {
 								$(self.element).mobiscroll().date(self.op);
@@ -11535,7 +11538,7 @@
 								self.dataModel.setValue(self.field, '');
 							}
 						} else {
-							self.comp.setStartDate(value);
+							self.comp.setStartDate(value, self.options.format);
 							if (self.comp.date < _dateUtils.date.getDateObj(value) || !value) {
 								self.dataModel.setValue(self.field, '');
 							}
@@ -11546,18 +11549,34 @@
 					var startValue = self.dataModel.getValue(self.startField);
 					if (startValue) {
 						if (_env.env.isMobile) {
-							self.op.minDate = _dateUtils.date.getDateObj(startValue);
+							startValue = _dateUtils.date.getDateObj(startValue);
+							self.op.minDate = self.setMobileStartDate(startValue, self.options.format);
 							if (self.adapterType == 'date') {
 								$(self.element).mobiscroll().date(self.op);
 							} else {
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 						} else {
-							self.comp.setStartDate(startValue);
+							self.comp.setStartDate(startValue, self.options.format);
 						}
 					}
 				}
 			}
+		},
+
+		setMobileStartDate: function setMobileStartDate(startDate, type) {
+
+			if (startDate) {
+				switch (type) {
+					case 'YYYY-MM':
+						startDate = _dateUtils.date.add(startDate, 'M', 1);
+						break;
+					case 'YYYY-MM-DD':
+						startDate = _dateUtils.date.add(startDate, 'd', 1);
+						break;
+				}
+			}
+			return startDate;
 		},
 
 		modelValueChange: function modelValueChange(value) {
@@ -12100,24 +12119,28 @@
 	    }
 	    dateDiv = datePage.querySelector('.u-date-content-panel');
 	    tempDate = this.startDate;
+
 	    while (tempDate <= this.endDate) {
-	        cell = (0, _dom.makeDOM)('<div class="u-date-cell" unselectable="on" onselectstart="return false;">' + tempDate.getDate() + '</div>');
-	        if (tempDate.getFullYear() == this.pickerDate.getFullYear() && tempDate.getMonth() == this.pickerDate.getMonth() && tempDate.getDate() == this.pickerDate.getDate()) {
+	        var tempDateMonth = tempDate.getMonth(),
+	            tempDateYear = tempDate.getFullYear(),
+	            tempDateDate = tempDate.getDate();
+	        cell = (0, _dom.makeDOM)('<div class="u-date-cell" unselectable="on" onselectstart="return false;">' + tempDateDate + '</div>');
+	        if (tempDateYear == this.pickerDate.getFullYear() && tempDateMonth == this.pickerDate.getMonth() && tempDateDate == this.pickerDate.getDate()) {
 	            (0, _dom.addClass)(cell, 'current');
 	        }
 
-	        if (tempDate.getFullYear() < this.beginYear || tempDate.getFullYear() == this.beginYear && tempDate.getMonth() < this.beginMonth || tempDate.getFullYear() == this.overYear && tempDate.getMonth() > this.overMonth || tempDate.getFullYear() > this.overYear) {
+	        if (tempDateYear < this.beginYear || tempDateYear == this.beginYear && tempDateMonth < this.beginMonth || tempDateYear == this.overYear && tempDateMonth > this.overMonth || tempDateYear > this.overYear) {
 	            (0, _dom.addClass)(cell, 'u-disabled');
 	            (0, _dom.removeClass)(cell, 'current');
 	        }
 
-	        if (tempDate.getFullYear() == this.beginYear && tempDate.getMonth() == this.beginMonth && tempDate.getDate() < this.beginDate || tempDate.getFullYear() == this.overYear && tempDate.getMonth() == this.overMonth && tempDate.getDate() > this.overDate) {
+	        if (tempDateYear == this.beginYear && tempDateMonth == this.beginMonth && tempDateDate < this.beginDate || tempDateYear == this.overYear && tempDateMonth == this.overMonth && tempDateDate > this.overDate) {
 	            (0, _dom.addClass)(cell, 'u-disabled');
 	            (0, _dom.removeClass)(cell, 'current');
 	        }
-	        cell._value = tempDate.getDate();
-	        cell._month = tempDate.getMonth();
-	        cell._year = tempDate.getFullYear();
+	        cell._value = tempDateDate;
+	        cell._month = tempDateMonth;
+	        cell._year = tempDateYear;
 	        new _ripple.URipple(cell);
 	        dateDiv.appendChild(cell);
 	        tempDate = _dateUtils.date.add(tempDate, 'd', 1);
@@ -12935,11 +12958,20 @@
 	    this._input.value = _dateUtils.date.format(this.date, this.format);
 	};
 
-	DateTimePicker.fn.setStartDate = function (startDate) {
+	DateTimePicker.fn.setStartDate = function (startDate, type) {
 	    if (startDate) {
 	        this.beginDateObj = _dateUtils.date.getDateObj(startDate);
+	        switch (type) {
+	            case 'YYYY-MM':
+	                this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'M', 1);
+	                break;
+	            case 'YYYY-MM-DD':
+	                this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'd', 1);
+	                break;
+	        }
+
 	        this.beginYear = this.beginDateObj.getFullYear();
-	        this.beginMonth = this.beginDateObj.getMonth() + 1;
+	        this.beginMonth = this.beginDateObj.getMonth();
 	        this.beginDate = this.beginDateObj.getDate();
 	    }
 	};
@@ -12948,7 +12980,7 @@
 	    if (endDate) {
 	        this.overDateObj = _dateUtils.date.getDateObj(endDate);
 	        this.overYear = this.overDateObj.getFullYear();
-	        this.overMonth = this.overDateObj.getMonth() + 1;
+	        this.overMonth = this.overDateObj.getMonth();
 	        this.overDate = this.overDateObj.getDate();
 	    }
 	};
@@ -13179,6 +13211,23 @@
 						comp.modelValueChange(obj.value);
 						obj.gridObj.editComp = comp;
 
+						if (obj.gridObj.options.editType == 'form') {
+							//form默认为false
+							try {
+								comp.options.showFix = false;
+							} catch (e) {}
+							try {
+								comp.comp.options.showFix = false;
+							} catch (e) {}
+						} else {
+							try {
+								comp.options.showFix = true;
+							} catch (e) {}
+							try {
+								comp.comp.options.showFix = true;
+							} catch (e) {}
+						}
+
 						// 根据惊道需求增加editype之后的处理,此处只针对grid.js中的默认eType进行处理，非默认通过eType进行处理
 						if (typeof afterEType == 'function') {
 							afterEType.call(this, obj);
@@ -13225,6 +13274,10 @@
 							afterRType.call(this, obj);
 						}
 					};
+					// 如果是booleanRender并且没有设置eType则设置eType为空方法
+					if (!column.eType && !column.editable) {
+						column.editable = false;
+					}
 				} else if (rType == 'integerRender') {
 					column.renderType = function (obj) {
 						var grid = obj.gridObj;
@@ -21685,7 +21738,7 @@
 		}
 		var defaultOptions = {
 			id: '',
-			content: '',
+			msg: '',
 			template: messageDialogTemplate,
 			width: '',
 			height: '',
@@ -21699,7 +21752,7 @@
 		options = (0, _extend.extend)(defaultOptions, options);
 		this.id = options['id'];
 		this.hasFooter = options['hasFooter'];
-		this.content = options['content'];
+		this.content = options['msg'];
 		this.title = options['title'];
 		this.template = options['template'];
 		this.width = options['width'];
@@ -21802,20 +21855,22 @@
 		}
 		var defaultOptions = {
 			id: '',
-			content: '',
+			msg: '',
 			template: confirmDialogTemplate,
 			width: '',
 			height: '',
 			top: '',
 			hasFooter: true,
 			onOk: function onOk() {},
-			onCancel: function onCancel() {}
+			onCancel: function onCancel() {},
+			okText: '确定',
+			cancelText: '取消'
 		};
 
 		options = (0, _extend.extend)(defaultOptions, options);
 		this.id = options['id'];
 		this.hasFooter = options['hasFooter'];
-		this.content = options['content'];
+		this.content = options['msg'];
 		this.template = options['template'];
 		this.width = options['width'];
 		this.height = options['height'];
@@ -21824,6 +21879,8 @@
 		this.lazyShow = options['lazyShow'];
 		this.onOk = options['onOk'];
 		this.onCancel = options['onCancel'];
+		this.okText = options['okText'];
+		this.cancelText = options['cancelText'];
 		this.create();
 
 		var msgDom = this.templateDom.querySelector('.u-msg-dialog');
@@ -21848,7 +21905,7 @@
 		var footerStr = '',
 		    oThis = this;
 		if (this.hasFooter) {
-			var footerStr = '<div class="u-msg-footer"><button class="u-msg-ok u-button u-button-primary raised">确定</button><button class="u-msg-cancel u-button">取消</button></div>' + '</div>';
+			var footerStr = '<div class="u-msg-footer"><button class="u-msg-ok u-button u-button-primary raised">{okText}</button><button class="u-msg-cancel u-button">{cancelText}</button></div>' + '</div>';
 		}
 		var templateStr = this.template.replace('{id}', this.id).replace('{id}', this.id);
 		templateStr = templateStr.replace('{title}', this.title);
@@ -21856,6 +21913,8 @@
 		templateStr = templateStr.replace('{height}', this.height ? 'height:' + this.height + ';' : '');
 		templateStr = templateStr.replace('{top}', this.top ? 'top:' + this.top + ';' : '');
 		templateStr = templateStr.replace('{footer}', footerStr);
+		templateStr = templateStr.replace('{okText}', this.okText);
+		templateStr = templateStr.replace('{cancelText}', this.cancelText);
 		var htmlReg = /^(\s*)?<[a-zA-Z]+/ig;
 		var selectReg = /^(\.|#)/;
 		if (htmlReg.test(this.content)) {

@@ -25,7 +25,7 @@ gulp.task('dist', ['libui'], function(){
 	gulp.src('./node_modules/tinper-neoui/dist/images/**')
 		.pipe(gulp.dest('./dist/images'));
 
-	gulp.src(['./node_modules/tinper-neoui-grid/dist/js/**', './node_modules/tinper-neoui-tree/dist/js/**','./node_modules/tinper-neoui-polyfill/dist/**'])
+	gulp.src(['./node_modules/tinper-neoui-grid/dist/js/**', './node_modules/tinper-neoui-tree/dist/js/**','./node_modules/tinper-neoui-polyfill/dist/**','./node_modules/tinper-sparrow/dist/**'])
 		.pipe(gulp.dest('./dist/js'));
 
 });
