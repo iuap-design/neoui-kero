@@ -30,6 +30,7 @@ import {TimeAdapter} from './component/keroa-time';
 import {UrlAdapter} from './component/keroa-url';
 import {YearAdapter} from './component/keroa-year';
 import {YearMonthAdapter} from './component/keroa-yearmonth';
+import {MonthDateAdapter} from "./component/keroa-monthdate";
 import {TreeAdapter} from './component/keroa-tree';
 import {EnableMixin} from './core/enableMixin';
 import {RequiredMixin} from './core/requiredMixin';
@@ -48,6 +49,7 @@ var ex = {
 	FloatAdapter: FloatAdapter,
 	IntegerAdapter: IntegerAdapter,
 	MonthAdapter: MonthAdapter,
+	MonthDateAdapter: MonthDateAdapter,
 	PaginationAdapter: PaginationAdapter,
 	PassWordAdapter: PassWordAdapter,
 	PercentAdapter: PercentAdapter,

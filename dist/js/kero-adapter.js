@@ -1,10 +1,3 @@
-/** 
- * kero-adapter v3.1.7
- * kero adapter
- * author : yonyou FED
- * homepage : https://github.com/iuap-design/kero-adapter#readme
- * bugs : https://github.com/iuap-design/kero-adapter/issues
- **/ 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -63,9 +56,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.compMgr = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -333,9 +324,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.getElementTop = exports.getElementLeft = exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
 
 	var _event = __webpack_require__(6);
@@ -639,9 +628,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
 
 	var _env = __webpack_require__(7);
@@ -1031,9 +1018,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.env = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -1236,9 +1221,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.extend = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -1288,9 +1271,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow extend enum
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1326,9 +1307,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -1452,9 +1431,9 @@
 		}
 		//判断 str 格式如果是 yy-mm-dd
 		if (str && str.indexOf('-') > -1) {
-			//获取当前是否是 ios版本
+			//获取当前是否是 ios版本,>8是因为ios不识别new Date（“2016/11”）格式
 			var ua = navigator.userAgent.toLowerCase();
-			if (/iphone|ipad|ipod/.test(ua)) {
+			if (/iphone|ipad|ipod/.test(ua) && str.length > 8) {
 				//转换成 yy/mm/dd
 				str = str.replace(/-/g, "/");
 			}
@@ -1483,9 +1462,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow class
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1688,9 +1665,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DataTable = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -1997,9 +1972,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.Events = undefined;
 
 	var _events = __webpack_require__(31);
@@ -2031,9 +2004,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -2165,9 +2136,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable copyRow
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2197,9 +2166,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable data
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2283,9 +2250,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable enable
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2322,9 +2287,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2356,9 +2319,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2636,9 +2597,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getFocus
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2668,9 +2627,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getMete
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2707,9 +2664,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getPage
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2739,9 +2694,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getParam
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2760,9 +2713,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2840,9 +2791,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getSimpleData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2887,9 +2836,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -3030,9 +2977,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3165,9 +3110,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable param
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3193,9 +3136,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable ref
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3326,9 +3267,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
 
 	var _util = __webpack_require__(48);
@@ -3412,9 +3351,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports._formatToIndicesArray = exports.isChanged = undefined;
 
 	var _util = __webpack_require__(10);
@@ -3454,9 +3391,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
 
 	var _util = __webpack_require__(10);
@@ -3572,9 +3507,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable rowCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3601,9 +3534,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
 
 	var _util = __webpack_require__(48);
@@ -3672,9 +3603,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
 
 	var _util = __webpack_require__(10);
@@ -3873,9 +3802,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
 
 	var _util = __webpack_require__(10);
@@ -3960,9 +3887,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.addSimpleData = exports.setSimpleData = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -4054,9 +3979,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.date = undefined;
 
 	var _core = __webpack_require__(71);
@@ -4316,9 +4239,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.core = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -4504,9 +4425,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow cookies
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -4542,9 +4461,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.u = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -4599,7 +4516,9 @@
 
 	var _keroaYearmonth = __webpack_require__(104);
 
-	var _keroaTree = __webpack_require__(127);
+	var _keroaMonthdate = __webpack_require__(127);
+
+	var _keroaTree = __webpack_require__(129);
 
 	var _enableMixin = __webpack_require__(79);
 
@@ -4611,6 +4530,11 @@
 
 	// console.log(TextAreaAdapter);
 
+	/**
+	 * Module : Kero webpack entry index
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 14:51:05
+	 */
 	var ex = {
 		BaseAdapter: _baseAdapter.BaseAdapter,
 		CheckboxAdapter: _keroaCheckbox.CheckboxAdapter,
@@ -4621,6 +4545,7 @@
 		FloatAdapter: _keroaFloat.FloatAdapter,
 		IntegerAdapter: _keroaInteger.IntegerAdapter,
 		MonthAdapter: _keroaMonth.MonthAdapter,
+		MonthDateAdapter: _keroaMonthdate.MonthDateAdapter,
 		PaginationAdapter: _keroaPagination.PaginationAdapter,
 		PassWordAdapter: _keroaPassword.PassWordAdapter,
 		PercentAdapter: _keroaPercent.PercentAdapter,
@@ -4640,12 +4565,7 @@
 		RequiredMixin: _requiredMixin.RequiredMixin,
 		ValidateMixin: _validateMixin.ValidateMixin,
 		ValueMixin: _valueMixin.ValueMixin
-	}; /**
-	    * Module : Kero webpack entry index
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-10 14:51:05
-	    */
-
+	};
 
 	(0, _extend.extend)(ex, window.u || {});
 	window.u = ex;
@@ -4657,9 +4577,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.BaseAdapter = undefined;
 
 	var _class = __webpack_require__(12);
@@ -4741,9 +4659,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.CheckboxAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -5060,9 +4976,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Kero Value Mixin
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -5175,9 +5089,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.EnableMixin = undefined;
 
 	var _dom = __webpack_require__(5);
@@ -5221,9 +5133,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Kero Enable Mixin
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -5258,9 +5168,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ValidateMixin = undefined;
 
 	var _neouiValidate = __webpack_require__(82);
@@ -5342,9 +5250,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.doValidate = exports.validate = exports.Validate = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -5921,9 +5827,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.BaseComponent = undefined;
 
 	var _class = __webpack_require__(12);
@@ -6062,9 +5966,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Tooltip = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -6360,9 +6262,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow i18n
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -6382,9 +6282,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Checkbox = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -6620,9 +6518,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.URipple = exports.Ripple = undefined;
 
 	var _env = __webpack_require__(7);
@@ -6851,9 +6747,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.CkEditorAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -6964,9 +6858,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ComboboxAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -7108,9 +7000,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Combo = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -7552,9 +7442,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Text = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -7793,9 +7681,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.CurrencyAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -7908,9 +7794,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DateFormater = exports.NumberFormater = undefined;
 
 	var _util = __webpack_require__(10);
@@ -7974,9 +7858,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.FloatAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -8137,9 +8019,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.PhoneNumberMasker = exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -8665,9 +8545,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.DateTimeAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -8754,23 +8632,27 @@
 			// this.masker = new DateTimeMasker(this.maskerMeta);
 			this.op = {};
 			var mobileDateFormat = "",
-			    mobileTimeFormat = "";
+			    mobileTimeFormat = "",
+			    mobileOrder = "";
 			if (_env.env.isMobile) {
 				switch (format) {
 					case "YYYY-MM-DD":
 						mobileDateFormat = "yy-mm-dd";
+						mobileOrder = mobileDateFormat.replace(/-/g, '');
 						break;
 					case "YYYY-MM-DD HH:mm":
 						mobileDateFormat = "yy-mm-dd";
-						mobileTimeFormat = "HH:ii";
+						mobileTimeFormat = "HH:ii".replace(/\:/g, '');
+						mobileOrder = mobileDateFormat.replace(/-/g, '') + mobileTimeFormat.replace(/\:/g, '');
 						break;
 					case "YYYY-MM":
 						mobileDateFormat = "yy-mm";
+						mobileOrder = mobileDateFormat.replace(/-/g, '');
 						break;
 					default:
 						mobileDateFormat = "yy-mm-dd";
 						mobileTimeFormat = "HH:ii:ss";
-
+						mobileOrder = mobileDateFormat.replace(/-/g, '') + mobileTimeFormat.replace(/\:/g, '');
 				}
 
 				this.op = {
@@ -8778,6 +8660,7 @@
 					mode: "scroller",
 					lang: "zh",
 					cancelText: null,
+					dateOrder: mobileOrder,
 					dateFormat: mobileDateFormat,
 					timeFormat: mobileTimeFormat,
 					onSelect: function onSelect(val) {
@@ -9006,9 +8889,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DateTimePicker = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -9257,11 +9138,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -9346,11 +9227,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	     on(this._headerMonth, 'click', function(e){
+	      on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	     on(this._headerTime, 'click', function(e){
+	      on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -10373,9 +10254,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.GridAdapter = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -12038,6 +11917,7 @@
 					maxNotEq = columnOptions.editOptions.maxNotEq || '';
 					minNotEq = columnOptions.editOptions.minNotEq || '';
 					reg = columnOptions.editOptions.regExp || '';
+					required = columnOptions.editOptions.required || '';
 				}
 
 				var columnPassedFlag = true,
@@ -12138,9 +12018,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.phoneNumberRender = exports.dateToUTCString = exports.percentRender = exports.timeRender = exports.dateTimeRender = exports.dateRender = exports.integerRender = exports.floatRender = undefined;
 
 	var _core = __webpack_require__(71);
@@ -12244,9 +12122,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.YearAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -12306,9 +12182,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Year = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -12553,9 +12427,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.MonthAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -12614,9 +12486,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Month = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -12862,9 +12732,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.YearMonthAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -12924,9 +12792,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.YearMonth = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -13248,9 +13114,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.TimeAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -13359,9 +13223,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.ClockPicker = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -13825,9 +13687,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Time = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -14067,9 +13927,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.StringAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -14145,9 +14003,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.IntegerAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -14260,9 +14116,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.RadioAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -14532,9 +14386,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Radio = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -14772,9 +14624,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.UrlAdapter = undefined;
 
 	var _keroaString = __webpack_require__(109);
@@ -14841,9 +14691,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.PassWordAdapter = undefined;
 
 	var _keroaString = __webpack_require__(109);
@@ -14915,9 +14763,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.PercentAdapter = undefined;
 
 	var _keroaFloat = __webpack_require__(94);
@@ -14963,9 +14809,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.showMessage = exports.showMessageDialog = undefined;
 
 	var _dom = __webpack_require__(5);
@@ -15047,9 +14891,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.PaginationAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -15163,9 +15005,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.pagination = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -15569,9 +15409,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.PhoneNumberAdapter = undefined;
 
 	var _keroaString = __webpack_require__(109);
@@ -15626,9 +15464,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.LandLineAdapter = undefined;
 
 	var _keroaString = __webpack_require__(109);
@@ -15683,9 +15519,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ProgressAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -15729,9 +15563,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Progress = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -15856,9 +15688,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.SwitchAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -15937,9 +15767,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Switch = undefined;
 
 	var _BaseComponent = __webpack_require__(83);
@@ -15978,7 +15806,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  	thumb.appendChild(focusHelper);*/
+	  		thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
@@ -16127,9 +15955,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.TextAreaAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -16181,9 +16007,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.TextFieldAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);
@@ -16265,9 +16089,430 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
+	exports.__esModule = true;
+	exports.MonthDateAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(76);
+
+	var _neouiMonthdate = __webpack_require__(128);
+
+	var _compMgr = __webpack_require__(4);
+
+	var _valueMixin = __webpack_require__(78);
+
+	var _enableMixin = __webpack_require__(79);
+
+	var _requiredMixin = __webpack_require__(80);
+
+	var _validateMixin = __webpack_require__(81);
+
+	var MonthDateAdapter = _baseAdapter.BaseAdapter.extend({
+	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
+	    init: function init(options) {
+	        var self = this;
+	        this.validType = 'monthdate';
+
+	        this.comp = new _neouiMonthdate.MonthDate({ el: this.element, showFix: this.options.showFix });
+
+	        this.comp.on('valueChange', function (event) {
+	            self.slice = true;
+	            self.dataModel.setValue(self.field, event.value);
+	            self.slice = false;
+	            //self.setValue(event.value);
+	        });
+	        this.dataModel.ref(this.field).subscribe(function (value) {
+	            self.modelValueChange(value);
+	        });
+	    },
+	    modelValueChange: function modelValueChange(value) {
+	        if (this.slice) return;
+	        this.comp.setValue(value);
+	    },
+	    setEnable: function setEnable(enable) {}
+	}); /**
+	     * Module : Kero yearmonth adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-10 14:11:50
+	     */
+
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: MonthDateAdapter,
+	    name: 'u-monthdate'
 	});
+
+	exports.MonthDateAdapter = MonthDateAdapter;
+
+/***/ },
+/* 128 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.MonthDate = undefined;
+
+	var _BaseComponent = __webpack_require__(83);
+
+	var _env = __webpack_require__(7);
+
+	var _event = __webpack_require__(6);
+
+	var _dom = __webpack_require__(5);
+
+	var _core = __webpack_require__(71);
+
+	var _dateUtils = __webpack_require__(70);
+
+	var _extend = __webpack_require__(8);
+
+	var _compMgr = __webpack_require__(4);
+
+	var _ripple = __webpack_require__(87);
+
+	/**
+	 * Module : neoui-year
+	 * Author : wanghao(wanghaoo@yonyou.com)
+	 * Date   : 2016-11-09
+	 */
+
+	var MonthDate = _BaseComponent.BaseComponent.extend({
+	    DEFAULTS: {},
+	    init: function init() {
+	        var self = this;
+	        var element = this.element;
+	        this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
+	        this.panelDiv = null;
+	        this.input = this.element.querySelector("input");
+
+	        var d = new Date();
+	        this.year = d.getFullYear();
+	        this.month = d.getMonth() + 1;
+	        this.date = d.getDate();
+
+	        (0, _event.on)(this.input, 'blur', function (e) {
+	            self._inputFocus = false;
+	            self.setValue(self.input.value);
+	        });
+
+	        // 添加focus事件
+	        this.focusEvent();
+	        // 添加右侧图标click事件
+	        this.clickEvent();
+	    },
+
+	    createPanel: function createPanel() {
+	        if (this.panelDiv) {
+	            this._fillMonth();
+	            return;
+	        }
+	        var oThis = this;
+	        this.panelDiv = (0, _dom.makeDOM)('<div class="u-date-panel" style="margin:0px;"></div>');
+	        this.panelContentDiv = (0, _dom.makeDOM)('<div class="u-date-content"></div>');
+	        this.panelDiv.appendChild(this.panelContentDiv);
+	        this._fillMonth();
+	    },
+
+	    // 判断是否为闰年,如果闰年返回29天，否则为28天
+	    _isLeapYear: function _isLeapYear() {
+	        if (this.year % 4 == 0 && this.year % 100 != 0 || this.year % 400 == 0) {
+	            return 29;
+	        } else {
+	            return 28;
+	        }
+	    },
+
+	    _getMonthDay: function _getMonthDay() {
+	        var monthTypeOneArray = [1, 3, 5, 7, 8, 10, 12];
+	        if (this.month == 2) {
+	            return this._isLeapYear();
+	        }
+	        if (monthTypeOneArray.indexOf(this.month)) {
+	            return 31;
+	        } else {
+	            return 30;
+	        }
+	    },
+	    /**
+	     * 填充月份选择面板
+	     * @private
+	     */
+	    _fillMonth: function _fillMonth() {
+	        var oldPanel, template, monthPage, _month, cells, i;
+	        _month = this.month;
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
+
+	        monthPage = (0, _dom.makeDOM)(template);
+	        cells = monthPage.querySelectorAll('.u-date-content-year-cell');
+	        for (i = 0; i < cells.length; i++) {
+	            if (_month == i + 1) {
+	                (0, _dom.addClass)(cells[i], 'current');
+	            }
+	            cells[i]._value = i + 1;
+	            new _ripple.URipple(cells[i]);
+	        }
+	        var oThis = this;
+	        (0, _event.on)(monthPage, 'click', function (e) {
+	            var _m = e.target._value;
+	            if (_m) {
+	                oThis.month = _m;
+	                monthPage.querySelector('.u-date-content-title').innerHTML = _m + '月';
+	            }
+
+	            oThis._fillDate();
+	            (0, _event.stopEvent)(e);
+	        });
+
+	        this._zoomIn(monthPage);
+	        this.currentPanel = 'month';
+	    },
+
+	    /**
+	     * 渲染日历
+	     * @param type : previous  current  next
+	     * @private
+	     */
+	    _fillDate: function _fillDate(type) {
+
+	        var year,
+	            month,
+	            oldPanel,
+	            day,
+	            date,
+	            time,
+	            template,
+	            datePage,
+	            titleDiv,
+	            dateDiv,
+	            weekSpans,
+	            language,
+	            tempDate,
+	            i,
+	            cell,
+	            self = this;
+	        type = type || 'current';
+	        var oThis = this;
+
+	        oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
+	        if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
+	        language = _core.core.getLanguages();
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">', this.date + '日', '</div>', '<div class="u-date-week"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
+	        datePage = (0, _dom.makeDOM)(template);
+	        weekSpans = datePage.querySelectorAll('.u-date-week span');
+
+	        for (var i = 0; i < 7; i++) {
+	            weekSpans[i].innerHTML = _dateUtils.date._dateLocale[language].weekdaysMin[i];
+	        }
+	        dateDiv = datePage.querySelector('.u-date-content-panel');
+	        // tempDate = this.startDate;
+	        tempDate = new Date(this.year + '-' + this.month + '-01');
+	        var countdate = 1;
+	        var monthdate = this._getMonthDay();
+	        var otherdate = tempDate.getDay(); //当前月1号前面需要空白的个数
+	        // var sumdate = monthdate + otherdate;
+	        for (var j = 0; j < otherdate; j++) {
+	            cell = (0, _dom.makeDOM)('<div class="u-date-cell" unselectable="on" onselectstart="return false;"></div>');
+	            new _ripple.URipple(cell);
+	            dateDiv.appendChild(cell);
+	        }
+	        // 这块儿时间需要根据月份具体
+	        while (countdate <= monthdate) {
+	            cell = (0, _dom.makeDOM)('<div class="u-date-cell" unselectable="on" onselectstart="return false;">' + countdate + '</div>');
+	            if (countdate == this.date) {
+	                (0, _dom.addClass)(cell, 'current');
+	            }
+	            cell._value = countdate;
+	            cell._month = this.month;
+	            cell._year = this.year;
+	            new _ripple.URipple(cell);
+	            dateDiv.appendChild(cell);
+	            countdate++;
+	        }
+	        (0, _event.on)(dateDiv, 'click', function (e) {
+	            if ((0, _dom.hasClass)(e.target, 'u-disabled')) return;
+	            var _d = e.target._value;
+	            if (!_d) return;
+	            var _cell = e.target.parentNode.querySelector('.u-date-cell.current');
+	            if (_cell) {
+	                (0, _dom.removeClass)(_cell, 'current');
+	                if (_env.env.isIE8 || _env.env.isIE9) _cell.style.backgroundColor = "#fff";
+	            }
+	            (0, _dom.addClass)(e.target, 'current');
+	            if (_env.env.isIE8 || _env.env.isIE9) e.target.style.backgroundColor = '#3f51b5';
+
+	            var currentdateDiv = oThis.panelContentDiv.querySelector('.u-date-content-title');
+	            currentdateDiv.innerHTML = _d + '日';
+	            oThis.setValue(e.target._month + '-' + _d);
+	            oThis.hide();
+	        }.bind(this));
+	        this._zoomIn(datePage);
+	        this.currentPanel = 'date';
+	    },
+	    /**
+	     * 淡入动画效果
+	     * @private
+	     */
+	    _zoomIn: function _zoomIn(newPage) {
+	        if (!this.contentPage) {
+	            this.panelContentDiv.appendChild(newPage);
+	            this.contentPage = newPage;
+	            return;
+	        }
+	        (0, _dom.addClass)(newPage, 'zoom-in');
+	        this.panelContentDiv.appendChild(newPage);
+	        if (_env.isIE8) {
+	            this.contentPage = newPage;
+	        } else {
+	            var cleanup = function () {
+	                newPage.removeEventListener('transitionend', cleanup);
+	                newPage.removeEventListener('webkitTransitionEnd', cleanup);
+	                // this.panelContentDiv.removeChild(this.contentPage);
+	                this.contentPage = newPage;
+	            }.bind(this);
+	            if (this.contentPage) {
+	                newPage.addEventListener('transitionend', cleanup);
+	                newPage.addEventListener('webkitTransitionEnd', cleanup);
+	            }
+	            window.requestAnimationFrame(function () {
+	                (0, _dom.addClass)(this.contentPage, 'is-hidden');
+	                (0, _dom.removeClass)(newPage, 'zoom-in');
+	            }.bind(this));
+	        }
+	    },
+
+	    setValue: function setValue(value) {
+	        value = value ? value : '';
+	        if (value && value.indexOf('-') > -1) {
+	            var vA = value.split("-");
+	            var month = vA[0];
+	            this.month = month % 12;
+	            if (this.month == 0) this.month = 12;
+	            this.date = vA[1];
+	            value = this.month + '-' + this.date;
+	        }
+	        this.value = value;
+	        this.input.value = value;
+	        this.trigger('valueChange', { value: value });
+	    },
+
+	    focusEvent: function focusEvent() {
+	        var self = this;
+	        (0, _event.on)(this.input, 'focus', function (e) {
+	            self._inputFocus = true;
+	            self.show(e);
+	            (0, _event.stopEvent)(e);
+	        });
+	    },
+
+	    //下拉图标的点击事件
+	    clickEvent: function clickEvent() {
+	        var self = this;
+	        var caret = this.element.nextSibling;
+	        (0, _event.on)(caret, 'click', function (e) {
+	            self.input.focus();
+	            (0, _event.stopEvent)(e);
+	        });
+	    },
+
+	    show: function show(evt) {
+	        var oThis = this;
+	        if (this.value && this.value.indexOf('-') > -1) {
+	            var vA = this.value.split("-");
+	            var month = vA[0];
+	            this.month = month % 12;
+	            if (this.month == 0) this.month = 12;
+	            this.date = vA[1];
+	            if (this.date > 31) {
+	                this.date = 1;
+	            }
+	        }
+	        this.createPanel();
+	        if (this.options.showFix) {
+	            document.body.appendChild(this.panelDiv);
+	            this.panelDiv.style.position = 'fixed';
+	            (0, _dom.showPanelByEle)({
+	                ele: this.input,
+	                panel: this.panelDiv,
+	                position: "bottomLeft"
+	            });
+	        } else {
+
+	            var bodyWidth = document.body.clientWidth,
+	                bodyHeight = document.body.clientHeight,
+	                panelWidth = this.panelDiv.offsetWidth,
+	                panelHeight = this.panelDiv.offsetHeight;
+
+	            this.element.appendChild(this.panelDiv);
+	            this.element.style.position = 'relative';
+	            this.left = this.input.offsetLeft;
+	            var inputHeight = this.input.offsetHeight;
+	            this.top = this.input.offsetTop + inputHeight;
+
+	            if (this.left + panelWidth > bodyWidth) {
+	                this.left = bodyWidth - panelWidth;
+	            }
+
+	            if (this.top + panelHeight > bodyHeight) {
+	                this.top = bodyHeight - panelHeight;
+	            }
+
+	            this.panelDiv.style.left = this.left + 'px';
+	            this.panelDiv.style.top = this.top + 'px';
+	        }
+
+	        this.panelDiv.style.zIndex = (0, _dom.getZIndex)();
+	        (0, _dom.addClass)(this.panelDiv, 'is-visible');
+	        var oThis = this;
+	        var callback = function callback(e) {
+	            if (e !== evt && e.target !== oThis.input && !oThis.clickPanel(e.target) && oThis._inputFocus != true) {
+	                // document.removeEventListener('click', callback);
+	                (0, _event.off)(document, 'click', callback);
+	                oThis.hide();
+	            }
+	        };
+	        (0, _event.on)(document, 'click', callback);
+	        // document.addEventListener('click', callback);
+	    },
+
+	    clickPanel: function clickPanel(dom) {
+	        while (dom) {
+	            if (dom == this.panelDiv) {
+	                return true;
+	            } else {
+	                dom = dom.parentNode;
+	            }
+	        }
+	        return false;
+	    },
+
+	    hide: function hide() {
+	        (0, _dom.removeClass)(this.panelDiv, 'is-visible');
+	        this.panelDiv.style.zIndex = -1;
+	    }
+	});
+
+	_compMgr.compMgr.regComp({
+	    comp: MonthDate,
+	    compAsString: 'u.MonthDate',
+	    css: 'u-monthdate'
+	});
+	if (document.readyState && document.readyState === 'complete') {
+	    _compMgr.compMgr.updateComp();
+	} else {
+	    (0, _event.on)(window, 'load', function () {
+	        //扫描并生成控件
+	        _compMgr.compMgr.updateComp();
+	    });
+	}
+	exports.MonthDate = MonthDate;
+
+/***/ },
+/* 129 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
 	exports.TreeAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(76);

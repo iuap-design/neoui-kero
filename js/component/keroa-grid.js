@@ -1699,6 +1699,7 @@ var GridAdapter = BaseAdapter.extend({
                 maxNotEq = columnOptions.editOptions.maxNotEq || '';
                 minNotEq = columnOptions.editOptions.minNotEq || '';
                 reg = columnOptions.editOptions.regExp || '';
+                required = columnOptions.editOptions.required || '';
 			}
 
             var columnPassedFlag = true,
