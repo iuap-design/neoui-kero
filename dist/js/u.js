@@ -3096,6 +3096,7 @@
 	DataTable.prototype.getData = _getData.getData;
 	DataTable.prototype.getDataByRule = _getData.getDataByRule;
 	DataTable.prototype.getRow = _getData.getRow;
+	DataTable.prototype.getChildRow = _getData.getChildRow;
 	DataTable.prototype.getRowByRowId = _getData.getRowByRowId;
 	DataTable.prototype.getRowIndex = _getData.getRowIndex;
 	DataTable.prototype.getRowsByField = _getData.getRowsByField;
@@ -3743,6 +3744,35 @@
 	    return this.rows.peek()[index];
 	};
 
+	var getChildRow = function getChildRow(obj) {
+	    var fullField = obj.fullField,
+	        index = obj.index,
+	        row = null;
+	    if (parseInt(index) > -1) {
+	        if ((index + '').indexOf('.') > 0) {
+	            var fieldArr = fullField.split('.');
+	            var indexArr = index.split('.');
+	            var nowDatatable = this;
+	            var nowRow = null;
+	            for (var i = 0; i < indexArr.length; i++) {
+	                nowRow = nowDatatable.getRow(indexArr[i]);
+	                if (i < indexArr.length - 1) {
+	                    if (nowRow) {
+	                        nowDatatable = nowRow.getValue(fieldArr[i]);
+	                    } else {
+	                        nowRow = null;
+	                        break;
+	                    }
+	                }
+	            }
+	            row = nowRow;
+	        } else {
+	            row = this.getRow(index);
+	        }
+	    }
+	    return row;
+	};
+
 	/**
 	 * 根据rowid取row对象
 	 * @param rowid
@@ -3883,6 +3913,7 @@
 	exports.getData = getData;
 	exports.getDataByRule = getDataByRule;
 	exports.getRow = getRow;
+	exports.getChildRow = getChildRow;
 	exports.getRowByRowId = getRowByRowId;
 	exports.getRowIndex = getRowIndex;
 	exports.getRowsByField = getRowsByField;
@@ -4487,15 +4518,22 @@
 	};
 
 	var refByRow = function refByRow(obj) {
-	    var fieldName = obj.fieldName;
+	    var fieldName = obj.fieldName,
+	        fullField = obj.fullField;
 	    this.createField(fieldName);
 	    if (!this.valueChange[fieldName]) this.valueChange[fieldName] = ko.observable(1);
 	    return ko.pureComputed({
 	        read: function read() {
 	            this.valueChange[fieldName]();
 	            this.currentRowChange();
-	            var row;
-	            if (obj.index > -1) row = this.getRow(obj.index);
+	            var row,
+	                index = obj.index + '';
+	            var childRowObj = {
+	                fullField: fullField,
+	                index: index
+	            };
+	            row = this.getChildRow(childRowObj);
+
 	            if (row) {
 	                return row.getChildValue(fieldName);
 	            } else return '';
@@ -5969,6 +6007,14 @@
 	    rowObj.parent.trigger(DataTable.ON_VALUE_CHANGE, event);
 	    rowObj.parent.trigger(fieldName + "." + DataTable.ON_VALUE_CHANGE, event);
 	    if (rowObj == rowObj.parent.getCurrentRow()) rowObj.parent.trigger(fieldName + "." + DataTable.ON_CURRENT_VALUE_CHANGE, event);
+
+	    // 对于多级字表需要触发顶层div的valuechange事件
+	    if (rowObj.parent.ns) {
+	        event.fullField = fName;
+	        event.ns = rowObj.parent.ns;
+	        rowObj.parent.root.trigger(DataTable.ON_VALUE_CHANGE, event);
+	        rowObj.parent.root.trigger(fName + "." + DataTable.ON_VALUE_CHANGE, event);
+	    }
 	};
 
 	/**
@@ -5994,6 +6040,12 @@
 	            var tempField = rowObj.data;
 	            for (var i = 0; i < fnames.length; i++) {
 	                tempField = tempField[fnames[i]];
+	                if (tempField.value instanceof DataTable) {
+	                    var row = tempField.value.getCurrentRow();
+	                    if (row) {
+	                        tempField = row.data;
+	                    }
+	                }
 	                if (!tempField) {
 	                    break;
 	                }
@@ -7550,7 +7602,7 @@
 /* 78 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	exports.__esModule = true;
 	/**
@@ -7564,22 +7616,28 @@
 	        var self = this;
 
 	        // 如果存在行对象则处理数据都针对此行进行处理
-	        if (this.options.rowIndex > -1) {
-	            // 添加监听，判断当前field并且为当前行的情况下才修改值
-	            this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (obj) {
-	                if (self.field == obj.field) {
-	                    var rowId = obj.rowId;
-	                    var row = self.dataModel.getRowByRowId(rowId);
-	                    var index = self.dataModel.getRowIndex(row);
-	                    if (index == self.options.rowIndex) {
-	                        self.modelValueChange(obj.newValue);
-	                    }
-	                }
-	            });
+	        if (parseInt(this.options.rowIndex) > -1) {
+	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
+	                // 主子表的情况
+	                var childObj = this.getChildVariable();
+	                var lastRow = childObj.lastRow;
+	                var lastField = childObj.lastField;
+	                this.dataModel.refByRow({ fieldName: lastField, index: this.options.rowIndex, fullField: this.field }).subscribe(function (value) {
+	                    self.modelValueChange(value);
+	                });
 
-	            var rowObj = this.dataModel.getRow(this.options.rowIndex);
-	            if (rowObj) {
-	                this.modelValueChange(rowObj.getValue(this.field));
+	                if (lastRow) {
+	                    this.modelValueChange(lastRow.getValue(lastField));
+	                }
+	            } else {
+	                this.dataModel.refByRow({ fieldName: this.field, index: this.options.rowIndex }).subscribe(function (value) {
+	                    self.modelValueChange(value);
+	                });
+
+	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	                if (rowObj) {
+	                    this.modelValueChange(rowObj.getValue(this.field));
+	                }
 	            }
 	        } else {
 	            this.dataModel.ref(this.field).subscribe(function (value) {
@@ -7589,6 +7647,32 @@
 	        }
 	    },
 	    methods: {
+	        /**
+	         * 获取与子表相关的变量
+	         * @param {Object} value
+	         */
+	        getChildVariable: function getChildVariable() {
+	            var indexArr = this.options.rowIndex.split('.');
+	            var lastIndex = indexArr[indexArr.length - 1];
+	            var fieldArr = this.options.field.split('.');
+	            var lastField = fieldArr[fieldArr.length - 1];
+	            var lastDataTable = this.dataModel;
+	            var lastRow = null;
+
+	            for (var i = 0; i < fieldArr.length; i++) {
+	                lastRow = lastDataTable.getRow(indexArr[i]);
+	                if (!lastRow) break;
+	                if (i < fieldArr.length - 1) {
+	                    lastDataTable = lastRow.getValue(fieldArr[i]);
+	                }
+	            }
+	            return {
+	                lastField: lastField,
+	                lastIndex: lastIndex,
+	                lastDataTable: lastDataTable,
+	                lastRow: lastRow
+	            };
+	        },
 	        /**
 	         * 模型数据改变
 	         * @param {Object} value
@@ -7623,9 +7707,16 @@
 	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
 	            this.setShowValue(this.showValue);
 	            this.slice = true;
-	            if (this.options.rowIndex > -1) {
-	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
-	                if (rowObj) rowObj.setValue(this.field, this.trueValue);
+	            if (parseInt(this.options.rowIndex) > -1) {
+	                if ((this.options.rowIndex + '').indexOf('.') > 0) {
+	                    var childObj = this.getChildVariable();
+	                    var lastRow = childObj.lastRow;
+	                    var lastField = childObj.lastField;
+	                    if (lastRow) lastRow.setValue(lastField, this.trueValue);
+	                } else {
+	                    var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	                    if (rowObj) rowObj.setValue(this.field, this.trueValue);
+	                }
 	            } else {
 	                this.dataModel.setValue(this.field, this.trueValue);
 	            }
@@ -7647,9 +7738,16 @@
 	        },
 	        setModelValue: function setModelValue(value) {
 	            if (!this.dataModel) return;
-	            if (this.options.rowIndex > -1) {
-	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
-	                if (rowObj) rowObj.setValue(this.field, value);
+	            if (parseInt(this.options.rowIndex) > -1) {
+	                if ((this.options.rowIndex + '').indexOf('.') > 0) {
+	                    var childObj = this.getChildVariable();
+	                    var lastRow = childObj.lastRow;
+	                    var lastField = childObj.lastField;
+	                    if (lastRow) lastRow.setValue(lastField, this.trueValue);
+	                } else {
+	                    var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	                    if (rowObj) rowObj.setValue(this.field, value);
+	                }
 	            } else {
 	                this.dataModel.setValue(this.field, value);
 	            }
