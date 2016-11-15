@@ -132,11 +132,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 				self.setValue(event.value);
 			});
 		}
-		if(this.dataModel){
-			this.dataModel.ref(this.field).subscribe(function(value) {
-				self.modelValueChange(value);
-			});
-		}
+		
 		this.setStartField(this.startField);
 		this.setEndField(this.endField);
         if(!env.isMobile){
