@@ -1,6 +1,34 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	var parentJsonpFunction = window["webpackJsonp"];
+/******/ 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules) {
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, callbacks = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId])
+/******/ 				callbacks.push.apply(callbacks, installedChunks[chunkId]);
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			modules[moduleId] = moreModules[moduleId];
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
+/******/ 		while(callbacks.length)
+/******/ 			callbacks.shift().call(null, __webpack_require__);
+
+/******/ 	};
+
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// "0" means "already loaded"
+/******/ 	// Array means "loading", array contains callbacks
+/******/ 	var installedChunks = {
+/******/ 		2:0
+/******/ 	};
 
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -26,6 +54,29 @@
 /******/ 		return module.exports;
 /******/ 	}
 
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
+/******/ 		// "0" is the signal for "already loaded"
+/******/ 		if(installedChunks[chunkId] === 0)
+/******/ 			return callback.call(null, __webpack_require__);
+
+/******/ 		// an array means "currently loading".
+/******/ 		if(installedChunks[chunkId] !== undefined) {
+/******/ 			installedChunks[chunkId].push(callback);
+/******/ 		} else {
+/******/ 			// start chunk loading
+/******/ 			installedChunks[chunkId] = [callback];
+/******/ 			var head = document.getElementsByTagName('head')[0];
+/******/ 			var script = document.createElement('script');
+/******/ 			script.type = 'text/javascript';
+/******/ 			script.charset = 'utf-8';
+/******/ 			script.async = true;
+
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({}[chunkId]||chunkId) + ".js";
+/******/ 			head.appendChild(script);
+/******/ 		}
+/******/ 	};
 
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -57,7 +108,7 @@
 
 	var neoui = _interopRequireWildcard(_index2);
 
-	var _index3 = __webpack_require__(148);
+	var _index3 = __webpack_require__(150);
 
 	var _index4 = __webpack_require__(75);
 
@@ -11563,11 +11614,7 @@
 					self.setValue(event.value);
 				});
 			}
-			if (this.dataModel) {
-				this.dataModel.ref(this.field).subscribe(function (value) {
-					self.modelValueChange(value);
-				});
-			}
+
 			this.setStartField(this.startField);
 			this.setEndField(this.endField);
 			if (!_env.env.isMobile) {
@@ -20745,11 +20792,11 @@
 
 	var _neouiRefer = __webpack_require__(145);
 
-	var _neouiSlidePanel = __webpack_require__(146);
+	var _neouiSlidePanel = __webpack_require__(147);
 
 	var _neouiSwitch = __webpack_require__(124);
 
-	var _neouiTabs = __webpack_require__(147);
+	var _neouiTabs = __webpack_require__(148);
 
 	var _neouiTextfield = __webpack_require__(91);
 
@@ -24714,14 +24761,14 @@
 	    if (this.options['module']) {
 	        self.contentDiv.innerHTML = this.options['module'].template;
 	        this.options['module'].init(self);
+	    } else if (__webpack_require__(146)) {
+	        __webpack_require__.e/* require */(3, function(__webpack_require__) { /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(146)(this.options.pageUrl)]; (function (module) {
+	            self.contentDiv.innerHTML = module.template;
+	            module.init(self);
+	            self.loaded = true;
+	        }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));
+	/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(149)(module)))});
 	    }
-	    //else if(require && require.amd){
-	    //    require([this.options.pageUrl], function(module) {
-	    //        self.contentDiv.innerHTML =  module.template;
-	    //        module.init(self);
-	    //        self.loaded = true;
-	    //    })
-	    //}
 	};
 
 	/**
@@ -24785,6 +24832,92 @@
 
 /***/ },
 /* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./index": 132,
+		"./index.js": 132,
+		"./neoui-autocomplete": 133,
+		"./neoui-autocomplete.js": 133,
+		"./neoui-button": 134,
+		"./neoui-button.js": 134,
+		"./neoui-checkbox": 86,
+		"./neoui-checkbox.js": 86,
+		"./neoui-clockpicker": 107,
+		"./neoui-clockpicker.js": 107,
+		"./neoui-combo": 90,
+		"./neoui-combo.js": 90,
+		"./neoui-combobox": 135,
+		"./neoui-combobox.js": 135,
+		"./neoui-data-table": 136,
+		"./neoui-data-table.js": 136,
+		"./neoui-datetimepicker": 97,
+		"./neoui-datetimepicker.js": 97,
+		"./neoui-dialog": 137,
+		"./neoui-dialog.js": 137,
+		"./neoui-layout.md": 138,
+		"./neoui-layout.md.js": 138,
+		"./neoui-layout.nav": 139,
+		"./neoui-layout.nav.js": 139,
+		"./neoui-loader": 140,
+		"./neoui-loader.js": 140,
+		"./neoui-loading": 141,
+		"./neoui-loading.js": 141,
+		"./neoui-menu": 142,
+		"./neoui-menu.js": 142,
+		"./neoui-message": 116,
+		"./neoui-message.js": 116,
+		"./neoui-month": 103,
+		"./neoui-month.js": 103,
+		"./neoui-monthdate": 128,
+		"./neoui-monthdate.js": 128,
+		"./neoui-multilang": 143,
+		"./neoui-multilang.js": 143,
+		"./neoui-navmenu": 144,
+		"./neoui-navmenu.js": 144,
+		"./neoui-pagination": 118,
+		"./neoui-pagination.js": 118,
+		"./neoui-progress": 122,
+		"./neoui-progress.js": 122,
+		"./neoui-radio": 112,
+		"./neoui-radio.js": 112,
+		"./neoui-refer": 145,
+		"./neoui-refer.js": 145,
+		"./neoui-slidePanel": 147,
+		"./neoui-slidePanel.js": 147,
+		"./neoui-switch": 124,
+		"./neoui-switch.js": 124,
+		"./neoui-tabs": 148,
+		"./neoui-tabs.js": 148,
+		"./neoui-textfield": 91,
+		"./neoui-textfield.js": 91,
+		"./neoui-time": 108,
+		"./neoui-time.js": 108,
+		"./neoui-tooltip": 84,
+		"./neoui-tooltip.js": 84,
+		"./neoui-validate": 82,
+		"./neoui-validate.js": 82,
+		"./neoui-year": 101,
+		"./neoui-year.js": 101,
+		"./neoui-yearmonth": 105,
+		"./neoui-yearmonth.js": 105
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 146;
+
+
+/***/ },
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24861,7 +24994,7 @@
 	exports.slidePanel = slidePanel;
 
 /***/ },
-/* 147 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25009,7 +25142,8 @@
 	exports.Tabs = Tabs;
 
 /***/ },
-/* 148 */
+/* 149 */,
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

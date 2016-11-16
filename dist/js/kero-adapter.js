@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v3.1.8
+ * kero-adapter v3.1.9
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -8906,11 +8906,7 @@
 					self.setValue(event.value);
 				});
 			}
-			if (this.dataModel) {
-				this.dataModel.ref(this.field).subscribe(function (value) {
-					self.modelValueChange(value);
-				});
-			}
+
 			this.setStartField(this.startField);
 			this.setEndField(this.endField);
 			if (!_env.env.isMobile) {

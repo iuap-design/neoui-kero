@@ -1,3 +1,10 @@
+<a name="3.1.9"></a>
+## [3.1.9]\(2016-11-16\)
+### Bug Fixes 
+* 日期组件支持对应特定行 ([fea8fe1](https://github.com/iuap-design/kero-adapter/commit/fea8fe1))
+
+* 参照兼容之前的逻辑 ([d867879](https://github.com/iuap-design/tinper-neoui/commit/d867879))
+
 <a name="3.1.8"></a>
 ## [3.1.8]\(2016-11-15\)
 ### Bug Fixes 

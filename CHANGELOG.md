@@ -1,3 +1,13 @@
+<a name="3.1.9"></a>
+## [3.1.9](https://github.com/iuap-design/kero-adapter/compare/v3.1.8...v3.1.9) (2016-11-15)
+
+
+### Bug Fixes
+* 日期组件支持对应特定行 ([fea8fe1](https://github.com/iuap-design/kero-adapter/commit/fea8fe1))
+
+
+
+
 <a name="3.1.8"></a>
 ## [3.1.8](https://github.com/iuap-design/kero-adapter/compare/v3.1.7...v3.1.8) (2016-11-14)
 
