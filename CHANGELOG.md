@@ -1,3 +1,8 @@
+<a name="3.1.12"></a>
+## [3.1.12](https://github.com/iuap-design/kero-adapter/compare/v3.1.9...v3.1.12) (2016-11-17)
+
+
+
 <a name="3.1.9"></a>
 ## [3.1.9](https://github.com/iuap-design/kero-adapter/compare/v3.1.8...v3.1.9) (2016-11-15)
 
