@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "3.1.9",
+  "version": "3.1.11",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
