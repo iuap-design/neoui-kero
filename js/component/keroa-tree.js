@@ -179,7 +179,7 @@ var TreeAdapter = BaseAdapter.extend({
 				});
 				var preValue = '';
 				$.each(data, function() {
-					var value = {};
+					var value = oThis.cloneValue(this.data);
 					var dataObj = this.data;
 					var idValue = dataObj[oThis.options.idField].value;
 					var nameValue = dataObj[oThis.options.nameField].value;
@@ -216,7 +216,7 @@ var TreeAdapter = BaseAdapter.extend({
 			} else {
 				var values = new Array();
 				$.each(data, function() {
-					var value = {};
+					var value = oThis.cloneValue(this.data);
 					var dataObj = this.data;
 					var idValue = dataObj[oThis.options.idField].value;
 					var pidValue = dataObj[oThis.options.pidField].value;
@@ -269,7 +269,7 @@ var TreeAdapter = BaseAdapter.extend({
 			var dataArray=[],nodes=[];
 			var hasChild=false;//是否含有子节点
 			$.each(event.rows, function() {
-				var value = {},hasPar=false;
+				var value = oThis.cloneValue(this.data),hasPar=false;
 				var dataObj = this.data;
 				var idValue = dataObj[oThis.options.idField].value;
 				var pidValue = dataObj[oThis.options.pidField].value;
@@ -395,6 +395,15 @@ var TreeAdapter = BaseAdapter.extend({
 
 	getName : function() {
 		return 'tree'
+	},
+
+	cloneValue : function(Data){
+		var newData = {};
+		for(var field in Data){
+			var value = Data[field].value
+			newData[field] = value;
+		}
+		return newData;
 	}
 
 

@@ -1058,9 +1058,9 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var column = function column(options, gridComp) {
-	    _classCallCheck(this, column);
+	  _classCallCheck(this, column);
 
-	    this.init(options, gridComp);
+	  this.init(options, gridComp);
 	};
 
 	;
@@ -1117,7 +1117,8 @@
 	    var gridDefault = {
 	        sortable: gridOptions.sortable,
 	        canDrag: gridOptions.canDrag,
-	        width: gridOptions.columnWidth
+	        width: gridOptions.columnWidth,
+	        editable: gridOptions.editable
 	    };
 	    if (options.dataType == 'Date') {
 	        this.defaults.format = 'YYYY-MM-DD';
@@ -1598,9 +1599,14 @@
 	  oldInitGridEventFun_swap.apply(this, arguments);
 	  _re_gridCompSwap.swap_initGridEventFun.apply(this, arguments);
 	};
+
 	gridCompProto.swapColumnStart = _re_gridCompSwap.swapColumnStart;
 	gridCompProto.swapColumnFun = _re_gridCompSwap.swapColumnFun;
 	gridCompProto.swapColumnEnd = _re_gridCompSwap.swapColumnEnd;
+
+	/*
+	 * rowDrag
+	 */
 
 	/*
 	 * tree
@@ -2760,6 +2766,7 @@
 	        needLocalStorage: false, // 是否使用前端缓存
 	        noScroll: false, // 是否显示滚动条,宽度设置百分比的话不显示滚动条
 	        contentSelect: true, // 点击内容区是否执行选中逻辑
+	        showEditIcon: false, // 是否显示编辑图标
 	        contentFocus: true };
 	};
 	/*
@@ -2905,6 +2912,10 @@
 	};
 	var initGridCompColumnFun = function initGridCompColumnFun(columnOptions) {
 	    var column = new _column.column(columnOptions, this);
+	    // 如果可编辑增加修改图标
+	    if (this.options.showEditIcon && column.options.editable) {
+	        column.options.title += '<i class="uf uf-fontselectioneditor"></i>';
+	    }
 	    var widthStr = column.options.width + '';
 	    if (widthStr.indexOf("%") > 0) {
 	        this.options.noScroll = 'true';
@@ -5082,26 +5093,26 @@
 		var colIndex = $td.index();
 		if (this.options.editable && (this.eidtRowIndex != index || this.options.editType == 'default' && this.editColIndex != colIndex)) {
 			this.editClose();
-			if (typeof this.options.onBeforeEditFun == 'function') {
-				var obj = {};
-				obj.gridObj = this;
-				obj.rowObj = this.dataSourceObj.rows[index];
-				obj.rowIndex = index;
-				obj.colIndex = colIndex;
-				obj.$tr = $tr;
-				obj.e = e;
-				if (!this.options.onBeforeEditFun(obj)) {
-					if (this.eidtRowIndex != -1) {
-						this.editClose();
-					}
-					return;
-				}
-			}
 			this.editRowFun($tr, colIndex);
 		}
 	};
 
 	var editRowFun = function editRowFun($tr, colIndex) {
+		var index = this.getTrIndex($tr);
+		if (typeof this.options.onBeforeEditFun == 'function') {
+			var obj = {};
+			obj.gridObj = this;
+			obj.rowObj = this.dataSourceObj.rows[index];
+			obj.rowIndex = index;
+			obj.colIndex = colIndex;
+			obj.$tr = $tr;
+			if (!this.options.onBeforeEditFun(obj)) {
+				if (this.eidtRowIndex != -1) {
+					this.editClose();
+				}
+				return;
+			}
+		}
 		if (this.eidtRowIndex != -1) {
 			this.editClose();
 		}
@@ -5109,6 +5120,7 @@
 		this.eidtRowIndex = index;
 		this.editColIndex = colIndex;
 		this.editRow($tr, colIndex);
+		return true;
 	};
 	var editRowIndexFun = function editRowIndexFun(i) {
 		if (this.eidtRowIndex != -1) {
@@ -5455,16 +5467,29 @@
 			}
 		}
 
-		colIndex = _getNextEditColIndex(this, colIndex);
+		colIndex = _getNextEditColIndex(this, colIndex, $tr);
 		this.editRowFun($tr, colIndex);
 	};
 
-	var _getNextEditColIndex = function _getNextEditColIndex(gridObj, nowIndex) {
+	var _getNextEditColIndex = function _getNextEditColIndex(gridObj, nowIndex, $tr) {
 		// 如果下一列为隐藏/不可修改/复选框则跳到下一个
 		var colIndex = -1;
 		var column = gridObj.gridCompColumnArr[nowIndex];
-		if (!column.options.visible || !column.options.editable) {
-			colIndex = _getNextEditColIndex(gridObj, nowIndex + 1);
+		var beforeFlag = true;
+		var index = gridObj.getTrIndex($tr);
+		if (typeof gridObj.options.onBeforeEditFun == 'function') {
+			var obj = {};
+			obj.gridObj = gridObj;
+			obj.rowObj = gridObj.dataSourceObj.rows[index];
+			obj.rowIndex = index;
+			obj.colIndex = nowIndex;
+			obj.$tr = $tr;
+			if (!gridObj.options.onBeforeEditFun(obj)) {
+				beforeFlag = false;
+			}
+		}
+		if (!column.options.visible || !column.options.editable || !beforeFlag) {
+			colIndex = _getNextEditColIndex(gridObj, nowIndex + 1, $tr);
 		} else {
 			colIndex = nowIndex;
 		}
