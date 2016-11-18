@@ -77,7 +77,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 					break;
 				case "YYYY-MM-DD HH:mm":
 					mobileDateFormat = "yy-mm-dd";
-					mobileTimeFormat = "HH:ii".replace(/\:/g, '');
+					mobileTimeFormat = "HH:ii";
 					dateOrder = mobileDateFormat.replace(/-/g, '');
 					timeOrder = mobileTimeFormat.replace(/\:/g, '');
 					break;
