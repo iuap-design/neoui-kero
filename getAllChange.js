@@ -9,10 +9,32 @@ var prodNameArr = [
 	'tinper-neoui-polyfill',
 	'tinper-neoui-tree',
 	'tinper-neoui-sparrow',
-]
+];
+
+// 根据version.json获取服务器已存在版本
+var history = require('./version.json').version;
+var hisary = [];
+for(var s in history){
+	var his_version = history[s].split('-')[2];
+	var his_zipindex = his_version.indexOf('.zip');
+	his_ver = his_version.substring(0,his_zipindex);
+	if(his_ver != ''){
+		hisary.push(his_ver);
+	}
+}
 
 // 获取当前version，值处理当前version的内容
+
 var version = require('./package.json').version;
+
+// 判断当前版本在CDN上是否有下载包
+var version_link = '';
+hisary.forEach(function(ele,index){
+	if(version === ele){
+		version_link = '(//design.yyuap.com/static/download/iuap-design-'+ version + '.zip)';
+	}
+})
+
 
 // 获取当前的所有changlog，每次只处理最新的。
 var allFilePath = getResolvePath('CHANGELOG-ALL.md');
@@ -30,7 +52,7 @@ for(var i in prodNameArr){
 	}else{
 		var filePath = getResolvePath('./node_modules/' + prodName + '/CHANGELOG.md');
 	}
-	
+
 	// 读取原有CHANGELOG
 	if(fs.existsSync(filePath)){
 		var dStr = fs.readFileSync(filePath,'utf-8');
@@ -97,7 +119,7 @@ for(var i in featAllArr){
 }
 var dateObj = new Date();
 var dateStr = dateObj.getFullYear() + '-' + (dateObj.getMonth()+ 1) + '-' +  dateObj.getDate();
-var allStr = '<a name="' + version + '"></a>\r\n## [' + version + ']\\(' + dateStr + '\\)\r\n';
+var allStr = '<a name="' + version + '"></a>\r\n## [' + version + ']' + version_link + '\\(' + dateStr + '\\)\r\n';
 if(proStr || otherStr){
 	allStr += '### Bug Fixes \r\n';
 	allStr += proStr;
