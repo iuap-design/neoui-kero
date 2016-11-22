@@ -1,15 +1,15 @@
 <a name="3.1.12"></a>
-## [3.1.12]\(2016-11-17\)
+## [3.1.12](//design.yyuap.com/static/download/iuap-design-3.1.9.zip)\(2016-11-17\)
 <a name="3.1.9"></a>
-## [3.1.9]\(2016-11-16\)
-### Bug Fixes 
+## [3.1.9](//design.yyuap.com/static/download/iuap-design-3.1.9.zip)\(2016-11-16\)
+### Bug Fixes
 * 日期组件支持对应特定行 ([fea8fe1](https://github.com/iuap-design/kero-adapter/commit/fea8fe1))
 
 * 参照兼容之前的逻辑 ([d867879](https://github.com/iuap-design/tinper-neoui/commit/d867879))
 
 <a name="3.1.8"></a>
 ## [3.1.8]\(2016-11-15\)
-### Bug Fixes 
+### Bug Fixes
 * pro-IUAPDESIGN-104:友云采:grid左侧的复选框和编辑控件的显示不一致 ([ef520ed](https://github.com/iuap-design/kero-adapter/commit/ef520ed))
 
 * pro-IUAPDESIGN-247:友云采：grid增加参数控制只改变ui不修改datatable ([576fc1d](https://github.com/iuap-design/kero-adapter/commit/576fc1d))
@@ -36,12 +36,12 @@
 
 * monthdate ([2487e6d](https://github.com/iuap-design/tinper-neoui/commit/2487e6d))
 
-### Features 
+### Features
 NaN
 
 <a name="3.1.7"></a>
 ## [3.1.7]\(2016-11-10\)
-### Bug Fixes 
+### Bug Fixes
 * pro-IUAPDESIGN-106:友云采：模态框需要支持设置高度 ([534509d](https://github.com/iuap-design/tinper-neoui/commit/534509d))
 
 * pro-IUAPDESIGN-88:友云采：日期控件选择确定之后会刷新页面 ([d486f8b](https://github.com/iuap-design/tinper-neoui/commit/d486f8b))
@@ -106,14 +106,14 @@ NaN
 
 * 解决可编辑情况下tree的叶子节点首列编辑后会显示icon ([33e2ada](https://github.com/iuap-design/tinper-neoui-grid/commit/33e2ada))
 
-### Features 
+### Features
 NaN
 
 NaN
 
 <a name="3.1.6"></a>
-## [3.1.6]\(2016-11-3\)
-### Bug Fixes 
+## [3.1.6](//design.yyuap.com/static/download/iuap-design-3.1.6.zip)\(2016-11-3\)
+### Bug Fixes
 * pro-IUAPDESIGN-104:友云采:grid左侧的复选框和编辑控件的显示不一致 ([ef520ed](https://github.com/iuap-design/kero-adapter/commit/ef520ed))
 
 * pro-IUAPDESIGN-247:友云采：grid增加参数控制只改变ui不修改datatable ([576fc1d](https://github.com/iuap-design/kero-adapter/commit/576fc1d))
@@ -176,14 +176,14 @@ NaN
 
 * 解决grid中tab不可用的问题 ([dbe89df](https://github.com/iuap-design/tinper-neoui-grid/commit/dbe89df))
 
-### Features 
+### Features
 NaN
 
 NaN
 
 <a name="3.1.5"></a>
-## [3.1.5]\(2016-11-1\)
-### Bug Fixes 
+## [3.1.5]((//design.yyuap.com/static/download/iuap-design-3.1.5.zip))\(2016-11-1\)
+### Bug Fixes
 * pro-IUAPDESIGN-104:友云采:grid左侧的复选框和编辑控件的显示不一致 ([ef520ed](https://github.com/iuap-design/kero-adapter/commit/ef520ed))
 
 * pro-IUAPDESIGN-247:友云采：grid增加参数控制只改变ui不修改datatable ([576fc1d](https://github.com/iuap-design/kero-adapter/commit/576fc1d))
@@ -234,14 +234,14 @@ NaN
 
 * 解决grid中tab不可用的问题 ([dbe89df](https://github.com/iuap-design/tinper-neoui-grid/commit/dbe89df))
 
-### Features 
+### Features
 NaN
 
 NaN
 
 <a name="3.1.4"></a>
-## [3.1.4]\(2016-10-27\)
-### Bug Fixes 
+## [3.1.4]((//design.yyuap.com/static/download/iuap-design-3.1.4.zip))\(2016-10-27\)
+### Bug Fixes
 * pro-IUAPDESIGN-104:友云采:grid左侧的复选框和编辑控件的显示不一致 ([ef520ed](https://github.com/iuap-design/kero-adapter/commit/ef520ed))
 
 * pro-IUAPDESIGN-69:营销物业管理：u-meta定义方式需要支持指定数据行 ([994e949](https://github.com/iuap-design/kero-adapter/commit/994e949))
@@ -278,12 +278,12 @@ NaN
 
 * 增加参数noScroll控制grid不显示滚动条 ([a20304f](https://github.com/iuap-design/tinper-neoui-grid/commit/a20304f))
 
-### Features 
+### Features
 NaN
 
 <a name="3.1.3"></a>
 ## [3.1.3]\(2016-10-25\)
-### Bug Fixes 
+### Bug Fixes
 * pro-IUAPDESIGN-69:营销物业管理：u-meta定义方式需要支持指定数据行 ([994e949](https://github.com/iuap-design/kero-adapter/commit/994e949))
 
 * pro-IUAPDESIGN-106:友云采：模态框需要支持设置高度 ([534509d](https://github.com/iuap-design/tinper-neoui/commit/534509d))
@@ -308,12 +308,12 @@ NaN
 
 * 增加参数noScroll控制grid不显示滚动条 ([a20304f](https://github.com/iuap-design/tinper-neoui-grid/commit/a20304f))
 
-### Features 
+### Features
 NaN
 
 <a name="3.1.2"></a>
 ## [3.1.2]\(2016-10-24\)
-### Bug Fixes 
+### Bug Fixes
 * pro-IUAPDESIGN-69:营销物业管理：u-meta定义方式需要支持指定数据行 ([994e949](https://github.com/iuap-design/kero-adapter/commit/994e949))
 
 * pro-IUAPDESIGN-106:友云采：模态框需要支持设置高度 ([534509d](https://github.com/iuap-design/tinper-neoui/commit/534509d))
@@ -339,7 +339,7 @@ NaN
 
 <a name="3.1.1"></a>
 ## [3.1.1]\(2016-10-17\)
-### Bug Fixes 
+### Bug Fixes
 * _method error ([bb03148](https://github.com/iuap-design/kero/commit/bb03148))
 
 * extend更改为es6源码依赖 ([c354fc6](https://github.com/iuap-design/tinper-neoui/commit/c354fc6))
@@ -347,4 +347,3 @@ NaN
 * gird默认id绑定随机值避免冲突 ([e478905](https://github.com/iuap-design/tinper-neoui-grid/commit/e478905))
 
 * 数表删除上的时候会导致数据丢失 ([48281f1](https://github.com/iuap-design/tinper-neoui-grid/commit/48281f1))
-
