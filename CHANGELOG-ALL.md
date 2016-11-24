@@ -1,3 +1,12 @@
+<a name="3.1.13"></a>
+## [3.1.13]\(2016-11-24\)
+### Bug Fixes 
+* 解决tree传递数据的时候除了id pid name，其他字段丢失的情况 ([db11473](https://github.com/iuap-design/kero-adapter/commit/db11473))
+
+* tab键考虑onBeforeEditFun处理 ([fbbf509](https://github.com/iuap-design/tinper-neoui-grid/commit/fbbf509))
+
+* 云彩—-可编辑时显示图标 ([a95c9b3](https://github.com/iuap-design/tinper-neoui-grid/commit/a95c9b3))
+
 <a name="3.1.12"></a>
 ## [3.1.12](//design.yyuap.com/static/download/iuap-design-3.1.12.zip)\(2016-11-17\)
 <a name="3.1.9"></a>
