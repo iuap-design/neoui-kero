@@ -95,7 +95,8 @@ var TreeAdapter = BaseAdapter.extend({
 						}
 					}
 
-					oThis.dataTable.addRowsSelect(needSelectArr)
+					oThis.dataTable.addRowsSelect(needSelectArr);
+					oThis.dataTable.setRowsUnSelect(needUnSelectArr);
 
 				},
 				// 单选时点击触发选中
@@ -265,8 +266,9 @@ var TreeAdapter = BaseAdapter.extend({
 				var dataObj = row.data;
 				var idValue = dataObj[oThis.options.idField].value;
 				var node = oThis.tree.getNodeByParam('id', idValue);
-				if (oThis.tree.setting.view.selectedMulti == true  && !node.checked) {
-					oThis.tree.checkNode(node,true,false,true);
+				if (oThis.tree.setting.view.selectedMulti == true ) {
+					if(!node.checked)
+						oThis.tree.checkNode(node,true,false,true);
 				} else {
 					oThis.tree.selectNode(node, false);
 				}
