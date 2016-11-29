@@ -53,26 +53,50 @@ var TreeAdapter = BaseAdapter.extend({
 				// 选中/取消选中事件
 				onCheck: function(e, id, node) {
 
-					var nodes= oThis.tree.getChangeCheckedNodes();
-					for(var i=0 ;i<nodes.length;i++){
+					var nodes = oThis.tree.getCheckedNodes();
+					var nowSelectIndexs  = oThis.dataTable.getSelectedIndexs();
+					var indexArr = []
+					for (var i = 0; i < nodes.length; i++) {
 						// 获取到节点的idValue
-						var idValue=nodes[i].id;
+						var idValue = nodes[i].id;
 						// 根据idValue查找到对应数据的rowId
 						var rowId = oThis.getRowIdByIdValue(idValue);
 						var index = oThis.dataTable.getIndexByRowId(rowId);
-						if (nodes[i].checked) {
-							// 选中数据行
-							nodes[i].checkedOld = true;
-							if (oThis.tree.setting.view.selectedMulti == true) {
-								oThis.dataTable.addRowsSelect([index]);
-							} else {
-								oThis.dataTable.setRowSelect(index);
+						indexArr.push(index);
+					}
+					
+					// 比较2个数组的差异然后进行选中及反选
+					var needSelectArr = [];
+					for(var i =0; i < indexArr.length; i++){
+						var nowIndex = indexArr[i];
+						var hasFlag = false;
+						for(var j =0; j < nowSelectIndexs.length; j++){
+							if(nowIndex == nowSelectIndexs[j]){
+								hasFlag = true;
+								break;
 							}
-						} else {
-							nodes[i].checkedOld = false;
-							oThis.dataTable.setRowUnSelect(index);
+						}
+						if(!hasFlag){
+							needSelectArr.push(nowIndex)
 						}
 					}
+					var needUnSelectArr  = [];
+					for(var i =0; i < nowSelectIndexs.length; i++){
+						var nowIndex = nowSelectIndexs[i];
+						var hasFlag = false;
+						for(var j =0; j < indexArr.length; j++){
+							if(nowIndex == indexArr[j]){
+								hasFlag = true;
+								break;
+							}
+						}
+						if(!hasFlag){
+							needUnSelectArr.push(nowIndex)
+						}
+					}
+
+					oThis.dataTable.addRowsSelect(needSelectArr)
+
 				},
 				// 单选时点击触发选中
 				onClick: function(e, id, node) {
