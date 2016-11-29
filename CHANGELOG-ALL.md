@@ -1,3 +1,25 @@
+<a name="3.1.14"></a>
+## [3.1.14]\(2016-11-29\)
+### Bug Fixes 
+* 翻页及pageSize改变时清空grid数据。datatable发生改变时设置silence为true。 ([cae6110](https://github.com/iuap-design/kero-adapter/commit/cae6110))
+
+* radio选中错行 ([f350777](https://github.com/iuap-design/tinper-neoui/commit/f350777))
+
+* 修正弹出层未传参数报错 ([47627fc](https://github.com/iuap-design/tinper-neoui/commit/47627fc))
+
+* 按钮组样式问题 ([5862563](https://github.com/iuap-design/tinper-neoui/commit/5862563))
+
+* 日期按钮显示样式 ([cdcbfe6](https://github.com/iuap-design/tinper-neoui/commit/cdcbfe6))
+
+* 日期样式错乱 ([3a27404](https://github.com/iuap-design/tinper-neoui/commit/3a27404))
+
+* 补充修正按钮组样式 ([0ab1e14](https://github.com/iuap-design/tinper-neoui/commit/0ab1e14))
+
+* 点击也可拖拽bug ([47f7165](https://github.com/iuap-design/tinper-neoui-grid/commit/47f7165))
+
+### Features 
+NaN
+
 <a name="3.1.13"></a>
 ## [3.1.13]\(2016-11-24\)
 ### Bug Fixes 

@@ -1,3 +1,13 @@
+<a name="3.1.14"></a>
+## [3.1.14](https://github.com/iuap-design/kero-adapter/compare/v3.1.13...v3.1.14) (2016-11-25)
+
+
+### Bug Fixes
+* 翻页及pageSize改变时清空grid数据。datatable发生改变时设置silence为true。 ([cae6110](https://github.com/iuap-design/kero-adapter/commit/cae6110))
+
+
+
+
 <a name="3.1.13"></a>
 ## [3.1.13](https://github.com/iuap-design/kero-adapter/compare/v3.1.12...v3.1.13) (2016-11-23)
 

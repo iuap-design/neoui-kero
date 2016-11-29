@@ -2441,7 +2441,7 @@
 	var _ajax = __webpack_require__(20);
 
 	var ajax = function ajax(params) {
-	    params = this._wrapAjax(params);
+	    params = _wrapAjax(params);
 	    (0, _ajax.ajax)(params);
 	}; /**
 	    * Module : kero app ajax
@@ -3263,6 +3263,11 @@
 	DataTable.prototype.hasPage = _page.hasPage;
 	DataTable.prototype.clearCache = _page.clearCache;
 	DataTable.prototype.cacheCurrentPage = _page.cacheCurrentPage;
+	DataTable.prototype.updatePagesSelect = _page.updatePagesSelect;
+	DataTable.prototype.updatePageRows = _page.updatePageRows;
+	DataTable.prototype.updatePageSelect = _page.updatePageSelect;
+	DataTable.prototype.updatePageFocus = _page.updatePageFocus;
+	DataTable.prototype.updatePageAll = _page.updatePageAll;
 
 	//param
 	DataTable.prototype.addParam = _param.addParam;
@@ -3622,7 +3627,7 @@
 	    if (data.totalRow || data.totalRow === 0) {
 	        var newTotalRow = data.totalRow;
 	    } else {
-	        var newTotalRow = data.rows.length; //后续要考虑状态，del的不计算在内
+	        if (data.rows) var newTotalRow = data.rows.length;else var newTotalRow = this.totalRow();
 	    }
 	    var select,
 	        focus,
@@ -3637,19 +3642,29 @@
 	            this.totalRow(newTotalRow);
 	            return;
 	        } else {
+	            // 首先删除数据，然后将当前页数据插入
+	            this.removeAllRows();
 	            select = this.getPage(newIndex).selectedIndices;
 	            focus = this.getPage(newIndex).focus;
-	            this.setRows(this.getPage(newIndex).rows, options);
+	            var rows = this.setRows(this.getPage(newIndex).rows, options);
+	            this.getPage(newIndex).rows = rows;
+	        }
+	        // 后台传入totalPages及totalRow才进行更新
+	        if (data.totalPages) {
+	            this.totalPages(data.totalPages);
+	        }
+	        if (data.totalRow) {
+	            this.totalRow(data.totalRow);
 	        }
 	    } else {
 	        select = data.select || (!unSelect ? [0] : []);
 	        focus = data.focus !== undefined ? data.focus : data.current;
 	        this.setRows(data.rows, options);
+	        this.totalPages(newTotalPages);
+	        this.totalRow(newTotalRow);
 	    }
 	    this.pageIndex(newIndex);
 	    this.pageSize(newSize);
-	    this.totalPages(newTotalPages);
-	    this.totalRow(newTotalRow);
 
 	    this.updateSelectedIndices();
 
@@ -3770,6 +3785,17 @@
 	    return datas;
 	};
 
+	/**
+	 * 将page转为row对象格式
+	 */
+	var page2data = function page2data(page, pageIndex) {
+	    var data = {};
+	    data.focus = page.focus;
+	    data.index = pageIndex;
+	    data.select = page.selectedIndices;
+	    return data;
+	};
+
 	var getDataByRule = function getDataByRule(rule) {
 	    var returnData = {},
 	        datas = null,
@@ -3777,81 +3803,112 @@
 	    returnData.meta = this.meta;
 	    returnData.params = this.params;
 	    rule = rule || DataTable.SUBMIT.current;
-	    if (rule == DataTable.SUBMIT.current) {
-	        datas = [];
-	        var currIndex = this.focusIndex();
-	        if (currIndex == -1) currIndex = this.getSelectedIndex();
-	        rows = this.rows();
-	        for (var i = 0, count = rows.length; i < count; i++) {
-	            if (i == currIndex) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
-	        }
-	    } else if (rule == DataTable.SUBMIT.focus) {
-	        datas = [];
-	        rows = this.rows();
-	        for (var i = 0, count = rows.length; i < count; i++) {
-	            if (i == this.focusIndex()) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
-	        }
-	    } else if (rule == DataTable.SUBMIT.all) {
-	        datas = this.getData();
-	    } else if (rule == DataTable.SUBMIT.select) {
-	        datas = this.getSelectedDatas(true);
-	    } else if (rule == DataTable.SUBMIT.change) {
-	        datas = this.getChangedDatas();
-	    } else if (rule === DataTable.SUBMIT.empty) {
-	        datas = [];
-	    }
-	    if (this.pageCache && datas != null) {
-	        datas = [{ index: this.pageIndex(), select: this.getSelectedIndexs(), focus: this.focusIndex(), rows: datas }];
-	    }
-	    if (rule == DataTable.SUBMIT.allSelect) {
-	        datas = [];
-	        var totalPages = this.totalPages();
-	        //缓存页数据
-	        for (var i = 0; i < totalPages; i++) {
-	            if (i == this.pageIndex()) {
-	                //当前页数据
-	                datas.push({
-	                    index: this.pageIndex(),
-	                    select: this.getSelectedIndexs(),
-	                    focus: this.focusIndex(),
-	                    rows: this.getSelectedDatas()
-	                });
-	            } else {
-	                var page = this.cachedPages[i];
-	                if (page) {
-	                    datas.push({
-	                        index: i,
-	                        select: page.selectedIndices,
-	                        focus: page.focus,
-	                        rows: page.getSelectDatas()
-	                    });
-	                }
-	            }
-	        }
-	    } else if (rule == DataTable.SUBMIT.allPages) {
-	        datas = [];
-	        var totalPages = this.totalPages();
-	        //缓存页数据
-	        for (var i = 0; i < totalPages; i++) {
-	            if (i == this.pageIndex()) {
-	                //当前页数据
-	                datas.push({
-	                    index: this.pageIndex(),
-	                    select: this.getSelectedIndexs(),
-	                    focus: this.focusIndex(),
-	                    rows: this.getData()
-	                });
-	            } else {
-	                var page = this.cachedPages[i];
-	                if (page) {
-	                    datas.push({ index: i, select: page.selectedIndices, focus: page.focus, rows: page.getData() });
-	                }
-	            }
-	        }
-	    }
+	    // 存在多页及不存在多页分开处理
 	    if (this.pageCache) {
+	        var pages = this.getPages();
+	        if (rule == DataTable.SUBMIT.current || rule == DataTable.SUBMIT.focus) {
+	            datas = [];
+	            var pageIndex = this.pageIndex();
+	            var currPage = pages[pageIndex];
+	            if (currPage) {
+	                var currIndex = this.focusIndex();
+	                if (rule == DataTable.SUBMIT.current) {
+	                    if (currIndex == -1) currIndex = this.getSelectedIndex();
+	                }
+	                var data = page2data(currPage, pageIndex);
+	                data.rows = [];
+	                for (var i = 0, count = currPage.rows.length; i < count; i++) {
+	                    var row = currPage.rows[i].getData();
+	                    if (i != currIndex) row.data = {};
+	                    data.rows.push(row);
+	                }
+	                datas.push(data);
+	            }
+	        } else if (rule == DataTable.SUBMIT.all || rule == DataTable.SUBMIT.allPages) {
+	            datas = [];
+	            for (var i = 0; i < pages.length; i++) {
+	                var currPage = pages[i];
+	                var data = page2data(currPage, i);
+	                data.rows = [];
+	                for (var i = 0; i < currPage.rows.length; i++) {
+	                    data.rows.push(currPage.rows[i].getData());
+	                }
+	                datas.push(data);
+	            }
+	        } else if (rule == DataTable.SUBMIT.select) {
+	            datas = [];
+	            var pageIndex = this.pageIndex();
+	            var currPage = pages[pageIndex];
+	            if (currPage) {
+	                var data = page2data(currPage, pageIndex);
+	                data.rows = [];
+	                for (var i = 0, count = currPage.rows.length; i < count; i++) {
+	                    var row = currPage.rows[i].getData();
+	                    if (data.select.indexOf(i) < 0) row.data = {};
+	                    data.rows.push(row);
+	                }
+	                datas.push(data);
+	            }
+	        } else if (rule == DataTable.SUBMIT.allSelect) {
+	            datas = [];
+	            for (var i = 0; i < pages.length; i++) {
+	                var currPage = pages[i];
+	                var data = page2data(currPage, i);
+	                data.rows = [];
+	                for (var j = 0, count = currPage.rows.length; j < count; j++) {
+	                    var row = currPage.rows[j].getData();
+	                    if (data.select.indexOf(j) < 0) row.data = {};
+	                    data.rows.push(row);
+	                }
+	                datas.push(data);
+	            }
+	        } else if (rule == DataTable.SUBMIT.change) {
+	            datas = [];
+	            for (var i = 0; i < pages.length; i++) {
+	                var currPage = pages[i];
+	                var data = page2data(currPage, i);
+	                data.rows = [];
+	                for (var j = 0, count = currPage.rows.length; j < count; j++) {
+	                    var row = currPage.rows[j].getData();
+	                    if (row.status == Row.STATUS.NORMAL) {
+	                        row.data = {};
+	                    }
+	                    data.rows.push(row);
+	                }
+	                datas.push(data);
+	            }
+	        } else if (rule === DataTable.SUBMIT.empty) {
+	            datas = [];
+	        }
+	        if (pages.length < 1 || !pages[this.pageIndex()]) {
+	            datas = [{ index: this.pageIndex(), select: [], focus: -1, rows: [] }];
+	        }
 	        returnData.pages = datas;
 	    } else {
+	        if (rule == DataTable.SUBMIT.current) {
+	            datas = [];
+	            var currIndex = this.focusIndex();
+	            if (currIndex == -1) currIndex = this.getSelectedIndex();
+	            rows = this.rows();
+	            for (var i = 0, count = rows.length; i < count; i++) {
+	                if (i == currIndex) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
+	            }
+	        } else if (rule == DataTable.SUBMIT.focus) {
+	            datas = [];
+	            rows = this.rows();
+	            for (var i = 0, count = rows.length; i < count; i++) {
+	                if (i == this.focusIndex()) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
+	            }
+	        } else if (rule == DataTable.SUBMIT.all) {
+	            datas = this.getData();
+	        } else if (rule == DataTable.SUBMIT.select) {
+	            datas = this.getSelectedDatas(true);
+	        } else if (rule == DataTable.SUBMIT.change) {
+	            datas = this.getChangedDatas();
+	        } else if (rule === DataTable.SUBMIT.empty) {
+	            datas = [];
+	        }
+
 	        returnData.rows = datas;
 	        returnData.select = this.getSelectedIndexs();
 	        returnData.focus = this.getFocusIndex();
@@ -4463,14 +4520,18 @@
 	 */
 
 	var setCurrentPage = function setCurrentPage(pageIndex, notCacheCurrentPage) {
+	    var nowTotalRow = this.totalRow();
 	    if (pageIndex != this.pageIndex() && notCacheCurrentPage != true) this.cacheCurrentPage();
 	    this.pageIndex(pageIndex);
 	    var cachedPage = this.cachedPages[this.pageIndex()];
 	    if (cachedPage) {
+	        // 取当前页的选中行重设选中行
+	        var selectedIndices = cachedPage.selectedIndices;
 	        this.removeAllRows();
 	        this.setRows(cachedPage.rows);
-	        this.setRowsSelect(cachedPage.selectedIndcies);
+	        this.setRowsSelect(selectedIndices);
 	    }
+	    this.totalRow(nowTotalRow);
 	};
 
 	/**
@@ -4501,31 +4562,46 @@
 	                delete page.rows[j].id;
 	            }
 	            this.cachedPages[index] = page;
+	            page.selectedIndices = selectIndices;
+	            page.focus = focus;
 	        } else {
-	            //如果是当前页，先把this.rows数据更新到page中
-	            if (index == this.pageIndex()) {
-	                this.cacheCurrentPage();
-	            }
 	            page = this.cachedPages[index];
+	            page.selectedIndices = selectIndices;
+	            page.focus = focus;
 	            for (var j = 0; j < rows.length; j++) {
 	                r = rows[j];
 	                if (!r.id) r.id = Row.getRandomRowId();
 	                if (r.status == Row.STATUS.DELETE) {
 	                    this.removeRowByRowId(r.id);
+	                    page.removeRowByRowId(r.id);
+	                    // 针对后台不传回总行数的情况下更新总行数
+	                    var oldTotalRow = this.totalRow();
+	                    var newTotalRow = oldTotalRow - 1;
+	                    this.totalRow(newTotalRow);
 	                } else {
 	                    row = page.getRowByRowId(r.id);
 	                    if (row) {
 	                        page.updateRow(row, r);
+	                        if (row.status == Row.STATUS.NEW) {
+	                            // 针对后台不传回总行数的情况下更新总行数
+	                            var oldTotalRow = this.totalRow();
+	                            var newTotalRow = oldTotalRow + 1;
+	                            this.totalRow(newTotalRow);
+	                        }
+	                        row.status = Row.STATUS.NORMAL;
 	                    } else {
 	                        r.rowId = r.id;
 	                        delete r.id;
 	                        page.rows.push(r);
+	                        r.status = Row.STATUS.NORMAL;
+	                        // 针对后台不传回总行数的情况下更新总行数
+	                        var oldTotalRow = this.totalRow();
+	                        var newTotalRow = oldTotalRow + 1;
+	                        this.totalRow(newTotalRow);
 	                    }
 	                }
 	            }
 	        }
-	        page.selectedIndices = selectIndices;
-	        page.focus = focus;
 	    }
 	};
 
@@ -4575,12 +4651,89 @@
 	    }
 	};
 
+	/**
+	 * [updatePagesSelect 根据datatable的选中行更新每页的选中行]
+	 */
+	var updatePagesSelect = function updatePagesSelect() {
+	    var selectRows = this.getSelectedRows();
+	    var pages = this.getPages();
+	    for (var i = 0; i < pages.length; i++) {
+	        var rows = pages[i].rows;
+	        var selectedIndices = [];
+	        for (var j = 0; j < selectRows.length; j++) {
+	            var nowSelectRow = selectRows[j];
+	            for (var k = 0; k < rows.length; k++) {
+	                var row = rows[k];
+	                if (nowSelectRow == row) {
+	                    selectedIndices.push(k);
+	                    break;
+	                }
+	            }
+	        }
+	        pages[i].selectedIndices = selectedIndices;
+	    }
+	};
+
+	/**
+	 * [updatePageRows 根据datatable的rows更新当前页的rows]
+	 */
+	var updatePageRows = function updatePageRows() {
+	    if (this.pageCache) {
+	        var pageIndex = this.pageIndex();
+	        var page = this.getPages()[pageIndex];
+	        if (page) {
+	            page.rows = this.rows();
+	        }
+	    }
+	};
+
+	/**
+	 * [updatePageSelect 根据datatable的选中行更新page的选中行]
+	 */
+	var updatePageSelect = function updatePageSelect() {
+	    if (this.pageCache) {
+	        var pageIndex = this.pageIndex();
+	        var page = this.getPages()[pageIndex];
+	        if (page) {
+	            var selectedIndices = this.selectedIndices().slice();
+	            page.selectedIndices = selectedIndices;
+	        }
+	    }
+	};
+
+	/**
+	 * [updatePageFocus 根据datatable的focus更新page的focus]
+	 */
+	var updatePageFocus = function updatePageFocus() {
+	    if (this.pageCache) {
+	        var pageIndex = this.pageIndex();
+	        var page = this.getPages()[pageIndex];
+	        if (page) {
+	            page.focus = this.getFocusIndex();
+	        }
+	    }
+	};
+
+	/**
+	 * [updatePageAll 根据datatable更新page对象]
+	 */
+	var updatePageAll = function updatePageAll() {
+	    this.updatePageRows();
+	    this.updatePageSelect();
+	    this.updatePageFocus();
+	};
+
 	exports.setCurrentPage = setCurrentPage;
 	exports.updatePages = updatePages;
 	exports.setPages = setPages;
 	exports.hasPage = hasPage;
 	exports.clearCache = clearCache;
 	exports.cacheCurrentPage = cacheCurrentPage;
+	exports.updatePagesSelect = updatePagesSelect;
+	exports.updatePageRows = updatePageRows;
+	exports.updatePageSelect = updatePageSelect;
+	exports.updatePageFocus = updatePageFocus;
+	exports.updatePageAll = updatePageAll;
 
 /***/ },
 /* 45 */
@@ -4815,6 +4968,7 @@
 	        rowIds: rowIds,
 	        deleteRows: deleteRows
 	    });
+
 	    this.updateCurrIndex();
 	};
 
@@ -4929,9 +5083,14 @@
 	                row.setData(rows[i], null, options);
 	                insertRows.push(row);
 	            }
+	            // 如果r对象中存在状态则更新状态为返回的状态
+	            if (r.status) {
+	                row.status = r.status;
+	            }
 	        }
 	    }
 	    if (insertRows.length > 0) this.addRows(insertRows);
+	    return insertRows;
 	};
 
 	/**
@@ -4969,7 +5128,7 @@
 
 	    this.updateSelectedIndices(index, '+', rows.length);
 	    this.updateFocusIndex(index, '+', rows.length);
-
+	    this.updatePageAll();
 	    this.trigger(DataTable.ON_INSERT, {
 	        index: index,
 	        rows: rows
@@ -5161,7 +5320,7 @@
 	    try {
 	        this.selectedIndices(indices);
 	    } catch (e) {}
-
+	    this.updatePageSelect();
 	    var rowIds = this.getRowIdsByIndices(indices);
 	    this.currentRowChange(-this.currentRowChange());
 	    this.trigger(DataTable.ON_ROW_SELECT, {
@@ -5202,6 +5361,7 @@
 	        }
 	    }
 	    this.selectedIndices(selectedIndices);
+	    this.updatePageSelect();
 	    var rowIds = this.getRowIdsByIndices(selectedIndices);
 	    if (needTrigger) {
 	        this.trigger(DataTable.ON_ROW_SELECT, {
@@ -5217,6 +5377,7 @@
 	 */
 	var setAllRowsUnSelect = function setAllRowsUnSelect(options) {
 	    this.selectedIndices([]);
+	    this.updatePageSelect();
 	    if (!(options && options.quiet)) {
 	        this.trigger(DataTable.ON_ROW_ALLUNSELECT);
 	    }
@@ -5247,6 +5408,7 @@
 	        if (pos != -1) selectedIndices.splice(pos, 1);
 	    }
 	    this.selectedIndices(selectedIndices);
+	    this.updatePageSelect();
 	    var rowIds = this.getRowIdsByIndices(indices);
 	    this.trigger(DataTable.ON_ROW_UNSELECT, {
 	        indices: indices,
@@ -5285,6 +5447,7 @@
 	        }
 	    }
 	    this.selectedIndices(selectedIndices);
+	    this.updatePageSelect();
 	};
 	exports.setAllRowsSelect = setAllRowsSelect;
 	exports.setRowSelect = setRowSelect;
@@ -5520,6 +5683,8 @@
 
 	//removeRow
 	Page.prototype.removeRowByRowId = _pageRemoveRow.removeRowByRowId;
+	Page.prototype.updateSelectedIndices = _pageRemoveRow.updateSelectedIndices;
+	Page.prototype.updateFocusIndex = _pageRemoveRow.updateFocusIndex;
 
 	exports.Page = Page;
 
@@ -5627,7 +5792,7 @@
 
 	var getRowByRowId = function getRowByRowId(rowid) {
 	    for (var i = 0, count = this.rows.length; i < count; i++) {
-	        if (this.rows.rowId == rowid) return this.rows[i];
+	        if (this.rows[i].rowId == rowid) return this.rows[i];
 	    }
 	    return null;
 	};
@@ -5701,26 +5866,84 @@
 
 /***/ },
 /* 60 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+	exports.updateFocusIndex = exports.updateSelectedIndices = exports.removeRowByRowId = undefined;
+
+	var _util = __webpack_require__(10);
+
+	var removeRowByRowId = function removeRowByRowId(rowid) {
+	    for (var i = 0, count = this.rows.length; i < count; i++) {
+	        if (this.rows[i].rowId == rowid) {
+	            this.rows.splice(i, 1);
+	            count--;
+	            this.updateSelectedIndices(i, '-');
+	            this.updateFocusIndex(i, '-');
+	        }
+	    }
+	};
+
+	/**
+	 * [updateSelectedIndices 更新选中行]
+	 * @param  {[type]} index [起始行号]
+	 * @param  {[type]} type  [增减类型]
+	 * @param  {[type]} num   [影响行数]
+	 */
 	/**
 	 * Module : kero dataTable page removeRow
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-08 09:59:01
 	 */
 
-	var removeRowByRowId = function removeRowByRowId(rowid) {
-	  for (var i = 0, count = this.rows.length; i < count; i++) {
-	    if (this.rows.rowId == rowid) this.rows.splice(i, 1);
-	  }
+	var updateSelectedIndices = function updateSelectedIndices(index, type, num) {
+	    if (!(0, _util.isNumber)(num)) {
+	        num = 1;
+	    }
+	    var selectedIndices = this.selectedIndices.slice();
+	    if (selectedIndices == null || selectedIndices.length == 0) return;
+	    for (var i = 0, count = selectedIndices.length; i < count; i++) {
+	        if (type == '+') {
+	            if (selectedIndices[i] >= index) selectedIndices[i] = parseInt(selectedIndices[i]) + num;
+	        } else if (type == '-') {
+	            if (selectedIndices[i] >= index && selectedIndices[i] <= index + num - 1) {
+	                selectedIndices.splice(i, 1);
+	            } else if (selectedIndices[i] > index + num - 1) selectedIndices[i] = selectedIndices[i] - num;
+	        }
+	    }
+	    this.selectedIndices = selectedIndices;
+	};
+
+	/**
+	 * [updateFocusIndex 更新focus行]
+	 * @param  {[type]} opIndex [起始行号]
+	 * @param  {[type]} opType  [增减类型]
+	 * @param  {[type]} num     [影响行数]
+	 */
+	var updateFocusIndex = function updateFocusIndex(opIndex, opType, num) {
+	    if (!(0, _util.isNumber)(num)) {
+	        num = 1;
+	    }
+	    if (opIndex <= this.focus && this.focus != -1) {
+	        if (opType === '+') {
+	            this.focus = this.focus + num;
+	        } else if (opType === '-') {
+	            if (this.focus >= opIndex && this.focus <= opIndex + num - 1) {
+	                this.focus = this.focus - 1;
+	            } else if (this.focus > opIndex + num - 1) {
+	                this.focus = this.focus - num;
+	            }
+	        }
+	    }
 	};
 
 	exports.removeRowByRowId = removeRowByRowId;
+	exports.updateSelectedIndices = updateSelectedIndices;
+	exports.updateFocusIndex = updateFocusIndex;
 
 /***/ },
 /* 61 */
@@ -8381,7 +8604,9 @@
 	    //只读的也需要校验，所以注释
 	    // if (this.element && this.element.getAttribute("readonly")) return {passed:true}
 	    var value = null;
-	    if (typeof pValue != 'undefined') value = pValue;else if (this.element) value = this.element.value;
+	    if (typeof pValue != 'undefined') value = pValue;else if (this.element)
+	        // value = this.element.value
+	        value = this.element.value ? this.element.value : this.referDom.value;
 
 	    if (this.isEmpty(value) && this.required) {
 	        this.showMsg(this.nullMsg);
@@ -11863,7 +12088,9 @@
 	    // }
 
 	    setTimeout(function () {
-	        self._input.setAttribute('readonly', 'readonly');
+	        if (self._input) {
+	            self._input.setAttribute('readonly', 'readonly');
+	        }
 	    }, 1000);
 
 	    (0, _event.on)(this._input, 'focus', function (e) {
@@ -13729,6 +13956,15 @@
 	   * 处理viewModel与grid之间的绑定
 	   *
 	   */
+
+			this.dataTable.pageIndex.subscribe(function (value) {
+				oThis.grid.setDataSource({});
+			});
+
+			this.dataTable.pageSize.subscribe(function (value) {
+				oThis.grid.setDataSource({});
+			});
+
 			var onRowSelectedFun = this.gridOptions.onRowSelected;
 			// 选中
 			this.gridOptions.onRowSelected = function (obj) {
@@ -13746,7 +13982,7 @@
 				}
 			};
 			this.dataTable.on(_indexDataTable.DataTable.ON_ROW_SELECT, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				var gridSelectRows = [];
 				$.each(oThis.grid.getSelectRows(), function () {
 					gridSelectRows.push(this);
@@ -13776,21 +14012,21 @@
 						}
 					}
 				});
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			//全选
 			this.dataTable.on(_indexDataTable.DataTable.ON_ROW_ALLSELECT, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				oThis.grid.setAllRowSelect();
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			//全返选
 			this.dataTable.on(_indexDataTable.DataTable.ON_ROW_ALLUNSELECT, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				oThis.grid.setAllRowUnSelect();
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			// 反选
@@ -13806,7 +14042,7 @@
 				}
 			};
 			this.dataTable.on(_indexDataTable.DataTable.ON_ROW_UNSELECT, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				$.each(event.rowIds, function () {
 					var index = oThis.grid.getRowIndexByValue('$_#_@_id', this);
 					var unSelectFlag = true;
@@ -13821,7 +14057,7 @@
 						}
 					}
 				});
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			var onRowFocusFun = this.gridOptions.onRowFocus;
@@ -13843,7 +14079,7 @@
 				}
 			};
 			this.dataTable.on(_indexDataTable.DataTable.ON_ROW_FOCUS, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				/*index转化为grid的index*/
 				var index = oThis.grid.getRowIndexByValue('$_#_@_id', event.rowId);
 
@@ -13855,7 +14091,7 @@
 						oThis.dataTable.setRowUnFocus(oThis.dataTable.getIndexByRowId(event.rowId));
 					}
 				}
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			// 反focus
@@ -13871,7 +14107,7 @@
 				}
 			};
 			this.dataTable.on(_indexDataTable.DataTable.ON_ROW_UNFOCUS, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				var index = oThis.grid.getRowIndexByValue('$_#_@_id', event.rowId);
 				var unFocusFlag = true;
 				if (index > -1) {
@@ -13880,7 +14116,7 @@
 						oThis.dataTable.setRowFocus(oThis.dataTable.getIndexByRowId(event.rowId));
 					}
 				}
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			// 增行,只考虑viewModel传入grid
@@ -13892,7 +14128,7 @@
 			//			}
 			//		};
 			this.dataTable.on(_indexDataTable.DataTable.ON_INSERT, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				var gridRows = new Array();
 				$.each(event.rows, function () {
 					var row = this.data;
@@ -13905,11 +14141,11 @@
 					gridRows.push(gridRow);
 				});
 				oThis.grid.addRows(gridRows, event.index);
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			this.dataTable.on(_indexDataTable.DataTable.ON_UPDATE, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				$.each(event.rows, function () {
 					var row = this.data;
 					var id = this.rowId;
@@ -13921,7 +14157,7 @@
 					var index = oThis.grid.getRowIndexByValue('$_#_@_id', id);
 					oThis.grid.updateRow(index, gridRow);
 				});
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			this.dataTable.on(_indexDataTable.DataTable.ON_VALUE_CHANGE, function (obj) {
@@ -13942,11 +14178,11 @@
 				if (!oThis.silence) {
 					var row = obj.row;
 					var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
-					oThis.dataTable.removeRow(datatableIndex);
+					oThis.dataTable.setRowDelete(datatableIndex);
 				}
 			};
 			this.dataTable.on(_indexDataTable.DataTable.ON_DELETE, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				/*index转化为grid的index*/
 				var gridIndexs = new Array();
 				$.each(event.rowIds, function () {
@@ -13954,13 +14190,13 @@
 					gridIndexs.push(index);
 				});
 				oThis.grid.deleteRows(gridIndexs);
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			this.dataTable.on(_indexDataTable.DataTable.ON_DELETE_ALL, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				oThis.grid.setDataSource({});
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			// 数据改变
@@ -13995,7 +14231,7 @@
 			});
 			// 加载数据,只考虑viewModel传入grid
 			this.dataTable.on(_indexDataTable.DataTable.ON_LOAD, function (data) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				if (data.length > 0) {
 					var values = new Array();
 
@@ -14014,16 +14250,16 @@
 					dataSource['values'] = values;
 					oThis.grid.setDataSource(dataSource);
 				}
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 			this.dataTable.on(_indexDataTable.DataTable.ON_ENABLE_CHANGE, function (enable) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				oThis.grid.setEditable(enable.enable);
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			this.dataTable.on(_indexDataTable.DataTable.ON_ROW_META_CHANGE, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				var field = event.field,
 				    meta = event.meta,
 				    row = event.row,
@@ -14045,17 +14281,17 @@
 
 					oThis.grid.updateValueAt(index, field, value, true);
 				}
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			this.dataTable.on(_indexDataTable.DataTable.ON_META_CHANGE, function (event) {
-				// oThis.silence = true;
+				oThis.silence = true;
 				var field = event.field;
 				var meta = event.meta;
 				if (meta == 'precision') {
 					oThis.grid.renderTypeFun({ field: field });
 				}
-				// oThis.silence = false;
+				oThis.silence = false;
 			});
 
 			this.gridOptions.transMap = {
@@ -15861,7 +16097,9 @@
 	        var oThis = this;
 	        (0, _event.on)(monthPage, 'click', function (e) {
 	            var _m = e.target._value;
-	            oThis.month = _m;
+	            if (_m) {
+	                oThis.month = _m;
+	            }
 	            monthPage.querySelector('.u-date-content-title').innerHTML = _m + '月';
 	            oThis.setValue(oThis.year + '-' + oThis.month);
 	            oThis.hide();
