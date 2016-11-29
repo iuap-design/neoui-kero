@@ -74,6 +74,7 @@ var GridAdapter = BaseAdapter.extend({
 		this.gridOptions.onBeforeRowUnFocus = getFunction(viewModel,this.gridOptions.onBeforeRowUnFocus);
 		this.gridOptions.onRowUnFocus = getFunction(viewModel,this.gridOptions.onRowUnFocus);
 		this.gridOptions.onDblClickFun = getFunction(viewModel,this.gridOptions.onDblClickFun);
+		this.gridOptions.onBeforeValueChange = getFunction(viewModel,this.gridOptions.onBeforeValueChange);
 		this.gridOptions.onValueChange = getFunction(viewModel,this.gridOptions.onValueChange);
 		this.gridOptions.onBeforeClickFun = getFunction(viewModel,this.gridOptions.onBeforeClickFun);
 		this.gridOptions.onBeforeEditFun = getFunction(viewModel,this.gridOptions.onBeforeEditFun);
@@ -774,6 +775,7 @@ var GridAdapter = BaseAdapter.extend({
 			//oThis.grid.editClose();
 			oThis.silence = false;
 		});
+		
 
 		this.gridOptions.onRowDelete = function(obj){
 			if(!oThis.silence){
@@ -818,18 +820,7 @@ var GridAdapter = BaseAdapter.extend({
 				onValueChangeFun.call(oThis,obj);
 			}
 		};
-		this.dataTable.on('valueChange', function(event) {
-			// oThis.silence = true;
-			var field = event.field,
-				rowId = event.rowId,
-				oldValue = event.oldValue,
-				newValue = event.newValue;
-			var rowIndex = oThis.grid.getRowIndexByValue('$_#_@_id',rowId);
-			if(rowIndex > -1){
-				oThis.grid.updateValueAt(rowIndex,field,newValue);
-			}
-			// oThis.silence = false;
-		});
+		
 		// 加载数据,只考虑viewModel传入grid
 		this.dataTable.on(DataTable.ON_LOAD, function(data) {
 			oThis.silence = true;
