@@ -264,6 +264,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 			if(value){
 				value = date.format(value,this.options.format);
 				$(this.element).scroller('setDate', date.getDateObj(value), true);
+			}else{
+				this.setShowValue('');
 			}
 		}else{
 			this.comp.setDate(value);
@@ -281,12 +283,13 @@ var DateTimeAdapter = BaseAdapter.extend({
 	},
 	setValue: function (value) {
 		value = date.format(value,this.options.format);
-        this.trueValue = this.formater ? this.formater.format(value) : value;
-        this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
-        this.setShowValue(this.showValue);
-        this.slice = true;
-        this.dataModel.setValue(this.field, this.trueValue);
-        this.slice = false;
+		ValueMixin.methods.setValue.call(this,value);
+        // this.trueValue = this.formater ? this.formater.format(value) : value;
+        // this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
+        // this.setShowValue(this.showValue);
+        // this.slice = true;
+        // this.dataModel.setValue(this.field, this.trueValue);
+        // this.slice = false;
     },
     setEnable: function(enable){
         if (enable === true || enable === 'true') {
