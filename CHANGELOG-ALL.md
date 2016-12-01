@@ -1,3 +1,12 @@
+<a name="3.1.15"></a>
+## [3.1.15]\(2016-12-1\)
+### Bug Fixes 
+* 优化ztree选中之后更新至datatable会出现错误的情况 ([deb7f3f](https://github.com/iuap-design/kero-adapter/commit/deb7f3f))
+
+* form形式下编辑样式问题以及合计情况下左侧边线显示问题 ([7f3339c](https://github.com/iuap-design/tinper-neoui-grid/commit/7f3339c))
+
+* grid增加onBeforeValueChange处理 ([be4fee3](https://github.com/iuap-design/tinper-neoui-grid/commit/be4fee3))
+
 <a name="3.1.14"></a>
 ## [3.1.14]\(2016-11-29\)
 ### Bug Fixes 

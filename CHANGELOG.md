@@ -1,3 +1,13 @@
+<a name="3.1.15"></a>
+## [3.1.15](https://github.com/iuap-design/kero-adapter/compare/v3.1.14...v3.1.15) (2016-11-30)
+
+
+### Bug Fixes
+* 优化ztree选中之后更新至datatable会出现错误的情况 ([deb7f3f](https://github.com/iuap-design/kero-adapter/commit/deb7f3f))
+
+
+
+
 <a name="3.1.14"></a>
 ## [3.1.14](https://github.com/iuap-design/kero-adapter/compare/v3.1.13...v3.1.14) (2016-11-25)
 
