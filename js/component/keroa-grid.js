@@ -166,7 +166,8 @@ var GridAdapter = BaseAdapter.extend({
 					// 	$Div.closest('.u-grid-edit-whole-div').find('.u-grid-edit-label').css({'margin-left': '112px', 'text-align': 'left'})
 					// }
 					$(obj.element).parent().focus();
-					comp.modelValueChange(obj.value);
+					if(comp)
+						comp.modelValueChange(obj.value);
 					obj.gridObj.editComp = comp;
 
 					if(obj.gridObj.options.editType == 'form'){
