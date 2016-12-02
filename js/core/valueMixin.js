@@ -24,7 +24,7 @@ var ValueMixin = {
                     this.modelValueChange(lastRow.getValue(lastField));
                 }
             } else {
-                this.dataModel.refByRow({fieldName:this.field}).subscribe(function(value){
+                this.dataModel.refByRow({fieldName:this.field,index:this.options.rowIndex}).subscribe(function(value){
                     var r = self.dataModel.getRow(self.options.rowIndex);
                     var v = r.getValue(self.field);
                     self.modelValueChange(v);
