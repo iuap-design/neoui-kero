@@ -238,6 +238,11 @@ var GridAdapter = BaseAdapter.extend({
 							stopEvent(e);
 							return false;
 						}
+						if ($(this).parent().hasClass('is-checked')) {
+							this.checked = true;
+						} else {
+							this.checked = false;								
+						}
 						var value = this.checked?"Y":"N";
 						var column = obj.gridCompColumn
 						var field = column.options.field
