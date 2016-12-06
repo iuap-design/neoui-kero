@@ -16,19 +16,55 @@ var ValueMixin = {
                 var childObj = this.getChildVariable();
                 var lastRow = childObj.lastRow;
                 var lastField = childObj.lastField;
-                this.dataModel.refByRow({fieldName:lastField,index: this.options.rowIndex, fullField: this.field}).subscribe(function(value){
-                    self.modelValueChange(value);
-                })
+
+                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+                    var id = opt.rowId;
+                    var field = opt.field;
+                    var value = opt.newValue;
+                    var obj = {
+                        fullField: self.options.field,
+                        index: self.options.rowIndex
+                    };
+                    var selfRow = self.dataModel.getChildRow(obj);
+                    var row = opt.rowObj;
+                    if (selfRow == row && field == lastField) {
+                        self.modelValueChange(value);
+                    }
+                });
+
+                this.dataModel.on(DataTable.ON_INSERT,function(opt){
+                    var obj = {
+                        fullField: self.options.field,
+                        index: self.options.rowIndex
+                    };
+                    var rowObj = self.dataModel.getChildRow(obj);
+                    if (rowObj) {
+                        self.modelValueChange(rowObj.getValue(lastField));
+                    }
+                });
 
                 if (lastRow) {
                     this.modelValueChange(lastRow.getValue(lastField));
                 }
             } else {
-                this.dataModel.refByRow({fieldName:this.field,index:this.options.rowIndex}).subscribe(function(value){
-                    var r = self.dataModel.getRow(self.options.rowIndex);
-                    var v = r.getValue(self.field);
-                    self.modelValueChange(v);
-                })
+
+                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+                    var id = opt.rowId;
+                    var field = opt.field;
+                    var value = opt.newValue;
+                    var row = opt.rowObj;
+                    var rowIndex = self.dataModel.getRowIndex(row);
+                    if (rowIndex == self.options.rowIndex && field == self.field) {
+                        self.modelValueChange(value);
+                    }
+                });
+
+                this.dataModel.on(DataTable.ON_INSERT,function(opt){
+                    var rowObj = self.dataModel.getRow(self.options.rowIndex);
+                    if (rowObj) {
+                        self.modelValueChange(rowObj.getValue(self.field));
+                    }
+                });
 
                 var rowObj = this.dataModel.getRow(this.options.rowIndex);
                 if (rowObj) {
