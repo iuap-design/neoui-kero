@@ -115,7 +115,7 @@ var FloatAdapter = BaseAdapter.extend({
         this.setShowValue(this.showValue)
     },
     onFocusin: function () {
-        var v = this.dataModel.getCurrentRow().getValue(this.field), vstr = v + '', focusValue = v;
+        var v = this.getValue(), vstr = v + '', focusValue = v;
         if (isNumber(v) && isNumber(this.maskerMeta.precision)) {
             if (vstr.indexOf('.') >= 0) {
                 var sub = vstr.substr(vstr.indexOf('.') + 1);
