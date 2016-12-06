@@ -161,12 +161,12 @@ var DateTimeAdapter = BaseAdapter.extend({
 							$(self.element).mobiscroll().datetime(self.op);
 						}
 						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
-						if(nowDate < valueObj || !value){
+						if(nowDate < valueObj && value){
 							self.dataModel.setValue(self.field,'');
 						}
 					}else{
 						self.comp.setEndDate(value);
-						if(self.comp.date > date.getDateObj(value) || !value){
+						if(self.comp.date > date.getDateObj(value) && value){
 							self.dataModel.setValue(self.field,'');
 						}
 					}
@@ -210,12 +210,12 @@ var DateTimeAdapter = BaseAdapter.extend({
 							$(self.element).mobiscroll().datetime(self.op);
 						}
 						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
-						if(nowDate < valueObj || !value){
+						if(nowDate < valueObj && value){
 							self.dataModel.setValue(self.field,'');
 						}
 					}else{
 						self.comp.setStartDate(value, self.options.format);
-						if(self.comp.date < date.getDateObj(value) || !value){
+						if(self.comp.date < date.getDateObj(value) && value){
 							self.dataModel.setValue(self.field,'');
 						}
 					}
