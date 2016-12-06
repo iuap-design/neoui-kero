@@ -35,4 +35,9 @@ compMgr.addDataAdapter({
 	name: 'textarea'
 });
 
+compMgr.addDataAdapter({
+    adapter: TextAreaAdapter,
+    name: 'u-textarea'
+});
+
 export {TextAreaAdapter};
