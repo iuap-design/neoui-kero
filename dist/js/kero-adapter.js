@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v3.1.15
+ * kero-adapter v3.1.16
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -348,7 +348,11 @@
 	var addClass = function addClass(element, value) {
 		if (element) {
 			if (typeof element.classList === 'undefined') {
-				if (u._addClass) u._addClass(element, value);
+				if (u._addClass) {
+					u._addClass(element, value);
+				} else {
+					$(element).addClass(value);
+				}
 			} else {
 				element.classList.add(value);
 			}
@@ -369,7 +373,11 @@
 	var removeClass = function removeClass(element, value) {
 		if (element) {
 			if (typeof element.classList === 'undefined') {
-				if (u._removeClass) u._removeClass(element, value);
+				if (u._removeClass) {
+					u._removeClass(element, value);
+				} else {
+					$(element).removeClass(value);
+				}
 			} else {
 				element.classList.remove(value);
 			}
@@ -385,7 +393,12 @@
 		if (!element) return false;
 		if (element.nodeName && (element.nodeName === '#text' || element.nodeName === '#comment')) return false;
 		if (typeof element.classList === 'undefined') {
-			if (u._hasClass) return u._hasClass(element, value);
+			if (u._hasClass) {
+				return u._hasClass(element, value);
+			} else {
+				return $(element).hasClass(value);
+			}
+
 			return false;
 		} else {
 			return element.classList.contains(value);
@@ -483,7 +496,7 @@
 	 */
 	var makeModal = function makeModal(element, parEle) {
 		var overlayDiv = document.createElement('div');
-		addClass(overlayDiv, 'u-overlay');
+		$(overlayDiv).addClass('u-overlay');
 		overlayDiv.style.zIndex = getZIndex();
 		// 如果有父元素则插入到父元素上，没有则添加到body上
 		if (parEle && parEle != document.body) {
@@ -1424,8 +1437,9 @@
 			return;
 		}
 	};
-
-	NodeList.prototype.forEach = Array.prototype.forEach;
+	try {
+		NodeList.prototype.forEach = Array.prototype.forEach;
+	} catch (e) {}
 
 	/**
 	 * 获得字符串的字节长度
@@ -1457,8 +1471,9 @@
 			if (/iphone|ipad|ipod/.test(ua)) {
 				//转换成 yy/mm/dd
 				str = str.replace(/-/g, "/");
+				str = str.replace(/(^\s+)|(\s+$)/g, "");
 				if (str.length <= 8) {
-					str = str + '/28';
+					str = str += "/01";
 				}
 			}
 		}
@@ -2968,6 +2983,9 @@
 	    for (var i = 0; i < rows.length; i++) {
 	        _rowData.push(rows[i].getSimpleData({ fields: fields }));
 	    }
+	    if (_rowData.length == 0) {
+	        _rowData = this.setSimpleDataReal; //云采提的#需求
+	    }
 	    return _rowData;
 	};
 
@@ -3201,11 +3219,16 @@
 	                            this.totalRow(newTotalRow);
 	                        }
 	                        row.status = Row.STATUS.NORMAL;
+	                        if (r.status == Row.STATUS.NEW) {
+	                            row.status = Row.STATUS.NEW;
+	                        }
 	                    } else {
 	                        r.rowId = r.id;
 	                        delete r.id;
 	                        page.rows.push(r);
-	                        r.status = Row.STATUS.NORMAL;
+	                        if (r.status != Row.STATUS.NEW) {
+	                            r.status = Row.STATUS.NORMAL;
+	                        }
 	                        // 针对后台不传回总行数的情况下更新总行数
 	                        var oldTotalRow = this.totalRow();
 	                        var newTotalRow = oldTotalRow + 1;
@@ -4190,7 +4213,9 @@
 	    this.focusIndex(-1);
 	    this.selectedIndices([]);
 
+	    this.setSimpleDataReal = [];
 	    if (!data) {
+	        this.setSimpleDataReal = data;
 	        // throw new Error("dataTable.setSimpleData param can't be null!");
 	        return;
 	    }
@@ -4213,7 +4238,7 @@
 	        rows: rows
 	    };
 	    if (options) {
-	        if (_typeof(options.fieldFlag) == undefined) {
+	        if (typeof options.fieldFlag == 'undefined') {
 	            options.fieldFlag = true;
 	        }
 	    }
@@ -4497,7 +4522,9 @@
 					} else {
 						_date = new Date(parseInt(value));
 						if (isNaN(_date)) {
-							throw new TypeError('invalid Date parameter');
+							// 输入值不正确时，默认为空，如果抛出异常会后面内容的解析
+							// throw new TypeError('invalid Date parameter');
+							_date = "";
 						} else {
 							dateFlag = true;
 						}
@@ -4506,7 +4533,6 @@
 			} else {
 				dateFlag = true;
 			}
-
 			if (dateFlag) return _date;else return null;
 		}
 
@@ -4770,43 +4796,43 @@
 
 	var _keroaGrid = __webpack_require__(98);
 
-	var _keroaInteger = __webpack_require__(110);
+	var _keroaInteger = __webpack_require__(111);
 
 	var _keroaMonth = __webpack_require__(102);
 
-	var _keroaPagination = __webpack_require__(117);
+	var _keroaPagination = __webpack_require__(118);
 
-	var _keroaPassword = __webpack_require__(114);
+	var _keroaPassword = __webpack_require__(115);
 
-	var _keroaPercent = __webpack_require__(115);
+	var _keroaPercent = __webpack_require__(116);
 
-	var _keroaPhoneNumber = __webpack_require__(119);
+	var _keroaPhoneNumber = __webpack_require__(120);
 
-	var _keroaLandLine = __webpack_require__(120);
+	var _keroaLandLine = __webpack_require__(121);
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
-	var _keroaProgress = __webpack_require__(121);
+	var _keroaProgress = __webpack_require__(122);
 
-	var _keroaRadio = __webpack_require__(111);
+	var _keroaRadio = __webpack_require__(112);
 
-	var _keroaSwitch = __webpack_require__(123);
+	var _keroaSwitch = __webpack_require__(124);
 
-	var _keroaTextarea = __webpack_require__(125);
+	var _keroaTextarea = __webpack_require__(126);
 
-	var _keroaTextfield = __webpack_require__(126);
+	var _keroaTextfield = __webpack_require__(127);
 
-	var _keroaTime = __webpack_require__(106);
+	var _keroaTime = __webpack_require__(107);
 
-	var _keroaUrl = __webpack_require__(113);
+	var _keroaUrl = __webpack_require__(114);
 
 	var _keroaYear = __webpack_require__(100);
 
 	var _keroaYearmonth = __webpack_require__(104);
 
-	var _keroaMonthdate = __webpack_require__(127);
+	var _keroaMonthdate = __webpack_require__(128);
 
-	var _keroaTree = __webpack_require__(129);
+	var _keroaTree = __webpack_require__(130);
 
 	var _enableMixin = __webpack_require__(79);
 
@@ -5288,16 +5314,54 @@
 	                var childObj = this.getChildVariable();
 	                var lastRow = childObj.lastRow;
 	                var lastField = childObj.lastField;
-	                this.dataModel.refByRow({ fieldName: lastField, index: this.options.rowIndex, fullField: this.field }).subscribe(function (value) {
-	                    self.modelValueChange(value);
+
+	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+	                    var id = opt.rowId;
+	                    var field = opt.field;
+	                    var value = opt.newValue;
+	                    var obj = {
+	                        fullField: self.options.field,
+	                        index: self.options.rowIndex
+	                    };
+	                    var selfRow = self.dataModel.getChildRow(obj);
+	                    var row = opt.rowObj;
+	                    if (selfRow == row && field == lastField) {
+	                        self.modelValueChange(value);
+	                    }
+	                });
+
+	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
+	                    var obj = {
+	                        fullField: self.options.field,
+	                        index: self.options.rowIndex
+	                    };
+	                    var rowObj = self.dataModel.getChildRow(obj);
+	                    if (rowObj) {
+	                        self.modelValueChange(rowObj.getValue(lastField));
+	                    }
 	                });
 
 	                if (lastRow) {
 	                    this.modelValueChange(lastRow.getValue(lastField));
 	                }
 	            } else {
-	                this.dataModel.refByRow({ fieldName: this.field, index: this.options.rowIndex }).subscribe(function (value) {
-	                    self.modelValueChange(value);
+
+	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+	                    var id = opt.rowId;
+	                    var field = opt.field;
+	                    var value = opt.newValue;
+	                    var row = opt.rowObj;
+	                    var rowIndex = self.dataModel.getRowIndex(row);
+	                    if (rowIndex == self.options.rowIndex && field == self.field) {
+	                        self.modelValueChange(value);
+	                    }
+	                });
+
+	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
+	                    var rowObj = self.dataModel.getRow(self.options.rowIndex);
+	                    if (rowObj) {
+	                        self.modelValueChange(rowObj.getValue(self.field));
+	                    }
 	                });
 
 	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
@@ -7542,9 +7606,9 @@
 	            this._ul.style.top = this.top + 'px';
 	        }
 	        this._ul.style.width = width + 'px';
-	        (0, _dom.addClass)(this._ul, 'is-animating');
+	        $(this._ul).addClass('is-animating');
 	        this._ul.style.zIndex = (0, _dom.getZIndex)();
-	        (0, _dom.addClass)(this._ul, 'is-visible');
+	        $(this._ul).addClass('is-visible');
 
 	        var callback = function (e) {
 	            if (e === evt || e.target === this._input || self._inputFocus == true) return;
@@ -8353,7 +8417,7 @@
 	        this.setShowValue(this.showValue);
 	    },
 	    onFocusin: function onFocusin() {
-	        var v = this.dataModel.getCurrentRow().getValue(this.field),
+	        var v = this.getValue(),
 	            vstr = v + '',
 	            focusValue = v;
 	        if ((0, _util.isNumber)(v) && (0, _util.isNumber)(this.maskerMeta.precision)) {
@@ -9105,12 +9169,12 @@
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate < valueObj || !value) {
+							if (nowDate && nowDate < valueObj && value) {
 								self.dataModel.setValue(self.field, '');
 							}
 						} else {
 							self.comp.setEndDate(value);
-							if (self.comp.date > _dateUtils.date.getDateObj(value) || !value) {
+							if (self.comp.date && self.comp.date > _dateUtils.date.getDateObj(value) && value) {
 								self.dataModel.setValue(self.field, '');
 							}
 						}
@@ -9152,12 +9216,12 @@
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate < valueObj || !value) {
+							if (nowDate && nowDate < valueObj && value) {
 								self.dataModel.setValue(self.field, '');
 							}
 						} else {
 							self.comp.setStartDate(value, self.options.format);
-							if (self.comp.date < _dateUtils.date.getDateObj(value) || !value) {
+							if (self.comp.date && self.comp.date < _dateUtils.date.getDateObj(value) && value) {
 								self.dataModel.setValue(self.field, '');
 							}
 						}
@@ -9350,7 +9414,7 @@
 	            //     self.show(e);
 	            // }
 	            self._input.focus();
-	            (0, _event.stopEvent)(e);
+	            //stopEvent(e);
 	        });
 	    }
 
@@ -9540,9 +9604,17 @@
 	        if (this.startYear + i == _year) {
 	            (0, _dom.addClass)(cell, 'current');
 	        }
-	        if (this.startYear + i < this.beginYear) {
-	            (0, _dom.addClass)(cell, 'u-disabled');
+	        if (this.beginYear) {
+	            if (this.startYear + i < this.beginYear) {
+	                (0, _dom.addClass)(cell, 'u-disabled');
+	            }
 	        }
+	        if (this.overYear) {
+	            if (this.startYear + i > this.overYear) {
+	                (0, _dom.addClass)(cell, 'u-disabled');
+	            }
+	        }
+
 	        cell._value = this.startYear + i;
 	        yearDiv.appendChild(cell);
 	    }
@@ -9626,12 +9698,23 @@
 	        if (_month - 1 == i) {
 	            (0, _dom.addClass)(cells[i], 'current');
 	        }
-	        if (this.pickerDate.getFullYear() == this.beginYear && i < this.beginMonth) {
-	            (0, _dom.addClass)(cells[i], 'u-disabled');
+	        if (this.beginYear && this.beginMonth) {
+	            if (this.pickerDate.getFullYear() == this.beginYear && i < this.beginMonth) {
+	                (0, _dom.addClass)(cells[i], 'u-disabled');
+	            }
+	            if (this.pickerDate.getFullYear() < this.beginYear) {
+	                (0, _dom.addClass)(cells[i], 'u-disabled');
+	            }
 	        }
-	        if (this.pickerDate.getFullYear() < this.beginYear) {
-	            (0, _dom.addClass)(cells[i], 'u-disabled');
+	        if (this.overYear && this.overMonth) {
+	            if (this.pickerDate.getFullYear() == this.overYear && i > this.overMonth) {
+	                (0, _dom.addClass)(cells[i], 'u-disabled');
+	            }
+	            if (this.pickerDate.getFullYear() > this.overYear) {
+	                (0, _dom.addClass)(cells[i], 'u-disabled');
+	            }
 	        }
+
 	        cells[i]._value = i;
 	        new _ripple.URipple(cells[i]);
 	    }
@@ -9695,8 +9778,12 @@
 	        tempDate = this.pickerDate;
 	    } else if (type === 'preivous') {
 	        tempDate = _dateUtils.date.sub(this.startDate, 'd', 1);
+	        // 默认显示每个月的1号
+	        tempDate = _dateUtils.date.getDateObj(tempDate.setDate(1));
 	    } else {
 	        tempDate = _dateUtils.date.add(this.endDate, 'd', 1);
+	        // 默认显示每个月的1号
+	        tempDate = _dateUtils.date.getDateObj(tempDate.setDate(1));
 	    }
 	    this.startDate = this._getPickerStartDate(tempDate);
 	    this.endDate = this._getPickerEndDate(tempDate);
@@ -9752,15 +9839,19 @@
 	            (0, _dom.addClass)(cell, 'current');
 	        }
 
-	        if (tempDateYear < this.beginYear || tempDateYear == this.beginYear && tempDateMonth < this.beginMonth || tempDateYear == this.overYear && tempDateMonth > this.overMonth || tempDateYear > this.overYear) {
-	            (0, _dom.addClass)(cell, 'u-disabled');
-	            (0, _dom.removeClass)(cell, 'current');
+	        if (this.beginYear && this.beginMonth && this.beginDate) {
+	            if (tempDateYear < this.beginYear || tempDateYear == this.beginYear && tempDateMonth < this.beginMonth || tempDateYear == this.beginYear && tempDateMonth == this.beginMonth && tempDateDate < this.beginDate) {
+	                (0, _dom.addClass)(cell, 'u-disabled');
+	                (0, _dom.removeClass)(cell, 'current');
+	            }
+	        }
+	        if (this.overYear && this.overMonth && this.overDate) {
+	            if (tempDateYear > this.overYear || tempDateYear == this.overYear && tempDateMonth > this.overMonth || tempDateYear == this.overYear && tempDateMonth == this.overMonth && tempDateDate > this.overDate) {
+	                (0, _dom.addClass)(cell, 'u-disabled');
+	                (0, _dom.removeClass)(cell, 'current');
+	            }
 	        }
 
-	        if (tempDateYear == this.beginYear && tempDateMonth == this.beginMonth && tempDateDate < this.beginDate || tempDateYear == this.overYear && tempDateMonth == this.overMonth && tempDateDate > this.overDate) {
-	            (0, _dom.addClass)(cell, 'u-disabled');
-	            (0, _dom.removeClass)(cell, 'current');
-	        }
 	        cell._value = tempDateDate;
 	        cell._month = tempDateMonth;
 	        cell._year = tempDateYear;
@@ -9806,8 +9897,9 @@
 	    //     this._timeMobileScroll()
 	    //     return;
 	    // }
-	    if (this.timeOpen) return;
-	    this.timeOpen = true;
+	    //去除判断防止再次点击时间时，面板弹不出来
+	    // if(this.timeOpen)return;
+	    // this.timeOpen = true;
 	    var year, month, day, date, time, template, timePage, titleDiv, dateDiv, weekSpans, language, tempDate, i, cell, timetemplate;
 	    var self = this;
 	    type = type || 'current';
@@ -10368,6 +10460,14 @@
 	        // if (this.type === 'date' && !env.isMobile){
 	        //    this._dateNav.style.display = 'none';
 	        // }
+	        // 如果是日期类型，取消显示确认和取消按钮
+	        if (this.type === 'date' && !_env.env.isMobile) {
+	            this._dateOk = this._panel.querySelector('.u-date-ok');
+	            this._dateCancel = this._panel.querySelector('.u-date-cancel');
+	            this._dateOk.style.display = 'none';
+	            this._dateCancel.style.display = 'none';
+	        }
+
 	        this._dateContent = this._panel.querySelector('.u-date-content');
 	        if (this.type == 'datetime') {
 	            /*if(env.isMobile){
@@ -10526,7 +10626,16 @@
 	            return;
 	        }
 	    }
-	    this.setDate(this.pickerDate);
+	    var flag = true;
+	    if (this.beginDateObj) {
+	        if (this.beginDateObj < this.startDate) flag = false;
+	    }
+	    if (this.overDateObj) {
+	        if (this.overDateObj > this.endDate) flag = false;
+	    }
+	    if (flag) {
+	        this.setDate(this.pickerDate);
+	    }
 	    this.isShow = false;
 	    this.timeOpen = false;
 	    (0, _dom.removeClass)(this._panel, 'is-visible');
@@ -10584,18 +10693,25 @@
 	DateTimePicker.fn.setStartDate = function (startDate, type) {
 	    if (startDate) {
 	        this.beginDateObj = _dateUtils.date.getDateObj(startDate);
-	        switch (type) {
-	            case 'YYYY-MM':
-	                this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'M', 1);
-	                break;
-	            case 'YYYY-MM-DD':
-	                this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'd', 1);
-	                break;
+	        if (type) {
+	            switch (type) {
+	                case 'YYYY-MM':
+	                    this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'M', 1);
+	                    break;
+	                case 'YYYY-MM-DD':
+	                    this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'd', 1);
+	                    break;
+	            }
 	        }
 
 	        this.beginYear = this.beginDateObj.getFullYear();
 	        this.beginMonth = this.beginDateObj.getMonth();
 	        this.beginDate = this.beginDateObj.getDate();
+	    } else {
+	        this.beginDateObj = null;
+	        this.beginYear = null;
+	        this.beginMonth = null;
+	        this.beginDate = null;
 	    }
 	};
 
@@ -10605,6 +10721,11 @@
 	        this.overYear = this.overDateObj.getFullYear();
 	        this.overMonth = this.overDateObj.getMonth();
 	        this.overDate = this.overDateObj.getDate();
+	    } else {
+	        this.overDateObj = null;
+	        this.overYear = null;
+	        this.overMonth = null;
+	        this.overDate = null;
 	    }
 	};
 
@@ -10678,17 +10799,17 @@
 
 	var _keroaYearmonth = __webpack_require__(104);
 
-	var _keroaTime = __webpack_require__(106);
+	var _keroaTime = __webpack_require__(107);
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
-	var _keroaInteger = __webpack_require__(110);
+	var _keroaInteger = __webpack_require__(111);
 
 	var _keroaCheckbox = __webpack_require__(77);
 
 	var _keroaCombo = __webpack_require__(89);
 
-	var _keroaRadio = __webpack_require__(111);
+	var _keroaRadio = __webpack_require__(112);
 
 	var _keroaFloat = __webpack_require__(94);
 
@@ -10696,15 +10817,15 @@
 
 	var _keroaDatetimepicker = __webpack_require__(96);
 
-	var _keroaUrl = __webpack_require__(113);
+	var _keroaUrl = __webpack_require__(114);
 
-	var _keroaPassword = __webpack_require__(114);
+	var _keroaPassword = __webpack_require__(115);
 
-	var _keroaPercent = __webpack_require__(115);
+	var _keroaPercent = __webpack_require__(116);
 
 	var _neouiValidate = __webpack_require__(82);
 
-	var _neouiMessage = __webpack_require__(116);
+	var _neouiMessage = __webpack_require__(117);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -10832,7 +10953,7 @@
 						// 	$Div.closest('.u-grid-edit-whole-div').find('.u-grid-edit-label').css({'margin-left': '112px', 'text-align': 'left'})
 						// }
 						$(obj.element).parent().focus();
-						comp.modelValueChange(obj.value);
+						if (comp) comp.modelValueChange(obj.value);
 						obj.gridObj.editComp = comp;
 
 						if (obj.gridObj.options.editType == 'form') {
@@ -10886,6 +11007,11 @@
 							if (!obj.gridObj.options.editable) {
 								(0, _event.stopEvent)(e);
 								return false;
+							}
+							if ($(this).parent().hasClass('is-checked')) {
+								this.checked = true;
+							} else {
+								this.checked = false;
 							}
 							var value = this.checked ? "Y" : "N";
 							var column = obj.gridCompColumn;
@@ -12303,7 +12429,7 @@
 					maxNotEq = columnOptions.editOptions.maxNotEq || '';
 					minNotEq = columnOptions.editOptions.minNotEq || '';
 					reg = columnOptions.editOptions.regExp || '';
-					required = columnOptions.editOptions.required || '';
+					required = columnOptions.editOptions.required || columnOptions.required || '';
 				}
 
 				var columnPassedFlag = true,
@@ -13209,6 +13335,14 @@
 
 	var _ripple = __webpack_require__(87);
 
+	var _ployfill = __webpack_require__(106);
+
+	/**
+	 * Module : neoui-year
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-11 15:17:07
+	 */
+
 	var YearMonth = _BaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
 	    init: function init() {
@@ -13362,10 +13496,13 @@
 	                newPage.addEventListener('transitionend', cleanup);
 	                newPage.addEventListener('webkitTransitionEnd', cleanup);
 	            }
-	            window.requestAnimationFrame(function () {
-	                (0, _dom.addClass)(this.contentPage, 'is-hidden');
-	                (0, _dom.removeClass)(newPage, 'zoom-in');
-	            }.bind(this));
+	            //ie9 requestAnimationFrame兼容问题
+	            if (_ployfill.requestAnimationFrame) {
+	                (0, _ployfill.requestAnimationFrame)(function () {
+	                    (0, _dom.addClass)(this.contentPage, 'is-hidden');
+	                    (0, _dom.removeClass)(newPage, 'zoom-in');
+	                }.bind(this));
+	            }
 	        }
 	    },
 
@@ -13489,11 +13626,7 @@
 	        (0, _dom.removeClass)(this.panelDiv, 'is-visible');
 	        this.panelDiv.style.zIndex = -1;
 	    }
-	}); /**
-	     * Module : neoui-year
-	     * Author : liuyk(liuyk@yonyou.com)
-	     * Date   : 2016-08-11 15:17:07
-	     */
+	});
 
 	_compMgr.compMgr.regComp({
 	    comp: YearMonth,
@@ -13512,6 +13645,43 @@
 
 /***/ },
 /* 106 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var requestAnimationFrame = function requestAnimationFrame(callback) {
+	    if (!window.requestAnimationFrame) {
+	        window.requestAnimationFrame = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
+	            var self = this,
+	                start,
+	                finish;
+	            return window.setTimeout(function () {
+	                start = +new Date();
+	                callback(start);
+	                finish = +new Date();
+	                self.timeout = 1000 / 60 - (finish - start);
+	            }, self.timeout);
+	        };
+	    } else {
+	        window.requestAnimationFrame(callback);
+	    }
+	};
+
+	var cancelRequestAnimFrame = function cancelRequestAnimFrame(callback) {
+	    window.cancelRequestAnimFrame = function () {
+	        return window.cancelAnimationFrame || window.webkitCancelRequestAnimationFrame || window.mozCancelRequestAnimationFrame || window.oCancelRequestAnimationFrame || window.msCancelRequestAnimationFrame || clearTimeout;
+	    }();
+	    window.cancelRequestAnimFrame(callback);
+	};
+
+	exports.requestAnimationFrame = requestAnimationFrame;
+	exports.cancelRequestAnimFrame = cancelRequestAnimFrame;
+
+/***/ },
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13539,9 +13709,9 @@
 
 	var _dateUtils = __webpack_require__(70);
 
-	var _neouiClockpicker = __webpack_require__(107);
+	var _neouiClockpicker = __webpack_require__(108);
 
-	var _neouiTime = __webpack_require__(108);
+	var _neouiTime = __webpack_require__(109);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -13622,7 +13792,7 @@
 	exports.TimeAdapter = TimeAdapter;
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14088,7 +14258,7 @@
 	exports.ClockPicker = ClockPicker;
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14330,7 +14500,7 @@
 	exports.Time = Time;
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14408,7 +14578,7 @@
 	exports.StringAdapter = StringAdapter;
 
 /***/ },
-/* 110 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14523,7 +14693,7 @@
 	exports.IntegerAdapter = IntegerAdapter;
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14549,7 +14719,7 @@
 
 	var _event = __webpack_require__(6);
 
-	var _neouiRadio = __webpack_require__(112);
+	var _neouiRadio = __webpack_require__(113);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -14795,7 +14965,7 @@
 	exports.RadioAdapter = RadioAdapter;
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15035,7 +15205,7 @@
 	exports.Radio = Radio;
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15045,7 +15215,7 @@
 	});
 	exports.UrlAdapter = undefined;
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
 	var _dom = __webpack_require__(5);
 
@@ -15104,7 +15274,7 @@
 	exports.UrlAdapter = UrlAdapter;
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15114,7 +15284,7 @@
 	});
 	exports.PassWordAdapter = undefined;
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
 	var _util = __webpack_require__(10);
 
@@ -15178,7 +15348,7 @@
 	exports.PassWordAdapter = PassWordAdapter;
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15226,7 +15396,7 @@
 	exports.PercentAdapter = PercentAdapter;
 
 /***/ },
-/* 116 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15310,7 +15480,7 @@
 	exports.showMessage = showMessage;
 
 /***/ },
-/* 117 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15324,7 +15494,7 @@
 
 	var _extend = __webpack_require__(8);
 
-	var _neouiPagination = __webpack_require__(118);
+	var _neouiPagination = __webpack_require__(119);
 
 	var _util = __webpack_require__(10);
 
@@ -15426,7 +15596,7 @@
 	exports.PaginationAdapter = PaginationAdapter;
 
 /***/ },
-/* 118 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15832,7 +16002,7 @@
 	exports.pagination = pagination;
 
 /***/ },
-/* 119 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15842,7 +16012,7 @@
 	});
 	exports.PhoneNumberAdapter = undefined;
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
 	var _masker = __webpack_require__(95);
 
@@ -15889,7 +16059,7 @@
 	exports.PhoneNumberAdapter = PhoneNumberAdapter;
 
 /***/ },
-/* 120 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15899,7 +16069,7 @@
 	});
 	exports.LandLineAdapter = undefined;
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
 	var _masker = __webpack_require__(95);
 
@@ -15946,7 +16116,7 @@
 	exports.LandLineAdapter = LandLineAdapter;
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15958,7 +16128,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiProgress = __webpack_require__(122);
+	var _neouiProgress = __webpack_require__(123);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -15992,7 +16162,7 @@
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16119,7 +16289,7 @@
 	exports.Progress = Progress;
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16131,7 +16301,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiSwitch = __webpack_require__(124);
+	var _neouiSwitch = __webpack_require__(125);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -16200,7 +16370,7 @@
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16390,7 +16560,7 @@
 	exports.Switch = Switch;
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16441,10 +16611,15 @@
 	    name: 'textarea'
 	});
 
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TextAreaAdapter,
+	    name: 'u-textarea'
+	});
+
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16462,9 +16637,9 @@
 
 	var _keroaFloat = __webpack_require__(94);
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
-	var _keroaInteger = __webpack_require__(110);
+	var _keroaInteger = __webpack_require__(111);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -16528,7 +16703,7 @@
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 127 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16540,7 +16715,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiMonthdate = __webpack_require__(128);
+	var _neouiMonthdate = __webpack_require__(129);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -16590,7 +16765,7 @@
 	exports.MonthDateAdapter = MonthDateAdapter;
 
 /***/ },
-/* 128 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16955,7 +17130,7 @@
 	exports.MonthDate = MonthDate;
 
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -102,13 +102,13 @@
 	});
 	exports.DataTable = exports.u = undefined;
 
-	var _index = __webpack_require__(130);
+	var _index = __webpack_require__(131);
 
-	var _index2 = __webpack_require__(132);
+	var _index2 = __webpack_require__(133);
 
 	var neoui = _interopRequireWildcard(_index2);
 
-	var _index3 = __webpack_require__(150);
+	var _index3 = __webpack_require__(151);
 
 	var _index4 = __webpack_require__(75);
 
@@ -587,7 +587,11 @@
 	var addClass = function addClass(element, value) {
 		if (element) {
 			if (typeof element.classList === 'undefined') {
-				if (u._addClass) u._addClass(element, value);
+				if (u._addClass) {
+					u._addClass(element, value);
+				} else {
+					$(element).addClass(value);
+				}
 			} else {
 				element.classList.add(value);
 			}
@@ -608,7 +612,11 @@
 	var removeClass = function removeClass(element, value) {
 		if (element) {
 			if (typeof element.classList === 'undefined') {
-				if (u._removeClass) u._removeClass(element, value);
+				if (u._removeClass) {
+					u._removeClass(element, value);
+				} else {
+					$(element).removeClass(value);
+				}
 			} else {
 				element.classList.remove(value);
 			}
@@ -624,7 +632,12 @@
 		if (!element) return false;
 		if (element.nodeName && (element.nodeName === '#text' || element.nodeName === '#comment')) return false;
 		if (typeof element.classList === 'undefined') {
-			if (u._hasClass) return u._hasClass(element, value);
+			if (u._hasClass) {
+				return u._hasClass(element, value);
+			} else {
+				return $(element).hasClass(value);
+			}
+
 			return false;
 		} else {
 			return element.classList.contains(value);
@@ -722,7 +735,7 @@
 	 */
 	var makeModal = function makeModal(element, parEle) {
 		var overlayDiv = document.createElement('div');
-		addClass(overlayDiv, 'u-overlay');
+		$(overlayDiv).addClass('u-overlay');
 		overlayDiv.style.zIndex = getZIndex();
 		// 如果有父元素则插入到父元素上，没有则添加到body上
 		if (parEle && parEle != document.body) {
@@ -1663,8 +1676,9 @@
 			return;
 		}
 	};
-
-	NodeList.prototype.forEach = Array.prototype.forEach;
+	try {
+		NodeList.prototype.forEach = Array.prototype.forEach;
+	} catch (e) {}
 
 	/**
 	 * 获得字符串的字节长度
@@ -1696,8 +1710,9 @@
 			if (/iphone|ipad|ipod/.test(ua)) {
 				//转换成 yy/mm/dd
 				str = str.replace(/-/g, "/");
+				str = str.replace(/(^\s+)|(\s+$)/g, "");
 				if (str.length <= 8) {
-					str = str + '/28';
+					str = str += "/01";
 				}
 			}
 		}
@@ -2918,7 +2933,7 @@
 	        }
 	    };
 	    params.data = (0, _extend.extend)(params.data, data);
-	    (0, _ajax.ajax)(params);
+	    if ($) $.ajax(params);else (0, _ajax.ajax)(params);
 	};
 
 	var _successFunc = function _successFunc(data, deferred) {
@@ -4357,6 +4372,9 @@
 	    for (var i = 0; i < rows.length; i++) {
 	        _rowData.push(rows[i].getSimpleData({ fields: fields }));
 	    }
+	    if (_rowData.length == 0) {
+	        _rowData = this.setSimpleDataReal; //云采提的#需求
+	    }
 	    return _rowData;
 	};
 
@@ -4590,11 +4608,16 @@
 	                            this.totalRow(newTotalRow);
 	                        }
 	                        row.status = Row.STATUS.NORMAL;
+	                        if (r.status == Row.STATUS.NEW) {
+	                            row.status = Row.STATUS.NEW;
+	                        }
 	                    } else {
 	                        r.rowId = r.id;
 	                        delete r.id;
 	                        page.rows.push(r);
-	                        r.status = Row.STATUS.NORMAL;
+	                        if (r.status != Row.STATUS.NEW) {
+	                            r.status = Row.STATUS.NORMAL;
+	                        }
 	                        // 针对后台不传回总行数的情况下更新总行数
 	                        var oldTotalRow = this.totalRow();
 	                        var newTotalRow = oldTotalRow + 1;
@@ -5579,7 +5602,9 @@
 	    this.focusIndex(-1);
 	    this.selectedIndices([]);
 
+	    this.setSimpleDataReal = [];
 	    if (!data) {
+	        this.setSimpleDataReal = data;
 	        // throw new Error("dataTable.setSimpleData param can't be null!");
 	        return;
 	    }
@@ -5602,7 +5627,7 @@
 	        rows: rows
 	    };
 	    if (options) {
-	        if (_typeof(options.fieldFlag) == undefined) {
+	        if (typeof options.fieldFlag == 'undefined') {
 	            options.fieldFlag = true;
 	        }
 	    }
@@ -6203,17 +6228,25 @@
 	 */
 	var _setData = function _setData(rowObj, sourceData, targetData, subscribe, parentKey, options) {
 	    for (var key in sourceData) {
+
+	        // 判断是否要放到dataTable中
+	        if (options && !options.fieldFlag) {
+	            if (!rowObj.parent.getMeta(key)) {
+	                continue;
+	            }
+	        }
 	        var _parentKey = parentKey || null;
 	        //if (targetData[key]) {
 	        targetData[key] = targetData[key] || {};
 	        var valueObj = sourceData[key];
-	        if ((typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') {
-	            if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) == 'object') {
-	                if (options.fieldFlag) {
-	                    rowObj.parent.createField(key);
-	                }
-	            }
-	        }
+
+	        // if (typeof valueObj != 'object'){
+	        //     if(typeof options == 'object'){
+	        //         if(options.fieldFlag) {
+	        //             rowObj.parent.createField(key);
+	        //         }
+	        //     }
+	        // }
 
 	        //if (typeof this.parent.meta[key] === 'undefined') continue;
 	        if (valueObj == null || (typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') {
@@ -6406,7 +6439,8 @@
 	        field: fieldName,
 	        oldValue: oldValue,
 	        newValue: rowObj.getValue(fieldName),
-	        ctx: ctx || ""
+	        ctx: ctx || "",
+	        rowObj: rowObj
 	    };
 	    rowObj.parent.trigger(DataTable.ON_VALUE_CHANGE, event);
 	    rowObj.parent.trigger(fieldName + "." + DataTable.ON_VALUE_CHANGE, event);
@@ -6655,6 +6689,8 @@
 	                };
 	                _data[key] = rowObj.formatValueFun(obj, rowObj.parent.dateNoConvert);
 	            }
+	        } else if (!data[key].value) {
+	            _data[key] = data[key].value;
 	        } else {
 	            _data[key] = _getSimpleData(rowObj, data[key]);
 	        }
@@ -7202,7 +7238,9 @@
 					} else {
 						_date = new Date(parseInt(value));
 						if (isNaN(_date)) {
-							throw new TypeError('invalid Date parameter');
+							// 输入值不正确时，默认为空，如果抛出异常会后面内容的解析
+							// throw new TypeError('invalid Date parameter');
+							_date = "";
 						} else {
 							dateFlag = true;
 						}
@@ -7211,7 +7249,6 @@
 			} else {
 				dateFlag = true;
 			}
-
 			if (dateFlag) return _date;else return null;
 		}
 
@@ -7538,43 +7575,43 @@
 
 	var _keroaGrid = __webpack_require__(98);
 
-	var _keroaInteger = __webpack_require__(110);
+	var _keroaInteger = __webpack_require__(111);
 
 	var _keroaMonth = __webpack_require__(102);
 
-	var _keroaPagination = __webpack_require__(117);
+	var _keroaPagination = __webpack_require__(118);
 
-	var _keroaPassword = __webpack_require__(114);
+	var _keroaPassword = __webpack_require__(115);
 
-	var _keroaPercent = __webpack_require__(115);
+	var _keroaPercent = __webpack_require__(116);
 
-	var _keroaPhoneNumber = __webpack_require__(119);
+	var _keroaPhoneNumber = __webpack_require__(120);
 
-	var _keroaLandLine = __webpack_require__(120);
+	var _keroaLandLine = __webpack_require__(121);
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
-	var _keroaProgress = __webpack_require__(121);
+	var _keroaProgress = __webpack_require__(122);
 
-	var _keroaRadio = __webpack_require__(111);
+	var _keroaRadio = __webpack_require__(112);
 
-	var _keroaSwitch = __webpack_require__(123);
+	var _keroaSwitch = __webpack_require__(124);
 
-	var _keroaTextarea = __webpack_require__(125);
+	var _keroaTextarea = __webpack_require__(126);
 
-	var _keroaTextfield = __webpack_require__(126);
+	var _keroaTextfield = __webpack_require__(127);
 
-	var _keroaTime = __webpack_require__(106);
+	var _keroaTime = __webpack_require__(107);
 
-	var _keroaUrl = __webpack_require__(113);
+	var _keroaUrl = __webpack_require__(114);
 
 	var _keroaYear = __webpack_require__(100);
 
 	var _keroaYearmonth = __webpack_require__(104);
 
-	var _keroaMonthdate = __webpack_require__(127);
+	var _keroaMonthdate = __webpack_require__(128);
 
-	var _keroaTree = __webpack_require__(129);
+	var _keroaTree = __webpack_require__(130);
 
 	var _enableMixin = __webpack_require__(79);
 
@@ -8056,16 +8093,54 @@
 	                var childObj = this.getChildVariable();
 	                var lastRow = childObj.lastRow;
 	                var lastField = childObj.lastField;
-	                this.dataModel.refByRow({ fieldName: lastField, index: this.options.rowIndex, fullField: this.field }).subscribe(function (value) {
-	                    self.modelValueChange(value);
+
+	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+	                    var id = opt.rowId;
+	                    var field = opt.field;
+	                    var value = opt.newValue;
+	                    var obj = {
+	                        fullField: self.options.field,
+	                        index: self.options.rowIndex
+	                    };
+	                    var selfRow = self.dataModel.getChildRow(obj);
+	                    var row = opt.rowObj;
+	                    if (selfRow == row && field == lastField) {
+	                        self.modelValueChange(value);
+	                    }
+	                });
+
+	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
+	                    var obj = {
+	                        fullField: self.options.field,
+	                        index: self.options.rowIndex
+	                    };
+	                    var rowObj = self.dataModel.getChildRow(obj);
+	                    if (rowObj) {
+	                        self.modelValueChange(rowObj.getValue(lastField));
+	                    }
 	                });
 
 	                if (lastRow) {
 	                    this.modelValueChange(lastRow.getValue(lastField));
 	                }
 	            } else {
-	                this.dataModel.refByRow({ fieldName: this.field, index: this.options.rowIndex }).subscribe(function (value) {
-	                    self.modelValueChange(value);
+
+	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+	                    var id = opt.rowId;
+	                    var field = opt.field;
+	                    var value = opt.newValue;
+	                    var row = opt.rowObj;
+	                    var rowIndex = self.dataModel.getRowIndex(row);
+	                    if (rowIndex == self.options.rowIndex && field == self.field) {
+	                        self.modelValueChange(value);
+	                    }
+	                });
+
+	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
+	                    var rowObj = self.dataModel.getRow(self.options.rowIndex);
+	                    if (rowObj) {
+	                        self.modelValueChange(rowObj.getValue(self.field));
+	                    }
 	                });
 
 	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
@@ -10310,9 +10385,9 @@
 	            this._ul.style.top = this.top + 'px';
 	        }
 	        this._ul.style.width = width + 'px';
-	        (0, _dom.addClass)(this._ul, 'is-animating');
+	        $(this._ul).addClass('is-animating');
 	        this._ul.style.zIndex = (0, _dom.getZIndex)();
-	        (0, _dom.addClass)(this._ul, 'is-visible');
+	        $(this._ul).addClass('is-visible');
 
 	        var callback = function (e) {
 	            if (e === evt || e.target === this._input || self._inputFocus == true) return;
@@ -11121,7 +11196,7 @@
 	        this.setShowValue(this.showValue);
 	    },
 	    onFocusin: function onFocusin() {
-	        var v = this.dataModel.getCurrentRow().getValue(this.field),
+	        var v = this.getValue(),
 	            vstr = v + '',
 	            focusValue = v;
 	        if ((0, _util.isNumber)(v) && (0, _util.isNumber)(this.maskerMeta.precision)) {
@@ -11873,12 +11948,12 @@
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate < valueObj || !value) {
+							if (nowDate && nowDate < valueObj && value) {
 								self.dataModel.setValue(self.field, '');
 							}
 						} else {
 							self.comp.setEndDate(value);
-							if (self.comp.date > _dateUtils.date.getDateObj(value) || !value) {
+							if (self.comp.date && self.comp.date > _dateUtils.date.getDateObj(value) && value) {
 								self.dataModel.setValue(self.field, '');
 							}
 						}
@@ -11920,12 +11995,12 @@
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate < valueObj || !value) {
+							if (nowDate && nowDate < valueObj && value) {
 								self.dataModel.setValue(self.field, '');
 							}
 						} else {
 							self.comp.setStartDate(value, self.options.format);
-							if (self.comp.date < _dateUtils.date.getDateObj(value) || !value) {
+							if (self.comp.date && self.comp.date < _dateUtils.date.getDateObj(value) && value) {
 								self.dataModel.setValue(self.field, '');
 							}
 						}
@@ -12118,7 +12193,7 @@
 	            //     self.show(e);
 	            // }
 	            self._input.focus();
-	            (0, _event.stopEvent)(e);
+	            //stopEvent(e);
 	        });
 	    }
 
@@ -12308,9 +12383,17 @@
 	        if (this.startYear + i == _year) {
 	            (0, _dom.addClass)(cell, 'current');
 	        }
-	        if (this.startYear + i < this.beginYear) {
-	            (0, _dom.addClass)(cell, 'u-disabled');
+	        if (this.beginYear) {
+	            if (this.startYear + i < this.beginYear) {
+	                (0, _dom.addClass)(cell, 'u-disabled');
+	            }
 	        }
+	        if (this.overYear) {
+	            if (this.startYear + i > this.overYear) {
+	                (0, _dom.addClass)(cell, 'u-disabled');
+	            }
+	        }
+
 	        cell._value = this.startYear + i;
 	        yearDiv.appendChild(cell);
 	    }
@@ -12394,12 +12477,23 @@
 	        if (_month - 1 == i) {
 	            (0, _dom.addClass)(cells[i], 'current');
 	        }
-	        if (this.pickerDate.getFullYear() == this.beginYear && i < this.beginMonth) {
-	            (0, _dom.addClass)(cells[i], 'u-disabled');
+	        if (this.beginYear && this.beginMonth) {
+	            if (this.pickerDate.getFullYear() == this.beginYear && i < this.beginMonth) {
+	                (0, _dom.addClass)(cells[i], 'u-disabled');
+	            }
+	            if (this.pickerDate.getFullYear() < this.beginYear) {
+	                (0, _dom.addClass)(cells[i], 'u-disabled');
+	            }
 	        }
-	        if (this.pickerDate.getFullYear() < this.beginYear) {
-	            (0, _dom.addClass)(cells[i], 'u-disabled');
+	        if (this.overYear && this.overMonth) {
+	            if (this.pickerDate.getFullYear() == this.overYear && i > this.overMonth) {
+	                (0, _dom.addClass)(cells[i], 'u-disabled');
+	            }
+	            if (this.pickerDate.getFullYear() > this.overYear) {
+	                (0, _dom.addClass)(cells[i], 'u-disabled');
+	            }
 	        }
+
 	        cells[i]._value = i;
 	        new _ripple.URipple(cells[i]);
 	    }
@@ -12463,8 +12557,12 @@
 	        tempDate = this.pickerDate;
 	    } else if (type === 'preivous') {
 	        tempDate = _dateUtils.date.sub(this.startDate, 'd', 1);
+	        // 默认显示每个月的1号
+	        tempDate = _dateUtils.date.getDateObj(tempDate.setDate(1));
 	    } else {
 	        tempDate = _dateUtils.date.add(this.endDate, 'd', 1);
+	        // 默认显示每个月的1号
+	        tempDate = _dateUtils.date.getDateObj(tempDate.setDate(1));
 	    }
 	    this.startDate = this._getPickerStartDate(tempDate);
 	    this.endDate = this._getPickerEndDate(tempDate);
@@ -12520,15 +12618,19 @@
 	            (0, _dom.addClass)(cell, 'current');
 	        }
 
-	        if (tempDateYear < this.beginYear || tempDateYear == this.beginYear && tempDateMonth < this.beginMonth || tempDateYear == this.overYear && tempDateMonth > this.overMonth || tempDateYear > this.overYear) {
-	            (0, _dom.addClass)(cell, 'u-disabled');
-	            (0, _dom.removeClass)(cell, 'current');
+	        if (this.beginYear && this.beginMonth && this.beginDate) {
+	            if (tempDateYear < this.beginYear || tempDateYear == this.beginYear && tempDateMonth < this.beginMonth || tempDateYear == this.beginYear && tempDateMonth == this.beginMonth && tempDateDate < this.beginDate) {
+	                (0, _dom.addClass)(cell, 'u-disabled');
+	                (0, _dom.removeClass)(cell, 'current');
+	            }
+	        }
+	        if (this.overYear && this.overMonth && this.overDate) {
+	            if (tempDateYear > this.overYear || tempDateYear == this.overYear && tempDateMonth > this.overMonth || tempDateYear == this.overYear && tempDateMonth == this.overMonth && tempDateDate > this.overDate) {
+	                (0, _dom.addClass)(cell, 'u-disabled');
+	                (0, _dom.removeClass)(cell, 'current');
+	            }
 	        }
 
-	        if (tempDateYear == this.beginYear && tempDateMonth == this.beginMonth && tempDateDate < this.beginDate || tempDateYear == this.overYear && tempDateMonth == this.overMonth && tempDateDate > this.overDate) {
-	            (0, _dom.addClass)(cell, 'u-disabled');
-	            (0, _dom.removeClass)(cell, 'current');
-	        }
 	        cell._value = tempDateDate;
 	        cell._month = tempDateMonth;
 	        cell._year = tempDateYear;
@@ -12574,8 +12676,9 @@
 	    //     this._timeMobileScroll()
 	    //     return;
 	    // }
-	    if (this.timeOpen) return;
-	    this.timeOpen = true;
+	    //去除判断防止再次点击时间时，面板弹不出来
+	    // if(this.timeOpen)return;
+	    // this.timeOpen = true;
 	    var year, month, day, date, time, template, timePage, titleDiv, dateDiv, weekSpans, language, tempDate, i, cell, timetemplate;
 	    var self = this;
 	    type = type || 'current';
@@ -13136,6 +13239,14 @@
 	        // if (this.type === 'date' && !env.isMobile){
 	        //    this._dateNav.style.display = 'none';
 	        // }
+	        // 如果是日期类型，取消显示确认和取消按钮
+	        if (this.type === 'date' && !_env.env.isMobile) {
+	            this._dateOk = this._panel.querySelector('.u-date-ok');
+	            this._dateCancel = this._panel.querySelector('.u-date-cancel');
+	            this._dateOk.style.display = 'none';
+	            this._dateCancel.style.display = 'none';
+	        }
+
 	        this._dateContent = this._panel.querySelector('.u-date-content');
 	        if (this.type == 'datetime') {
 	            /*if(env.isMobile){
@@ -13294,7 +13405,16 @@
 	            return;
 	        }
 	    }
-	    this.setDate(this.pickerDate);
+	    var flag = true;
+	    if (this.beginDateObj) {
+	        if (this.beginDateObj < this.startDate) flag = false;
+	    }
+	    if (this.overDateObj) {
+	        if (this.overDateObj > this.endDate) flag = false;
+	    }
+	    if (flag) {
+	        this.setDate(this.pickerDate);
+	    }
 	    this.isShow = false;
 	    this.timeOpen = false;
 	    (0, _dom.removeClass)(this._panel, 'is-visible');
@@ -13352,18 +13472,25 @@
 	DateTimePicker.fn.setStartDate = function (startDate, type) {
 	    if (startDate) {
 	        this.beginDateObj = _dateUtils.date.getDateObj(startDate);
-	        switch (type) {
-	            case 'YYYY-MM':
-	                this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'M', 1);
-	                break;
-	            case 'YYYY-MM-DD':
-	                this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'd', 1);
-	                break;
+	        if (type) {
+	            switch (type) {
+	                case 'YYYY-MM':
+	                    this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'M', 1);
+	                    break;
+	                case 'YYYY-MM-DD':
+	                    this.beginDateObj = _dateUtils.date.add(this.beginDateObj, 'd', 1);
+	                    break;
+	            }
 	        }
 
 	        this.beginYear = this.beginDateObj.getFullYear();
 	        this.beginMonth = this.beginDateObj.getMonth();
 	        this.beginDate = this.beginDateObj.getDate();
+	    } else {
+	        this.beginDateObj = null;
+	        this.beginYear = null;
+	        this.beginMonth = null;
+	        this.beginDate = null;
 	    }
 	};
 
@@ -13373,6 +13500,11 @@
 	        this.overYear = this.overDateObj.getFullYear();
 	        this.overMonth = this.overDateObj.getMonth();
 	        this.overDate = this.overDateObj.getDate();
+	    } else {
+	        this.overDateObj = null;
+	        this.overYear = null;
+	        this.overMonth = null;
+	        this.overDate = null;
 	    }
 	};
 
@@ -13446,17 +13578,17 @@
 
 	var _keroaYearmonth = __webpack_require__(104);
 
-	var _keroaTime = __webpack_require__(106);
+	var _keroaTime = __webpack_require__(107);
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
-	var _keroaInteger = __webpack_require__(110);
+	var _keroaInteger = __webpack_require__(111);
 
 	var _keroaCheckbox = __webpack_require__(77);
 
 	var _keroaCombo = __webpack_require__(89);
 
-	var _keroaRadio = __webpack_require__(111);
+	var _keroaRadio = __webpack_require__(112);
 
 	var _keroaFloat = __webpack_require__(94);
 
@@ -13464,15 +13596,15 @@
 
 	var _keroaDatetimepicker = __webpack_require__(96);
 
-	var _keroaUrl = __webpack_require__(113);
+	var _keroaUrl = __webpack_require__(114);
 
-	var _keroaPassword = __webpack_require__(114);
+	var _keroaPassword = __webpack_require__(115);
 
-	var _keroaPercent = __webpack_require__(115);
+	var _keroaPercent = __webpack_require__(116);
 
 	var _neouiValidate = __webpack_require__(82);
 
-	var _neouiMessage = __webpack_require__(116);
+	var _neouiMessage = __webpack_require__(117);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -13600,7 +13732,7 @@
 						// 	$Div.closest('.u-grid-edit-whole-div').find('.u-grid-edit-label').css({'margin-left': '112px', 'text-align': 'left'})
 						// }
 						$(obj.element).parent().focus();
-						comp.modelValueChange(obj.value);
+						if (comp) comp.modelValueChange(obj.value);
 						obj.gridObj.editComp = comp;
 
 						if (obj.gridObj.options.editType == 'form') {
@@ -13654,6 +13786,11 @@
 							if (!obj.gridObj.options.editable) {
 								(0, _event.stopEvent)(e);
 								return false;
+							}
+							if ($(this).parent().hasClass('is-checked')) {
+								this.checked = true;
+							} else {
+								this.checked = false;
 							}
 							var value = this.checked ? "Y" : "N";
 							var column = obj.gridCompColumn;
@@ -15071,7 +15208,7 @@
 					maxNotEq = columnOptions.editOptions.maxNotEq || '';
 					minNotEq = columnOptions.editOptions.minNotEq || '';
 					reg = columnOptions.editOptions.regExp || '';
-					required = columnOptions.editOptions.required || '';
+					required = columnOptions.editOptions.required || columnOptions.required || '';
 				}
 
 				var columnPassedFlag = true,
@@ -15977,6 +16114,14 @@
 
 	var _ripple = __webpack_require__(87);
 
+	var _ployfill = __webpack_require__(106);
+
+	/**
+	 * Module : neoui-year
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-11 15:17:07
+	 */
+
 	var YearMonth = _BaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
 	    init: function init() {
@@ -16130,10 +16275,13 @@
 	                newPage.addEventListener('transitionend', cleanup);
 	                newPage.addEventListener('webkitTransitionEnd', cleanup);
 	            }
-	            window.requestAnimationFrame(function () {
-	                (0, _dom.addClass)(this.contentPage, 'is-hidden');
-	                (0, _dom.removeClass)(newPage, 'zoom-in');
-	            }.bind(this));
+	            //ie9 requestAnimationFrame兼容问题
+	            if (_ployfill.requestAnimationFrame) {
+	                (0, _ployfill.requestAnimationFrame)(function () {
+	                    (0, _dom.addClass)(this.contentPage, 'is-hidden');
+	                    (0, _dom.removeClass)(newPage, 'zoom-in');
+	                }.bind(this));
+	            }
 	        }
 	    },
 
@@ -16257,11 +16405,7 @@
 	        (0, _dom.removeClass)(this.panelDiv, 'is-visible');
 	        this.panelDiv.style.zIndex = -1;
 	    }
-	}); /**
-	     * Module : neoui-year
-	     * Author : liuyk(liuyk@yonyou.com)
-	     * Date   : 2016-08-11 15:17:07
-	     */
+	});
 
 	_compMgr.compMgr.regComp({
 	    comp: YearMonth,
@@ -16280,6 +16424,43 @@
 
 /***/ },
 /* 106 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var requestAnimationFrame = function requestAnimationFrame(callback) {
+	    if (!window.requestAnimationFrame) {
+	        window.requestAnimationFrame = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
+	            var self = this,
+	                start,
+	                finish;
+	            return window.setTimeout(function () {
+	                start = +new Date();
+	                callback(start);
+	                finish = +new Date();
+	                self.timeout = 1000 / 60 - (finish - start);
+	            }, self.timeout);
+	        };
+	    } else {
+	        window.requestAnimationFrame(callback);
+	    }
+	};
+
+	var cancelRequestAnimFrame = function cancelRequestAnimFrame(callback) {
+	    window.cancelRequestAnimFrame = function () {
+	        return window.cancelAnimationFrame || window.webkitCancelRequestAnimationFrame || window.mozCancelRequestAnimationFrame || window.oCancelRequestAnimationFrame || window.msCancelRequestAnimationFrame || clearTimeout;
+	    }();
+	    window.cancelRequestAnimFrame(callback);
+	};
+
+	exports.requestAnimationFrame = requestAnimationFrame;
+	exports.cancelRequestAnimFrame = cancelRequestAnimFrame;
+
+/***/ },
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16307,9 +16488,9 @@
 
 	var _dateUtils = __webpack_require__(70);
 
-	var _neouiClockpicker = __webpack_require__(107);
+	var _neouiClockpicker = __webpack_require__(108);
 
-	var _neouiTime = __webpack_require__(108);
+	var _neouiTime = __webpack_require__(109);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -16390,7 +16571,7 @@
 	exports.TimeAdapter = TimeAdapter;
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16856,7 +17037,7 @@
 	exports.ClockPicker = ClockPicker;
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17098,7 +17279,7 @@
 	exports.Time = Time;
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17176,7 +17357,7 @@
 	exports.StringAdapter = StringAdapter;
 
 /***/ },
-/* 110 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17291,7 +17472,7 @@
 	exports.IntegerAdapter = IntegerAdapter;
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17317,7 +17498,7 @@
 
 	var _event = __webpack_require__(6);
 
-	var _neouiRadio = __webpack_require__(112);
+	var _neouiRadio = __webpack_require__(113);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -17563,7 +17744,7 @@
 	exports.RadioAdapter = RadioAdapter;
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17803,7 +17984,7 @@
 	exports.Radio = Radio;
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17813,7 +17994,7 @@
 	});
 	exports.UrlAdapter = undefined;
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
 	var _dom = __webpack_require__(5);
 
@@ -17872,7 +18053,7 @@
 	exports.UrlAdapter = UrlAdapter;
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17882,7 +18063,7 @@
 	});
 	exports.PassWordAdapter = undefined;
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
 	var _util = __webpack_require__(10);
 
@@ -17946,7 +18127,7 @@
 	exports.PassWordAdapter = PassWordAdapter;
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17994,7 +18175,7 @@
 	exports.PercentAdapter = PercentAdapter;
 
 /***/ },
-/* 116 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18078,7 +18259,7 @@
 	exports.showMessage = showMessage;
 
 /***/ },
-/* 117 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18092,7 +18273,7 @@
 
 	var _extend = __webpack_require__(8);
 
-	var _neouiPagination = __webpack_require__(118);
+	var _neouiPagination = __webpack_require__(119);
 
 	var _util = __webpack_require__(10);
 
@@ -18194,7 +18375,7 @@
 	exports.PaginationAdapter = PaginationAdapter;
 
 /***/ },
-/* 118 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18600,7 +18781,7 @@
 	exports.pagination = pagination;
 
 /***/ },
-/* 119 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18610,7 +18791,7 @@
 	});
 	exports.PhoneNumberAdapter = undefined;
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
 	var _masker = __webpack_require__(95);
 
@@ -18657,7 +18838,7 @@
 	exports.PhoneNumberAdapter = PhoneNumberAdapter;
 
 /***/ },
-/* 120 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18667,7 +18848,7 @@
 	});
 	exports.LandLineAdapter = undefined;
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
 	var _masker = __webpack_require__(95);
 
@@ -18714,7 +18895,7 @@
 	exports.LandLineAdapter = LandLineAdapter;
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18726,7 +18907,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiProgress = __webpack_require__(122);
+	var _neouiProgress = __webpack_require__(123);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -18760,7 +18941,7 @@
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18887,7 +19068,7 @@
 	exports.Progress = Progress;
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18899,7 +19080,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiSwitch = __webpack_require__(124);
+	var _neouiSwitch = __webpack_require__(125);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -18968,7 +19149,7 @@
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19158,7 +19339,7 @@
 	exports.Switch = Switch;
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19209,10 +19390,15 @@
 	    name: 'textarea'
 	});
 
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: TextAreaAdapter,
+	    name: 'u-textarea'
+	});
+
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19230,9 +19416,9 @@
 
 	var _keroaFloat = __webpack_require__(94);
 
-	var _keroaString = __webpack_require__(109);
+	var _keroaString = __webpack_require__(110);
 
-	var _keroaInteger = __webpack_require__(110);
+	var _keroaInteger = __webpack_require__(111);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -19296,7 +19482,7 @@
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 127 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19308,7 +19494,7 @@
 
 	var _baseAdapter = __webpack_require__(76);
 
-	var _neouiMonthdate = __webpack_require__(128);
+	var _neouiMonthdate = __webpack_require__(129);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -19358,7 +19544,7 @@
 	exports.MonthDateAdapter = MonthDateAdapter;
 
 /***/ },
-/* 128 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19723,7 +19909,7 @@
 	exports.MonthDate = MonthDate;
 
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20177,7 +20363,7 @@
 	exports.TreeAdapter = TreeAdapter;
 
 /***/ },
-/* 130 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20221,11 +20407,19 @@
 
 	var _ripple = __webpack_require__(87);
 
-	var _rsautils = __webpack_require__(131);
+	var _rsautils = __webpack_require__(132);
 
 	var _i18n = __webpack_require__(85);
 
+	var _ployfill = __webpack_require__(106);
+
 	//公开接口、属性对外暴露
+	/**
+	 * Module : Sparrow entry index
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-04 09:48:36
+	 */
+
 	var api = {
 		ajax: _ajax.ajax,
 		extend: _extend.extend,
@@ -20285,13 +20479,10 @@
 		BigInt: _rsautils.BigInt,
 		BarrettMu: _rsautils.BarrettMu,
 		twoDigit: _rsautils.twoDigit,
-		trans: _i18n.trans
-	}; /**
-	    * Module : Sparrow entry index
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-04 09:48:36
-	    */
-
+		trans: _i18n.trans,
+		requestAnimationFrame: _ployfill.requestAnimationFrame,
+		cancelRequestAnimFrame: _ployfill.cancelRequestAnimFrame
+	};
 	(0, _extend.extend)(api, _env.env);
 	if (document.readyState && document.readyState === 'complete') {
 		_compMgr.compMgr.updateComp();
@@ -20308,7 +20499,7 @@
 	exports.u = api;
 
 /***/ },
-/* 131 */
+/* 132 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21014,7 +21205,7 @@
 	exports.twoDigit = twoDigit;
 
 /***/ },
-/* 132 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21026,49 +21217,49 @@
 
 	var _extend = __webpack_require__(8);
 
-	var _neouiAutocomplete = __webpack_require__(133);
+	var _neouiAutocomplete = __webpack_require__(134);
 
-	var _neouiButton = __webpack_require__(134);
+	var _neouiButton = __webpack_require__(135);
 
 	var _neouiCheckbox = __webpack_require__(86);
 
 	var _neouiCombo = __webpack_require__(90);
 
-	var _neouiCombobox = __webpack_require__(135);
+	var _neouiCombobox = __webpack_require__(136);
 
-	var _neouiDataTable = __webpack_require__(136);
+	var _neouiDataTable = __webpack_require__(137);
 
-	var _neouiDialog = __webpack_require__(137);
+	var _neouiDialog = __webpack_require__(138);
 
-	var _neouiLayout = __webpack_require__(138);
+	var _neouiLayout = __webpack_require__(139);
 
-	var _neouiLayout2 = __webpack_require__(139);
+	var _neouiLayout2 = __webpack_require__(140);
 
-	var _neouiLoader = __webpack_require__(140);
+	var _neouiLoader = __webpack_require__(141);
 
-	var _neouiLoading = __webpack_require__(141);
+	var _neouiLoading = __webpack_require__(142);
 
-	var _neouiMenu = __webpack_require__(142);
+	var _neouiMenu = __webpack_require__(143);
 
-	var _neouiMessage = __webpack_require__(116);
+	var _neouiMessage = __webpack_require__(117);
 
-	var _neouiMultilang = __webpack_require__(143);
+	var _neouiMultilang = __webpack_require__(144);
 
-	var _neouiNavmenu = __webpack_require__(144);
+	var _neouiNavmenu = __webpack_require__(145);
 
-	var _neouiPagination = __webpack_require__(118);
+	var _neouiPagination = __webpack_require__(119);
 
-	var _neouiProgress = __webpack_require__(122);
+	var _neouiProgress = __webpack_require__(123);
 
-	var _neouiRadio = __webpack_require__(112);
+	var _neouiRadio = __webpack_require__(113);
 
-	var _neouiRefer = __webpack_require__(145);
+	var _neouiRefer = __webpack_require__(146);
 
-	var _neouiSlidePanel = __webpack_require__(147);
+	var _neouiSlidePanel = __webpack_require__(148);
 
-	var _neouiSwitch = __webpack_require__(124);
+	var _neouiSwitch = __webpack_require__(125);
 
-	var _neouiTabs = __webpack_require__(148);
+	var _neouiTabs = __webpack_require__(149);
 
 	var _neouiTextfield = __webpack_require__(91);
 
@@ -21078,9 +21269,9 @@
 
 	var _neouiDatetimepicker = __webpack_require__(97);
 
-	var _neouiTime = __webpack_require__(108);
+	var _neouiTime = __webpack_require__(109);
 
-	var _neouiClockpicker = __webpack_require__(107);
+	var _neouiClockpicker = __webpack_require__(108);
 
 	var _neouiMonth = __webpack_require__(103);
 
@@ -21088,7 +21279,7 @@
 
 	var _neouiYearmonth = __webpack_require__(105);
 
-	var _neouiMonthdate = __webpack_require__(128);
+	var _neouiMonthdate = __webpack_require__(129);
 
 	//import {setCookie,getCookie} from 'tinper-sparrow/lib/cookies';
 	//import {createShellObject,execIgnoreError,getFunction,getJSObject,isDate,isNumber,isArray,isEmptyObject,inArray,isDomElement,each} from 'tinper-sparrow/lib/util';
@@ -21233,7 +21424,7 @@
 	exports.u = ex;
 
 /***/ },
-/* 133 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21835,7 +22026,7 @@
 	exports.Autocomplete = Autocomplete;
 
 /***/ },
-/* 134 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21903,7 +22094,7 @@
 	exports.Button = Button;
 
 /***/ },
-/* 135 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22430,7 +22621,7 @@
 	exports.Combobox = Combobox;
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22544,7 +22735,7 @@
 	exports.Table = Table;
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22562,18 +22753,19 @@
 
 	var _extend = __webpack_require__(8);
 
-	var _neouiButton = __webpack_require__(134);
+	var _neouiButton = __webpack_require__(135);
 
 	var _compMgr = __webpack_require__(4);
-
-	/**
-	 * messageDialog.js
-	 */
 
 	/**
 	 * Module : neoui-dialog
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-02 15:29:55
+	 */
+
+	window.dialogAry = [];
+	/**
+	 * messageDialog.js
 	 */
 
 	'use strict';
@@ -22824,6 +23016,7 @@
 		document.body.removeChild(this.templateDom);
 		document.body.removeChild(this.overlayDiv);
 		this.isClosed = true;
+		enable_mouseWheel();
 	};
 
 	var confirmDialog = function confirmDialog(options) {
@@ -22963,8 +23156,28 @@
 			this.overlayDiv.style.display = 'none';
 		}
 		document.body.appendChild(this.templateDom);
+		adapterDialog(this, 'show');
 		disable_mouseWheel();
 		this.isClosed = false;
+	};
+
+	var adapterDialog = function adapterDialog(dialogObj, type) {
+		var dialogArray = window.dialogAry;
+		if (dialogArray) {
+			var len = dialogArray.length;
+			var index = dialogArray.indexOf(dialogObj);
+			if (type == "show") {
+				if (index <= -1) {
+					dialogArray.push(dialogObj);
+					dialogArray.length !== 1 && dialogArray[dialogArray.length - 2].hide && dialogArray[dialogArray.length - 2].hide();
+				}
+			} else if (type == 'hide') {
+				if (index == len - 1) {
+					dialogArray.pop();
+					dialogArray.length !== 0 && dialogArray[dialogArray.length - 1].show && dialogArray[dialogArray.length - 1].show();
+				}
+			}
+		}
 	};
 
 	dialogMode.prototype.show = function () {
@@ -22973,12 +23186,14 @@
 		}
 		this.templateDom.style.display = 'block';
 		this.overlayDiv.style.display = 'block';
+		adapterDialog(this, 'show');
 		disable_mouseWheel();
 	};
 
 	dialogMode.prototype.hide = function () {
 		this.templateDom.style.display = 'none';
 		this.overlayDiv.style.display = 'none';
+		adapterDialog(this, 'hide');
 		enable_mouseWheel();
 	};
 
@@ -22994,6 +23209,7 @@
 		} catch (e) {}
 
 		this.isClosed = true;
+		adapterDialog(this, 'hide');
 		enable_mouseWheel();
 	};
 
@@ -23188,7 +23404,7 @@
 	exports.iframeDialog = iframeDialog;
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23208,7 +23424,7 @@
 
 	var _env = __webpack_require__(7);
 
-	var _neouiButton = __webpack_require__(134);
+	var _neouiButton = __webpack_require__(135);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -23428,7 +23644,7 @@
 	exports.MDLayout = MDLayout;
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23934,7 +24150,7 @@
 	exports.NavLayoutTab = NavLayoutTab;
 
 /***/ },
-/* 140 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23976,6 +24192,7 @@
 		if (hasback) {
 			var overlayDiv = (0, _dom.makeModal)(templateDom, parEle);
 		}
+		(0, _dom.addClass)(overlayDiv, 'u-loader-back');
 		if (parEle == document.body) {
 			templateDom.style.position = 'fixed';
 		}
@@ -23990,14 +24207,15 @@
 			cssStr = '.u-loader-container';
 		}
 
-		hasback = options["hasback"];
-		if (hasback) {
-			// 默认删除最高层的
-			var overlayDivs = document.querySelectorAll('.u-overlay');
-			var l = overlayDivs.length;
-			var div = overlayDivs[l - 1];
-			div.parentNode.removeChild(div);
-		}
+		// hasback = options["hasback"];
+		// if(hasback){
+		// 默认删除最高层的
+		// 清除遮罩层时，不需判断是否有hasback属性，为了兼容之前的用法
+		var overlayDivs = document.querySelectorAll('.u-overlay.u-loader-back');
+		var l = overlayDivs.length;
+		var div = overlayDivs[l - 1];
+		div.parentNode.removeChild(div);
+		// }
 		var divs = document.querySelectorAll(cssStr);
 		for (var i = 0; i < divs.length; i++) {
 			divs[i].parentNode.removeChild(divs[i]);
@@ -24008,7 +24226,7 @@
 	exports.hideLoader = hideLoader;
 
 /***/ },
-/* 141 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24139,7 +24357,7 @@
 	exports.removeWaiting = removeWaiting;
 
 /***/ },
-/* 142 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24328,19 +24546,19 @@
 					// Position below the "for" element, aligned to its right.
 					this._container.style.left = this.for_element.offsetLeft + this.for_element.offsetWidth - this.element.offsetWidth + 'px';
 					// this._container.style.right = (forRect.right - rect.right) + 'px';
-					this._container.style.top = this.for_element.offsetTop + this.for_element.offsetHeight + 'px';
+					this._container.style.top = this.for_element.offsetTop + this.for_element.offsetHeight + 2 + 'px';
 				} else if ((0, _dom.hasClass)(this.element, 'u-menu-top-left')) {
 					// Position above the "for" element, aligned to its left.
 					this._container.style.left = this.for_element.offsetLeft + 'px';
-					this._container.style.bottom = forRect.bottom - rect.top + 'px';
+					this._container.style.bottom = forRect.bottom - rect.top + 4 + 'px';
 				} else if ((0, _dom.hasClass)(this.element, 'u-menu-top-right')) {
 					// Position above the "for" element, aligned to its right.
 					this._container.style.right = forRect.right - rect.right + 'px';
-					this._container.style.bottom = forRect.bottom - rect.top + 'px';
+					this._container.style.bottom = forRect.bottom - rect.top + 4 + 'px';
 				} else {
 					// Default: position below the "for" element, aligned to its left.
 					this._container.style.left = this.for_element.offsetLeft + 'px';
-					this._container.style.top = this.for_element.offsetTop + this.for_element.offsetHeight + 'px';
+					this._container.style.top = this.for_element.offsetTop + this.for_element.offsetHeight + 2 + 'px';
 				}
 			}
 
@@ -24506,6 +24724,12 @@
 				}
 
 				// Apply the inner element's size to the container and outline.
+				var choseBtnBottomRight = $(this.element.parentElement.previousElementSibling).next().find(".u-menu-bottom-right").hasClass("u-menu-bottom-right");
+				var choseBtnBottomTop = $(this.element.parentElement.previousElementSibling).next().find(".u-menu-top-right").hasClass("u-menu-top-right");
+
+				if (choseBtnBottomRight || choseBtnBottomTop) {
+					$(this.element.parentElement.previousElementSibling).next().find(".u-menu-outline").css("left", "-1px");
+				}
 				this._container.style.width = width + 'px';
 				this._container.style.height = height + 'px';
 				this._outline.style.width = width + 'px';
@@ -24534,12 +24758,12 @@
 				if (window.requestAnimationFrame) {
 					window.requestAnimationFrame(function () {
 						(0, _dom.addClass)(this.element, 'is-animating');
-						this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
+						this.element.style.clip = 'rect(0 ' + (width + 1) + 'px ' + height + 'px 0)';
 						(0, _dom.addClass)(this._container, 'is-visible');
 					}.bind(this));
 				} else {
 					(0, _dom.addClass)(this.element, 'is-animating');
-					this.element.style.clip = 'rect(0 ' + width + 'px ' + height + 'px 0)';
+					this.element.style.clip = 'rect(0 ' + (width + 1) + 'px ' + height + 'px 0)';
 					(0, _dom.addClass)(this._container, 'is-visible');
 				}
 
@@ -24645,7 +24869,7 @@
 	exports.Menu = Menu;
 
 /***/ },
-/* 143 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24815,7 +25039,7 @@
 	exports.Multilang = Multilang;
 
 /***/ },
-/* 144 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24923,7 +25147,7 @@
 	exports.NavMenu = NavMenu;
 
 /***/ },
-/* 145 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24943,7 +25167,7 @@
 
 	var _util = __webpack_require__(10);
 
-	var _neouiDialog = __webpack_require__(137);
+	var _neouiDialog = __webpack_require__(138);
 
 	/**
 	 * Module : neoui-refer
@@ -25045,13 +25269,13 @@
 	    if (this.options['module']) {
 	        self.contentDiv.innerHTML = this.options['module'].template;
 	        this.options['module'].init(self);
-	    } else if (__webpack_require__(146)) {
-	        __webpack_require__.e/* require */(3, function(__webpack_require__) { /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(146)(this.options.pageUrl)]; (function (module) {
+	    } else if (__webpack_require__(147)) {
+	        __webpack_require__.e/* require */(3, function(__webpack_require__) { /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(147)(this.options.pageUrl)]; (function (module) {
 	            self.contentDiv.innerHTML = module.template;
 	            module.init(self);
 	            self.loaded = true;
 	        }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));
-	/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(149)(module)))});
+	/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(150)(module)))});
 	    }
 	};
 
@@ -25115,68 +25339,68 @@
 	exports.refer = refer;
 
 /***/ },
-/* 146 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./index": 132,
-		"./index.js": 132,
-		"./neoui-autocomplete": 133,
-		"./neoui-autocomplete.js": 133,
-		"./neoui-button": 134,
-		"./neoui-button.js": 134,
+		"./index": 133,
+		"./index.js": 133,
+		"./neoui-autocomplete": 134,
+		"./neoui-autocomplete.js": 134,
+		"./neoui-button": 135,
+		"./neoui-button.js": 135,
 		"./neoui-checkbox": 86,
 		"./neoui-checkbox.js": 86,
-		"./neoui-clockpicker": 107,
-		"./neoui-clockpicker.js": 107,
+		"./neoui-clockpicker": 108,
+		"./neoui-clockpicker.js": 108,
 		"./neoui-combo": 90,
 		"./neoui-combo.js": 90,
-		"./neoui-combobox": 135,
-		"./neoui-combobox.js": 135,
-		"./neoui-data-table": 136,
-		"./neoui-data-table.js": 136,
+		"./neoui-combobox": 136,
+		"./neoui-combobox.js": 136,
+		"./neoui-data-table": 137,
+		"./neoui-data-table.js": 137,
 		"./neoui-datetimepicker": 97,
 		"./neoui-datetimepicker.js": 97,
-		"./neoui-dialog": 137,
-		"./neoui-dialog.js": 137,
-		"./neoui-layout.md": 138,
-		"./neoui-layout.md.js": 138,
-		"./neoui-layout.nav": 139,
-		"./neoui-layout.nav.js": 139,
-		"./neoui-loader": 140,
-		"./neoui-loader.js": 140,
-		"./neoui-loading": 141,
-		"./neoui-loading.js": 141,
-		"./neoui-menu": 142,
-		"./neoui-menu.js": 142,
-		"./neoui-message": 116,
-		"./neoui-message.js": 116,
+		"./neoui-dialog": 138,
+		"./neoui-dialog.js": 138,
+		"./neoui-layout.md": 139,
+		"./neoui-layout.md.js": 139,
+		"./neoui-layout.nav": 140,
+		"./neoui-layout.nav.js": 140,
+		"./neoui-loader": 141,
+		"./neoui-loader.js": 141,
+		"./neoui-loading": 142,
+		"./neoui-loading.js": 142,
+		"./neoui-menu": 143,
+		"./neoui-menu.js": 143,
+		"./neoui-message": 117,
+		"./neoui-message.js": 117,
 		"./neoui-month": 103,
 		"./neoui-month.js": 103,
-		"./neoui-monthdate": 128,
-		"./neoui-monthdate.js": 128,
-		"./neoui-multilang": 143,
-		"./neoui-multilang.js": 143,
-		"./neoui-navmenu": 144,
-		"./neoui-navmenu.js": 144,
-		"./neoui-pagination": 118,
-		"./neoui-pagination.js": 118,
-		"./neoui-progress": 122,
-		"./neoui-progress.js": 122,
-		"./neoui-radio": 112,
-		"./neoui-radio.js": 112,
-		"./neoui-refer": 145,
-		"./neoui-refer.js": 145,
-		"./neoui-slidePanel": 147,
-		"./neoui-slidePanel.js": 147,
-		"./neoui-switch": 124,
-		"./neoui-switch.js": 124,
-		"./neoui-tabs": 148,
-		"./neoui-tabs.js": 148,
+		"./neoui-monthdate": 129,
+		"./neoui-monthdate.js": 129,
+		"./neoui-multilang": 144,
+		"./neoui-multilang.js": 144,
+		"./neoui-navmenu": 145,
+		"./neoui-navmenu.js": 145,
+		"./neoui-pagination": 119,
+		"./neoui-pagination.js": 119,
+		"./neoui-progress": 123,
+		"./neoui-progress.js": 123,
+		"./neoui-radio": 113,
+		"./neoui-radio.js": 113,
+		"./neoui-refer": 146,
+		"./neoui-refer.js": 146,
+		"./neoui-slidePanel": 148,
+		"./neoui-slidePanel.js": 148,
+		"./neoui-switch": 125,
+		"./neoui-switch.js": 125,
+		"./neoui-tabs": 149,
+		"./neoui-tabs.js": 149,
 		"./neoui-textfield": 91,
 		"./neoui-textfield.js": 91,
-		"./neoui-time": 108,
-		"./neoui-time.js": 108,
+		"./neoui-time": 109,
+		"./neoui-time.js": 109,
 		"./neoui-tooltip": 84,
 		"./neoui-tooltip.js": 84,
 		"./neoui-validate": 82,
@@ -25197,11 +25421,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 146;
+	webpackContext.id = 147;
 
 
 /***/ },
-/* 147 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25278,7 +25502,7 @@
 	exports.slidePanel = slidePanel;
 
 /***/ },
-/* 148 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25426,8 +25650,8 @@
 	exports.Tabs = Tabs;
 
 /***/ },
-/* 149 */,
-/* 150 */
+/* 150 */,
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

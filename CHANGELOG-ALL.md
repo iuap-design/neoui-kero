@@ -1,3 +1,16 @@
+<a name="3.1.16"></a>
+## [3.1.16]\(2016-12-8\)
+### Bug Fixes 
+* grid中checkbox值变时dataTable字段值不变 ([12011c8](https://github.com/iuap-design/kero-adapter/commit/12011c8))
+
+* 表格中float类型在行之间切换编辑数据会错乱 ([7c302ad](https://github.com/iuap-design/kero-adapter/commit/7c302ad))
+
+* 优化grid编辑下连续点击出错的问题 ([d8b35b6](https://github.com/iuap-design/tinper-neoui-grid/commit/d8b35b6))
+
+* 优化不显示滚动条情况下动态改变宽度导致最后一列显示宽度超长的问题 ([3c3a452](https://github.com/iuap-design/tinper-neoui-grid/commit/3c3a452))
+
+* 兼容子表的情况，避免json转字符串的情况出现死循环 ([361d04c](https://github.com/iuap-design/tinper-neoui-grid/commit/361d04c))
+
 <a name="3.1.15"></a>
 ## [3.1.15]\(2016-12-1\)
 ### Bug Fixes 

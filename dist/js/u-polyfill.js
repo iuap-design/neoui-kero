@@ -34,9 +34,13 @@ if(!window.hasJsExtensions){
             }
         };
     }
-
-    if(!NodeList.prototype.forEach)
-        NodeList.prototype.forEach = Array.prototype.forEach;
+    try{
+        if(!NodeList.prototype.forEach)
+            NodeList.prototype.forEach = Array.prototype.forEach;
+    }catch(e){
+        
+    }
+    
 
         
     function isDomElement(obj) {

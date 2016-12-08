@@ -1,3 +1,15 @@
+<a name="3.1.16"></a>
+## [3.1.16](https://github.com/iuap-design/kero-adapter/compare/v3.1.15...v3.1.16) (2016-12-07)
+
+
+### Bug Fixes
+* grid中checkbox值变时dataTable字段值不变 ([12011c8](https://github.com/iuap-design/kero-adapter/commit/12011c8))
+
+* 表格中float类型在行之间切换编辑数据会错乱 ([7c302ad](https://github.com/iuap-design/kero-adapter/commit/7c302ad))
+
+
+
+
 <a name="3.1.15"></a>
 ## [3.1.15](https://github.com/iuap-design/kero-adapter/compare/v3.1.14...v3.1.15) (2016-11-30)
 
