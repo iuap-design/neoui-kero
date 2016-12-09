@@ -170,30 +170,31 @@ var GridAdapter = BaseAdapter.extend({
 						comp.modelValueChange(obj.value);
 					obj.gridObj.editComp = comp;
 
-					if(obj.gridObj.options.editType == 'form'){
-						//form默认为false
-						try{
-							comp.options.showFix = false;
-						}catch(e){
+					// form也按照showFix为true处理，如果有问题则调整组件显示
+					// if(obj.gridObj.options.editType == 'form'){
+					// 	//form默认为false
+					// 	try{
+					// 		comp.options.showFix = false;
+					// 	}catch(e){
 
-						}
-						try{
-							comp.comp.options.showFix = false;
-						}catch(e){
+					// 	}
+					// 	try{
+					// 		comp.comp.options.showFix = false;
+					// 	}catch(e){
 							
-						}
-					}else{
-						try{
-							comp.options.showFix = true;
-						}catch(e){
+					// 	}
+					// }else{
+					// 	try{
+					// 		comp.options.showFix = true;
+					// 	}catch(e){
 
-						}
-						try{
-							comp.comp.options.showFix = true;
-						}catch(e){
+					// 	}
+					// 	try{
+					// 		comp.comp.options.showFix = true;
+					// 	}catch(e){
 							
-						}
-					}
+					// 	}
+					// }
 
 					// 根据惊道需求增加editype之后的处理,此处只针对grid.js中的默认eType进行处理，非默认通过eType进行处理
 					if(typeof afterEType == 'function'){
