@@ -154,6 +154,12 @@ var DateTimeAdapter = BaseAdapter.extend({
 				self.dataModel.ref(self.endField).subscribe(function(value) {
 					if(env.isMobile){
 						var valueObj = date.getDateObj(value);
+						if(valueObj && self.options.format == 'YYYY-MM-DD'){
+				            valueObj.setHours(0);
+				            valueObj.setMinutes(0);
+				            valueObj.setSeconds(0);
+				            valueObj.setMilliseconds(0);
+				        }
 						self.op.minDate = valueObj;
 						if(self.adapterType == 'date'){
 							$(self.element).mobiscroll().date(self.op);
@@ -161,12 +167,32 @@ var DateTimeAdapter = BaseAdapter.extend({
 							$(self.element).mobiscroll().datetime(self.op);
 						}
 						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
-						if(nowDate && nowDate < valueObj && value){
+						if(nowDate && self.options.format == 'YYYY-MM-DD'){
+				            nowDate.setHours(0);
+				            nowDate.setMinutes(0);
+				            nowDate.setSeconds(0);
+				            nowDate.setMilliseconds(0);
+				        }
+						if(nowDate && nowDate.getTime() > valueObj.getTime() && value){
 							self.dataModel.setValue(self.field,'');
 						}
 					}else{
 						self.comp.setEndDate(value);
-						if(self.comp.date && self.comp.date > date.getDateObj(value) && value){
+						var nowDate = self.comp.date;
+						if(nowDate && self.options.format == 'YYYY-MM-DD'){
+				            nowDate.setHours(0);
+				            nowDate.setMinutes(0);
+				            nowDate.setSeconds(0);
+				            nowDate.setMilliseconds(0);
+				        }
+				        var valueObj = date.getDateObj(value);
+						if(valueObj && self.options.format == 'YYYY-MM-DD'){
+				            valueObj.setHours(0);
+				            valueObj.setMinutes(0);
+				            valueObj.setSeconds(0);
+				            valueObj.setMilliseconds(0);
+				        }
+						if(nowDate && value && nowDate.getTime() > valueObj.getTime() ){
 							self.dataModel.setValue(self.field,'');
 						}
 					}
@@ -201,8 +227,13 @@ var DateTimeAdapter = BaseAdapter.extend({
 					if(env.isMobile){
 						value = date.getDateObj(value);
 
-
 						var valueObj = self.setMobileStartDate(value, self.options.format);
+						if(valueObj && self.options.format == 'YYYY-MM-DD'){
+				            valueObj.setHours(0);
+				            valueObj.setMinutes(0);
+				            valueObj.setSeconds(0);
+				            valueObj.setMilliseconds(0);
+				        }
 						self.op.minDate = valueObj;
 						if(self.adapterType == 'date'){
 							$(self.element).mobiscroll().date(self.op);
@@ -210,12 +241,32 @@ var DateTimeAdapter = BaseAdapter.extend({
 							$(self.element).mobiscroll().datetime(self.op);
 						}
 						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
-						if(nowDate && nowDate < valueObj && value){
+						if(nowDate && self.options.format == 'YYYY-MM-DD'){
+				            nowDate.setHours(0);
+				            nowDate.setMinutes(0);
+				            nowDate.setSeconds(0);
+				            nowDate.setMilliseconds(0);
+				        }
+						if(nowDate && nowDate.getTime() < valueObj.getTime() && value){
 							self.dataModel.setValue(self.field,'');
 						}
 					}else{
 						self.comp.setStartDate(value, self.options.format);
-						if(self.comp.date && self.comp.date < date.getDateObj(value) && value){
+						var nowDate = self.comp.date;
+						if(nowDate && self.options.format == 'YYYY-MM-DD'){
+				            nowDate.setHours(0);
+				            nowDate.setMinutes(0);
+				            nowDate.setSeconds(0);
+				            nowDate.setMilliseconds(0);
+				        }
+				        var valueObj = date.getDateObj(value);
+				        if(valueObj && self.options.format == 'YYYY-MM-DD'){
+				            valueObj.setHours(0);
+				            valueObj.setMinutes(0);
+				            valueObj.setSeconds(0);
+				            valueObj.setMilliseconds(0);
+				        }
+						if(nowDate && value && nowDate.getTime() < valueObj.getTime() ){
 							self.dataModel.setValue(self.field,'');
 						}
 					}
@@ -282,6 +333,41 @@ var DateTimeAdapter = BaseAdapter.extend({
 		// this.masker = new DateTimeMasker(this.maskerMeta);
 	},
 	setValue: function (value) {
+		if(this.dataModel){
+			var valueObj = date.getDateObj(value);
+			if(valueObj && this.options.format == 'YYYY-MM-DD'){
+	            valueObj.setHours(0);
+	            valueObj.setMinutes(0);
+	            valueObj.setSeconds(0);
+	            valueObj.setMilliseconds(0);
+	        }
+			if(this.startField){
+				var startValue = this.dataModel.getValue(this.startField);
+				var startValueObj = date.getDateObj(startValue);
+				if(startValueObj && this.options.format == 'YYYY-MM-DD'){
+		            startValueObj.setHours(0);
+		            startValueObj.setMinutes(0);
+		            startValueObj.setSeconds(0);
+		            startValueObj.setMilliseconds(0);
+		        }
+				if(startValueObj && valueObj.getTime() < startValueObj.getTime()){
+					return;
+				}
+			}
+			if(this.endField){
+				var endValue = this.dataModel.getValue(this.endField);
+				var endValueObj = date.getDateObj(endValue);
+				if(endValueObj && this.options.format == 'YYYY-MM-DD'){
+		            endValueObj.setHours(0);
+		            endValueObj.setMinutes(0);
+		            endValueObj.setSeconds(0);
+		            endValueObj.setMilliseconds(0);
+		        }
+				if(endValueObj && valueObj.getTime() > endValueObj.getTime()){
+					return;
+				}
+			}
+		}
 		value = date.format(value,this.options.format);
 		ValueMixin.methods.setValue.call(this,value);
         // this.trueValue = this.formater ? this.formater.format(value) : value;
