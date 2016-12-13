@@ -1,5 +1,5 @@
 /** 
- * tinper-neoui-tree v3.1.16
+ * tinper-neoui-tree v0.1.0
  * tree
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/tinper-neoui-tree#readme
@@ -37,7 +37,6 @@ website:    http://code.google.com/p/jquerytree/
   vertical-align: middle;
   // padding: 6px 10px;
 }
-
 .ztree li ul {
   margin: 0;
   padding: 0 0 0 18px;
@@ -55,18 +54,17 @@ website:    http://code.google.com/p/jquerytree/
   vertical-align: top;
   display: inline-block;
   position: relative;
-  /*padding: 6px 10px;*/
-  padding: 4px 10px;
+  padding: 6px 10px;
   box-sizing: border-box;
 }
 .ztree li a:hover {
-    color:#3949AB ;
-    background-color: #eee ;
+    color:#3949AB !important;
+    background-color: #eee !important;
 }
+/*.ztree li:hover >span{
+    color:#3949AB;
 
-.ztree li.hoverNode .switch {
-   color: #3949AB;
-}
+}*/
 .ztree li a.focusNode {
     /*background-color: #eee;*/
     // background-color: #C0EBF4;
@@ -441,17 +439,13 @@ ul.ztree.zTreeDragUL {
     border-color: #bcbcbc;
 }
 
-.ztree li.focusNode span.button.switch {
-   color: #FFFFFF;
-}
-
 .ztree li span.button.switch {
     position: relative;
     z-index: 1000;
     line-height: 21px;
 }
 
-.ztree li span.button.switch.noline_close:after {
+  .ztree li span.button.switch.noline_close:after {
         /* -webkit-transform: scale(.5) rotate(0deg); */
     /* transform: scale(.5) rotate(0deg); */
     /* zoom: 1; */
@@ -469,8 +463,7 @@ ul.ztree.zTreeDragUL {
     font-family: 'uf';
     /*color: #3881D8;*/
        position: absolute;
-    /*top: 10px;*/
-    top: 8px;
+    top: 10px;
     font-size: 12px;
 }
 
@@ -491,8 +484,7 @@ ul.ztree.zTreeDragUL {
     font-family: 'uf';
     /*color: #3881D8;*/
        position: absolute;
-    /*top: 10px;*/
-    top: 8px;
+    top: 10px;
     font-size: 12px;
     left:5px;
 }

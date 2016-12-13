@@ -15,7 +15,12 @@ gulp.task('libui', function() {
 		.pipe(gulp.dest('./dist/js'));
 });
 
-gulp.task('dist', ['libui'], function(){
+gulp.task('local', function(){
+	return gulp.src('./locales/**')
+		.pipe(gulp.dest('./dist/locales'))
+})
+
+gulp.task('dist', ['libui','local'], function(){
 	gulp.src(['./node_modules/tinper-neoui/dist/css/**','./node_modules/tinper-neoui-grid/dist/css/**','./node_modules/tinper-neoui-tree/dist/css/**'])
 		.pipe(gulp.dest('./dist/css'));
 

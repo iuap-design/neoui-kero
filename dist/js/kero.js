@@ -53,9 +53,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DataTable = exports.u = undefined;
 
 	var _indexApp = __webpack_require__(2);
@@ -99,9 +97,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.createApp = exports.processXHRError = exports.App = undefined;
 
 	var _init = __webpack_require__(3);
@@ -201,9 +197,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.init = undefined;
 
 	var _compMgr = __webpack_require__(4);
@@ -266,17 +260,15 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.compMgr = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow compMgr
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 18:41:06
-	                                                                                                                                                                                                                                                                               * Update : 2016-09-13 09:26:00
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow compMgr
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 18:41:06
+	                                                                                                                                                                                                                                                   * Update : 2016-09-13 09:26:00
+	                                                                                                                                                                                                                                                   */
 
 	var _dom = __webpack_require__(5);
 
@@ -536,9 +528,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.getElementTop = exports.getElementLeft = exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
 
 	var _event = __webpack_require__(6);
@@ -855,9 +845,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
 
 	var _env = __webpack_require__(7);
@@ -1247,9 +1235,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.env = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -1452,16 +1438,14 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.extend = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow extend
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-27 21:46:50
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow extend
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-27 21:46:50
+	                                                                                                                                                                                                                                                   */
 
 	var _enumerables = __webpack_require__(9);
 
@@ -1504,9 +1488,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow extend enum
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1542,11 +1524,9 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : Sparrow util tools
@@ -1703,9 +1683,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.hotkeys = undefined;
 
 	var _class = __webpack_require__(12);
@@ -1870,9 +1848,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow class
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -2059,9 +2035,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app AdjustMetaFunc
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2080,9 +2054,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app dataTable
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2111,9 +2083,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.showComp = exports.getComps = exports.getCompsByType = exports.getCompsByDataTable = exports.getComp = exports.createComp = undefined;
 
 	var _compMgr = __webpack_require__(4);
@@ -2241,16 +2211,14 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.compsValidateMultiParam = exports.compsValidate = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : kero app validate
-	                                                                                                                                                                                                                                                                               * Author : liuyk(liuyk@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date   : 2016-07-29 09:34:01
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : kero app validate
+	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date   : 2016-07-29 09:34:01
+	                                                                                                                                                                                                                                                   */
 
 	var _env = __webpack_require__(7);
 
@@ -2314,9 +2282,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app cache
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2381,9 +2347,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app iwebCore
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2412,15 +2376,13 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ajax = undefined;
 
 	var _ajax = __webpack_require__(20);
 
 	var ajax = function ajax(params) {
-	    params = _wrapAjax.call(this, params);
+	    params = this._wrapAjax(params);
 	    (0, _ajax.ajax)(params);
 	}; /**
 	    * Module : kero app ajax
@@ -2473,9 +2435,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.ajax = undefined;
 
 	var _env = __webpack_require__(7);
@@ -2599,9 +2559,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app processXHRError
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2633,9 +2591,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app serverEvent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2654,9 +2610,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.setEnable = undefined;
 
 	var _util = __webpack_require__(10);
@@ -2686,9 +2640,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ServerEvent = undefined;
 
 	var _serverDataTable = __webpack_require__(25);
@@ -2759,9 +2711,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateDataTables = exports.addAllDataTables = exports.addDataTables = exports.addDataTable = undefined;
 
 	var _util = __webpack_require__(10);
@@ -2835,9 +2785,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.setSuccessFunc = exports._successFunc = exports.fire = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -2897,7 +2845,7 @@
 	        }
 	    };
 	    params.data = (0, _extend.extend)(params.data, data);
-	    if ($) $.ajax(params);else (0, _ajax.ajax)(params);
+	    (0, _ajax.ajax)(params);
 	};
 
 	var _successFunc = function _successFunc(data, deferred) {
@@ -2922,9 +2870,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero app serverEvent processXHRError
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2953,9 +2899,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateDom = exports.getData = exports.setEvent = exports.addParameter = exports.setCompression = undefined;
 
 	var _util = __webpack_require__(10);
@@ -3059,9 +3003,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DataTable = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -3242,11 +3184,6 @@
 	DataTable.prototype.hasPage = _page.hasPage;
 	DataTable.prototype.clearCache = _page.clearCache;
 	DataTable.prototype.cacheCurrentPage = _page.cacheCurrentPage;
-	DataTable.prototype.updatePagesSelect = _page.updatePagesSelect;
-	DataTable.prototype.updatePageRows = _page.updatePageRows;
-	DataTable.prototype.updatePageSelect = _page.updatePageSelect;
-	DataTable.prototype.updatePageFocus = _page.updatePageFocus;
-	DataTable.prototype.updatePageAll = _page.updatePageAll;
 
 	//param
 	DataTable.prototype.addParam = _param.addParam;
@@ -3374,9 +3311,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.Events = undefined;
 
 	var _events = __webpack_require__(31);
@@ -3408,11 +3343,9 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : kero dataTable events
@@ -3542,9 +3475,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable copyRow
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3574,9 +3505,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable data
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3606,14 +3535,11 @@
 	    if (data.totalRow || data.totalRow === 0) {
 	        var newTotalRow = data.totalRow;
 	    } else {
-	        if (data.rows) var newTotalRow = data.rows.length;else var newTotalRow = this.totalRow();
+	        var newTotalRow = data.rows.length; //后续要考虑状态，del的不计算在内
 	    }
 	    var select,
 	        focus,
 	        unSelect = options ? options.unSelect : false;
-
-	    this.pageIndex(newIndex);
-	    this.pageSize(newSize);
 
 	    this.pageCache = data.pageCache || this.pageCache;
 	    if (this.pageCache === true) {
@@ -3624,27 +3550,19 @@
 	            this.totalRow(newTotalRow);
 	            return;
 	        } else {
-	            // 首先删除数据，然后将当前页数据插入
-	            this.removeAllRows();
 	            select = this.getPage(newIndex).selectedIndices;
 	            focus = this.getPage(newIndex).focus;
-	            var rows = this.setRows(this.getPage(newIndex).rows, options);
-	            this.getPage(newIndex).rows = rows;
-	        }
-	        // 后台传入totalPages及totalRow才进行更新
-	        if (data.totalPages) {
-	            this.totalPages(data.totalPages);
-	        }
-	        if (data.totalRow) {
-	            this.totalRow(data.totalRow);
+	            this.setRows(this.getPage(newIndex).rows, options);
 	        }
 	    } else {
 	        select = data.select || (!unSelect ? [0] : []);
 	        focus = data.focus !== undefined ? data.focus : data.current;
 	        this.setRows(data.rows, options);
-	        this.totalPages(newTotalPages);
-	        this.totalRow(newTotalRow);
 	    }
+	    this.pageIndex(newIndex);
+	    this.pageSize(newSize);
+	    this.totalPages(newTotalPages);
+	    this.totalRow(newTotalRow);
 
 	    this.updateSelectedIndices();
 
@@ -3671,9 +3589,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable enable
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3710,9 +3626,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3744,9 +3658,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3765,17 +3677,6 @@
 	    return datas;
 	};
 
-	/**
-	 * 将page转为row对象格式
-	 */
-	var page2data = function page2data(page, pageIndex) {
-	    var data = {};
-	    data.focus = page.focus;
-	    data.index = pageIndex;
-	    data.select = page.selectedIndices;
-	    return data;
-	};
-
 	var getDataByRule = function getDataByRule(rule) {
 	    var returnData = {},
 	        datas = null,
@@ -3783,112 +3684,81 @@
 	    returnData.meta = this.meta;
 	    returnData.params = this.params;
 	    rule = rule || DataTable.SUBMIT.current;
-	    // 存在多页及不存在多页分开处理
+	    if (rule == DataTable.SUBMIT.current) {
+	        datas = [];
+	        var currIndex = this.focusIndex();
+	        if (currIndex == -1) currIndex = this.getSelectedIndex();
+	        rows = this.rows();
+	        for (var i = 0, count = rows.length; i < count; i++) {
+	            if (i == currIndex) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
+	        }
+	    } else if (rule == DataTable.SUBMIT.focus) {
+	        datas = [];
+	        rows = this.rows();
+	        for (var i = 0, count = rows.length; i < count; i++) {
+	            if (i == this.focusIndex()) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
+	        }
+	    } else if (rule == DataTable.SUBMIT.all) {
+	        datas = this.getData();
+	    } else if (rule == DataTable.SUBMIT.select) {
+	        datas = this.getSelectedDatas(true);
+	    } else if (rule == DataTable.SUBMIT.change) {
+	        datas = this.getChangedDatas();
+	    } else if (rule === DataTable.SUBMIT.empty) {
+	        datas = [];
+	    }
+	    if (this.pageCache && datas != null) {
+	        datas = [{ index: this.pageIndex(), select: this.getSelectedIndexs(), focus: this.focusIndex(), rows: datas }];
+	    }
+	    if (rule == DataTable.SUBMIT.allSelect) {
+	        datas = [];
+	        var totalPages = this.totalPages();
+	        //缓存页数据
+	        for (var i = 0; i < totalPages; i++) {
+	            if (i == this.pageIndex()) {
+	                //当前页数据
+	                datas.push({
+	                    index: this.pageIndex(),
+	                    select: this.getSelectedIndexs(),
+	                    focus: this.focusIndex(),
+	                    rows: this.getSelectedDatas()
+	                });
+	            } else {
+	                var page = this.cachedPages[i];
+	                if (page) {
+	                    datas.push({
+	                        index: i,
+	                        select: page.selectedIndices,
+	                        focus: page.focus,
+	                        rows: page.getSelectDatas()
+	                    });
+	                }
+	            }
+	        }
+	    } else if (rule == DataTable.SUBMIT.allPages) {
+	        datas = [];
+	        var totalPages = this.totalPages();
+	        //缓存页数据
+	        for (var i = 0; i < totalPages; i++) {
+	            if (i == this.pageIndex()) {
+	                //当前页数据
+	                datas.push({
+	                    index: this.pageIndex(),
+	                    select: this.getSelectedIndexs(),
+	                    focus: this.focusIndex(),
+	                    rows: this.getData()
+	                });
+	            } else {
+	                var page = this.cachedPages[i];
+	                if (page) {
+	                    datas.push({ index: i, select: page.selectedIndices, focus: page.focus, rows: page.getData() });
+	                }
+	            }
+	        }
+	    }
 	    if (this.pageCache) {
-	        var pages = this.getPages();
-	        if (rule == DataTable.SUBMIT.current || rule == DataTable.SUBMIT.focus) {
-	            datas = [];
-	            var pageIndex = this.pageIndex();
-	            var currPage = pages[pageIndex];
-	            if (currPage) {
-	                var currIndex = this.focusIndex();
-	                if (rule == DataTable.SUBMIT.current) {
-	                    if (currIndex == -1) currIndex = this.getSelectedIndex();
-	                }
-	                var data = page2data(currPage, pageIndex);
-	                data.rows = [];
-	                for (var i = 0, count = currPage.rows.length; i < count; i++) {
-	                    var row = currPage.rows[i].getData();
-	                    if (i != currIndex) row.data = {};
-	                    data.rows.push(row);
-	                }
-	                datas.push(data);
-	            }
-	        } else if (rule == DataTable.SUBMIT.all || rule == DataTable.SUBMIT.allPages) {
-	            datas = [];
-	            for (var i = 0; i < pages.length; i++) {
-	                var currPage = pages[i];
-	                var data = page2data(currPage, i);
-	                data.rows = [];
-	                for (var i = 0; i < currPage.rows.length; i++) {
-	                    data.rows.push(currPage.rows[i].getData());
-	                }
-	                datas.push(data);
-	            }
-	        } else if (rule == DataTable.SUBMIT.select) {
-	            datas = [];
-	            var pageIndex = this.pageIndex();
-	            var currPage = pages[pageIndex];
-	            if (currPage) {
-	                var data = page2data(currPage, pageIndex);
-	                data.rows = [];
-	                for (var i = 0, count = currPage.rows.length; i < count; i++) {
-	                    var row = currPage.rows[i].getData();
-	                    if (data.select.indexOf(i) < 0) row.data = {};
-	                    data.rows.push(row);
-	                }
-	                datas.push(data);
-	            }
-	        } else if (rule == DataTable.SUBMIT.allSelect) {
-	            datas = [];
-	            for (var i = 0; i < pages.length; i++) {
-	                var currPage = pages[i];
-	                var data = page2data(currPage, i);
-	                data.rows = [];
-	                for (var j = 0, count = currPage.rows.length; j < count; j++) {
-	                    var row = currPage.rows[j].getData();
-	                    if (data.select.indexOf(j) < 0) row.data = {};
-	                    data.rows.push(row);
-	                }
-	                datas.push(data);
-	            }
-	        } else if (rule == DataTable.SUBMIT.change) {
-	            datas = [];
-	            for (var i = 0; i < pages.length; i++) {
-	                var currPage = pages[i];
-	                var data = page2data(currPage, i);
-	                data.rows = [];
-	                for (var j = 0, count = currPage.rows.length; j < count; j++) {
-	                    var row = currPage.rows[j].getData();
-	                    if (row.status == Row.STATUS.NORMAL) {
-	                        row.data = {};
-	                    }
-	                    data.rows.push(row);
-	                }
-	                datas.push(data);
-	            }
-	        } else if (rule === DataTable.SUBMIT.empty) {
-	            datas = [];
-	        }
-	        if (pages.length < 1 || !pages[this.pageIndex()]) {
-	            datas = [{ index: this.pageIndex(), select: [], focus: -1, rows: [] }];
-	        }
 	        returnData.pages = datas;
 	    } else {
-	        if (rule == DataTable.SUBMIT.current) {
-	            datas = [];
-	            var currIndex = this.focusIndex();
-	            if (currIndex == -1) currIndex = this.getSelectedIndex();
-	            rows = this.rows();
-	            for (var i = 0, count = rows.length; i < count; i++) {
-	                if (i == currIndex) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
-	            }
-	        } else if (rule == DataTable.SUBMIT.focus) {
-	            datas = [];
-	            rows = this.rows();
-	            for (var i = 0, count = rows.length; i < count; i++) {
-	                if (i == this.focusIndex()) datas.push(rows[i].getData());else datas.push(rows[i].getEmptyData());
-	            }
-	        } else if (rule == DataTable.SUBMIT.all) {
-	            datas = this.getData();
-	        } else if (rule == DataTable.SUBMIT.select) {
-	            datas = this.getSelectedDatas(true);
-	        } else if (rule == DataTable.SUBMIT.change) {
-	            datas = this.getChangedDatas();
-	        } else if (rule === DataTable.SUBMIT.empty) {
-	            datas = [];
-	        }
-
 	        returnData.rows = datas;
 	        returnData.select = this.getSelectedIndexs();
 	        returnData.focus = this.getFocusIndex();
@@ -4096,9 +3966,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getFocus
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4128,9 +3996,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getMete
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4167,9 +4033,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getPage
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4199,9 +4063,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getParam
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4220,9 +4082,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4300,9 +4160,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getSimpleData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4336,9 +4194,6 @@
 	    for (var i = 0; i < rows.length; i++) {
 	        _rowData.push(rows[i].getSimpleData({ fields: fields }));
 	    }
-	    if (_rowData.length == 0) {
-	        _rowData = this.setSimpleDataReal; //云采提的#需求
-	    }
 	    return _rowData;
 	};
 
@@ -4350,11 +4205,9 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : kero dataTable mete
@@ -4493,9 +4346,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4503,18 +4354,14 @@
 	 */
 
 	var setCurrentPage = function setCurrentPage(pageIndex, notCacheCurrentPage) {
-	    var nowTotalRow = this.totalRow();
 	    if (pageIndex != this.pageIndex() && notCacheCurrentPage != true) this.cacheCurrentPage();
 	    this.pageIndex(pageIndex);
 	    var cachedPage = this.cachedPages[this.pageIndex()];
 	    if (cachedPage) {
-	        // 取当前页的选中行重设选中行
-	        var selectedIndices = cachedPage.selectedIndices;
 	        this.removeAllRows();
 	        this.setRows(cachedPage.rows);
-	        this.setRowsSelect(selectedIndices);
+	        this.setRowsSelect(cachedPage.selectedIndcies);
 	    }
-	    this.totalRow(nowTotalRow);
 	};
 
 	/**
@@ -4545,51 +4392,31 @@
 	                delete page.rows[j].id;
 	            }
 	            this.cachedPages[index] = page;
-	            page.selectedIndices = selectIndices;
-	            page.focus = focus;
 	        } else {
+	            //如果是当前页，先把this.rows数据更新到page中
+	            if (index == this.pageIndex()) {
+	                this.cacheCurrentPage();
+	            }
 	            page = this.cachedPages[index];
-	            page.selectedIndices = selectIndices;
-	            page.focus = focus;
 	            for (var j = 0; j < rows.length; j++) {
 	                r = rows[j];
 	                if (!r.id) r.id = Row.getRandomRowId();
 	                if (r.status == Row.STATUS.DELETE) {
 	                    this.removeRowByRowId(r.id);
-	                    page.removeRowByRowId(r.id);
-	                    // 针对后台不传回总行数的情况下更新总行数
-	                    var oldTotalRow = this.totalRow();
-	                    var newTotalRow = oldTotalRow - 1;
-	                    this.totalRow(newTotalRow);
 	                } else {
 	                    row = page.getRowByRowId(r.id);
 	                    if (row) {
 	                        page.updateRow(row, r);
-	                        if (row.status == Row.STATUS.NEW) {
-	                            // 针对后台不传回总行数的情况下更新总行数
-	                            var oldTotalRow = this.totalRow();
-	                            var newTotalRow = oldTotalRow + 1;
-	                            this.totalRow(newTotalRow);
-	                        }
-	                        row.status = Row.STATUS.NORMAL;
-	                        if (r.status == Row.STATUS.NEW) {
-	                            row.status = Row.STATUS.NEW;
-	                        }
 	                    } else {
 	                        r.rowId = r.id;
 	                        delete r.id;
 	                        page.rows.push(r);
-	                        if (r.status != Row.STATUS.NEW) {
-	                            r.status = Row.STATUS.NORMAL;
-	                        }
-	                        // 针对后台不传回总行数的情况下更新总行数
-	                        var oldTotalRow = this.totalRow();
-	                        var newTotalRow = oldTotalRow + 1;
-	                        this.totalRow(newTotalRow);
 	                    }
 	                }
 	            }
 	        }
+	        page.selectedIndices = selectIndices;
+	        page.focus = focus;
 	    }
 	};
 
@@ -4639,89 +4466,12 @@
 	    }
 	};
 
-	/**
-	 * [updatePagesSelect 根据datatable的选中行更新每页的选中行]
-	 */
-	var updatePagesSelect = function updatePagesSelect() {
-	    var selectRows = this.getSelectedRows();
-	    var pages = this.getPages();
-	    for (var i = 0; i < pages.length; i++) {
-	        var rows = pages[i].rows;
-	        var selectedIndices = [];
-	        for (var j = 0; j < selectRows.length; j++) {
-	            var nowSelectRow = selectRows[j];
-	            for (var k = 0; k < rows.length; k++) {
-	                var row = rows[k];
-	                if (nowSelectRow == row) {
-	                    selectedIndices.push(k);
-	                    break;
-	                }
-	            }
-	        }
-	        pages[i].selectedIndices = selectedIndices;
-	    }
-	};
-
-	/**
-	 * [updatePageRows 根据datatable的rows更新当前页的rows]
-	 */
-	var updatePageRows = function updatePageRows() {
-	    if (this.pageCache) {
-	        var pageIndex = this.pageIndex();
-	        var page = this.getPages()[pageIndex];
-	        if (page) {
-	            page.rows = this.rows();
-	        }
-	    }
-	};
-
-	/**
-	 * [updatePageSelect 根据datatable的选中行更新page的选中行]
-	 */
-	var updatePageSelect = function updatePageSelect() {
-	    if (this.pageCache) {
-	        var pageIndex = this.pageIndex();
-	        var page = this.getPages()[pageIndex];
-	        if (page) {
-	            var selectedIndices = this.selectedIndices().slice();
-	            page.selectedIndices = selectedIndices;
-	        }
-	    }
-	};
-
-	/**
-	 * [updatePageFocus 根据datatable的focus更新page的focus]
-	 */
-	var updatePageFocus = function updatePageFocus() {
-	    if (this.pageCache) {
-	        var pageIndex = this.pageIndex();
-	        var page = this.getPages()[pageIndex];
-	        if (page) {
-	            page.focus = this.getFocusIndex();
-	        }
-	    }
-	};
-
-	/**
-	 * [updatePageAll 根据datatable更新page对象]
-	 */
-	var updatePageAll = function updatePageAll() {
-	    this.updatePageRows();
-	    this.updatePageSelect();
-	    this.updatePageFocus();
-	};
-
 	exports.setCurrentPage = setCurrentPage;
 	exports.updatePages = updatePages;
 	exports.setPages = setPages;
 	exports.hasPage = hasPage;
 	exports.clearCache = clearCache;
 	exports.cacheCurrentPage = cacheCurrentPage;
-	exports.updatePagesSelect = updatePagesSelect;
-	exports.updatePageRows = updatePageRows;
-	exports.updatePageSelect = updatePageSelect;
-	exports.updatePageFocus = updatePageFocus;
-	exports.updatePageAll = updatePageAll;
 
 /***/ },
 /* 45 */
@@ -4729,9 +4479,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable param
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4757,9 +4505,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable ref
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -4897,9 +4643,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
 
 	var _util = __webpack_require__(48);
@@ -4956,7 +4700,6 @@
 	        rowIds: rowIds,
 	        deleteRows: deleteRows
 	    });
-
 	    this.updateCurrIndex();
 	};
 
@@ -4984,9 +4727,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports._formatToIndicesArray = exports.isChanged = undefined;
 
 	var _util = __webpack_require__(10);
@@ -5026,9 +4767,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
 
 	var _util = __webpack_require__(10);
@@ -5071,14 +4810,9 @@
 	                row.setData(rows[i], null, options);
 	                insertRows.push(row);
 	            }
-	            // 如果r对象中存在状态则更新状态为返回的状态
-	            if (r.status) {
-	                row.status = r.status;
-	            }
 	        }
 	    }
 	    if (insertRows.length > 0) this.addRows(insertRows);
-	    return insertRows;
 	};
 
 	/**
@@ -5116,7 +4850,7 @@
 
 	    this.updateSelectedIndices(index, '+', rows.length);
 	    this.updateFocusIndex(index, '+', rows.length);
-	    this.updatePageAll();
+
 	    this.trigger(DataTable.ON_INSERT, {
 	        index: index,
 	        rows: rows
@@ -5149,9 +4883,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable rowCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5178,9 +4910,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
 
 	var _util = __webpack_require__(48);
@@ -5249,9 +4979,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
 
 	var _util = __webpack_require__(10);
@@ -5308,7 +5036,7 @@
 	    try {
 	        this.selectedIndices(indices);
 	    } catch (e) {}
-	    this.updatePageSelect();
+
 	    var rowIds = this.getRowIdsByIndices(indices);
 	    this.currentRowChange(-this.currentRowChange());
 	    this.trigger(DataTable.ON_ROW_SELECT, {
@@ -5349,7 +5077,6 @@
 	        }
 	    }
 	    this.selectedIndices(selectedIndices);
-	    this.updatePageSelect();
 	    var rowIds = this.getRowIdsByIndices(selectedIndices);
 	    if (needTrigger) {
 	        this.trigger(DataTable.ON_ROW_SELECT, {
@@ -5365,7 +5092,6 @@
 	 */
 	var setAllRowsUnSelect = function setAllRowsUnSelect(options) {
 	    this.selectedIndices([]);
-	    this.updatePageSelect();
 	    if (!(options && options.quiet)) {
 	        this.trigger(DataTable.ON_ROW_ALLUNSELECT);
 	    }
@@ -5396,7 +5122,6 @@
 	        if (pos != -1) selectedIndices.splice(pos, 1);
 	    }
 	    this.selectedIndices(selectedIndices);
-	    this.updatePageSelect();
 	    var rowIds = this.getRowIdsByIndices(indices);
 	    this.trigger(DataTable.ON_ROW_UNSELECT, {
 	        indices: indices,
@@ -5435,7 +5160,6 @@
 	        }
 	    }
 	    this.selectedIndices(selectedIndices);
-	    this.updatePageSelect();
 	};
 	exports.setAllRowsSelect = setAllRowsSelect;
 	exports.setRowSelect = setRowSelect;
@@ -5454,9 +5178,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
 
 	var _util = __webpack_require__(10);
@@ -5541,16 +5263,14 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.addSimpleData = exports.setSimpleData = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : kero dataTable simpleData
-	                                                                                                                                                                                                                                                                               * Author : liuyk(liuyk@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-01 14:34:01
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : kero dataTable simpleData
+	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-01 14:34:01
+	                                                                                                                                                                                                                                                   */
 
 
 	var _util = __webpack_require__(10);
@@ -5566,9 +5286,7 @@
 	    this.focusIndex(-1);
 	    this.selectedIndices([]);
 
-	    this.setSimpleDataReal = [];
 	    if (!data) {
-	        this.setSimpleDataReal = data;
 	        // throw new Error("dataTable.setSimpleData param can't be null!");
 	        return;
 	    }
@@ -5591,7 +5309,7 @@
 	        rows: rows
 	    };
 	    if (options) {
-	        if (typeof options.fieldFlag == 'undefined') {
+	        if (_typeof(options.fieldFlag) == undefined) {
 	            options.fieldFlag = true;
 	        }
 	    }
@@ -5622,9 +5340,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Page = undefined;
 
 	var _pageData = __webpack_require__(56);
@@ -5673,8 +5389,6 @@
 
 	//removeRow
 	Page.prototype.removeRowByRowId = _pageRemoveRow.removeRowByRowId;
-	Page.prototype.updateSelectedIndices = _pageRemoveRow.updateSelectedIndices;
-	Page.prototype.updateFocusIndex = _pageRemoveRow.updateFocusIndex;
 
 	exports.Page = Page;
 
@@ -5684,9 +5398,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page data
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5737,9 +5449,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page getData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5782,7 +5492,7 @@
 
 	var getRowByRowId = function getRowByRowId(rowid) {
 	    for (var i = 0, count = this.rows.length; i < count; i++) {
-	        if (this.rows[i].rowId == rowid) return this.rows[i];
+	        if (this.rows.rowId == rowid) return this.rows[i];
 	    }
 	    return null;
 	};
@@ -5807,9 +5517,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page getMeta
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5833,9 +5541,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page meta
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -5856,84 +5562,24 @@
 
 /***/ },
 /* 60 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.updateFocusIndex = exports.updateSelectedIndices = exports.removeRowByRowId = undefined;
-
-	var _util = __webpack_require__(10);
-
-	var removeRowByRowId = function removeRowByRowId(rowid) {
-	    for (var i = 0, count = this.rows.length; i < count; i++) {
-	        if (this.rows[i].rowId == rowid) {
-	            this.rows.splice(i, 1);
-	            count--;
-	            this.updateSelectedIndices(i, '-');
-	            this.updateFocusIndex(i, '-');
-	        }
-	    }
-	};
-
-	/**
-	 * [updateSelectedIndices 更新选中行]
-	 * @param  {[type]} index [起始行号]
-	 * @param  {[type]} type  [增减类型]
-	 * @param  {[type]} num   [影响行数]
-	 */
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page removeRow
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-08 09:59:01
 	 */
 
-	var updateSelectedIndices = function updateSelectedIndices(index, type, num) {
-	    if (!(0, _util.isNumber)(num)) {
-	        num = 1;
-	    }
-	    var selectedIndices = this.selectedIndices.slice();
-	    if (selectedIndices == null || selectedIndices.length == 0) return;
-	    for (var i = 0, count = selectedIndices.length; i < count; i++) {
-	        if (type == '+') {
-	            if (selectedIndices[i] >= index) selectedIndices[i] = parseInt(selectedIndices[i]) + num;
-	        } else if (type == '-') {
-	            if (selectedIndices[i] >= index && selectedIndices[i] <= index + num - 1) {
-	                selectedIndices.splice(i, 1);
-	            } else if (selectedIndices[i] > index + num - 1) selectedIndices[i] = selectedIndices[i] - num;
-	        }
-	    }
-	    this.selectedIndices = selectedIndices;
-	};
-
-	/**
-	 * [updateFocusIndex 更新focus行]
-	 * @param  {[type]} opIndex [起始行号]
-	 * @param  {[type]} opType  [增减类型]
-	 * @param  {[type]} num     [影响行数]
-	 */
-	var updateFocusIndex = function updateFocusIndex(opIndex, opType, num) {
-	    if (!(0, _util.isNumber)(num)) {
-	        num = 1;
-	    }
-	    if (opIndex <= this.focus && this.focus != -1) {
-	        if (opType === '+') {
-	            this.focus = this.focus + num;
-	        } else if (opType === '-') {
-	            if (this.focus >= opIndex && this.focus <= opIndex + num - 1) {
-	                this.focus = this.focus - 1;
-	            } else if (this.focus > opIndex + num - 1) {
-	                this.focus = this.focus - num;
-	            }
-	        }
-	    }
+	var removeRowByRowId = function removeRowByRowId(rowid) {
+	  for (var i = 0, count = this.rows.length; i < count; i++) {
+	    if (this.rows.rowId == rowid) this.rows.splice(i, 1);
+	  }
 	};
 
 	exports.removeRowByRowId = removeRowByRowId;
-	exports.updateSelectedIndices = updateSelectedIndices;
-	exports.updateFocusIndex = updateFocusIndex;
 
 /***/ },
 /* 61 */
@@ -5941,9 +5587,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Row = undefined;
 
 	var _indexEvents = __webpack_require__(30);
@@ -5984,7 +5628,7 @@
 	    function Row(options) {
 	        _classCallCheck(this, Row);
 
-	        var _this = _possibleConstructorReturn(this, (Row.__proto__ || Object.getPrototypeOf(Row)).call(this));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Row).call(this));
 
 	        var self = _this;
 	        _this.rowId = options['id'] || Row.getRandomRowId();
@@ -6092,16 +5736,14 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateRow = exports.setData = exports.setChildSimpleDataByRowId = exports.setChildValue = exports.setValue = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : kero dataTable row getData
-	                                                                                                                                                                                                                                                                               * Author : liuyk(liuyk@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date   : 2016-08-08 13:54:01
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : kero dataTable row getData
+	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date   : 2016-08-08 13:54:01
+	                                                                                                                                                                                                                                                   */
 
 
 	var _rowUtil = __webpack_require__(63);
@@ -6192,25 +5834,17 @@
 	 */
 	var _setData = function _setData(rowObj, sourceData, targetData, subscribe, parentKey, options) {
 	    for (var key in sourceData) {
-
-	        // 判断是否要放到dataTable中
-	        if (options && !options.fieldFlag) {
-	            if (!rowObj.parent.getMeta(key)) {
-	                continue;
-	            }
-	        }
 	        var _parentKey = parentKey || null;
 	        //if (targetData[key]) {
 	        targetData[key] = targetData[key] || {};
 	        var valueObj = sourceData[key];
-
-	        // if (typeof valueObj != 'object'){
-	        //     if(typeof options == 'object'){
-	        //         if(options.fieldFlag) {
-	        //             rowObj.parent.createField(key);
-	        //         }
-	        //     }
-	        // }
+	        if ((typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') {
+	            if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) == 'object') {
+	                if (options.fieldFlag) {
+	                    rowObj.parent.createField(key);
+	                }
+	            }
+	        }
 
 	        //if (typeof this.parent.meta[key] === 'undefined') continue;
 	        if (valueObj == null || (typeof valueObj === 'undefined' ? 'undefined' : _typeof(valueObj)) != 'object') {
@@ -6332,9 +5966,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports._findField = exports._getField = exports.formatValue = exports._triggerChange = exports._dateToUTCString = exports.eq = undefined;
 
 	var _util = __webpack_require__(10);
@@ -6403,8 +6035,7 @@
 	        field: fieldName,
 	        oldValue: oldValue,
 	        newValue: rowObj.getValue(fieldName),
-	        ctx: ctx || "",
-	        rowObj: rowObj
+	        ctx: ctx || ""
 	    };
 	    rowObj.parent.trigger(DataTable.ON_VALUE_CHANGE, event);
 	    rowObj.parent.trigger(fieldName + "." + DataTable.ON_VALUE_CHANGE, event);
@@ -6481,9 +6112,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.getEmptyData = exports.getData = exports.getChildValue = exports.getValue = undefined;
 
 	var _rowUtil = __webpack_require__(63);
@@ -6578,9 +6207,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.getMeta = undefined;
 
 	var _rowUtil = __webpack_require__(63);
@@ -6613,9 +6240,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.getSimpleData = exports.formatValueFun = undefined;
 
 	var _rowUtil = __webpack_require__(63);
@@ -6653,8 +6278,6 @@
 	                };
 	                _data[key] = rowObj.formatValueFun(obj, rowObj.parent.dateNoConvert);
 	            }
-	        } else if (!data[key].value) {
-	            _data[key] = data[key].value;
 	        } else {
 	            _data[key] = _getSimpleData(rowObj, data[key]);
 	        }
@@ -6699,11 +6322,9 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : kero dataTable row init
@@ -6767,9 +6388,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.setMeta = undefined;
 
 	var _rowUtil = __webpack_require__(63);
@@ -6831,9 +6450,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.refEnum = exports.refDate = exports.refCombo = exports.refMeta = exports.ref = undefined;
 
 	var _util = __webpack_require__(10);
@@ -6964,9 +6581,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.date = undefined;
 
 	var _core = __webpack_require__(71);
@@ -7227,16 +6842,14 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.core = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow core context
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 13:52:19
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow core context
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 13:52:19
+	                                                                                                                                                                                                                                                   */
 
 
 	var _extend = __webpack_require__(8);
@@ -7415,9 +7028,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow cookies
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -7451,9 +7062,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable row rowSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -7491,9 +7100,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable row simpleData
 	 * Author : liuyk(liuyk@yonyou.com)

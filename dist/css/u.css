@@ -2836,6 +2836,7 @@ img {
     -webkit-flex-direction: column;
             flex-direction: column;
     -webkit-align-items: stretch;
+                -ms-grid-row-align: stretch;
             align-items: stretch;
     padding-top: 16px;
     padding-left: 0; }
@@ -3055,6 +3056,7 @@ img {
     -webkit-flex-direction: row;
             flex-direction: row;
     -webkit-align-items: center;
+                -ms-grid-row-align: center;
             align-items: center;
     float: right \9; }
     @media screen and (max-width: 1024px) {
