@@ -1,5 +1,5 @@
 /** 
- * tinper-neoui-tree v0.1.0
+ * tinper-neoui-tree v3.1.16
  * tree
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/tinper-neoui-tree#readme
@@ -2642,12 +2642,15 @@
 			if (root.curHoverNode != node) {
 				_handler.onHoverOutNode(event);
 			}
+			$("#"+node.tId).addClass('hoverNode');
 			root.curHoverNode = node;
 			view.addHoverDom(setting, node);
 		},
 		onHoverOutNode: function(event, node) {
 			var setting = data.getSetting(event.data.treeId),
 			root = data.getRoot(setting);
+			// 清除hover效果
+			$("#"+event.data.treeId+" li").removeClass('hoverNode');
 			if (root.curHoverNode && !data.isSelectedNode(setting, root.curHoverNode)) {
 				view.removeTreeDom(setting, root.curHoverNode);
 				root.curHoverNode = null;

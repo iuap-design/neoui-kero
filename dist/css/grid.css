@@ -157,6 +157,10 @@ header区域css begin
   height: 3.14285714em;
   line-height: 3.14285714em;
 }
+
+.u-grid-hide-title-icon .uf-fontselectioneditor {
+  display: none
+}
 .u-gird-parent {
   position: absolute;
   top: 0px;
@@ -176,6 +180,8 @@ header区域css begin
 .u-grid-header-link:visited {
   //color: #a8a8a8;
 }
+
+
 .u-grid-header-columnmenu {
   position: absolute;
   padding: 0 .4em 0 .6em;
@@ -235,7 +241,7 @@ header区域css begin
 .u-grid-header-sort-span {
   width: 1.3em;
   text-align: center;
-  font-size: 1.3em;
+  font-size: 12px;
   position: absolute;
   height: inherit;
   line-height: inherit;
@@ -257,9 +263,9 @@ header区域css end
 content区域css begin
 */
 .u-grid td {
-  border-style: solid !important;
-  border-color: #cecece !important;
-  border-width: 0 0 1px 0 !important;
+  border-style: solid ;
+  border-color: #cecece ;
+  border-width: 0 0 1px 0 ;
   box-sizing: border-box;
   padding:0px !important;
   -moz-box-sizing: border-box;
@@ -272,6 +278,23 @@ content区域css begin
   height: 2.68em \9;
   line-height: 2.68em \9;
   font-size: 16px !important;
+  overflow: hidden;
+}
+
+.u-grid .grid_edit_form_td{
+    overflow: visible;
+}
+
+.u-grid tbody tr:last-child td{
+  border-bottom-width: 0px;
+}
+
+.u-grid-content-left>div:last-child{
+  border-bottom-width: 0px;
+}
+
+.u-grid-content-left.u-grid-content-left-sum>div:last-child{
+  border-bottom-width: 1px;
 }
 
 .u-grid-content tr{
@@ -291,11 +314,20 @@ content区域css begin
   margin: 0 1em 0 1em;
   line-height: 3.5em;
   font-size: 12px;
-  overflow: hidden;
+  overflow: visible;
   white-space: nowrap;
   text-overflow: ellipsis;
   height: 100%;
 }
+.u-grid-content-td-div-over::after{
+  content:"...";
+  font-weight:bold;
+  position:absolute;
+  bottom:15px;
+  right: -5px;
+}
+
+
 .u-grid-content-td-div > input{
     height:100%;
 }
@@ -306,7 +338,21 @@ content区域css begin
     width: 2rem;
     text-align: center;
 }
+
+/*checkbox样式*/
+
+.u-grid-content-td-div .u-checkbox-outline,.u-grid-content-td-div .u-checkbox-focus-helper {
+    top: -10px;
+}
+
 .u-grid-content {
+  border-style: solid;
+  border-color: #cecece;
+  border-width: 0px;
+  border-bottom-width: 1px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   position: relative;
   zoom: 1;
   background-color: #fff ;
@@ -327,13 +373,6 @@ content区域css begin
   height: 2.125em;
   z-index: 11;
   background-color: #FFF;
-  border-style: solid;
-  border-color: #cecece;
-  border-width: 0px;
-  border-bottom-width: 1px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
 }
 .u-grid-content-left-bottom {
   position: absolute;
@@ -401,7 +440,7 @@ content区域css begin
 }
 
 .u-grid-content-focus-row {
-  background-color: #03cc71 !important;
+  background-color: #e9f7fc !important;
   //color: #FFF !important;
 }
 .u-grid-content-tree-span {
@@ -409,6 +448,16 @@ content区域css begin
   height: 1.25em;
   color: #007ae3;
   font-size: 14px !important;
+}
+
+
+/*行拖拽*/
+td.u-grid-drag-icon:before {
+  content: "\e6d1";
+  font-family: "uf" !important;
+  font-size: 12px;
+  position: absolute;
+  z-index: 100;
 }
 /*
 content区域css end
@@ -721,7 +770,7 @@ form展示区域css begin
   width: 2rem;
   text-align: center;
 }
-    
+
 .u-grid-content-td-div .checkbox label {
   top: -2px;
 }
@@ -753,11 +802,11 @@ form展示区域css end
 /*鼠标滑过begin*/
 
 .u-grid-move-bg{
-  background: #e9f7fc !important;;
+  background: #f4f8fb !important;;
   color:#333;
 }
-.u-grid-move-bg a{
-  color: #0377c1 !important;
+.u-grid .u-grid-move-bg a{
+  color: #0377c1;
 }
 .u-grid-move-bg a:hover{
   text-decoration: underline;
