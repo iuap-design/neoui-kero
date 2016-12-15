@@ -154,11 +154,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 				self.dataModel.ref(self.endField).subscribe(function(value) {
 					if(env.isMobile){
 						var valueObj = date.getDateObj(value);
-						if(valueObj && self.options.format == 'YYYY-MM-DD'){
-				            valueObj.setHours(0);
-				            valueObj.setMinutes(0);
-				            valueObj.setSeconds(0);
-				            valueObj.setMilliseconds(0);
+						if(valueObj){
+				            self.resetDataObj(valueObj);
 				        }
 						self.op.minDate = valueObj;
 						if(self.adapterType == 'date'){
@@ -167,11 +164,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 							$(self.element).mobiscroll().datetime(self.op);
 						}
 						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
-						if(nowDate && self.options.format == 'YYYY-MM-DD'){
-				            nowDate.setHours(0);
-				            nowDate.setMinutes(0);
-				            nowDate.setSeconds(0);
-				            nowDate.setMilliseconds(0);
+						if(nowDate){
+				            self.resetDataObj(nowDate);
 				        }
 						if(nowDate && nowDate.getTime() > valueObj.getTime() && value){
 							self.dataModel.setValue(self.field,'');
@@ -179,18 +173,12 @@ var DateTimeAdapter = BaseAdapter.extend({
 					}else{
 						self.comp.setEndDate(value);
 						var nowDate = self.comp.date;
-						if(nowDate && self.options.format == 'YYYY-MM-DD'){
-				            nowDate.setHours(0);
-				            nowDate.setMinutes(0);
-				            nowDate.setSeconds(0);
-				            nowDate.setMilliseconds(0);
+						if(nowDate){
+				            self.resetDataObj(nowDate);
 				        }
 				        var valueObj = date.getDateObj(value);
-						if(valueObj && self.options.format == 'YYYY-MM-DD'){
-				            valueObj.setHours(0);
-				            valueObj.setMinutes(0);
-				            valueObj.setSeconds(0);
-				            valueObj.setMilliseconds(0);
+						if(valueObj){
+				            self.resetDataObj(valueObj);
 				        }
 						if(nowDate && value && nowDate.getTime() > valueObj.getTime() ){
 							self.dataModel.setValue(self.field,'');
@@ -228,11 +216,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 						value = date.getDateObj(value);
 
 						var valueObj = self.setMobileStartDate(value, self.options.format);
-						if(valueObj && self.options.format == 'YYYY-MM-DD'){
-				            valueObj.setHours(0);
-				            valueObj.setMinutes(0);
-				            valueObj.setSeconds(0);
-				            valueObj.setMilliseconds(0);
+						if(valueObj){
+				            self.resetDataObj(valueObj);
 				        }
 						self.op.minDate = valueObj;
 						if(self.adapterType == 'date'){
@@ -241,11 +226,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 							$(self.element).mobiscroll().datetime(self.op);
 						}
 						var nowDate = date.getDateObj(self.dataModel.getValue(self.field));
-						if(nowDate && self.options.format == 'YYYY-MM-DD'){
-				            nowDate.setHours(0);
-				            nowDate.setMinutes(0);
-				            nowDate.setSeconds(0);
-				            nowDate.setMilliseconds(0);
+						if(nowDate){
+				            self.resetDataObj(nowDate);
 				        }
 						if(nowDate && nowDate.getTime() < valueObj.getTime() && value){
 							self.dataModel.setValue(self.field,'');
@@ -253,18 +235,12 @@ var DateTimeAdapter = BaseAdapter.extend({
 					}else{
 						self.comp.setStartDate(value, self.options.format);
 						var nowDate = self.comp.date;
-						if(nowDate && self.options.format == 'YYYY-MM-DD'){
-				            nowDate.setHours(0);
-				            nowDate.setMinutes(0);
-				            nowDate.setSeconds(0);
-				            nowDate.setMilliseconds(0);
+						if(nowDate){
+				            self.resetDataObj(nowDate);
 				        }
 				        var valueObj = date.getDateObj(value);
-				        if(valueObj && self.options.format == 'YYYY-MM-DD'){
-				            valueObj.setHours(0);
-				            valueObj.setMinutes(0);
-				            valueObj.setSeconds(0);
-				            valueObj.setMilliseconds(0);
+				        if(valueObj){
+				            self.resetDataObj(valueObj);
 				        }
 						if(nowDate && value && nowDate.getTime() < valueObj.getTime() ){
 							self.dataModel.setValue(self.field,'');
@@ -335,20 +311,14 @@ var DateTimeAdapter = BaseAdapter.extend({
 	setValue: function (value) {
 		if(this.dataModel){
 			var valueObj = date.getDateObj(value);
-			if(valueObj && this.options.format == 'YYYY-MM-DD'){
-	            valueObj.setHours(0);
-	            valueObj.setMinutes(0);
-	            valueObj.setSeconds(0);
-	            valueObj.setMilliseconds(0);
+			if(valueObj){
+	            this.resetDataObj(valueObj);
 	        }
 			if(this.startField){
 				var startValue = this.dataModel.getValue(this.startField);
 				var startValueObj = date.getDateObj(startValue);
-				if(startValueObj && this.options.format == 'YYYY-MM-DD'){
-		            startValueObj.setHours(0);
-		            startValueObj.setMinutes(0);
-		            startValueObj.setSeconds(0);
-		            startValueObj.setMilliseconds(0);
+				if(startValueObj){
+		            this.resetDataObj(startValueObj);
 		        }
 				if(startValueObj && valueObj.getTime() < startValueObj.getTime()){
 					return;
@@ -357,11 +327,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 			if(this.endField){
 				var endValue = this.dataModel.getValue(this.endField);
 				var endValueObj = date.getDateObj(endValue);
-				if(endValueObj && this.options.format == 'YYYY-MM-DD'){
-		            endValueObj.setHours(0);
-		            endValueObj.setMinutes(0);
-		            endValueObj.setSeconds(0);
-		            endValueObj.setMilliseconds(0);
+				if(endValueObj){
+					this.resetDataObj(endValueObj);
 		        }
 				if(endValueObj && valueObj.getTime() > endValueObj.getTime()){
 					return;
@@ -397,6 +364,19 @@ var DateTimeAdapter = BaseAdapter.extend({
         }
         if(!env.isMobile)
         	this.comp.setEnable(enable);
+    },
+
+    resetDataObj: function(dataObj){
+    	if(this.options.format.indexOf('h') < 0 && this.options.format.indexOf('H') < 0){
+    		dataObj.setHours(0);
+    	}
+    	if(this.options.format.indexOf('m') < 0){
+    		dataObj.setMinutes(0);
+    	}
+    	if(this.options.format.indexOf('s') < 0){
+    		dataObj.setSeconds(0);
+		    dataObj.setMilliseconds(0);
+    	}
     }
 
 });
