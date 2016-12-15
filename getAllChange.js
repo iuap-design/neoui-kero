@@ -120,7 +120,7 @@ for(var i in featAllArr){
 var dateObj = new Date();
 var dateStr = dateObj.getFullYear() + '-' + (dateObj.getMonth()+ 1) + '-' +  dateObj.getDate();
 // var allStr = '<a name="' + version + '"></a>\r\n## [' + version + ']' + version_link + '\\(' + dateStr + '\\)\r\n';
-var allStr = '<a name="' + version + '"></a>\r\n## ' + version + ' ' + '<a href="#">' + '<i class="icon">download</i>' + '</a> ' + '\\(' + dateStr + '\\)\r\n';
+var allStr = '<a name="' + version + '"></a>\r\n## ' + version + ' ' + '<a href=' + '"//design.yyuap.com/static/download/iuap-design-'+ version + '.zip">' + '<i class="icon">download</i>' + '</a> ' + '\\(' + dateStr + '\\)\r\n';
 if(proStr || otherStr){
 	allStr += '### Bug Fixes \r\n';
 	allStr += proStr;
