@@ -1004,6 +1004,7 @@ var GridAdapter = BaseAdapter.extend({
 				}
 			}
 		}else if(rType == 'integerRender'){
+			column.dataType = 'Int';
 			var renderType = function(obj){
 				var grid = obj.gridObj
 				var column = obj.gridCompColumn
@@ -1055,6 +1056,7 @@ var GridAdapter = BaseAdapter.extend({
 				}
 			}
 		}else if(rType == 'floatRender'){
+			column.dataType = 'Float';
 			var renderType = function(obj){
 				//需要处理精度
 
@@ -1337,7 +1339,7 @@ var GridAdapter = BaseAdapter.extend({
 				options:eOptions,
 				model: viewModel
 			});
-
+			column.dataType = 'Int';
 			//comp = new $.compManager.plugs.integer(compDiv.find("input")[0],eOptions,viewModel);
 
 		} else if(eType == 'checkbox'){
@@ -1411,6 +1413,7 @@ var GridAdapter = BaseAdapter.extend({
 				options:eOptions,
 				model: viewModel
 			});
+			column.dataType = 'Float';
 
 		}else if(eType == 'currency'){
 			compDiv = $('<div><input type="text" class="u-grid-edit-item-currency"></div>');
