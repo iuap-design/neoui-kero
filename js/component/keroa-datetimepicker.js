@@ -215,7 +215,8 @@ var DateTimeAdapter = BaseAdapter.extend({
 					if(env.isMobile){
 						value = date.getDateObj(value);
 
-						var valueObj = self.setMobileStartDate(value, self.options.format);
+						// var valueObj = self.setMobileStartDate(value, self.options.format);
+						var valueObj = value;
 						if(valueObj){
 				            self.resetDataObj(valueObj);
 				        }
