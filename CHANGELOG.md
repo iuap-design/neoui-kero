@@ -1,3 +1,17 @@
+<a name="3.1.17"></a>
+## [3.1.17](https://github.com/iuap-design/kero-adapter/compare/v3.1.16...v3.1.17) (2016-12-14)
+
+
+### Bug Fixes
+* form情况下按照showFix展示 ([986f72f](https://github.com/iuap-design/kero-adapter/commit/986f72f))
+
+* i18n & add json files & test example ([8f7a9e3](https://github.com/iuap-design/kero-adapter/commit/8f7a9e3))
+
+* i18n demo ([fa27546](https://github.com/iuap-design/kero-adapter/commit/fa27546))
+
+
+
+
 <a name="3.1.16"></a>
 ## [3.1.16](https://github.com/iuap-design/kero-adapter/compare/v3.1.15...v3.1.16) (2016-12-07)
 

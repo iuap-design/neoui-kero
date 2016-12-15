@@ -1,5 +1,5 @@
 /** 
- * tinper-neoui-grid v3.1.16
+ * tinper-neoui-grid v3.1.17
  * grid
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/tinper-neoui-grid#readme
@@ -3450,7 +3450,10 @@
 	};
 	var re_updateValueAtEdit = function re_updateValueAtEdit(rowIndex, field, value, force) {
 		if (this.eidtRowIndex == rowIndex) {
-			this.eidtRowIndex = -1; //下拉选中之后eidtRowIndex依然为原来的值，后续需要判断修改列
+			if (this.options.editType == 'form') {} else {
+				this.eidtRowIndex = -1; //下拉选中之后eidtRowIndex依然为原来的值，后续需要判断修改列
+			}
+
 			if ($('#' + this.options.id + "_edit_field_" + field).length > 0) {
 				if ($('#' + this.options.id + "_edit_field_" + field)[0].type == 'checkbox') {
 					if (value == 'Y' || value == 'true' || value === true) {
@@ -3637,6 +3640,23 @@
 	        });
 	    }
 
+	    // 需要重新排序重置变量
+	    var l = 0;
+	    if (this.options.showTree) {
+	        if (this.dataSourceObj.options.values) {
+	            l = this.dataSourceObj.options.values.length;
+	        } else {
+	            this.dataSourceObj.options.values = new Array();
+	        }
+	        this.dataSourceObj.options.values.splice(index, 0, row);
+	        this.addOneRowTreeHasChildF(rowObj);
+	    } else {
+	        if (this.dataSourceObj.options.values) {} else {
+	            this.dataSourceObj.options.values = new Array();
+	        }
+	        this.dataSourceObj.options.values.splice(index, 0, row);
+	    }
+
 	    if (this.showType == 'grid') {
 	        //只有grid展示的时候才处理div，针对隐藏情况下还要添加数据
 	        this.editClose();
@@ -3695,22 +3715,6 @@
 	        obj.length = 1;
 	        this.renderTypeFun(obj);
 	    }
-	    // 需要重新排序重置变量
-	    var l = 0;
-	    if (this.options.showTree) {
-	        if (this.dataSourceObj.options.values) {
-	            l = this.dataSourceObj.options.values.length;
-	        } else {
-	            this.dataSourceObj.options.values = new Array();
-	        }
-	        this.dataSourceObj.options.values.splice(index, 0, row);
-	        this.addOneRowTreeHasChildF(rowObj);
-	    } else {
-	        if (this.dataSourceObj.options.values) {} else {
-	            this.dataSourceObj.options.values = new Array();
-	        }
-	        this.dataSourceObj.options.values.splice(index, 0, row);
-	    }
 	};
 	var addOneRowTree = function addOneRowTree(row, index) {
 	    return index;
@@ -3756,6 +3760,14 @@
 	        oThis.dataSourceObj.rows.splice(index + i, 0, rowObj);
 	        oThis.updateEditRowIndex('+', index + i);
 	    });
+
+	    if (this.dataSourceObj.options.values) {} else {
+	        this.dataSourceObj.options.values = new Array();
+	    }
+	    $.each(rows, function (i) {
+	        oThis.dataSourceObj.options.values.splice(index + i, 0, this);
+	    });
+
 	    // 如果是在中间插入需要将后续的valueIndex + 1；
 	    if (this.dataSourceObj.rows.length > index + rows.length) {
 	        $.each(this.dataSourceObj.rows, function (i) {
@@ -3823,12 +3835,7 @@
 	        obj.length = rows.length;
 	        this.renderTypeFun(obj);
 	    }
-	    if (this.dataSourceObj.options.values) {} else {
-	        this.dataSourceObj.options.values = new Array();
-	    }
-	    $.each(rows, function (i) {
-	        oThis.dataSourceObj.options.values.splice(index + i, 0, this);
-	    });
+
 	    this.updateLastRowFlag();
 	    this.isCheckedHeaderRow();
 	};
@@ -3851,6 +3858,18 @@
 	    }
 	    this.dataSourceObj.rows.splice(index, 1);
 	    this.updateEditRowIndex('-', index);
+	    if (this.dataSourceObj.options.values) {
+	        var i = this.dataSourceObj.options.values.indexOf(rowValue);
+	        this.dataSourceObj.options.values.splice(i, 1);
+	    }
+	    // 如果是在中间插入需要将后续的valueIndex - 1；
+	    if (this.dataSourceObj.rows.length > index + 1) {
+	        $.each(this.dataSourceObj.rows, function (i) {
+	            if (i >= index) {
+	                this.valueIndex = this.valueIndex - 1;
+	            }
+	        });
+	    }
 	    if (this.selectRows) {
 	        $.each(this.selectRows, function (i) {
 	            if (this == rowValue) {
@@ -3882,10 +3901,7 @@
 	        this.noRowsShowFun();
 	        this.updateNumColLastRowFlag();
 	    }
-	    if (this.dataSourceObj.options.values) {
-	        var i = this.dataSourceObj.options.values.indexOf(rowValue);
-	        this.dataSourceObj.options.values.splice(i, 1);
-	    }
+
 	    this.deleteOneRowTree();
 	    if (typeof this.options.onRowDelete == 'function') {
 	        var obj = {};
@@ -5195,7 +5211,7 @@
 	exports.__esModule = true;
 	exports.getDataTableRowIdByRow = exports.getTrIndex = exports.accAdd = exports.DicimalFormater = exports.cloneObj = exports.getFloat = exports.getInt = exports.getString = exports.swapEle = exports.formatWidth = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _gridBrowser = __webpack_require__(10);
 

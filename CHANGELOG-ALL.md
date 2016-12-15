@@ -1,3 +1,28 @@
+<a name="3.1.17"></a>
+## [3.1.17]\(2016-12-15\)
+### Bug Fixes 
+* form情况下按照showFix展示 ([986f72f](https://github.com/iuap-design/kero-adapter/commit/986f72f))
+
+* i18n & add json files & test example ([8f7a9e3](https://github.com/iuap-design/kero-adapter/commit/8f7a9e3))
+
+* i18n demo ([fa27546](https://github.com/iuap-design/kero-adapter/commit/fa27546))
+
+* IE8下不显示ripple组件 ([b66d88d](https://github.com/iuap-design/tinper-neoui/commit/b66d88d))
+
+* tooltip不同位置显示效果 ([55c9754](https://github.com/iuap-design/tinper-neoui/commit/55c9754))
+
+* 修正confirmdialog弹出框关闭后滚轮事件 ([d17948a](https://github.com/iuap-design/tinper-neoui/commit/d17948a))
+
+* 日期icon点击不消除其他日历bug ([7e954bc](https://github.com/iuap-design/tinper-neoui/commit/7e954bc))
+
+* 日期icon点击不消除其他日历bug ([1a9b7e0](https://github.com/iuap-design/tinper-neoui/commit/1a9b7e0))
+
+* 日期点击前一个月后一个月当前时间；多次点击表盘不可用的问题 ([eb19ba2](https://github.com/iuap-design/tinper-neoui/commit/eb19ba2))
+
+* 日期类型为date类型和loader与dialog混用冲突 ([052ffe3](https://github.com/iuap-design/tinper-neoui/commit/052ffe3))
+
+* 日期组件点击确定的时候控制时间范围 ([9769c22](https://github.com/iuap-design/tinper-neoui/commit/9769c22))
+
 <a name="3.1.16"></a>
 ## [3.1.16]\(2016-12-8\)
 ### Bug Fixes 

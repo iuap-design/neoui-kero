@@ -1,6 +1,6 @@
 {
   "name": "kero-adapter",
-  "version": "3.1.16",
+  "version": "3.1.17",
   "description": "kero adapter",
   "main": "js/index.js",
   "scripts": {
@@ -15,12 +15,12 @@
     "utipbuild": "webpack --colors --progress && gulp dist"
   },
   "dependencies": {
-    "kero": "^2.1.16",
-    "tinper-neoui": "^3.1.16",
-    "tinper-neoui-grid": "^3.1.16",
-    "tinper-neoui-polyfill": "^3.1.16",
-    "tinper-neoui-tree": "^3.1.16",
-    "tinper-sparrow": "^3.1.16"
+    "kero": "^2.1.17",
+    "tinper-neoui": "^3.1.17",
+    "tinper-neoui-grid": "^3.1.17",
+    "tinper-neoui-polyfill": "^3.1.17",
+    "tinper-neoui-tree": "^3.1.17",
+    "tinper-sparrow": "^3.1.17"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
