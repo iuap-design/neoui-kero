@@ -97,7 +97,7 @@ for(var i in featAllArr){
 var dateObj = new Date();
 var dateStr = dateObj.getFullYear() + '-' + (dateObj.getMonth()+ 1) + '-' +  dateObj.getDate();
 // var allStr = '<a name="' + version + '"></a>\r\n## [' + version + ']' + version_link + '\\(' + dateStr + '\\)\r\n';
-var allStr = '<a name="' + version + '"></a>\r\n## ' + 'V'+ version + ' ' + '<a class="u-button u-button-floating loglink" href=' + '"//design.yyuap.com/static/download/iuap-design-'+ version + '.zip">' + '<i class="icon uf uf-downloadd logicon"></i></a> ' + '<i class="logdate">(' + dateStr + ')</i>\r\n';
+var allStr = '<a name="' + version + '"></a>\r\n<h2 class="logtit"> ' + 'V'+ version + ' ' + '<a class="u-button u-button-floating loglink" href=' + '"//design.yyuap.com/static/download/iuap-design-'+ version + '.zip">' + '<i class="icon uf uf-downloadd logicon"></i></a> ' + '<i class="logdate">(' + dateStr + ')</i></h2>\r\n\r\n';
 if(proStr || otherStr){
 	allStr += '### Bug Fixes \r\n';
 	allStr += proStr;
