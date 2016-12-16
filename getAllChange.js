@@ -11,30 +11,7 @@ var prodNameArr = [
 	'tinper-neoui-sparrow',
 ];
 
-// 根据version.json获取服务器已存在版本
-var history = require('./version.json').version;
-var hisary = [];
-for(var s in history){
-	var his_version = history[s].split('-')[2];
-	var his_zipindex = his_version.indexOf('.zip');
-	his_ver = his_version.substring(0,his_zipindex);
-	if(his_ver != ''){
-		hisary.push(his_ver);
-	}
-}
-
-// 获取当前version，值处理当前version的内容
-
 var version = require('./package.json').version;
-
-// 判断当前版本在CDN上是否有下载包
-var version_link = '';
-hisary.forEach(function(ele,index){
-	if(version === ele){
-		version_link = '(//design.yyuap.com/static/download/iuap-design-'+ version + '.zip)';
-	}
-})
-
 
 // 获取当前的所有changlog，每次只处理最新的。
 var allFilePath = getResolvePath('CHANGELOG-ALL.md');
@@ -120,7 +97,7 @@ for(var i in featAllArr){
 var dateObj = new Date();
 var dateStr = dateObj.getFullYear() + '-' + (dateObj.getMonth()+ 1) + '-' +  dateObj.getDate();
 // var allStr = '<a name="' + version + '"></a>\r\n## [' + version + ']' + version_link + '\\(' + dateStr + '\\)\r\n';
-var allStr = '<a name="' + version + '"></a>\r\n## ' + version + ' ' + '<a href=' + '"//design.yyuap.com/static/download/iuap-design-'+ version + '.zip">' + '<i class="icon">download</i>' + '</a> ' + '\\(' + dateStr + '\\)\r\n';
+var allStr = '<a name="' + version + '"></a>\r\n## ' + 'V'+ version + ' ' + '<a class="u-button u-button-floating" href=' + '"//design.yyuap.com/static/download/iuap-design-'+ version + '.zip">' + '<i class="icon uf uf-downloadd"></i></a> ' + '<i class="logdate">(' + dateStr + ')</i>\r\n';
 if(proStr || otherStr){
 	allStr += '### Bug Fixes \r\n';
 	allStr += proStr;
