@@ -7,7 +7,10 @@
 	  "close": "close"
     },
 	"dialog": {
-		"info_dialog": "Info Dialog"
+		"info_dialog": "Info Dialog",
+		"title":"Tips",
+		"okText":"Confirm",
+		"cancelText":"Cancel"
 	},
 	"validate": {
 		"required": "cannot be null!",

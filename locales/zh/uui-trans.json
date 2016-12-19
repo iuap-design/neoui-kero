@@ -7,7 +7,10 @@
 	  "close":"关闭"
     },
 	"dialog": {
-		"info_dialog": "提示窗口"
+		"info_dialog": "提示窗口",
+		"title":"提示",
+		"okText":"确定",
+		"cancelText":"取消"
 	},
 	"validate": {
 		"required": "不能为空！",
