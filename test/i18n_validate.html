@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Title</title>
+<link rel="stylesheet" href="http://design.yyuap.com/static/uploader/css/webuploader.css">
+<link rel="stylesheet" href="http://design.yyuap.com/static/uui/latest/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="http://design.yyuap.com/static/uui/latest/css/u.css">
+<link rel="stylesheet" type="text/css" href="http://design.yyuap.com/static/uui/latest/css/tree.css">
+<link rel="stylesheet" type="text/css" href="http://design.yyuap.com/static/uui/latest/css/grid.css">
+</head>
+<body style="background-color: #eceff1;margin-left: 20px;width: calc(100% - 20px );">
+<div class="u-container-fluid u-widget-bg">
+    <div class="u-row">
+        <div class="u-col-md-12">
+            <div class="u-widget  u-widget-right">
+                <div class="u-widget-heading">
+                    <h3 class="u-widget-title">u-meta校验</h3>
+                </div>
+                <div class="u-widget-body">
+                    <!--浮点型校验  type为u-text-->
+                    <div class="u-text" u-meta='{"id":"f1","type":"u-text","data":"dt1","field":"f1"}'>
+                        <input class="u-input" />
+                        <label class="u-label">string类型</label>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <!--浮点型校验  type为u-text-->
+                    <div class="u-text" u-meta='{"id":"f2","type":"u-text","data":"dt1","field":"f2","tipId":"floatInfo1","successId":"floatsuccess1"}'>
+                        <input class="u-input" />
+                        <label class="u-label">float类型</label>
+                        <span id="floatsuccess1" class="u-form-control-success uf uf-checkedsymbol"></span>
+                        <span class="u-form-control-info uf uf-exclamationsign " id='floatInfo1'></span>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <!--浮点型校验 type为 float-->
+                    <input u-meta='{"id":"f22","type":"float","data":"dt1","field":"f1"}' />
+                    <br>
+                    <br>
+                    <br>
+                    <!--正则校验-->
+                    <div class="u-text" u-meta='{"id":"f3","type":"u-text","data":"dt1","field":"f3"}'>
+                        <input class="u-input" />
+                        <label class="u-label">正则校验,6位整数</label>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <!--必填-->
+                    <div class="u-text" u-meta='{"id":"f4","type":"u-text","data":"dt1","field":"f4"}'>
+                        <input class="u-input" />
+                        <label class="u-label">必填</label>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <!--自定义信息内容-->
+                    <div class="u-text" u-meta='{"id":"f3","type":"u-text","data":"dt1","field":"f3","errorMsg":"自定义的错误信息","nullMsg":"自定义的不能为空信息"}'>
+                        <input class="u-input" />
+                        <label class="u-label">6位整数,自定义信息</label>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <!--自定义显示位置-->
+                    <div class="u-text" u-meta='{"id":"f3","type":"u-text","data":"dt1","field":"f3","tipId":"testDiv"}'>
+                        <input class="u-input" />
+                        <label class="u-label">自定义显示位置</label>
+                    </div>
+                    <span id="testDiv"></span>
+                    <br>
+                    <br>
+                    <br>
+                    <button class="u-button" data-bind="click:btn1Click">校验</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="u-button u-button-primary langbtn" data-lang="zh">中文</button>
+<button class="u-button u-button-success langbtn" data-lang="en">英文</button>
+
+<script src="http://design.yyuap.com/static/jquery/jquery-1.11.2.js"></script>
+<script src="http://design.yyuap.com/static/uploader/js/webuploader.js"></script>
+<script src="http://design.yyuap.com/static/knockout/knockout-3.2.0.debug.js"></script>
+<script src="http://design.yyuap.com/static/uui/latest/js/u-polyfill.js"></script>
+<script src="../vendor/i18next.js"></script>
+<script src="../dist/js/u.js"></script>
+<script src="http://design.yyuap.com/static/uui/latest/js/u-tree.js"></script>
+<script src="http://design.yyuap.com/static/uui/latest/js/u-grid.js"></script>
+<script src="http://design.yyuap.com/static/requirejs/require.debug.js"></script>
+<script>
+var langBtns = document.querySelectorAll('.langbtn');
+langBtns.forEach(function(ele,index){
+    var langAttr = ele.getAttribute('data-lang');
+    ele.addEventListener('click',function(){
+        u.setCookie('i_languages',langAttr)
+        document.location.reload();
+    })
+})
+
+/**
+ * 校验类型说明：
+ *  validType:校验类型（integer、float、zipCode、phone、landline、email、url、datetime）
+ *  max: 数字最大值
+ *  min: 数字最小值
+ *  maxLength: string最大长度
+ *  minLength: string最小长度
+ *  required: 必填
+ *  tipId：错误信息提示的div的id值
+ *  successId：正确信息显示的id值
+ *  regExp：正则表达式校验
+ *  errorMsg：错误提示信息
+ *  nullMsg：空提示信息
+ */
+var app, viewModel;
+viewModel = {
+    dt1: new u.DataTable({
+        meta: {
+            f1: { type: 'string', maxLength: 8, minLength: 3 },
+            f2: { type: 'float', precision: 2, max: 500, min: 100 },
+            f3: { type: 'integer', required: true, regExp: /^[0-9]{6}$/ },
+            f4: { type: 'string', required: true }
+
+        }
+    }),
+    btn1Click: function() {
+        app.compsValidate(document.querySelector('body'));
+    }
+};
+
+
+app = u.createApp({
+    el: 'body',
+    model: viewModel
+});
+
+var r = viewModel.dt1.createEmptyRow();
+viewModel.dt1.setRowSelect(0);
+
+//普通输入框校验
+// u.on(window, 'load', function() {
+//     u.validate('body');
+//     u.on(document.querySelector('#validateBtn'), 'click', function(e) {
+//         u.doValidate('body');
+//         u.stopEvent(e);
+//     })
+// });
+
+
+
+</script>
+</body>
+</html>

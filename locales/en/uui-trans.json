@@ -23,6 +23,13 @@
 		"error_zipCode": "error zipcode!",
 		"error_phone": "error phone number!",
 		"error_email": "error email!",
-		"error_url": "error url!"
+		"error_url": "error url!",
+		"input_minlength": "Input length can not be less than ",
+		"input_maxlength": "Input length can not be greater than ",
+		"input_unit": " characters",
+		"input_maxvalue": "The input value can not be greater than ",
+		"input_minvalue": "The input value can not be less than ",
+		"input_equalMax": "The input value can not be greater than or equal to ",
+		"input_equalMin": "The input value can not be less than or equal to "
 	}
 }

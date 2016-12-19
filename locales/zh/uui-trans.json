@@ -23,6 +23,13 @@
 		"error_zipCode": "邮政编码格式不对！",
 		"error_phone": "手机号码格式不对！",
 		"error_email": "邮箱地址格式不对！",
-		"error_url": "网址格式不对！"
+		"error_url": "网址格式不对！",
+		"input_minlength": "输入长度不能小于 ",
+		"input_maxlength": "输入长度不能大于 ",
+		"input_unit": " 位",
+		"input_maxvalue": "输入值不能大于",
+		"input_minvalue": "输入值不能小于",
+		"input_equalMax": "输入值不能大于或等于",
+		"input_equalMin": "输入值不能小于或等于"
 	}
 }
