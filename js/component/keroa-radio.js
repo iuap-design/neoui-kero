@@ -14,7 +14,7 @@ import {makeDOM} from 'tinper-sparrow/js/dom';
 import {on,off,stopEvent} from 'tinper-sparrow/js/event';
 import {Radio} from 'tinper-neoui/js/neoui-radio';
 import {compMgr} from 'tinper-sparrow/js/compMgr';
-import {addClass} from 'tinper-sparrow/js/dom';
+import {addClass, removeClass} from 'tinper-sparrow/js/dom';
 import {env} from 'tinper-sparrow/js/env';
 
 var RadioAdapter = BaseAdapter.extend({
@@ -197,6 +197,8 @@ var RadioAdapter = BaseAdapter.extend({
                             fetch = true;
                             addClass(comp.element,'is-checked')
                             comp._btnElement.click();
+                        }else{
+                            removeClass(comp.element,'is-checked')
                         }
                     }
                 })
