@@ -5211,7 +5211,7 @@
 	exports.__esModule = true;
 	exports.getDataTableRowIdByRow = exports.getTrIndex = exports.accAdd = exports.DicimalFormater = exports.cloneObj = exports.getFloat = exports.getInt = exports.getString = exports.swapEle = exports.formatWidth = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	var _gridBrowser = __webpack_require__(10);
 

@@ -99,7 +99,7 @@ var langBtns = document.querySelectorAll('.langbtn');
 langBtns.forEach(function(ele,index){
     var langAttr = ele.getAttribute('data-lang');
     ele.addEventListener('click',function(){
-        u.setCookie('i_languages',langAttr)
+        u.setCookie('u_locale',langAttr)
         document.location.reload();
     })
 })

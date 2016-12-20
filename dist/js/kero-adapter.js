@@ -1,10 +1,3 @@
-/** 
- * kero-adapter v3.1.17
- * kero adapter
- * author : yonyou FED
- * homepage : https://github.com/iuap-design/kero-adapter#readme
- * bugs : https://github.com/iuap-design/kero-adapter/issues
- **/ 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -51,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(75);
+	module.exports = __webpack_require__(76);
 
 
 /***/ },
@@ -63,17 +56,15 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.compMgr = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow compMgr
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 18:41:06
-	                                                                                                                                                                                                                                                                               * Update : 2016-09-13 09:26:00
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow compMgr
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 18:41:06
+	                                                                                                                                                                                                                                                   * Update : 2016-09-13 09:26:00
+	                                                                                                                                                                                                                                                   */
 
 	var _dom = __webpack_require__(5);
 
@@ -333,9 +324,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.getElementTop = exports.getElementLeft = exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
 
 	var _event = __webpack_require__(6);
@@ -652,9 +641,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
 
 	var _env = __webpack_require__(7);
@@ -953,7 +940,7 @@
 				element["uEvent"][eventName].forEach(function (fn) {
 					try {
 						e.target = e.target || e.srcElement; //兼容IE8
-					} catch (e) {}
+					} catch (ee) {}
 					if (fn) fn.call(element, e);
 				});
 			};
@@ -994,7 +981,8 @@
 			}
 			return;
 		}
-		var eventfn = element["uEvent"][eventName + 'fn'];
+		var eventfn;
+		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) eventfn = element["uEvent"][eventName + 'fn'];
 		if (element.removeEventListener) {
 			// 用于支持DOM的浏览器
 			element.removeEventListener(eventName, eventfn);
@@ -1008,8 +996,9 @@
 		if (u.event && u.event[eventName] && u.event[eventName].teardown) {
 			u.event[eventName].teardown.call(element);
 		}
-		element["uEvent"][eventName] = undefined;
-		element["uEvent"][eventName + 'fn'] = undefined;
+
+		if (element && element["uEvent"] && element["uEvent"][eventName]) element["uEvent"][eventName] = undefined;
+		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) element["uEvent"][eventName + 'fn'] = undefined;
 	};
 	var trigger = function trigger(element, eventName) {
 		if (element["uEvent"] && element["uEvent"][eventName]) {
@@ -1044,9 +1033,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.env = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -1249,16 +1236,14 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.extend = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow extend
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-27 21:46:50
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow extend
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-27 21:46:50
+	                                                                                                                                                                                                                                                   */
 
 	var _enumerables = __webpack_require__(9);
 
@@ -1301,9 +1286,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow extend enum
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1339,11 +1322,9 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : Sparrow util tools
@@ -1501,9 +1482,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow class
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1706,9 +1685,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DataTable = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -2021,9 +1998,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.Events = undefined;
 
 	var _events = __webpack_require__(31);
@@ -2055,11 +2030,9 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : kero dataTable events
@@ -2189,9 +2162,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable copyRow
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2221,9 +2192,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable data
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2318,9 +2287,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable enable
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2357,9 +2324,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2391,9 +2356,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2743,9 +2706,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getFocus
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2775,9 +2736,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getMete
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2814,9 +2773,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getPage
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2846,9 +2803,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getParam
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2867,9 +2822,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2947,9 +2900,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable getSimpleData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2997,11 +2948,9 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	/**
 	 * Module : kero dataTable mete
@@ -3140,9 +3089,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable page
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3376,9 +3323,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable param
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3404,9 +3349,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable ref
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3544,9 +3487,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
 
 	var _util = __webpack_require__(48);
@@ -3631,9 +3572,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports._formatToIndicesArray = exports.isChanged = undefined;
 
 	var _util = __webpack_require__(10);
@@ -3673,9 +3612,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
 
 	var _util = __webpack_require__(10);
@@ -3796,9 +3733,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : kero dataTable rowCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3825,9 +3760,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
 
 	var _util = __webpack_require__(48);
@@ -3896,9 +3829,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
 
 	var _util = __webpack_require__(10);
@@ -4101,9 +4032,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
 
 	var _util = __webpack_require__(10);
@@ -4188,16 +4117,14 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.addSimpleData = exports.setSimpleData = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : kero dataTable simpleData
-	                                                                                                                                                                                                                                                                               * Author : liuyk(liuyk@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-01 14:34:01
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : kero dataTable simpleData
+	                                                                                                                                                                                                                                                   * Author : liuyk(liuyk@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-01 14:34:01
+	                                                                                                                                                                                                                                                   */
 
 
 	var _util = __webpack_require__(10);
@@ -4284,22 +4211,21 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.date = undefined;
 
 	var _core = __webpack_require__(71);
 
 	var _util = __webpack_require__(10);
 
-	/**
-	 * Module : Sparrow date util
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-06 13:37:20
-	 */
+	var _i18n = __webpack_require__(73);
 
-	var u = {};
+	var u = {}; /**
+	             * Module : Sparrow date util
+	             * Author : Kvkens(yueming@yonyou.com)
+	             * Date	  : 2016-08-06 13:37:20
+	             */
+
 	u.date = {
 
 		/**
@@ -4321,6 +4247,14 @@
 				weekdaysShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
 				weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
 			}
+		},
+		_jsonLocale: {
+			months: (0, _i18n.trans)('date.months', "一月\n二月\n三月\n四月\n五月\n六月\n七月\n八月\n九月\n十月\n十一月\n十二月").split('\n'),
+			monthsShort: (0, _i18n.trans)('date.monthsShort', "1月\n2月\n3月\n4月\n5月\n6月\n7月\n8月\n9月\n10月\n11月\n12月").split('\n'),
+			weekdays: (0, _i18n.trans)('date.weekdays', "星期日\n星期一\n星期二\n星期三\n星期四\n星期五\n星期六").split('\n'),
+			weekdaysShort: (0, _i18n.trans)('date.weekdaysShort', "周日\n周一\n周二\n周三\n周四\n周五\n周六").split('\n'),
+			weekdaysMin: (0, _i18n.trans)('date.weekdaysMin', "日\n一\n二\n三\n四\n五\n六").split('\n'),
+			defaultMonth: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
 		},
 
 		_formattingTokens: /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYY|YY|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
@@ -4352,11 +4286,13 @@
 			},
 			MMM: function MMM(date, language) {
 				var m = date.getMonth();
-				return u.date._dateLocale[language].monthsShort[m];
+				// return u.date._dateLocale[language].monthsShort[m];
+				return u.date._jsonLocale.monthsShort[m];
 			},
 			MMMM: function MMMM(date, language) {
 				var m = date.getMonth();
-				return u.date._dateLocale[language].months[m];
+				// return u.date._dateLocale[language].months[m];
+				return u.date._jsonLocale.months[m];
 			},
 			//date
 			D: function D(date) {
@@ -4372,15 +4308,18 @@
 			},
 			dd: function dd(date, language) {
 				var d = u.date._formats.d(date);
-				return u.date._dateLocale[language].weekdaysMin[d];
+				// return u.date._dateLocale[language].weekdaysMin[d];
+				return u.date._jsonLocale.weekdaysMin[d];
 			},
 			ddd: function ddd(date, language) {
 				var d = u.date._formats.d(date);
-				return u.date._dateLocale[language].weekdaysShort[d];
+				// return u.date._dateLocale[language].weekdaysShort[d];
+				return u.date._jsonLocale.weekdaysShort[d];
 			},
 			dddd: function dddd(date, language) {
 				var d = u.date._formats.d(date);
-				return u.date._dateLocale[language].weekdays[d];
+				// return u.date._dateLocale[language].weekdays[d];
+				return u.date._jsonLocale.weekdays[d];
 			},
 			// am pm
 			a: function a(date) {
@@ -4491,7 +4430,7 @@
 			var _date = new Date((0, _util.dateFormat)(value));
 			if (isNaN(_date)) {
 				// IE的话对"2016-2-13 12:13:22"进行处理
-				var index1, index2, index3, s1, s2, s3;
+				var index1, index2, index3, s1, s2, s3, s4;
 				if (value.indexOf) {
 					index1 = value.indexOf('-');
 					index2 = value.indexOf(':');
@@ -4502,6 +4441,7 @@
 							s3 = value.split(' ');
 							s1 = s3[0].split('-');
 							s2 = s3[1].split(':');
+							s4 = s3[2];
 						} else if (index1 > 0) {
 							s1 = value.split('-');
 						} else if (index2 > 0) {
@@ -4514,6 +4454,10 @@
 							dateFlag = true;
 						}
 						if (s2 && s2.length > 0) {
+							//解决ie和firefox等时间pm直接变am问题
+							if (s4 == "pm") {
+								s2[0] = s2[0] - -12;
+							}
 							_date.setHours(s2[0] ? s2[0] : 0);
 							_date.setMinutes(s2[1] ? s2[1] : 0);
 							_date.setSeconds(s2[2] ? s2[2] : 0);
@@ -4522,9 +4466,7 @@
 					} else {
 						_date = new Date(parseInt(value));
 						if (isNaN(_date)) {
-							// 输入值不正确时，默认为空，如果抛出异常会后面内容的解析
-							// throw new TypeError('invalid Date parameter');
-							_date = "";
+							throw new TypeError('invalid Date parameter');
 						} else {
 							dateFlag = true;
 						}
@@ -4547,16 +4489,14 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.core = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow core context
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 13:52:19
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow core context
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 13:52:19
+	                                                                                                                                                                                                                                                   */
 
 
 	var _extend = __webpack_require__(8);
@@ -4735,9 +4675,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Sparrow cookies
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -4766,23 +4704,96 @@
 	exports.getCookie = getCookie;
 
 /***/ },
-/* 73 */,
-/* 74 */,
-/* 75 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
+	exports.trans = undefined;
+
+	var _cookies = __webpack_require__(72);
+
+	var _enumerables = __webpack_require__(9);
+
+	// 从datatable/src/compatiable/u/JsExtension.js抽取
+	/**
+	 * Module : Sparrow i18n
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-29 10:16:54
+	 */
+	//import {uuii18n} from '?';//缺失故修改为default值
+	window.getCurrentJsPath = function () {
+		var doc = document,
+		    a = {},
+		    expose = +new Date(),
+		    rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/,
+		    isLtIE8 = ('' + doc.querySelector).indexOf('[native code]') === -1;
+		// FF,Chrome
+		if (doc.currentScript) {
+			return doc.currentScript.src;
+		}
+
+		var stack;
+		try {
+			a.b();
+		} catch (e) {
+			stack = e.fileName || e.sourceURL || e.stack || e.stacktrace;
+		}
+		// IE10
+		if (stack) {
+			var absPath = rExtractUri.exec(stack)[1];
+			if (absPath) {
+				return absPath;
+			}
+		}
+
+		// IE5-9
+		for (var scripts = doc.scripts, i = scripts.length - 1, script; script = scripts[i--];) {
+			if (script.className !== expose && script.readyState === 'interactive') {
+				script.className = expose;
+				// if less than ie 8, must get abs path by getAttribute(src, 4)
+				return isLtIE8 ? script.getAttribute('src', 4) : script.src;
+			}
+		}
+	};
+
+	if (window.i18n) {
+		var scriptPath = getCurrentJsPath(),
+		    _temp = scriptPath.substr(0, scriptPath.lastIndexOf('/')),
+		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/'));
+		i18n.init({
+			postAsync: false,
+			getAsync: false,
+			fallbackLng: false,
+			ns: { namespaces: ['uui-trans'] },
+			lng: (0, _cookies.getCookie)(_enumerables.U_LOCALE) || 'zh',
+			resGetPath: __FOLDER__ + '/locales/__lng__/__ns__.json'
+		});
+	}
+
+	var trans = function trans(key, dftValue) {
+		return window.i18n ? i18n.t('uui-trans:' + key) : dftValue;
+	};
+
+	exports.trans = trans;
+
+/***/ },
+/* 74 */,
+/* 75 */,
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
 	exports.u = undefined;
 
 	var _extend = __webpack_require__(8);
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _keroaCheckbox = __webpack_require__(77);
+	var _keroaCheckbox = __webpack_require__(78);
 
 	var _keroaCkeditor = __webpack_require__(88);
 
@@ -4834,13 +4845,13 @@
 
 	var _keroaTree = __webpack_require__(130);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
 	// console.log(TextAreaAdapter);
 
@@ -4886,14 +4897,12 @@
 	exports.u = ex;
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.BaseAdapter = undefined;
 
 	var _class = __webpack_require__(12);
@@ -4970,25 +4979,23 @@
 	exports.BaseAdapter = BaseAdapter;
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.CheckboxAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _util = __webpack_require__(10);
 
@@ -5289,14 +5296,12 @@
 	exports.CheckboxAdapter = CheckboxAdapter;
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Kero Value Mixin
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -5488,14 +5493,12 @@
 	exports.ValueMixin = ValueMixin;
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.EnableMixin = undefined;
 
 	var _dom = __webpack_require__(5);
@@ -5534,14 +5537,12 @@
 	exports.EnableMixin = EnableMixin;
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	/**
 	 * Module : Kero Enable Mixin
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -5571,17 +5572,15 @@
 	exports.RequiredMixin = RequiredMixin;
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ValidateMixin = undefined;
 
-	var _neouiValidate = __webpack_require__(82);
+	var _neouiValidate = __webpack_require__(83);
 
 	var ValidateMixin = {
 	    init: function init() {
@@ -5655,24 +5654,22 @@
 	exports.ValidateMixin = ValidateMixin;
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.doValidate = exports.validate = exports.Validate = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : neoui-validate
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-06 14:03:15
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : neoui-validate
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-06 14:03:15
+	                                                                                                                                                                                                                                                   */
 
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _extend = __webpack_require__(8);
 
@@ -5682,9 +5679,9 @@
 
 	var _util = __webpack_require__(10);
 
-	var _neouiTooltip = __webpack_require__(84);
+	var _neouiTooltip = __webpack_require__(85);
 
-	var _i18n = __webpack_require__(85);
+	var _i18n = __webpack_require__(73);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -5713,6 +5710,8 @@
 	        this.validMode = this.options['validMode'] ? this.options['validMode'] : Validate.DEFAULTS.validMode;
 	        //空提示
 	        this.nullMsg = this.options['nullMsg'] ? this.options['nullMsg'] : Validate.NULLMSG[this.validType];
+	        // input输入提示
+	        this.inputMsg = Validate.INPUTMSG;
 	        //是否必填
 	        if (this.required && !this.nullMsg) this.nullMsg = Validate.NULLMSG['required'];
 	        //错误必填
@@ -5803,6 +5802,17 @@
 	    "url": (0, _i18n.trans)('validate.error_url', "网址格式不对！"),
 	    "datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！"),
 	    "phoneNumber": (0, _i18n.trans)('validate.error_phoneNumber', "号码格式不对！")
+	};
+
+	Validate.INPUTMSG = {
+	    "minLength": (0, _i18n.trans)('validate.input_minlength', "输入长度不能小于"),
+	    "maxLength": (0, _i18n.trans)('validate.input_maxlength', "输入长度不能大于"),
+	    "unit": (0, _i18n.trans)('validate.input_unit', "位"),
+	    "maxValue": (0, _i18n.trans)('validate.input_maxvalue', "输入值不能大于"),
+	    "minValue": (0, _i18n.trans)('validate.input_minvalue', "输入值不能小于"),
+	    "equalMax": (0, _i18n.trans)('validate.input_equalMax', "输入值不能大于或等于"),
+	    "equalMin": (0, _i18n.trans)('validate.input_equalMin', "输入值不能小于或等于")
+
 	};
 
 	Validate.REG = {
@@ -5933,7 +5943,7 @@
 	    }
 	    if (this.minLength) {
 	        if (value.lengthb() < this.minLength) {
-	            var Msg = "输入长度不能小于" + this.minLength + "位";
+	            var Msg = this.inputMsg.minLength + this.minLength + this.inputMsg.unit;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -5943,7 +5953,7 @@
 	    }
 	    if (this.maxLength) {
 	        if (value.lengthb() > this.maxLength) {
-	            var Msg = "输入长度不能大于" + this.maxLength + "位";
+	            var Msg = this.inputMsg.maxLength + this.maxLength + this.inputMsg.unit;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -5953,7 +5963,7 @@
 	    }
 	    if (this.max != undefined && this.max != null) {
 	        if (parseFloat(value) > this.max) {
-	            var Msg = "输入值不能大于" + this.max;
+	            var Msg = this.inputMsg.maxValue + this.max;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -5963,7 +5973,7 @@
 	    }
 	    if (this.min != undefined && this.min != null) {
 	        if (parseFloat(value) < this.min) {
-	            var Msg = "输入值不能小于" + this.min;
+	            var Msg = this.inputMsg.minValue + this.min;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -5973,7 +5983,7 @@
 	    }
 	    if (this.maxNotEq != undefined && this.maxNotEq != null) {
 	        if (parseFloat(value) >= this.maxNotEq) {
-	            var Msg = "输入值不能大于或等于" + this.maxNotEq;
+	            var Msg = this.inputMsg.equalMax + this.maxNotEq;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -5983,7 +5993,7 @@
 	    }
 	    if (this.minNotEq != undefined && this.minNotEq != null) {
 	        if (parseFloat(value) <= this.minNotEq) {
-	            var Msg = "输入值不能小于或等于" + this.minNotEq;
+	            var Msg = this.inputMsg.equalMin + this.minNotEq;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -6236,14 +6246,12 @@
 	exports.doValidate = doValidate;
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.BaseComponent = undefined;
 
 	var _class = __webpack_require__(12);
@@ -6377,14 +6385,12 @@
 	exports.BaseComponent = BaseComponent;
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Tooltip = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -6702,92 +6708,15 @@
 	exports.Tooltip = Tooltip;
 
 /***/ },
-/* 85 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.trans = undefined;
-
-	var _cookies = __webpack_require__(72);
-
-	// 从datatable/src/compatiable/u/JsExtension.js抽取
-	window.getCurrentJsPath = function () {
-		var doc = document,
-		    a = {},
-		    expose = +new Date(),
-		    rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/,
-		    isLtIE8 = ('' + doc.querySelector).indexOf('[native code]') === -1;
-		// FF,Chrome
-		if (doc.currentScript) {
-			return doc.currentScript.src;
-		}
-
-		var stack;
-		try {
-			a.b();
-		} catch (e) {
-			stack = e.fileName || e.sourceURL || e.stack || e.stacktrace;
-		}
-		// IE10
-		if (stack) {
-			var absPath = rExtractUri.exec(stack)[1];
-			if (absPath) {
-				return absPath;
-			}
-		}
-
-		// IE5-9
-		for (var scripts = doc.scripts, i = scripts.length - 1, script; script = scripts[i--];) {
-			if (script.className !== expose && script.readyState === 'interactive') {
-				script.className = expose;
-				// if less than ie 8, must get abs path by getAttribute(src, 4)
-				return isLtIE8 ? script.getAttribute('src', 4) : script.src;
-			}
-		}
-	}; /**
-	    * Module : Sparrow i18n
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-07-29 10:16:54
-	    */
-	//import {uuii18n} from '?';//缺失故修改为default值
-
-
-	if (window.i18n) {
-		var scriptPath = getCurrentJsPath(),
-		    _temp = scriptPath.substr(0, scriptPath.lastIndexOf('/')),
-		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/'));
-		i18n.init({
-			postAsync: false,
-			getAsync: false,
-			fallbackLng: false,
-			ns: { namespaces: ['uui-trans'] },
-			lng: (0, _cookies.getCookie)('i_languages'),
-			resGetPath: __FOLDER__ + '/locales/__lng__/__ns__.json'
-		});
-	}
-
-	var trans = function trans(key, dftValue) {
-		return window.i18n ? i18n.t('uui-trans:' + key) : dftValue;
-	};
-
-	exports.trans = trans;
-
-/***/ },
 /* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Checkbox = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _dom = __webpack_require__(5);
 
@@ -7020,9 +6949,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.URipple = exports.Ripple = undefined;
 
 	var _env = __webpack_require__(7);
@@ -7251,20 +7178,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.CkEditorAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -7364,20 +7289,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ComboboxAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _util = __webpack_require__(10);
 
@@ -7508,12 +7431,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Combo = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _dom = __webpack_require__(5);
 
@@ -7954,12 +7875,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Text = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _dom = __webpack_require__(5);
 
@@ -8195,20 +8114,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.CurrencyAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _util = __webpack_require__(10);
 
@@ -8310,9 +8227,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DateFormater = exports.NumberFormater = undefined;
 
 	var _util = __webpack_require__(10);
@@ -8376,20 +8291,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.FloatAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _event = __webpack_require__(6);
 
@@ -8539,16 +8452,14 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.PhoneNumberMasker = exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow abstract formater class
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 19:35:26
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Sparrow abstract formater class
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-07-28 19:35:26
+	                                                                                                                                                                                                                                                   */
 
 	var _extend = __webpack_require__(8);
 
@@ -9067,20 +8978,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.DateTimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _event = __webpack_require__(6);
 
@@ -9244,11 +9153,8 @@
 					self.dataModel.ref(self.endField).subscribe(function (value) {
 						if (_env.env.isMobile) {
 							var valueObj = _dateUtils.date.getDateObj(value);
-							if (valueObj && self.options.format == 'YYYY-MM-DD') {
-								valueObj.setHours(0);
-								valueObj.setMinutes(0);
-								valueObj.setSeconds(0);
-								valueObj.setMilliseconds(0);
+							if (valueObj) {
+								self.resetDataObj(valueObj);
 							}
 							self.op.minDate = valueObj;
 							if (self.adapterType == 'date') {
@@ -9257,11 +9163,8 @@
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate && self.options.format == 'YYYY-MM-DD') {
-								nowDate.setHours(0);
-								nowDate.setMinutes(0);
-								nowDate.setSeconds(0);
-								nowDate.setMilliseconds(0);
+							if (nowDate) {
+								self.resetDataObj(nowDate);
 							}
 							if (nowDate && nowDate.getTime() > valueObj.getTime() && value) {
 								self.dataModel.setValue(self.field, '');
@@ -9269,18 +9172,12 @@
 						} else {
 							self.comp.setEndDate(value);
 							var nowDate = self.comp.date;
-							if (nowDate && self.options.format == 'YYYY-MM-DD') {
-								nowDate.setHours(0);
-								nowDate.setMinutes(0);
-								nowDate.setSeconds(0);
-								nowDate.setMilliseconds(0);
+							if (nowDate) {
+								self.resetDataObj(nowDate);
 							}
 							var valueObj = _dateUtils.date.getDateObj(value);
-							if (valueObj && self.options.format == 'YYYY-MM-DD') {
-								valueObj.setHours(0);
-								valueObj.setMinutes(0);
-								valueObj.setSeconds(0);
-								valueObj.setMilliseconds(0);
+							if (valueObj) {
+								self.resetDataObj(valueObj);
 							}
 							if (nowDate && value && nowDate.getTime() > valueObj.getTime()) {
 								self.dataModel.setValue(self.field, '');
@@ -9316,12 +9213,10 @@
 						if (_env.env.isMobile) {
 							value = _dateUtils.date.getDateObj(value);
 
-							var valueObj = self.setMobileStartDate(value, self.options.format);
-							if (valueObj && self.options.format == 'YYYY-MM-DD') {
-								valueObj.setHours(0);
-								valueObj.setMinutes(0);
-								valueObj.setSeconds(0);
-								valueObj.setMilliseconds(0);
+							// var valueObj = self.setMobileStartDate(value, self.options.format);
+							var valueObj = value;
+							if (valueObj) {
+								self.resetDataObj(valueObj);
 							}
 							self.op.minDate = valueObj;
 							if (self.adapterType == 'date') {
@@ -9330,11 +9225,8 @@
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate && self.options.format == 'YYYY-MM-DD') {
-								nowDate.setHours(0);
-								nowDate.setMinutes(0);
-								nowDate.setSeconds(0);
-								nowDate.setMilliseconds(0);
+							if (nowDate) {
+								self.resetDataObj(nowDate);
 							}
 							if (nowDate && nowDate.getTime() < valueObj.getTime() && value) {
 								self.dataModel.setValue(self.field, '');
@@ -9342,18 +9234,12 @@
 						} else {
 							self.comp.setStartDate(value, self.options.format);
 							var nowDate = self.comp.date;
-							if (nowDate && self.options.format == 'YYYY-MM-DD') {
-								nowDate.setHours(0);
-								nowDate.setMinutes(0);
-								nowDate.setSeconds(0);
-								nowDate.setMilliseconds(0);
+							if (nowDate) {
+								self.resetDataObj(nowDate);
 							}
 							var valueObj = _dateUtils.date.getDateObj(value);
-							if (valueObj && self.options.format == 'YYYY-MM-DD') {
-								valueObj.setHours(0);
-								valueObj.setMinutes(0);
-								valueObj.setSeconds(0);
-								valueObj.setMilliseconds(0);
+							if (valueObj) {
+								self.resetDataObj(valueObj);
 							}
 							if (nowDate && value && nowDate.getTime() < valueObj.getTime()) {
 								self.dataModel.setValue(self.field, '');
@@ -9420,20 +9306,14 @@
 		setValue: function setValue(value) {
 			if (this.dataModel) {
 				var valueObj = _dateUtils.date.getDateObj(value);
-				if (valueObj && this.options.format == 'YYYY-MM-DD') {
-					valueObj.setHours(0);
-					valueObj.setMinutes(0);
-					valueObj.setSeconds(0);
-					valueObj.setMilliseconds(0);
+				if (valueObj) {
+					this.resetDataObj(valueObj);
 				}
 				if (this.startField) {
 					var startValue = this.dataModel.getValue(this.startField);
 					var startValueObj = _dateUtils.date.getDateObj(startValue);
-					if (startValueObj && this.options.format == 'YYYY-MM-DD') {
-						startValueObj.setHours(0);
-						startValueObj.setMinutes(0);
-						startValueObj.setSeconds(0);
-						startValueObj.setMilliseconds(0);
+					if (startValueObj) {
+						this.resetDataObj(startValueObj);
 					}
 					if (startValueObj && valueObj.getTime() < startValueObj.getTime()) {
 						return;
@@ -9442,11 +9322,8 @@
 				if (this.endField) {
 					var endValue = this.dataModel.getValue(this.endField);
 					var endValueObj = _dateUtils.date.getDateObj(endValue);
-					if (endValueObj && this.options.format == 'YYYY-MM-DD') {
-						endValueObj.setHours(0);
-						endValueObj.setMinutes(0);
-						endValueObj.setSeconds(0);
-						endValueObj.setMilliseconds(0);
+					if (endValueObj) {
+						this.resetDataObj(endValueObj);
 					}
 					if (endValueObj && valueObj.getTime() > endValueObj.getTime()) {
 						return;
@@ -9481,6 +9358,19 @@
 				(0, _dom.addClass)(this.element.parentNode, 'disablecover');
 			}
 			if (!_env.env.isMobile) this.comp.setEnable(enable);
+		},
+
+		resetDataObj: function resetDataObj(dataObj) {
+			if (this.options.format.indexOf('h') < 0 && this.options.format.indexOf('H') < 0) {
+				dataObj.setHours(0);
+			}
+			if (this.options.format.indexOf('m') < 0) {
+				dataObj.setMinutes(0);
+			}
+			if (this.options.format.indexOf('s') < 0) {
+				dataObj.setSeconds(0);
+				dataObj.setMilliseconds(0);
+			}
 		}
 
 	});
@@ -9503,14 +9393,12 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.DateTimePicker = undefined;
 
 	var _extend = __webpack_require__(8);
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _env = __webpack_require__(7);
 
@@ -9522,13 +9410,15 @@
 
 	var _dateUtils = __webpack_require__(70);
 
-	var _neouiValidate = __webpack_require__(82);
+	var _neouiValidate = __webpack_require__(83);
 
 	var _compMgr = __webpack_require__(4);
 
 	var _ripple = __webpack_require__(87);
 
 	var _util = __webpack_require__(10);
+
+	var _i18n = __webpack_require__(73);
 
 	var DateTimePicker = _BaseComponent.BaseComponent.extend({});
 
@@ -9995,7 +9885,7 @@
 	    weekSpans = datePage.querySelectorAll('.u-date-week span');
 
 	    for (var i = 0; i < 7; i++) {
-	        weekSpans[i].innerHTML = _dateUtils.date._dateLocale[language].weekdaysMin[i];
+	        weekSpans[i].innerHTML = _dateUtils.date._jsonLocale.weekdaysMin[i];
 	    }
 	    dateDiv = datePage.querySelector('.u-date-content-panel');
 	    tempDate = this.startDate;
@@ -10036,11 +9926,8 @@
 	        this.pickerDate.setFullYear(e.target._year);
 	        this.pickerDate.setMonth(e.target._month);
 	        this.pickerDate.setDate(_d);
-	        if (this.pickerDate && this.options.format == 'YYYY-MM-DD') {
-	            this.pickerDate.setHours(0);
-	            this.pickerDate.setMinutes(0);
-	            this.pickerDate.setSeconds(0);
-	            this.pickerDate.setMilliseconds(0);
+	        if (this.pickerDate) {
+	            this.resetDataObj(this.pickerDate);
 	        }
 
 	        var _cell = e.target.parentNode.querySelector('.u-date-cell.current');
@@ -10599,20 +10486,7 @@
 	    //this._dateContent.style.height =panelHeight - 158 + 'px';   // 106 52
 	};
 
-	var dateTimePickerTemplateArr = ['<div class="u-date-panel">', '<div class="u-date-body">',
-	/*'<div class="u-date-header">',
-	    '<span class="u-date-header-year"></span>',
-	     '<div class="u-date-header-h3">',
-	        '<span class="u-date-header-week"></span>',
-	        '<span>,</span>',
-	        '<span class="u-date-header-month"></span>',
-	        '<span> </span>',
-	        '<span class="u-date-header-date"></span>',
-	        '<span> </span>',
-	        '<span class="u-date-header-time"></span>',
-	     '</div>',
-	'</div>',*/
-	'<div class="u-date-content"></div>', '</div>', '<div class="u-date-nav">', '<button type="button" class="u-button u-date-ok right primary">确定</button>', '<button type="button" class="u-button u-date-cancel right">取消</button>', '<button type="button" class="u-button u-date-clean">清空</button>', '</div>', '</div>'];
+	var dateTimePickerTemplateArr = ['<div class="u-date-panel">', '<div class="u-date-body">', '<div class="u-date-content"></div>', '</div>', '<div class="u-date-nav">', '<button type="button" class="u-button u-date-ok right primary">', (0, _i18n.trans)('public.confirm', '确定'), '</button>', '<button type="button" class="u-button u-date-cancel right">', (0, _i18n.trans)('public.cancel', '取消'), '</button>', '<button type="button" class="u-button u-date-clean">', (0, _i18n.trans)('public.clear', '清空'), '</button>', '</div>', '</div>'];
 
 	/******************************
 	 *  Public method
@@ -10852,27 +10726,18 @@
 
 	    var _date = _dateUtils.date.getDateObj(value);
 	    if (_date) {
-	        if (_date && this.options.format == 'YYYY-MM-DD') {
-	            _date.setHours(0);
-	            _date.setMinutes(0);
-	            _date.setSeconds(0);
-	            _date.setMilliseconds(0);
+	        if (_date) {
+	            this.resetDataObj(_date);
 	        }
 	        if (this.beginDateObj) {
-	            if (this.beginDateObj && this.options.format == 'YYYY-MM-DD') {
-	                this.beginDateObj.setHours(0);
-	                this.beginDateObj.setMinutes(0);
-	                this.beginDateObj.setSeconds(0);
-	                this.beginDateObj.setMilliseconds(0);
+	            if (this.beginDateObj) {
+	                this.resetDataObj(this.beginDateObj);
 	            }
 	            if (_date.getTime() < this.beginDateObj.getTime()) return;
 	        }
 	        if (this.overDateObj) {
-	            if (this.overDateObj && this.options.format == 'YYYY-MM-DD') {
-	                this.overDateObj.setHours(0);
-	                this.overDateObj.setMinutes(0);
-	                this.overDateObj.setSeconds(0);
-	                this.overDateObj.setMilliseconds(0);
+	            if (this.overDateObj) {
+	                this.resetDataObj(this.overDateObj);
 	            }
 	            if (_date.getTime() > this.overDateObj.getTime()) return;
 	        }
@@ -10892,11 +10757,8 @@
 	DateTimePicker.fn.setStartDate = function (startDate, type) {
 	    if (startDate) {
 	        this.beginDateObj = _dateUtils.date.getDateObj(startDate);
-	        if (this.beginDateObj && this.options.format == 'YYYY-MM-DD') {
-	            this.beginDateObj.setHours(0);
-	            this.beginDateObj.setMinutes(0);
-	            this.beginDateObj.setSeconds(0);
-	            this.beginDateObj.setMilliseconds(0);
+	        if (this.beginDateObj) {
+	            this.resetDataObj(this.beginDateObj);
 	        }
 	        /*if(type){
 	            switch (type) {
@@ -10923,11 +10785,8 @@
 	DateTimePicker.fn.setEndDate = function (endDate) {
 	    if (endDate) {
 	        this.overDateObj = _dateUtils.date.getDateObj(endDate);
-	        if (this.overDateObj && this.options.format == 'YYYY-MM-DD') {
-	            this.overDateObj.setHours(0);
-	            this.overDateObj.setMinutes(0);
-	            this.overDateObj.setSeconds(0);
-	            this.overDateObj.setMilliseconds(0);
+	        if (this.overDateObj) {
+	            this.resetDataObj(this.overDateObj);
 	        }
 	        this.overYear = this.overDateObj.getFullYear();
 	        this.overMonth = this.overDateObj.getMonth();
@@ -10945,6 +10804,19 @@
 	        this.enable = true;
 	    } else {
 	        this.enable = false;
+	    }
+	};
+
+	DateTimePicker.fn.resetDataObj = function (dataObj) {
+	    if (this.format.indexOf('h') < 0 && this.format.indexOf('H') < 0) {
+	        dataObj.setHours(0);
+	    }
+	    if (this.format.indexOf('m') < 0) {
+	        dataObj.setMinutes(0);
+	    }
+	    if (this.format.indexOf('s') < 0) {
+	        dataObj.setSeconds(0);
+	        dataObj.setMilliseconds(0);
 	    }
 	};
 
@@ -10971,26 +10843,24 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.GridAdapter = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Kero Grid Adapter
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-09 16:17:17
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : Kero Grid Adapter
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-09 16:17:17
+	                                                                                                                                                                                                                                                   */
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _util = __webpack_require__(10);
 
@@ -11016,7 +10886,7 @@
 
 	var _keroaInteger = __webpack_require__(111);
 
-	var _keroaCheckbox = __webpack_require__(77);
+	var _keroaCheckbox = __webpack_require__(78);
 
 	var _keroaCombo = __webpack_require__(89);
 
@@ -11034,13 +10904,13 @@
 
 	var _keroaPercent = __webpack_require__(116);
 
-	var _neouiValidate = __webpack_require__(82);
+	var _neouiValidate = __webpack_require__(83);
 
 	var _neouiMessage = __webpack_require__(117);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _i18n = __webpack_require__(85);
+	var _i18n = __webpack_require__(73);
 
 	var _core = __webpack_require__(71);
 
@@ -11972,6 +11842,7 @@
 					}
 				};
 			} else if (rType == 'integerRender') {
+				column.dataType = 'Int';
 				var renderType = function renderType(obj) {
 					var grid = obj.gridObj;
 					var column = obj.gridCompColumn;
@@ -12022,6 +11893,7 @@
 					}
 				};
 			} else if (rType == 'floatRender') {
+				column.dataType = 'Float';
 				var renderType = function renderType(obj) {
 					//需要处理精度
 
@@ -12292,7 +12164,7 @@
 					options: eOptions,
 					model: viewModel
 				});
-
+				column.dataType = 'Int';
 				//comp = new $.compManager.plugs.integer(compDiv.find("input")[0],eOptions,viewModel);
 			} else if (eType == 'checkbox') {
 				compDiv = $('<div><input id="' + oThis.id + "_edit_field_" + column['field'] + '" type="checkbox" class="u-grid-edit-item-checkbox"></div>');
@@ -12361,6 +12233,7 @@
 					options: eOptions,
 					model: viewModel
 				});
+				column.dataType = 'Float';
 			} else if (eType == 'currency') {
 				compDiv = $('<div><input type="text" class="u-grid-edit-item-currency"></div>');
 				if (!options.editType || options.editType == "default") {
@@ -12750,9 +12623,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.phoneNumberRender = exports.dateToUTCString = exports.percentRender = exports.timeRender = exports.dateTimeRender = exports.dateRender = exports.integerRender = exports.floatRender = undefined;
 
 	var _core = __webpack_require__(71);
@@ -12856,24 +12727,22 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.YearAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _neouiYear = __webpack_require__(101);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var YearAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -12918,12 +12787,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Year = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _event = __webpack_require__(6);
 
@@ -13165,24 +13032,22 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.MonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _neouiMonth = __webpack_require__(103);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var MonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -13226,12 +13091,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Month = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _event = __webpack_require__(6);
 
@@ -13242,6 +13105,10 @@
 	var _compMgr = __webpack_require__(4);
 
 	var _ripple = __webpack_require__(87);
+
+	var _i18n = __webpack_require__(73);
+
+	var _dateUtils = __webpack_require__(70);
 
 	/**
 	 * Module : neoui-month
@@ -13309,7 +13176,9 @@
 			oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
 			if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
 			_month = this.month;
-			template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
+			var _defaultMonth = _month + '月';
+			var monthIndex = _dateUtils.date._jsonLocale.defaultMonth.indexOf(_defaultMonth);
+			template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _dateUtils.date._jsonLocale.monthsShort[monthIndex] + '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[0] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[1] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[2] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[3] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[4] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[5] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[6] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[7] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[8] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[9] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[10] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[11] + '</div>', '</div>', '</div>'].join("");
 
 			monthPage = (0, _dom.makeDOM)(template);
 			cells = monthPage.querySelectorAll('.u-date-content-year-cell');
@@ -13474,24 +13343,22 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.YearMonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _neouiYearmonth = __webpack_require__(105);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var YearMonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -13536,12 +13403,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.YearMonth = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _event = __webpack_require__(6);
 
@@ -13556,6 +13421,10 @@
 	var _ripple = __webpack_require__(87);
 
 	var _ployfill = __webpack_require__(106);
+
+	var _i18n = __webpack_require__(73);
+
+	var _dateUtils = __webpack_require__(70);
 
 	/**
 	 * Module : neoui-year
@@ -13663,7 +13532,9 @@
 	        oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
 	        if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
 	        _month = this.month;
-	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
+	        var _defaultMonth = _month + '月';
+	        var monthIndex = _dateUtils.date._jsonLocale.defaultMonth.indexOf(_defaultMonth);
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _dateUtils.date._jsonLocale.monthsShort[monthIndex] + '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[0] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[1] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[2] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[3] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[4] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[5] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[6] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[7] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[8] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[9] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[10] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[11] + '</div>', '</div>', '</div>'].join("");
 
 	        monthPage = (0, _dom.makeDOM)(template);
 	        cells = monthPage.querySelectorAll('.u-date-content-year-cell');
@@ -13869,9 +13740,7 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	var requestAnimationFrame = function requestAnimationFrame(callback) {
 	    if (!window.requestAnimationFrame) {
 	        window.requestAnimationFrame = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
@@ -13906,20 +13775,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.TimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _event = __webpack_require__(6);
 
@@ -14017,12 +13884,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.ClockPicker = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _dom = __webpack_require__(5);
 
@@ -14038,11 +13903,7 @@
 
 	var _dateUtils = __webpack_require__(70);
 
-	/**
-	 * Module : neoui-clockpicker
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date	  : 2016-08-11 15:17:07
-	 */
+	var _i18n = __webpack_require__(73);
 
 	var ClockPicker = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
@@ -14059,7 +13920,9 @@
 			(0, _dom.addClass)(this.element, 'u-text');
 
 			this.template = '<div class="u-clock-ul popover clockpicker-popover" style="padding:0px;">';
-			this.template += '<div class="popover-title"><button class="u-button u-date-clean u-clock-clean" >清空</button><span class="clockpicker-span-hours">02</span> : <span class="clockpicker-span-minutes text-primary">01</span><span class="clockpicker-span-am-pm"></span></div>';
+			this.template += '<div class="popover-title"><button class="u-button u-date-clean u-clock-clean" >';
+			this.template += (0, _i18n.trans)('public.clear', "清空");
+			this.template += '</button><span class="clockpicker-span-hours">02</span> : <span class="clockpicker-span-minutes text-primary">01</span><span class="clockpicker-span-am-pm"></span></div>';
 			this.template += '<div class="popover-content">';
 			this.template += '	<div class="clockpicker-plate">';
 			this.template += '		<div class="clockpicker-canvas">';
@@ -14295,11 +14158,12 @@
 
 		setValue: function setValue(value) {
 			value = value ? value : '';
-
+			var oldShowValue;
 			if (value == '') {
-				this.input.value = '';
-
-				this.trigger('valueChange', { value: '' });
+				if (this.input.value != '') {
+					this.input.value = '';
+					this.trigger('valueChange', { value: '' });
+				}
 				return;
 			}
 
@@ -14326,9 +14190,11 @@
 			_date.setMinutes(this.min);
 			_date.setSeconds(this.sec);
 			var showValue = _dateUtils.date.format(_date, this.format);
+			oldShowValue = this.input.value;
 			this.input.value = showValue;
-
-			this.trigger('valueChange', { value: value });
+			if (oldShowValue != showValue) {
+				this.trigger('valueChange', { value: value });
+			}
 		},
 
 		focusEvent: function focusEvent() {
@@ -14460,7 +14326,12 @@
 				} catch (e) {}
 			}
 		}
-	});
+	}); /**
+	     * Module : neoui-clockpicker
+	     * Author : liuyk(liuyk@yonyou.com)
+	     * Date	  : 2016-08-11 15:17:07
+	     */
+
 	if (!_env.env.isIE8) {
 		_compMgr.compMgr.regComp({
 			comp: ClockPicker,
@@ -14485,14 +14356,12 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Time = undefined;
 
 	var _extend = __webpack_require__(8);
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _env = __webpack_require__(7);
 
@@ -14727,22 +14596,20 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.StringAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _extend = __webpack_require__(8);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _event = __webpack_require__(6);
 
@@ -14805,20 +14672,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.IntegerAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _util = __webpack_require__(10);
 
@@ -14920,20 +14785,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.RadioAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _util = __webpack_require__(10);
 
@@ -15125,6 +14988,8 @@
 	                            fetch = true;
 	                            (0, _dom.addClass)(comp.element, 'is-checked');
 	                            comp._btnElement.click();
+	                        } else {
+	                            (0, _dom.removeClass)(comp.element, 'is-checked');
 	                        }
 	                    }
 	                });
@@ -15192,12 +15057,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.Radio = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _dom = __webpack_require__(5);
 
@@ -15432,9 +15295,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.UrlAdapter = undefined;
 
 	var _keroaString = __webpack_require__(110);
@@ -15501,9 +15362,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.PassWordAdapter = undefined;
 
 	var _keroaString = __webpack_require__(110);
@@ -15575,9 +15434,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	exports.__esModule = true;
 	exports.PercentAdapter = undefined;
 
 	var _keroaFloat = __webpack_require__(94);
@@ -15623,9 +15480,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.showMessage = exports.showMessageDialog = undefined;
 
 	var _dom = __webpack_require__(5);
@@ -15635,65 +15490,87 @@
 	/**
 	 * Module : neoui-message
 	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-02 19:40:59
+	 * Date      : 2016-08-02 19:40:59
 	 */
 
 	var messageTemplate = '<div class="u-message"><span class="u-msg-close uf uf-removesymbol"></span>{msg}</div>';
 
 	var showMessage = function showMessage(options) {
-		var msg, position, width, height, showSeconds, msgType, template;
-		if (typeof options === 'string') {
-			options = {
-				msg: options
-			};
-		}
-		msg = options['msg'] || "";
-		position = options['position'] || "bottom-right"; //center. top-left, top-center, top-right, bottom-left, bottom-center, bottom-right,
-		//TODO 后面改规则：没设宽高时，自适应
-		width = options['width'] || "";
-		// height = options['height'] || "100px";
-		msgType = options['msgType'] || 'info';
-		//默认为当用户输入的时间，当用户输入的时间为false并且msgType=='info'时，默认显示时间为2s
-		showSeconds = parseInt(options['showSeconds']) || (msgType == 'info' ? 2 : 0);
+	    var msg, position, width, height, showSeconds, msgType, template;
+	    //新增深色
+	    var darkType;
+	    if (typeof options === 'string') {
+	        options = {
+	            msg: options
+	        };
+	    }
+	    msg = options['msg'] || "";
+	    position = options['position'] || "bottom"; //center. top-left, top-center, top-right, bottom-left, bottom-center, bottom-right,
+	    //TODO 后面改规则：没设宽高时，自适应
+	    width = options['width'] || "";
+	    // height = options['height'] || "100px";
+	    msgType = options['msgType'] || 'info';
+	    //默认为当用户输入的时间，当用户输入的时间为false并且msgType=='info'时，默认显示时间为2s
+	    showSeconds = parseInt(options['showSeconds']) || (msgType == 'info' ? 2 : 0);
 
-		template = options['template'] || messageTemplate;
+	    darkType = options['darkType'] || "";
 
-		template = template.replace('{msg}', msg);
-		var msgDom = (0, _dom.makeDOM)(template);
-		(0, _dom.addClass)(msgDom, 'u-mes' + msgType);
-		msgDom.style.width = width;
-		// msgDom.style.height = height;
-		// msgDom.style.lineHeight = height;
-		if (position == 'bottom-right') {
-			msgDom.style.bottom = '10px';
-		}
+	    template = options['template'] || messageTemplate;
 
-		if (position == 'center') {
-			msgDom.style.bottom = '50%';
-			msgDom.style.transform = 'translateY(50%)';
-		}
-		var closeBtn = msgDom.querySelector('.u-msg-close');
-		//new Button({el:closeBtn});
-		var closeFun = function closeFun() {
-			(0, _dom.removeClass)(msgDom, "active");
-			setTimeout(function () {
-				try {
-					document.body.removeChild(msgDom);
-				} catch (e) {}
-			}, 500);
-		};
-		(0, _event.on)(closeBtn, 'click', closeFun);
-		document.body.appendChild(msgDom);
+	    template = template.replace('{msg}', msg);
+	    var msgDom = (0, _dom.makeDOM)(template);
+	    (0, _dom.addClass)(msgDom, 'u-mes' + msgType);
 
-		if (showSeconds > 0) {
-			setTimeout(function () {
-				closeFun();
-			}, showSeconds * 1000);
-		}
+	    if (!darkType == "") {
+	        (0, _dom.addClass)(msgDom, darkType);
+	    }
 
-		setTimeout(function () {
-			(0, _dom.addClass)(msgDom, "active");
-		}, showSeconds * 1);
+	    msgDom.style.width = width;
+	    // msgDom.style.height = height;
+	    // msgDom.style.lineHeight = height;
+	    if (position == 'bottom' || position == 'top' || position == 'center') {
+	        //msgDom.style.bottom = '10px';
+	        (0, _dom.addClass)(msgDom, 'u-mes-' + position);
+	    }
+
+	    if (position == 'topleft' || position == 'bottomleft') {
+	        if (width == "") {
+	            msgDom.style.right = '2.4rem';
+	            (0, _dom.addClass)(msgDom, 'u-mes-' + position);
+	        } else {
+	            (0, _dom.addClass)(msgDom, 'u-mes-' + position);
+	        }
+	    }
+	    if (position == 'topright' || position == 'bottomright') {
+	        if (width == "") {
+	            msgDom.style.left = '2.4rem';
+	            (0, _dom.addClass)(msgDom, 'u-mes-' + position);
+	        } else {
+	            (0, _dom.addClass)(msgDom, 'u-mes-' + position);
+	        }
+	    }
+	    var closeBtn = msgDom.querySelector('.u-msg-close');
+	    //new Button({el:closeBtn});
+	    var closeFun = function closeFun() {
+	        (0, _dom.removeClass)(msgDom, "active");
+	        setTimeout(function () {
+	            try {
+	                document.body.removeChild(msgDom);
+	            } catch (e) {}
+	        }, 500);
+	    };
+	    (0, _event.on)(closeBtn, 'click', closeFun);
+	    document.body.appendChild(msgDom);
+
+	    if (showSeconds > 0) {
+	        setTimeout(function () {
+	            closeFun();
+	        }, showSeconds * 1000);
+	    }
+
+	    setTimeout(function () {
+	        (0, _dom.addClass)(msgDom, "active");
+	    }, showSeconds * 1);
 	};
 
 	var showMessageDialog = showMessage;
@@ -15707,12 +15584,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.PaginationAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _extend = __webpack_require__(8);
 
@@ -15823,18 +15698,16 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.pagination = undefined;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : neoui-pagination
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-03 08:45:49
-	                                                                                                                                                                                                                                                                               */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * Module : neoui-pagination
+	                                                                                                                                                                                                                                                   * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                   * Date	  : 2016-08-03 08:45:49
+	                                                                                                                                                                                                                                                   */
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _extend = __webpack_require__(8);
 
@@ -16048,12 +15921,23 @@
 				htmlTmp += '<div class="pagination-state">' + options.totalText + '&nbsp;' + options.totalCount + '&nbsp;条</div>';
 			}
 			if (options.showColumn) {
-				htmlTmp += '<div class="pagination-state">显示<select  class="page_z">' + pageOption + '</select>条</div>';
+				if ((0, _dom.hasClass)(this.$ul, 'pagination-sm')) {
+					htmlTmp += '<div class="pagination-state">显示<select  class="page_z page_z_sm">' + pageOption + '</select>条</div>';
+				} else if ((0, _dom.hasClass)(this.$ul, 'pagination-lg')) {
+					htmlTmp += '<div class="pagination-state">显示<select  class="page_z page_z_lg">' + pageOption + '</select>条</div>';
+				} else {
+					htmlTmp += '<div class="pagination-state">显示<select  class="page_z">' + pageOption + '</select>条</div>';
+				}
 			}
 			if (options.showJump) {
-				htmlTmp += '<div class="pagination-state">到<input class="page_j" value=' + options.currentPage + '>页<input class="pagination-jump" type="button" value="确定"/></div>';
+				if ((0, _dom.hasClass)(this.$ul, 'pagination-sm')) {
+					htmlTmp += '<div class="pagination-state">到<input class="page_j page_j_sm" value=' + options.currentPage + '>页<input class="pagination-jump pagination-jump-sm" type="button" value="确定"/></div>';
+				} else if ((0, _dom.hasClass)(this.$ul, 'pagination-lg')) {
+					htmlTmp += '<div class="pagination-state">到<input class="page_j page_j_lg" value=' + options.currentPage + '>页<input class="pagination-jump pagination-jump-lg" type="button" value="确定"/></div>';
+				} else {
+					htmlTmp += '<div class="pagination-state">到<input class="page_j" value=' + options.currentPage + '>页<input class="pagination-jump" type="button" value="确定"/></div>';
+				}
 			}
-
 			htmlArr.push(htmlTmp);
 		}
 
@@ -16229,9 +16113,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.PhoneNumberAdapter = undefined;
 
 	var _keroaString = __webpack_require__(110);
@@ -16286,9 +16168,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.LandLineAdapter = undefined;
 
 	var _keroaString = __webpack_require__(110);
@@ -16343,12 +16223,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.ProgressAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _neouiProgress = __webpack_require__(123);
 
@@ -16389,12 +16267,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Progress = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _dom = __webpack_require__(5);
 
@@ -16516,12 +16392,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.SwitchAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _neouiSwitch = __webpack_require__(125);
 
@@ -16597,12 +16471,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.Switch = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _dom = __webpack_require__(5);
 
@@ -16787,20 +16659,18 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.TextAreaAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var _event = __webpack_require__(6);
 
@@ -16846,12 +16716,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.TextFieldAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _extend = __webpack_require__(8);
 
@@ -16930,24 +16798,22 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.MonthDateAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _neouiMonthdate = __webpack_require__(129);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _valueMixin = __webpack_require__(78);
+	var _valueMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(79);
+	var _enableMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(82);
 
 	var MonthDateAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -16992,12 +16858,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	exports.__esModule = true;
 	exports.MonthDate = undefined;
 
-	var _BaseComponent = __webpack_require__(83);
+	var _BaseComponent = __webpack_require__(84);
 
 	var _env = __webpack_require__(7);
 
@@ -17015,11 +16879,7 @@
 
 	var _ripple = __webpack_require__(87);
 
-	/**
-	 * Module : neoui-year
-	 * Author : wanghao(wanghaoo@yonyou.com)
-	 * Date   : 2016-11-09
-	 */
+	var _i18n = __webpack_require__(73);
 
 	var MonthDate = _BaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
@@ -17085,7 +16945,9 @@
 	    _fillMonth: function _fillMonth() {
 	        var oldPanel, template, monthPage, _month, cells, i;
 	        _month = this.month;
-	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
+	        var _defaultMonth = _month + '月';
+	        var monthIndex = _dateUtils.date._jsonLocale.defaultMonth.indexOf(_defaultMonth);
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _dateUtils.date._jsonLocale.monthsShort[monthIndex] + '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[0] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[1] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[2] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[3] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[4] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[5] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[6] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[7] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[8] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[9] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[10] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[11] + '</div>', '</div>', '</div>'].join("");
 
 	        monthPage = (0, _dom.makeDOM)(template);
 	        cells = monthPage.querySelectorAll('.u-date-content-year-cell');
@@ -17141,12 +17003,12 @@
 	        oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
 	        if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
 	        language = _core.core.getLanguages();
-	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">', this.date + '日', '</div>', '<div class="u-date-week"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">', this.date + (0, _i18n.trans)('public.day', '日'), '</div>', '<div class="u-date-week"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
 	        datePage = (0, _dom.makeDOM)(template);
 	        weekSpans = datePage.querySelectorAll('.u-date-week span');
 
 	        for (var i = 0; i < 7; i++) {
-	            weekSpans[i].innerHTML = _dateUtils.date._dateLocale[language].weekdaysMin[i];
+	            weekSpans[i].innerHTML = _dateUtils.date._jsonLocale.weekdaysMin[i];
 	        }
 	        dateDiv = datePage.querySelector('.u-date-content-panel');
 	        // tempDate = this.startDate;
@@ -17334,7 +17196,11 @@
 	        (0, _dom.removeClass)(this.panelDiv, 'is-visible');
 	        this.panelDiv.style.zIndex = -1;
 	    }
-	});
+	}); /**
+	     * Module : neoui-year
+	     * Author : wanghao(wanghaoo@yonyou.com)
+	     * Date   : 2016-11-09
+	     */
 
 	_compMgr.compMgr.regComp({
 	    comp: MonthDate,
@@ -17357,12 +17223,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	exports.__esModule = true;
 	exports.TreeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(76);
+	var _baseAdapter = __webpack_require__(77);
 
 	var _neouiYear = __webpack_require__(101);
 

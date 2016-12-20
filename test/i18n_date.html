@@ -73,7 +73,7 @@
                     <h3 class="u-widget-title">月份选择器</h3>
                 </div>
                 <div class="u-widget-body">
-                
+
                     <div class='u-month'>
                         <input class="u-input" type="text">
                     </div>
@@ -120,7 +120,7 @@ var langBtns = document.querySelectorAll('.langbtn');
 langBtns.forEach(function(ele,index){
     var langAttr = ele.getAttribute('data-lang');
     ele.addEventListener('click',function(){
-        u.setCookie('i_languages',langAttr)
+        u.setCookie('u_locale',langAttr)
         document.location.reload();
     })
 })
