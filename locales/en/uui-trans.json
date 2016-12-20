@@ -1,4 +1,10 @@
 {
+    "public":{
+        "clear": "Clear",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "day": ""
+    },
     "gridComp": {
       "show_column": "show hide column",
       "clear_set": "clear set",
@@ -31,5 +37,12 @@
 		"input_minvalue": "The input value can not be less than ",
 		"input_equalMax": "The input value can not be greater than or equal to ",
 		"input_equalMin": "The input value can not be less than or equal to "
-	}
+	},
+    "date":{
+        "months": ["January","February","March","April","May","June","July","August","September","October","November","December"],
+        "monthsShort": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+        "weekdays": ["Sunday","Monday","Tuesday","Wednesday","Thurday","Friday","Saturday"],
+        "weekdaysShort": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+        "weekdaysMin": ["S","M","T","W","T","F","S"]
+    }
 }
