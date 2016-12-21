@@ -3,7 +3,8 @@
         "clear": "Clear",
         "confirm": "Confirm",
         "cancel": "Cancel",
-        "day": ""
+        "day": "",
+        "ok": "Ok"
     },
     "gridComp": {
       "show_column": "show hide column",
@@ -44,5 +45,12 @@
         "weekdays": ["Sunday","Monday","Tuesday","Wednesday","Thurday","Friday","Saturday"],
         "weekdaysShort": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
         "weekdaysMin": ["S","M","T","W","T","F","S"]
+    },
+    "pagination":{
+        "totalText":"Total ",
+        "listText": "lists",
+        "pageText":"Page",
+        "showText":"Show ",
+        "toText":"To "
     }
 }

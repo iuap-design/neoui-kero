@@ -233,6 +233,9 @@ var RadioAdapter = BaseAdapter.extend({
         this.enable = (enable === true || enable === 'true');
         if (this.dynamic){
             if(this.datasource){
+                if (this.otherInput && !this.enable ) {
+                    this.otherInput.setAttribute('disabled',true);
+                }
                 this.element.querySelectorAll('.u-radio').forEach(function (ele) {
                     var comp =  ele['u.Radio'];
                     if(comp){
