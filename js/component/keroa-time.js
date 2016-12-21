@@ -48,8 +48,10 @@ var TimeAdapter = BaseAdapter.extend({
                     if (!_date){
                         self.dataModel.setValue(self.field,'');
                     }else {
-                        if (event.value == _date.getHours() + ':' + _date.getMinutes() + ':' + _date.getSeconds())
+                        if (event.value == (_date.getHours()<10 ?'0'+_date.getHours() :_date.getHours()) + ':' + (_date.getMinutes() <10 ? '0'+_date.getMinutes() :_date.getMinutes()) + ':' +( _date.getSeconds()<10?'0'+_date.getSeconds():_date.getSeconds()) ) {
+                            self.slice = false;
                             return;
+                        }
                         _date.setHours(valueArr[0]);
                         _date.setMinutes(valueArr[1]);
                         _date.setSeconds(valueArr[2]);
@@ -80,7 +82,7 @@ var TimeAdapter = BaseAdapter.extend({
             if (!_date)
                 compValue = ''
             else
-                compValue = _date.getHours() + ':' + _date.getMinutes() + ':' + _date.getSeconds();
+                compValue = (_date.getHours()<10 ?'0'+_date.getHours() :_date.getHours()) + ':' + (_date.getMinutes() <10 ? '0'+_date.getMinutes() :_date.getMinutes()) + ':' +( _date.getSeconds()<10?'0'+_date.getSeconds():_date.getSeconds()) ;
         }
         else{
             compValue = value;

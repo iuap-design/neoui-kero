@@ -281,6 +281,9 @@ var CheckboxAdapter = BaseAdapter.extend({
         this.enable = (enable === true || enable === 'true');
         if (this.isGroup){
             if(this.datasource){
+                if (this.otherInput && !this.enable ) {
+                    this.otherInput.setAttribute('disabled',true);
+                }
                 this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
                     var comp =  ele['u.Checkbox'];
                     if(comp){
