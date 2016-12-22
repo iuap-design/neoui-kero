@@ -1713,10 +1713,13 @@ var GridAdapter = BaseAdapter.extend({
 			}
 
             var columnPassedFlag = true,
-                columnMsg = '';
-            if(this.editComponent[field] && this.editComponent[field].element){
-	            var validate = new Validate({
-	            	el: this.editComponent[field].element,
+                columnMsg = '',
+                elel = document.body;
+			if (this.editComponent[field] && this.editComponent[field].element) {
+				elel = this.editComponent[field].element;
+			}
+				var validate = new Validate({
+					el: elel,
 	                single: true,
 	                required: required,
 	                validType: validType,
@@ -1771,7 +1774,6 @@ var GridAdapter = BaseAdapter.extend({
 						contentDom.scrollLeft = left;
 					}
 				}
-			}
 		}
 		if(columnShowMsg)
 			showMessage({msg:columnShowMsg,showSeconds:3})
