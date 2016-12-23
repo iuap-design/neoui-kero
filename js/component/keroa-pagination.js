@@ -66,7 +66,13 @@ var PaginationAdapter = BaseAdapter.extend({
         if(this.comp.options.pageList.length > 0){
             this.comp.options.pageSize = this.comp.options.pageList[0];
             ///this.comp.trigger('sizeChange', options.pageList[0])
-            this.dataModel.pageSize(this.comp.options.pageList[0]);
+            var checkIndex = 0;
+            var defalutPageSize = this.comp.dataModel.pageSize();
+            if( defalutPageSize>0 ) {
+                checkIndex = this.comp.options.pageList.indexOf(defalutPageSize);
+            }
+            checkIndex = checkIndex<0? 0 :checkIndex;
+            this.dataModel.pageSize(this.comp.options.pageList[checkIndex]);
         }
 
 

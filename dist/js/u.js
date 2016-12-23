@@ -7728,6 +7728,7 @@
 	        // CheckboxAdapter.superclass.initialize.apply(this, arguments);
 	        this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
 	        this.otherValue = this.options['otherValue'] || '其他';
+	        this.beforeEdit = (0, _util.getFunction)(this.viewModel, this.options['beforeEdit']);
 	        if (this.options['datasource'] || this.options['hasOther']) {
 	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
 	            if (_env.env.isIE) {
@@ -7748,6 +7749,7 @@
 	                this.comp = this.element['u.Checkbox'];
 	            } else {
 	                this.comp = new _neouiCheckbox.Checkbox(this.element);
+	                this.comp.beforeEdit = this.beforeEdit;
 	                this.element['u.Checkbox'] = this.comp;
 	            }
 
@@ -7901,6 +7903,7 @@
 	                comp = ele['u.Checkbox'];
 	            } else {
 	                comp = new _neouiCheckbox.Checkbox(ele);
+	                comp.beforeEdit = self.beforeEdit;
 	            }
 	            ele['u.Checkbox'] = comp;
 	            comp.on('change', function () {
@@ -8850,6 +8853,10 @@
 	                this.referDom = this.$element;
 	            }
 	        }
+	        if (this.tooltip) {
+	            this.tooltip.hide();
+	        }
+
 	        this.tooltip = new _neouiTooltip.Tooltip(this.referDom, tipOptions);
 	        this.tooltip.setTitle(msg);
 	        this.tooltip.show();
@@ -9614,15 +9621,25 @@
 	        this._updateClasses();
 	    },
 
+	    // 点击时查看是否有beforeEdit（从checkboxAdapter那里传来）方法，根据beforeEdit方法判断是否触发check或者uncheck
+	    beforeToggle: function beforeToggle() {
+	        if (typeof this.beforeEdit === 'function') {
+	            return this.beforeEdit();
+	        } else {
+	            return true;
+	        }
+	    },
 	    /**
 	     * Check checkbox.
 	     *
 	     * @public
 	     */
 	    check: function check() {
-	        this._inputElement.checked = true;
-	        this._updateClasses();
-	        this.boundInputOnChange();
+	        if (this.beforeToggle()) {
+	            this._inputElement.checked = true;
+	            this._updateClasses();
+	            this.boundInputOnChange();
+	        }
 	    },
 
 	    /**
@@ -9631,9 +9648,11 @@
 	     * @public
 	     */
 	    uncheck: function uncheck() {
-	        this._inputElement.checked = false;
-	        this._updateClasses();
-	        this.boundInputOnChange();
+	        if (this.beforeToggle()) {
+	            this._inputElement.checked = false;
+	            this._updateClasses();
+	            this.boundInputOnChange();
+	        }
 	    }
 
 	}); /**
@@ -15243,62 +15262,64 @@
 				}
 
 				var columnPassedFlag = true,
-				    columnMsg = '';
+				    columnMsg = '',
+				    elel = document.body;
 				if (this.editComponent[field] && this.editComponent[field].element) {
-					var validate = new _neouiValidate.Validate({
-						el: this.editComponent[field].element,
-						single: true,
-						required: required,
-						validType: validType,
-						placement: placement,
-						tipId: tipId,
-						errorMsg: errorMsg,
-						nullMsg: nullMsg,
-						maxLength: maxLength,
-						minLength: minLength,
-						max: max,
-						min: min,
-						maxNotEq: maxNotEq,
-						minNotEq: minNotEq,
-						reg: reg,
-						showFix: true
-					});
-					for (var i = 0; i < rows.length; i++) {
-						var value = rows[i].value[field];
-						var result = validate.check({ pValue: value, showMsg: false });
-						passed = result.passed && passed;
-						if (!result.passed) {
-							columnPassedFlag = false;
-							if (options.showMsg && columnMsg.indexOf(result.Msg) < 0) {
-								columnMsg += result.Msg + ' ';
-							}
-							// 设置背景色
-							var index = this.grid.getIndexOfColumn(column);
-							var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
-							var row = contentDiv.querySelectorAll('tr')[i];
-							var td = row.querySelectorAll('td')[index];
-							var div = td.querySelector('div');
-							(0, _dom.addClass)(td, 'u-grid-err-td');
-							(0, _dom.addClass)(div, 'u-grid-err-td');
-							var msg = '(' + title + ')' + result.Msg + ';';
-							evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
-							eval(evalStr);
+					elel = this.editComponent[field].element;
+				}
+				var validate = new _neouiValidate.Validate({
+					el: elel,
+					single: true,
+					required: required,
+					validType: validType,
+					placement: placement,
+					tipId: tipId,
+					errorMsg: errorMsg,
+					nullMsg: nullMsg,
+					maxLength: maxLength,
+					minLength: minLength,
+					max: max,
+					min: min,
+					maxNotEq: maxNotEq,
+					minNotEq: minNotEq,
+					reg: reg,
+					showFix: true
+				});
+				for (var i = 0; i < rows.length; i++) {
+					var value = rows[i].value[field];
+					var result = validate.check({ pValue: value, showMsg: false });
+					passed = result.passed && passed;
+					if (!result.passed) {
+						columnPassedFlag = false;
+						if (options.showMsg && columnMsg.indexOf(result.Msg) < 0) {
+							columnMsg += result.Msg + ' ';
 						}
+						// 设置背景色
+						var index = this.grid.getIndexOfColumn(column);
+						var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
+						var row = contentDiv.querySelectorAll('tr')[i];
+						var td = row.querySelectorAll('td')[index];
+						var div = td.querySelector('div');
+						(0, _dom.addClass)(td, 'u-grid-err-td');
+						(0, _dom.addClass)(div, 'u-grid-err-td');
+						var msg = '(' + title + ')' + result.Msg + ';';
+						evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
+						eval(evalStr);
 					}
-					// 如果存在错误信息并且提示信息
-					if (!columnPassedFlag && options.showMsg) {
-						columnShowMsg += title + ':' + columnMsg + '<br>';
-					}
-					if (!columnPassedFlag) {
-						if (!hasErrow) {
-							// 滚动条要滚动到第一次出现错误的数据列
-							hasErrow = true;
-							var ind = this.grid.getIndexOfColumn(column);
-							var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
-							var left = thDom.attrLeftTotalWidth;
-							var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
-							contentDom.scrollLeft = left;
-						}
+				}
+				// 如果存在错误信息并且提示信息
+				if (!columnPassedFlag && options.showMsg) {
+					columnShowMsg += title + ':' + columnMsg + '<br>';
+				}
+				if (!columnPassedFlag) {
+					if (!hasErrow) {
+						// 滚动条要滚动到第一次出现错误的数据列
+						hasErrow = true;
+						var ind = this.grid.getIndexOfColumn(column);
+						var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
+						var left = thDom.attrLeftTotalWidth;
+						var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
+						contentDom.scrollLeft = left;
 					}
 				}
 			}
@@ -15320,6 +15341,31 @@
 				comp: this,
 				Msg: wholeMsg
 			};
+		},
+		/**
+	  * [动态的设置下拉框的数据源]
+	  * 只有renderType设置为comboRender，editType为combo的情况才能通过此方式修改datasource
+	  * @param {[object]} data {fieldName:字段名, comboData:下拉的数据源}
+	  */
+		setComboDataByField: function setComboDataByField(data) {
+			var oThis, comboboxAdapter, viewModel, column, columnEOption, ds;
+			oThis = this;
+			// 如果data不存在则不赋值
+			if (!data) {
+				return;
+			}
+			//获取comboboxAdapter
+			comboboxAdapter = oThis.editComponent[data.fieldName];
+			comboboxAdapter.comp.setComboData(data.comboData);
+
+			viewModel = oThis.gridOptions['model'];
+			// 获取列取eOption
+			column = oThis.grid.getColumnByField(data.fieldName);
+			// 获取eoption对应的数据源
+			columnEOption = column.options.editOptions;
+
+			ds = (0, _util.getJSObject)(viewModel, columnEOption['datasource']);
+			ds = data.comboData;
 		}
 	});
 
@@ -18373,7 +18419,13 @@
 	        if (this.comp.options.pageList.length > 0) {
 	            this.comp.options.pageSize = this.comp.options.pageList[0];
 	            ///this.comp.trigger('sizeChange', options.pageList[0])
-	            this.dataModel.pageSize(this.comp.options.pageList[0]);
+	            var checkIndex = 0;
+	            var defalutPageSize = this.comp.dataModel.pageSize();
+	            if (defalutPageSize > 0) {
+	                checkIndex = this.comp.options.pageList.indexOf(defalutPageSize);
+	            }
+	            checkIndex = checkIndex < 0 ? 0 : checkIndex;
+	            this.dataModel.pageSize(this.comp.options.pageList[checkIndex]);
 	        }
 
 	        // 如果datatable已经创建则根据datatable设置分页组件
@@ -18771,10 +18823,11 @@
 			options.totalPages = totalPages;
 			this.render();
 		}
+		var temppageIndex = pageIndex - 1 < 0 ? 0 : pageIndex - 1;
 		if (pageSize != oldPageSize) {
-			this.trigger('sizeChange', [pageSize, pageIndex - 1]);
+			this.trigger('sizeChange', [pageSize, temppageIndex]);
 		} else {
-			this.trigger('pageChange', pageIndex - 1);
+			this.trigger('pageChange', temppageIndex);
 		}
 
 		//this.$element.trigger('pageChange', pageIndex)
@@ -25092,6 +25145,7 @@
 			target_div.insertAdjacentHTML("beforeEnd", "<div class='multilang_menu '>" + tmplabel + "</div>");
 			var tmpIconv = target_div.querySelector(".lang_icon"),
 			    target_menu = target_div.querySelector(".multilang_menu"),
+			    target_labels = target_menu.querySelectorAll('label'),
 			    tmpvaluebox = target_div.querySelector(".lang_value");
 			(0, _event.on)(tmpIconv, "click", function () {
 				var target_icon = this;
@@ -25123,19 +25177,22 @@
 					(0, _dom.css)(target_menu, "display", "none");
 				}
 			});
-			(0, _event.on)(target_menu, "click", "label", function () {
-				var target_label = this,
-				    tmpfield = target_label.getAttribute("attr"),
-				    tmptext = target_label.querySelector(".m_context").innerHTML,
-				    tmpicon = target_label.querySelector(".m_icon").cloneNode(true);
 
-				tmpvaluebox.setAttribute("class", "ready_change lang_value " + tmpfield);
-				tmpvaluebox.value = tmptext;
-				tmpvaluebox.focus();
-				var tmpicom = target_div.querySelector(".lang_icon"),
-				    oldicon = target_div.querySelector(".m_icon");
-				(0, _dom.removeClass)(tmpicom, "uf-caretdown");
-				tmpicom.replaceChild(tmpicon, oldicon);
+			target_labels.forEach(function (ele) {
+				(0, _event.on)(ele, "click", function () {
+					var target_label = this,
+					    tmpfield = target_label.getAttribute("attr"),
+					    tmptext = target_label.querySelector(".m_context").innerHTML,
+					    tmpicon = target_label.querySelector(".m_icon").cloneNode(true);
+
+					tmpvaluebox.setAttribute("class", "ready_change lang_value " + tmpfield);
+					tmpvaluebox.value = tmptext;
+					tmpvaluebox.focus();
+					var tmpicom = target_div.querySelector(".lang_icon"),
+					    oldicon = target_div.querySelector(".m_icon");
+					(0, _dom.removeClass)(tmpicom, "uf-caretdown");
+					tmpicom.replaceChild(tmpicon, oldicon);
+				});
 			});
 		} else {
 			console.error('Not object');

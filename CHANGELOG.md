@@ -1,3 +1,15 @@
+<a name="3.1.18"></a>
+## [3.1.18](https://github.com/iuap-design/kero-adapter/compare/v3.1.17...v3.1.18) (2016-12-22)
+
+
+### Bug Fixes
+* changelog样式 ([7079bde](https://github.com/iuap-design/kero-adapter/commit/7079bde))
+
+* 云表单radio、单选框其他输入框disable设置 ([3717e56](https://github.com/iuap-design/kero-adapter/commit/3717e56))
+
+
+
+
 <a name="3.1.17"></a>
 ## [3.1.17](https://github.com/iuap-design/kero-adapter/compare/v3.1.16...v3.1.17) (2016-12-14)
 
