@@ -1,5 +1,5 @@
 /*!
- * tinper-sparrow v3.1.18
+ * tinper-sparrow v0.1.1
  * sparrow.js
  * author : Yonyou FED
  * homepage : https://github.com/iuap-design/tinper-sparrow#readme
@@ -86,23 +86,15 @@
 
 	var _masker = __webpack_require__(15);
 
-	var _hotKeys = __webpack_require__(18);
+	var _hotKeys = __webpack_require__(17);
 
-	var _ripple = __webpack_require__(19);
+	var _ripple = __webpack_require__(18);
 
-	var _rsautils = __webpack_require__(20);
+	var _rsautils = __webpack_require__(19);
 
-	var _i18n = __webpack_require__(17);
-
-	var _ployfill = __webpack_require__(21);
+	var _i18n = __webpack_require__(20);
 
 	//公开接口、属性对外暴露
-	/**
-	 * Module : Sparrow entry index
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-04 09:48:36
-	 */
-
 	var api = {
 		ajax: _ajax.ajax,
 		extend: _extend.extend,
@@ -162,10 +154,13 @@
 		BigInt: _rsautils.BigInt,
 		BarrettMu: _rsautils.BarrettMu,
 		twoDigit: _rsautils.twoDigit,
-		trans: _i18n.trans,
-		requestAnimationFrame: _ployfill.requestAnimationFrame,
-		cancelRequestAnimFrame: _ployfill.cancelRequestAnimFrame
-	};
+		trans: _i18n.trans
+	}; /**
+	    * Module : Sparrow entry index
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-04 09:48:36
+	    */
+
 	(0, _extend.extend)(api, _env.env);
 	if (document.readyState && document.readyState === 'complete') {
 		_compMgr.compMgr.updateComp();
@@ -179,8 +174,6 @@
 	(0, _extend.extend)(api, window.u || {});
 
 	window.u = api;
-	window.iweb = {};
-	window.iweb.browser = window.u;
 	exports.u = api;
 
 /***/ },
@@ -405,9 +398,8 @@
 			return;
 		}
 	};
-	try {
-		NodeList.prototype.forEach = Array.prototype.forEach;
-	} catch (e) {}
+
+	NodeList.prototype.forEach = Array.prototype.forEach;
 
 	/**
 	 * 获得字符串的字节长度
@@ -427,28 +419,6 @@
 		return this.replace(raRegExp, ARepText);
 	};
 
-	var dateFormat = function dateFormat(str) {
-		//如果不是string类型  原型返回
-		if (typeof str !== 'string') {
-			return str;
-		}
-		//判断 str 格式如果是 yy-mm-dd
-		if (str && str.indexOf('-') > -1) {
-			//获取当前是否是 ios版本,>8是因为ios不识别new Date（“2016/11”）格式
-			var ua = navigator.userAgent.toLowerCase();
-			if (/iphone|ipad|ipod/.test(ua)) {
-				//转换成 yy/mm/dd
-				str = str.replace(/-/g, "/");
-				str = str.replace(/(^\s+)|(\s+$)/g, "");
-				if (str.length <= 8) {
-					str = str += "/01";
-				}
-			}
-		}
-
-		return str;
-	};
-
 	exports.createShellObject = createShellObject;
 	exports.execIgnoreError = execIgnoreError;
 	exports.getFunction = getFunction;
@@ -460,7 +430,6 @@
 	exports.inArray = inArray;
 	exports.isDomElement = isDomElement;
 	exports.each = each;
-	exports.dateFormat = dateFormat;
 
 /***/ },
 /* 5 */
@@ -970,7 +939,7 @@
 				element["uEvent"][eventName].forEach(function (fn) {
 					try {
 						e.target = e.target || e.srcElement; //兼容IE8
-					} catch (ee) {}
+					} catch (e) {}
 					if (fn) fn.call(element, e);
 				});
 			};
@@ -1011,8 +980,7 @@
 			}
 			return;
 		}
-		var eventfn;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) eventfn = element["uEvent"][eventName + 'fn'];
+		var eventfn = element["uEvent"][eventName + 'fn'];
 		if (element.removeEventListener) {
 			// 用于支持DOM的浏览器
 			element.removeEventListener(eventName, eventfn);
@@ -1026,9 +994,8 @@
 		if (u.event && u.event[eventName] && u.event[eventName].teardown) {
 			u.event[eventName].teardown.call(element);
 		}
-
-		if (element && element["uEvent"] && element["uEvent"][eventName]) element["uEvent"][eventName] = undefined;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) element["uEvent"][eventName + 'fn'] = undefined;
+		element["uEvent"][eventName] = undefined;
+		element["uEvent"][eventName + 'fn'] = undefined;
 	};
 	var trigger = function trigger(element, eventName) {
 		if (element["uEvent"] && element["uEvent"][eventName]) {
@@ -1076,11 +1043,7 @@
 	var addClass = function addClass(element, value) {
 		if (element) {
 			if (typeof element.classList === 'undefined') {
-				if (u._addClass) {
-					u._addClass(element, value);
-				} else {
-					$(element).addClass(value);
-				}
+				if (u._addClass) u._addClass(element, value);
 			} else {
 				element.classList.add(value);
 			}
@@ -1101,11 +1064,7 @@
 	var removeClass = function removeClass(element, value) {
 		if (element) {
 			if (typeof element.classList === 'undefined') {
-				if (u._removeClass) {
-					u._removeClass(element, value);
-				} else {
-					$(element).removeClass(value);
-				}
+				if (u._removeClass) u._removeClass(element, value);
 			} else {
 				element.classList.remove(value);
 			}
@@ -1121,12 +1080,7 @@
 		if (!element) return false;
 		if (element.nodeName && (element.nodeName === '#text' || element.nodeName === '#comment')) return false;
 		if (typeof element.classList === 'undefined') {
-			if (u._hasClass) {
-				return u._hasClass(element, value);
-			} else {
-				return $(element).hasClass(value);
-			}
-
+			if (u._hasClass) return u._hasClass(element, value);
 			return false;
 		} else {
 			return element.classList.contains(value);
@@ -1224,7 +1178,7 @@
 	 */
 	var makeModal = function makeModal(element, parEle) {
 		var overlayDiv = document.createElement('div');
-		$(overlayDiv).addClass('u-overlay');
+		addClass(overlayDiv, 'u-overlay');
 		overlayDiv.style.zIndex = getZIndex();
 		// 如果有父元素则插入到父元素上，没有则添加到body上
 		if (parEle && parEle != document.body) {
@@ -1289,12 +1243,12 @@
 		// left = offLeft - scrollLeft,top = offTop - scrollTop,
 		eleRect = obj.ele.getBoundingClientRect(),
 		    panelRect = obj.panel.getBoundingClientRect(),
-		    eleWidth = eleRect.width || 0,
-		    eleHeight = eleRect.height || 0,
-		    left = eleRect.left || 0,
-		    top = eleRect.top || 0,
-		    panelWidth = panelRect.width || 0,
-		    panelHeight = panelRect.height || 0,
+		    eleWidth = eleRect.width,
+		    eleHeight = eleRect.height,
+		    left = eleRect.left,
+		    top = eleRect.top,
+		    panelWidth = panelRect.width,
+		    panelHeight = panelRect.height,
 		    docWidth = document.documentElement.clientWidth,
 		    docHeight = document.documentElement.clientHeight;
 
@@ -2932,16 +2886,17 @@
 	};
 
 	PhoneNumberMasker.prototype.formatArgument = function (obj) {
-		var numberObj = {};
-		numberObj.value = obj;
-		return numberObj;
+		return obj;
 	};
 
 	PhoneNumberMasker.prototype.innerFormat = function (obj) {
 		if (!obj) {
 			return;
 		}
-		return obj;
+		var val = obj;
+		return {
+			value: val
+		};
 	};
 
 	NumberMasker.DefaultFormatMeta = {
@@ -2983,10 +2938,6 @@
 
 	var _core = __webpack_require__(9);
 
-	var _util = __webpack_require__(4);
-
-	var _i18n = __webpack_require__(17);
-
 	var u = {}; /**
 	             * Module : Sparrow date util
 	             * Author : Kvkens(yueming@yonyou.com)
@@ -3014,14 +2965,6 @@
 				weekdaysShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
 				weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
 			}
-		},
-		_jsonLocale: {
-			months: (0, _i18n.trans)('date.months', "一月\n二月\n三月\n四月\n五月\n六月\n七月\n八月\n九月\n十月\n十一月\n十二月").split('\n'),
-			monthsShort: (0, _i18n.trans)('date.monthsShort', "1月\n2月\n3月\n4月\n5月\n6月\n7月\n8月\n9月\n10月\n11月\n12月").split('\n'),
-			weekdays: (0, _i18n.trans)('date.weekdays', "星期日\n星期一\n星期二\n星期三\n星期四\n星期五\n星期六").split('\n'),
-			weekdaysShort: (0, _i18n.trans)('date.weekdaysShort', "周日\n周一\n周二\n周三\n周四\n周五\n周六").split('\n'),
-			weekdaysMin: (0, _i18n.trans)('date.weekdaysMin', "日\n一\n二\n三\n四\n五\n六").split('\n'),
-			defaultMonth: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
 		},
 
 		_formattingTokens: /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYY|YY|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
@@ -3053,13 +2996,11 @@
 			},
 			MMM: function MMM(date, language) {
 				var m = date.getMonth();
-				// return u.date._dateLocale[language].monthsShort[m];
-				return u.date._jsonLocale.monthsShort[m];
+				return u.date._dateLocale[language].monthsShort[m];
 			},
 			MMMM: function MMMM(date, language) {
 				var m = date.getMonth();
-				// return u.date._dateLocale[language].months[m];
-				return u.date._jsonLocale.months[m];
+				return u.date._dateLocale[language].months[m];
 			},
 			//date
 			D: function D(date) {
@@ -3075,18 +3016,15 @@
 			},
 			dd: function dd(date, language) {
 				var d = u.date._formats.d(date);
-				// return u.date._dateLocale[language].weekdaysMin[d];
-				return u.date._jsonLocale.weekdaysMin[d];
+				return u.date._dateLocale[language].weekdaysMin[d];
 			},
 			ddd: function ddd(date, language) {
 				var d = u.date._formats.d(date);
-				// return u.date._dateLocale[language].weekdaysShort[d];
-				return u.date._jsonLocale.weekdaysShort[d];
+				return u.date._dateLocale[language].weekdaysShort[d];
 			},
 			dddd: function dddd(date, language) {
 				var d = u.date._formats.d(date);
-				// return u.date._dateLocale[language].weekdays[d];
-				return u.date._jsonLocale.weekdays[d];
+				return u.date._dateLocale[language].weekdays[d];
 			},
 			// am pm
 			a: function a(date) {
@@ -3177,10 +3115,10 @@
 				_date.setDate(d);
 			} else if (period == 'M') {
 				m = m + value * isAdding;
-				_date.setMonth(m);
+				_date.setMonth(d);
 			} else if (period == 'y') {
 				m = m + value * 12 * isAdding;
-				_date.setMonth(m);
+				_date.setMonth(d);
 			}
 			return _date;
 		},
@@ -3194,10 +3132,10 @@
 		getDateObj: function getDateObj(value) {
 			if (!value || typeof value == 'undefined') return value;
 			var dateFlag = false;
-			var _date = new Date((0, _util.dateFormat)(value));
+			var _date = new Date(value);
 			if (isNaN(_date)) {
 				// IE的话对"2016-2-13 12:13:22"进行处理
-				var index1, index2, index3, s1, s2, s3, s4;
+				var index1, index2, index3, s1, s2, s3;
 				if (value.indexOf) {
 					index1 = value.indexOf('-');
 					index2 = value.indexOf(':');
@@ -3208,7 +3146,6 @@
 							s3 = value.split(' ');
 							s1 = s3[0].split('-');
 							s2 = s3[1].split(':');
-							s4 = s3[2];
 						} else if (index1 > 0) {
 							s1 = value.split('-');
 						} else if (index2 > 0) {
@@ -3221,10 +3158,6 @@
 							dateFlag = true;
 						}
 						if (s2 && s2.length > 0) {
-							//解决ie和firefox等时间pm直接变am问题
-							if (s4 == "pm") {
-								s2[0] = s2[0] - -12;
-							}
 							_date.setHours(s2[0] ? s2[0] : 0);
 							_date.setMinutes(s2[1] ? s2[1] : 0);
 							_date.setSeconds(s2[2] ? s2[2] : 0);
@@ -3242,6 +3175,7 @@
 			} else {
 				dateFlag = true;
 			}
+
 			if (dateFlag) return _date;else return null;
 		}
 
@@ -3252,81 +3186,6 @@
 
 /***/ },
 /* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.trans = undefined;
-
-	var _cookies = __webpack_require__(3);
-
-	var _enumerables = __webpack_require__(2);
-
-	// 从datatable/src/compatiable/u/JsExtension.js抽取
-	/**
-	 * Module : Sparrow i18n
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-29 10:16:54
-	 */
-	//import {uuii18n} from '?';//缺失故修改为default值
-	window.getCurrentJsPath = function () {
-		var doc = document,
-		    a = {},
-		    expose = +new Date(),
-		    rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/,
-		    isLtIE8 = ('' + doc.querySelector).indexOf('[native code]') === -1;
-		// FF,Chrome
-		if (doc.currentScript) {
-			return doc.currentScript.src;
-		}
-
-		var stack;
-		try {
-			a.b();
-		} catch (e) {
-			stack = e.fileName || e.sourceURL || e.stack || e.stacktrace;
-		}
-		// IE10
-		if (stack) {
-			var absPath = rExtractUri.exec(stack)[1];
-			if (absPath) {
-				return absPath;
-			}
-		}
-
-		// IE5-9
-		for (var scripts = doc.scripts, i = scripts.length - 1, script; script = scripts[i--];) {
-			if (script.className !== expose && script.readyState === 'interactive') {
-				script.className = expose;
-				// if less than ie 8, must get abs path by getAttribute(src, 4)
-				return isLtIE8 ? script.getAttribute('src', 4) : script.src;
-			}
-		}
-	};
-
-	if (window.i18n) {
-		var scriptPath = getCurrentJsPath(),
-		    _temp = scriptPath.substr(0, scriptPath.lastIndexOf('/')),
-		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/'));
-		i18n.init({
-			postAsync: false,
-			getAsync: false,
-			fallbackLng: false,
-			ns: { namespaces: ['uui-trans'] },
-			lng: (0, _cookies.getCookie)(_enumerables.U_LOCALE) || 'zh',
-			resGetPath: __FOLDER__ + '/locales/__lng__/__ns__.json'
-		});
-	}
-
-	var trans = function trans(key, dftValue) {
-		return window.i18n ? i18n.t('uui-trans:' + key) : dftValue;
-	};
-
-	exports.trans = trans;
-
-/***/ },
-/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3491,7 +3350,7 @@
 	exports.hotkeys = hotkeys;
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3506,7 +3365,7 @@
 	var _event = __webpack_require__(6);
 
 	var URipple = function URipple(element) {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  this._element = element;
 
 	  // Initialize instance.
@@ -3521,14 +3380,12 @@
 	 */
 
 	URipple.prototype._down = function (event) {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  if (!this._rippleElement.style.width && !this._rippleElement.style.height) {
 	    var rect = this._element.getBoundingClientRect();
 	    this.rippleSize_ = Math.sqrt(rect.width * rect.width + rect.height * rect.height) * 2 + 2;
-	    if (this.rippleSize_ > 0) {
-	      this._rippleElement.style.width = this.rippleSize_ + 'px';
-	      this._rippleElement.style.height = this.rippleSize_ + 'px';
-	    }
+	    this._rippleElement.style.width = this.rippleSize_ + 'px';
+	    this._rippleElement.style.height = this.rippleSize_ + 'px';
 	  }
 
 	  (0, _dom.addClass)(this._rippleElement, 'is-visible');
@@ -3571,7 +3428,7 @@
 	 * @private
 	 */
 	URipple.prototype._up = function (event) {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  var self = this;
 	  // Don't fire for the artificial "mouseup" generated by a double-click.
 	  if (event && event.detail !== 2) {
@@ -3590,7 +3447,7 @@
 	     * @return {number} the frame count.
 	     */
 	URipple.prototype.getFrameCount = function () {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  return this.frameCount_;
 	};
 	/**
@@ -3598,7 +3455,7 @@
 	     * @param {number} fC the frame count.
 	     */
 	URipple.prototype.setFrameCount = function (fC) {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  this.frameCount_ = fC;
 	};
 
@@ -3607,7 +3464,7 @@
 	     * @return {Element} the ripple element.
 	     */
 	URipple.prototype.getRippleElement = function () {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  return this._rippleElement;
 	};
 
@@ -3617,7 +3474,7 @@
 	 * @param  {number} newY the new Y coordinate
 	 */
 	URipple.prototype.setRippleXY = function (newX, newY) {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  this.x_ = newX;
 	  this.y_ = newY;
 	};
@@ -3627,7 +3484,7 @@
 	 * @param  {boolean} start whether or not this is the start frame.
 	 */
 	URipple.prototype.setRippleStyles = function (start) {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  if (this._rippleElement !== null) {
 	    var transformString;
 	    var scale;
@@ -3660,7 +3517,7 @@
 	   * Handles an animation frame.
 	   */
 	URipple.prototype.animFrameHandler = function () {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  if (this.frameCount_-- > 0) {
 	    window.requestAnimationFrame(this.animFrameHandler.bind(this));
 	  } else {
@@ -3672,7 +3529,7 @@
 	 * Initialize element.
 	 */
 	URipple.prototype.init = function () {
-	  if (_env.env.isIE8) return;
+	  if (_env.isIE8) return;
 	  var self = this;
 	  if (this._element) {
 	    this._rippleElement = this._element.querySelector('.u-ripple');
@@ -3720,7 +3577,7 @@
 	exports.URipple = URipple;
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4424,39 +4281,24 @@
 	exports.twoDigit = twoDigit;
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	exports.__esModule = true;
-	var requestAnimationFrame = function requestAnimationFrame(callback) {
-	    if (!window.requestAnimationFrame) {
-	        window.requestAnimationFrame = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
-	            var self = this,
-	                start,
-	                finish;
-	            return window.setTimeout(function () {
-	                start = +new Date();
-	                callback(start);
-	                finish = +new Date();
-	                self.timeout = 1000 / 60 - (finish - start);
-	            }, self.timeout);
-	        };
-	    } else {
-	        window.requestAnimationFrame(callback);
-	    }
+	/**
+	 * Module : Sparrow i18n
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-29 10:16:54
+	 */
+	//import {uuii18n} from '?';//缺失故修改为default值
+	var trans = function trans(key, dftValue) {
+	  //return  uuii18n ?  uuii18n.t('uui-trans:' + key) : dftValue;
+	  return dftValue;
 	};
 
-	var cancelRequestAnimFrame = function cancelRequestAnimFrame(callback) {
-	    window.cancelRequestAnimFrame = function () {
-	        return window.cancelAnimationFrame || window.webkitCancelRequestAnimationFrame || window.mozCancelRequestAnimationFrame || window.oCancelRequestAnimationFrame || window.msCancelRequestAnimationFrame || clearTimeout;
-	    }();
-	    window.cancelRequestAnimFrame(callback);
-	};
-
-	exports.requestAnimationFrame = requestAnimationFrame;
-	exports.cancelRequestAnimFrame = cancelRequestAnimFrame;
+	exports.trans = trans;
 
 /***/ }
 /******/ ]);

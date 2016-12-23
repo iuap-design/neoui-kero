@@ -9,7 +9,7 @@ import {ValueMixin} from '../core/valueMixin';
 import {EnableMixin} from '../core/enableMixin';
 import {RequiredMixin} from '../core/requiredMixin';
 import {ValidateMixin} from '../core/validateMixin';
-import {getJSObject} from 'tinper-sparrow/js/util';
+import {getJSObject,getFunction} from 'tinper-sparrow/js/util';
 import {Checkbox} from 'tinper-neoui/js/neoui-checkbox';
 import {compMgr} from 'tinper-sparrow/js/compMgr';
 import {makeDOM} from 'tinper-sparrow/js/dom';
@@ -25,6 +25,7 @@ var CheckboxAdapter = BaseAdapter.extend({
         // CheckboxAdapter.superclass.initialize.apply(this, arguments);
         this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
         this.otherValue = this.options['otherValue'] || '其他';
+        this.beforeEdit = getFunction(this.viewModel,this.options['beforeEdit']);
         if(this.options['datasource'] || this.options['hasOther']){
             // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
             if(env.isIE){
@@ -47,6 +48,7 @@ var CheckboxAdapter = BaseAdapter.extend({
                 this.comp = this.element['u.Checkbox']
             } else {
                 this.comp = new Checkbox(this.element);
+                this.comp.beforeEdit = this.beforeEdit;
                 this.element['u.Checkbox'] = this.comp;
             }
 
@@ -202,6 +204,7 @@ var CheckboxAdapter = BaseAdapter.extend({
                 comp = ele['u.Checkbox'];
             } else {
                 comp = new Checkbox(ele);
+                comp.beforeEdit = self.beforeEdit;
             }
             ele['u.Checkbox'] = comp;
             comp.on('change', function(){

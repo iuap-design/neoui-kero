@@ -1798,6 +1798,31 @@ var GridAdapter = BaseAdapter.extend({
  			Msg:wholeMsg
  		}
 	},
+	/**
+	 * [动态的设置下拉框的数据源]
+	 * 只有renderType设置为comboRender，editType为combo的情况才能通过此方式修改datasource
+	 * @param {[object]} data {fieldName:字段名, comboData:下拉的数据源}
+	 */
+	setComboDataByField: function(data) {
+		// var oThis ,comboboxAdapter,viewModel,column,columnEOption,ds;
+		// oThis = this;
+		// // 如果data不存在则不赋值
+		// if (!data) {
+		// 	return;
+		// }
+		// //获取comboboxAdapter
+		// comboboxAdapter =  oThis.editComponent[data.fieldName];
+		// comboboxAdapter.comp.setComboData(data.comboData);
+
+		// viewModel = oThis.gridOptions['model'];
+		// // 获取列取eOption
+		// column = oThis.grid.getColumnByField(data.fieldName);
+		// // 获取eoption对应的数据源
+		// columnEOption = column.options.editOptions;
+
+		// ds = getJSObject(viewModel, columnEOption['datasource']);
+		// ds = data.comboData;
+	}
 });
 
 	//if ($.compManager)
