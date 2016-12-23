@@ -32,6 +32,8 @@ import {YearAdapter} from './component/keroa-year';
 import {YearMonthAdapter} from './component/keroa-yearmonth';
 import {MonthDateAdapter} from "./component/keroa-monthdate";
 import {TreeAdapter} from './component/keroa-tree';
+import {MultilangAdapter} from './component/keroa-multilang';
+
 import {EnableMixin} from './core/enableMixin';
 import {RequiredMixin} from './core/requiredMixin';
 import {ValidateMixin} from './core/validateMixin';
@@ -68,7 +70,8 @@ var ex = {
 	EnableMixin: EnableMixin,
 	RequiredMixin: RequiredMixin,
 	ValidateMixin: ValidateMixin,
-	ValueMixin: ValueMixin
+	ValueMixin: ValueMixin,
+	MultilangAdapter: MultilangAdapter
 };
 
 extend(ex,window.u || {});
