@@ -19,7 +19,7 @@
 	                <h3 class="u-widget-title">多语输入框</h3>
 	            </div>
 	            <div class="u-widget-body">
-   	                <div u-meta='{"id":"t1","type":"u-multilang","data":"dt1","field":"f1","multinfo":"zh"}'>
+   	                <div u-meta='{"id":"t1","type":"u-multilang","data":"dt1","field":"f1,f2","multinfo":"zh"}'>
 					    <input class="u-input"/>
 				    </div>
 	            </div>
@@ -67,7 +67,7 @@ app = u.createApp({
 
 var r = viewModel.dt1.createEmptyRow();
 r.setValue('f1', "11");
-// r.setValue('f2','22')
+r.setValue('f2','22');
 
 
 </script>

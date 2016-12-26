@@ -28,9 +28,9 @@ var MultilangAdapter = BaseAdapter.extend({
         var self = this;
         var multinfo;
         if(this.options){
-            multinfo = this.options.multinfo
+            multinfo = this.options.multinfo;
         }else{
-            multinfo = core.getLanguages()
+            multinfo = core.getLanguages();
         };
         multinfo = multinfo.split('');
 
@@ -41,30 +41,44 @@ var MultilangAdapter = BaseAdapter.extend({
         this.comp = new Multilang({el:this.element,"multinfo":multinfo});
 
         // datatable传值到UI - 初始化 & 监听
-        this.dataModel.ref(this.field).subscribe(function(value){
+        this.dataModel.on(DataTable.ON_VALUE_CHANGE,function(opt){
+            console.log("opt:",opt);
+            var id = opt.rowId;
+            var field = opt.field;
+            var value = opt.newValue;
+            var row = opt.rowObj;
+            // var rowIndex = self.dataModel.getRowIndex(row);
+            // if (rowIndex == self.options.rowIndex && field == self.field) {
+            //     self.modelValueChange(value);
+            // }
             self.modelValueChange(value);
         });
 
+        this.dataModel.on(DataTable.ON_INSERT,function(opt){
+            // var rowObj = self.dataModel.getRow(self.options.rowIndex);
+            // if (rowObj) {
+            //     self.modelValueChange(rowObj.getValue(self.field));
+            // }
+            var value = opt.newValue;
+            self.modelValueChange(value);
+        });
+
+        // meta标签写入方式
+        // var rowObj = this.dataModel.getRow(this.options.rowIndex);
+        // if (rowObj) {
+        //     this.modelValueChange(rowObj.getValue(this.field));
+        // }
+
         // UI传值到datatable
         this.comp.on('change.u.multilang', function(object){
+            console.log("object:",object);
             self.slice = true;
             self.dataMode.setValue(object.field, object.value);
             self.slide = false;
         });
     },
     modelValueChange: function(value) {
-
-        var self = this
-        if(this.multidata){
-            for(i = 0; i < self.multinfo.length; i++){
-                if(i){
-                    self.multidata[i] = self.dataModel.getValue(self.field + (i+1),self.dataTableRow)
-                }else{
-                    self.multidata[i] = self.dataModel.getValue(self.field,self.dataTableRow)
-                }
-            }
-            this.comp.addData(self.multidata);
-        }
+        this.comp.setDataValue(value);
     }
 });
 
