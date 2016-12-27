@@ -38,10 +38,18 @@ var MultilangAdapter = BaseAdapter.extend({
         var multidata = [];
         this.field = this.options.field;
 
+        if (parseInt(this.options.rowIndex) > -1) {
+            if ((this.options.rowIndex + '').indexOf('.') > 0) {
+                // 主子表的情况
+                var childObj = ValueMixin.methods.getChildVariable.call(this);
+                var lastRow = childObj.lastRow;
+                var lastField = childObj.lastField;
+                this.field = lastField;            
+            }
+        }
+
         // 创建组件 - 此处不加el?
-
-
-
+        this.comp = new Multilang({el:this.element,"multinfo":multinfo,"field":this.field});
 
         if (parseInt(this.options.rowIndex) > -1) {
             if ((this.options.rowIndex + '').indexOf('.') > 0) {
@@ -49,7 +57,6 @@ var MultilangAdapter = BaseAdapter.extend({
                 var childObj = ValueMixin.methods.getChildVariable.call(this);
                 var lastRow = childObj.lastRow;
                 var lastField = childObj.lastField;
-                this.field = lastField;
 
                 this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
                     var id = opt.rowId;
@@ -183,7 +190,7 @@ var MultilangAdapter = BaseAdapter.extend({
         // if (rowObj) {
         //     this.modelValueChange(rowObj.getValue(this.field));
         // }
-        this.comp = new Multilang({el:this.element,"multinfo":multinfo,"field":this.field});
+        
         // UI传值到datatable
         this.comp.on('change.u.multilang', function(object){
             self.slice = true;
