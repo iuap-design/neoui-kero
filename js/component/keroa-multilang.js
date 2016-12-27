@@ -39,59 +39,184 @@ var MultilangAdapter = BaseAdapter.extend({
         this.field = this.options.field;
 
         // 创建组件 - 此处不加el?
-        this.comp = new Multilang({el:this.element,"multinfo":multinfo,"field":this.field});
 
-        // datatable传值到UI - 初始化 & 监听
-        this.dataModel.on(DataTable.ON_VALUE_CHANGE,function(opt){
-            var id = opt.rowId;
-            var field = opt.field;
-            var value = opt.newValue;
-            var row = opt.rowObj;
-            if(field.indexOf(self.field) == 0){
-                self.modelValueChange(field,value);
+
+
+
+        if (parseInt(this.options.rowIndex) > -1) {
+            if ((this.options.rowIndex + '').indexOf('.') > 0) {
+                // 主子表的情况
+                var childObj = ValueMixin.methods.getChildVariable.call(this);
+                var lastRow = childObj.lastRow;
+                var lastField = childObj.lastField;
+                this.field = lastField;
+
+                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+                    var id = opt.rowId;
+                    var field = opt.field;
+                    var value = opt.newValue;
+                    var obj = {
+                        fullField: self.options.field,
+                        index: self.options.rowIndex
+                    };
+                    var selfRow = self.dataModel.getChildRow(obj);
+                    var row = opt.rowObj;
+                    if (selfRow == row  && field.indexOf(lastField) == 0) {
+                        self.modelValueChange(field,value);
+                    }
+                });
+
+                this.dataModel.on(DataTable.ON_INSERT,function(opt){
+                    var obj = {
+                        fullField: self.options.field,
+                        index: self.options.rowIndex
+                    };
+                    var field,value,row = self.dataModel.getChildRow(obj);
+                    if(row){
+                        for(var i = 0; i < self.multiLen; i++){
+                            if(i == 0){
+                                field = lastField;
+                            }else{
+                                field = lastField + (i + 1)
+                            }
+                            value = row.getValue(field);
+                            self.modelValueChange(field,value);
+                        }
+                    }
+                });
+
+                if (lastRow) {
+                    var field,value;
+                    for(var i = 0; i < self.multiLen; i++){
+                        if(i == 0){
+                            field = lastField;
+                        }else{
+                            field = lastField + (i + 1);
+                        }
+                        value = lastRow.getValue(field);
+                        self.modelValueChange(field,value);
+                    }
+                }
+            } else {
+
+                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+                    var id = opt.rowId;
+                    var field = opt.field;
+                    var value = opt.newValue;
+                    var row = opt.rowObj;
+                    var rowIndex = self.dataModel.getRowIndex(row);
+                    if (rowIndex == self.options.rowIndex && field.indexOf(self.field) == 0) {
+                        self.modelValueChange(field,value);
+                    }
+                });
+
+                this.dataModel.on(DataTable.ON_INSERT,function(opt){
+                    var field,value,row = self.dataModel.getRow(self.options.rowIndex);
+                    if(row){
+                        for(var i = 0; i < self.multiLen; i++){
+                            if(i == 0){
+                                field = self.field;
+                            }else{
+                                field = self.field + (i + 1)
+                            }
+                            value = row.getValue(field);
+                            self.modelValueChange(field,value);
+                        }
+                    }
+                });
+
+                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+                var field,value;
+                if(rowObj){
+                    for(var i = 0; i < self.multiLen; i++){
+                        if(i == 0){
+                            field = self.field;
+                        }else{
+                            field = self.field + (i + 1);
+                        }
+                        value = rowObj.getValue(field);
+                        self.modelValueChange(field,value);
+                    }
+                }
             }
-        });
+        } else {
+            // datatable传值到UI - 初始化 & 监听
+            this.dataModel.on(DataTable.ON_VALUE_CHANGE,function(opt){
+                var id = opt.rowId;
+                var field = opt.field;
+                var value = opt.newValue;
+                var row = opt.rowObj;
+                if(field.indexOf(self.field) == 0){
+                    self.modelValueChange(field,value);
+                }
+            });
 
-        this.dataModel.on(DataTable.ON_INSERT,function(opt){
-            var field,value,row = opt.rows[0];
+            this.dataModel.on(DataTable.ON_INSERT,function(opt){
+                var field,value,row = opt.rows[0];
+                for(var i = 0; i < self.multiLen; i++){
+                    if(i == 0){
+                        field = self.field;
+                    }else{
+                        field = self.field + (i + 1)
+                    }
+                    value = row.getValue(field);
+                    self.modelValueChange(field,value);
+                }
+            });
+            var field,value;
             for(var i = 0; i < self.multiLen; i++){
                 if(i == 0){
                     field = self.field;
                 }else{
-                    field = self.field + (i + 1)
+                    field = self.field + (i + 1);
                 }
-                value = row.getValue(field);
+                value = self.dataModel.getValue(field);
                 self.modelValueChange(field,value);
-            }   
-        });
+            }
+        }
+
+
+
 
         // meta标签写入方式
         // var rowObj = this.dataModel.getRow(this.options.rowIndex);
         // if (rowObj) {
         //     this.modelValueChange(rowObj.getValue(this.field));
         // }
-
+        this.comp = new Multilang({el:this.element,"multinfo":multinfo,"field":this.field});
         // UI传值到datatable
         this.comp.on('change.u.multilang', function(object){
             self.slice = true;
-            self.dataModel.setValue(object.field, object.newValue);
+            self.setValue(object.field,object.newValue);
             self.slide = false;
         });
 
-        var field,value;
-        for(var i = 0; i < self.multiLen; i++){
-            if(i == 0){
-                field = self.field;
-            }else{
-                field = self.field + (i + 1)
-            }
-            value = self.dataModel.getValue(field);
-            self.modelValueChange(field,value);
-        }   
+
     },
     modelValueChange: function(field,value) {
         this.comp.setDataValue(field,value);
+    },
+    setValue: function(field,value){
+        this.slice = true;
+        if(parseInt(this.options.rowIndex) > -1){
+            if((this.options.rowIndex + '').indexOf('.') > 0){
+                var childObj = ValueMixin.methods.getChildVariable.call(this);
+                var lastRow = childObj.lastRow;
+                var lastField = childObj.lastField;
+                if(lastRow)
+                    lastRow.setValue(field, value);
+            }else{
+                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+                if(rowObj)
+                    rowObj.setValue(field, value);
+            }
+
+        }else{
+            this.dataModel.setValue(field, value);
+        }
+        this.slice = false;
     }
+
 });
 
 compMgr.addDataAdapter({
