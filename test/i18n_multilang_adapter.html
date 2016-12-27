@@ -4,11 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Title</title>
-<link rel="stylesheet" href="http://design.yyuap.com/static/uploader/css/webuploader.css">
-<link rel="stylesheet" href="http://design.yyuap.com/static/uui/latest/css/font-awesome.css">
-<link rel="stylesheet" type="text/css" href="http://design.yyuap.com/static/uui/latest/css/u.css">
-<link rel="stylesheet" type="text/css" href="http://design.yyuap.com/static/uui/latest/css/tree.css">
-<link rel="stylesheet" type="text/css" href="http://design.yyuap.com/static/uui/latest/css/grid.css">
+<link rel="stylesheet" type="text/css" href="../../../project/libs/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet"  href="../../../vendor/uui/fonts/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../vendor/uui/css/u.css" />
+	<link rel="stylesheet" type="text/css" href="../../../vendor/uui/css/grid.css" />
 </head>
 <body style="background-color: #eceff1;margin-left: 20px;width: calc(100% - 20px );">
 <div class="u-container-fluid u-widget-bg">
@@ -19,7 +18,7 @@
 	                <h3 class="u-widget-title">多语输入框</h3>
 	            </div>
 	            <div class="u-widget-body">
-   	                <div u-meta='{"id":"t1","type":"u-multilang","data":"dt1","field":"f1,f2","multinfo":"zh"}'>
+   	                <div u-meta='{"id":"t1","type":"u-multilang","data":"dt1","field":"code","multinfo":"zh,en"}'>
 					    <input class="u-input"/>
 				    </div>
 	            </div>
@@ -31,15 +30,12 @@
 <!-- <button class="u-button u-button-primary langbtn" data-lang="zh">中文</button>
 <button class="u-button u-button-success langbtn" data-lang="en">英文</button> -->
 
-<script src="http://design.yyuap.com/static/jquery/jquery-1.11.2.js"></script>
-<script src="http://design.yyuap.com/static/uploader/js/webuploader.js"></script>
-<script src="http://design.yyuap.com/static/knockout/knockout-3.2.0.debug.js"></script>
-<script src="http://design.yyuap.com/static/uui/latest/js/u-polyfill.js"></script>
-<script src="../vendor/i18next.js"></script>
-<script src="../dist/js/u.js"></script>
-<script src="http://design.yyuap.com/static/uui/latest/js/u-tree.js"></script>
-<script src="http://design.yyuap.com/static/uui/latest/js/u-grid.js"></script>
-<script src="http://design.yyuap.com/static/requirejs/require.debug.js"></script>
+
+<script src="../../../project/libs/jquery/jquery-1.11.2.js"></script>
+<script src="../../../vendor/knockout/knockout-3.2.0.debug.js"></script>
+<script src="../../../project/libs/i18next/i18next.js"></script>
+<script src="../../../vendor/uui/js/u.js"></script>
+<script src="../../../vendor/uui/js/u-grid.js"></script>
 <script>
 // var langBtns = document.querySelectorAll('.langbtn');
 // langBtns.forEach(function(ele,index){
@@ -54,8 +50,8 @@ var app, viewModel;
 viewModel = {
     dt1: new u.DataTable({
         meta: {
-            f1: {},
-            f2: {}
+            code: {},
+            code2: {}
         }
     }),
 }
@@ -66,8 +62,8 @@ app = u.createApp({
 });
 
 var r = viewModel.dt1.createEmptyRow();
-r.setValue('f1', "11");
-r.setValue('f2','22');
+r.setValue('code', "中文");
+r.setValue('code2','Eng')
 
 
 </script>

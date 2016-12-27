@@ -30,37 +30,39 @@ var MultilangAdapter = BaseAdapter.extend({
         if(this.options){
             multinfo = this.options.multinfo;
         }else{
-            multinfo = core.getLanguages();
+            multinfo = core.getLanguages(); //暂时不支持
         };
-        multinfo = multinfo.split('');
+        multinfo = multinfo.split(',');
 
+        self.multiLen = multinfo.length;
         var multidata = [];
-        // this.field = options.field;
+        this.field = this.options.field;
 
         // 创建组件 - 此处不加el?
-        this.comp = new Multilang({el:this.element,"multinfo":multinfo});
+        this.comp = new Multilang({el:this.element,"multinfo":multinfo,"field":this.field});
 
         // datatable传值到UI - 初始化 & 监听
         this.dataModel.on(DataTable.ON_VALUE_CHANGE,function(opt){
-            console.log("opt:",opt);
             var id = opt.rowId;
             var field = opt.field;
             var value = opt.newValue;
             var row = opt.rowObj;
-            // var rowIndex = self.dataModel.getRowIndex(row);
-            // if (rowIndex == self.options.rowIndex && field == self.field) {
-            //     self.modelValueChange(value);
-            // }
-            self.modelValueChange(value);
+            if(field.indexOf(self.field) == 0){
+                self.modelValueChange(field,value);
+            }
         });
 
         this.dataModel.on(DataTable.ON_INSERT,function(opt){
-            // var rowObj = self.dataModel.getRow(self.options.rowIndex);
-            // if (rowObj) {
-            //     self.modelValueChange(rowObj.getValue(self.field));
-            // }
-            var value = opt.newValue;
-            self.modelValueChange(value);
+            var field,value,row = opt.rows[0];
+            for(var i = 0; i < self.multiLen; i++){
+                if(i == 0){
+                    field = self.field;
+                }else{
+                    field = self.field + (i + 1)
+                }
+                value = row.getValue(field);
+                self.modelValueChange(field,value);
+            }   
         });
 
         // meta标签写入方式
@@ -71,14 +73,24 @@ var MultilangAdapter = BaseAdapter.extend({
 
         // UI传值到datatable
         this.comp.on('change.u.multilang', function(object){
-            console.log("object:",object);
             self.slice = true;
-            self.dataMode.setValue(object.field, object.value);
+            self.dataModel.setValue(object.field, object.newValue);
             self.slide = false;
         });
+
+        var field,value;
+        for(var i = 0; i < self.multiLen; i++){
+            if(i == 0){
+                field = self.field;
+            }else{
+                field = self.field + (i + 1)
+            }
+            value = self.dataModel.getValue(field);
+            self.modelValueChange(field,value);
+        }   
     },
-    modelValueChange: function(value) {
-        this.comp.setDataValue(value);
+    modelValueChange: function(field,value) {
+        this.comp.setDataValue(field,value);
     }
 });
 
