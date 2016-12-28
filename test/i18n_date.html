@@ -22,7 +22,7 @@
             </div>
             <div class="u-widget-body">
 
-               <div class='u-datepicker'>
+               <div class='u-datepicker' id="dpicker">
                     <input class="u-input" type="text">
                 </div>
 
@@ -103,8 +103,9 @@
     </div>
 </div>
 
-<button class="u-button u-button-primary langbtn" data-lang="zh">中文</button>
-<button class="u-button u-button-success langbtn" data-lang="en">英文</button>
+<button class="u-button u-button-primary langbtn" data-lang="zh_CN">中文</button>
+<button class="u-button u-button-success langbtn" data-lang="en_US">英文</button>
+<button class="u-button u-button-success" id="btnformat">测试Format</button>
 
 <script src="http://design.yyuap.com/static/jquery/jquery-1.11.2.js"></script>
 <script src="http://design.yyuap.com/static/uploader/js/webuploader.js"></script>
@@ -116,14 +117,23 @@
 <script src="http://design.yyuap.com/static/uui/latest/js/u-grid.js"></script>
 <script src="http://design.yyuap.com/static/requirejs/require.debug.js"></script>
 <script>
-var langBtns = document.querySelectorAll('.langbtn');
-langBtns.forEach(function(ele,index){
-    var langAttr = ele.getAttribute('data-lang');
-    ele.addEventListener('click',function(){
-        u.setCookie('u_locale',langAttr)
-        document.location.reload();
+window.onload = function(){
+    var langBtns = document.querySelectorAll('.langbtn');
+    langBtns.forEach(function(ele,index){
+        var langAttr = ele.getAttribute('data-lang');
+        ele.addEventListener('click',function(){
+            u.setCookie('u_locale',langAttr)
+            document.location.reload();
+        })
     })
-})
+
+    var btnFormat = document.getElementById('btnformat');
+    btnFormat.addEventListener('click',function(){
+        console.log('click');
+        var dateObject = document.getElementById('dpicker')['u.DateTimePicker'];
+        dateObject.setFormat('YY-M-D');
+    });
+}
 
 
 
