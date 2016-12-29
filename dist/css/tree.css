@@ -1,5 +1,5 @@
 /** 
- * tinper-neoui-tree v3.1.18
+ * tinper-neoui-tree v3.1.19
  * tree
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/tinper-neoui-tree#readme
@@ -446,7 +446,7 @@ ul.ztree.zTreeDragUL {
 }
 
 .ztree li span.button.switch {
-    position: relative;
+    position: absolute;
     z-index: 1000;
     line-height: 21px;
 }

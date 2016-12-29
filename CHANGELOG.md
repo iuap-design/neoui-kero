@@ -1,3 +1,15 @@
+<a name="3.1.19"></a>
+## [3.1.19](https://github.com/iuap-design/kero-adapter/compare/v3.1.18...v3.1.19) (2016-12-28)
+
+
+### Bug Fixes
+* 分页 ([b74aa28](https://github.com/iuap-design/kero-adapter/commit/b74aa28))
+
+* 多语组件与datatable关联打通 ([a6a8e9a](https://github.com/iuap-design/kero-adapter/commit/a6a8e9a))
+
+
+
+
 <a name="3.1.18"></a>
 ## [3.1.18](https://github.com/iuap-design/kero-adapter/compare/v3.1.17...v3.1.18) (2016-12-22)
 

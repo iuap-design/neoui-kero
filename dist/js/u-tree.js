@@ -1,5 +1,5 @@
 /** 
- * tinper-neoui-tree v3.1.18
+ * tinper-neoui-tree v3.1.19
  * tree
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/tinper-neoui-tree#readme
@@ -1203,16 +1203,18 @@
 			fontStyle = [];
 			
 			if(setting.check.enable){
-				pLeft=checkboxLength+parPaddingLeft+iconLength*(node.level+1)+'px';
+				pLeft=checkboxLength+parPaddingLeft+iconLength*(node.level+1) + 30 +'px';
+				mLeft = checkboxLength+parPaddingLeft+iconLength*(node.level+1) +'px';
 			}else{
-				pLeft=parPaddingLeft+iconLength*(node.level+1)+'px';
+				pLeft=parPaddingLeft+iconLength*(node.level+1)+30+'px';
+				mLeft=parPaddingLeft+iconLength*(node.level+1)+'px';
 			}
 			fontStyle.push('padding-left', ":",pLeft, ";");
-			fontStyle.push('margin-left', ":", '-'+pLeft, ";");
+			fontStyle.push('margin-left', ":", '-'+mLeft, ";");
 			// 将a标签的宽度根据上级100%再加上层级之间的padding值算出
-			parDomWidth='calc(100% + '+18*(node.level+1) +'px )';
+			parDomWidth='calc(100% + '+18*(node.level+1) +'px )'; 
 
-			fontStyle.push('min-width', ":", parDomWidth, ";");
+			fontStyle.push('width', ":", parDomWidth, ";");
 			for (var f in fontcss) {
 				fontStyle.push(f, ":", fontcss[f], ";");
 			}
