@@ -37,7 +37,15 @@
 		"input_maxvalue": "输入值不能大于",
 		"input_minvalue": "输入值不能小于",
 		"input_equalMax": "输入值不能大于或等于",
-		"input_equalMin": "输入值不能小于或等于"
+		"input_equalMin": "输入值不能小于或等于",
+        "landline": "请填写座机号码！",
+        "datetime":"请填写日期！",
+        "phoneNumber":"请填写正确号码！",
+        "error_integer":"整数格式不对！",
+        "error_float":"数字格式不对！",
+        "error_landline":"座机号码格式不对！",
+        "error_datetime":"日期格式不对！",
+        "error_phoneNumber":"号码格式不对！"
 	},
     "date":{
         "months": ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
