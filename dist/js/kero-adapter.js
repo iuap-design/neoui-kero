@@ -1,3 +1,10 @@
+/** 
+ * kero-adapter v3.1.19
+ * kero adapter
+ * author : yonyou FED
+ * homepage : https://github.com/iuap-design/kero-adapter#readme
+ * bugs : https://github.com/iuap-design/kero-adapter/issues
+ **/ 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -56,7 +63,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.compMgr = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -324,7 +333,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.getElementTop = exports.getElementLeft = exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
 
 	var _event = __webpack_require__(6);
@@ -641,7 +652,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
 
 	var _env = __webpack_require__(7);
@@ -1033,7 +1046,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.env = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -1236,7 +1251,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.extend = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -1286,7 +1303,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	/**
 	 * Module : Sparrow extend enum
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1322,7 +1341,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -1482,7 +1503,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	/**
 	 * Module : Sparrow class
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1685,7 +1708,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.DataTable = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -1787,6 +1812,7 @@
 	    } else {
 	        this.ns = '';
 	    }
+	    this.newCount = 0;
 	};
 
 	DataTable.prototype.on = _events.on;
@@ -1998,7 +2024,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.Events = undefined;
 
 	var _events = __webpack_require__(31);
@@ -2030,7 +2058,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -2162,7 +2192,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable copyRow
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2192,7 +2224,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable data
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2237,7 +2271,7 @@
 	        if (newIndex != this.pageIndex()) {
 	            this.setCurrentPage(newIndex, true);
 	            this.totalPages(newTotalPages);
-	            this.totalRow(newTotalRow);
+	            this.totalRow(newTotalRow + this.newCount);
 	            return;
 	        } else {
 	            // 首先删除数据，然后将当前页数据插入
@@ -2251,8 +2285,8 @@
 	        if (data.totalPages) {
 	            this.totalPages(data.totalPages);
 	        }
-	        if (data.totalRow) {
-	            this.totalRow(data.totalRow);
+	        if (data.totalRow || data.totalRow === 0) {
+	            this.totalRow(data.totalRow + this.newCount);
 	        }
 	    } else {
 	        select = data.select || (!unSelect ? [0] : []);
@@ -2287,7 +2321,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable enable
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2324,7 +2360,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2356,7 +2394,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2706,7 +2746,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	/**
 	 * Module : kero dataTable getFocus
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2736,7 +2778,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getMete
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2773,7 +2817,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getPage
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2803,7 +2849,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	/**
 	 * Module : kero dataTable getParam
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2822,7 +2870,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2900,7 +2950,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getSimpleData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -2948,7 +3000,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -3089,7 +3143,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable page
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3149,21 +3205,33 @@
 	                r = rows[j];
 	                if (!r.id) r.id = Row.getRandomRowId();
 	                if (r.status == Row.STATUS.DELETE) {
+
+	                    var row = page.getRowByRowId(r.id);
+	                    if (row) {
+	                        // 针对后台不传回总行数的情况下更新总行数
+	                        var oldTotalRow = this.totalRow();
+	                        var newTotalRow = oldTotalRow - 1;
+	                        this.totalRow(newTotalRow);
+	                        if (row.status == Row.STATUS.NEW) {
+	                            this.newCount -= 1;
+	                            if (this.newCount < 0) this.newCount = 0;
+	                        }
+	                    }
 	                    this.removeRowByRowId(r.id);
 	                    page.removeRowByRowId(r.id);
-	                    // 针对后台不传回总行数的情况下更新总行数
-	                    var oldTotalRow = this.totalRow();
-	                    var newTotalRow = oldTotalRow - 1;
-	                    this.totalRow(newTotalRow);
 	                } else {
 	                    row = page.getRowByRowId(r.id);
 	                    if (row) {
 	                        page.updateRow(row, r);
-	                        if (row.status == Row.STATUS.NEW) {
-	                            // 针对后台不传回总行数的情况下更新总行数
-	                            var oldTotalRow = this.totalRow();
-	                            var newTotalRow = oldTotalRow + 1;
-	                            this.totalRow(newTotalRow);
+	                        // if(row.status == Row.STATUS.NEW){
+	                        //     // 针对后台不传回总行数的情况下更新总行数
+	                        //     var oldTotalRow = this.totalRow();
+	                        //     var newTotalRow = oldTotalRow + 1;
+	                        //     this.totalRow(newTotalRow);
+	                        // }
+	                        if (row.status == Row.STATUS.NEW && r.status != Row.STATUS.NEW) {
+	                            this.newCount -= 1;
+	                            if (this.newCount < 0) this.newCount = 0;
 	                        }
 	                        row.status = Row.STATUS.NORMAL;
 	                        if (r.status == Row.STATUS.NEW) {
@@ -3175,6 +3243,8 @@
 	                        page.rows.push(r);
 	                        if (r.status != Row.STATUS.NEW) {
 	                            r.status = Row.STATUS.NORMAL;
+	                        } else {
+	                            this.newCount += 1;
 	                        }
 	                        // 针对后台不传回总行数的情况下更新总行数
 	                        var oldTotalRow = this.totalRow();
@@ -3323,7 +3393,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable param
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3349,7 +3421,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable ref
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3487,7 +3561,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
 
 	var _util = __webpack_require__(48);
@@ -3572,7 +3648,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports._formatToIndicesArray = exports.isChanged = undefined;
 
 	var _util = __webpack_require__(10);
@@ -3612,7 +3690,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
 
 	var _util = __webpack_require__(10);
@@ -3733,7 +3813,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable rowCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -3760,7 +3842,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
 
 	var _util = __webpack_require__(48);
@@ -3829,7 +3913,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
 
 	var _util = __webpack_require__(10);
@@ -4032,7 +4118,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
 
 	var _util = __webpack_require__(10);
@@ -4117,7 +4205,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.addSimpleData = exports.setSimpleData = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -4211,7 +4301,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.date = undefined;
 
 	var _core = __webpack_require__(71);
@@ -4367,7 +4459,7 @@
 	  * @param formatString
 	  */
 		format: function format(date, formatString, language) {
-			if (!date) return date;
+			if (!date) return ''; // renturn date 改为 return '',因：setFormat初始会赋值为undefined,造成二次选择报错
 			var array = formatString.match(u.date._formattingTokens),
 			    i,
 			    length,
@@ -4489,7 +4581,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.core = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -4675,7 +4769,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	/**
 	 * Module : Sparrow cookies
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -4709,7 +4805,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.trans = undefined;
 
 	var _cookies = __webpack_require__(72);
@@ -4786,7 +4884,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.u = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -4845,6 +4945,8 @@
 
 	var _keroaTree = __webpack_require__(130);
 
+	var _keroaMultilang = __webpack_require__(131);
+
 	var _enableMixin = __webpack_require__(80);
 
 	var _requiredMixin = __webpack_require__(81);
@@ -4855,11 +4957,6 @@
 
 	// console.log(TextAreaAdapter);
 
-	/**
-	 * Module : Kero webpack entry index
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 14:51:05
-	 */
 	var ex = {
 		BaseAdapter: _baseAdapter.BaseAdapter,
 		CheckboxAdapter: _keroaCheckbox.CheckboxAdapter,
@@ -4889,8 +4986,14 @@
 		EnableMixin: _enableMixin.EnableMixin,
 		RequiredMixin: _requiredMixin.RequiredMixin,
 		ValidateMixin: _validateMixin.ValidateMixin,
-		ValueMixin: _valueMixin.ValueMixin
-	};
+		ValueMixin: _valueMixin.ValueMixin,
+		MultilangAdapter: _keroaMultilang.MultilangAdapter
+	}; /**
+	    * Module : Kero webpack entry index
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-10 14:51:05
+	    */
+
 
 	(0, _extend.extend)(ex, window.u || {});
 	window.u = ex;
@@ -4902,7 +5005,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.BaseAdapter = undefined;
 
 	var _class = __webpack_require__(12);
@@ -4984,7 +5089,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.CheckboxAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -5307,7 +5414,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : Kero Value Mixin
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -5504,7 +5613,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.EnableMixin = undefined;
 
 	var _dom = __webpack_require__(5);
@@ -5548,7 +5659,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : Kero Enable Mixin
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -5583,7 +5696,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ValidateMixin = undefined;
 
 	var _neouiValidate = __webpack_require__(83);
@@ -5665,7 +5780,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.doValidate = exports.validate = exports.Validate = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -6261,7 +6378,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.BaseComponent = undefined;
 
 	var _class = __webpack_require__(12);
@@ -6400,7 +6519,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Tooltip = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -6723,7 +6844,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Checkbox = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -6971,7 +7094,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.URipple = exports.Ripple = undefined;
 
 	var _env = __webpack_require__(7);
@@ -7200,7 +7325,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.CkEditorAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -7311,7 +7438,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ComboboxAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -7453,7 +7582,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Combo = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -7897,7 +8028,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Text = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -8136,7 +8269,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.CurrencyAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -8249,7 +8384,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.DateFormater = exports.NumberFormater = undefined;
 
 	var _util = __webpack_require__(10);
@@ -8313,7 +8450,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.FloatAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -8474,7 +8613,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.PhoneNumberMasker = exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -9000,7 +9141,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.DateTimeAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -9415,7 +9558,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.DateTimePicker = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -9668,11 +9813,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -9765,11 +9910,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -10717,6 +10862,9 @@
 	    if (flag) {
 	        this.trigger('select', { value: this.pickerDate });
 	        this.trigger('validate');
+	        if (u.isIE) {
+	            this.element.querySelector('input').blur();
+	        }
 	    }
 	};
 
@@ -10867,7 +11015,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.GridAdapter = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -12636,24 +12786,24 @@
 	  * @param {[object]} data {fieldName:字段名, comboData:下拉的数据源}
 	  */
 		setComboDataByField: function setComboDataByField(data) {
-			var oThis, comboboxAdapter, viewModel, column, columnEOption, ds;
-			oThis = this;
-			// 如果data不存在则不赋值
-			if (!data) {
-				return;
-			}
-			//获取comboboxAdapter
-			comboboxAdapter = oThis.editComponent[data.fieldName];
-			comboboxAdapter.comp.setComboData(data.comboData);
+			// var oThis ,comboboxAdapter,viewModel,column,columnEOption,ds;
+			// oThis = this;
+			// // 如果data不存在则不赋值
+			// if (!data) {
+			// 	return;
+			// }
+			// //获取comboboxAdapter
+			// comboboxAdapter =  oThis.editComponent[data.fieldName];
+			// comboboxAdapter.comp.setComboData(data.comboData);
 
-			viewModel = oThis.gridOptions['model'];
-			// 获取列取eOption
-			column = oThis.grid.getColumnByField(data.fieldName);
-			// 获取eoption对应的数据源
-			columnEOption = column.options.editOptions;
+			// viewModel = oThis.gridOptions['model'];
+			// // 获取列取eOption
+			// column = oThis.grid.getColumnByField(data.fieldName);
+			// // 获取eoption对应的数据源
+			// columnEOption = column.options.editOptions;
 
-			ds = (0, _util.getJSObject)(viewModel, columnEOption['datasource']);
-			ds = data.comboData;
+			// ds = getJSObject(viewModel, columnEOption['datasource']);
+			// ds = data.comboData;
 		}
 	});
 
@@ -12674,7 +12824,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.phoneNumberRender = exports.dateToUTCString = exports.percentRender = exports.timeRender = exports.dateTimeRender = exports.dateRender = exports.integerRender = exports.floatRender = undefined;
 
 	var _core = __webpack_require__(71);
@@ -12778,7 +12930,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.YearAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -12838,7 +12992,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Year = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -13083,7 +13239,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.MonthAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -13108,16 +13266,20 @@
 
 	        this.comp = new _neouiMonth.Month({ el: this.element, showFix: this.options.showFix });
 
+	        // ui影响datatable
 	        this.comp.on('valueChange', function (event) {
+	            // 防止循环
 	            self.slice = true;
 	            self.dataModel.setValue(self.field, event.value);
 	            self.slice = false;
 	            //self.setValue(event.value);
 	        });
+	        // datatable反影响ui
 	        this.dataModel.ref(this.field).subscribe(function (value) {
 	            self.modelValueChange(value);
 	        });
 	    },
+	    // 触发空间
 	    modelValueChange: function modelValueChange(value) {
 	        if (this.slice) return;
 	        this.comp.setValue(value);
@@ -13142,7 +13304,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Month = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -13394,7 +13558,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.YearMonthAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -13454,7 +13620,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.YearMonth = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -13791,7 +13959,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	var requestAnimationFrame = function requestAnimationFrame(callback) {
 	    if (!window.requestAnimationFrame) {
 	        window.requestAnimationFrame = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
@@ -13826,7 +13996,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.TimeAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -13938,7 +14110,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.ClockPicker = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -14410,7 +14584,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Time = undefined;
 
 	var _extend = __webpack_require__(8);
@@ -14650,7 +14826,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.StringAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -14726,7 +14904,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.IntegerAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -14839,7 +15019,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.RadioAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -15114,7 +15296,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Radio = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -15352,7 +15536,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.UrlAdapter = undefined;
 
 	var _keroaString = __webpack_require__(110);
@@ -15419,7 +15605,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.PassWordAdapter = undefined;
 
 	var _keroaString = __webpack_require__(110);
@@ -15491,7 +15679,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.PercentAdapter = undefined;
 
 	var _keroaFloat = __webpack_require__(94);
@@ -15537,7 +15727,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.showMessage = exports.showMessageDialog = undefined;
 
 	var _dom = __webpack_require__(5);
@@ -15641,7 +15833,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.PaginationAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -15761,7 +15955,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.pagination = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -16098,8 +16294,8 @@
 		// }
 
 		if (options.page(pageIndex)) {
-			if (pageIndex < 0) {
-				pageIndex = 0;
+			if (pageIndex <= 0) {
+				pageIndex = 1;
 			}
 
 			if (pageIndex > totalPages) {
@@ -16185,7 +16381,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.PhoneNumberAdapter = undefined;
 
 	var _keroaString = __webpack_require__(110);
@@ -16240,7 +16438,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.LandLineAdapter = undefined;
 
 	var _keroaString = __webpack_require__(110);
@@ -16295,7 +16495,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ProgressAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -16339,7 +16541,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Progress = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -16464,7 +16668,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.SwitchAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -16543,7 +16749,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Switch = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -16582,7 +16790,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  		thumb.appendChild(focusHelper);*/
+	  	thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);
@@ -16731,7 +16939,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.TextAreaAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -16788,7 +16998,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.TextFieldAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -16870,7 +17082,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.MonthDateAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -16930,7 +17144,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.MonthDate = undefined;
 
 	var _BaseComponent = __webpack_require__(84);
@@ -17295,7 +17511,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.TreeAdapter = undefined;
 
 	var _baseAdapter = __webpack_require__(77);
@@ -17740,6 +17958,443 @@
 	});
 
 	exports.TreeAdapter = TreeAdapter;
+
+/***/ },
+/* 131 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.MultilangAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(77);
+
+	var _neouiMultilang = __webpack_require__(132);
+
+	var _compMgr = __webpack_require__(4);
+
+	var _core = __webpack_require__(71);
+
+	var _valueMixin = __webpack_require__(79);
+
+	var _enableMixin = __webpack_require__(80);
+
+	var _requiredMixin = __webpack_require__(81);
+
+	var _validateMixin = __webpack_require__(82);
+
+	/**
+	 * Module : Kero multilang adapter
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 14:11:50
+	 */
+	var MultilangAdapter = _baseAdapter.BaseAdapter.extend({
+	    // mixins: [ValueMixin],
+	    init: function init() {
+
+	        // 1.创建控件
+	        // 2.控件valueChange监听（ui ---》datatable）
+
+	        // datatable--》ui
+	        // 1、dattatable。on valuechange 添加监听（需要对多个字段进行监听），在监听中调用modelValueChange
+
+	        // 初始化调用modelValueChange赋值给ui
+
+	        var self = this;
+	        var multinfo;
+	        if (this.options) {
+	            multinfo = this.options.multinfo;
+	        } else {
+	            multinfo = _core.core.getLanguages(); //暂时不支持
+	        };
+	        multinfo = multinfo.split(',');
+
+	        self.multiLen = multinfo.length;
+	        var multidata = [];
+	        this.field = this.options.field;
+
+	        if (parseInt(this.options.rowIndex) > -1) {
+	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
+	                // 主子表的情况
+	                var childObj = _valueMixin.ValueMixin.methods.getChildVariable.call(this);
+	                var lastRow = childObj.lastRow;
+	                var lastField = childObj.lastField;
+	                this.field = lastField;
+	            }
+	        }
+
+	        // 创建组件 - 此处不加el?
+	        this.comp = new _neouiMultilang.Multilang({ el: this.element, "multinfo": multinfo, "field": this.field });
+
+	        if (parseInt(this.options.rowIndex) > -1) {
+	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
+	                // 主子表的情况
+	                var childObj = _valueMixin.ValueMixin.methods.getChildVariable.call(this);
+	                var lastRow = childObj.lastRow;
+	                var lastField = childObj.lastField;
+
+	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+	                    var id = opt.rowId;
+	                    var field = opt.field;
+	                    var value = opt.newValue;
+	                    var obj = {
+	                        fullField: self.options.field,
+	                        index: self.options.rowIndex
+	                    };
+	                    var selfRow = self.dataModel.getChildRow(obj);
+	                    var row = opt.rowObj;
+	                    if (selfRow == row && field.indexOf(lastField) == 0) {
+	                        self.modelValueChange(field, value);
+	                    }
+	                });
+
+	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
+	                    var obj = {
+	                        fullField: self.options.field,
+	                        index: self.options.rowIndex
+	                    };
+	                    var field,
+	                        value,
+	                        row = self.dataModel.getChildRow(obj);
+	                    if (row) {
+	                        for (var i = 0; i < self.multiLen; i++) {
+	                            if (i == 0) {
+	                                field = lastField;
+	                            } else {
+	                                field = lastField + (i + 1);
+	                            }
+	                            value = row.getValue(field);
+	                            self.modelValueChange(field, value);
+	                        }
+	                    }
+	                });
+
+	                if (lastRow) {
+	                    var field, value;
+	                    for (var i = 0; i < self.multiLen; i++) {
+	                        if (i == 0) {
+	                            field = lastField;
+	                        } else {
+	                            field = lastField + (i + 1);
+	                        }
+	                        value = lastRow.getValue(field);
+	                        self.modelValueChange(field, value);
+	                    }
+	                }
+	            } else {
+
+	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+	                    var id = opt.rowId;
+	                    var field = opt.field;
+	                    var value = opt.newValue;
+	                    var row = opt.rowObj;
+	                    var rowIndex = self.dataModel.getRowIndex(row);
+	                    if (rowIndex == self.options.rowIndex && field.indexOf(self.field) == 0) {
+	                        self.modelValueChange(field, value);
+	                    }
+	                });
+
+	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
+	                    var field,
+	                        value,
+	                        row = self.dataModel.getRow(self.options.rowIndex);
+	                    if (row) {
+	                        for (var i = 0; i < self.multiLen; i++) {
+	                            if (i == 0) {
+	                                field = self.field;
+	                            } else {
+	                                field = self.field + (i + 1);
+	                            }
+	                            value = row.getValue(field);
+	                            self.modelValueChange(field, value);
+	                        }
+	                    }
+	                });
+
+	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	                var field, value;
+	                if (rowObj) {
+	                    for (var i = 0; i < self.multiLen; i++) {
+	                        if (i == 0) {
+	                            field = self.field;
+	                        } else {
+	                            field = self.field + (i + 1);
+	                        }
+	                        value = rowObj.getValue(field);
+	                        self.modelValueChange(field, value);
+	                    }
+	                }
+	            }
+	        } else {
+	            // datatable传值到UI - 初始化 & 监听
+	            this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
+	                var id = opt.rowId;
+	                var field = opt.field;
+	                var value = opt.newValue;
+	                var row = opt.rowObj;
+	                if (field.indexOf(self.field) == 0) {
+	                    self.modelValueChange(field, value);
+	                }
+	            });
+
+	            this.dataModel.on(DataTable.ON_INSERT, function (opt) {
+	                var field,
+	                    value,
+	                    row = opt.rows[0];
+	                for (var i = 0; i < self.multiLen; i++) {
+	                    if (i == 0) {
+	                        field = self.field;
+	                    } else {
+	                        field = self.field + (i + 1);
+	                    }
+	                    value = row.getValue(field);
+	                    self.modelValueChange(field, value);
+	                }
+	            });
+	            var field, value;
+	            for (var i = 0; i < self.multiLen; i++) {
+	                if (i == 0) {
+	                    field = self.field;
+	                } else {
+	                    field = self.field + (i + 1);
+	                }
+	                value = self.dataModel.getValue(field);
+	                self.modelValueChange(field, value);
+	            }
+	        }
+
+	        // meta标签写入方式
+	        // var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	        // if (rowObj) {
+	        //     this.modelValueChange(rowObj.getValue(this.field));
+	        // }
+
+	        // UI传值到datatable
+	        this.comp.on('change.u.multilang', function (object) {
+	            self.slice = true;
+	            self.setValue(object.field, object.newValue);
+	            self.slide = false;
+	        });
+	    },
+	    modelValueChange: function modelValueChange(field, value) {
+	        this.comp.setDataValue(field, value);
+	    },
+	    setValue: function setValue(field, value) {
+	        this.slice = true;
+	        if (parseInt(this.options.rowIndex) > -1) {
+	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
+	                var childObj = _valueMixin.ValueMixin.methods.getChildVariable.call(this);
+	                var lastRow = childObj.lastRow;
+	                var lastField = childObj.lastField;
+	                if (lastRow) lastRow.setValue(field, value);
+	            } else {
+	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
+	                if (rowObj) rowObj.setValue(field, value);
+	            }
+	        } else {
+	            this.dataModel.setValue(field, value);
+	        }
+	        this.slice = false;
+	    }
+
+	});
+	// import {MonthDate} from 'tinper-neoui/js/neoui-monthdate';
+
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: MultilangAdapter,
+	    name: 'u-multilang'
+	});
+
+	exports.MultilangAdapter = MultilangAdapter;
+
+/***/ },
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Multilang = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : neoui-multilang
+	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-02 20:19:37
+	                                                                                                                                                                                                                                                                               */
+
+	var _BaseComponent = __webpack_require__(84);
+
+	var _extend = __webpack_require__(8);
+
+	var _util = __webpack_require__(10);
+
+	var _dom = __webpack_require__(5);
+
+	var _event = __webpack_require__(6);
+
+	var _compMgr = __webpack_require__(4);
+
+	var Multilang = _BaseComponent.BaseComponent.extend({
+		init: function init() {
+			var self = this;
+			var element = this.element;
+			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
+			this.field = this.options.field || 'name';
+			this.multinfo(this.options.multinfo);
+			this.addData(this.options.multidata);
+		}
+	});
+	Multilang.fn = Multilang.prototype;
+	Multilang.fn.addData = function (val) {
+		var target = this.element,
+		    tmparray,
+		    target_div = target.parentNode;
+		if (val === null || typeof val === 'undefined') {
+			tmparray = [];
+		} else if ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) == "object") {
+			tmparray = val;
+		} else {
+			tmparray = val.split(",");
+		}
+		target_div.value = tmparray;
+		(0, _util.each)(tmparray, function (i, node) {
+			target_div.querySelectorAll(".m_context")[i].innerHTML = node;
+		});
+	};
+	Multilang.fn.multinfo = function (sort) {
+
+		var target = this.element,
+		    self = this,
+		    tmplabel = "",
+		    close_menu = false;
+		if ((0, _util.isArray)(sort)) {
+
+			(0, _dom.wrap)(target, "<div class='multilang_body'><input class='lang_value' contenteditable='true'><span class='uf uf-caretdown lang_icon'><span class='m_icon'></span></span>");
+			(0, _dom.css)(target, "display", "none");
+
+			(0, _util.each)(sort, function (i, node) {
+				if (i) {
+					tmplabel += "<label attr='" + self.field + (i + 1) + "'><span class='m_context'></span><span class='m_icon'>" + node + "</span></label>";
+				} else {
+					tmplabel += "<label attr='" + self.field + "'><span class='m_context'></span><span class='m_icon'>" + node + "</span></label>";
+				}
+			});
+			var target_div = target.parentNode;
+
+			target_div.insertAdjacentHTML("beforeEnd", "<div class='multilang_menu '>" + tmplabel + "</div>");
+			var tmpIconv = target_div.querySelector(".lang_icon"),
+			    target_menu = target_div.querySelector(".multilang_menu"),
+			    target_labels = target_menu.querySelectorAll('label'),
+			    tmpvaluebox = target_div.querySelector(".lang_value");
+			(0, _event.on)(tmpIconv, "click", function () {
+				var target_icon = this;
+				target_div.querySelector(".lang_value").focus();
+				if ((0, _dom.css)(target_menu, "display") == "block") {
+					(0, _dom.css)(target_menu, "display", "none");
+				} else {
+					(0, _dom.css)(target_menu, "display", "block");
+				}
+			});
+			(0, _event.on)(target_menu, "mouseenter", function () {
+				close_menu = false;
+			});
+			(0, _event.on)(target_menu, "mouseleave", function () {
+				close_menu = true;
+			});
+
+			(0, _event.on)(tmpvaluebox, "blur", function (e) {
+				var target_input = $(this),
+				    target_div = target_input.parents(".multilang_body"),
+				    target = e.target,
+				    tmpkey = target.className.split(" ")[2],
+				    tmptext = target.value;
+
+				if ((0, _dom.hasClass)(target, "ready_change")) {
+					self.changeData(target_div[0], tmpkey, tmptext);
+				}
+				// if(close_menu) {
+				// 	css(target_menu, "display", "none")
+				// }
+			});
+
+			target_labels.forEach(function (ele) {
+				(0, _event.on)(ele, "click", function () {
+					var target_label = this,
+					    tempField = target_label.getAttribute("attr"),
+					    tmptext = target_label.querySelector(".m_context").innerHTML,
+					    tmpicon = target_label.querySelector(".m_icon").cloneNode(true);
+
+					tmpvaluebox.setAttribute("class", "ready_change lang_value " + tempField);
+					tmpvaluebox.value = tmptext;
+					tmpvaluebox.focus();
+					var tmpicom = target_div.querySelector(".lang_icon"),
+					    oldicon = target_div.querySelector(".m_icon");
+					(0, _dom.removeClass)(tmpicom, "uf-caretdown");
+					tmpicom.replaceChild(tmpicon, oldicon);
+				});
+			});
+		} else {
+			console.error('Not object');
+		}
+	};
+	Multilang.fn.changeData = function (target_div, field, text) {
+		var tmpdata = target_div.value,
+		    tmplabel = target_div.querySelector("label[attr='" + field + "']"),
+		    tmpcontext = tmplabel.querySelector(".m_context");
+		tmpcontext.innerHTML = text;
+		tmpcontext.value = text;
+		(0, _util.each)(target_div.querySelectorAll(".m_context"), function (i, node) {
+			tmpdata[i] = node.innerHTML;
+		});
+
+		this.trigger('change.u.multilang', {
+			newValue: text,
+			field: field
+		});
+	};
+	Multilang.fn.getData = function () {
+		var target = $(multilang.target).next(".multilang_body")[0],
+		    multilang_data = target.value;
+
+		return multilang_data;
+	};
+
+	Multilang.fn.setDataValue = function (field, value) {
+		var target_div = this.element.closest('.multilang_body'),
+		    tmplabel = target_div.querySelector("label[attr='" + field + "']"),
+		    tmpcontext = tmplabel.querySelector(".m_context");
+		tmpcontext.innerHTML = value;
+		tmpcontext.value = value;
+
+		var tmpdata = [];
+		(0, _util.each)(this.element.closest('.multilang_body').querySelectorAll(".m_context"), function (i, node) {
+			tmpdata[i] = node.innerHTML;
+		});
+		this.element.closest('.multilang_body').value = tmpdata;
+	};
+
+	_compMgr.compMgr.regComp({
+		comp: Multilang,
+		compAsString: 'u.Multilang',
+		css: 'u-multilang'
+	});
+
+	if (document.readyState && document.readyState === 'complete') {
+		_compMgr.compMgr.updateComp();
+	} else {
+		(0, _event.on)(window, 'load', function () {
+			//扫描并生成控件
+			_compMgr.compMgr.updateComp();
+		});
+	}
+
+	exports.Multilang = Multilang;
 
 /***/ }
 /******/ ]);

@@ -1,3 +1,15 @@
+<a name="3.1.19"></a>
+<h2 class="logtit"> V3.1.19 <a class="u-button u-button-floating loglink" href="//design.yyuap.com/static/download/iuap-design-3.1.19.zip"><i class="icon uf uf-downloadd logicon"></i></a> <i class="logdate">(2016-12-29)</i></h2>
+
+### Bug Fixes 
+* 分页 ([b74aa28](https://github.com/iuap-design/kero-adapter/commit/b74aa28))
+
+* 多语组件与datatable关联打通 ([a6a8e9a](https://github.com/iuap-design/kero-adapter/commit/a6a8e9a))
+
+* 优化部分性能 ([d6feb24](https://github.com/iuap-design/tinper-neoui-grid/commit/d6feb24))
+
+* 优化IE下树的展示 ([db173f0](https://github.com/iuap-design/tinper-neoui-tree/commit/db173f0))
+
 <a name="3.1.18"></a>
 <h2 class="logtit"> V3.1.18 <a class="u-button u-button-floating loglink" href="//design.yyuap.com/static/download/iuap-design-3.1.18.zip"><i class="icon uf uf-downloadd logicon"></i></a> <i class="logdate">(2016-12-22)</i></h2>
 
