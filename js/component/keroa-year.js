@@ -22,7 +22,7 @@ var YearAdapter = BaseAdapter.extend({
 
         this.comp.on('valueChange', function(event){
             self.slice = true;
-            self.dataModel.setValue(self.field, event.value);
+            self.setValue(event.value);
             self.slice = false;
             //self.setValue(event.value);
         });
