@@ -321,7 +321,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 				if(startValueObj){
 		            this.resetDataObj(startValueObj);
 		        }
-				if(startValueObj && valueObj.getTime() < startValueObj.getTime()){
+				if(startValueObj && valueObj && valueObj.getTime() < startValueObj.getTime()){
 					return;
 				}
 			}
@@ -331,7 +331,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 				if(endValueObj){
 					this.resetDataObj(endValueObj);
 		        }
-				if(endValueObj && valueObj.getTime() > endValueObj.getTime()){
+				if(endValueObj && valueObj && valueObj.getTime() > endValueObj.getTime()){
 					return;
 				}
 			}
