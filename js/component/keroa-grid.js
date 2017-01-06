@@ -789,6 +789,7 @@ var GridAdapter = BaseAdapter.extend({
 				var row = obj.row;
 				var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
 				oThis.dataTable.setRowDelete(datatableIndex);
+				$('.tooltip').remove();
 			}
 		};
 		this.dataTable.on(DataTable.ON_DELETE, function(event) {
@@ -800,12 +801,14 @@ var GridAdapter = BaseAdapter.extend({
 				gridIndexs.push(index);
 			});
 			oThis.grid.deleteRows(gridIndexs);
+			$('.tooltip').remove();
 			oThis.silence = false;
 		});
 
 		this.dataTable.on(DataTable.ON_DELETE_ALL, function(event) {
 			oThis.silence = true;
 			oThis.grid.setDataSource({});
+			$('.tooltip').remove();
 			oThis.silence = false;
 		});
 
