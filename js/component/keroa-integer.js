@@ -85,6 +85,19 @@ var IntegerAdapter = BaseAdapter.extend({
                 }
             }
         });
+    },
+    hide: function() {
+        var self = this
+        if (self.enable) {
+            if (!self.doValidate() && self._needClean()) {
+                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                    // 因必输项清空导致检验没通过的情况
+                    self.setValue('');
+                } else {
+                    self.element.value = self.getShowValue();
+                }
+            } else self.setValue(self.element.value);
+        }
     }
 });
 compMgr.addDataAdapter({

@@ -1807,15 +1807,15 @@ var GridAdapter = BaseAdapter.extend({
 	 * @param {[object]} data {fieldName:字段名, comboData:下拉的数据源}
 	 */
 	setComboDataByField: function(data) {
-		// var oThis ,comboboxAdapter,viewModel,column,columnEOption,ds;
-		// oThis = this;
-		// // 如果data不存在则不赋值
-		// if (!data) {
-		// 	return;
-		// }
-		// //获取comboboxAdapter
-		// comboboxAdapter =  oThis.editComponent[data.fieldName];
-		// comboboxAdapter.comp.setComboData(data.comboData);
+	        var oThis ,comboboxAdapter;
+		oThis = this;
+		// 如果data不存在则不赋值
+		if (!data) {
+			return;
+		}
+		//获取comboboxAdapter
+		comboboxAdapter =  oThis.editComponent[data.fieldName];
+		comboboxAdapter.comp.setComboData(data.comboData);
 
 		// viewModel = oThis.gridOptions['model'];
 		// // 获取列取eOption
