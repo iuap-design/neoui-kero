@@ -5,7 +5,7 @@
 [![devDependency Status](https://img.shields.io/david/dev/iuap-design/kero-adapter.svg)](https://david-dm.org/iuap-design/kero-adapter#info=devDependencies)
 [![NPM downloads](http://img.shields.io/npm/dm/kero-adapter.svg?style=flat)](https://npmjs.org/package/kero-adapter)
 
-
+[English Document](./README.md)
 
 ##  介绍
 [kero-adapter](http://tinper.org/dist/kero/docs/module.html) 是[kero](http://tinper.org/dist/kero/index.html) 与[tinper neoui](http://tinper.org/dist/neoui/index.html)之间的适配器，通过识别框架特有标记u-meta，创建对应的UI组件，同时进行数据双向绑定。

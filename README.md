@@ -5,6 +5,7 @@
 [![devDependency Status](https://img.shields.io/david/dev/iuap-design/kero-adapter.svg)](https://david-dm.org/iuap-design/kero-adapter#info=devDependencies)
 [![NPM downloads](http://img.shields.io/npm/dm/kero-adapter.svg?style=flat)](https://npmjs.org/package/kero-adapter)
 
+[中文文档](./README_CN.md)
 
 
 ##  Introduction
