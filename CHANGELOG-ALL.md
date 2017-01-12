@@ -1,3 +1,11 @@
+<a name="3.1.22"></a>
+<h2 class="logtit"> V3.1.22 <a class="u-button u-button-floating loglink" href="//design.yyuap.com/static/download/iuap-design-3.1.22.zip"><i class="icon uf uf-downloadd logicon"></i></a> <i class="logdate">(2017-1-12)</i></h2>
+
+### Bug Fixes 
+* 多语datetimepicker-月份中英文切换 ([e7935b0](https://github.com/iuap-design/tinper-neoui/commit/e7935b0))
+
+* 字体图标兼容 ([46b6105](https://github.com/iuap-design/tinper-neoui/commit/46b6105))
+
 <a name="3.1.21"></a>
 <h2 class="logtit"> V3.1.21 <a class="u-button u-button-floating loglink" href="//design.yyuap.com/static/download/iuap-design-3.1.21.zip"><i class="icon uf uf-downloadd logicon"></i></a> <i class="logdate">(2017-1-6)</i></h2>
 

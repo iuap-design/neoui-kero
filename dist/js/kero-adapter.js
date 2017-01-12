@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v3.1.21
+ * kero-adapter v3.1.22
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -4864,14 +4864,15 @@
 	if (window.i18n) {
 		var scriptPath = getCurrentJsPath(),
 		    _temp = scriptPath.substr(0, scriptPath.lastIndexOf('/')),
-		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/'));
+		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/')),
+		    resGetPath = u.i18nPath || __FOLDER__ + '/locales/__lng__/__ns__.json';
 		i18n.init({
 			postAsync: false,
 			getAsync: false,
 			fallbackLng: false,
 			ns: { namespaces: ['uui-trans'] },
 			lng: (0, _cookies.getCookie)(_enumerables.U_LOCALE) || 'zh',
-			resGetPath: __FOLDER__ + '/locales/__lng__/__ns__.json'
+			resGetPath: resGetPath
 		});
 	}
 
@@ -6567,31 +6568,9 @@
 			showFix: false
 		},
 		init: function init(element, options) {
-			this.element = element;
+			var oThis = this;
 			this.options = (0, _extend.extend)({}, this.defaults, options);
 			this._viewport = this.options.viewport && document.querySelector(this.options.viewport.selector || this.options.viewport);
-
-			var triggers = this.options.trigger.split(' ');
-
-			for (var i = triggers.length; i--;) {
-				var trigger = triggers[i];
-				if (trigger == 'click') {
-					(0, _event.on)(this.element, 'click', this.toggle.bind(this));
-				} else if (trigger != 'manual') {
-					var eventIn = trigger == 'hover' ? 'mouseenter' : 'focusin';
-					var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout';
-					(0, _event.on)(this.element, eventIn, this.enter.bind(this));
-					(0, _event.on)(this.element, eventOut, this.leave.bind(this));
-				}
-			}
-			this.options.title = this.options.title || this.element.getAttribute('title');
-			this.element.removeAttribute('title');
-			if (this.options.delay && typeof this.options.delay == 'number') {
-				this.options.delay = {
-					show: this.options.delay,
-					hide: this.options.delay
-				};
-			};
 			//tip模板对应的dom
 			this.tipDom = (0, _dom.makeDOM)(this.options.template);
 			(0, _dom.addClass)(this.tipDom, this.options.placement);
@@ -6600,10 +6579,65 @@
 			}
 			this.arrrow = this.tipDom.querySelector('.tooltip-arrow');
 
-			// tip容器,默认为当前元素的parent
-			this.container = this.options.container ? document.querySelector(this.options.container) : this.element.parentNode;
+			//判断如果是批量插入tooltip的
+			if (element && element.length) {
+				$(element).each(function () {
+					this.element = $(this)[0];
+					var triggers = oThis.options.trigger.split(' ');
+					for (var i = triggers.length; i--;) {
+						var trigger = triggers[i];
+						if (trigger == 'click') {
+							(0, _event.on)(this.element, 'click', this.toggle.bind(oThis, this.element));
+						} else if (trigger != 'manual') {
+							var eventIn = trigger == 'hover' ? 'mouseenter' : 'focusin';
+							var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout';
+							(0, _event.on)(this.element, eventIn, oThis.enter.bind(oThis, this.element));
+							(0, _event.on)(this.element, eventOut, oThis.leave.bind(oThis, this.element));
+						}
+					}
+					oThis.options.title = oThis.options.title || this.element.getAttribute('title');
+					this.element.removeAttribute('title');
+					if (oThis.options.delay && typeof oThis.options.delay == 'number') {
+						oThis.options.delay = {
+							show: oThis.options.delay,
+							hide: oThis.options.delay
+						};
+					};
+				});
+			} else {
+				this.element = element;
+				var triggers = this.options.trigger.split(' ');
+
+				for (var i = triggers.length; i--;) {
+					var trigger = triggers[i];
+					if (trigger == 'click') {
+						(0, _event.on)(this.element, 'click', this.toggle.bind(this));
+					} else if (trigger != 'manual') {
+						var eventIn = trigger == 'hover' ? 'mouseenter' : 'focusin';
+						var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout';
+						(0, _event.on)(this.element, eventIn, oThis.enter.bind(this));
+						(0, _event.on)(this.element, eventOut, oThis.leave.bind(this));
+					}
+				}
+				this.options.title = this.options.title || this.element.getAttribute('title');
+				this.element.removeAttribute('title');
+				if (this.options.delay && typeof this.options.delay == 'number') {
+					this.options.delay = {
+						show: this.options.delay,
+						hide: this.options.delay
+					};
+				};
+				// tip容器,默认为当前元素的parent
+				this.container = this.options.container ? document.querySelector(this.options.container) : this.element.parentNode;
+			}
 		},
-		enter: function enter() {
+		enter: function enter(element) {
+			if (arguments.length > 1) {
+				//将tooltip中的element指定为其进入的当前element
+				this.element = element;
+				// tip容器,默认为当前元素的parent
+				this.container = this.options.container ? document.querySelector(this.options.container) : element.parentNode;
+			}
 			var self = this;
 			clearTimeout(this.timeout);
 			this.hoverState = 'in';
@@ -16252,11 +16286,11 @@
 			}
 			if (options.showJump) {
 				if ((0, _dom.hasClass)(this.$ul, 'pagination-sm')) {
-					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j page_j_sm" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-sm" type="button" value="' + options.okText + '"/></div>';
+					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_sm padding-left-0" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-sm" type="button" value="' + options.okText + '"/></div>';
 				} else if ((0, _dom.hasClass)(this.$ul, 'pagination-lg')) {
-					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j page_j_lg" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-lg" type="button" value="' + options.okText + '"/></div>';
+					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_lg padding-left-0" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-lg" type="button" value="' + options.okText + '"/></div>';
 				} else {
-					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump" type="button" value="' + options.okText + '"/></div>';
+					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center padding-left-0" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump" type="button" value="' + options.okText + '"/></div>';
 				}
 			}
 			htmlArr.push(htmlTmp);

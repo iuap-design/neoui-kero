@@ -1,5 +1,5 @@
 /** 
- * tinper-neoui-tree v3.1.21
+ * tinper-neoui-tree v3.1.22
  * tree
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/tinper-neoui-tree#readme
