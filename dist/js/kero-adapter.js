@@ -1,5 +1,5 @@
 /** 
- * kero-adapter v3.1.19
+ * kero-adapter v3.1.22
  * kero adapter
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/kero-adapter#readme
@@ -1074,6 +1074,7 @@
 		isIE10: false,
 		isIE10_ABOVE: false,
 		isIE11: false,
+		isEdge: false,
 		isIOS: false,
 		isIphone: false,
 		isIPAD: false,
@@ -1141,6 +1142,9 @@
 			};
 		}
 
+		if (userAgent.indexOf("Edge") > -1) {
+			u.isEdge = true;
+		}
 		if (s = ua.match(/opera.([\d.]+)/)) {
 			u.isOpera = true;
 		} else if (browserMatch.browser == "IE" && browserMatch.version == 11) {
@@ -1396,6 +1400,7 @@
 	};
 	var isNumber = function isNumber(obj) {
 		//return obj === +obj
+		//加了个typeof 判断，因为'431027199110.078573'会解析成number
 		return obj - parseFloat(obj) + 1 >= 0;
 	};
 	var isArray = Array.isArray || function (val) {
@@ -4859,14 +4864,15 @@
 	if (window.i18n) {
 		var scriptPath = getCurrentJsPath(),
 		    _temp = scriptPath.substr(0, scriptPath.lastIndexOf('/')),
-		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/'));
+		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/')),
+		    resGetPath = u.i18nPath || __FOLDER__ + '/locales/__lng__/__ns__.json';
 		i18n.init({
 			postAsync: false,
 			getAsync: false,
 			fallbackLng: false,
 			ns: { namespaces: ['uui-trans'] },
 			lng: (0, _cookies.getCookie)(_enumerables.U_LOCALE) || 'zh',
-			resGetPath: __FOLDER__ + '/locales/__lng__/__ns__.json'
+			resGetPath: resGetPath
 		});
 	}
 
@@ -5857,7 +5863,7 @@
 
 	        // 要求显示成功提示，并没有成功提示dom的id时，则创建成功提示dom
 	        if (this.hasSuccess && !this.successId) {
-	            this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-checkedsymbol" ></span>');
+	            this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-correct" ></span>');
 
 	            if (this.referDom.nextSibling) {
 	                this.referDom.parentNode.insertBefore(this.successId, this.referDom.nextSibling);
@@ -5867,7 +5873,7 @@
 	        }
 	        //不是默认的tip提示方式并且tipId没有定义时创建默认tipid
 	        if (this.notipFlag && !this.tipId) {
-	            this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exclamationsign "></span>');
+	            this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exc-c-o "></span>');
 	            this.referDom.parentNode.appendChild(this.tipId);
 
 	            if (this.referDom.nextSibling) {
@@ -6218,6 +6224,10 @@
 	    if (this.showMsgFlag == false || this.showMsgFlag == 'false') {
 	        return;
 	    }
+	    //因为grid中自定义的editType使用的是document.body,只处理校验不现实提示信息
+	    if (this.element == document.body) {
+	        return;
+	    }
 	    var self = this;
 	    if (this.tipId) {
 	        this.referDom.style.borderColor = 'rgb(241,90,74)';
@@ -6558,31 +6568,9 @@
 			showFix: false
 		},
 		init: function init(element, options) {
-			this.element = element;
+			var oThis = this;
 			this.options = (0, _extend.extend)({}, this.defaults, options);
 			this._viewport = this.options.viewport && document.querySelector(this.options.viewport.selector || this.options.viewport);
-
-			var triggers = this.options.trigger.split(' ');
-
-			for (var i = triggers.length; i--;) {
-				var trigger = triggers[i];
-				if (trigger == 'click') {
-					(0, _event.on)(this.element, 'click', this.toggle.bind(this));
-				} else if (trigger != 'manual') {
-					var eventIn = trigger == 'hover' ? 'mouseenter' : 'focusin';
-					var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout';
-					(0, _event.on)(this.element, eventIn, this.enter.bind(this));
-					(0, _event.on)(this.element, eventOut, this.leave.bind(this));
-				}
-			}
-			this.options.title = this.options.title || this.element.getAttribute('title');
-			this.element.removeAttribute('title');
-			if (this.options.delay && typeof this.options.delay == 'number') {
-				this.options.delay = {
-					show: this.options.delay,
-					hide: this.options.delay
-				};
-			};
 			//tip模板对应的dom
 			this.tipDom = (0, _dom.makeDOM)(this.options.template);
 			(0, _dom.addClass)(this.tipDom, this.options.placement);
@@ -6591,10 +6579,65 @@
 			}
 			this.arrrow = this.tipDom.querySelector('.tooltip-arrow');
 
-			// tip容器,默认为当前元素的parent
-			this.container = this.options.container ? document.querySelector(this.options.container) : this.element.parentNode;
+			//判断如果是批量插入tooltip的
+			if (element && element.length) {
+				$(element).each(function () {
+					this.element = $(this)[0];
+					var triggers = oThis.options.trigger.split(' ');
+					for (var i = triggers.length; i--;) {
+						var trigger = triggers[i];
+						if (trigger == 'click') {
+							(0, _event.on)(this.element, 'click', this.toggle.bind(oThis, this.element));
+						} else if (trigger != 'manual') {
+							var eventIn = trigger == 'hover' ? 'mouseenter' : 'focusin';
+							var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout';
+							(0, _event.on)(this.element, eventIn, oThis.enter.bind(oThis, this.element));
+							(0, _event.on)(this.element, eventOut, oThis.leave.bind(oThis, this.element));
+						}
+					}
+					oThis.options.title = oThis.options.title || this.element.getAttribute('title');
+					this.element.removeAttribute('title');
+					if (oThis.options.delay && typeof oThis.options.delay == 'number') {
+						oThis.options.delay = {
+							show: oThis.options.delay,
+							hide: oThis.options.delay
+						};
+					};
+				});
+			} else {
+				this.element = element;
+				var triggers = this.options.trigger.split(' ');
+
+				for (var i = triggers.length; i--;) {
+					var trigger = triggers[i];
+					if (trigger == 'click') {
+						(0, _event.on)(this.element, 'click', this.toggle.bind(this));
+					} else if (trigger != 'manual') {
+						var eventIn = trigger == 'hover' ? 'mouseenter' : 'focusin';
+						var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout';
+						(0, _event.on)(this.element, eventIn, oThis.enter.bind(this));
+						(0, _event.on)(this.element, eventOut, oThis.leave.bind(this));
+					}
+				}
+				this.options.title = this.options.title || this.element.getAttribute('title');
+				this.element.removeAttribute('title');
+				if (this.options.delay && typeof this.options.delay == 'number') {
+					this.options.delay = {
+						show: this.options.delay,
+						hide: this.options.delay
+					};
+				};
+				// tip容器,默认为当前元素的parent
+				this.container = this.options.container ? document.querySelector(this.options.container) : this.element.parentNode;
+			}
 		},
-		enter: function enter() {
+		enter: function enter(element) {
+			if (arguments.length > 1) {
+				//将tooltip中的element指定为其进入的当前element
+				this.element = element;
+				// tip容器,默认为当前元素的parent
+				this.container = this.options.container ? document.querySelector(this.options.container) : element.parentNode;
+			}
 			var self = this;
 			clearTimeout(this.timeout);
 			this.hoverState = 'in';
@@ -7106,7 +7149,7 @@
 	var _event = __webpack_require__(6);
 
 	var URipple = function URipple(element) {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  this._element = element;
 
 	  // Initialize instance.
@@ -7121,7 +7164,7 @@
 	 */
 
 	URipple.prototype._down = function (event) {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  if (!this._rippleElement.style.width && !this._rippleElement.style.height) {
 	    var rect = this._element.getBoundingClientRect();
 	    this.rippleSize_ = Math.sqrt(rect.width * rect.width + rect.height * rect.height) * 2 + 2;
@@ -7171,7 +7214,7 @@
 	 * @private
 	 */
 	URipple.prototype._up = function (event) {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  var self = this;
 	  // Don't fire for the artificial "mouseup" generated by a double-click.
 	  if (event && event.detail !== 2) {
@@ -7190,7 +7233,7 @@
 	     * @return {number} the frame count.
 	     */
 	URipple.prototype.getFrameCount = function () {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  return this.frameCount_;
 	};
 	/**
@@ -7198,7 +7241,7 @@
 	     * @param {number} fC the frame count.
 	     */
 	URipple.prototype.setFrameCount = function (fC) {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  this.frameCount_ = fC;
 	};
 
@@ -7207,7 +7250,7 @@
 	     * @return {Element} the ripple element.
 	     */
 	URipple.prototype.getRippleElement = function () {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  return this._rippleElement;
 	};
 
@@ -7217,7 +7260,7 @@
 	 * @param  {number} newY the new Y coordinate
 	 */
 	URipple.prototype.setRippleXY = function (newX, newY) {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  this.x_ = newX;
 	  this.y_ = newY;
 	};
@@ -7227,7 +7270,7 @@
 	 * @param  {boolean} start whether or not this is the start frame.
 	 */
 	URipple.prototype.setRippleStyles = function (start) {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  if (this._rippleElement !== null) {
 	    var transformString;
 	    var scale;
@@ -7260,7 +7303,7 @@
 	   * Handles an animation frame.
 	   */
 	URipple.prototype.animFrameHandler = function () {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  if (this.frameCount_-- > 0) {
 	    window.requestAnimationFrame(this.animFrameHandler.bind(this));
 	  } else {
@@ -7272,7 +7315,7 @@
 	 * Initialize element.
 	 */
 	URipple.prototype.init = function () {
-	  if (_env.env.isIE8) return;
+	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
 	  var self = this;
 	  if (this._element) {
 	    this._rippleElement = this._element.querySelector('.u-ripple');
@@ -7697,11 +7740,27 @@
 	                if (keyCode == 13) this.blur();
 	            }
 	        });
+	        /*  this.iconBtn = this.element.querySelector("[data-role='combo-button']");
+	          if (this.iconBtn){
+	              on(this.iconBtn, 'click', function(e){
+	                  self._input.focus();
+	                  stopEvent(e);
+	              })
+	          }
+	         */
+	        //下拉框图表点击收起打开
 	        this.iconBtn = this.element.querySelector("[data-role='combo-button']");
+	        var comonTarge = true;
 	        if (this.iconBtn) {
 	            (0, _event.on)(this.iconBtn, 'click', function (e) {
 	                self._input.focus();
-	                (0, _event.stopEvent)(e);
+	                if (comonTarge) {
+	                    $(self._input).parent().parent().find(".u-combo-ul").addClass("is-visible");
+	                    comonTarge = false;
+	                } else {
+	                    $(self._input).parent().parent().find(".u-combo-ul").removeClass("is-visible");
+	                    comonTarge = true;
+	                }
 	            });
 	        }
 	    },
@@ -8540,7 +8599,7 @@
 	            }
 	        });
 
-	        (0, _event.on)(this.element, 'keyup', function (e) {
+	        (0, _event.on)(this.element, 'keydown', function (e) {
 	            if (self.enable) {
 	                var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
 	                if (!(code >= 48 && code <= 57 || code >= 96 && code <= 105 || code == 37 || code == 102 || code == 39 || code == 8 || code == 46 || code == 110 || code == 190)) {
@@ -9480,7 +9539,7 @@
 					if (startValueObj) {
 						this.resetDataObj(startValueObj);
 					}
-					if (startValueObj && valueObj.getTime() < startValueObj.getTime()) {
+					if (startValueObj && valueObj && valueObj.getTime() < startValueObj.getTime()) {
 						return;
 					}
 				}
@@ -9490,7 +9549,7 @@
 					if (endValueObj) {
 						this.resetDataObj(endValueObj);
 					}
-					if (endValueObj && valueObj.getTime() > endValueObj.getTime()) {
+					if (endValueObj && valueObj && valueObj.getTime() > endValueObj.getTime()) {
 						return;
 					}
 				}
@@ -9883,7 +9942,7 @@
 	    '<div class="u-date-content-title-month"></div>-',
 	    '<div class="u-date-content-title-date"></div>',
 	    '<div class="u-date-content-title-time"></div>',*/
-	    '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
+	    '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[0] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[1] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[2] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[3] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[4] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[5] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[6] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[7] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[8] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[9] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[10] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[11] + '</div>', '</div>', '</div>'].join("");
 
 	    monthPage = (0, _dom.makeDOM)(template);
 	    language = _core.core.getLanguages();
@@ -10862,7 +10921,7 @@
 	    if (flag) {
 	        this.trigger('select', { value: this.pickerDate });
 	        this.trigger('validate');
-	        if (u.isIE) {
+	        if (u.isIE || u.isEdge) {
 	            this.element.querySelector('input').blur();
 	        }
 	    }
@@ -11806,6 +11865,7 @@
 					var row = obj.row;
 					var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
 					oThis.dataTable.setRowDelete(datatableIndex);
+					$('.tooltip').remove();
 				}
 			};
 			this.dataTable.on(_indexDataTable.DataTable.ON_DELETE, function (event) {
@@ -11817,12 +11877,14 @@
 					gridIndexs.push(index);
 				});
 				oThis.grid.deleteRows(gridIndexs);
+				$('.tooltip').remove();
 				oThis.silence = false;
 			});
 
 			this.dataTable.on(_indexDataTable.DataTable.ON_DELETE_ALL, function (event) {
 				oThis.silence = true;
 				oThis.grid.setDataSource({});
+				$('.tooltip').remove();
 				oThis.silence = false;
 			});
 
@@ -12786,15 +12848,15 @@
 	  * @param {[object]} data {fieldName:字段名, comboData:下拉的数据源}
 	  */
 		setComboDataByField: function setComboDataByField(data) {
-			// var oThis ,comboboxAdapter,viewModel,column,columnEOption,ds;
-			// oThis = this;
-			// // 如果data不存在则不赋值
-			// if (!data) {
-			// 	return;
-			// }
-			// //获取comboboxAdapter
-			// comboboxAdapter =  oThis.editComponent[data.fieldName];
-			// comboboxAdapter.comp.setComboData(data.comboData);
+			var oThis, comboboxAdapter;
+			oThis = this;
+			// 如果data不存在则不赋值
+			if (!data) {
+				return;
+			}
+			//获取comboboxAdapter
+			comboboxAdapter = oThis.editComponent[data.fieldName];
+			comboboxAdapter.comp.setComboData(data.comboData);
 
 			// viewModel = oThis.gridOptions['model'];
 			// // 获取列取eOption
@@ -12959,7 +13021,7 @@
 
 	        this.comp.on('valueChange', function (event) {
 	            self.slice = true;
-	            self.dataModel.setValue(self.field, event.value);
+	            self.setValue(event.value);
 	            self.slice = false;
 	            //self.setValue(event.value);
 	        });
@@ -14889,6 +14951,19 @@
 	                } else self.setValue(self.element.value);
 	            }
 	        });
+	    },
+	    hide: function hide() {
+	        var self = this;
+	        if (self.enable) {
+	            if (!self.doValidate() && self._needClean()) {
+	                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+	                    // 因必输项清空导致检验没通过的情况
+	                    self.setValue('');
+	                } else {
+	                    self.element.value = self.getShowValue();
+	                }
+	            } else self.setValue(self.element.value);
+	        }
 	    }
 	});
 	_compMgr.compMgr.addDataAdapter({
@@ -15004,6 +15079,19 @@
 	                }
 	            }
 	        });
+	    },
+	    hide: function hide() {
+	        var self = this;
+	        if (self.enable) {
+	            if (!self.doValidate() && self._needClean()) {
+	                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+	                    // 因必输项清空导致检验没通过的情况
+	                    self.setValue('');
+	                } else {
+	                    self.element.value = self.getShowValue();
+	                }
+	            } else self.setValue(self.element.value);
+	        }
 	    }
 	});
 	_compMgr.compMgr.addDataAdapter({
@@ -15742,7 +15830,7 @@
 	 * Date      : 2016-08-02 19:40:59
 	 */
 
-	var messageTemplate = '<div class="u-message"><span class="u-msg-close uf uf-removesymbol"></span>{msg}</div>';
+	var messageTemplate = '<div class="u-message"><span class="u-msg-close uf uf-close"></span>{msg}</div>';
 
 	var showMessage = function showMessage(options) {
 	    var msg, position, width, height, showSeconds, msgType, template;
@@ -16198,11 +16286,11 @@
 			}
 			if (options.showJump) {
 				if ((0, _dom.hasClass)(this.$ul, 'pagination-sm')) {
-					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j page_j_sm" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-sm" type="button" value="' + options.okText + '"/></div>';
+					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_sm padding-left-0" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-sm" type="button" value="' + options.okText + '"/></div>';
 				} else if ((0, _dom.hasClass)(this.$ul, 'pagination-lg')) {
-					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j page_j_lg" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-lg" type="button" value="' + options.okText + '"/></div>';
+					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_lg padding-left-0" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-lg" type="button" value="' + options.okText + '"/></div>';
 				} else {
-					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump" type="button" value="' + options.okText + '"/></div>';
+					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center padding-left-0" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump" type="button" value="' + options.okText + '"/></div>';
 				}
 			}
 			htmlArr.push(htmlTmp);
@@ -16255,7 +16343,7 @@
 		});
 		(0, _util.each)(this.$ul.querySelectorAll('[role="page"] a'), function (i, node) {
 			(0, _event.on)(node, 'click', function () {
-				var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
+				var pz = me.$element.querySelector(".page_z") && $(this).val() || options.pageSize;
 				me.page(parseInt(this.innerHTML), options.totalPages, pz);
 				//me.$element.trigger('pageChange', parseInt($(this).html()) - 1)
 
@@ -16263,7 +16351,7 @@
 			});
 		});
 		(0, _event.on)(this.$ul.querySelector('.page_z'), 'change', function () {
-			var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
+			var pz = me.$element.querySelector(".page_z") && $(this).val() || options.pageSize;
 			me.trigger('sizeChange', pz);
 		});
 	};

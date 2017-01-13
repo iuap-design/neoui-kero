@@ -80,7 +80,7 @@ var FloatAdapter = BaseAdapter.extend({
             }
         });
 
-        on(this.element,'keyup',function(e){
+        on(this.element,'keydown',function(e){
             if(self.enable){
                 var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
                 if (!((code >= 48 && code <= 57)|| (code >= 96 && code <= 105)||code==37||code==102||code==39||code==8 ||code==46 || code == 110 || code == 190)) {
