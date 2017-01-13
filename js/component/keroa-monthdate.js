@@ -22,7 +22,9 @@ var MonthDateAdapter = BaseAdapter.extend({
 
         this.comp.on('valueChange', function(event){
             self.slice = true;
-            self.dataModel.setValue(self.field, event.value);
+            if (self.dataModel.getValue(self.field) !== event.value) {
+                self.dataModel.setValue(self.field, event.value);
+            }
             self.slice = false;
             //self.setValue(event.value);
         });

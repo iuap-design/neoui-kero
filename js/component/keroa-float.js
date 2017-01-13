@@ -66,8 +66,9 @@ var FloatAdapter = BaseAdapter.extend({
         })
 
         on(this.element, 'blur',function(){
+            var newValue;
             if(self.enable){
-                if (!self.doValidate() && self._needClean()) {
+                if (!self.doValidate({'trueValue':true}) && self._needClean()) {
                     if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                         // 因必输项清空导致检验没通过的情况
                         self.setValue('')
@@ -75,8 +76,10 @@ var FloatAdapter = BaseAdapter.extend({
                         self.element.value = self.getShowValue()
                     }
                 }
-                else
-                    self.setValue(self.element.value)
+                else {
+                    newValue =self.element.value?self.element.value.replaceAll(/,/g,''):"";
+                    self.setValue(newValue);
+                }
             }
         });
 
@@ -94,6 +97,23 @@ var FloatAdapter = BaseAdapter.extend({
                 }
             }
         })
+    },
+    hide: function() {
+        var self = this,newValue;
+        if(self.enable){
+            if (!self.doValidate({'trueValue':true}) && self._needClean()) {
+                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                    // 因必输项清空导致检验没通过的情况
+                    self.setValue('')
+                } else {
+                    self.element.value = self.getShowValue()
+                }
+            }
+            else {
+                newValue = self.element.value?self.element.value.replaceAll(/,/g,''):"";
+                self.setValue(newValue);
+            }
+        }
     },
     /**
      * 修改精度
@@ -114,6 +134,7 @@ var FloatAdapter = BaseAdapter.extend({
 
         this.setShowValue(this.showValue)
     },
+    
     onFocusin: function () {
         var v = this.getValue(), vstr = v + '', focusValue = v;
         if (isNumber(v) && isNumber(this.maskerMeta.precision)) {
