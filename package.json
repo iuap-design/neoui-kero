@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "kero": "^2.1.22",
-    "kero-fetch": "file:///E:\\workbench\\iuapdesign\\kero-fetch",
-    "neoui-kero-mixin": "file:///E:\\workbench\\iuapdesign\\neoui-kero-mixin",
+    "kero-fetch": "./node_modules/kero-fetch",
+    "neoui-kero-mixin": "./node_modules/neoui-kero-mixin",
     "tinper-neoui": "^3.1.22",
     "tinper-neoui-grid": "^3.1.22",
     "tinper-neoui-polyfill": "^3.1.22",
