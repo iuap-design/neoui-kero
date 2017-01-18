@@ -16,7 +16,7 @@ window.processXHRError = processXHRError;
 
 import {
     ServerEvent
-} from 'kero/js/app/indexServerEvent';
+} from 'kero-fetch/js/indexServerEvent';
 window.ServerEvent = ServerEvent;
 
 
