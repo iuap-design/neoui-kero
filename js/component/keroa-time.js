@@ -46,6 +46,10 @@ var TimeAdapter = BaseAdapter.extend({
                 var _date = self.dataModel.getValue(self.field);
                 if (self.dataType === 'datetime') {
                     var valueArr = event.value.split(':');
+                   //如果_date为空时赋值就无法赋值，所以为空时设置了个默认值
+                    if (!_date) {
+                        _date = "1970-01-01 00:00:00";
+                    }
                     _date = date.getDateObj(_date);
                     if (!_date){
                         self.dataModel.setValue(self.field,'');

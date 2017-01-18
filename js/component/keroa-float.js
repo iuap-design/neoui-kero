@@ -79,7 +79,7 @@ var FloatAdapter = BaseAdapter.extend({
                     }
                 }
                 else {
-                    newValue =self.element.value?self.element.value.replaceAll(/,/g,''):"";
+                    newValue =self.element.value?self.element.value.replaceAll(',',''):"";
                     self.setValue(newValue);
                 }
             }
@@ -112,7 +112,7 @@ var FloatAdapter = BaseAdapter.extend({
                 }
             }
             else {
-                newValue = self.element.value?self.element.value.replaceAll(/,/g,''):"";
+                newValue = self.element.value?self.element.value.replaceAll(',',''):"";
                 self.setValue(newValue);
             }
         }
