@@ -5,10 +5,12 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-import {ValueMixin} from '../core/valueMixin';
-import {EnableMixin} from '../core/enableMixin';
-import {RequiredMixin} from '../core/requiredMixin';
-import {ValidateMixin} from '../core/validateMixin';
+
+import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
+import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
+import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
+import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
+
 import {getJSObject} from 'tinper-sparrow/js/util';
 import {Checkbox} from 'tinper-neoui/js/neoui-checkbox';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';

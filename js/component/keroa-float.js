@@ -4,10 +4,12 @@
  * Date	  : 2016-08-09 15:16:08
  */
 import {BaseAdapter} from '../core/baseAdapter';
-import {ValueMixin} from '../core/valueMixin';
-import {EnableMixin} from '../core/enableMixin';
-import {RequiredMixin} from '../core/requiredMixin';
-import {ValidateMixin} from '../core/validateMixin';
+
+import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
+import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
+import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
+import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
+
 import {on,off,stopEvent} from 'tinper-sparrow/js/event';
 import {addClass,removeClass} from 'tinper-sparrow/js/dom';
 import {core} from 'tinper-sparrow/js/core';

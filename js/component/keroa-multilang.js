@@ -8,10 +8,12 @@ import {BaseAdapter} from '../core/baseAdapter';
 import {Multilang} from 'tinper-neoui/js/neoui-multilang';
 import {compMgr} from 'tinper-sparrow/js/compMgr';
 import {core} from 'tinper-sparrow/js/core'
-import {ValueMixin} from '../core/valueMixin';
-import {EnableMixin} from '../core/enableMixin';
-import {RequiredMixin} from '../core/requiredMixin';
-import {ValidateMixin} from '../core/validateMixin';
+
+
+import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
+import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
+import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
+import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
 
 var MultilangAdapter = BaseAdapter.extend({
     // mixins: [ValueMixin],
