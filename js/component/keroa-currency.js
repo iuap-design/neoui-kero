@@ -17,7 +17,7 @@ import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {NumberFormater} from 'tinper-sparrow/js/util/formater';
 import {isNumber} from 'tinper-sparrow/js/util';
 import {FloatAdapter} from './keroa-float';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 import {core} from 'tinper-sparrow/js/core';
 import {CurrencyMasker} from 'tinper-sparrow/js/util/masker';
 

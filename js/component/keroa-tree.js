@@ -7,7 +7,7 @@ import {BaseAdapter} from '../core/baseAdapter';
 import {Year} from 'tinper-neoui/js/neoui-year';
 import {getJSObject,getFunction} from 'tinper-sparrow/js/util';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 
 var TreeAdapter = BaseAdapter.extend({
 	

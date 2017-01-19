@@ -17,7 +17,7 @@ import {env} from 'tinper-sparrow/js/env';
 import {date} from 'tinper-sparrow/js/util/dateUtils';
 import {ClockPicker} from 'tinper-neoui/js/neoui-clockpicker';
 import {Time} from 'tinper-neoui/js/neoui-time';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 
 
 

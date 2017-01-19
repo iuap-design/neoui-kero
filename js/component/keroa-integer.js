@@ -17,7 +17,7 @@ import {core} from 'tinper-sparrow/js/core';
 import {NumberFormater} from 'tinper-sparrow/js/util/formater';
 import {NumberMasker} from 'tinper-sparrow/js/util/masker';
 import {env} from 'tinper-sparrow/js/env';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 
 var IntegerAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin, RequiredMixin, ValidateMixin],

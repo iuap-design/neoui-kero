@@ -10,7 +10,7 @@ import {Text} from 'tinper-neoui/js/neoui-textfield';
 import {FloatAdapter} from './keroa-float';
 import {StringAdapter} from './keroa-string';
 import {IntegerAdapter} from './keroa-integer';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 
 
 var TextFieldAdapter = BaseAdapter.extend({

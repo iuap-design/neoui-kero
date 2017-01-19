@@ -6,7 +6,7 @@
 import {StringAdapter} from './keroa-string';
 import {PhoneNumberMasker} from 'tinper-sparrow/js/util/masker';
 import {core} from 'tinper-sparrow/js/core';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 import {on} from 'tinper-sparrow/js/event';
 /**
  * 手机号控件

@@ -13,7 +13,7 @@ import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
 
 import {getJSObject,getFunction} from 'tinper-sparrow/js/util';
 import {Checkbox} from 'tinper-neoui/js/neoui-checkbox';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 import {makeDOM} from 'tinper-sparrow/js/dom';
 import {on,stopEvent} from 'tinper-sparrow/js/event';
 import {env} from 'tinper-sparrow/js/env';

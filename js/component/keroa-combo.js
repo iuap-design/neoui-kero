@@ -15,7 +15,7 @@ import {Combo} from 'tinper-neoui/js/neoui-combo';
 import {env} from 'tinper-sparrow/js/env';
 import {on,off,stopEvent} from 'tinper-sparrow/js/event';
 import {addClass,removeClass} from 'tinper-sparrow/js/dom';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 
 var ComboboxAdapter = BaseAdapter.extend({
     mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],

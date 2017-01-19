@@ -6,7 +6,7 @@
 
 import {BaseAdapter} from '../core/baseAdapter';
 import {Month} from 'tinper-neoui/js/neoui-month';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 
 import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
 import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';

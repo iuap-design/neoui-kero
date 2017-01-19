@@ -19,7 +19,7 @@ import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {env} from 'tinper-sparrow/js/env';
 import {DateTimePicker} from 'tinper-neoui/js/neoui-datetimepicker';
 import {date} from 'tinper-sparrow/js/util/dateUtils';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 import {getFunction} from 'tinper-sparrow/js/util';
 
 var DateTimeAdapter = BaseAdapter.extend({

@@ -6,7 +6,7 @@
 import {BaseAdapter} from '../core/baseAdapter';
 // import {MonthDate} from 'tinper-neoui/js/neoui-monthdate';
 import {Multilang} from 'tinper-neoui/js/neoui-multilang';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 import {core} from 'tinper-sparrow/js/core'
 
 

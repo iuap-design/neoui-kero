@@ -15,7 +15,7 @@ import {addClass,removeClass} from 'tinper-sparrow/js/dom';
 import {core} from 'tinper-sparrow/js/core';
 import {NumberFormater} from 'tinper-sparrow/js/util/formater';
 import {date} from 'tinper-sparrow/js/util/dateUtils';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 import {NumberMasker} from 'tinper-sparrow/js/util/masker';
 import {isNumber} from 'tinper-sparrow/js/util';
 

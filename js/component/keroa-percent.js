@@ -7,7 +7,7 @@ import {FloatAdapter} from './keroa-float';
 import {NumberFormater} from 'tinper-sparrow/js/util/formater';
 import {PercentMasker} from 'tinper-sparrow/js/util/masker';
 import {core} from 'tinper-sparrow/js/core';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 /**
  * 百分比控件
  */

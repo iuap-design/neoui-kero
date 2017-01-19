@@ -15,7 +15,7 @@ import {getJSObject} from 'tinper-sparrow/js/util';
 import {makeDOM} from 'tinper-sparrow/js/dom';
 import {on,off,stopEvent} from 'tinper-sparrow/js/event';
 import {Radio} from 'tinper-neoui/js/neoui-radio';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 import {addClass, removeClass} from 'tinper-sparrow/js/dom';
 import {env} from 'tinper-sparrow/js/env';
 

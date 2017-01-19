@@ -34,7 +34,7 @@ import {PassWordAdapter} from './keroa-password';
 import {PercentAdapter} from './keroa-percent';
 import {Validate} from 'tinper-neoui/js/neoui-validate';
 import {showMessage} from 'tinper-neoui/js/neoui-message';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 import {trans} from 'tinper-sparrow/js/util/i18n';
 import {core} from 'tinper-sparrow/js/core';
 import {addClass} from 'tinper-sparrow/js/dom';

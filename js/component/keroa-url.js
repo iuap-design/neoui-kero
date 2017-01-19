@@ -5,7 +5,7 @@
  */
 import {StringAdapter} from './keroa-string';
 import {addClass,removeClass,makeDOM} from 'tinper-sparrow/js/dom';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 
 var UrlAdapter = StringAdapter.extend({
     init: function () {

@@ -12,7 +12,7 @@ import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
 import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
 
 import {on} from 'tinper-sparrow/js/event';
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 
 var StringAdapter = BaseAdapter.extend({
     mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],

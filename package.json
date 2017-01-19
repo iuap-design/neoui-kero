@@ -15,9 +15,9 @@
     "utipbuild": "webpack --colors --progress && gulp dist"
   },
   "dependencies": {
-    "kero": "^2.1.22",
-    "kero-fetch": "./node_modules/kero-fetch",
     "neoui-kero-mixin": "./node_modules/neoui-kero-mixin",
+    "compox": "./node_modules/compox",
+    "kero": "^2.1.22",
     "tinper-neoui": "^3.1.22",
     "tinper-neoui-grid": "^3.1.22",
     "tinper-neoui-polyfill": "^3.1.22",

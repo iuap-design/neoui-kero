@@ -10,7 +10,7 @@ import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
 import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
 import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
 
-import {compMgr} from 'tinper-sparrow/js/compMgr';
+import {compMgr} from 'compox/js/compMgr';
 
 var CkEditorAdapter = BaseAdapter.extend({
     mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],
