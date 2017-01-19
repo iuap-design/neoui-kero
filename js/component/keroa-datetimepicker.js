@@ -95,9 +95,10 @@ var DateTimeAdapter = BaseAdapter.extend({
 			}
 
 			this.op = {
-				theme:"ios",
+				theme:"android-holo-light",
 				mode:"scroller",
 				lang: "zh",
+				endYear:'9999',
 				cancelText: null,
 				dateFormat: mobileDateFormat,
 				timeWheels: timeOrder,
