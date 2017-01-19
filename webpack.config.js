@@ -13,10 +13,7 @@ var plugins = [],
 	outputFile;
 
 var	entryAry = {
-		"kero-adapter": [__dirname + '/js/index.js'],
-		"u": __dirname + '/js/u.js',
-		"kero": [__dirname + '/js/kero.js']
-
+		"u": __dirname + '/js/u.js'
 	};
 
 if(env === 'build') {
