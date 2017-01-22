@@ -5,12 +5,6 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 import {getJSObject} from 'tinper-sparrow/js/util';
 import {makeDOM} from 'tinper-sparrow/js/dom';
 import {on,off,stopEvent} from 'tinper-sparrow/js/event';
@@ -20,10 +14,8 @@ import {addClass, removeClass} from 'tinper-sparrow/js/dom';
 import {env} from 'tinper-sparrow/js/env';
 
 var RadioAdapter = BaseAdapter.extend({
-    mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],
-    init: function (options) {
+    init: function () {
         var self = this;
-        //RadioAdapter.superclass.initialize.apply(this, arguments);
         this.dynamic = false;
         this.otherValue = this.options['otherValue'] || '其他';
         if(this.options['datasource'] || this.options['hasOther']){

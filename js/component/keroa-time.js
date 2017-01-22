@@ -5,12 +5,6 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 import {on} from 'tinper-sparrow/js/event';
 import {core} from 'tinper-sparrow/js/core';
 import {env} from 'tinper-sparrow/js/env';
@@ -22,7 +16,6 @@ import {compMgr} from 'compox/js/compMgr';
 
 
 var TimeAdapter = BaseAdapter.extend({
-    mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],
     init: function (options) {
         var self = this;
         this.validType = 'time';

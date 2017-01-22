@@ -4,12 +4,6 @@
  * Date	  : 2016-08-09 15:16:08
  */
 import {BaseAdapter} from '../core/baseAdapter';
-
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 import {on,off,stopEvent} from 'tinper-sparrow/js/event';
 import {addClass,removeClass} from 'tinper-sparrow/js/dom';
 import {core} from 'tinper-sparrow/js/core';
@@ -21,7 +15,6 @@ import {isNumber} from 'tinper-sparrow/js/util';
 
 
 var FloatAdapter = BaseAdapter.extend({
-    mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],
     init: function () {
         var self = this;
         this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');

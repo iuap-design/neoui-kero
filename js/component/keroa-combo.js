@@ -4,12 +4,6 @@
  * Date	  : 2016-08-09 09:52:13
  */
 import {BaseAdapter} from '../core/baseAdapter';
-
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 import {getJSObject} from 'tinper-sparrow/js/util';
 import {Combo} from 'tinper-neoui/js/neoui-combo';
 import {env} from 'tinper-sparrow/js/env';
@@ -18,10 +12,8 @@ import {addClass,removeClass} from 'tinper-sparrow/js/dom';
 import {compMgr} from 'compox/js/compMgr';
 
 var ComboboxAdapter = BaseAdapter.extend({
-    mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],
     init: function () {
         var self = this;
-        //ComboboxAdapter.superclass.initialize.apply(this, arguments);
         this.datasource = getJSObject(this.viewModel, this.options['datasource']);
         this.mutil = this.options.mutil || false;
         this.onlySelect = this.options.onlySelect || false;

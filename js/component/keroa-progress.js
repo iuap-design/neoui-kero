@@ -9,9 +9,8 @@ import {Progress} from 'tinper-neoui/js/neoui-progress';
 import {compMgr} from 'compox/js/compMgr';
 
 var ProgressAdapter = BaseAdapter.extend({
-    initialize: function (options) {
+    init: function () {
         var self = this;
-        ProgressAdapter.superclass.initialize.apply(this, arguments);
 
         this.comp = new Progress(this.element);
         this.element['u.Progress'] = this.comp;

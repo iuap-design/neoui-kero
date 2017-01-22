@@ -5,12 +5,6 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 import {on,off,stopEvent} from 'tinper-sparrow/js/event';
 import {addClass,removeClass} from 'tinper-sparrow/js/dom';
 import {core} from 'tinper-sparrow/js/core';
@@ -23,10 +17,8 @@ import {compMgr} from 'compox/js/compMgr';
 import {getFunction} from 'tinper-sparrow/js/util';
 
 var DateTimeAdapter = BaseAdapter.extend({
-	mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],
-	init: function (options) {
+	init: function () {
 		var self = this,adapterType,format;
-		// DateTimeAdapter.superclass.initialize.apply(this, arguments);
 		if (this.options.type === 'u-date'){
 			this.adapterType = 'date';
 		}else{

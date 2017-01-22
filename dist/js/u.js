@@ -13645,9 +13645,10 @@
 	        }
 
 	        this.op = {
-	            theme: "ios",
+	            theme: "android-holo-light",
 	            mode: "scroller",
 	            lang: "zh",
+	            endYear: '9999',
 	            cancelText: null,
 	            dateFormat: mobileDateFormat,
 	            timeWheels: timeOrder,
@@ -19554,7 +19555,7 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _keroaCheckbox = __webpack_require__(105);
+	var _keroaCheckbox = __webpack_require__(122);
 
 	var _keroaCkeditor = __webpack_require__(123);
 
@@ -19608,13 +19609,13 @@
 
 	var _keroaMultilang = __webpack_require__(148);
 
-	var _enableMixin = __webpack_require__(107);
+	var _enableMixin = __webpack_require__(106);
 
-	var _requiredMixin = __webpack_require__(113);
+	var _requiredMixin = __webpack_require__(112);
 
-	var _validateMixin = __webpack_require__(114);
+	var _validateMixin = __webpack_require__(113);
 
-	var _valueMixin = __webpack_require__(106);
+	var _valueMixin = __webpack_require__(105);
 
 	// console.log(TextAreaAdapter);
 
@@ -19673,6 +19674,14 @@
 
 	var _util = __webpack_require__(5);
 
+	var _valueMixin = __webpack_require__(105);
+
+	var _enableMixin = __webpack_require__(106);
+
+	var _requiredMixin = __webpack_require__(112);
+
+	var _validateMixin = __webpack_require__(113);
+
 	/**
 	 * adapter基类
 	 */
@@ -19683,6 +19692,7 @@
 	 * Date	  : 2016-08-09 10:00:00
 	 */
 	var BaseAdapter = _class.Class.create({
+	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    /**
 	     *
 	     * @param comp
@@ -19692,6 +19702,7 @@
 	     *      model:{}        模型，包括数据和事件
 	     */
 	    initialize: function initialize(options) {
+	        this.initBefore();
 	        //组合mixin中的方法
 	        for (var i in this.mixins) {
 	            var mixin = this.mixins[i];
@@ -19706,6 +19717,7 @@
 	        this.element = options['el'];
 	        this.options = options['options'];
 	        this.viewModel = options['model'];
+	        this.app = options['app'];
 	        this.dataModel = null;
 	        this.mixins = this.mixins || [];
 	        this.parseDataModel();
@@ -19716,6 +19728,7 @@
 	            if (mixin['init']) mixin.init.call(this);
 	        }
 	    },
+	    initBefore: function initBefore() {},
 	    parseDataModel: function parseDataModel() {
 	        if (!this.options || !this.options["data"]) return;
 	        this.field = this.options["field"];
@@ -19744,329 +19757,6 @@
 
 /***/ },
 /* 105 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.CheckboxAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(104);
-
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
-	var _util = __webpack_require__(5);
-
-	var _neouiCheckbox = __webpack_require__(25);
-
-	var _compMgr = __webpack_require__(12);
-
-	var _dom = __webpack_require__(8);
-
-	var _event = __webpack_require__(7);
-
-	var _env = __webpack_require__(6);
-
-	var CheckboxAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init(options) {
-	        var self = this;
-	        // CheckboxAdapter.superclass.initialize.apply(this, arguments);
-	        this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
-	        this.otherValue = this.options['otherValue'] || '其他';
-	        this.beforeEdit = (0, _util.getFunction)(this.viewModel, this.options['beforeEdit']);
-	        if (this.options['datasource'] || this.options['hasOther']) {
-	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
-	            if (_env.env.isIE) {
-	                this.checkboxTemplateHTML = this.element.innerHTML;
-	            } else {
-	                this.checkboxTemplateArray = [];
-	                for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
-	                    this.checkboxTemplateArray.push(this.element.childNodes[i]);
-	                }
-	            }
-	        }
-	        if (this.options['datasource']) {
-	            this.isGroup = true;
-	            this.datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
-	            if (this.datasource) this.setComboData(this.datasource);
-	        } else {
-	            if (this.element['u.Checkbox']) {
-	                this.comp = this.element['u.Checkbox'];
-	            } else {
-	                this.comp = new _neouiCheckbox.Checkbox(this.element);
-	                this.comp.beforeEdit = this.beforeEdit;
-	                this.element['u.Checkbox'] = this.comp;
-	            }
-
-	            // 由于不同浏览器input的value不一样，所以默认checkedValue修改为true
-
-	            this.checkedValue = this.options['checkedValue'] || true;
-	            this.unCheckedValue = this.options["unCheckedValue"];
-
-	            this.comp.on('change', function () {
-	                if (self.slice) return;
-	                if (!self.dataModel) return;
-	                var modelValue = self.dataModel.getValue(self.field);
-	                modelValue = modelValue ? modelValue : '';
-	                if (self.isGroup) {
-	                    var valueArr = modelValue == '' ? [] : modelValue.split(',');
-
-	                    if (self.comp._inputElement.checked) {
-	                        valueArr.push(self.checkedValue);
-	                    } else {
-	                        var index = valueArr.indexOf(self.checkedValue);
-	                        valueArr.splice(index, 1);
-	                    }
-	                    self.dataModel.setValue(self.field, valueArr.join(','));
-	                } else {
-	                    if (self.comp._inputElement.checked) {
-	                        self.dataModel.setValue(self.field, self.checkedValue);
-	                    } else {
-	                        self.dataModel.setValue(self.field, self.unCheckedValue);
-	                    }
-	                }
-	            });
-	        }
-	        // 如果存在其他
-	        if (this.options['hasOther']) {
-	            var node = null;
-	            if (_env.env.isIE) {
-	                var nowHtml = this.element.innerHTML;
-	                this.element.innerHTML = nowHtml + this.checkboxTemplateHTML;
-	            } else {
-	                for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
-	                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
-	                }
-	            }
-
-	            var LabelS = this.element.querySelectorAll('.u-checkbox');
-	            self.lastLabel = LabelS[LabelS.length - 1];
-	            var allCheckS = this.element.querySelectorAll('[type=checkbox]');
-	            self.lastCheck = allCheckS[allCheckS.length - 1];
-	            var nameDivs = this.element.querySelectorAll('[data-role=name]');
-	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
-	            self.lastNameDiv.innerHTML = '其他';
-	            self.otherInput = (0, _dom.makeDOM)('<input disabled type="text" style="width: 80%">');
-	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
-	            self.lastCheck.value = '';
-
-	            var comp;
-	            if (self.lastLabel['u.Checkbox']) {
-	                comp = self.lastLabel['u.Checkbox'];
-	            } else {
-	                comp = new _neouiCheckbox.Checkbox(self.lastLabel);
-	            }
-	            self.lastLabel['u.Checkbox'] = comp;
-	            self.otherComp = comp;
-	            comp.on('change', function () {
-	                if (self.slice) return;
-	                var modelValue = self.dataModel.getValue(self.field);
-	                modelValue = modelValue ? modelValue : '';
-	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
-	                if (comp._inputElement.checked) {
-	                    var oldIndex = valueArr.indexOf(self.otherInput.oldValue);
-	                    if (oldIndex > -1) {
-	                        valueArr.splice(oldIndex, 1);
-	                    }
-	                    if (self.otherInput.value) {
-	                        valueArr.push(self.otherInput.value);
-	                    }
-	                    var otherValueIndex = valueArr.indexOf(self.otherValue);
-	                    if (otherValueIndex < 0) {
-	                        valueArr.push(self.otherValue);
-	                    }
-
-	                    // 选中后可编辑
-	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
-	                        ele.removeAttribute('disabled');
-	                    });
-	                } else {
-	                    var index = valueArr.indexOf(self.otherInput.value);
-	                    if (index > -1) {
-	                        valueArr.splice(index, 1);
-	                    }
-
-	                    var otherValueIndex = valueArr.indexOf(self.otherValue);
-	                    if (otherValueIndex > -1) {
-	                        valueArr.splice(otherValueIndex, 1);
-	                    }
-
-	                    // 未选中则不可编辑
-	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
-	                        ele.setAttribute('disabled', 'true');
-	                    });
-	                }
-	                //self.slice = true;
-	                self.dataModel.setValue(self.field, valueArr.join(','));
-	                //self.slice = false;
-	            });
-
-	            (0, _event.on)(self.otherInput, 'blur', function (e) {
-	                self.lastCheck.value = this.value;
-	                self.otherComp.trigger('change');
-	                this.oldValue = this.value;
-	            });
-	            (0, _event.on)(self.otherInput, 'click', function (e) {
-	                (0, _event.stopEvent)(e);
-	            });
-	        }
-
-	        if (this.dataModel) {
-	            this.dataModel.ref(this.field).subscribe(function (value) {
-	                if (!value) value = "";
-	                self.modelValueChange(value);
-	            });
-	        }
-	    },
-	    setComboData: function setComboData(comboData) {
-	        var self = this;
-	        this.datasource = comboData;
-	        this.element.innerHTML = '';
-	        if (_env.env.isIE) {
-	            var htmlStr = '';
-	            for (var i = 0, len = comboData.length; i < len; i++) {
-	                htmlStr += this.checkboxTemplateHTML;
-	            }
-	            this.element.innerHTML = htmlStr;
-	        } else {
-	            for (var i = 0, len = comboData.length; i < len; i++) {
-	                for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
-	                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
-	                }
-	            }
-	        }
-
-	        var allCheck = this.element.querySelectorAll('[type=checkbox]');
-	        var allName = this.element.querySelectorAll('[data-role=name]');
-	        for (var k = 0; k < allCheck.length; k++) {
-	            allCheck[k].value = comboData[k].pk || comboData[k].value;
-	            allName[k].innerHTML = comboData[k].name;
-	        }
-	        this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
-	            var comp;
-	            if (ele['u.Checkbox']) {
-	                comp = ele['u.Checkbox'];
-	            } else {
-	                comp = new _neouiCheckbox.Checkbox(ele);
-	                comp.beforeEdit = self.beforeEdit;
-	            }
-	            ele['u.Checkbox'] = comp;
-	            comp.on('change', function () {
-	                if (self.slice) return;
-	                var modelValue = self.dataModel.getValue(self.field);
-	                modelValue = modelValue ? modelValue : '';
-	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
-	                if (comp._inputElement.checked) {
-	                    valueArr.push(comp._inputElement.value);
-	                } else {
-	                    var index = valueArr.indexOf(comp._inputElement.value);
-	                    valueArr.splice(index, 1);
-	                }
-	                //self.slice = true;
-	                self.dataModel.setValue(self.field, valueArr.join(','));
-	                //self.slice = false;
-	            });
-	        });
-	    },
-	    modelValueChange: function modelValueChange(val) {
-	        var self = this;
-	        if (this.slice) return;
-
-	        if (this.isGroup) {
-	            if (this.datasource) {
-	                this.trueValue = val;
-	                if (this.options.hasOther) {
-	                    var otherVal = '';
-	                    if (val) otherVal = val + ',';
-	                }
-	                this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
-	                    var comp = ele['u.Checkbox'];
-	                    if (comp) {
-	                        var inputValue = comp._inputElement.value;
-	                        if (inputValue && comp._inputElement.checked != (val + ',').indexOf(inputValue + ',') > -1) {
-	                            self.slice = true;
-	                            comp.toggle();
-	                            self.slice = false;
-	                        }
-	                        if (inputValue && (val + ',').indexOf(inputValue + ',') > -1) {
-	                            if (self.options.hasOther) {
-	                                otherVal = otherVal.replace(inputValue + ',', '');
-	                            }
-	                        }
-	                    }
-	                });
-	                if (this.options.hasOther) {
-	                    if (otherVal.indexOf(this.otherValue + ',') > -1) {
-	                        self.lastCheck.value = this.otherValue;
-	                        otherVal = otherVal.replace(this.otherValue + ',', '');
-	                    }
-	                    otherVal = otherVal.replace(/\,/g, '');
-	                    if (otherVal) {
-	                        self.otherInput.oldValue = otherVal;
-	                        self.otherInput.value = otherVal;
-	                        self.otherInput.removeAttribute('disabled');
-	                    }
-	                }
-	            }
-	        } else {
-	            var flag;
-	            if (this.checkedValue === true) flag = val === this.checkedValue || val === "true";else flag = val === this.checkedValue;
-	            if (this.comp._inputElement.checked != flag) {
-	                this.slice = true;
-	                this.comp.toggle();
-	                this.slice = false;
-	            }
-	        }
-	    },
-
-	    setEnable: function setEnable(enable) {
-	        this.enable = enable === true || enable === 'true';
-	        if (this.isGroup) {
-	            if (this.datasource) {
-	                if (this.otherInput && !this.enable) {
-	                    this.otherInput.setAttribute('disabled', true);
-	                }
-	                this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
-	                    var comp = ele['u.Checkbox'];
-	                    if (comp) {
-	                        if (enable === true || enable === 'true') {
-	                            comp.enable();
-	                        } else {
-	                            comp.disable();
-	                        }
-	                    }
-	                });
-	            }
-	        } else {
-	            if (this.enable) {
-	                this.comp.enable();
-	            } else {
-	                this.comp.disable();
-	            }
-	        }
-	    }
-	}); /**
-	     * Module : Kero Check Adapter
-	     * Author : Kvkens(yueming@yonyou.com)
-	     * Date	  : 2016-08-08 15:50:03
-	     */
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: CheckboxAdapter,
-	    name: 'u-checkbox'
-	});
-
-	exports.CheckboxAdapter = CheckboxAdapter;
-
-/***/ },
-/* 106 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20265,7 +19955,7 @@
 	exports.ValueMixin = ValueMixin;
 
 /***/ },
-/* 107 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20275,7 +19965,7 @@
 	});
 	exports.EnableMixin = undefined;
 
-	var _dom = __webpack_require__(108);
+	var _dom = __webpack_require__(107);
 
 	var EnableMixin = {
 	    init: function init() {
@@ -20311,7 +20001,7 @@
 	exports.EnableMixin = EnableMixin;
 
 /***/ },
-/* 108 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20321,7 +20011,7 @@
 	});
 	exports.getElementTop = exports.getElementLeft = exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
 
-	var _event = __webpack_require__(109);
+	var _event = __webpack_require__(108);
 
 	/**
 	 * 元素增加指定样式
@@ -20630,7 +20320,7 @@
 	exports.getElementTop = getElementTop;
 
 /***/ },
-/* 109 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -20640,7 +20330,7 @@
 	});
 	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
 
-	var _env = __webpack_require__(110);
+	var _env = __webpack_require__(109);
 
 	var u = {}; /**
 	             * Module : Sparrow touch event
@@ -21024,7 +20714,7 @@
 	exports.event = event;
 
 /***/ },
-/* 110 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21034,7 +20724,7 @@
 	});
 	exports.env = undefined;
 
-	var _extend = __webpack_require__(111);
+	var _extend = __webpack_require__(110);
 
 	var u = {}; /**
 	             * Module : Sparrow browser environment
@@ -21233,7 +20923,7 @@
 	exports.env = env;
 
 /***/ },
-/* 111 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21249,7 +20939,7 @@
 	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-27 21:46:50
 	                                                                                                                                                                                                                                                                               */
 
-	var _enumerables = __webpack_require__(112);
+	var _enumerables = __webpack_require__(111);
 
 	/**
 	 * 复制对象属性
@@ -21285,7 +20975,7 @@
 	exports.extend = extend;
 
 /***/ },
-/* 112 */
+/* 111 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21323,7 +21013,7 @@
 	exports.U_USERCODE = U_USERCODE;
 
 /***/ },
-/* 113 */
+/* 112 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21360,7 +21050,7 @@
 	exports.RequiredMixin = RequiredMixin;
 
 /***/ },
-/* 114 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21370,7 +21060,7 @@
 	});
 	exports.ValidateMixin = undefined;
 
-	var _neouiValidate = __webpack_require__(115);
+	var _neouiValidate = __webpack_require__(114);
 
 	var ValidateMixin = {
 	    init: function init() {
@@ -21444,7 +21134,7 @@
 	exports.ValidateMixin = ValidateMixin;
 
 /***/ },
-/* 115 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21461,21 +21151,21 @@
 	                                                                                                                                                                                                                                                                               */
 
 
-	var _BaseComponent = __webpack_require__(116);
+	var _BaseComponent = __webpack_require__(115);
 
-	var _extend = __webpack_require__(111);
+	var _extend = __webpack_require__(110);
 
-	var _dom = __webpack_require__(108);
+	var _dom = __webpack_require__(107);
 
-	var _event = __webpack_require__(109);
+	var _event = __webpack_require__(108);
 
-	var _util = __webpack_require__(118);
+	var _util = __webpack_require__(117);
 
-	var _neouiTooltip = __webpack_require__(120);
+	var _neouiTooltip = __webpack_require__(119);
 
-	var _i18n = __webpack_require__(121);
+	var _i18n = __webpack_require__(120);
 
-	var _compMgr = __webpack_require__(119);
+	var _compMgr = __webpack_require__(118);
 
 	var Validate = _BaseComponent.BaseComponent.extend({
 
@@ -22046,7 +21736,7 @@
 	exports.doValidate = doValidate;
 
 /***/ },
-/* 116 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22056,13 +21746,13 @@
 	});
 	exports.BaseComponent = undefined;
 
-	var _class = __webpack_require__(117);
+	var _class = __webpack_require__(116);
 
-	var _util = __webpack_require__(118);
+	var _util = __webpack_require__(117);
 
-	var _event = __webpack_require__(109);
+	var _event = __webpack_require__(108);
 
-	var _compMgr = __webpack_require__(119);
+	var _compMgr = __webpack_require__(118);
 
 	/**
 	 * Module : Sparrow base component
@@ -22187,7 +21877,7 @@
 	exports.BaseComponent = BaseComponent;
 
 /***/ },
-/* 117 */
+/* 116 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22376,7 +22066,7 @@
 	exports.isFunction = isFunction;
 
 /***/ },
-/* 118 */
+/* 117 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22538,7 +22228,7 @@
 	exports.dateFormat = dateFormat;
 
 /***/ },
-/* 119 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22555,9 +22245,9 @@
 	                                                                                                                                                                                                                                                                               * Update : 2016-09-13 09:26:00
 	                                                                                                                                                                                                                                                                               */
 
-	var _dom = __webpack_require__(108);
+	var _dom = __webpack_require__(107);
 
-	var _util = __webpack_require__(118);
+	var _util = __webpack_require__(117);
 
 	function _findRegisteredClass(name, optReplace) {
 	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
@@ -22808,7 +22498,7 @@
 	//}
 
 /***/ },
-/* 120 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22818,11 +22508,11 @@
 	});
 	exports.Tooltip = undefined;
 
-	var _extend = __webpack_require__(111);
+	var _extend = __webpack_require__(110);
 
-	var _event = __webpack_require__(109);
+	var _event = __webpack_require__(108);
 
-	var _dom = __webpack_require__(108);
+	var _dom = __webpack_require__(107);
 
 	var Tooltip = function Tooltip(element, options) {
 		this.init(element, options);
@@ -23166,7 +22856,7 @@
 	exports.Tooltip = Tooltip;
 
 /***/ },
-/* 121 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23176,9 +22866,9 @@
 	});
 	exports.trans = undefined;
 
-	var _cookies = __webpack_require__(122);
+	var _cookies = __webpack_require__(121);
 
-	var _enumerables = __webpack_require__(112);
+	var _enumerables = __webpack_require__(111);
 
 	// 从datatable/src/compatiable/u/JsExtension.js抽取
 	/**
@@ -23244,7 +22934,7 @@
 	exports.trans = trans;
 
 /***/ },
-/* 122 */
+/* 121 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -23280,6 +22970,319 @@
 	exports.getCookie = getCookie;
 
 /***/ },
+/* 122 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.CheckboxAdapter = undefined;
+
+	var _baseAdapter = __webpack_require__(104);
+
+	var _util = __webpack_require__(5);
+
+	var _neouiCheckbox = __webpack_require__(25);
+
+	var _compMgr = __webpack_require__(12);
+
+	var _dom = __webpack_require__(8);
+
+	var _event = __webpack_require__(7);
+
+	var _env = __webpack_require__(6);
+
+	var CheckboxAdapter = _baseAdapter.BaseAdapter.extend({
+	    init: function init() {
+	        var self = this;
+	        this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
+	        this.otherValue = this.options['otherValue'] || '其他';
+	        this.beforeEdit = (0, _util.getFunction)(this.viewModel, this.options['beforeEdit']);
+	        if (this.options['datasource'] || this.options['hasOther']) {
+	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
+	            if (_env.env.isIE) {
+	                this.checkboxTemplateHTML = this.element.innerHTML;
+	            } else {
+	                this.checkboxTemplateArray = [];
+	                for (var i = 0, count = this.element.childNodes.length; i < count; i++) {
+	                    this.checkboxTemplateArray.push(this.element.childNodes[i]);
+	                }
+	            }
+	        }
+	        if (this.options['datasource']) {
+	            this.isGroup = true;
+	            this.datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
+	            if (this.datasource) this.setComboData(this.datasource);
+	        } else {
+	            if (this.element['u.Checkbox']) {
+	                this.comp = this.element['u.Checkbox'];
+	            } else {
+	                this.comp = new _neouiCheckbox.Checkbox(this.element);
+	                this.comp.beforeEdit = this.beforeEdit;
+	                this.element['u.Checkbox'] = this.comp;
+	            }
+
+	            // 由于不同浏览器input的value不一样，所以默认checkedValue修改为true
+
+	            this.checkedValue = this.options['checkedValue'] || true;
+	            this.unCheckedValue = this.options["unCheckedValue"];
+
+	            this.comp.on('change', function () {
+	                if (self.slice) return;
+	                if (!self.dataModel) return;
+	                var modelValue = self.dataModel.getValue(self.field);
+	                modelValue = modelValue ? modelValue : '';
+	                if (self.isGroup) {
+	                    var valueArr = modelValue == '' ? [] : modelValue.split(',');
+
+	                    if (self.comp._inputElement.checked) {
+	                        valueArr.push(self.checkedValue);
+	                    } else {
+	                        var index = valueArr.indexOf(self.checkedValue);
+	                        valueArr.splice(index, 1);
+	                    }
+	                    self.dataModel.setValue(self.field, valueArr.join(','));
+	                } else {
+	                    if (self.comp._inputElement.checked) {
+	                        self.dataModel.setValue(self.field, self.checkedValue);
+	                    } else {
+	                        self.dataModel.setValue(self.field, self.unCheckedValue);
+	                    }
+	                }
+	            });
+	        }
+	        // 如果存在其他
+	        if (this.options['hasOther']) {
+	            var node = null;
+	            if (_env.env.isIE) {
+	                var nowHtml = this.element.innerHTML;
+	                this.element.innerHTML = nowHtml + this.checkboxTemplateHTML;
+	            } else {
+	                for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
+	                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
+	                }
+	            }
+
+	            var LabelS = this.element.querySelectorAll('.u-checkbox');
+	            self.lastLabel = LabelS[LabelS.length - 1];
+	            var allCheckS = this.element.querySelectorAll('[type=checkbox]');
+	            self.lastCheck = allCheckS[allCheckS.length - 1];
+	            var nameDivs = this.element.querySelectorAll('[data-role=name]');
+	            self.lastNameDiv = nameDivs[nameDivs.length - 1];
+	            self.lastNameDiv.innerHTML = '其他';
+	            self.otherInput = (0, _dom.makeDOM)('<input disabled type="text" style="width: 80%">');
+	            self.lastNameDiv.parentNode.appendChild(self.otherInput);
+	            self.lastCheck.value = '';
+
+	            var comp;
+	            if (self.lastLabel['u.Checkbox']) {
+	                comp = self.lastLabel['u.Checkbox'];
+	            } else {
+	                comp = new _neouiCheckbox.Checkbox(self.lastLabel);
+	            }
+	            self.lastLabel['u.Checkbox'] = comp;
+	            self.otherComp = comp;
+	            comp.on('change', function () {
+	                if (self.slice) return;
+	                var modelValue = self.dataModel.getValue(self.field);
+	                modelValue = modelValue ? modelValue : '';
+	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
+	                if (comp._inputElement.checked) {
+	                    var oldIndex = valueArr.indexOf(self.otherInput.oldValue);
+	                    if (oldIndex > -1) {
+	                        valueArr.splice(oldIndex, 1);
+	                    }
+	                    if (self.otherInput.value) {
+	                        valueArr.push(self.otherInput.value);
+	                    }
+	                    var otherValueIndex = valueArr.indexOf(self.otherValue);
+	                    if (otherValueIndex < 0) {
+	                        valueArr.push(self.otherValue);
+	                    }
+
+	                    // 选中后可编辑
+	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
+	                        ele.removeAttribute('disabled');
+	                    });
+	                } else {
+	                    var index = valueArr.indexOf(self.otherInput.value);
+	                    if (index > -1) {
+	                        valueArr.splice(index, 1);
+	                    }
+
+	                    var otherValueIndex = valueArr.indexOf(self.otherValue);
+	                    if (otherValueIndex > -1) {
+	                        valueArr.splice(otherValueIndex, 1);
+	                    }
+
+	                    // 未选中则不可编辑
+	                    comp.element.querySelectorAll('input[type="text"]').forEach(function (ele) {
+	                        ele.setAttribute('disabled', 'true');
+	                    });
+	                }
+	                //self.slice = true;
+	                self.dataModel.setValue(self.field, valueArr.join(','));
+	                //self.slice = false;
+	            });
+
+	            (0, _event.on)(self.otherInput, 'blur', function (e) {
+	                self.lastCheck.value = this.value;
+	                self.otherComp.trigger('change');
+	                this.oldValue = this.value;
+	            });
+	            (0, _event.on)(self.otherInput, 'click', function (e) {
+	                (0, _event.stopEvent)(e);
+	            });
+	        }
+
+	        if (this.dataModel) {
+	            this.dataModel.ref(this.field).subscribe(function (value) {
+	                if (!value) value = "";
+	                self.modelValueChange(value);
+	            });
+	        }
+	    },
+	    setComboData: function setComboData(comboData) {
+	        var self = this;
+	        this.datasource = comboData;
+	        this.element.innerHTML = '';
+	        if (_env.env.isIE) {
+	            var htmlStr = '';
+	            for (var i = 0, len = comboData.length; i < len; i++) {
+	                htmlStr += this.checkboxTemplateHTML;
+	            }
+	            this.element.innerHTML = htmlStr;
+	        } else {
+	            for (var i = 0, len = comboData.length; i < len; i++) {
+	                for (var j = 0; j < this.checkboxTemplateArray.length; j++) {
+	                    this.element.appendChild(this.checkboxTemplateArray[j].cloneNode(true));
+	                }
+	            }
+	        }
+
+	        var allCheck = this.element.querySelectorAll('[type=checkbox]');
+	        var allName = this.element.querySelectorAll('[data-role=name]');
+	        for (var k = 0; k < allCheck.length; k++) {
+	            allCheck[k].value = comboData[k].pk || comboData[k].value;
+	            allName[k].innerHTML = comboData[k].name;
+	        }
+	        this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
+	            var comp;
+	            if (ele['u.Checkbox']) {
+	                comp = ele['u.Checkbox'];
+	            } else {
+	                comp = new _neouiCheckbox.Checkbox(ele);
+	                comp.beforeEdit = self.beforeEdit;
+	            }
+	            ele['u.Checkbox'] = comp;
+	            comp.on('change', function () {
+	                if (self.slice) return;
+	                var modelValue = self.dataModel.getValue(self.field);
+	                modelValue = modelValue ? modelValue : '';
+	                var valueArr = modelValue == '' ? [] : modelValue.split(',');
+	                if (comp._inputElement.checked) {
+	                    valueArr.push(comp._inputElement.value);
+	                } else {
+	                    var index = valueArr.indexOf(comp._inputElement.value);
+	                    valueArr.splice(index, 1);
+	                }
+	                //self.slice = true;
+	                self.dataModel.setValue(self.field, valueArr.join(','));
+	                //self.slice = false;
+	            });
+	        });
+	    },
+	    modelValueChange: function modelValueChange(val) {
+	        var self = this;
+	        if (this.slice) return;
+
+	        if (this.isGroup) {
+	            if (this.datasource) {
+	                this.trueValue = val;
+	                if (this.options.hasOther) {
+	                    var otherVal = '';
+	                    if (val) otherVal = val + ',';
+	                }
+	                this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
+	                    var comp = ele['u.Checkbox'];
+	                    if (comp) {
+	                        var inputValue = comp._inputElement.value;
+	                        if (inputValue && comp._inputElement.checked != (val + ',').indexOf(inputValue + ',') > -1) {
+	                            self.slice = true;
+	                            comp.toggle();
+	                            self.slice = false;
+	                        }
+	                        if (inputValue && (val + ',').indexOf(inputValue + ',') > -1) {
+	                            if (self.options.hasOther) {
+	                                otherVal = otherVal.replace(inputValue + ',', '');
+	                            }
+	                        }
+	                    }
+	                });
+	                if (this.options.hasOther) {
+	                    if (otherVal.indexOf(this.otherValue + ',') > -1) {
+	                        self.lastCheck.value = this.otherValue;
+	                        otherVal = otherVal.replace(this.otherValue + ',', '');
+	                    }
+	                    otherVal = otherVal.replace(/\,/g, '');
+	                    if (otherVal) {
+	                        self.otherInput.oldValue = otherVal;
+	                        self.otherInput.value = otherVal;
+	                        self.otherInput.removeAttribute('disabled');
+	                    }
+	                }
+	            }
+	        } else {
+	            var flag;
+	            if (this.checkedValue === true) flag = val === this.checkedValue || val === "true";else flag = val === this.checkedValue;
+	            if (this.comp._inputElement.checked != flag) {
+	                this.slice = true;
+	                this.comp.toggle();
+	                this.slice = false;
+	            }
+	        }
+	    },
+
+	    setEnable: function setEnable(enable) {
+	        this.enable = enable === true || enable === 'true';
+	        if (this.isGroup) {
+	            if (this.datasource) {
+	                if (this.otherInput && !this.enable) {
+	                    this.otherInput.setAttribute('disabled', true);
+	                }
+	                this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
+	                    var comp = ele['u.Checkbox'];
+	                    if (comp) {
+	                        if (enable === true || enable === 'true') {
+	                            comp.enable();
+	                        } else {
+	                            comp.disable();
+	                        }
+	                    }
+	                });
+	            }
+	        } else {
+	            if (this.enable) {
+	                this.comp.enable();
+	            } else {
+	                this.comp.disable();
+	            }
+	        }
+	    }
+	}); /**
+	     * Module : Kero Check Adapter
+	     * Author : Kvkens(yueming@yonyou.com)
+	     * Date	  : 2016-08-08 15:50:03
+	     */
+
+	_compMgr.compMgr.addDataAdapter({
+	    adapter: CheckboxAdapter,
+	    name: 'u-checkbox'
+	});
+
+	exports.CheckboxAdapter = CheckboxAdapter;
+
+/***/ },
 /* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -23290,14 +23293,6 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _compMgr = __webpack_require__(12);
 
 	/**
@@ -23306,7 +23301,6 @@
 	 * Date	  : 2016-08-09 09:52:13
 	 */
 	var CkEditorAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
 	        var self = this;
 	        this.e_editor = this.id + "-ckeditor";
@@ -23401,14 +23395,6 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _util = __webpack_require__(5);
 
 	var _neouiCombo = __webpack_require__(26);
@@ -23422,10 +23408,8 @@
 	var _compMgr = __webpack_require__(12);
 
 	var ComboboxAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
 	        var self = this;
-	        //ComboboxAdapter.superclass.initialize.apply(this, arguments);
 	        this.datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
 	        this.mutil = this.options.mutil || false;
 	        this.onlySelect = this.options.onlySelect || false;
@@ -23543,14 +23527,6 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _util = __webpack_require__(5);
 
 	var _neouiCheckbox = __webpack_require__(25);
@@ -23579,7 +23555,6 @@
 	var CurrencyAdapter = _keroaFloat.FloatAdapter.extend({
 	    init: function init() {
 	        var self = this;
-	        CurrencyAdapter.superclass.init.apply(this);
 	        this.maskerMeta = _core.core.getMaskerMeta('currency') || {};
 	        this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
 	        this.maskerMeta.curSymbol = this.getOption('curSymbol') || this.maskerMeta.curSymbol;
@@ -23656,14 +23631,6 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _event = __webpack_require__(7);
 
 	var _dom = __webpack_require__(8);
@@ -23681,7 +23648,6 @@
 	var _util = __webpack_require__(5);
 
 	var FloatAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
 	        var self = this;
 	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -23839,14 +23805,6 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _event = __webpack_require__(7);
 
 	var _dom = __webpack_require__(8);
@@ -23872,12 +23830,10 @@
 	 */
 
 	var DateTimeAdapter = _baseAdapter.BaseAdapter.extend({
-		mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-		init: function init(options) {
+		init: function init() {
 			var self = this,
 			    adapterType,
 			    format;
-			// DateTimeAdapter.superclass.initialize.apply(this, arguments);
 			if (this.options.type === 'u-date') {
 				this.adapterType = 'date';
 			} else {
@@ -23948,9 +23904,10 @@
 				}
 
 				this.op = {
-					theme: "ios",
+					theme: "android-holo-light",
 					mode: "scroller",
 					lang: "zh",
+					endYear: '9999',
 					cancelText: null,
 					dateFormat: mobileDateFormat,
 					timeWheels: timeOrder,
@@ -24187,7 +24144,7 @@
 				}
 			}
 			value = _dateUtils.date.format(value, this.options.format);
-			_valueMixin.ValueMixin.methods.setValue.call(this, value);
+			ValueMixin.methods.setValue.call(this, value);
 			// this.trueValue = this.formater ? this.formater.format(value) : value;
 			// this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
 			// this.setShowValue(this.showValue);
@@ -24260,14 +24217,6 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _util = __webpack_require__(5);
 
 	var _formater = __webpack_require__(15);
@@ -24292,7 +24241,7 @@
 
 	var _keroaInteger = __webpack_require__(134);
 
-	var _keroaCheckbox = __webpack_require__(105);
+	var _keroaCheckbox = __webpack_require__(122);
 
 	var _keroaCombo = __webpack_require__(124);
 
@@ -24323,14 +24272,16 @@
 	var _dom = __webpack_require__(8);
 
 	var GridAdapter = _baseAdapter.BaseAdapter.extend({
-		initialize: function initialize(options) {
+		mixins: [],
+		init: function init() {
+			var options = this.options,
+
 			// 初始options中包含grid的属性设置，还需要增加dataSource、columns、transMap以及事件处理
-			var opt = options['options'] || {},
-			    viewModel = options['model'];
-			var element = typeof options['el'] === 'string' ? document.querySelector(options['el']) : options['el'];
-			var app = options['app'];
+			opt = options || {},
+			    viewModel = this.viewModel;
+			var element = this.element;
+
 			this.id = opt['id'];
-			options = opt;
 
 			var oThis = this;
 			var compDiv = null;
@@ -24807,8 +24758,12 @@
 				columns.push(column);
 			});
 
-			if (app && app.adjustFunc) app.adjustFunc.call(app, { id: this.id, type: 'gridColumn', columns: columns });
-
+			//暂时未使用，后续考虑完善代码，不要删除！
+			/* 
+	  var app = options['app'];
+	  if (app && app.adjustFunc)
+	   	app.adjustFunc.call(app, {id: this.id, type:'gridColumn', columns:columns});
+	  */
 			this.gridOptions.columns = columns;
 
 			/*
@@ -26030,25 +25985,12 @@
 			//获取comboboxAdapter
 			comboboxAdapter = oThis.editComponent[data.fieldName];
 			comboboxAdapter.comp.setComboData(data.comboData);
-
-			// viewModel = oThis.gridOptions['model'];
-			// // 获取列取eOption
-			// column = oThis.grid.getColumnByField(data.fieldName);
-			// // 获取eoption对应的数据源
-			// columnEOption = column.options.editOptions;
-
-			// ds = getJSObject(viewModel, columnEOption['datasource']);
-			// ds = data.comboData;
 		}
 	});
-
-	//if ($.compManager)
-	//	$.compManager.addPlug(Grid)
 
 	_compMgr.compMgr.addDataAdapter({
 		adapter: GridAdapter,
 		name: 'grid'
-		//dataType: 'float'
 	});
 
 	exports.GridAdapter = GridAdapter;
@@ -26068,17 +26010,8 @@
 
 	var _compMgr = __webpack_require__(12);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var YearAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init(options) {
+	    init: function init() {
 	        var self = this;
 	        this.validType = 'year';
 
@@ -26128,17 +26061,8 @@
 
 	var _compMgr = __webpack_require__(12);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var MonthAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init(options) {
+	    init: function init() {
 	        var self = this;
 	        this.validType = 'month';
 
@@ -26191,17 +26115,8 @@
 
 	var _compMgr = __webpack_require__(12);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var YearMonthAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init(options) {
+	    init: function init() {
 	        var self = this;
 	        this.validType = 'yearmonth';
 
@@ -26211,7 +26126,6 @@
 	            self.slice = true;
 	            self.dataModel.setValue(self.field, event.value);
 	            self.slice = false;
-	            //self.setValue(event.value);
 	        });
 	        this.dataModel.ref(this.field).subscribe(function (value) {
 	            self.modelValueChange(value);
@@ -26247,14 +26161,6 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _event = __webpack_require__(7);
 
 	var _core = __webpack_require__(10);
@@ -26276,7 +26182,6 @@
 	 */
 
 	var TimeAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init(options) {
 	        var self = this;
 	        this.validType = 'time';
@@ -26365,14 +26270,6 @@
 
 	var _extend = __webpack_require__(2);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _event = __webpack_require__(7);
 
 	var _compMgr = __webpack_require__(12);
@@ -26383,7 +26280,6 @@
 	 * Date	  : 2016-08-09 20:12:42
 	 */
 	var StringAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
 	        var self = this;
 	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -26452,14 +26348,6 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _util = __webpack_require__(5);
 
 	var _event = __webpack_require__(7);
@@ -26481,7 +26369,6 @@
 	 */
 
 	var IntegerAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
 	        var self = this;
 	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -26578,14 +26465,6 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _util = __webpack_require__(5);
 
 	var _dom = __webpack_require__(8);
@@ -26605,10 +26484,8 @@
 	 */
 
 	var RadioAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init(options) {
+	    init: function init() {
 	        var self = this;
-	        //RadioAdapter.superclass.initialize.apply(this, arguments);
 	        this.dynamic = false;
 	        this.otherValue = this.options['otherValue'] || '其他';
 	        if (this.options['datasource'] || this.options['hasOther']) {
@@ -26859,9 +26736,7 @@
 
 	var UrlAdapter = _keroaString.StringAdapter.extend({
 	    init: function init() {
-	        UrlAdapter.superclass.init.apply(this);
 	        this.validType = 'url';
-
 	        /*
 	         * 因为需要输入，因此不显示为超链接
 	         */
@@ -26933,7 +26808,6 @@
 	 */
 	var PassWordAdapter = _keroaString.StringAdapter.extend({
 	    init: function init() {
-	        PassWordAdapter.superclass.init.apply(this);
 	        var oThis = this;
 	        if (_env.env.isIE8) {
 	            var outStr = this.element.outerHTML;
@@ -27005,7 +26879,6 @@
 	 */
 	var PercentAdapter = _keroaFloat.FloatAdapter.extend({
 	  init: function init() {
-	    PercentAdapter.superclass.init.apply(this);
 	    this.validType = 'float';
 	    this.maskerMeta = _core.core.getMaskerMeta('percent') || {};
 	    this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
@@ -27047,16 +26920,11 @@
 	var _compMgr = __webpack_require__(12);
 
 	var PaginationAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(comp, options) {
+	    mixins: [],
+	    init: function init() {
 	        var self = this;
-	        PaginationAdapter.superclass.initialize.apply(this, arguments);
-
-	        //var Pagination = function(element, options, viewModel) {
-
 	        if (!this.dataModel.pageSize() && this.options.pageSize) this.dataModel.pageSize(this.options.pageSize);
 	        this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
-	        //this.$element.pagination(options);
-	        //this.comp = this.$element.data('u.pagination');
 	        var options = (0, _extend.extend)({}, { el: this.element }, this.options);
 	        this.comp = new _neouiPagination.pagination(options);
 	        this.element['u.pagination'] = this.comp;
@@ -27273,9 +27141,8 @@
 	var _compMgr = __webpack_require__(12);
 
 	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(options) {
+	    init: function init() {
 	        var self = this;
-	        ProgressAdapter.superclass.initialize.apply(this, arguments);
 
 	        this.comp = new _neouiProgress.Progress(this.element);
 	        this.element['u.Progress'] = this.comp;
@@ -27317,10 +27184,9 @@
 	var _compMgr = __webpack_require__(12);
 
 	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
-	    initialize: function initialize(options) {
+	    init: function init() {
 	        var self = this;
-	        SwitchAdapter.superclass.initialize.apply(this, arguments);
-
+	        this.options = this.options;
 	        this.comp = new _neouiSwitch.Switch(this.element);
 	        this.element['u.Switch'] = this.comp;
 	        this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
@@ -27391,20 +27257,11 @@
 
 	var _baseAdapter = __webpack_require__(104);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var _event = __webpack_require__(7);
 
 	var _compMgr = __webpack_require__(12);
 
 	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
 	    init: function init() {
 	        var self = this;
 	        this.element = this.element.nodeName === 'TEXTAREA' ? this.element : this.element.querySelector('textarea');
@@ -27461,25 +27318,16 @@
 	var _compMgr = __webpack_require__(12);
 
 	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
-	    /**
-	     *
-	     * @param comp
-	     * @param options ：
-	     *      el: '#content',  对应的dom元素
-	     *      options: {},     配置
-	     *      model:{}        模型，包括数据和事件
-	     */
-	    initialize: function initialize(options) {
-	        TextFieldAdapter.superclass.initialize.apply(this, arguments);
-	        //this.comp = comp;
-	        //this.element = options['el'];
-	        //this.options = options['options'];
-	        //this.viewModel = options['model'];
+	    init: function init() {
+	        var options = {};
 	        var dataType = this.dataModel.getMeta(this.field, 'type') || 'string';
-	        //var dataType = this.options['dataType'] || 'string';
-
 	        this.comp = new _neouiTextfield.Text(this.element);
 	        this.element['u.Text'] = this.comp;
+
+	        options["options"] = this.options;
+	        options["el"] = this.element;
+	        options["model"] = this.viewModel;
+	        options["app"] = this.app;
 
 	        if (dataType === 'float') {
 	            this.trueAdpt = new _keroaFloat.FloatAdapter(options);
@@ -27495,7 +27343,6 @@
 	        this.trueAdpt.comp = this.comp;
 	        this.trueAdpt.setShowValue = function (showValue) {
 	            this.showValue = showValue;
-	            //if (this.comp.compType === 'text')
 	            this.comp.change(showValue);
 	            this.element.title = showValue;
 	        };
@@ -27514,7 +27361,6 @@
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: TextFieldAdapter,
 	    name: 'u-text'
-	    //dataType: 'float'
 	});
 
 	exports.TextFieldAdapter = TextFieldAdapter;
@@ -27534,17 +27380,8 @@
 
 	var _compMgr = __webpack_require__(12);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	var MonthDateAdapter = _baseAdapter.BaseAdapter.extend({
-	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
-	    init: function init(options) {
+	    init: function init() {
 	        var self = this;
 	        this.validType = 'monthdate';
 
@@ -27601,14 +27438,13 @@
 	var _compMgr = __webpack_require__(12);
 
 	var TreeAdapter = _baseAdapter.BaseAdapter.extend({
-
-		initialize: function initialize(options) {
-			var opt = options['options'] || {},
-			    viewModel = options['model'];
-			var element = typeof options['el'] === 'string' ? document.querySelector(options['el']) : options['el'];
-			var app = options['app'];
+		mixins: [],
+		init: function init() {
+			var options = this.options,
+			    opt = options || {},
+			    viewModel = this.viewModel;
+			var element = this.element;
 			this.id = opt['id'];
-			options = opt;
 
 			var oThis = this;
 			this.dataTable = (0, _util.getJSObject)(viewModel, options["data"]);
@@ -27702,7 +27538,7 @@
 						// 根据idValue查找到对应数据的rowId
 						var rowId = oThis.getRowIdByIdValue(idValue);
 						var index = oThis.dataTable.getIndexByRowId(rowId);
-						oThis.dataTable.addRowSelect(index);
+						oThis.dataTable.setRowSelect(index);
 						if (oThis.events.onClick) {
 							(0, _util.getFunction)(viewModel, oThis.events.onClick)(e, id, node);
 						}
@@ -28050,21 +27886,12 @@
 
 	var _core = __webpack_require__(10);
 
-	var _valueMixin = __webpack_require__(106);
-
-	var _enableMixin = __webpack_require__(107);
-
-	var _requiredMixin = __webpack_require__(113);
-
-	var _validateMixin = __webpack_require__(114);
-
 	/**
 	 * Module : Kero multilang adapter
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-10 14:11:50
 	 */
 	var MultilangAdapter = _baseAdapter.BaseAdapter.extend({
-	    // mixins: [ValueMixin],
 	    init: function init() {
 
 	        // 1.创建控件
@@ -28091,7 +27918,7 @@
 	        if (parseInt(this.options.rowIndex) > -1) {
 	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
 	                // 主子表的情况
-	                var childObj = _valueMixin.ValueMixin.methods.getChildVariable.call(this);
+	                var childObj = ValueMixin.methods.getChildVariable.call(this);
 	                var lastRow = childObj.lastRow;
 	                var lastField = childObj.lastField;
 	                this.field = lastField;
@@ -28104,7 +27931,7 @@
 	        if (parseInt(this.options.rowIndex) > -1) {
 	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
 	                // 主子表的情况
-	                var childObj = _valueMixin.ValueMixin.methods.getChildVariable.call(this);
+	                var childObj = ValueMixin.methods.getChildVariable.call(this);
 	                var lastRow = childObj.lastRow;
 	                var lastField = childObj.lastField;
 
@@ -28258,7 +28085,7 @@
 	        this.slice = true;
 	        if (parseInt(this.options.rowIndex) > -1) {
 	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
-	                var childObj = _valueMixin.ValueMixin.methods.getChildVariable.call(this);
+	                var childObj = ValueMixin.methods.getChildVariable.call(this);
 	                var lastRow = childObj.lastRow;
 	                var lastField = childObj.lastField;
 	                if (lastRow) lastRow.setValue(field, value);
@@ -28478,8 +28305,6 @@
 	_createApp.App.prototype.serverEvent = _serverEvent.serverEvent;
 	// util
 	_createApp.App.prototype.setEnable = _util.setEnable;
-
-	window.App = _createApp.App;
 
 /***/ },
 /* 152 */
@@ -30545,7 +30370,7 @@
 	});
 	exports.u = undefined;
 
-	var _extend = __webpack_require__(111);
+	var _extend = __webpack_require__(110);
 
 	var _enableMixin = __webpack_require__(174);
 
@@ -30582,7 +30407,7 @@
 	});
 	exports.EnableMixin = undefined;
 
-	var _dom = __webpack_require__(108);
+	var _dom = __webpack_require__(107);
 
 	var EnableMixin = {
 	    init: function init() {
@@ -30665,7 +30490,7 @@
 	});
 	exports.ValidateMixin = undefined;
 
-	var _neouiValidate = __webpack_require__(115);
+	var _neouiValidate = __webpack_require__(114);
 
 	var ValidateMixin = {
 	    init: function init() {

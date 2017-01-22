@@ -14,25 +14,16 @@ import {compMgr} from 'compox/js/compMgr';
 
 
 var TextFieldAdapter = BaseAdapter.extend({
-    /**
-     *
-     * @param comp
-     * @param options ：
-     *      el: '#content',  对应的dom元素
-     *      options: {},     配置
-     *      model:{}        模型，包括数据和事件
-     */
-    initialize: function (options) {
-        TextFieldAdapter.superclass.initialize.apply(this, arguments);
-        //this.comp = comp;
-        //this.element = options['el'];
-        //this.options = options['options'];
-        //this.viewModel = options['model'];
+    init: function () {
+        var options = {};
         var dataType = this.dataModel.getMeta(this.field,'type') || 'string';
-        //var dataType = this.options['dataType'] || 'string';
-
         this.comp = new Text(this.element);
         this.element['u.Text'] = this.comp;
+
+        options["options"] = this.options;
+        options["el"] = this.element;
+        options["model"] = this.viewModel;
+        options["app"] = this.app;
 
 
         if (dataType === 'float'){
@@ -48,11 +39,9 @@ var TextFieldAdapter = BaseAdapter.extend({
         }
         extend(this, this.trueAdpt);
 
-
         this.trueAdpt.comp = this.comp;
         this.trueAdpt.setShowValue = function (showValue) {
             this.showValue = showValue;
-            //if (this.comp.compType === 'text')
             this.comp.change(showValue);
             this.element.title = showValue;
         }
@@ -67,7 +56,6 @@ var TextFieldAdapter = BaseAdapter.extend({
 compMgr.addDataAdapter({
 	adapter: TextFieldAdapter,
 	name: 'u-text'
-		//dataType: 'float'
 });
 
 export {TextFieldAdapter};

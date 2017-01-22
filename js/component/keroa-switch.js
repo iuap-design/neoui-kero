@@ -10,10 +10,9 @@ import {compMgr} from 'compox/js/compMgr';
 
 
 var SwitchAdapter = BaseAdapter.extend({
-    initialize: function (options) {
+    init: function () {
         var self = this;
-        SwitchAdapter.superclass.initialize.apply(this, arguments);
-
+        this.options = this.options;
         this.comp = new Switch(this.element);
         this.element['u.Switch'] = this.comp;
         this.checkedValue =  this.options['checkedValue'] || this.comp._inputElement.value;

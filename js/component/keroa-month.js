@@ -8,14 +8,8 @@ import {BaseAdapter} from '../core/baseAdapter';
 import {Month} from 'tinper-neoui/js/neoui-month';
 import {compMgr} from 'compox/js/compMgr';
 
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 var MonthAdapter = BaseAdapter.extend({
-    mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],
-    init: function (options) {
+    init: function () {
         var self = this;
         this.validType = 'month';
 

@@ -10,14 +10,13 @@ import {DataTable} from 'kero/js/dataTable/indexDataTable';
 import {compMgr} from 'compox/js/compMgr';
 
 var TreeAdapter = BaseAdapter.extend({
-	
-	initialize: function(options) {
-		var opt = options['options'] || {},
-				viewModel = options['model'];
-		var element = typeof options['el'] === 'string' ? document.querySelector(options['el']) : options['el'];
-		var app = options['app'];
+	mixins:[],
+	init: function() {
+		var options = this.options,
+			opt = options || {},
+			viewModel = this.viewModel;
+		var element = this.element;
 		this.id = opt['id'];
-		options = opt;
 		
 		var oThis = this;
 		this.dataTable = getJSObject(viewModel, options["data"]);
@@ -112,7 +111,7 @@ var TreeAdapter = BaseAdapter.extend({
 					// 根据idValue查找到对应数据的rowId
 					var rowId = oThis.getRowIdByIdValue(idValue);
 					var index = oThis.dataTable.getIndexByRowId(rowId);
-					oThis.dataTable.addRowSelect(index);
+					oThis.dataTable.setRowSelect(index);
 					if (oThis.events.onClick) {
 						getFunction(viewModel, oThis.events.onClick)(e, id, node);
 					}

@@ -9,15 +9,11 @@ import {getJSObject} from 'tinper-sparrow/js/util';
 import {env} from 'tinper-sparrow/js/env';
 import {on} from 'tinper-sparrow/js/event';
 import {compMgr} from 'compox/js/compMgr';
-
-
-
 /**
  * 密码控件
  */
 var PassWordAdapter = StringAdapter.extend({
     init: function () {
-        PassWordAdapter.superclass.init.apply(this);
         var oThis = this;
         if(env.isIE8){
             var outStr = this.element.outerHTML;

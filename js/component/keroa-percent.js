@@ -13,7 +13,6 @@ import {compMgr} from 'compox/js/compMgr';
  */
 var PercentAdapter = FloatAdapter.extend({
     init: function () {
-        PercentAdapter.superclass.init.apply(this);
         this.validType = 'float';
         this.maskerMeta = core.getMaskerMeta('percent') || {};
         this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;

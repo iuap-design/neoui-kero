@@ -11,17 +11,12 @@ import {compMgr} from 'compox/js/compMgr';
 
 
 var PaginationAdapter = BaseAdapter.extend({
-    initialize: function (comp, options) {
+    mixins:[],
+    init: function () {
         var self = this;
-        PaginationAdapter.superclass.initialize.apply(this, arguments);
-
-        //var Pagination = function(element, options, viewModel) {
-
         if (!this.dataModel.pageSize() && this.options.pageSize)
             this.dataModel.pageSize(this.options.pageSize)
         this.options.pageSize = this.dataModel.pageSize() || this.options.pageSize;
-        //this.$element.pagination(options);
-        //this.comp = this.$element.data('u.pagination');
         var options = extend({},{el:this.element},this.options);
         this.comp = new pagination(options);
 		this.element['u.pagination'] = this.comp;

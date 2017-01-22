@@ -7,14 +7,8 @@ import {BaseAdapter} from '../core/baseAdapter';
 import {YearMonth} from 'tinper-neoui/js/neoui-yearmonth';
 import {compMgr} from 'compox/js/compMgr';
 
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 var YearMonthAdapter = BaseAdapter.extend({
-    mixins: [ValueMixin,EnableMixin,RequiredMixin, ValidateMixin],
-    init: function (options) {
+    init: function () {
         var self = this;
         this.validType = 'yearmonth';
 
@@ -25,7 +19,6 @@ var YearMonthAdapter = BaseAdapter.extend({
             self.slice = true;
             self.dataModel.setValue(self.field, event.value);
             self.slice = false;
-            //self.setValue(event.value);
         });
         this.dataModel.ref(this.field).subscribe(function(value) {
             self.modelValueChange(value)

@@ -5,12 +5,6 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 import {getJSObject,getFunction} from 'tinper-sparrow/js/util';
 import {NumberFormater} from 'tinper-sparrow/js/util/formater';
 import {NumberMasker,PercentMasker,CurrencyMasker} from 'tinper-sparrow/js/util/masker';
@@ -40,15 +34,16 @@ import {core} from 'tinper-sparrow/js/core';
 import {addClass} from 'tinper-sparrow/js/dom';
 
 var GridAdapter = BaseAdapter.extend({
-	initialize: function(options) {
+	mixins:[],
+	init: function() {
+		var options = this.options,
 		// 初始options中包含grid的属性设置，还需要增加dataSource、columns、transMap以及事件处理
-		var opt = options['options'] || {},
-				viewModel = options['model'];
-		var element = typeof options['el'] === 'string' ? document.querySelector(options['el']) : options['el'];
-		var app = options['app'];
+			opt = options || {},
+			viewModel = this.viewModel;
+		var element = this.element;
+		
 		this.id = opt['id'];
-		options = opt;
-
+		
 		var oThis = this;
 		var compDiv = null;
 		var comp = null;
@@ -59,8 +54,6 @@ var GridAdapter = BaseAdapter.extend({
 		this.editComponent = {};
 		this.id = options['id'];
 		this.gridOptions = options;
-
-
 
 		// 在html中将函数类参数进行处理
 		this.gridOptions.onBeforeRowSelected = getFunction(viewModel,this.gridOptions.onBeforeRowSelected);
@@ -553,10 +546,13 @@ var GridAdapter = BaseAdapter.extend({
 
 			columns.push(column);
 		});
-
+	
+		//暂时未使用，后续考虑完善代码，不要删除！
+		/* 
+		var app = options['app'];
 		if (app && app.adjustFunc)
-			app.adjustFunc.call(app, {id: this.id, type:'gridColumn', columns:columns});
-
+		 	app.adjustFunc.call(app, {id: this.id, type:'gridColumn', columns:columns});
+		*/
 		this.gridOptions.columns = columns;
 
 
@@ -1818,25 +1814,13 @@ var GridAdapter = BaseAdapter.extend({
 		//获取comboboxAdapter
 		comboboxAdapter =  oThis.editComponent[data.fieldName];
 		comboboxAdapter.comp.setComboData(data.comboData);
-
-		// viewModel = oThis.gridOptions['model'];
-		// // 获取列取eOption
-		// column = oThis.grid.getColumnByField(data.fieldName);
-		// // 获取eoption对应的数据源
-		// columnEOption = column.options.editOptions;
-
-		// ds = getJSObject(viewModel, columnEOption['datasource']);
-		// ds = data.comboData;
 	}
 });
 
-	//if ($.compManager)
-	//	$.compManager.addPlug(Grid)
 
 compMgr.addDataAdapter({
 	adapter: GridAdapter,
 	name: 'grid'
-		//dataType: 'float'
 });
 
 export {GridAdapter};

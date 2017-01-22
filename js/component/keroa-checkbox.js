@@ -5,12 +5,6 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 import {getJSObject,getFunction} from 'tinper-sparrow/js/util';
 import {Checkbox} from 'tinper-neoui/js/neoui-checkbox';
 import {compMgr} from 'compox/js/compMgr';
@@ -18,13 +12,9 @@ import {makeDOM} from 'tinper-sparrow/js/dom';
 import {on,stopEvent} from 'tinper-sparrow/js/event';
 import {env} from 'tinper-sparrow/js/env';
 
-
-
 var CheckboxAdapter = BaseAdapter.extend({
-    mixins: [ValueMixin, EnableMixin,RequiredMixin, ValidateMixin],
-    init: function (options) {
+    init: function () {
         var self = this;
-        // CheckboxAdapter.superclass.initialize.apply(this, arguments);
         this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
         this.otherValue = this.options['otherValue'] || '其他';
         this.beforeEdit = getFunction(this.viewModel,this.options['beforeEdit']);

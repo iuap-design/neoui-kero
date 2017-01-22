@@ -5,7 +5,10 @@
  */
 import {Class} from 'tinper-sparrow/js/class';
 import {getJSObject} from 'tinper-sparrow/js/util';
-
+import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
+import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
+import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
+import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
 
 
 /**
@@ -13,6 +16,7 @@ import {getJSObject} from 'tinper-sparrow/js/util';
  */
 
 var BaseAdapter = Class.create({
+    mixins:[ValueMixin,EnableMixin, RequiredMixin, ValidateMixin],
     /**
      *
      * @param comp
@@ -22,6 +26,7 @@ var BaseAdapter = Class.create({
      *      model:{}        模型，包括数据和事件
      */
     initialize: function (options) {
+        this.initBefore();
         //组合mixin中的方法
         for(var i in this.mixins){
             var mixin = this.mixins[i];
@@ -36,6 +41,7 @@ var BaseAdapter = Class.create({
         this.element = options['el'];
         this.options = options['options'];
         this.viewModel = options['model'];
+        this.app = options['app'];
         this.dataModel = null;
         this.mixins = this.mixins || [];
         this.parseDataModel();
@@ -46,6 +52,9 @@ var BaseAdapter = Class.create({
             if (mixin['init'])
                 mixin.init.call(this);
         }
+
+    },
+    initBefore: function () {
 
     },
     parseDataModel: function () {

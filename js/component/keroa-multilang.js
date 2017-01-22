@@ -9,14 +9,7 @@ import {Multilang} from 'tinper-neoui/js/neoui-multilang';
 import {compMgr} from 'compox/js/compMgr';
 import {core} from 'tinper-sparrow/js/core'
 
-
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 var MultilangAdapter = BaseAdapter.extend({
-    // mixins: [ValueMixin],
     init: function () {
 
         // 1.创建控件

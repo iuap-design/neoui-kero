@@ -5,12 +5,6 @@
  */
 
 import {BaseAdapter} from '../core/baseAdapter';
-
-import {ValueMixin} from 'neoui-kero-mixin/js/valueMixin';
-import {EnableMixin} from 'neoui-kero-mixin/js/enableMixin';
-import {RequiredMixin} from 'neoui-kero-mixin/js/requiredMixin';
-import {ValidateMixin} from 'neoui-kero-mixin/js/validateMixin';
-
 import {getJSObject} from 'tinper-sparrow/js/util';
 import {Checkbox} from 'tinper-neoui/js/neoui-checkbox';
 import {DataTable} from 'kero/js/dataTable/indexDataTable';
@@ -27,7 +21,6 @@ import {CurrencyMasker} from 'tinper-sparrow/js/util/masker';
 var CurrencyAdapter = FloatAdapter.extend({
     init: function () {
         var self = this;
-        CurrencyAdapter.superclass.init.apply(this);
         this.maskerMeta = core.getMaskerMeta('currency') || {};
         this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
         this.maskerMeta.curSymbol = this.getOption('curSymbol') || this.maskerMeta.curSymbol;
