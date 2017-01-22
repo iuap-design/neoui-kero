@@ -130,8 +130,7 @@ var GridAdapter = BaseAdapter.extend({
 			eOptions.data = options['data']
 			eOptions.field = column['field']
 			// 默认按照string处理
-			if(eType == '')
-					eType = 'string';
+			if (!eType) eType = 'string';
 			if(eType == 'number') // 兼容之前版本
 				eType = 'integer';
 			if(eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime'|| eType == 'year'|| eType == 'month'|| eType == 'yearmonth'|| eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent' || eType == 'phoneNumber' || eType == 'landLine'){
