@@ -1,15 +1,15 @@
 
 
-[![npm version](https://img.shields.io/npm/v/kero-adapter.svg)](https://www.npmjs.com/package/kero-adapter)
-[![Build Status](https://img.shields.io/travis/iuap-design/kero-adapter/master.svg)](https://travis-ci.org/iuap-design/kero-adapter)
-[![devDependency Status](https://img.shields.io/david/dev/iuap-design/kero-adapter.svg)](https://david-dm.org/iuap-design/kero-adapter#info=devDependencies)
-[![NPM downloads](http://img.shields.io/npm/dm/kero-adapter.svg?style=flat)](https://npmjs.org/package/kero-adapter)
+[![npm version](https://img.shields.io/npm/v/neoui-kero.svg)](https://www.npmjs.com/package/neoui-kero)
+[![Build Status](https://img.shields.io/travis/iuap-design/neoui-kero/master.svg)](https://travis-ci.org/iuap-design/neoui-kero)
+[![devDependency Status](https://img.shields.io/david/dev/iuap-design/neoui-kero.svg)](https://david-dm.org/iuap-design/neoui-kero#info=devDependencies)
+[![NPM downloads](http://img.shields.io/npm/dm/neoui-kero.svg?style=flat)](https://npmjs.org/package/neoui-kero)
 
 [中文文档](./README_CN.md)
 
 
 ##  Introduction
-[kero-adapter](http://tinper.org/dist/kero/docs/module.html) A adapter for [kero](http://tinper.org/dist/kero/index.html) and [tinper neoui](http://tinper.org/dist/neoui/index.html)。
+[neoui-kero](http://tinper.org/dist/kero/docs/module.html) A adapter for [kero](http://tinper.org/dist/kero/index.html) and [tinper neoui](http://tinper.org/dist/neoui/index.html)。
 
 
 ## Features
@@ -28,13 +28,13 @@
 
 - From github
 ```
-git clone git@github.com:iuap-design/kero-adapter.git
+git clone git@github.com:iuap-design/neoui-kero.git
 ```
 
 - npm
 
 ```
-npm install kero-adapter
+npm install neoui-kero
 ```
 
 ### simple example
@@ -94,22 +94,22 @@ getDtValue();
 
 ### Feedback
 
-If you encounter any problems , submit [issues](https://github.com/iuap-design/kero-adapter/issues),or pull request。
+If you encounter any problems , submit [issues](https://github.com/iuap-design/neoui-kero/issues),or pull request。
 
 [PR code](CONTRIBUTING.md)
 
 ### Develop
 
-Developers can participate in the development of kero-adapter,  but also can be based on kero-adapter two development
+Developers can participate in the development of neoui-kero,  but also can be based on neoui-kero two development
 
 
-kero-adapter use gulp.js and webpack build the project.
+neoui-kero use gulp.js and webpack build the project.
 
 
 clone：
 
 ```
-$ git clone git@github.com:iuap-design/kero-adapter.git
+$ git clone git@github.com:iuap-design/neoui-kero.git
 ```
 
 install：

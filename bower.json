@@ -1,12 +1,12 @@
 {
-  "name": "kero-adapter",
+  "name": "neoui-kero",
   "description": "kero adapter",
   "main": "js/index.js",
   "authors": [
     "yonyou FED"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/iuap-design/kero-adapter",
+  "homepage": "https://github.com/iuap-design/neoui-kero",
   "moduleType": [],
   "ignore": [
     "**/.*",

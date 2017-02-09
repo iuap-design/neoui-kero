@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/kero-adapter.iml" filepath="$PROJECT_DIR$/.idea/kero-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/neoui-kero.iml" filepath="$PROJECT_DIR$/.idea/neoui-kero.iml" />
     </modules>
   </component>
 </project>

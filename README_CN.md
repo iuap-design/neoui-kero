@@ -1,14 +1,14 @@
 
 
-[![npm version](https://img.shields.io/npm/v/kero-adapter.svg)](https://www.npmjs.com/package/kero-adapter)
-[![Build Status](https://img.shields.io/travis/iuap-design/kero-adapter/master.svg)](https://travis-ci.org/iuap-design/kero-adapter)
-[![devDependency Status](https://img.shields.io/david/dev/iuap-design/kero-adapter.svg)](https://david-dm.org/iuap-design/kero-adapter#info=devDependencies)
-[![NPM downloads](http://img.shields.io/npm/dm/kero-adapter.svg?style=flat)](https://npmjs.org/package/kero-adapter)
+[![npm version](https://img.shields.io/npm/v/neoui-kero.svg)](https://www.npmjs.com/package/neoui-kero)
+[![Build Status](https://img.shields.io/travis/iuap-design/neoui-kero/master.svg)](https://travis-ci.org/iuap-design/neoui-kero)
+[![devDependency Status](https://img.shields.io/david/dev/iuap-design/neoui-kero.svg)](https://david-dm.org/iuap-design/neoui-kero#info=devDependencies)
+[![NPM downloads](http://img.shields.io/npm/dm/neoui-kero.svg?style=flat)](https://npmjs.org/package/neoui-kero)
 
 [English Document](./README.md)
 
 ##  介绍
-[kero-adapter](http://tinper.org/dist/kero/docs/module.html) 是[kero](http://tinper.org/dist/kero/index.html) 与[tinper neoui](http://tinper.org/dist/neoui/index.html)之间的适配器，通过识别框架特有标记u-meta，创建对应的UI组件，同时进行数据双向绑定。
+[neoui-kero](http://tinper.org/dist/kero/docs/module.html) 是[kero](http://tinper.org/dist/kero/index.html) 与[tinper neoui](http://tinper.org/dist/neoui/index.html)之间的适配器，通过识别框架特有标记u-meta，创建对应的UI组件，同时进行数据双向绑定。
 
 
 ## 功能
@@ -29,17 +29,17 @@
 
 ## 快速上手
 
-### 获取kero-adapter
+### 获取neoui-kero
 
 - 直接从github获取我们的源码
 ```
-git clone git@github.com:iuap-design/kero-adapter.git
+git clone git@github.com:iuap-design/neoui-kero.git
 ```
 
 - 使用npm安装
 
 ```
-npm install kero-adapter
+npm install neoui-kero
 ```
 
 ### 简单示例
@@ -122,7 +122,7 @@ getDtValue();
 
 
 ### 反馈
-如在使用过程中遇到任何问题，可以在[这里](https://github.com/iuap-design/kero-adapter/issues)提交issue反馈；
+如在使用过程中遇到任何问题，可以在[这里](https://github.com/iuap-design/neoui-kero/issues)提交issue反馈；
 
 或者直接fork代码到你的github仓库，提交pull request给我们。
 
@@ -131,15 +131,15 @@ getDtValue();
 
 ### 开发及构建
 
-开发者可以一起参与为 kero-adapter 贡献代码，同时也可以基于kero-adapter 进行二次开发或封装插件。
+开发者可以一起参与为 neoui-kero 贡献代码，同时也可以基于neoui-kero 进行二次开发或封装插件。
 
 
-kero-adapter 使用 [gulp.js](http://gulpjs.com/) 构建项目。
+neoui-kero 使用 [gulp.js](http://gulpjs.com/) 构建项目。
 
 克隆项目文件:
 
 ```
-$ git clone git@github.com:iuap-design/kero-adapter.git
+$ git clone git@github.com:iuap-design/neoui-kero.git
 ```
 
 然后进入目录安装依赖：

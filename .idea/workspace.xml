@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0f9a38b-2bc5-4272-bcee-bd0193756712" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/js/kero-adapter.js" afterPath="$PROJECT_DIR$/dist/js/kero-adapter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/js/kero-adapter.min.js" afterPath="$PROJECT_DIR$/dist/js/kero-adapter.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/js/neoui-kero.js" afterPath="$PROJECT_DIR$/dist/js/neoui-kero.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/js/neoui-kero.min.js" afterPath="$PROJECT_DIR$/dist/js/neoui-kero.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/js/kero.js" afterPath="$PROJECT_DIR$/dist/js/kero.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/pagination.js" afterPath="$PROJECT_DIR$/js/pagination.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/js/u.js" afterPath="$PROJECT_DIR$/dist/js/u.js" />
@@ -11,7 +11,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/js/u.min.js" afterPath="$PROJECT_DIR$/dist/js/u.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
-    <ignored path="kero-adapter.iws" />
+    <ignored path="neoui-kero.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,7 +26,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
-    <favorites_list name="kero-adapter" />
+    <favorites_list name="neoui-kero" />
   </component>
   <component name="FileEditorManager">
     <leaf>
@@ -184,27 +184,27 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -214,11 +214,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -228,11 +228,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -246,11 +246,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="kero-adapter" />
+              <option name="myItemId" value="neoui-kero" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -278,7 +278,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\01yonyou\kero-adapter\test" />
+      <recent name="F:\01yonyou\neoui-kero\test" />
     </key>
   </component>
   <component name="RunManager">
@@ -625,7 +625,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/js/kero-adapter.js">
+    <entry file="file://$PROJECT_DIR$/dist/js/neoui-kero.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.2820513">
           <caret line="4548" column="12" selection-start-line="4548" selection-start-column="12" selection-end-line="4548" selection-end-column="12" />

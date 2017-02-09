@@ -1,5 +1,5 @@
 /**
- * Module : Kero-Adapter Version Tools
+ * Module : neoui-kero Version Tools
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-09 10:11:47
  */
@@ -11,9 +11,9 @@ var data = fs.readFileSync('./package.json', 'utf8');
 var packageObj = JSON.parse(data);
 var filesArr = [];
 if(env == "dev") {
-	filesArr.push('./dist/js/kero-adapter.js');
+	filesArr.push('./dist/js/neoui-kero.js');
 } else if(env == "build") {
-	filesArr.push('./dist/js/kero-adapter.min.js');
+	filesArr.push('./dist/js/neoui-kero.min.js');
 }
 var headerStr = '/** \r\n';
 headerStr += ' * ' + packageObj.name + ' v' + packageObj.version + '\r\n';

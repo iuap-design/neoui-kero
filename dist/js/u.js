@@ -102,29 +102,29 @@
 
 	var _index = __webpack_require__(1);
 
-	var _index2 = __webpack_require__(22);
+	var _index2 = __webpack_require__(20);
 
 	var neoui = _interopRequireWildcard(_index2);
 
-	var _index3 = __webpack_require__(59);
+	var _index3 = __webpack_require__(61);
 
-	var _index4 = __webpack_require__(103);
+	var _index4 = __webpack_require__(105);
 
 	var adapter = _interopRequireWildcard(_index4);
 
-	var _index5 = __webpack_require__(149);
+	var _index5 = __webpack_require__(138);
 
 	var compox = _interopRequireWildcard(_index5);
 
-	var _index6 = __webpack_require__(151);
+	var _index6 = __webpack_require__(140);
 
 	var compox_util = _interopRequireWildcard(_index6);
 
-	var _index7 = __webpack_require__(162);
+	var _index7 = __webpack_require__(150);
 
 	var kero_fetch = _interopRequireWildcard(_index7);
 
-	var _index8 = __webpack_require__(173);
+	var _index8 = __webpack_require__(155);
 
 	var neoui_kero_mixin = _interopRequireWildcard(_index8);
 
@@ -133,7 +133,7 @@
 	// import * as u from 'tinper-sparrow/js/index';
 	// import * as neoui from 'neoui/js/index';
 	// import {DataTable, u as kero} from 'kero/js/index';
-	// import * as adapter from 'kero-adapter/js/index';
+	// import * as adapter from 'neoui-kero/js/index';
 
 	exports.u = _index.u;
 	exports.DataTable = _index3.DataTable;
@@ -163,33 +163,25 @@
 
 	var _core = __webpack_require__(10);
 
-	var _BaseComponent = __webpack_require__(11);
+	var _ajax = __webpack_require__(11);
 
-	var _ajax = __webpack_require__(13);
+	var _dataRender = __webpack_require__(12);
 
-	var _dataRender = __webpack_require__(14);
+	var _formater = __webpack_require__(13);
 
-	var _formater = __webpack_require__(15);
+	var _dateUtils = __webpack_require__(15);
 
-	var _dateUtils = __webpack_require__(17);
+	var _masker = __webpack_require__(14);
 
-	var _masker = __webpack_require__(16);
+	var _hotKeys = __webpack_require__(17);
 
-	var _hotKeys = __webpack_require__(19);
+	var _ripple = __webpack_require__(18);
 
-	var _ripple = __webpack_require__(20);
+	var _rsautils = __webpack_require__(19);
 
-	var _rsautils = __webpack_require__(21);
-
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
 	//公开接口、属性对外暴露
-	/**
-	 * Module : Sparrow entry index
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-04 09:48:36
-	 */
-
 	var api = {
 		ajax: _ajax.ajax,
 		extend: _extend.extend,
@@ -227,7 +219,6 @@
 		showPanelByEle: _dom.showPanelByEle,
 		Class: _class.Class,
 		core: _core.core,
-		BaseComponent: _BaseComponent.BaseComponent,
 		floatRender: _dataRender.floatRender,
 		integerRender: _dataRender.integerRender,
 		dateRender: _dataRender.dateRender,
@@ -249,7 +240,12 @@
 		BarrettMu: _rsautils.BarrettMu,
 		twoDigit: _rsautils.twoDigit,
 		trans: _i18n.trans
-	};
+	}; /**
+	    * Module : Sparrow entry index
+	    * Author : Kvkens(yueming@yonyou.com)
+	    * Date	  : 2016-08-04 09:48:36
+	    */
+
 	(0, _extend.extend)(api, _env.env);
 	// export api;
 	//export default api;
@@ -1474,20 +1470,6 @@
 			return classify(o);
 		}
 	};
-
-	// Create a new Class.
-	//
-	//  var SuperPig = Class.create({
-	//    Extends: Animal,
-	//    Implements: Flyable,
-	//    initialize: function() {
-	//      SuperPig.superclass.initialize.apply(this, arguments)
-	//    },
-	//    Statics: {
-	//      COLOR: 'red'
-	//    }
-	// })
-	//
 	Class.create = function (parent, properties) {
 		if (!isFunction(parent)) {
 			properties = parent;
@@ -1833,406 +1815,6 @@
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	exports.__esModule = true;
-	exports.BaseComponent = undefined;
-
-	var _class = __webpack_require__(9);
-
-	var _util = __webpack_require__(5);
-
-	var _event = __webpack_require__(7);
-
-	var _compMgr = __webpack_require__(12);
-
-	/**
-	 * Module : Sparrow base component
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-28 18:45:08
-	 */
-
-	var BaseComponent = _class.Class.create({
-	    initialize: function initialize(element) {
-	        if ((0, _util.isDomElement)(element)) {
-	            this.element = element;
-	            this.options = {};
-	        } else {
-	            this.element = element['el'];
-	            this.options = element;
-	        }
-	        this.element = typeof this.element === 'string' ? document.querySelector(this.element) : this.element;
-
-	        this.compType = this.compType || this.constructor.compType;
-	        this.element[this.compType] = this;
-	        this.element['init'] = true;
-	        this.init();
-	    },
-	    /**
-	     * 绑定事件
-	     * @param {String} name
-	     * @param {Function} callback
-	     */
-	    on: function on(name, callback) {
-	        name = name.toLowerCase();
-	        this._events || (this._events = {});
-	        var events = this._events[name] || (this._events[name] = []);
-	        events.push({
-	            callback: callback
-	        });
-	        return this;
-	    },
-	    /**
-	     * 触发事件
-	     * @param {String} name
-	     */
-	    trigger: function trigger(name) {
-	        name = name.toLowerCase();
-	        if (!this._events || !this._events[name]) return this;
-	        var args = Array.prototype.slice.call(arguments, 1);
-	        var events = this._events[name];
-	        for (var i = 0, count = events.length; i < count; i++) {
-	            events[i].callback.apply(this, args);
-	        }
-	        return this;
-	    },
-	    /**
-	     * 初始化
-	     */
-	    init: function init() {},
-	    /**
-	     * 渲染控件
-	     */
-	    render: function render() {},
-	    /**
-	     * 销毁控件
-	     */
-	    destroy: function destroy() {
-	        delete this.element['comp'];
-	        this.element.innerHTML = '';
-	    },
-	    /**
-	     * 增加dom事件
-	     * @param {String} name
-	     * @param {Function} callback
-	     */
-	    addDomEvent: function addDomEvent(name, callback) {
-	        (0, _event.on)(this.element, name, callback);
-	        return this;
-	    },
-	    /**
-	     * 移除dom事件
-	     * @param {String} name
-	     */
-	    removeDomEvent: function removeDomEvent(name, callback) {
-	        (0, _event.off)(this.element, name, callback);
-	        return this;
-	    },
-	    setEnable: function setEnable(enable) {
-	        return this;
-	    },
-	    /**
-	     * 判断是否为DOM事件
-	     */
-	    isDomEvent: function isDomEvent(eventName) {
-	        if (this.element['on' + eventName] === undefined) return false;else return true;
-	    },
-	    createDateAdapter: function createDateAdapter(options) {
-	        var opt = options['options'],
-	            model = options['model'];
-	        var Adapter = _compMgr.compMgr.getDataAdapter(this.compType, opt['dataType']);
-	        if (Adapter) {
-	            this.dataAdapter = new Adapter(this, options);
-	        }
-	    },
-	    Statics: {
-	        compName: '',
-	        EVENT_VALUE_CHANGE: 'valueChange',
-	        getName: function getName() {
-	            return this.compName;
-	        }
-	    }
-	});
-
-	function adjustDataType(options) {
-	    var types = ['integer', 'float', 'currency', 'percent', 'string', 'textarea'];
-	    var _type = options['type'],
-	        _dataType = options['dataType'];
-	    if (types.indexOf(_type) != -1) {
-	        options['dataType'] = _type;
-	        options['type'] = 'originText';
-	    }
-	}
-
-	var BaseComponent = BaseComponent;
-
-	exports.BaseComponent = BaseComponent;
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.compMgr = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : compox compMgr
-	                                                                                                                                                                                                                                                                               * Author : huyue(huyueb@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 18:41:06
-	                                                                                                                                                                                                                                                                               * Update : 2017-01-18 09:26:00
-	                                                                                                                                                                                                                                                                               */
-
-	var _dom = __webpack_require__(8);
-
-	var _util = __webpack_require__(5);
-
-	function _findRegisteredClass(name, optReplace) {
-	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	        if (CompMgr.registeredControls[i].className === name) {
-	            if (typeof optReplace !== 'undefined') {
-	                CompMgr.registeredControls[i] = optReplace;
-	            }
-	            return CompMgr.registeredControls[i];
-	        }
-	    }
-	    return false;
-	}
-
-	function _getUpgradedListOfElement(element) {
-	    var dataUpgraded = element.getAttribute('data-upgraded');
-	    // Use `['']` as default value to conform the `,name,name...` style.
-	    return dataUpgraded === null ? [''] : dataUpgraded.split(',');
-	}
-
-	function _isElementUpgraded(element, jsClass) {
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    return upgradedList.indexOf(jsClass) != -1;
-	}
-
-	function _upgradeElement(element, optJsClass) {
-	    if (!((typeof element === 'undefined' ? 'undefined' : _typeof(element)) === 'object' && element instanceof Element)) {
-	        throw new Error('Invalid argument provided to upgrade MDL element.');
-	    }
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    var classesToUpgrade = [];
-	    if (!optJsClass) {
-	        var className = element.className;
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            var component = CompMgr.registeredControls[i];
-	            if (className.indexOf(component.cssClass) > -1 && classesToUpgrade.indexOf(component) === -1 && !_isElementUpgraded(element, component.className)) {
-	                classesToUpgrade.push(component);
-	            }
-	        }
-	    } else if (!_isElementUpgraded(element, optJsClass)) {
-	        classesToUpgrade.push(_findRegisteredClass(optJsClass));
-	    }
-
-	    // Upgrade the element for each classes.
-	    for (var i = 0, n = classesToUpgrade.length, registeredClass; i < n; i++) {
-	        registeredClass = classesToUpgrade[i];
-	        if (registeredClass) {
-	            if (element[registeredClass.className]) {
-	                continue;
-	            }
-	            // Mark element as upgraded.
-	            upgradedList.push(registeredClass.className);
-	            element.setAttribute('data-upgraded', upgradedList.join(','));
-	            var instance = new registeredClass.classConstructor(element);
-	            CompMgr.createdControls.push(instance);
-	            // Call any callbacks the user has registered with this component type.
-	            for (var j = 0, m = registeredClass.callbacks.length; j < m; j++) {
-	                registeredClass.callbacks[j](element);
-	            }
-	            element[registeredClass.className] = instance;
-	        } else {
-	            throw new Error('Unable to find a registered component for the given class.');
-	        }
-	    }
-	}
-
-	function _upgradeDomInternal(optJsClass, optCssClass, ele) {
-	    if (typeof optJsClass === 'undefined' && typeof optCssClass === 'undefined') {
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            _upgradeDomInternal(CompMgr.registeredControls[i].className, registeredControls[i].cssClass, ele);
-	        }
-	    } else {
-	        var jsClass = optJsClass;
-	        if (!optCssClass) {
-	            var registeredClass = _findRegisteredClass(jsClass);
-	            if (registeredClass) {
-	                optCssClass = registeredClass.cssClass;
-	            }
-	        }
-	        var elements;
-	        if (ele) {
-	            elements = (0, _dom.hasClass)(ele, optCssClass) ? [ele] : ele.querySelectorAll('.' + optCssClass);
-	        } else {
-	            elements = document.querySelectorAll('.' + optCssClass);
-	        }
-	        for (var n = 0; n < elements.length; n++) {
-	            _upgradeElement(elements[n], jsClass);
-	        }
-	    }
-	}
-
-	var CompMgr = {
-	    plugs: {},
-	    //用来存储控件的名称对应列表
-	    dataAdapters: {},
-	    /** 注册的控件*/
-	    registeredControls: [],
-	    createdControls: [],
-	    /**
-	     *
-	     * @param options  {el:'#content', model:{}}
-	     */
-	    apply: function apply(options) {
-	        if (options) {
-	            var _el = options.el || document.body;
-	            var model = options.model;
-	        }
-	        if (typeof _el == 'string') {
-	            _el = document.body.querySelector(_el);
-	        }
-	        if (_el == null || (typeof _el === 'undefined' ? 'undefined' : _typeof(_el)) != 'object') _el = document.body;
-	        var comps = _el.querySelectorAll('[u-meta]');
-	        comps.forEach(function (element) {
-	            if (element['comp']) return;
-	            var options = JSON.parse(element.getAttribute('u-meta'));
-	            if (options && options['type']) {
-	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
-	                var comp = CompMgr.createDataAdapter({
-	                    el: element,
-	                    options: options,
-	                    model: model
-	                });
-	                if (comp) {
-	                    element['adpt'] = comp;
-	                    element['u-meta'] = comp;
-	                }
-	            }
-	        });
-	    },
-	    addPlug: function addPlug(config) {
-	        var plug = config['plug'],
-	            name = config['name'];
-	        this.plugs || (this.plugs = {});
-	        if (this.plugs[name]) {
-	            throw new Error('plug has exist:' + name);
-	        }
-	        plug.compType = name;
-	        this.plugs[name] = plug;
-	    },
-	    addDataAdapter: function addDataAdapter(config) {
-	        var adapter = config['adapter'],
-	            name = config['name'];
-	        //dataType = config['dataType'] || ''
-	        //var key = dataType ? name + '.' + dataType : name;
-	        this.dataAdapters || (dataAdapters = {});
-	        if (this.dataAdapters[name]) {
-	            throw new Error('dataAdapter has exist:' + name);
-	        }
-	        this.dataAdapters[name] = adapter;
-	    },
-	    getDataAdapter: function getDataAdapter(name) {
-	        if (!name) return;
-	        this.dataAdapters || (dataAdapters = {});
-	        //var key = dataType ? name + '.' + dataType : name;
-	        return this.dataAdapters[name];
-	    },
-	    /**
-	     * 创建dataAdapter,通过识别控件的type，来找到它对应的adapter
-	     * @param  {[type]} options [description]
-	     * @return {[type]}         [description]
-	     */
-	    createDataAdapter: function createDataAdapter(options) {
-	        var opt = options['options'];
-	        var type = opt['type'],
-	            id = opt['id'];
-	        var adpt = this.dataAdapters[type];
-	        if (!adpt) return null;
-	        var comp = new adpt(options);
-	        comp.type = type;
-	        comp.id = id;
-	        return comp;
-	    },
-	    _createComp: function _createComp(options) {
-	        var opt = options['options'];
-	        var type = opt['type'];
-	        var plug = this.plugs[type];
-	        if (!plug) return null;
-	        var comp = new plug(options);
-	        comp.type = type;
-	        return comp;
-	    },
-	    /**
-	     * 注册UI控件
-	     */
-	    regComp: function regComp(config) {
-	        var newConfig = {
-	            classConstructor: config.comp,
-	            className: config.compAsString || config['compAsString'],
-	            cssClass: config.css || config['css'],
-	            callbacks: [],
-	            dependencies: config.dependencies || []
-	        };
-	        config.comp.prototype.compType = config.compAsString;
-	        for (var i = 0; i < this.registeredControls.length; i++) {
-	            var item = this.registeredControls[i];
-	            //registeredControls.forEach(function(item) {
-	            if (item.cssClass === newConfig.cssClass) {
-	                throw new Error('The provided cssClass has already been registered: ' + item.cssClass);
-	            }
-	            if (item.className === newConfig.className) {
-	                throw new Error('The provided className has already been registered');
-	            }
-	        };
-	        this.registeredControls.push(newConfig);
-	    },
-	    updateComp: function updateComp(ele) {
-	        this._reorderComps();
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
-	        }
-	    },
-	    // 后续遍历registeredControls，重新排列
-	    _reorderComps: function _reorderComps() {
-	        var tmpArray = [];
-	        var dictory = {};
-
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            dictory[this.registeredControls[n].className] = this.registeredControls[n];
-	        }
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            traverse(this.registeredControls[n]);
-	        }
-
-	        this.registeredControls = tmpArray;
-
-	        function traverse(control) {
-	            if ((0, _util.inArray)(control, tmpArray)) return;
-	            if (control.dependencies.length > 0) {
-	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
-	                    var childControl = dictory[control.dependencies[i]];
-	                    traverse(childControl);
-	                }
-	            }
-	            tmpArray.push(control);
-	        }
-	    }
-	};
-
-	var compMgr = CompMgr;
-	exports.compMgr = compMgr;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 
 	exports.__esModule = true;
@@ -2354,7 +1936,7 @@
 	exports.ajax = ajax;
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2364,11 +1946,11 @@
 
 	var _core = __webpack_require__(10);
 
-	var _formater = __webpack_require__(15);
+	var _formater = __webpack_require__(13);
 
-	var _masker = __webpack_require__(16);
+	var _masker = __webpack_require__(14);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
 	/**
 	 * Module : Sparrow data display formater
@@ -2458,7 +2040,7 @@
 	exports.phoneNumberRender = phoneNumberRender;
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2522,7 +2104,7 @@
 	exports.DateFormater = DateFormater;
 
 /***/ },
-/* 16 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3048,7 +2630,7 @@
 	exports.PhoneNumberMasker = PhoneNumberMasker;
 
 /***/ },
-/* 17 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3060,7 +2642,7 @@
 
 	var _util = __webpack_require__(5);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
 	var u = {}; /**
 	             * Module : Sparrow date util
@@ -3326,7 +2908,7 @@
 	exports.date = date;
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3403,7 +2985,7 @@
 	exports.trans = trans;
 
 /***/ },
-/* 19 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3568,7 +3150,7 @@
 	exports.hotkeys = hotkeys;
 
 /***/ },
-/* 20 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3797,7 +3379,7 @@
 	exports.URipple = URipple;
 
 /***/ },
-/* 21 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4501,7 +4083,7 @@
 	exports.twoDigit = twoDigit;
 
 /***/ },
-/* 22 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4511,73 +4093,75 @@
 
 	var _extend = __webpack_require__(2);
 
+	var _neouiBaseComponent = __webpack_require__(21);
+
 	var _neouiAutocomplete = __webpack_require__(23);
 
-	var _neouiButton = __webpack_require__(24);
+	var _neouiButton = __webpack_require__(26);
 
-	var _neouiCheckbox = __webpack_require__(25);
+	var _neouiCheckbox = __webpack_require__(27);
 
-	var _neouiCombo = __webpack_require__(26);
+	var _neouiCombo = __webpack_require__(28);
 
-	var _neouiCollapse = __webpack_require__(28);
+	var _neouiCollapse = __webpack_require__(30);
 
-	var _neouiCombobox = __webpack_require__(29);
+	var _neouiCombobox = __webpack_require__(31);
 
-	var _neouiDataTable = __webpack_require__(30);
+	var _neouiDataTable = __webpack_require__(32);
 
-	var _neouiDialog = __webpack_require__(31);
+	var _neouiDialog = __webpack_require__(33);
 
-	var _neouiLayout = __webpack_require__(32);
+	var _neouiLayout = __webpack_require__(34);
 
-	var _neouiLayout2 = __webpack_require__(33);
+	var _neouiLayout2 = __webpack_require__(35);
 
-	var _neouiLoader = __webpack_require__(34);
+	var _neouiLoader = __webpack_require__(36);
 
-	var _neouiLoading = __webpack_require__(35);
+	var _neouiLoading = __webpack_require__(37);
 
-	var _neouiMenu = __webpack_require__(36);
+	var _neouiMenu = __webpack_require__(38);
 
-	var _neouiMessage = __webpack_require__(37);
+	var _neouiMessage = __webpack_require__(39);
 
-	var _neouiMultilang = __webpack_require__(38);
+	var _neouiMultilang = __webpack_require__(40);
 
-	var _neouiNavmenu = __webpack_require__(39);
+	var _neouiNavmenu = __webpack_require__(41);
 
-	var _neouiPagination = __webpack_require__(40);
+	var _neouiPagination = __webpack_require__(42);
 
-	var _neouiProgress = __webpack_require__(41);
+	var _neouiProgress = __webpack_require__(43);
 
-	var _neouiRadio = __webpack_require__(42);
+	var _neouiRadio = __webpack_require__(44);
 
-	var _neouiRefer = __webpack_require__(43);
+	var _neouiRefer = __webpack_require__(45);
 
-	var _neouiSlidePanel = __webpack_require__(52);
+	var _neouiSlidePanel = __webpack_require__(54);
 
-	var _neouiSwitch = __webpack_require__(53);
+	var _neouiSwitch = __webpack_require__(55);
 
-	var _neouiTabs = __webpack_require__(54);
+	var _neouiTabs = __webpack_require__(56);
 
-	var _neouiTextfield = __webpack_require__(27);
+	var _neouiTextfield = __webpack_require__(29);
 
-	var _neouiTooltip = __webpack_require__(48);
+	var _neouiTooltip = __webpack_require__(50);
 
-	var _neouiValidate = __webpack_require__(47);
+	var _neouiValidate = __webpack_require__(49);
 
-	var _neouiDatetimepicker = __webpack_require__(46);
+	var _neouiDatetimepicker = __webpack_require__(48);
 
-	var _neouiMobdatetimepicker = __webpack_require__(49);
+	var _neouiMobdatetimepicker = __webpack_require__(51);
 
-	var _neouiTime = __webpack_require__(55);
+	var _neouiTime = __webpack_require__(57);
 
-	var _neouiClockpicker = __webpack_require__(45);
+	var _neouiClockpicker = __webpack_require__(47);
 
-	var _neouiMonth = __webpack_require__(50);
+	var _neouiMonth = __webpack_require__(52);
 
-	var _neouiYear = __webpack_require__(56);
+	var _neouiYear = __webpack_require__(58);
 
-	var _neouiYearmonth = __webpack_require__(57);
+	var _neouiYearmonth = __webpack_require__(59);
 
-	var _neouiMonthdate = __webpack_require__(51);
+	var _neouiMonthdate = __webpack_require__(53);
 
 	//import {setCookie,getCookie} from 'tinper-sparrow/lib/cookies';
 	//import {createShellObject,execIgnoreError,getFunction,getJSObject,isDate,isNumber,isArray,isEmptyObject,inArray,isDomElement,each} from 'tinper-sparrow/lib/util';
@@ -4599,7 +4183,15 @@
 	//import {trans} from 'tinper-sparrow/lib/util/i18n';
 
 	//Neoui import
+	/**
+	 * Module : Neoui webpack entry index
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 16:19:39
+	 */
+
+	//Sparrow import
 	var ex = {
+		BaseComponent: _neouiBaseComponent.BaseComponent,
 		Autocomplete: _neouiAutocomplete.Autocomplete,
 		Button: _neouiButton.Button,
 		Checkbox: _neouiCheckbox.Checkbox,
@@ -4712,16 +4304,409 @@
 	};
 	//extend(ex,env);
 
-	/**
-	 * Module : Neoui webpack entry index
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 16:19:39
-	 */
-
-	//Sparrow import
 	(0, _extend.extend)(ex, window.u || {});
 	window.u = ex;
 	exports.u = ex;
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.BaseComponent = undefined;
+
+	var _class = __webpack_require__(9);
+
+	var _util = __webpack_require__(5);
+
+	var _event = __webpack_require__(7);
+
+	var _compMgr = __webpack_require__(22);
+
+	/**
+	 * Module : Sparrow base component
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-28 18:45:08
+	 */
+
+	var BaseComponent = _class.Class.create({
+	    initialize: function initialize(element) {
+	        if ((0, _util.isDomElement)(element)) {
+	            this.element = element;
+	            this.options = {};
+	        } else {
+	            this.element = element['el'];
+	            this.options = element;
+	        }
+	        this.element = typeof this.element === 'string' ? document.querySelector(this.element) : this.element;
+
+	        this.compType = this.compType || this.constructor.compType;
+	        this.element[this.compType] = this;
+	        this.element['init'] = true;
+	        this.init();
+	    },
+	    /**
+	     * 绑定事件
+	     * @param {String} name
+	     * @param {Function} callback
+	     */
+	    on: function on(name, callback) {
+	        name = name.toLowerCase();
+	        this._events || (this._events = {});
+	        var events = this._events[name] || (this._events[name] = []);
+	        events.push({
+	            callback: callback
+	        });
+	        return this;
+	    },
+	    /**
+	     * 触发事件
+	     * @param {String} name
+	     */
+	    trigger: function trigger(name) {
+	        name = name.toLowerCase();
+	        if (!this._events || !this._events[name]) return this;
+	        var args = Array.prototype.slice.call(arguments, 1);
+	        var events = this._events[name];
+	        for (var i = 0, count = events.length; i < count; i++) {
+	            events[i].callback.apply(this, args);
+	        }
+	        return this;
+	    },
+	    /**
+	     * 初始化
+	     */
+	    init: function init() {},
+	    /**
+	     * 渲染控件
+	     */
+	    render: function render() {},
+	    /**
+	     * 销毁控件
+	     */
+	    destroy: function destroy() {
+	        delete this.element['comp'];
+	        this.element.innerHTML = '';
+	    },
+	    /**
+	     * 增加dom事件
+	     * @param {String} name
+	     * @param {Function} callback
+	     */
+	    addDomEvent: function addDomEvent(name, callback) {
+	        (0, _event.on)(this.element, name, callback);
+	        return this;
+	    },
+	    /**
+	     * 移除dom事件
+	     * @param {String} name
+	     */
+	    removeDomEvent: function removeDomEvent(name, callback) {
+	        (0, _event.off)(this.element, name, callback);
+	        return this;
+	    },
+	    setEnable: function setEnable(enable) {
+	        return this;
+	    },
+	    /**
+	     * 判断是否为DOM事件
+	     */
+	    isDomEvent: function isDomEvent(eventName) {
+	        if (this.element['on' + eventName] === undefined) return false;else return true;
+	    },
+	    createDateAdapter: function createDateAdapter(options) {
+	        var opt = options['options'],
+	            model = options['model'];
+	        var Adapter = _compMgr.compMgr.getDataAdapter(this.compType, opt['dataType']);
+	        if (Adapter) {
+	            this.dataAdapter = new Adapter(this, options);
+	        }
+	    },
+	    Statics: {
+	        compName: '',
+	        EVENT_VALUE_CHANGE: 'valueChange',
+	        getName: function getName() {
+	            return this.compName;
+	        }
+	    }
+	});
+
+	function adjustDataType(options) {
+	    var types = ['integer', 'float', 'currency', 'percent', 'string', 'textarea'];
+	    var _type = options['type'],
+	        _dataType = options['dataType'];
+	    if (types.indexOf(_type) != -1) {
+	        options['dataType'] = _type;
+	        options['type'] = 'originText';
+	    }
+	}
+
+	var BaseComponent = BaseComponent;
+
+	exports.BaseComponent = BaseComponent;
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.compMgr = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : compox compMgr
+	                                                                                                                                                                                                                                                                               * Author : huyue(huyueb@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 18:41:06
+	                                                                                                                                                                                                                                                                               * Update : 2017-01-18 09:26:00
+	                                                                                                                                                                                                                                                                               */
+
+	var _dom = __webpack_require__(8);
+
+	var _util = __webpack_require__(5);
+
+	function _findRegisteredClass(name, optReplace) {
+	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
+	        if (CompMgr.registeredControls[i].className === name) {
+	            if (typeof optReplace !== 'undefined') {
+	                CompMgr.registeredControls[i] = optReplace;
+	            }
+	            return CompMgr.registeredControls[i];
+	        }
+	    }
+	    return false;
+	}
+
+	function _getUpgradedListOfElement(element) {
+	    var dataUpgraded = element.getAttribute('data-upgraded');
+	    // Use `['']` as default value to conform the `,name,name...` style.
+	    return dataUpgraded === null ? [''] : dataUpgraded.split(',');
+	}
+
+	function _isElementUpgraded(element, jsClass) {
+	    var upgradedList = _getUpgradedListOfElement(element);
+	    return upgradedList.indexOf(jsClass) != -1;
+	}
+
+	function _upgradeElement(element, optJsClass) {
+	    if (!((typeof element === 'undefined' ? 'undefined' : _typeof(element)) === 'object' && element instanceof Element)) {
+	        throw new Error('Invalid argument provided to upgrade MDL element.');
+	    }
+	    var upgradedList = _getUpgradedListOfElement(element);
+	    var classesToUpgrade = [];
+	    if (!optJsClass) {
+	        var className = element.className;
+	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
+	            var component = CompMgr.registeredControls[i];
+	            if (className.indexOf(component.cssClass) > -1 && classesToUpgrade.indexOf(component) === -1 && !_isElementUpgraded(element, component.className)) {
+	                classesToUpgrade.push(component);
+	            }
+	        }
+	    } else if (!_isElementUpgraded(element, optJsClass)) {
+	        classesToUpgrade.push(_findRegisteredClass(optJsClass));
+	    }
+
+	    // Upgrade the element for each classes.
+	    for (var i = 0, n = classesToUpgrade.length, registeredClass; i < n; i++) {
+	        registeredClass = classesToUpgrade[i];
+	        if (registeredClass) {
+	            if (element[registeredClass.className]) {
+	                continue;
+	            }
+	            // Mark element as upgraded.
+	            upgradedList.push(registeredClass.className);
+	            element.setAttribute('data-upgraded', upgradedList.join(','));
+	            var instance = new registeredClass.classConstructor(element);
+	            CompMgr.createdControls.push(instance);
+	            // Call any callbacks the user has registered with this component type.
+	            for (var j = 0, m = registeredClass.callbacks.length; j < m; j++) {
+	                registeredClass.callbacks[j](element);
+	            }
+	            element[registeredClass.className] = instance;
+	        } else {
+	            throw new Error('Unable to find a registered component for the given class.');
+	        }
+	    }
+	}
+
+	function _upgradeDomInternal(optJsClass, optCssClass, ele) {
+	    if (typeof optJsClass === 'undefined' && typeof optCssClass === 'undefined') {
+	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
+	            _upgradeDomInternal(CompMgr.registeredControls[i].className, registeredControls[i].cssClass, ele);
+	        }
+	    } else {
+	        var jsClass = optJsClass;
+	        if (!optCssClass) {
+	            var registeredClass = _findRegisteredClass(jsClass);
+	            if (registeredClass) {
+	                optCssClass = registeredClass.cssClass;
+	            }
+	        }
+	        var elements;
+	        if (ele) {
+	            elements = (0, _dom.hasClass)(ele, optCssClass) ? [ele] : ele.querySelectorAll('.' + optCssClass);
+	        } else {
+	            elements = document.querySelectorAll('.' + optCssClass);
+	        }
+	        for (var n = 0; n < elements.length; n++) {
+	            _upgradeElement(elements[n], jsClass);
+	        }
+	    }
+	}
+
+	var CompMgr = {
+	    plugs: {},
+	    //用来存储控件的名称对应列表
+	    dataAdapters: {},
+	    /** 注册的控件*/
+	    registeredControls: [],
+	    createdControls: [],
+	    /**
+	     *
+	     * @param options  {el:'#content', model:{}}
+	     */
+	    apply: function apply(options) {
+	        if (options) {
+	            var _el = options.el || document.body;
+	            var model = options.model;
+	        }
+	        if (typeof _el == 'string') {
+	            _el = document.body.querySelector(_el);
+	        }
+	        if (_el == null || (typeof _el === 'undefined' ? 'undefined' : _typeof(_el)) != 'object') _el = document.body;
+	        var comps = _el.querySelectorAll('[u-meta]');
+	        comps.forEach(function (element) {
+	            if (element['comp']) return;
+	            var options = JSON.parse(element.getAttribute('u-meta'));
+	            if (options && options['type']) {
+	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
+	                var comp = CompMgr.createDataAdapter({
+	                    el: element,
+	                    options: options,
+	                    model: model
+	                });
+	                if (comp) {
+	                    element['adpt'] = comp;
+	                    element['u-meta'] = comp;
+	                }
+	            }
+	        });
+	    },
+	    addPlug: function addPlug(config) {
+	        var plug = config['plug'],
+	            name = config['name'];
+	        this.plugs || (this.plugs = {});
+	        if (this.plugs[name]) {
+	            throw new Error('plug has exist:' + name);
+	        }
+	        plug.compType = name;
+	        this.plugs[name] = plug;
+	    },
+	    addDataAdapter: function addDataAdapter(config) {
+	        var adapter = config['adapter'],
+	            name = config['name'];
+	        //dataType = config['dataType'] || ''
+	        //var key = dataType ? name + '.' + dataType : name;
+	        this.dataAdapters || (dataAdapters = {});
+	        if (this.dataAdapters[name]) {
+	            throw new Error('dataAdapter has exist:' + name);
+	        }
+	        this.dataAdapters[name] = adapter;
+	    },
+	    getDataAdapter: function getDataAdapter(name) {
+	        if (!name) return;
+	        this.dataAdapters || (dataAdapters = {});
+	        //var key = dataType ? name + '.' + dataType : name;
+	        return this.dataAdapters[name];
+	    },
+	    /**
+	     * 创建dataAdapter,通过识别控件的type，来找到它对应的adapter
+	     * @param  {[type]} options [description]
+	     * @return {[type]}         [description]
+	     */
+	    createDataAdapter: function createDataAdapter(options) {
+	        var opt = options['options'];
+	        var type = opt['type'],
+	            id = opt['id'];
+	        var adpt = this.dataAdapters[type];
+	        if (!adpt) return null;
+	        var comp = new adpt(options);
+	        comp.type = type;
+	        comp.id = id;
+	        return comp;
+	    },
+	    _createComp: function _createComp(options) {
+	        var opt = options['options'];
+	        var type = opt['type'];
+	        var plug = this.plugs[type];
+	        if (!plug) return null;
+	        var comp = new plug(options);
+	        comp.type = type;
+	        return comp;
+	    },
+	    /**
+	     * 注册UI控件
+	     */
+	    regComp: function regComp(config) {
+	        var newConfig = {
+	            classConstructor: config.comp,
+	            className: config.compAsString || config['compAsString'],
+	            cssClass: config.css || config['css'],
+	            callbacks: [],
+	            dependencies: config.dependencies || []
+	        };
+	        config.comp.prototype.compType = config.compAsString;
+	        for (var i = 0; i < this.registeredControls.length; i++) {
+	            var item = this.registeredControls[i];
+	            //registeredControls.forEach(function(item) {
+	            if (item.cssClass === newConfig.cssClass) {
+	                throw new Error('The provided cssClass has already been registered: ' + item.cssClass);
+	            }
+	            if (item.className === newConfig.className) {
+	                throw new Error('The provided className has already been registered');
+	            }
+	        };
+	        this.registeredControls.push(newConfig);
+	    },
+	    updateComp: function updateComp(ele) {
+	        this._reorderComps();
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
+	        }
+	    },
+	    // 后续遍历registeredControls，重新排列
+	    _reorderComps: function _reorderComps() {
+	        var tmpArray = [];
+	        var dictory = {};
+
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            dictory[this.registeredControls[n].className] = this.registeredControls[n];
+	        }
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            traverse(this.registeredControls[n]);
+	        }
+
+	        this.registeredControls = tmpArray;
+
+	        function traverse(control) {
+	            if ((0, _util.inArray)(control, tmpArray)) return;
+	            if (control.dependencies.length > 0) {
+	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
+	                    var childControl = dictory[control.dependencies[i]];
+	                    traverse(childControl);
+	                }
+	            }
+	            tmpArray.push(control);
+	        }
+	    }
+	};
+
+	var compMgr = CompMgr;
+	exports.compMgr = compMgr;
 
 /***/ },
 /* 23 */
@@ -4732,7 +4717,7 @@
 	exports.__esModule = true;
 	exports.Autocomplete = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -4744,9 +4729,9 @@
 
 	var _util = __webpack_require__(5);
 
-	var _ajax = __webpack_require__(13);
+	var _ajax = __webpack_require__(11);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : neoui-autocompete
@@ -5330,9 +5315,416 @@
 	'use strict';
 
 	exports.__esModule = true;
+	exports.BaseComponent = undefined;
+
+	var _class = __webpack_require__(9);
+
+	var _util = __webpack_require__(5);
+
+	var _event = __webpack_require__(7);
+
+	var _compMgr = __webpack_require__(25);
+
+	/**
+	 * Module : Sparrow base component
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-28 18:45:08
+	 */
+
+	var BaseComponent = _class.Class.create({
+	    initialize: function initialize(element) {
+	        if ((0, _util.isDomElement)(element)) {
+	            this.element = element;
+	            this.options = {};
+	        } else {
+	            this.element = element['el'];
+	            this.options = element;
+	        }
+	        this.element = typeof this.element === 'string' ? document.querySelector(this.element) : this.element;
+
+	        this.compType = this.compType || this.constructor.compType;
+	        this.element[this.compType] = this;
+	        this.element['init'] = true;
+	        this.init();
+	    },
+	    /**
+	     * 绑定事件
+	     * @param {String} name
+	     * @param {Function} callback
+	     */
+	    on: function on(name, callback) {
+	        name = name.toLowerCase();
+	        this._events || (this._events = {});
+	        var events = this._events[name] || (this._events[name] = []);
+	        events.push({
+	            callback: callback
+	        });
+	        return this;
+	    },
+	    /**
+	     * 触发事件
+	     * @param {String} name
+	     */
+	    trigger: function trigger(name) {
+	        name = name.toLowerCase();
+	        if (!this._events || !this._events[name]) return this;
+	        var args = Array.prototype.slice.call(arguments, 1);
+	        var events = this._events[name];
+	        for (var i = 0, count = events.length; i < count; i++) {
+	            events[i].callback.apply(this, args);
+	        }
+	        return this;
+	    },
+	    /**
+	     * 初始化
+	     */
+	    init: function init() {},
+	    /**
+	     * 渲染控件
+	     */
+	    render: function render() {},
+	    /**
+	     * 销毁控件
+	     */
+	    destroy: function destroy() {
+	        delete this.element['comp'];
+	        this.element.innerHTML = '';
+	    },
+	    /**
+	     * 增加dom事件
+	     * @param {String} name
+	     * @param {Function} callback
+	     */
+	    addDomEvent: function addDomEvent(name, callback) {
+	        (0, _event.on)(this.element, name, callback);
+	        return this;
+	    },
+	    /**
+	     * 移除dom事件
+	     * @param {String} name
+	     */
+	    removeDomEvent: function removeDomEvent(name, callback) {
+	        (0, _event.off)(this.element, name, callback);
+	        return this;
+	    },
+	    setEnable: function setEnable(enable) {
+	        return this;
+	    },
+	    /**
+	     * 判断是否为DOM事件
+	     */
+	    isDomEvent: function isDomEvent(eventName) {
+	        if (this.element['on' + eventName] === undefined) return false;else return true;
+	    },
+	    createDateAdapter: function createDateAdapter(options) {
+	        var opt = options['options'],
+	            model = options['model'];
+	        var Adapter = _compMgr.compMgr.getDataAdapter(this.compType, opt['dataType']);
+	        if (Adapter) {
+	            this.dataAdapter = new Adapter(this, options);
+	        }
+	    },
+	    Statics: {
+	        compName: '',
+	        EVENT_VALUE_CHANGE: 'valueChange',
+	        getName: function getName() {
+	            return this.compName;
+	        }
+	    }
+	});
+
+	function adjustDataType(options) {
+	    var types = ['integer', 'float', 'currency', 'percent', 'string', 'textarea'];
+	    var _type = options['type'],
+	        _dataType = options['dataType'];
+	    if (types.indexOf(_type) != -1) {
+	        options['dataType'] = _type;
+	        options['type'] = 'originText';
+	    }
+	}
+
+	var BaseComponent = BaseComponent;
+
+	exports.BaseComponent = BaseComponent;
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.compMgr = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * Module : Sparrow compMgr
+	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
+	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 18:41:06
+	                                                                                                                                                                                                                                                                               * Update : 2016-09-13 09:26:00
+	                                                                                                                                                                                                                                                                               */
+
+	var _dom = __webpack_require__(8);
+
+	var _util = __webpack_require__(5);
+
+	function _findRegisteredClass(name, optReplace) {
+	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
+	        if (CompMgr.registeredControls[i].className === name) {
+	            if (typeof optReplace !== 'undefined') {
+	                CompMgr.registeredControls[i] = optReplace;
+	            }
+	            return CompMgr.registeredControls[i];
+	        }
+	    }
+	    return false;
+	}
+
+	function _getUpgradedListOfElement(element) {
+	    var dataUpgraded = element.getAttribute('data-upgraded');
+	    // Use `['']` as default value to conform the `,name,name...` style.
+	    return dataUpgraded === null ? [''] : dataUpgraded.split(',');
+	}
+
+	function _isElementUpgraded(element, jsClass) {
+	    var upgradedList = _getUpgradedListOfElement(element);
+	    return upgradedList.indexOf(jsClass) != -1;
+	}
+
+	function _upgradeElement(element, optJsClass) {
+	    if (!((typeof element === 'undefined' ? 'undefined' : _typeof(element)) === 'object' && element instanceof Element)) {
+	        throw new Error('Invalid argument provided to upgrade MDL element.');
+	    }
+	    var upgradedList = _getUpgradedListOfElement(element);
+	    var classesToUpgrade = [];
+	    if (!optJsClass) {
+	        var className = element.className;
+	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
+	            var component = CompMgr.registeredControls[i];
+	            if (className.indexOf(component.cssClass) > -1 && classesToUpgrade.indexOf(component) === -1 && !_isElementUpgraded(element, component.className)) {
+	                classesToUpgrade.push(component);
+	            }
+	        }
+	    } else if (!_isElementUpgraded(element, optJsClass)) {
+	        classesToUpgrade.push(_findRegisteredClass(optJsClass));
+	    }
+
+	    // Upgrade the element for each classes.
+	    for (var i = 0, n = classesToUpgrade.length, registeredClass; i < n; i++) {
+	        registeredClass = classesToUpgrade[i];
+	        if (registeredClass) {
+	            if (element[registeredClass.className]) {
+	                continue;
+	            }
+	            // Mark element as upgraded.
+	            upgradedList.push(registeredClass.className);
+	            element.setAttribute('data-upgraded', upgradedList.join(','));
+	            var instance = new registeredClass.classConstructor(element);
+	            CompMgr.createdControls.push(instance);
+	            // Call any callbacks the user has registered with this component type.
+	            for (var j = 0, m = registeredClass.callbacks.length; j < m; j++) {
+	                registeredClass.callbacks[j](element);
+	            }
+	            element[registeredClass.className] = instance;
+	        } else {
+	            throw new Error('Unable to find a registered component for the given class.');
+	        }
+	    }
+	}
+
+	function _upgradeDomInternal(optJsClass, optCssClass, ele) {
+	    if (typeof optJsClass === 'undefined' && typeof optCssClass === 'undefined') {
+	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
+	            _upgradeDomInternal(CompMgr.registeredControls[i].className, registeredControls[i].cssClass, ele);
+	        }
+	    } else {
+	        var jsClass = optJsClass;
+	        if (!optCssClass) {
+	            var registeredClass = _findRegisteredClass(jsClass);
+	            if (registeredClass) {
+	                optCssClass = registeredClass.cssClass;
+	            }
+	        }
+	        var elements;
+	        if (ele) {
+	            elements = (0, _dom.hasClass)(ele, optCssClass) ? [ele] : ele.querySelectorAll('.' + optCssClass);
+	        } else {
+	            elements = document.querySelectorAll('.' + optCssClass);
+	        }
+	        for (var n = 0; n < elements.length; n++) {
+	            _upgradeElement(elements[n], jsClass);
+	        }
+	    }
+	}
+
+	var CompMgr = {
+	    plugs: {},
+	    dataAdapters: {},
+	    /** 注册的控件*/
+	    registeredControls: [],
+	    createdControls: [],
+	    /**
+	     *
+	     * @param options  {el:'#content', model:{}}
+	     */
+	    apply: function apply(options) {
+	        if (options) {
+	            var _el = options.el || document.body;
+	            var model = options.model;
+	        }
+	        if (typeof _el == 'string') {
+	            _el = document.body.querySelector(_el);
+	        }
+	        if (_el == null || (typeof _el === 'undefined' ? 'undefined' : _typeof(_el)) != 'object') _el = document.body;
+	        var comps = _el.querySelectorAll('[u-meta]');
+	        comps.forEach(function (element) {
+	            if (element['comp']) return;
+	            var options = JSON.parse(element.getAttribute('u-meta'));
+	            if (options && options['type']) {
+	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
+	                var comp = CompMgr.createDataAdapter({
+	                    el: element,
+	                    options: options,
+	                    model: model
+	                });
+	                if (comp) {
+	                    element['adpt'] = comp;
+	                    element['u-meta'] = comp;
+	                }
+	            }
+	        });
+	    },
+	    addPlug: function addPlug(config) {
+	        var plug = config['plug'],
+	            name = config['name'];
+	        this.plugs || (this.plugs = {});
+	        if (this.plugs[name]) {
+	            throw new Error('plug has exist:' + name);
+	        }
+	        plug.compType = name;
+	        this.plugs[name] = plug;
+	    },
+	    addDataAdapter: function addDataAdapter(config) {
+	        var adapter = config['adapter'],
+	            name = config['name'];
+	        //dataType = config['dataType'] || ''
+	        //var key = dataType ? name + '.' + dataType : name;
+	        this.dataAdapters || (dataAdapters = {});
+	        if (this.dataAdapters[name]) {
+	            throw new Error('dataAdapter has exist:' + name);
+	        }
+	        this.dataAdapters[name] = adapter;
+	    },
+	    getDataAdapter: function getDataAdapter(name) {
+	        if (!name) return;
+	        this.dataAdapters || (dataAdapters = {});
+	        //var key = dataType ? name + '.' + dataType : name;
+	        return this.dataAdapters[name];
+	    },
+	    createDataAdapter: function createDataAdapter(options) {
+	        var opt = options['options'];
+	        var type = opt['type'],
+	            id = opt['id'];
+	        var adpt = this.dataAdapters[type];
+	        if (!adpt) return null;
+	        var comp = new adpt(options);
+	        comp.type = type;
+	        comp.id = id;
+	        return comp;
+	    },
+	    _createComp: function _createComp(options) {
+	        var opt = options['options'];
+	        var type = opt['type'];
+	        var plug = this.plugs[type];
+	        if (!plug) return null;
+	        var comp = new plug(options);
+	        comp.type = type;
+	        return comp;
+	    },
+	    /**
+	     * 注册UI控件
+	     */
+	    regComp: function regComp(config) {
+	        var newConfig = {
+	            classConstructor: config.comp,
+	            className: config.compAsString || config['compAsString'],
+	            cssClass: config.css || config['css'],
+	            callbacks: [],
+	            dependencies: config.dependencies || []
+	        };
+	        config.comp.prototype.compType = config.compAsString;
+	        for (var i = 0; i < this.registeredControls.length; i++) {
+	            var item = this.registeredControls[i];
+	            //registeredControls.forEach(function(item) {
+	            if (item.cssClass === newConfig.cssClass) {
+	                throw new Error('The provided cssClass has already been registered: ' + item.cssClass);
+	            }
+	            if (item.className === newConfig.className) {
+	                throw new Error('The provided className has already been registered');
+	            }
+	        };
+	        this.registeredControls.push(newConfig);
+	    },
+
+	    updateComp: function updateComp(ele) {
+	        this._reorderComps();
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
+	        }
+	    },
+	    // 后续遍历registeredControls，重新排列
+	    _reorderComps: function _reorderComps() {
+	        var tmpArray = [];
+	        var dictory = {};
+
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            dictory[this.registeredControls[n].className] = this.registeredControls[n];
+	        }
+	        for (var n = 0; n < this.registeredControls.length; n++) {
+	            traverse(this.registeredControls[n]);
+	        }
+
+	        this.registeredControls = tmpArray;
+
+	        function traverse(control) {
+	            if ((0, _util.inArray)(control, tmpArray)) return;
+	            if (control.dependencies.length > 0) {
+	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
+	                    var childControl = dictory[control.dependencies[i]];
+	                    traverse(childControl);
+	                }
+	            }
+	            tmpArray.push(control);
+	        }
+	    }
+	};
+
+	var compMgr = CompMgr;
+	exports.compMgr = compMgr;
+
+	///**
+	// * 加载控件
+	// */
+	//
+	//if (document.readyState && document.readyState === 'complete'){
+	//    compMgr.updateComp();
+	//}else{
+	//    on(window, 'load', function() {
+	//
+	//        //扫描并生成控件
+	//        compMgr.updateComp();
+	//    });
+	//}
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
 	exports.Button = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -5340,9 +5732,9 @@
 
 	var _event = __webpack_require__(7);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : neoui-button
@@ -5392,7 +5784,7 @@
 	exports.Button = Button;
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5400,15 +5792,15 @@
 	exports.__esModule = true;
 	exports.Checkbox = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
 	var _event = __webpack_require__(7);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Checkbox = _BaseComponent.BaseComponent.extend({
 	    _Constant: {
@@ -5640,7 +6032,7 @@
 	exports.Checkbox = Checkbox;
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5648,7 +6040,7 @@
 	exports.__esModule = true;
 	exports.Combo = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -5656,11 +6048,11 @@
 
 	var _event = __webpack_require__(7);
 
-	var _neouiTextfield = __webpack_require__(27);
+	var _neouiTextfield = __webpack_require__(29);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Combo = _BaseComponent.BaseComponent.extend({
 	    init: function init() {
@@ -5691,6 +6083,8 @@
 
 	        if (this.mutilSelect) {
 	            this.nowWidth = 0;
+	            this.showNowWidth = 0;
+	            this.multiNoneArr = [];
 	            this.fullWidth = this._input.offsetWidth;
 	        }
 
@@ -5963,20 +6357,61 @@
 	                this._combo_name_par.title = this.name;
 	                var nWidth = nameDiv.offsetWidth + 20;
 	                this.nowWidth += nWidth;
+	                this.showNowWidth += nWidth;
 	                if (this.nowWidth > this.fullWidth && this.fullWidth > 0) {
-	                    this.nowWidth -= nWidth;
-	                    this._combo_name_par.removeChild(nameDiv);
 	                    (0, _dom.addClass)(this._combo_name_par, 'u-combo-overwidth');
+	                }
+	                if (this.showNowWidth > this.fullWidth && this.fullWidth > 0) {
+	                    this.showNowWidth -= nWidth;
+	                    nameDiv.style.display = 'none';
+	                    this.multiNoneArr.push(nameDiv);
 	                }
 	            } else {
 	                this.name = this.name.replace(name + ',', '');
 	                if (this._combo_name_par) {
 	                    var comboDiv = this._combo_name_par.querySelector('[key="' + val + '"]');
 	                    if (comboDiv) {
+	                        var fflag = true;
+	                        if (comboDiv.style.display == 'none') {
+	                            fflag = false;
+	                            comboDiv.style.display = '';
+	                        }
 	                        var nWidth = comboDiv.offsetWidth + 20;
 	                        this._combo_name_par.removeChild(comboDiv);
 	                        this.nowWidth -= nWidth;
-	                        (0, _dom.removeClass)(this._combo_name_par, 'u-combo-overwidth');
+	                        if (fflag) {
+	                            this.showNowWidth -= nWidth;
+	                        } else {
+	                            // 从数组中删除
+	                            for (var k = 0; k < this.multiNoneArr.length; k++) {
+	                                if (this.multiNoneArr[k] == comboDiv) {
+	                                    this.multiNoneArr.splice(k, 1);
+	                                    break;
+	                                }
+	                            }
+	                        }
+	                        if (!(this.nowWidth > this.fullWidth && this.fullWidth > 0)) {
+	                            (0, _dom.removeClass)(this._combo_name_par, 'u-combo-overwidth');
+	                        }
+	                        if (this.showNowWidth < this.fullWidth && this.fullWidth > 0) {
+	                            var nowShowNowWidth = this.showNowWidth;
+	                            var j = -1;
+	                            for (var i = 0; i < this.multiNoneArr.length; i++) {
+	                                var nowDiv = this.multiNoneArr[i];
+	                                nowDiv.style.display = '';
+	                                var nowForWidth = nowDiv.offsetWidth + 20;
+	                                nowShowNowWidth += nowForWidth;
+	                                if (nowShowNowWidth > this.fullWidth) {
+	                                    nowDiv.style.display = 'none';
+	                                    break;
+	                                } else {
+	                                    j++;
+	                                    this.showNowWidth += nowForWidth;
+	                                }
+	                            }
+
+	                            this.multiNoneArr.splice(0, j + 1);
+	                        }
 	                    }
 	                }
 	            }
@@ -6042,6 +6477,8 @@
 	        }
 	        var matched = false;
 	        this.nowWidth = 0;
+	        this.showNowWidth = 0;
+	        this.multiNoneArr = [];
 	        this.comboDatas.forEach(function (item, index) {
 	            if (this.mutilSelect === true) {
 	                if (values.indexOf(item.value) != -1) {
@@ -6100,7 +6537,7 @@
 	exports.Combo = Combo;
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6108,7 +6545,7 @@
 	exports.__esModule = true;
 	exports.Text = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -6116,7 +6553,7 @@
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Text = _BaseComponent.BaseComponent.extend({
 	    _Constant: {
@@ -6339,7 +6776,7 @@
 	exports.Text = Text;
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6354,7 +6791,7 @@
 	                                                                                                                                                                                                                                                                               *
 	                                                                                                                                                                                                                                                                               */
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -6362,7 +6799,7 @@
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/* COLLAPSIBLE PLUGIN DEFINITION
 	 *
@@ -6474,7 +6911,7 @@
 	exports.showCollapse = showCollapse;
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6482,7 +6919,7 @@
 	exports.__esModule = true;
 	exports.Combobox = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -6492,7 +6929,7 @@
 
 	var _env = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : neoui-combobox
@@ -6999,7 +7436,7 @@
 	exports.Combobox = Combobox;
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7007,13 +7444,13 @@
 	exports.__esModule = true;
 	exports.Table = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _event = __webpack_require__(7);
 
-	var _neouiCheckbox = __webpack_require__(25);
+	var _neouiCheckbox = __webpack_require__(27);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : neoui-datatable
@@ -7111,7 +7548,7 @@
 	exports.Table = Table;
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7119,7 +7556,7 @@
 	exports.__esModule = true;
 	exports.iframeDialog = exports.dialogWizard = exports.dialog = exports.dialogMode = exports.confirmDialog = exports.messageDialog = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -7127,11 +7564,11 @@
 
 	var _extend = __webpack_require__(2);
 
-	var _neouiButton = __webpack_require__(24);
+	var _neouiButton = __webpack_require__(26);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
 	/**
 	 * messageDialog.js
@@ -7762,7 +8199,7 @@
 	exports.iframeDialog = iframeDialog;
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7770,7 +8207,7 @@
 	exports.__esModule = true;
 	exports.MDLayout = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -7780,9 +8217,9 @@
 
 	var _env = __webpack_require__(6);
 
-	var _neouiButton = __webpack_require__(24);
+	var _neouiButton = __webpack_require__(26);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var MDLayout = _BaseComponent.BaseComponent.extend({
 		_CssClasses: {
@@ -8000,7 +8437,7 @@
 	exports.MDLayout = MDLayout;
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8008,17 +8445,17 @@
 	exports.__esModule = true;
 	exports.NavLayoutTab = exports.NavLayout = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
 	var _event = __webpack_require__(7);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
 	var _env = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : neoui-layout-nav
@@ -8504,7 +8941,7 @@
 	exports.NavLayoutTab = NavLayoutTab;
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8578,7 +9015,7 @@
 	exports.hideLoader = hideLoader;
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8586,7 +9023,7 @@
 	exports.__esModule = true;
 	exports.removeWaiting = exports.showWaiting = exports.hideLoading = exports.showLoading = exports.Loading = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -8594,7 +9031,7 @@
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Loading = _BaseComponent.BaseComponent.extend({
 		_Constant: {
@@ -8707,7 +9144,7 @@
 	exports.removeWaiting = removeWaiting;
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8715,17 +9152,17 @@
 	exports.__esModule = true;
 	exports.Menu = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
 	var _event = __webpack_require__(7);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
 	var _env = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : neoui-menu
@@ -9216,7 +9653,7 @@
 	exports.Menu = Menu;
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9320,7 +9757,7 @@
 	exports.showMessage = showMessage;
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9334,7 +9771,7 @@
 	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-02 20:19:37
 	                                                                                                                                                                                                                                                                               */
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _extend = __webpack_require__(2);
 
@@ -9344,7 +9781,7 @@
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Multilang = _BaseComponent.BaseComponent.extend({
 		init: function init() {
@@ -9503,7 +9940,7 @@
 	exports.Multilang = Multilang;
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9511,7 +9948,7 @@
 	exports.__esModule = true;
 	exports.NavMenu = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _extend = __webpack_require__(2);
 
@@ -9519,9 +9956,9 @@
 
 	var _event = __webpack_require__(7);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : neoui-navmenu
@@ -9609,7 +10046,7 @@
 	exports.NavMenu = NavMenu;
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9623,7 +10060,7 @@
 	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-03 08:45:49
 	                                                                                                                                                                                                                                                                               */
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _extend = __webpack_require__(2);
 
@@ -9633,9 +10070,9 @@
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
 	var pagination = _BaseComponent.BaseComponent.extend({});
 
@@ -10033,7 +10470,7 @@
 	exports.pagination = pagination;
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10041,7 +10478,7 @@
 	exports.__esModule = true;
 	exports.Progress = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -10049,7 +10486,7 @@
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Progress = _BaseComponent.BaseComponent.extend({
 		_Constant: {},
@@ -10158,7 +10595,7 @@
 	exports.Progress = Progress;
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10166,7 +10603,7 @@
 	exports.__esModule = true;
 	exports.Radio = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
@@ -10174,9 +10611,9 @@
 
 	var _event = __webpack_require__(7);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : neoui-radio
@@ -10396,7 +10833,7 @@
 	exports.Radio = Radio;
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10404,7 +10841,7 @@
 	exports.__esModule = true;
 	exports.refer = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _extend = __webpack_require__(2);
 
@@ -10414,9 +10851,9 @@
 
 	var _util = __webpack_require__(5);
 
-	var _neouiDialog = __webpack_require__(31);
+	var _neouiDialog = __webpack_require__(33);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
 	var Refer = function Refer(options) {
 	    this.options = (0, _extend.extend)({}, Refer.DEFAULTS, options);
@@ -10519,13 +10956,13 @@
 	    if (this.options['module']) {
 	        self.contentDiv.innerHTML = this.options['module'].template;
 	        this.options['module'].init ? this.options['module'].init(self) : '';
-	    } else if (__webpack_require__(44)) {
-	        __webpack_require__.e/* require */(1, function(__webpack_require__) { /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(44)(this.options.pageUrl)]; (function (module) {
+	    } else if (__webpack_require__(46)) {
+	        __webpack_require__.e/* require */(1, function(__webpack_require__) { /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(46)(this.options.pageUrl)]; (function (module) {
 	            self.contentDiv.innerHTML = module.template;
 	            module.init ? module.init(self) : '';
 	            self.loaded = true;
 	        }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));
-	/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(58)(module)))});
+	/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(60)(module)))});
 	    }
 	};
 
@@ -10589,80 +11026,82 @@
 	exports.refer = refer;
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./index": 22,
-		"./index.js": 22,
+		"./index": 20,
+		"./index.js": 20,
+		"./neoui-BaseComponent": 21,
+		"./neoui-BaseComponent.js": 21,
 		"./neoui-autocomplete": 23,
 		"./neoui-autocomplete.js": 23,
-		"./neoui-button": 24,
-		"./neoui-button.js": 24,
-		"./neoui-checkbox": 25,
-		"./neoui-checkbox.js": 25,
-		"./neoui-clockpicker": 45,
-		"./neoui-clockpicker.js": 45,
-		"./neoui-collapse": 28,
-		"./neoui-collapse.js": 28,
-		"./neoui-combo": 26,
-		"./neoui-combo.js": 26,
-		"./neoui-combobox": 29,
-		"./neoui-combobox.js": 29,
-		"./neoui-data-table": 30,
-		"./neoui-data-table.js": 30,
-		"./neoui-datetimepicker": 46,
-		"./neoui-datetimepicker.js": 46,
-		"./neoui-dialog": 31,
-		"./neoui-dialog.js": 31,
-		"./neoui-layout.md": 32,
-		"./neoui-layout.md.js": 32,
-		"./neoui-layout.nav": 33,
-		"./neoui-layout.nav.js": 33,
-		"./neoui-loader": 34,
-		"./neoui-loader.js": 34,
-		"./neoui-loading": 35,
-		"./neoui-loading.js": 35,
-		"./neoui-menu": 36,
-		"./neoui-menu.js": 36,
-		"./neoui-message": 37,
-		"./neoui-message.js": 37,
-		"./neoui-mobdatetimepicker": 49,
-		"./neoui-mobdatetimepicker.js": 49,
-		"./neoui-month": 50,
-		"./neoui-month.js": 50,
-		"./neoui-monthdate": 51,
-		"./neoui-monthdate.js": 51,
-		"./neoui-multilang": 38,
-		"./neoui-multilang.js": 38,
-		"./neoui-navmenu": 39,
-		"./neoui-navmenu.js": 39,
-		"./neoui-pagination": 40,
-		"./neoui-pagination.js": 40,
-		"./neoui-progress": 41,
-		"./neoui-progress.js": 41,
-		"./neoui-radio": 42,
-		"./neoui-radio.js": 42,
-		"./neoui-refer": 43,
-		"./neoui-refer.js": 43,
-		"./neoui-slidePanel": 52,
-		"./neoui-slidePanel.js": 52,
-		"./neoui-switch": 53,
-		"./neoui-switch.js": 53,
-		"./neoui-tabs": 54,
-		"./neoui-tabs.js": 54,
-		"./neoui-textfield": 27,
-		"./neoui-textfield.js": 27,
-		"./neoui-time": 55,
-		"./neoui-time.js": 55,
-		"./neoui-tooltip": 48,
-		"./neoui-tooltip.js": 48,
-		"./neoui-validate": 47,
-		"./neoui-validate.js": 47,
-		"./neoui-year": 56,
-		"./neoui-year.js": 56,
-		"./neoui-yearmonth": 57,
-		"./neoui-yearmonth.js": 57
+		"./neoui-button": 26,
+		"./neoui-button.js": 26,
+		"./neoui-checkbox": 27,
+		"./neoui-checkbox.js": 27,
+		"./neoui-clockpicker": 47,
+		"./neoui-clockpicker.js": 47,
+		"./neoui-collapse": 30,
+		"./neoui-collapse.js": 30,
+		"./neoui-combo": 28,
+		"./neoui-combo.js": 28,
+		"./neoui-combobox": 31,
+		"./neoui-combobox.js": 31,
+		"./neoui-data-table": 32,
+		"./neoui-data-table.js": 32,
+		"./neoui-datetimepicker": 48,
+		"./neoui-datetimepicker.js": 48,
+		"./neoui-dialog": 33,
+		"./neoui-dialog.js": 33,
+		"./neoui-layout.md": 34,
+		"./neoui-layout.md.js": 34,
+		"./neoui-layout.nav": 35,
+		"./neoui-layout.nav.js": 35,
+		"./neoui-loader": 36,
+		"./neoui-loader.js": 36,
+		"./neoui-loading": 37,
+		"./neoui-loading.js": 37,
+		"./neoui-menu": 38,
+		"./neoui-menu.js": 38,
+		"./neoui-message": 39,
+		"./neoui-message.js": 39,
+		"./neoui-mobdatetimepicker": 51,
+		"./neoui-mobdatetimepicker.js": 51,
+		"./neoui-month": 52,
+		"./neoui-month.js": 52,
+		"./neoui-monthdate": 53,
+		"./neoui-monthdate.js": 53,
+		"./neoui-multilang": 40,
+		"./neoui-multilang.js": 40,
+		"./neoui-navmenu": 41,
+		"./neoui-navmenu.js": 41,
+		"./neoui-pagination": 42,
+		"./neoui-pagination.js": 42,
+		"./neoui-progress": 43,
+		"./neoui-progress.js": 43,
+		"./neoui-radio": 44,
+		"./neoui-radio.js": 44,
+		"./neoui-refer": 45,
+		"./neoui-refer.js": 45,
+		"./neoui-slidePanel": 54,
+		"./neoui-slidePanel.js": 54,
+		"./neoui-switch": 55,
+		"./neoui-switch.js": 55,
+		"./neoui-tabs": 56,
+		"./neoui-tabs.js": 56,
+		"./neoui-textfield": 29,
+		"./neoui-textfield.js": 29,
+		"./neoui-time": 57,
+		"./neoui-time.js": 57,
+		"./neoui-tooltip": 50,
+		"./neoui-tooltip.js": 50,
+		"./neoui-validate": 49,
+		"./neoui-validate.js": 49,
+		"./neoui-year": 58,
+		"./neoui-year.js": 58,
+		"./neoui-yearmonth": 59,
+		"./neoui-yearmonth.js": 59
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -10675,11 +11114,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 44;
+	webpackContext.id = 46;
 
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10687,13 +11126,13 @@
 	exports.__esModule = true;
 	exports.ClockPicker = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _env = __webpack_require__(6);
 
@@ -10701,9 +11140,9 @@
 
 	var _core = __webpack_require__(10);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
 	var ClockPicker = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
@@ -11151,7 +11590,7 @@
 	exports.ClockPicker = ClockPicker;
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11161,7 +11600,7 @@
 
 	var _extend = __webpack_require__(2);
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _env = __webpack_require__(6);
 
@@ -11171,17 +11610,17 @@
 
 	var _core = __webpack_require__(10);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
-	var _neouiValidate = __webpack_require__(47);
+	var _neouiValidate = __webpack_require__(49);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
 	var _util = __webpack_require__(5);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
 	var DateTimePicker = _BaseComponent.BaseComponent.extend({});
 
@@ -12606,7 +13045,7 @@
 	exports.DateTimePicker = DateTimePicker;
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12621,7 +13060,7 @@
 	                                                                                                                                                                                                                                                                               */
 
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _extend = __webpack_require__(2);
 
@@ -12631,11 +13070,11 @@
 
 	var _util = __webpack_require__(5);
 
-	var _neouiTooltip = __webpack_require__(48);
+	var _neouiTooltip = __webpack_require__(50);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Validate = _BaseComponent.BaseComponent.extend({
 
@@ -13206,7 +13645,7 @@
 	exports.doValidate = doValidate;
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13562,7 +14001,7 @@
 	exports.Tooltip = Tooltip;
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13572,7 +14011,7 @@
 
 	var _extend = __webpack_require__(2);
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _env = __webpack_require__(6);
 
@@ -13582,13 +14021,13 @@
 
 	var _core = __webpack_require__(10);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
-	var _neouiValidate = __webpack_require__(47);
+	var _neouiValidate = __webpack_require__(49);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
 	var _util = __webpack_require__(5);
 
@@ -13760,7 +14199,7 @@
 	exports.MobDateTimePicker = MobDateTimePicker;
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13768,7 +14207,7 @@
 	exports.__esModule = true;
 	exports.Month = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _event = __webpack_require__(7);
 
@@ -13776,13 +14215,13 @@
 
 	var _extend = __webpack_require__(2);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
 	/**
 	 * Module : neoui-month
@@ -14012,7 +14451,7 @@
 	exports.Month = Month;
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14020,7 +14459,7 @@
 	exports.__esModule = true;
 	exports.MonthDate = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _env = __webpack_require__(6);
 
@@ -14030,15 +14469,15 @@
 
 	var _core = __webpack_require__(10);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
 	var _extend = __webpack_require__(2);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
 	var MonthDate = _BaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
@@ -14382,7 +14821,7 @@
 	exports.MonthDate = MonthDate;
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14392,7 +14831,7 @@
 
 	var _dom = __webpack_require__(8);
 
-	var _ajax = __webpack_require__(13);
+	var _ajax = __webpack_require__(11);
 
 	var _event = __webpack_require__(7);
 
@@ -14457,7 +14896,7 @@
 	exports.slidePanel = slidePanel;
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14465,15 +14904,15 @@
 	exports.__esModule = true;
 	exports.Switch = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
 	var _event = __webpack_require__(7);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Switch = _BaseComponent.BaseComponent.extend({
 		_Constant: {
@@ -14645,7 +15084,7 @@
 	exports.Switch = Switch;
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14653,15 +15092,15 @@
 	exports.__esModule = true;
 	exports.Tabs = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _dom = __webpack_require__(8);
 
 	var _event = __webpack_require__(7);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Tabs = _BaseComponent.BaseComponent.extend({
 		_Constant: {},
@@ -14791,7 +15230,7 @@
 	exports.Tabs = Tabs;
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14801,7 +15240,7 @@
 
 	var _extend = __webpack_require__(2);
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _env = __webpack_require__(6);
 
@@ -14809,7 +15248,7 @@
 
 	var _dom = __webpack_require__(8);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var Time = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
@@ -15031,7 +15470,7 @@
 	exports.Time = Time;
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15039,7 +15478,7 @@
 	exports.__esModule = true;
 	exports.Year = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _event = __webpack_require__(7);
 
@@ -15047,9 +15486,9 @@
 
 	var _extend = __webpack_require__(2);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
 	/**
 	 * Module : neoui-year
@@ -15276,7 +15715,7 @@
 	exports.Year = Year;
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15284,7 +15723,7 @@
 	exports.__esModule = true;
 	exports.YearMonth = undefined;
 
-	var _BaseComponent = __webpack_require__(11);
+	var _BaseComponent = __webpack_require__(24);
 
 	var _event = __webpack_require__(7);
 
@@ -15294,13 +15733,13 @@
 
 	var _env = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _ripple = __webpack_require__(20);
+	var _ripple = __webpack_require__(18);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
 	var YearMonth = _BaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
@@ -15609,8 +16048,8 @@
 	exports.YearMonth = YearMonth;
 
 /***/ },
-/* 58 */,
-/* 59 */
+/* 60 */,
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15618,11 +16057,11 @@
 	exports.__esModule = true;
 	exports.DataTable = exports.u = undefined;
 
-	var _indexDataTable = __webpack_require__(60);
+	var _indexDataTable = __webpack_require__(62);
 
-	var _indexPage = __webpack_require__(86);
+	var _indexPage = __webpack_require__(88);
 
-	var _indexRow = __webpack_require__(92);
+	var _indexRow = __webpack_require__(94);
 
 	window.DataTable = _indexDataTable.DataTable; /**
 	                                               * Module : Kero webpack entry index
@@ -15643,7 +16082,7 @@
 	exports.DataTable = _indexDataTable.DataTable;
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15653,55 +16092,55 @@
 
 	var _extend = __webpack_require__(2);
 
-	var _indexEvents = __webpack_require__(61);
+	var _indexEvents = __webpack_require__(63);
 
-	var _copyRow = __webpack_require__(63);
+	var _copyRow = __webpack_require__(65);
 
-	var _data = __webpack_require__(64);
+	var _data = __webpack_require__(66);
 
-	var _enable = __webpack_require__(65);
+	var _enable = __webpack_require__(67);
 
-	var _getCurrent = __webpack_require__(66);
+	var _getCurrent = __webpack_require__(68);
 
-	var _getData = __webpack_require__(67);
+	var _getData = __webpack_require__(69);
 
-	var _getFocus = __webpack_require__(68);
+	var _getFocus = __webpack_require__(70);
 
-	var _getMeta = __webpack_require__(69);
+	var _getMeta = __webpack_require__(71);
 
-	var _getPage = __webpack_require__(70);
+	var _getPage = __webpack_require__(72);
 
-	var _getParam = __webpack_require__(71);
+	var _getParam = __webpack_require__(73);
 
-	var _getSelect = __webpack_require__(72);
+	var _getSelect = __webpack_require__(74);
 
-	var _getSimpleData = __webpack_require__(73);
+	var _getSimpleData = __webpack_require__(75);
 
-	var _meta = __webpack_require__(74);
+	var _meta = __webpack_require__(76);
 
-	var _page = __webpack_require__(75);
+	var _page = __webpack_require__(77);
 
-	var _param = __webpack_require__(76);
+	var _param = __webpack_require__(78);
 
-	var _ref = __webpack_require__(77);
+	var _ref = __webpack_require__(79);
 
-	var _removeRow = __webpack_require__(78);
+	var _removeRow = __webpack_require__(80);
 
-	var _row = __webpack_require__(80);
+	var _row = __webpack_require__(82);
 
-	var _rowCurrent = __webpack_require__(81);
+	var _rowCurrent = __webpack_require__(83);
 
-	var _rowDelete = __webpack_require__(82);
+	var _rowDelete = __webpack_require__(84);
 
-	var _rowSelect = __webpack_require__(83);
+	var _rowSelect = __webpack_require__(85);
 
-	var _rowFocus = __webpack_require__(84);
+	var _rowFocus = __webpack_require__(86);
 
-	var _simpleData = __webpack_require__(85);
+	var _simpleData = __webpack_require__(87);
 
-	var _util = __webpack_require__(79);
+	var _util = __webpack_require__(81);
 
-	var _events = __webpack_require__(62);
+	var _events = __webpack_require__(64);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
 	                                                                                                                                                          * Module : Kero webpack entry dataTable index
@@ -15957,7 +16396,7 @@
 	exports.DataTable = DataTable;
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15965,7 +16404,7 @@
 	exports.__esModule = true;
 	exports.Events = undefined;
 
-	var _events = __webpack_require__(62);
+	var _events = __webpack_require__(64);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
 	                                                                                                                                                           * Module : Kero webpack entry events index
@@ -15989,7 +16428,7 @@
 	exports.Events = Events;
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -16121,7 +16560,7 @@
 	exports.getEvent = getEvent;
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16151,7 +16590,7 @@
 	exports.copyRows = copyRows;
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -16246,7 +16685,7 @@
 	exports.setValue = setValue;
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -16283,7 +16722,7 @@
 	exports.setEnable = setEnable;
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16315,7 +16754,7 @@
 	exports.getCurrentIndex = getCurrentIndex;
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -16665,7 +17104,7 @@
 	exports.getRowIdsByIndices = getRowIdsByIndices;
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16695,7 +17134,7 @@
 	exports.getFocusIndex = getFocusIndex;
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -16732,7 +17171,7 @@
 	exports.getRowMeta = getRowMeta;
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16762,7 +17201,7 @@
 	exports.getPages = getPages;
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16781,7 +17220,7 @@
 	exports.getParam = getParam;
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16859,7 +17298,7 @@
 	exports.getSelectedRows = getSelectedRows;
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -16907,7 +17346,7 @@
 	exports.getSimpleData = getSimpleData;
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -17048,7 +17487,7 @@
 	exports.createField = createField;
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -17296,7 +17735,7 @@
 	exports.updatePageAll = updatePageAll;
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -17322,7 +17761,7 @@
 	exports.addParams = addParams;
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -17460,7 +17899,7 @@
 	exports.refByRow = refByRow;
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17468,7 +17907,7 @@
 	exports.__esModule = true;
 	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
 
-	var _util = __webpack_require__(79);
+	var _util = __webpack_require__(81);
 
 	var removeRowByRowId = function removeRowByRowId(rowId) {
 	    var index = this.getIndexByRowId(rowId);
@@ -17545,7 +17984,7 @@
 	exports.clear = clear;
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17585,7 +18024,7 @@
 	exports._formatToIndicesArray = _formatToIndicesArray;
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17706,7 +18145,7 @@
 	exports.createEmptyRow = createEmptyRow;
 
 /***/ },
-/* 81 */
+/* 83 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -17733,7 +18172,7 @@
 	exports.updateCurrIndex = updateCurrIndex;
 
 /***/ },
-/* 82 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17741,7 +18180,7 @@
 	exports.__esModule = true;
 	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
 
-	var _util = __webpack_require__(79);
+	var _util = __webpack_require__(81);
 
 	/**
 	 * 设置行删除
@@ -17802,7 +18241,7 @@
 	exports.setRowsDelete = setRowsDelete;
 
 /***/ },
-/* 83 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17812,7 +18251,7 @@
 
 	var _util = __webpack_require__(5);
 
-	var _util2 = __webpack_require__(79);
+	var _util2 = __webpack_require__(81);
 
 	/**
 	 * Module : kero dataTable rowSelect
@@ -18006,7 +18445,7 @@
 	exports.updateSelectedIndices = updateSelectedIndices;
 
 /***/ },
-/* 84 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18091,7 +18530,7 @@
 	exports.updateFocusIndex = updateFocusIndex;
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18170,7 +18609,7 @@
 	exports.addSimpleData = addSimpleData;
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18178,15 +18617,15 @@
 	exports.__esModule = true;
 	exports.Page = undefined;
 
-	var _pageData = __webpack_require__(87);
+	var _pageData = __webpack_require__(89);
 
-	var _pageGetData = __webpack_require__(88);
+	var _pageGetData = __webpack_require__(90);
 
-	var _pageGetMeta = __webpack_require__(89);
+	var _pageGetMeta = __webpack_require__(91);
 
-	var _pageMeta = __webpack_require__(90);
+	var _pageMeta = __webpack_require__(92);
 
-	var _pageRemoveRow = __webpack_require__(91);
+	var _pageRemoveRow = __webpack_require__(93);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
 	                                                                                                                                                           * Module : Kero webpack entry Page index
@@ -18230,7 +18669,7 @@
 	exports.Page = Page;
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -18281,7 +18720,7 @@
 	exports.updateRow = updateRow;
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -18349,7 +18788,7 @@
 	exports.getRowValue = getRowValue;
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -18373,7 +18812,7 @@
 	exports.getRowMeta = getRowMeta;
 
 /***/ },
-/* 90 */
+/* 92 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -18398,7 +18837,7 @@
 	exports.setRowMeta = setRowMeta;
 
 /***/ },
-/* 91 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18477,7 +18916,7 @@
 	exports.updateFocusIndex = updateFocusIndex;
 
 /***/ },
-/* 92 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18485,27 +18924,27 @@
 	exports.__esModule = true;
 	exports.Row = undefined;
 
-	var _indexEvents = __webpack_require__(61);
+	var _indexEvents = __webpack_require__(63);
 
-	var _rowData = __webpack_require__(93);
+	var _rowData = __webpack_require__(95);
 
-	var _rowGetData = __webpack_require__(95);
+	var _rowGetData = __webpack_require__(97);
 
-	var _rowGetMeta = __webpack_require__(96);
+	var _rowGetMeta = __webpack_require__(98);
 
-	var _rowGetSimpleData = __webpack_require__(97);
+	var _rowGetSimpleData = __webpack_require__(99);
 
-	var _rowInit = __webpack_require__(98);
+	var _rowInit = __webpack_require__(100);
 
-	var _rowMeta = __webpack_require__(99);
+	var _rowMeta = __webpack_require__(101);
 
-	var _rowRef = __webpack_require__(100);
+	var _rowRef = __webpack_require__(102);
 
-	var _rowRowSelect = __webpack_require__(101);
+	var _rowRowSelect = __webpack_require__(103);
 
-	var _rowSimpleData = __webpack_require__(102);
+	var _rowSimpleData = __webpack_require__(104);
 
-	var _rowUtil = __webpack_require__(94);
+	var _rowUtil = __webpack_require__(96);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -18523,7 +18962,7 @@
 	    function Row(options) {
 	        _classCallCheck(this, Row);
 
-	        var _this = _possibleConstructorReturn(this, (Row.__proto__ || Object.getPrototypeOf(Row)).call(this));
+	        var _this = _possibleConstructorReturn(this, _Events.call(this));
 
 	        var self = _this;
 	        _this.rowId = options['id'] || Row.getRandomRowId();
@@ -18626,7 +19065,7 @@
 	exports.Row = Row;
 
 /***/ },
-/* 93 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18641,7 +19080,7 @@
 	                                                                                                                                                                                                                                                                               */
 
 
-	var _rowUtil = __webpack_require__(94);
+	var _rowUtil = __webpack_require__(96);
 
 	var _util = __webpack_require__(5);
 
@@ -18864,7 +19303,7 @@
 	exports.updateRow = updateRow;
 
 /***/ },
-/* 94 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19011,7 +19450,7 @@
 	exports._findField = _findField;
 
 /***/ },
-/* 95 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19019,7 +19458,7 @@
 	exports.__esModule = true;
 	exports.getEmptyData = exports.getData = exports.getChildValue = exports.getValue = undefined;
 
-	var _rowUtil = __webpack_require__(94);
+	var _rowUtil = __webpack_require__(96);
 
 	/**
 	 *获取row中某一列的值
@@ -19106,7 +19545,7 @@
 	exports.getEmptyData = getEmptyData;
 
 /***/ },
-/* 96 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19114,7 +19553,7 @@
 	exports.__esModule = true;
 	exports.getMeta = undefined;
 
-	var _rowUtil = __webpack_require__(94);
+	var _rowUtil = __webpack_require__(96);
 
 	/**
 	 *获取row中某一列的属性
@@ -19139,7 +19578,7 @@
 	exports.getMeta = getMeta;
 
 /***/ },
-/* 97 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19147,7 +19586,7 @@
 	exports.__esModule = true;
 	exports.getSimpleData = exports.formatValueFun = undefined;
 
-	var _rowUtil = __webpack_require__(94);
+	var _rowUtil = __webpack_require__(96);
 
 	var _util = __webpack_require__(5);
 
@@ -19223,7 +19662,7 @@
 	exports.getSimpleData = getSimpleData;
 
 /***/ },
-/* 98 */
+/* 100 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19289,7 +19728,7 @@
 	exports.init = init;
 
 /***/ },
-/* 99 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19297,7 +19736,7 @@
 	exports.__esModule = true;
 	exports.setMeta = undefined;
 
-	var _rowUtil = __webpack_require__(94);
+	var _rowUtil = __webpack_require__(96);
 
 	/**
 	 *设置row中某一列的属性
@@ -19351,7 +19790,7 @@
 	exports.setMeta = setMeta;
 
 /***/ },
-/* 100 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19361,9 +19800,9 @@
 
 	var _util = __webpack_require__(5);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
-	var _rowUtil = __webpack_require__(94);
+	var _rowUtil = __webpack_require__(96);
 
 	var ref = function ref(fieldName) {
 	    this.parent.createField(fieldName);
@@ -19482,7 +19921,7 @@
 	exports.refEnum = refEnum;
 
 /***/ },
-/* 101 */
+/* 103 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19520,7 +19959,7 @@
 	exports.multiSelect = multiSelect;
 
 /***/ },
-/* 102 */
+/* 104 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19543,7 +19982,7 @@
 	exports.setSimpleData = setSimpleData;
 
 /***/ },
-/* 103 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19553,69 +19992,69 @@
 
 	var _extend = __webpack_require__(2);
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _keroaCheckbox = __webpack_require__(122);
+	var _keroaCheckbox = __webpack_require__(111);
 
-	var _keroaCkeditor = __webpack_require__(123);
+	var _keroaCkeditor = __webpack_require__(112);
 
-	var _keroaCombo = __webpack_require__(124);
+	var _keroaCombo = __webpack_require__(113);
 
-	var _keroaCurrency = __webpack_require__(125);
+	var _keroaCurrency = __webpack_require__(114);
 
-	var _keroaDatetimepicker = __webpack_require__(127);
+	var _keroaDatetimepicker = __webpack_require__(116);
 
-	var _keroaFloat = __webpack_require__(126);
+	var _keroaFloat = __webpack_require__(115);
 
-	var _keroaGrid = __webpack_require__(128);
+	var _keroaGrid = __webpack_require__(117);
 
-	var _keroaInteger = __webpack_require__(134);
+	var _keroaInteger = __webpack_require__(123);
 
-	var _keroaMonth = __webpack_require__(130);
+	var _keroaMonth = __webpack_require__(119);
 
-	var _keroaPagination = __webpack_require__(139);
+	var _keroaPagination = __webpack_require__(128);
 
-	var _keroaPassword = __webpack_require__(137);
+	var _keroaPassword = __webpack_require__(126);
 
-	var _keroaPercent = __webpack_require__(138);
+	var _keroaPercent = __webpack_require__(127);
 
-	var _keroaPhoneNumber = __webpack_require__(140);
+	var _keroaPhoneNumber = __webpack_require__(129);
 
-	var _keroaLandLine = __webpack_require__(141);
+	var _keroaLandLine = __webpack_require__(130);
 
-	var _keroaString = __webpack_require__(133);
+	var _keroaString = __webpack_require__(122);
 
-	var _keroaProgress = __webpack_require__(142);
+	var _keroaProgress = __webpack_require__(131);
 
-	var _keroaRadio = __webpack_require__(135);
+	var _keroaRadio = __webpack_require__(124);
 
-	var _keroaSwitch = __webpack_require__(143);
+	var _keroaSwitch = __webpack_require__(132);
 
-	var _keroaTextarea = __webpack_require__(144);
+	var _keroaTextarea = __webpack_require__(133);
 
-	var _keroaTextfield = __webpack_require__(145);
+	var _keroaTextfield = __webpack_require__(134);
 
-	var _keroaTime = __webpack_require__(132);
+	var _keroaTime = __webpack_require__(121);
 
-	var _keroaUrl = __webpack_require__(136);
+	var _keroaUrl = __webpack_require__(125);
 
-	var _keroaYear = __webpack_require__(129);
+	var _keroaYear = __webpack_require__(118);
 
-	var _keroaYearmonth = __webpack_require__(131);
+	var _keroaYearmonth = __webpack_require__(120);
 
-	var _keroaMonthdate = __webpack_require__(146);
+	var _keroaMonthdate = __webpack_require__(135);
 
-	var _keroaTree = __webpack_require__(147);
+	var _keroaTree = __webpack_require__(136);
 
-	var _keroaMultilang = __webpack_require__(148);
+	var _keroaMultilang = __webpack_require__(137);
 
-	var _enableMixin = __webpack_require__(106);
+	var _enableMixin = __webpack_require__(108);
 
-	var _requiredMixin = __webpack_require__(112);
+	var _requiredMixin = __webpack_require__(109);
 
-	var _validateMixin = __webpack_require__(113);
+	var _validateMixin = __webpack_require__(110);
 
-	var _valueMixin = __webpack_require__(105);
+	var _valueMixin = __webpack_require__(107);
 
 	// console.log(TextAreaAdapter);
 
@@ -19662,7 +20101,7 @@
 	exports.u = ex;
 
 /***/ },
-/* 104 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19674,13 +20113,13 @@
 
 	var _util = __webpack_require__(5);
 
-	var _valueMixin = __webpack_require__(105);
+	var _valueMixin = __webpack_require__(107);
 
-	var _enableMixin = __webpack_require__(106);
+	var _enableMixin = __webpack_require__(108);
 
-	var _requiredMixin = __webpack_require__(112);
+	var _requiredMixin = __webpack_require__(109);
 
-	var _validateMixin = __webpack_require__(113);
+	var _validateMixin = __webpack_require__(110);
 
 	/**
 	 * adapter基类
@@ -19756,7 +20195,7 @@
 	exports.BaseAdapter = BaseAdapter;
 
 /***/ },
-/* 105 */
+/* 107 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19955,7 +20394,7 @@
 	exports.ValueMixin = ValueMixin;
 
 /***/ },
-/* 106 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19965,7 +20404,7 @@
 	});
 	exports.EnableMixin = undefined;
 
-	var _dom = __webpack_require__(107);
+	var _dom = __webpack_require__(8);
 
 	var EnableMixin = {
 	    init: function init() {
@@ -20001,1019 +20440,7 @@
 	exports.EnableMixin = EnableMixin;
 
 /***/ },
-/* 107 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.getElementTop = exports.getElementLeft = exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
-
-	var _event = __webpack_require__(108);
-
-	/**
-	 * 元素增加指定样式
-	 * @param value
-	 * @returns {*}
-	 */
-	var addClass = function addClass(element, value) {
-		if (element) {
-			if (typeof element.classList === 'undefined') {
-				if (u._addClass) {
-					u._addClass(element, value);
-				} else {
-					$(element).addClass(value);
-				}
-			} else {
-				element.classList.add(value);
-			}
-		}
-
-		return this;
-	};
-	/**
-	 * 删除元素上指定样式
-	 * @param {Object} element
-	 * @param {Object} value
-	 */
-	/**
-	 * Module : Sparrow dom
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-16 13:59:17
-	 */
-	var removeClass = function removeClass(element, value) {
-		if (element) {
-			if (typeof element.classList === 'undefined') {
-				if (u._removeClass) {
-					u._removeClass(element, value);
-				} else {
-					$(element).removeClass(value);
-				}
-			} else {
-				element.classList.remove(value);
-			}
-		}
-		return this;
-	};
-	/**
-	 * 元素上是否存在该类
-	 * @param {Object} element
-	 * @param {Object} value
-	 */
-	var hasClass = function hasClass(element, value) {
-		if (!element) return false;
-		if (element.nodeName && (element.nodeName === '#text' || element.nodeName === '#comment')) return false;
-		if (typeof element.classList === 'undefined') {
-			if (u._hasClass) {
-				return u._hasClass(element, value);
-			} else {
-				return $(element).hasClass(value);
-			}
-
-			return false;
-		} else {
-			return element.classList.contains(value);
-		}
-	};
-	/**
-	 * 选择元素类切换
-	 * @param {Object} element
-	 * @param {Object} value
-	 */
-	var toggleClass = function toggleClass(element, value) {
-		if (typeof element.classList === 'undefined') {
-			return u._toggleClass(element, value);
-		} else {
-			return element.classList.toggle(value);
-		}
-	};
-
-	/**
-	 * 向上查找指定类元素
-	 * @param {Object} element
-	 * @param {Object} selector
-	 */
-	var closest = function closest(element, selector) {
-		var tmp = element;
-		while (tmp != null && !hasClass(tmp, selector) && tmp != document.body) {
-			tmp = tmp.parentNode;
-		}
-		if (tmp == document.body) return null;
-		return tmp;
-	};
-
-	/**
-	 * 元素CSS操作
-	 * @param {Object} element
-	 * @param {Object} csstext
-	 * @param {Object} val
-	 */
-	var css = function css(element, csstext, val) {
-		//TO DO : 实现u.相关方法
-		if (csstext instanceof Object) {
-			for (var k in csstext) {
-				var tmpcss = csstext[k];
-				if (["width", "height", "top", "bottom", "left", "right"].indexOf(k) > -1 && isNumber(tmpcss)) {
-					tmpcss = tmpcss + "px";
-				}
-				element.style[k] = tmpcss;
-			}
-		} else {
-			if (arguments.length > 2) {
-				element.style[csstext] = val;
-			} else {
-				return getStyle(element, csstext);
-			}
-		}
-	};
-
-	var wrap = function wrap(element, parent) {
-		var p = makeDOM(parent);
-		element.parentNode.insertBefore(p, element);
-		p.appendChild(element);
-	};
-	var getStyle = function getStyle(element, key) {
-		//不要在循环里用
-		var allCSS;
-		if (window.getComputedStyle) {
-			allCSS = window.getComputedStyle(element);
-		} else {
-			allCSS = element.currentStyle;
-		}
-		if (allCSS[key] !== undefined) {
-			return allCSS[key];
-		} else {
-			return "";
-		}
-	};
-	var globalZIndex;
-	/**
-	 * 统一zindex值, 不同控件每次显示时都取最大的zindex，防止显示错乱
-	 */
-	var getZIndex = function getZIndex() {
-		if (!globalZIndex) {
-			globalZIndex = 2000;
-		}
-		return globalZIndex++;
-	};
-	var makeDOM = function makeDOM(htmlString) {
-		var tempDiv = document.createElement("div");
-		tempDiv.innerHTML = htmlString;
-		var _dom = tempDiv.children[0];
-		return _dom;
-	};
-	/**
-	 * element
-	 */
-	var makeModal = function makeModal(element, parEle) {
-		var overlayDiv = document.createElement('div');
-		$(overlayDiv).addClass('u-overlay');
-		overlayDiv.style.zIndex = getZIndex();
-		// 如果有父元素则插入到父元素上，没有则添加到body上
-		if (parEle && parEle != document.body) {
-			addClass(overlayDiv, 'hasPar');
-			parEle.appendChild(overlayDiv);
-		} else {
-			document.body.appendChild(overlayDiv);
-		}
-
-		element.style.zIndex = getZIndex();
-		(0, _event.on)(overlayDiv, 'click', function (e) {
-			(0, _event.stopEvent)(e);
-		});
-		return overlayDiv;
-	};
-
-	var getOffset = function getOffset(Node, offset) {
-		if (!offset) {
-			offset = {};
-			offset.top = 0;
-			offset.left = 0;
-		}
-		if (Node == document.body) {
-			return offset;
-		}
-		offset.top += Node.offsetTop;
-		offset.left += Node.offsetLeft;
-		if (Node.offsetParent) return getOffset(Node.offsetParent, offset);else return offset;
-	};
-	var getScroll = function getScroll(Node, offset) {
-		if (!offset) {
-			offset = {};
-			offset.top = 0;
-			offset.left = 0;
-		}
-		if (Node == document.body) {
-			offset.top += Node.scrollTop || document.documentElement.scrollTop;
-			offset.left += Node.scrollLeft || document.documentElement.scrollLeft;
-			return offset;
-		}
-		if (Node.tagName != 'INPUT') {
-			offset.top += Node.scrollTop;
-			offset.left += Node.scrollLeft;
-		}
-
-		if (Node.parentNode) return getScroll(Node.parentNode, offset);else return offset;
-	};
-	var showPanelByEle = function showPanelByEle(obj) {
-		var ele = obj.ele,
-		    panel = obj.panel,
-		    position = obj.position,
-
-		// off = u.getOffset(ele),scroll = u.getScroll(ele),
-		// offLeft = off.left,offTop = off.top,
-		// scrollLeft = scroll.left,scrollTop = scroll.top,
-		// eleWidth = ele.offsetWidth,eleHeight = ele.offsetHeight,
-		// panelWidth = panel.offsetWidth,panelHeight = panel.offsetHeight,
-		bodyWidth = document.body.clientWidth,
-		    bodyHeight = document.body.clientHeight,
-		    position = position || 'top',
-
-		// left = offLeft - scrollLeft,top = offTop - scrollTop,
-		eleRect = obj.ele.getBoundingClientRect(),
-		    panelRect = obj.panel.getBoundingClientRect(),
-		    eleWidth = eleRect.width || 0,
-		    eleHeight = eleRect.height || 0,
-		    left = eleRect.left || 0,
-		    top = eleRect.top || 0,
-		    panelWidth = panelRect.width || 0,
-		    panelHeight = panelRect.height || 0,
-		    docWidth = document.documentElement.clientWidth,
-		    docHeight = document.documentElement.clientHeight;
-
-		// 基准点为Ele的左上角
-		// 后续根据需要完善
-		if (position == 'left') {
-			left = left - panelWidth;
-			top = top + (eleHeight - panelHeight) / 2;
-		} else if (position == 'right') {
-			left = left + eleWidth;
-			top = top + (eleHeight - panelHeight) / 2;
-		} else if (position == 'top' || position == 'topCenter') {
-			left = left + (eleWidth - panelWidth) / 2;
-			top = top - panelHeight;
-		} else if (position == 'bottom' || position == 'bottomCenter') {
-			left = left + (eleWidth - panelWidth) / 2;
-			top = top + eleHeight;
-		} else if (position == 'bottomLeft') {
-			left = left;
-			top = top + eleHeight;
-		}
-
-		if (left + panelWidth > docWidth) left = docWidth - panelWidth - 10;
-		if (left < 0) left = 0;
-
-		if (top + panelHeight > docHeight) {
-			top = docHeight - panelHeight - 10;
-		}
-
-		if (top < 0) top = 0;
-		panel.style.left = left + 'px';
-		panel.style.top = top + 'px';
-	};
-
-	var getElementLeft = function getElementLeft(element) {
-		var actualLeft = element.offsetLeft;
-		var current = element.offsetParent;
-		while (current !== null) {
-			actualLeft += current.offsetLeft;
-			current = current.offsetParent;
-		}
-		if (document.compatMode == "BackCompat") {
-			var elementScrollLeft = document.body.scrollLeft;
-		} else {
-			var elementScrollLeft = document.documentElement.scrollLeft;
-		}
-		return actualLeft - elementScrollLeft;
-	};
-	var getElementTop = function getElementTop(element) {
-		var actualTop = element.offsetTop;
-		var current = element.offsetParent;
-		while (current !== null) {
-			actualTop += current.offsetTop;
-			current = current.offsetParent;
-		}
-		if (document.compatMode == "BackCompat") {
-			var elementScrollTop = document.body.scrollTop;
-		} else {
-			var elementScrollTop = document.documentElement.scrollTop;
-		}
-		return actualTop - elementScrollTop;
-	};
-	exports.addClass = addClass;
-	exports.removeClass = removeClass;
-	exports.hasClass = hasClass;
-	exports.toggleClass = toggleClass;
-	exports.closest = closest;
-	exports.css = css;
-	exports.wrap = wrap;
-	exports.getStyle = getStyle;
-	exports.getZIndex = getZIndex;
-	exports.makeDOM = makeDOM;
-	exports.makeModal = makeModal;
-	exports.getOffset = getOffset;
-	exports.getScroll = getScroll;
-	exports.showPanelByEle = showPanelByEle;
-	exports.getElementLeft = getElementLeft;
-	exports.getElementTop = getElementTop;
-
-/***/ },
-/* 108 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
-
-	var _env = __webpack_require__(109);
-
-	var u = {}; /**
-	             * Module : Sparrow touch event
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-07-28 14:41:17
-	             */
-
-	u.event = {};
-
-	var touchStartEvent = _env.env.hasTouch ? "touchstart" : "mousedown",
-	    touchStopEvent = _env.env.hasTouch ? "touchend" : "mouseup",
-	    touchMoveEvent = _env.env.hasTouch ? "touchmove" : "mousemove";
-
-	// tap和taphold
-	u.event.tap = {
-		tapholdThreshold: 750,
-		emitTapOnTaphold: true,
-		touchstartFun: function touchstartFun() {
-			trigger(this, 'vmousedown');
-		},
-		touchendFun: function touchendFun() {
-			trigger(this, 'vmouseup');
-			trigger(this, 'vclick');
-		},
-		setup: function setup() {
-			var thisObject = this,
-			    isTaphold = false;
-
-			on(thisObject, "vmousedown", function (event) {
-				isTaphold = false;
-				if (event.which && event.which !== 1) {
-					return false;
-				}
-
-				var origTarget = event.target,
-				    timer;
-
-				function clearTapTimer() {
-					clearTimeout(timer);
-				}
-
-				function clearTapHandlers() {
-					clearTapTimer();
-
-					off(thisObject, 'vclick');
-					off(thisObject, 'vmouseup');
-					off(document, 'vmousecancel');
-				}
-
-				function clickHandler(event) {
-					clearTapHandlers();
-
-					// ONLY trigger a 'tap' event if the start target is
-					// the same as the stop target.
-					if (!isTaphold && origTarget === event.target) {
-						trigger(thisObject, 'tap');
-					} else if (isTaphold) {
-						event.preventDefault();
-					}
-				}
-				on(thisObject, 'vmouseup', clearTapTimer);
-				on(thisObject, 'vclick', clickHandler);
-				on(document, 'vmousecancel', clearTapHandlers);
-
-				timer = setTimeout(function () {
-					if (!u.event.tap.emitTapOnTaphold) {
-						isTaphold = true;
-					}
-					trigger(thisObject, "taphold");
-					clearTapHandlers();
-				}, u.event.tap.tapholdThreshold);
-			});
-
-			on(thisObject, 'touchstart', u.event.tap.touchstartFun);
-			on(thisObject, 'touchend', u.event.tap.touchendFun);
-		},
-		teardown: function teardown() {
-			off(thisObject, 'vmousedown');
-			off(thisObject, 'vclick');
-			off(thisObject, 'vmouseup');
-			off(document, 'vmousecancel');
-		}
-	};
-
-	u.event.taphold = u.event.tap;
-
-	u.event.swipe = {
-
-		// More than this horizontal displacement, and we will suppress scrolling.
-		scrollSupressionThreshold: 30,
-
-		// More time than this, and it isn't a swipe.
-		durationThreshold: 1000,
-
-		// Swipe horizontal displacement must be more than this.
-		horizontalDistanceThreshold: 30,
-
-		// Swipe vertical displacement must be less than this.
-		verticalDistanceThreshold: 30,
-
-		getLocation: function getLocation(event) {
-			var winPageX = window.pageXOffset,
-			    winPageY = window.pageYOffset,
-			    x = event.clientX,
-			    y = event.clientY;
-
-			if (event.pageY === 0 && Math.floor(y) > Math.floor(event.pageY) || event.pageX === 0 && Math.floor(x) > Math.floor(event.pageX)) {
-
-				// iOS4 clientX/clientY have the value that should have been
-				// in pageX/pageY. While pageX/page/ have the value 0
-				x = x - winPageX;
-				y = y - winPageY;
-			} else if (y < event.pageY - winPageY || x < event.pageX - winPageX) {
-
-				// Some Android browsers have totally bogus values for clientX/Y
-				// when scrolling/zooming a page. Detectable since clientX/clientY
-				// should never be smaller than pageX/pageY minus page scroll
-				x = event.pageX - winPageX;
-				y = event.pageY - winPageY;
-			}
-
-			return {
-				x: x,
-				y: y
-			};
-		},
-
-		start: function start(event) {
-			var data = event.touches ? event.touches[0] : event,
-			    location = u.event.swipe.getLocation(data);
-			return {
-				time: new Date().getTime(),
-				coords: [location.x, location.y],
-				origin: event.target
-			};
-		},
-
-		stop: function stop(event) {
-			var data = event.touches ? event.touches[0] : event,
-			    location = u.event.swipe.getLocation(data);
-			return {
-				time: new Date().getTime(),
-				coords: [location.x, location.y]
-			};
-		},
-
-		handleSwipe: function handleSwipe(start, stop, thisObject, origTarget) {
-			if (stop.time - start.time < u.event.swipe.durationThreshold && Math.abs(start.coords[0] - stop.coords[0]) > u.event.swipe.horizontalDistanceThreshold && Math.abs(start.coords[1] - stop.coords[1]) < u.event.swipe.verticalDistanceThreshold) {
-				var direction = start.coords[0] > stop.coords[0] ? "swipeleft" : "swiperight";
-
-				trigger(thisObject, "swipe");
-				trigger(thisObject, direction);
-				return true;
-			}
-			return false;
-		},
-
-		// This serves as a flag to ensure that at most one swipe event event is
-		// in work at any given time
-		eventInProgress: false,
-
-		setup: function setup() {
-			var events,
-			    thisObject = this,
-			    context = {};
-
-			// Retrieve the events data for this element and add the swipe context
-			events = thisObject["mobile-events"];
-			if (!events) {
-				events = {
-					length: 0
-				};
-				thisObject["mobile-events"] = events;
-			}
-			events.length++;
-			events.swipe = context;
-
-			context.start = function (event) {
-
-				// Bail if we're already working on a swipe event
-				if (u.event.swipe.eventInProgress) {
-					return;
-				}
-				u.event.swipe.eventInProgress = true;
-
-				var stop,
-				    start = u.event.swipe.start(event),
-				    origTarget = event.target,
-				    emitted = false;
-
-				context.move = function (event) {
-					// if ( !start || event.isDefaultPrevented() ) {
-					if (!start) {
-						return;
-					}
-
-					stop = u.event.swipe.stop(event);
-					if (!emitted) {
-						emitted = u.event.swipe.handleSwipe(start, stop, thisObject, origTarget);
-						if (emitted) {
-
-							// Reset the context to make way for the next swipe event
-							u.event.swipe.eventInProgress = false;
-						}
-					}
-					// prevent scrolling
-					if (Math.abs(start.coords[0] - stop.coords[0]) > u.event.swipe.scrollSupressionThreshold) {
-						event.preventDefault();
-					}
-				};
-
-				context.stop = function () {
-					emitted = true;
-
-					// Reset the context to make way for the next swipe event
-					u.event.swipe.eventInProgress = false;
-					off(document, touchMoveEvent, context.move);
-					context.move = null;
-				};
-
-				on(document, touchMoveEvent, context.move);
-				on(document, touchStopEvent, context.stop);
-			};
-			on(thisObject, touchStartEvent, context.start);
-		},
-
-		teardown: function teardown() {
-			var events, context;
-
-			events = thisObject["mobile-events"];
-			if (events) {
-				context = events.swipe;
-				delete events.swipe;
-				events.length--;
-				if (events.length === 0) {
-					thisObject["mobile-events"] = null;
-				}
-			}
-
-			if (context) {
-				if (context.start) {
-					off(thisObject, touchStartEvent, context.start);
-				}
-				if (context.move) {
-					off(document, touchMoveEvent, context.move);
-				}
-				if (context.stop) {
-					off(document, touchStopEvent, context.stop);
-				}
-			}
-		}
-	};
-
-	u.event.swipeleft = u.event.swipe;
-
-	u.event.swiperight = u.event.swipe;
-
-	var event = u.event;
-
-	var on = function on(element, eventName, child, listener) {
-		if (!element) return;
-		if (arguments.length < 4) {
-			listener = child;
-			child = undefined;
-		} else {
-			var childlistener = function childlistener(e) {
-				if (!e) {
-					return;
-				}
-				var tmpchildren = element.querySelectorAll(child);
-				tmpchildren.forEach(function (node) {
-					if (node == e.target) {
-						listener.call(e.target, e);
-					}
-				});
-			};
-		}
-		//capture = capture || false;
-
-		if (!element["uEvent"]) {
-			//在dom上添加记录区
-			element["uEvent"] = {};
-		}
-		//判断是否元素上是否用通过on方法填加进去的事件
-		if (!element["uEvent"][eventName]) {
-			element["uEvent"][eventName] = [child ? childlistener : listener];
-			if (u.event && u.event[eventName] && u.event[eventName].setup) {
-				u.event[eventName].setup.call(element);
-			}
-			element["uEvent"][eventName + 'fn'] = function (e) {
-				//火狐下有问题修改判断
-				if (!e) e = typeof event != 'undefined' && event ? event : window.event;
-				element["uEvent"][eventName].forEach(function (fn) {
-					try {
-						e.target = e.target || e.srcElement; //兼容IE8
-					} catch (ee) {}
-					if (fn) fn.call(element, e);
-				});
-			};
-			if (element.addEventListener) {
-				// 用于支持DOM的浏览器
-				element.addEventListener(eventName, element["uEvent"][eventName + 'fn']);
-			} else if (element.attachEvent) {
-				// 用于IE浏览器
-				element.attachEvent("on" + eventName, element["uEvent"][eventName + 'fn']);
-			} else {
-				// 用于其它浏览器
-				element["on" + eventName] = element["uEvent"][eventName + 'fn'];
-			}
-		} else {
-			//如果有就直接往元素的记录区添加事件
-			var lis = child ? childlistener : listener;
-			var hasLis = false;
-			element["uEvent"][eventName].forEach(function (fn) {
-				if (fn == lis) {
-					hasLis = true;
-				}
-			});
-			if (!hasLis) {
-				element["uEvent"][eventName].push(child ? childlistener : listener);
-			}
-		}
-	};
-
-	var off = function off(element, eventName, listener) {
-		//删除事件数组
-		if (listener) {
-			if (element && element["uEvent"] && element["uEvent"][eventName]) {
-				element["uEvent"][eventName].forEach(function (fn, i) {
-					if (fn == listener) {
-						element["uEvent"][eventName].splice(i, 1);
-					}
-				});
-			}
-			return;
-		}
-		var eventfn;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) eventfn = element["uEvent"][eventName + 'fn'];
-		if (element.removeEventListener) {
-			// 用于支持DOM的浏览器
-			element.removeEventListener(eventName, eventfn);
-		} else if (element.removeEvent) {
-			// 用于IE浏览器
-			element.removeEvent("on" + eventName, eventfn);
-		} else {
-			// 用于其它浏览器
-			delete element["on" + eventName];
-		}
-		if (u.event && u.event[eventName] && u.event[eventName].teardown) {
-			u.event[eventName].teardown.call(element);
-		}
-
-		if (element && element["uEvent"] && element["uEvent"][eventName]) element["uEvent"][eventName] = undefined;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) element["uEvent"][eventName + 'fn'] = undefined;
-	};
-	var trigger = function trigger(element, eventName) {
-		if (element["uEvent"] && element["uEvent"][eventName]) {
-			element["uEvent"][eventName + 'fn']();
-		}
-	};
-
-	/**
-	 * 阻止冒泡
-	 */
-	var stopEvent = function stopEvent(e) {
-		if (typeof e != "undefined") {
-			if (e.stopPropagation) e.stopPropagation();else {
-				e.cancelBubble = true;
-			}
-			//阻止默认浏览器动作(W3C)
-			if (e && e.preventDefault) e.preventDefault();
-			//IE中阻止函数器默认动作的方式
-			else window.event.returnValue = false;
-		}
-	};
-
-	exports.on = on;
-	exports.off = off;
-	exports.trigger = trigger;
-	exports.stopEvent = stopEvent;
-	exports.event = event;
-
-/***/ },
 /* 109 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.env = undefined;
-
-	var _extend = __webpack_require__(110);
-
-	var u = {}; /**
-	             * Module : Sparrow browser environment
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-07-27 21:46:50
-	             */
-
-	(0, _extend.extend)(u, {
-		isIE: false,
-		isFF: false,
-		isOpera: false,
-		isChrome: false,
-		isSafari: false,
-		isWebkit: false,
-		isIE8_BEFORE: false,
-		isIE8: false,
-		isIE8_CORE: false,
-		isIE9: false,
-		isIE9_CORE: false,
-		isIE10: false,
-		isIE10_ABOVE: false,
-		isIE11: false,
-		isEdge: false,
-		isIOS: false,
-		isIphone: false,
-		isIPAD: false,
-		isStandard: false,
-		version: 0,
-		isWin: false,
-		isUnix: false,
-		isLinux: false,
-		isAndroid: false,
-		isAndroidPAD: false,
-		isAndroidPhone: false,
-		isMac: false,
-		hasTouch: false,
-		isMobile: false
-	});
-
-	(function () {
-		var userAgent = navigator.userAgent,
-		    rMsie = /(msie\s|trident.*rv:)([\w.]+)/,
-		    rFirefox = /(firefox)\/([\w.]+)/,
-		    rOpera = /(opera).+version\/([\w.]+)/,
-		    rChrome = /(chrome)\/([\w.]+)/,
-		    rSafari = /version\/([\w.]+).*(safari)/,
-		    version,
-		    ua = userAgent.toLowerCase(),
-		    s,
-		    browserMatch = {
-			browser: "",
-			version: ''
-		},
-		    match = rMsie.exec(ua);
-
-		if (match != null) {
-			browserMatch = {
-				browser: "IE",
-				version: match[2] || "0"
-			};
-		}
-		match = rFirefox.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[1] || "",
-				version: match[2] || "0"
-			};
-		}
-		match = rOpera.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[1] || "",
-				version: match[2] || "0"
-			};
-		}
-		match = rChrome.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[1] || "",
-				version: match[2] || "0"
-			};
-		}
-		match = rSafari.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[2] || "",
-				version: match[1] || "0"
-			};
-		}
-
-		if (userAgent.indexOf("Edge") > -1) {
-			u.isEdge = true;
-		}
-		if (s = ua.match(/opera.([\d.]+)/)) {
-			u.isOpera = true;
-		} else if (browserMatch.browser == "IE" && browserMatch.version == 11) {
-			u.isIE11 = true;
-			u.isIE = true;
-		} else if (s = ua.match(/chrome\/([\d.]+)/)) {
-			u.isChrome = true;
-			u.isStandard = true;
-		} else if (s = ua.match(/version\/([\d.]+).*safari/)) {
-			u.isSafari = true;
-			u.isStandard = true;
-		} else if (s = ua.match(/gecko/)) {
-			//add by licza : support XULRunner
-			u.isFF = true;
-			u.isStandard = true;
-		} else if (s = ua.match(/msie ([\d.]+)/)) {
-			u.isIE = true;
-		} else if (s = ua.match(/firefox\/([\d.]+)/)) {
-			u.isFF = true;
-			u.isStandard = true;
-		}
-		if (ua.match(/webkit\/([\d.]+)/)) {
-			u.isWebkit = true;
-		}
-		if (ua.match(/ipad/i)) {
-			u.isIOS = true;
-			u.isIPAD = true;
-			u.isStandard = true;
-		}
-
-		if (ua.match(/iphone/i)) {
-			u.isIOS = true;
-			u.isIphone = true;
-		}
-
-		if (navigator.platform == "Mac68K" || navigator.platform == "MacPPC" || navigator.platform == "Macintosh" || navigator.platform == "MacIntel") {
-			//u.isIOS = true;
-			u.isMac = true;
-		}
-
-		if (navigator.platform == "Win32" || navigator.platform == "Windows" || navigator.platform == "Win64") {
-			u.isWin = true;
-		}
-
-		if (navigator.platform == "X11" && !u.isWin && !u.isMac) {
-			u.isUnix = true;
-		}
-		if (String(navigator.platform).indexOf("Linux") > -1) {
-			u.isLinux = true;
-		}
-
-		if (ua.indexOf('Android') > -1 || ua.indexOf('android') > -1 || ua.indexOf('Adr') > -1 || ua.indexOf('adr') > -1) {
-			u.isAndroid = true;
-		}
-
-		u.version = version ? browserMatch.version ? browserMatch.version : 0 : 0;
-		if (u.isAndroid) {
-			if (window.screen.width >= 768 && window.screen.width < 1024) {
-				u.isAndroidPAD = true;
-			}
-			if (window.screen.width <= 768) {
-				u.isAndroidPhone = true;
-			}
-		}
-		if (u.isIE) {
-			var intVersion = parseInt(u.version);
-			var mode = document.documentMode;
-			if (mode == null) {
-				if (intVersion == 6 || intVersion == 7) {
-					u.isIE8_BEFORE = true;
-				}
-			} else {
-				if (mode == 7) {
-					u.isIE8_BEFORE = true;
-				} else if (mode == 8) {
-					u.isIE8 = true;
-				} else if (mode == 9) {
-					u.isIE9 = true;
-					u.isSTANDARD = true;
-				} else if (mode == 10) {
-					u.isIE10 = true;
-					u.isSTANDARD = true;
-					u.isIE10_ABOVE = true;
-				} else {
-					u.isSTANDARD = true;
-				}
-				if (intVersion == 8) {
-					u.isIE8_CORE = true;
-				} else if (intVersion == 9) {
-					u.isIE9_CORE = true;
-				} else if (browserMatch.version == 11) {
-					u.isIE11 = true;
-				}
-			}
-		}
-		if ("ontouchend" in document) {
-			u.hasTouch = true;
-		}
-		if (u.isIphone || u.isAndroidPhone) u.isMobile = true;
-	})();
-
-	var env = u;
-	exports.env = env;
-
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.extend = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow extend
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-27 21:46:50
-	                                                                                                                                                                                                                                                                               */
-
-	var _enumerables = __webpack_require__(111);
-
-	/**
-	 * 复制对象属性
-	 *
-	 * @param {Object}  目标对象
-	 * @param {config} 源对象
-	 */
-	var extend = function extend(object, config) {
-		var args = arguments,
-		    options;
-		if (args.length > 1) {
-			for (var len = 1; len < args.length; len++) {
-				options = args[len];
-				if (object && options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					var i, j, k;
-					for (i in options) {
-						object[i] = options[i];
-					}
-					if (_enumerables.enumerables) {
-						for (j = _enumerables.enumerables.length; j--;) {
-							k = _enumerables.enumerables[j];
-							if (options.hasOwnProperty && options.hasOwnProperty(k)) {
-								object[k] = options[k];
-							}
-						}
-					}
-				}
-			}
-		}
-		return object;
-	};
-
-	exports.extend = extend;
-
-/***/ },
-/* 111 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	/**
-	 * Module : Sparrow extend enum
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-
-	var U_LANGUAGES = "i_languages";
-	var U_THEME = "u_theme";
-	var U_LOCALE = "u_locale";
-	var U_USERCODE = "usercode";
-
-	var enumerables = true,
-	    enumerablesTest = {
-		toString: 1
-	},
-	    toString = Object.prototype.toString;
-	for (var i in enumerablesTest) {
-		exports.enumerables = enumerables = null;
-	}
-	if (enumerables) {
-		exports.enumerables = enumerables = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
-	}
-
-	exports.enumerables = enumerables;
-	exports.U_LANGUAGES = U_LANGUAGES;
-	exports.U_THEME = U_THEME;
-	exports.U_LOCALE = U_LOCALE;
-	exports.U_USERCODE = U_USERCODE;
-
-/***/ },
-/* 112 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21050,7 +20477,7 @@
 	exports.RequiredMixin = RequiredMixin;
 
 /***/ },
-/* 113 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21060,7 +20487,7 @@
 	});
 	exports.ValidateMixin = undefined;
 
-	var _neouiValidate = __webpack_require__(114);
+	var _neouiValidate = __webpack_require__(49);
 
 	var ValidateMixin = {
 	    init: function init() {
@@ -21134,1843 +20561,7 @@
 	exports.ValidateMixin = ValidateMixin;
 
 /***/ },
-/* 114 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.doValidate = exports.validate = exports.Validate = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : neoui-validate
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-06 14:03:15
-	                                                                                                                                                                                                                                                                               */
-
-
-	var _BaseComponent = __webpack_require__(115);
-
-	var _extend = __webpack_require__(110);
-
-	var _dom = __webpack_require__(107);
-
-	var _event = __webpack_require__(108);
-
-	var _util = __webpack_require__(117);
-
-	var _neouiTooltip = __webpack_require__(119);
-
-	var _i18n = __webpack_require__(120);
-
-	var _compMgr = __webpack_require__(118);
-
-	var Validate = _BaseComponent.BaseComponent.extend({
-
-	    init: function init() {
-	        var self = this;
-	        this.$element = this.element;
-	        this.$form = this.form;
-	        this.referDom = this.$element;
-	        if (this.referDom.tagName !== 'INPUT' && this.referDom.tagName !== "TEXTAREA") {
-	            this.referDom = this.$element.querySelector('input');
-	            // 如果referDom的父元素不是this.$element说明时单选框、复选框。则referDom还为$element
-	            if (!this.referDom || this.referDom.parentNode !== this.$element) {
-	                this.referDom = this.$element;
-	            }
-	        }
-	        this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options, JSON.parse(this.element.getAttribute('uvalidate')));
-	        this.required = false;
-	        this.timeout = null;
-	        this.tipAliveTime = this.options['tipAliveTime'] === undefined ? 3000 : this.options['tipAliveTime'];
-	        //所有属性优先级 ：  options参数  > attr属性  > 默认值
-	        this.required = this.options['required'] ? this.options['required'] : false;
-	        this.validType = this.options['validType'] ? this.options['validType'] : null;
-	        //校验模式  blur  submit
-	        this.validMode = this.options['validMode'] ? this.options['validMode'] : Validate.DEFAULTS.validMode;
-	        //空提示
-	        this.nullMsg = this.options['nullMsg'] ? this.options['nullMsg'] : Validate.NULLMSG[this.validType];
-	        // input输入提示
-	        this.inputMsg = Validate.INPUTMSG;
-	        //是否必填
-	        if (this.required && !this.nullMsg) this.nullMsg = Validate.NULLMSG['required'];
-	        //错误必填
-	        this.errorMsg = this.options['errorMsg'] ? this.options['errorMsg'] : Validate.ERRORMSG[this.validType];
-	        //正则校验
-	        this.regExp = this.options['reg'] ? this.options['reg'] : Validate.REG[this.validType];
-	        try {
-	            if (typeof this.regExp == 'string') this.regExp = eval(this.regExp);
-	        } catch (e) {}
-
-	        this.notipFlag = this.options['notipFlag']; // 错误信息提示方式是否为tip，默认为false
-	        this.hasSuccess = this.options['hasSuccess']; //是否含有正确提示
-
-	        this.showFix = this.options['showFix'];
-
-	        //提示div的id 为空时使用tooltop来提示
-	        this.tipId = this.options['tipId'] ? this.options['tipId'] : null;
-	        //校验成功提示信息的div
-	        this.successId = this.options['successId'] ? this.options['successId'] : null;
-
-	        // 要求显示成功提示，并没有成功提示dom的id时，则创建成功提示dom
-	        if (this.hasSuccess && !this.successId) {
-	            this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-correct" ></span>');
-
-	            if (this.referDom.nextSibling) {
-	                this.referDom.parentNode.insertBefore(this.successId, this.referDom.nextSibling);
-	            } else {
-	                this.referDom.parentNode.appendChild(this.successId);
-	            }
-	        }
-	        //不是默认的tip提示方式并且tipId没有定义时创建默认tipid
-	        if (this.notipFlag && !this.tipId) {
-	            this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exc-c-o "></span>');
-	            this.referDom.parentNode.appendChild(this.tipId);
-
-	            if (this.referDom.nextSibling) {
-	                this.referDom.parentNode.insertBefore(this.tipId, this.referDom.nextSibling);
-	            } else {
-	                this.referDom.parentNode.appendChild(this.tipId);
-	            }
-	        }
-	        //提示框位置
-	        this.placement = this.options['placement'] ? this.options['placement'] : Validate.DEFAULTS.placement;
-	        //
-	        this.minLength = this.options['minLength'] > 0 ? this.options['minLength'] : null;
-	        this.maxLength = this.options['maxLength'] > 0 ? this.options['maxLength'] : null;
-	        this.min = this.options['min'] !== undefined ? this.options['min'] : null;
-	        this.max = this.options['max'] !== undefined ? this.options['max'] : null;
-	        this.minNotEq = this.options['minNotEq'] !== undefined ? this.options['minNotEq'] : null;
-	        this.maxNotEq = this.options['maxNotEq'] !== undefined ? this.options['maxNotEq'] : null;
-	        this.min = (0, _util.isNumber)(this.min) ? this.min : null;
-	        this.max = (0, _util.isNumber)(this.max) ? this.max : null;
-	        this.minNotEq = (0, _util.isNumber)(this.minNotEq) ? this.minNotEq : null;
-	        this.maxNotEq = (0, _util.isNumber)(this.maxNotEq) ? this.maxNotEq : null;
-	        this.create();
-	    }
-	});
-
-	Validate.fn = Validate.prototype;
-	//Validate.tipTemplate = '<div class="tooltip" role="tooltip"><div class="tooltip-arrow tooltip-arrow-c"></div><div class="tooltip-arrow"></div><div class="tooltip-inner" style="color:#ed7103;border:1px solid #ed7103;background-color:#fff7f0;"></div></div>'
-
-	Validate.DEFAULTS = {
-	    validMode: 'blur',
-	    placement: "top"
-	};
-
-	Validate.NULLMSG = {
-	    "required": (0, _i18n.trans)('validate.required', "不能为空！"),
-	    "integer": (0, _i18n.trans)('validate.integer', "请填写整数！"),
-	    "float": (0, _i18n.trans)('validate.float', "请填写数字！"),
-	    "zipCode": (0, _i18n.trans)('validate.zipCode', "请填写邮政编码！"),
-	    "phone": (0, _i18n.trans)('validate.phone', "请填写手机号码！"),
-	    "landline": (0, _i18n.trans)('validate.landline', "请填写座机号码！"),
-	    "email": (0, _i18n.trans)('validate.email', "请填写邮箱地址！"),
-	    "url": (0, _i18n.trans)('validate.url', "请填写网址！"),
-	    "datetime": (0, _i18n.trans)('validate.datetime', "请填写日期！"),
-	    "phoneNumber": (0, _i18n.trans)('validate.phoneNumber', "请填写正确号码！")
-
-	};
-
-	Validate.ERRORMSG = {
-	    "integer": (0, _i18n.trans)('validate.error_integer', "整数格式不对！"),
-	    "float": (0, _i18n.trans)('validate.error_float', "数字格式不对！"),
-	    "zipCode": (0, _i18n.trans)('validate.error_zipCode', "邮政编码格式不对！"),
-	    "phone": (0, _i18n.trans)('validate.error_phone', "手机号码格式不对！"),
-	    "landline": (0, _i18n.trans)('validate.error_landline', "座机号码格式不对！"),
-	    "email": (0, _i18n.trans)('validate.error_email', "邮箱地址格式不对！"),
-	    "url": (0, _i18n.trans)('validate.error_url', "网址格式不对！"),
-	    "datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！"),
-	    "phoneNumber": (0, _i18n.trans)('validate.error_phoneNumber', "号码格式不对！")
-	};
-
-	Validate.INPUTMSG = {
-	    "minLength": (0, _i18n.trans)('validate.input_minlength', "输入长度不能小于"),
-	    "maxLength": (0, _i18n.trans)('validate.input_maxlength', "输入长度不能大于"),
-	    "unit": (0, _i18n.trans)('validate.input_unit', "位"),
-	    "maxValue": (0, _i18n.trans)('validate.input_maxvalue', "输入值不能大于"),
-	    "minValue": (0, _i18n.trans)('validate.input_minvalue', "输入值不能小于"),
-	    "equalMax": (0, _i18n.trans)('validate.input_equalMax', "输入值不能大于或等于"),
-	    "equalMin": (0, _i18n.trans)('validate.input_equalMin', "输入值不能小于或等于")
-
-	};
-
-	Validate.REG = {
-	    "integer": /^-?\d+$/,
-	    "float": /^-?\d+(\.\d+)?$/,
-	    "zipCode": /^[0-9]{6}$/,
-	    // "phone": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/,
-	    "phone": /^1[3|4|5|7|8]\d{9}$/,
-	    "landline": /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
-	    "email": /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-	    "url": /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
-	    "datetime": /^(?:19|20)[0-9][0-9]-(?:(?:0[1-9])|(?:1[0-2]))-(?:(?:[0-2][1-9])|(?:[1-3][0-1])) (?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/,
-	    "PhoneNumber": /^\d+$/
-	};
-
-	Validate.fn.create = function () {
-	    if ($(this.element).attr('hasValidate')) {
-	        return;
-	    }
-	    var self = this;
-	    (0, _event.on)(this.element, 'blur', function (e) {
-	        if (self.validMode == 'blur') {
-	            self.passed = self.doValid();
-	        }
-	    });
-	    (0, _event.on)(this.element, 'focus', function (e) {
-	        //隐藏错误信息
-	        self.hideMsg();
-	    });
-	    (0, _event.on)(this.element, 'change', function (e) {
-	        //隐藏错误信息
-	        self.hideMsg();
-	    });
-	    (0, _event.on)(this.element, 'keydown', function (e) {
-	        var event = window.event || e;
-	        if (self["validType"] == "float") {
-	            var tmp = self.element.value;
-	            if (event.shiftKey) {
-	                event.returnValue = false;
-	                return false;
-	            } else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
-	                // tab键 左箭头 右箭头 delete键
-	                return true;
-	            } else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
-	                //复制粘贴
-	                return true;
-	            } else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 110, 190, 189, 109]) > -1)) {
-	                event.returnValue = false;
-	                return false;
-	            } else if ((!tmp || tmp.indexOf(".") > -1) && (event.keyCode == 190 || event.keyCode == 110)) {
-	                event.returnValue = false;
-	                return false;
-	            }
-
-	            if (tmp && (tmp + '').split('.')[0].length >= 25) {
-	                return false;
-	            }
-	        }
-	        if (self["validType"] == "integer") {
-	            var tmp = self.element.value;
-
-	            if (event.shiftKey) {
-	                event.returnValue = false;
-	                return false;
-	            } else if (event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
-	                // tab键 左箭头 右箭头 delete键
-	                return true;
-	            } else if (event.ctrlKey && (event.keyCode == 67 || event.keyCode == 86)) {
-	                //复制粘贴
-	                return true;
-	            } else if (!(event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 96 && event.keyCode <= 105 || (0, _util.inArray)(event.keyCode, [8, 109, 189]) > -1)) {
-	                event.returnValue = false;
-	                return false;
-	            }
-
-	            if (tmp && (tmp + '').split('.')[0].length >= 25) {
-	                return false;
-	            }
-	        }
-	    });
-
-	    $(this.element).attr('hasValidate', true);
-	};
-
-	Validate.fn.updateOptions = function (options) {};
-
-	Validate.fn.doValid = function (options) {
-	    var self = this;
-	    var pValue;
-	    this.showMsgFlag = true;
-	    if (options) {
-	        pValue = options.pValue;
-	        this.showMsgFlag = options.showMsg;
-	    }
-	    this.needClean = false;
-	    //只读的也需要校验，所以注释
-	    // if (this.element && this.element.getAttribute("readonly")) return {passed:true}
-	    var value = null;
-	    if (typeof pValue != 'undefined') value = pValue;else if (this.element)
-	        // value = this.element.value
-	        value = this.element.value ? this.element.value : this.referDom.value;
-
-	    if (this.isEmpty(value) && this.required) {
-	        this.showMsg(this.nullMsg);
-	        return {
-	            passed: false,
-	            Msg: this.nullMsg
-	        };
-	    } else if (this.isEmpty(value) && !this.required) {
-	        return {
-	            passed: true
-	        };
-	    }
-	    if (this.regExp) {
-	        var reg = new RegExp(this.regExp);
-	        if (typeof value == 'number') value = value + "";else if (typeof value == 'boolean') return {
-	            passed: true
-	        };
-	        var r = value.match(reg);
-	        if (r === null || r === false) {
-	            this.showMsg(this.errorMsg);
-	            this.needClean = true;
-	            return {
-	                passed: false,
-	                Msg: this.errorMsg
-	            };
-	        }
-	    }
-	    if (this.minLength) {
-	        if (value.lengthb() < this.minLength) {
-	            var Msg = this.inputMsg.minLength + this.minLength + this.inputMsg.unit;
-	            this.showMsg(Msg);
-	            return {
-	                passed: false,
-	                Msg: Msg
-	            };
-	        }
-	    }
-	    if (this.maxLength) {
-	        if (value.lengthb() > this.maxLength) {
-	            var Msg = this.inputMsg.maxLength + this.maxLength + this.inputMsg.unit;
-	            this.showMsg(Msg);
-	            return {
-	                passed: false,
-	                Msg: Msg
-	            };
-	        }
-	    }
-	    if (this.max != undefined && this.max != null) {
-	        if (parseFloat(value) > this.max) {
-	            var Msg = this.inputMsg.maxValue + this.max;
-	            this.showMsg(Msg);
-	            return {
-	                passed: false,
-	                Msg: Msg
-	            };
-	        }
-	    }
-	    if (this.min != undefined && this.min != null) {
-	        if (parseFloat(value) < this.min) {
-	            var Msg = this.inputMsg.minValue + this.min;
-	            this.showMsg(Msg);
-	            return {
-	                passed: false,
-	                Msg: Msg
-	            };
-	        }
-	    }
-	    if (this.maxNotEq != undefined && this.maxNotEq != null) {
-	        if (parseFloat(value) >= this.maxNotEq) {
-	            var Msg = this.inputMsg.equalMax + this.maxNotEq;
-	            this.showMsg(Msg);
-	            return {
-	                passed: false,
-	                Msg: Msg
-	            };
-	        }
-	    }
-	    if (this.minNotEq != undefined && this.minNotEq != null) {
-	        if (parseFloat(value) <= this.minNotEq) {
-	            var Msg = this.inputMsg.equalMin + this.minNotEq;
-	            this.showMsg(Msg);
-	            return {
-	                passed: false,
-	                Msg: Msg
-	            };
-	        }
-	    }
-	    //succes时，将成功信息显示
-	    if (this.successId) {
-	        // addClass(this.element.parentNode,'u-has-success');
-	        var successDiv = this.successId;
-	        var successleft = this.referDom.offsetLeft + this.referDom.offsetWidth + 5;
-	        var successtop = this.referDom.offsetTop + 10;
-	        if (typeof successDiv === 'string') successDiv = document.getElementById(successDiv);
-	        successDiv.style.display = 'inline-block';
-	        successDiv.style.top = successtop + 'px';
-	        successDiv.style.left = successleft + 'px';
-	        clearTimeout(this.successtimeout);
-	        this.successtimeout = setTimeout(function () {
-	            // self.tooltip.hide();
-	            successDiv.style.display = 'none';
-	        }, this.tipAliveTime);
-	    }
-	    return {
-	        passed: true
-	    };
-	};
-
-	Validate.fn.check = Validate.fn.doValid;
-
-	//	Validate.fn.getValue = function() {
-	//		var inputval
-	//		if (this.$element.is(":radio")) {
-	//			inputval = this.$form.find(":radio[name='" + this.$element.attr("name") + "']:checked").val();
-	//		} else if (this.$element.is(":checkbox")) {
-	//			inputval = "";
-	//			this.$form.find(":checkbox[name='" + obj.attr("name") + "']:checked").each(function() {
-	//				inputval += $(this).val() + ',';
-	//			})
-	//		} else if (this.$element.is('div')) {
-	//			inputval = this.$element[0].trueValue;
-	//		} else {
-	//			inputval = this.$element.val();
-	//		}
-	//		inputval = $.trim(inputval);
-	//		return this.isEmpty(inputval) ? "" : inputval;
-	//	}
-
-	Validate.fn.some = Array.prototype.some ? Array.prototype.some : function () {
-	    var flag;
-	    for (var i = 0; i < this.length; i++) {
-	        if (typeof arguments[0] == "function") {
-	            flag = arguments[0](this[i]);
-	            if (flag) break;
-	        }
-	    }
-	    return flag;
-	};
-
-	Validate.fn.getValue = function () {
-	    var inputval = '';
-	    //checkbox、radio为u-meta绑定时
-	    var bool = this.some.call(this.$element.querySelectorAll('[type="checkbox"],[type="radio"]'), function (ele) {
-	        return ele.type == "checkbox" || ele.type == "radio";
-	    });
-	    if (this.$element.childNodes.length > 0 && bool) {
-	        var eleArr = this.$element.querySelectorAll('[type="checkbox"],[type="radio"]');
-	        var ele = eleArr[0];
-	        if (ele.type == "checkbox") {
-	            this.$element.querySelectorAll(":checkbox[name='" + $(ele).attr("name") + "']:checked").each(function () {
-	                inputval += $(this).val() + ',';
-	            });
-	        } else if (ele.type == "radio") {
-	            inputval = this.$element.querySelectorAll(":radio[name='" + $(ele).attr("name") + "']:checked").value;
-	        }
-	    } else if (this.$element.is(":radio")) {
-	        //valid-type 绑定
-	        inputval = this.$element.parent().querySelectorAll(":radio[name='" + this.$element.attr("name") + "']:checked").val();
-	    } else if (this.$element.is(":checkbox")) {
-	        inputval = "";
-	        this.$element.parent().find(":checkbox[name='" + this.$element.attr("name") + "']:checked").each(function () {
-	            inputval += $(this).val() + ',';
-	        });
-	    } else if (this.$element.find('input').length > 0) {
-	        inputval = this.$element.find('input').val();
-	    } else {
-	        inputval = this.$element.val();
-	    }
-	    inputval = inputval.trim;
-	    return this.isEmpty(inputval) ? "" : inputval;
-	};
-
-	Validate.fn.isEmpty = function (val) {
-	    return val === "" || val === undefined || val === null; //|| val === $.trim(this.$element.attr("tip"));
-	};
-
-	Validate.fn.showMsg = function (msg) {
-
-	    if (this.showMsgFlag == false || this.showMsgFlag == 'false') {
-	        return;
-	    }
-	    //因为grid中自定义的editType使用的是document.body,只处理校验不现实提示信息
-	    if (this.element == document.body) {
-	        return;
-	    }
-	    var self = this;
-	    if (this.tipId) {
-	        this.referDom.style.borderColor = 'rgb(241,90,74)';
-	        var tipdiv = this.tipId;
-	        if (typeof tipdiv === 'string') {
-	            tipdiv = document.getElementById(tipdiv);
-	        }
-	        tipdiv.innerHTML = msg;
-	        //如果notipFlag为true说明，可能是平台创建的，需要添加left、top值
-	        if (this.notipFlag) {
-	            var left = this.referDom.offsetLeft;
-	            var top = this.referDom.offsetTop + this.referDom.offsetHeight + 4;
-	            tipdiv.style.left = left + 'px';
-	            tipdiv.style.top = top + 'px';
-	        }
-
-	        tipdiv.style.display = 'block';
-	        // addClass(tipdiv.parentNode,'u-has-error');
-	        // $('#' + this.tipId).html(msg).show()
-	    } else {
-	        var tipOptions = {
-	            "title": msg,
-	            "trigger": "manual",
-	            "selector": "validtip",
-	            "placement": this.placement,
-	            "showFix": this.showFix
-	        };
-
-	        if (this.options.tipTemplate) tipOptions.template = this.options.tipTemplate;
-
-	        //月凯修改
-	        // if (!this.tooltip)
-	        this.referDom = this.$element;
-	        if (this.referDom.tagName !== 'INPUT' && this.referDom.tagName !== "TEXTAREA") {
-	            this.referDom = this.$element.querySelector('input');
-	            // 如果referDom的父元素不是this.$element说明时单选框、复选框。则referDom还为$element
-	            if (!this.referDom || this.referDom.parentNode !== this.$element) {
-	                this.referDom = this.$element;
-	            }
-	        }
-	        if (this.tooltip) {
-	            this.tooltip.hide();
-	        }
-
-	        this.tooltip = new _neouiTooltip.Tooltip(this.referDom, tipOptions);
-	        this.tooltip.setTitle(msg);
-	        this.tooltip.show();
-	    }
-	    if (this.tipAliveTime !== -1) {
-	        clearTimeout(this.timeout);
-	        this.timeout = setTimeout(function () {
-	            // self.tooltip.hide();
-	            self.hideMsg();
-	        }, this.tipAliveTime);
-	    }
-	};
-	Validate.fn.hideMsg = function () {
-	    //隐藏成功信息
-	    // if(this.successId||this.tipId){
-	    // 	document.getElementById(this.successId).style.display='none';
-	    // 	document.getElementById(this.tipId).style.display='none';
-	    // }
-
-	    // removeClass(this.element.parentNode,'u-has-error');
-	    // removeClass(this.element.parentNode,'u-has-success');
-
-	    if (this.tipId) {
-	        var tipdiv = this.tipId;
-	        if (typeof tipdiv === 'string') {
-	            tipdiv = document.getElementById(tipdiv);
-	        }
-	        tipdiv.style.display = 'none';
-	        this.referDom.style.borderColor = '';
-	        // removeClass(tipdiv.parentNode,'u-has-error');
-	    } else {
-	        if (this.tooltip) this.tooltip.hide();
-	    }
-	};
-
-	/**
-	 * 只有单一元素时使用
-	 */
-	Validate.fn._needClean = function () {
-	    return true; //this.validates[0].needClean
-	};
-
-	var validate = function validate(element) {
-	    var self = this,
-	        options,
-	        childEle;
-	    if (typeof element === 'string') {
-	        element = document.querySelector(element);
-	    }
-	    //element本身需要校验
-	    if (element.attributes["uvalidate"]) {
-	        options = element.attributes["uvalidate"] ? JSON.parse(element.attributes["uvalidate"].value) : {};
-	        options = (0, _extend.extend)({
-	            el: element
-	        }, options);
-	        element['Validate'] = new Validate(options);
-	    }
-
-	    //element是个父元素，校验子元素
-	    childEle = element.querySelectorAll('[uvalidate]');
-	    (0, _util.each)(childEle, function (i, child) {
-	        if (!child['Validate']) {
-	            //如果该元素上没有校验
-	            options = child.attributes["validate"] ? JSON.parse(child.attributes["validate"].value) : {};
-	            options = (0, _extend.extend)({
-	                el: child
-	            }, options);
-	            child['Validate'] = new Validate(options);
-	        }
-	    });
-	};
-
-	// 对某个dom容器内的元素进行校验
-	var doValidate = function doValidate(element) {
-	    var passed = true,
-	        childEle,
-	        result;
-	    if (typeof element === 'string') {
-	        element = document.querySelector(element);
-	    }
-	    childEle = element.querySelectorAll('input');
-	    (0, _util.each)(childEle, function (i, child) {
-	        if (child['Validate'] && child['Validate'].check) {
-	            result = child['Validate'].check({
-	                trueValue: true,
-	                showMsg: true
-	            });
-	            if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) === 'object') passed = result['passed'] && passed;else passed = result && passed;
-	        }
-	    });
-	    return passed;
-	};
-
-	_compMgr.compMgr.regComp({
-	    comp: Validate,
-	    compAsString: 'u.Validate',
-	    css: 'u-validate'
-	});
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
-	exports.Validate = Validate;
-	exports.validate = validate;
-	exports.doValidate = doValidate;
-
-/***/ },
-/* 115 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.BaseComponent = undefined;
-
-	var _class = __webpack_require__(116);
-
-	var _util = __webpack_require__(117);
-
-	var _event = __webpack_require__(108);
-
-	var _compMgr = __webpack_require__(118);
-
-	/**
-	 * Module : Sparrow base component
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-28 18:45:08
-	 */
-
-	var BaseComponent = _class.Class.create({
-	    initialize: function initialize(element) {
-	        if ((0, _util.isDomElement)(element)) {
-	            this.element = element;
-	            this.options = {};
-	        } else {
-	            this.element = element['el'];
-	            this.options = element;
-	        }
-	        this.element = typeof this.element === 'string' ? document.querySelector(this.element) : this.element;
-
-	        this.compType = this.compType || this.constructor.compType;
-	        this.element[this.compType] = this;
-	        this.element['init'] = true;
-	        this.init();
-	    },
-	    /**
-	     * 绑定事件
-	     * @param {String} name
-	     * @param {Function} callback
-	     */
-	    on: function on(name, callback) {
-	        name = name.toLowerCase();
-	        this._events || (this._events = {});
-	        var events = this._events[name] || (this._events[name] = []);
-	        events.push({
-	            callback: callback
-	        });
-	        return this;
-	    },
-	    /**
-	     * 触发事件
-	     * @param {String} name
-	     */
-	    trigger: function trigger(name) {
-	        name = name.toLowerCase();
-	        if (!this._events || !this._events[name]) return this;
-	        var args = Array.prototype.slice.call(arguments, 1);
-	        var events = this._events[name];
-	        for (var i = 0, count = events.length; i < count; i++) {
-	            events[i].callback.apply(this, args);
-	        }
-	        return this;
-	    },
-	    /**
-	     * 初始化
-	     */
-	    init: function init() {},
-	    /**
-	     * 渲染控件
-	     */
-	    render: function render() {},
-	    /**
-	     * 销毁控件
-	     */
-	    destroy: function destroy() {
-	        delete this.element['comp'];
-	        this.element.innerHTML = '';
-	    },
-	    /**
-	     * 增加dom事件
-	     * @param {String} name
-	     * @param {Function} callback
-	     */
-	    addDomEvent: function addDomEvent(name, callback) {
-	        (0, _event.on)(this.element, name, callback);
-	        return this;
-	    },
-	    /**
-	     * 移除dom事件
-	     * @param {String} name
-	     */
-	    removeDomEvent: function removeDomEvent(name, callback) {
-	        (0, _event.off)(this.element, name, callback);
-	        return this;
-	    },
-	    setEnable: function setEnable(enable) {
-	        return this;
-	    },
-	    /**
-	     * 判断是否为DOM事件
-	     */
-	    isDomEvent: function isDomEvent(eventName) {
-	        if (this.element['on' + eventName] === undefined) return false;else return true;
-	    },
-	    createDateAdapter: function createDateAdapter(options) {
-	        var opt = options['options'],
-	            model = options['model'];
-	        var Adapter = _compMgr.compMgr.getDataAdapter(this.compType, opt['dataType']);
-	        if (Adapter) {
-	            this.dataAdapter = new Adapter(this, options);
-	        }
-	    },
-	    Statics: {
-	        compName: '',
-	        EVENT_VALUE_CHANGE: 'valueChange',
-	        getName: function getName() {
-	            return this.compName;
-	        }
-	    }
-	});
-
-	function adjustDataType(options) {
-	    var types = ['integer', 'float', 'currency', 'percent', 'string', 'textarea'];
-	    var _type = options['type'],
-	        _dataType = options['dataType'];
-	    if (types.indexOf(_type) != -1) {
-	        options['dataType'] = _type;
-	        options['type'] = 'originText';
-	    }
-	}
-
-	var BaseComponent = BaseComponent;
-
-	exports.BaseComponent = BaseComponent;
-
-/***/ },
-/* 116 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	/**
-	 * Module : Sparrow class
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-28 08:45:39
-	 */
-
-	var Class = function Class(o) {
-		if (!(this instanceof Class) && isFunction(o)) {
-			return classify(o);
-		}
-	};
-
-	// Create a new Class.
-	//
-	//  var SuperPig = Class.create({
-	//    Extends: Animal,
-	//    Implements: Flyable,
-	//    initialize: function() {
-	//      SuperPig.superclass.initialize.apply(this, arguments)
-	//    },
-	//    Statics: {
-	//      COLOR: 'red'
-	//    }
-	// })
-	//
-	Class.create = function (parent, properties) {
-		if (!isFunction(parent)) {
-			properties = parent;
-			parent = null;
-		}
-
-		properties || (properties = {});
-		parent || (parent = properties.Extends || Class);
-		properties.Extends = parent;
-
-		// The created class constructor
-		function SubClass() {
-			var ret;
-			// Call the parent constructor.
-			parent.apply(this, arguments);
-
-			// Only call initialize in self constructor.
-			if (this.constructor === SubClass && this.initialize) {
-				ret = this.initialize.apply(this, arguments);
-			}
-			return ret ? ret : this;
-		}
-
-		// Inherit class (static) properties from parent.
-		if (parent !== Class) {
-			mix(SubClass, parent, parent.StaticsWhiteList);
-		}
-
-		// Add instance properties to the subclass.
-		implement.call(SubClass, properties);
-
-		// Make subclass extendable.
-		return classify(SubClass);
-	};
-
-	function implement(properties) {
-		var key, value;
-
-		for (key in properties) {
-			value = properties[key];
-
-			if (Class.Mutators.hasOwnProperty(key)) {
-				Class.Mutators[key].call(this, value);
-			} else {
-				this.prototype[key] = value;
-			}
-		}
-	}
-
-	// Create a sub Class based on `Class`.
-	Class.extend = function (properties) {
-		properties || (properties = {});
-		properties.Extends = this;
-
-		return Class.create(properties);
-	};
-
-	function classify(cls) {
-		cls.extend = Class.extend;
-		cls.implement = implement;
-		return cls;
-	}
-
-	// Mutators define special properties.
-	Class.Mutators = {
-
-		'Extends': function Extends(parent) {
-			var existed = this.prototype;
-			var proto = createProto(parent.prototype);
-
-			// Keep existed properties.
-			mix(proto, existed);
-
-			// Enforce the constructor to be what we expect.
-			proto.constructor = this;
-
-			// Set the prototype chain to inherit from `parent`.
-			this.prototype = proto;
-
-			// Set a convenience property in case the parent's prototype is
-			// needed later.
-			this.superclass = parent.prototype;
-		},
-
-		'Implements': function Implements(items) {
-			isArray(items) || (items = [items]);
-			var proto = this.prototype,
-			    item;
-
-			while (item = items.shift()) {
-				mix(proto, item.prototype || item);
-			}
-		},
-
-		'Statics': function Statics(staticProperties) {
-			mix(this, staticProperties);
-		}
-	};
-
-	// Shared empty constructor function to aid in prototype-chain creation.
-	function Ctor() {}
-
-	// See: http://jsperf.com/object-create-vs-new-ctor
-	var createProto = Object.__proto__ ? function (proto) {
-		return {
-			__proto__: proto
-		};
-	} : function (proto) {
-		Ctor.prototype = proto;
-		return new Ctor();
-	};
-
-	// Helpers
-	// ------------
-
-	function mix(r, s, wl) {
-		// Copy "all" properties including inherited ones.
-		for (var p in s) {
-			if (s.hasOwnProperty(p)) {
-				if (wl && indexOf(wl, p) === -1) continue;
-
-				// 在 iPhone 1 代等设备的 Safari 中，prototype 也会被枚举出来，需排除
-				if (p !== 'prototype') {
-					r[p] = s[p];
-				}
-			}
-		}
-	}
-
-	var toString = Object.prototype.toString;
-
-	var isArray = Array.isArray || function (val) {
-		return toString.call(val) === '[object Array]';
-	};
-
-	var isFunction = function isFunction(val) {
-		return toString.call(val) === '[object Function]';
-	};
-
-	var indexOf = function indexOf(arr, item) {
-		if (Array.prototype.indexOf && arr.indexOf) {
-			return arr.indexOf(item);
-		} else {
-			for (var i = 0, len = arr.length; i < len; i++) {
-				if (arr[i] === item) {
-					return i;
-				}
-			}
-			return -1;
-		}
-	};
-
-	exports.Class = Class;
-	exports.isFunction = isFunction;
-
-/***/ },
-/* 117 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	/**
-	 * Module : Sparrow util tools
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-
-	/**
-	 * 创建一个带壳的对象,防止外部修改
-	 * @param {Object} proto
-	 */
-	var createShellObject = function createShellObject(proto) {
-		var exf = function exf() {};
-		exf.prototype = proto;
-		return new exf();
-	};
-	var execIgnoreError = function execIgnoreError(a, b, c) {
-		try {
-			a.call(b, c);
-		} catch (e) {}
-	};
-
-	var getFunction = function getFunction(target, val) {
-		if (!val || typeof val == 'function') return val;
-		if (typeof target[val] == 'function') return target[val];else if (typeof window[val] == 'function') return window[val];else if (val.indexOf('.') != -1) {
-			var func = getJSObject(target, val);
-			if (typeof func == 'function') return func;
-			func = getJSObject(window, val);
-			if (typeof func == 'function') return func;
-		}
-		return val;
-	};
-	var getJSObject = function getJSObject(target, names) {
-		if (!names) {
-			return;
-		}
-		if ((typeof names === 'undefined' ? 'undefined' : _typeof(names)) == 'object') return names;
-		var nameArr = names.split('.');
-		var obj = target;
-		for (var i = 0; i < nameArr.length; i++) {
-			obj = obj[nameArr[i]];
-			if (!obj) return null;
-		}
-		return obj;
-	};
-	var isDate = function isDate(input) {
-		return Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
-	};
-	var isNumber = function isNumber(obj) {
-		//return obj === +obj
-		//加了个typeof 判断，因为'431027199110.078573'会解析成number
-		return obj - parseFloat(obj) + 1 >= 0;
-	};
-	var isArray = Array.isArray || function (val) {
-		return Object.prototype.toString.call(val) === '[object Array]';
-	};
-	var isEmptyObject = function isEmptyObject(obj) {
-		var name;
-		for (name in obj) {
-			return false;
-		}
-		return true;
-	};
-	var inArray = function inArray(node, arr) {
-		if (!arr instanceof Array) {
-			throw "arguments is not Array";
-		}
-		for (var i = 0, k = arr.length; i < k; i++) {
-			if (node == arr[i]) {
-				return true;
-			}
-		}
-		return false;
-	};
-	var isDomElement = function isDomElement(obj) {
-		if (window['HTMLElement']) {
-			return obj instanceof HTMLElement;
-		} else {
-			return obj && obj.tagName && obj.nodeType === 1;
-		}
-	};
-	var each = function each(obj, callback) {
-		if (obj.forEach) {
-			obj.forEach(function (v, k) {
-				callback(k, v);
-			});
-		} else if (obj instanceof Object) {
-			for (var k in obj) {
-				callback(k, obj[k]);
-			}
-		} else {
-			return;
-		}
-	};
-	try {
-		NodeList.prototype.forEach = Array.prototype.forEach;
-	} catch (e) {}
-
-	/**
-	 * 获得字符串的字节长度
-	 */
-	String.prototype.lengthb = function () {
-		//	var str = this.replace(/[^\x800-\x10000]/g, "***");
-		var str = this.replace(/[^\x00-\xff]/g, "**");
-		return str.length;
-	};
-
-	/**
-	 * 将AFindText全部替换为ARepText
-	 */
-	String.prototype.replaceAll = function (AFindText, ARepText) {
-		//自定义String对象的方法
-		var raRegExp = new RegExp(AFindText, "g");
-		return this.replace(raRegExp, ARepText);
-	};
-
-	var dateFormat = function dateFormat(str) {
-		//如果不是string类型  原型返回
-		if (typeof str !== 'string') {
-			return str;
-		}
-		//判断 str 格式如果是 yy-mm-dd
-		if (str && str.indexOf('-') > -1) {
-			//获取当前是否是 ios版本,>8是因为ios不识别new Date（“2016/11”）格式
-			var ua = navigator.userAgent.toLowerCase();
-			if (/iphone|ipad|ipod/.test(ua)) {
-				//转换成 yy/mm/dd
-				str = str.replace(/-/g, "/");
-				str = str.replace(/(^\s+)|(\s+$)/g, "");
-				if (str.length <= 8) {
-					str = str += "/01";
-				}
-			}
-		}
-
-		return str;
-	};
-
-	exports.createShellObject = createShellObject;
-	exports.execIgnoreError = execIgnoreError;
-	exports.getFunction = getFunction;
-	exports.getJSObject = getJSObject;
-	exports.isDate = isDate;
-	exports.isNumber = isNumber;
-	exports.isArray = isArray;
-	exports.isEmptyObject = isEmptyObject;
-	exports.inArray = inArray;
-	exports.isDomElement = isDomElement;
-	exports.each = each;
-	exports.dateFormat = dateFormat;
-
-/***/ },
-/* 118 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.compMgr = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow compMgr
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 18:41:06
-	                                                                                                                                                                                                                                                                               * Update : 2016-09-13 09:26:00
-	                                                                                                                                                                                                                                                                               */
-
-	var _dom = __webpack_require__(107);
-
-	var _util = __webpack_require__(117);
-
-	function _findRegisteredClass(name, optReplace) {
-	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	        if (CompMgr.registeredControls[i].className === name) {
-	            if (typeof optReplace !== 'undefined') {
-	                CompMgr.registeredControls[i] = optReplace;
-	            }
-	            return CompMgr.registeredControls[i];
-	        }
-	    }
-	    return false;
-	}
-
-	function _getUpgradedListOfElement(element) {
-	    var dataUpgraded = element.getAttribute('data-upgraded');
-	    // Use `['']` as default value to conform the `,name,name...` style.
-	    return dataUpgraded === null ? [''] : dataUpgraded.split(',');
-	}
-
-	function _isElementUpgraded(element, jsClass) {
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    return upgradedList.indexOf(jsClass) != -1;
-	}
-
-	function _upgradeElement(element, optJsClass) {
-	    if (!((typeof element === 'undefined' ? 'undefined' : _typeof(element)) === 'object' && element instanceof Element)) {
-	        throw new Error('Invalid argument provided to upgrade MDL element.');
-	    }
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    var classesToUpgrade = [];
-	    if (!optJsClass) {
-	        var className = element.className;
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            var component = CompMgr.registeredControls[i];
-	            if (className.indexOf(component.cssClass) > -1 && classesToUpgrade.indexOf(component) === -1 && !_isElementUpgraded(element, component.className)) {
-	                classesToUpgrade.push(component);
-	            }
-	        }
-	    } else if (!_isElementUpgraded(element, optJsClass)) {
-	        classesToUpgrade.push(_findRegisteredClass(optJsClass));
-	    }
-
-	    // Upgrade the element for each classes.
-	    for (var i = 0, n = classesToUpgrade.length, registeredClass; i < n; i++) {
-	        registeredClass = classesToUpgrade[i];
-	        if (registeredClass) {
-	            if (element[registeredClass.className]) {
-	                continue;
-	            }
-	            // Mark element as upgraded.
-	            upgradedList.push(registeredClass.className);
-	            element.setAttribute('data-upgraded', upgradedList.join(','));
-	            var instance = new registeredClass.classConstructor(element);
-	            CompMgr.createdControls.push(instance);
-	            // Call any callbacks the user has registered with this component type.
-	            for (var j = 0, m = registeredClass.callbacks.length; j < m; j++) {
-	                registeredClass.callbacks[j](element);
-	            }
-	            element[registeredClass.className] = instance;
-	        } else {
-	            throw new Error('Unable to find a registered component for the given class.');
-	        }
-	    }
-	}
-
-	function _upgradeDomInternal(optJsClass, optCssClass, ele) {
-	    if (typeof optJsClass === 'undefined' && typeof optCssClass === 'undefined') {
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            _upgradeDomInternal(CompMgr.registeredControls[i].className, registeredControls[i].cssClass, ele);
-	        }
-	    } else {
-	        var jsClass = optJsClass;
-	        if (!optCssClass) {
-	            var registeredClass = _findRegisteredClass(jsClass);
-	            if (registeredClass) {
-	                optCssClass = registeredClass.cssClass;
-	            }
-	        }
-	        var elements;
-	        if (ele) {
-	            elements = (0, _dom.hasClass)(ele, optCssClass) ? [ele] : ele.querySelectorAll('.' + optCssClass);
-	        } else {
-	            elements = document.querySelectorAll('.' + optCssClass);
-	        }
-	        for (var n = 0; n < elements.length; n++) {
-	            _upgradeElement(elements[n], jsClass);
-	        }
-	    }
-	}
-
-	var CompMgr = {
-	    plugs: {},
-	    dataAdapters: {},
-	    /** 注册的控件*/
-	    registeredControls: [],
-	    createdControls: [],
-	    /**
-	     *
-	     * @param options  {el:'#content', model:{}}
-	     */
-	    apply: function apply(options) {
-	        if (options) {
-	            var _el = options.el || document.body;
-	            var model = options.model;
-	        }
-	        if (typeof _el == 'string') {
-	            _el = document.body.querySelector(_el);
-	        }
-	        if (_el == null || (typeof _el === 'undefined' ? 'undefined' : _typeof(_el)) != 'object') _el = document.body;
-	        var comps = _el.querySelectorAll('[u-meta]');
-	        comps.forEach(function (element) {
-	            if (element['comp']) return;
-	            var options = JSON.parse(element.getAttribute('u-meta'));
-	            if (options && options['type']) {
-	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
-	                var comp = CompMgr.createDataAdapter({
-	                    el: element,
-	                    options: options,
-	                    model: model
-	                });
-	                if (comp) {
-	                    element['adpt'] = comp;
-	                    element['u-meta'] = comp;
-	                }
-	            }
-	        });
-	    },
-	    addPlug: function addPlug(config) {
-	        var plug = config['plug'],
-	            name = config['name'];
-	        this.plugs || (this.plugs = {});
-	        if (this.plugs[name]) {
-	            throw new Error('plug has exist:' + name);
-	        }
-	        plug.compType = name;
-	        this.plugs[name] = plug;
-	    },
-	    addDataAdapter: function addDataAdapter(config) {
-	        var adapter = config['adapter'],
-	            name = config['name'];
-	        //dataType = config['dataType'] || ''
-	        //var key = dataType ? name + '.' + dataType : name;
-	        this.dataAdapters || (dataAdapters = {});
-	        if (this.dataAdapters[name]) {
-	            throw new Error('dataAdapter has exist:' + name);
-	        }
-	        this.dataAdapters[name] = adapter;
-	    },
-	    getDataAdapter: function getDataAdapter(name) {
-	        if (!name) return;
-	        this.dataAdapters || (dataAdapters = {});
-	        //var key = dataType ? name + '.' + dataType : name;
-	        return this.dataAdapters[name];
-	    },
-	    createDataAdapter: function createDataAdapter(options) {
-	        var opt = options['options'];
-	        var type = opt['type'],
-	            id = opt['id'];
-	        var adpt = this.dataAdapters[type];
-	        if (!adpt) return null;
-	        var comp = new adpt(options);
-	        comp.type = type;
-	        comp.id = id;
-	        return comp;
-	    },
-	    _createComp: function _createComp(options) {
-	        var opt = options['options'];
-	        var type = opt['type'];
-	        var plug = this.plugs[type];
-	        if (!plug) return null;
-	        var comp = new plug(options);
-	        comp.type = type;
-	        return comp;
-	    },
-	    /**
-	     * 注册UI控件
-	     */
-	    regComp: function regComp(config) {
-	        var newConfig = {
-	            classConstructor: config.comp,
-	            className: config.compAsString || config['compAsString'],
-	            cssClass: config.css || config['css'],
-	            callbacks: [],
-	            dependencies: config.dependencies || []
-	        };
-	        config.comp.prototype.compType = config.compAsString;
-	        for (var i = 0; i < this.registeredControls.length; i++) {
-	            var item = this.registeredControls[i];
-	            //registeredControls.forEach(function(item) {
-	            if (item.cssClass === newConfig.cssClass) {
-	                throw new Error('The provided cssClass has already been registered: ' + item.cssClass);
-	            }
-	            if (item.className === newConfig.className) {
-	                throw new Error('The provided className has already been registered');
-	            }
-	        };
-	        this.registeredControls.push(newConfig);
-	    },
-
-	    updateComp: function updateComp(ele) {
-	        this._reorderComps();
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
-	        }
-	    },
-	    // 后续遍历registeredControls，重新排列
-	    _reorderComps: function _reorderComps() {
-	        var tmpArray = [];
-	        var dictory = {};
-
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            dictory[this.registeredControls[n].className] = this.registeredControls[n];
-	        }
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            traverse(this.registeredControls[n]);
-	        }
-
-	        this.registeredControls = tmpArray;
-
-	        function traverse(control) {
-	            if ((0, _util.inArray)(control, tmpArray)) return;
-	            if (control.dependencies.length > 0) {
-	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
-	                    var childControl = dictory[control.dependencies[i]];
-	                    traverse(childControl);
-	                }
-	            }
-	            tmpArray.push(control);
-	        }
-	    }
-	};
-
-	var compMgr = CompMgr;
-	exports.compMgr = compMgr;
-
-	///**
-	// * 加载控件
-	// */
-	//
-	//if (document.readyState && document.readyState === 'complete'){
-	//    compMgr.updateComp();
-	//}else{
-	//    on(window, 'load', function() {
-	//
-	//        //扫描并生成控件
-	//        compMgr.updateComp();
-	//    });
-	//}
-
-/***/ },
-/* 119 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.Tooltip = undefined;
-
-	var _extend = __webpack_require__(110);
-
-	var _event = __webpack_require__(108);
-
-	var _dom = __webpack_require__(107);
-
-	var Tooltip = function Tooltip(element, options) {
-		this.init(element, options);
-		//this.show()
-	}; /**
-	    * Module : neoui-tooltip
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date   : 2016-08-06 13:26:06
-	    */
-
-
-	Tooltip.prototype = {
-		defaults: {
-			animation: true,
-			placement: 'top',
-			//selector: false,
-			template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow" ></div><div class="tooltip-inner"></div></div>',
-			trigger: 'hover focus',
-			title: '',
-			delay: 0,
-			html: false,
-			container: false,
-			viewport: {
-				selector: 'body',
-				padding: 0
-			},
-			showFix: false
-		},
-		init: function init(element, options) {
-			var oThis = this;
-			this.options = (0, _extend.extend)({}, this.defaults, options);
-			this._viewport = this.options.viewport && document.querySelector(this.options.viewport.selector || this.options.viewport);
-			//tip模板对应的dom
-			this.tipDom = (0, _dom.makeDOM)(this.options.template);
-			(0, _dom.addClass)(this.tipDom, this.options.placement);
-			if (this.options.colorLevel) {
-				(0, _dom.addClass)(this.tipDom, this.options.colorLevel);
-			}
-			this.arrrow = this.tipDom.querySelector('.tooltip-arrow');
-
-			//判断如果是批量插入tooltip的
-			if (element && element.length) {
-				$(element).each(function () {
-					this.element = $(this)[0];
-					var triggers = oThis.options.trigger.split(' ');
-					for (var i = triggers.length; i--;) {
-						var trigger = triggers[i];
-						if (trigger == 'click') {
-							(0, _event.on)(this.element, 'click', this.toggle.bind(oThis, this.element));
-						} else if (trigger != 'manual') {
-							var eventIn = trigger == 'hover' ? 'mouseenter' : 'focusin';
-							var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout';
-							(0, _event.on)(this.element, eventIn, oThis.enter.bind(oThis, this.element));
-							(0, _event.on)(this.element, eventOut, oThis.leave.bind(oThis, this.element));
-						}
-					}
-					oThis.options.title = oThis.options.title || this.element.getAttribute('title');
-					this.element.removeAttribute('title');
-					if (oThis.options.delay && typeof oThis.options.delay == 'number') {
-						oThis.options.delay = {
-							show: oThis.options.delay,
-							hide: oThis.options.delay
-						};
-					};
-				});
-			} else {
-				this.element = element;
-				var triggers = this.options.trigger.split(' ');
-
-				for (var i = triggers.length; i--;) {
-					var trigger = triggers[i];
-					if (trigger == 'click') {
-						(0, _event.on)(this.element, 'click', this.toggle.bind(this));
-					} else if (trigger != 'manual') {
-						var eventIn = trigger == 'hover' ? 'mouseenter' : 'focusin';
-						var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout';
-						(0, _event.on)(this.element, eventIn, oThis.enter.bind(this));
-						(0, _event.on)(this.element, eventOut, oThis.leave.bind(this));
-					}
-				}
-				this.options.title = this.options.title || this.element.getAttribute('title');
-				this.element.removeAttribute('title');
-				if (this.options.delay && typeof this.options.delay == 'number') {
-					this.options.delay = {
-						show: this.options.delay,
-						hide: this.options.delay
-					};
-				};
-				// tip容器,默认为当前元素的parent
-				this.container = this.options.container ? document.querySelector(this.options.container) : this.element.parentNode;
-			}
-		},
-		enter: function enter(element) {
-			if (arguments.length > 1) {
-				//将tooltip中的element指定为其进入的当前element
-				this.element = element;
-				// tip容器,默认为当前元素的parent
-				this.container = this.options.container ? document.querySelector(this.options.container) : element.parentNode;
-			}
-			var self = this;
-			clearTimeout(this.timeout);
-			this.hoverState = 'in';
-			if (!this.options.delay || !this.options.delay.show) return this.show();
-
-			this.timeout = setTimeout(function () {
-				if (self.hoverState == 'in') self.show();
-			}, this.options.delay.show);
-		},
-		leave: function leave() {
-			var self = this;
-			clearTimeout(this.timeout);
-			self.hoverState = 'out';
-			if (!self.options.delay || !self.options.delay.hide) return self.hide();
-			self.timeout = setTimeout(function () {
-				if (self.hoverState == 'out') self.hide();
-			}, self.options.delay.hide);
-		},
-		show: function show() {
-			var self = this;
-			this.tipDom.querySelector('.tooltip-inner').innerHTML = this.options.title;
-			this.tipDom.style.zIndex = (0, _dom.getZIndex)();
-
-			if (this.options.showFix) {
-				document.body.appendChild(this.tipDom);
-				this.tipDom.style.position = 'fixed';
-				(0, _dom.showPanelByEle)({
-					ele: this.element,
-					panel: this.tipDom,
-					position: "top"
-				});
-				// fix情况下滚动时隐藏
-				(0, _event.on)(document, 'scroll', function () {
-					self.hide();
-				});
-			} else {
-				this.container.appendChild(this.tipDom);
-				var inputLeft = this.element.offsetLeft;
-				var inputTop = this.element.offsetTop;
-				var inputWidth = this.element.offsetWidth;
-				var inputHeight = this.element.offsetHeight;
-				var topWidth = this.tipDom.offsetWidth;
-				var topHeight = this.tipDom.offsetHeight;
-				var tipDomleft, tipDomTop;
-
-				if (this.options.placement == 'top') {
-					// 上部提示
-
-					this.left = this.element.offsetLeft + inputWidth / 2;
-					this.top = this.element.offsetTop - topHeight;
-					// 水平居中
-					tipDomleft = this.left - this.tipDom.clientWidth / 2 + 'px';
-					tipDomTop = this.top + 'px';
-				} else if (this.options.placement == 'bottom') {
-					// 下边提示
-					this.left = this.element.offsetLeft + inputWidth / 2;
-					this.top = this.element.offsetTop + topHeight;
-					// 水平居中
-					tipDomleft = this.left - this.tipDom.clientWidth / 2 + 'px';
-					tipDomTop = this.top + 'px';
-				} else if (this.options.placement == 'left') {
-					// 左边提示
-					this.left = this.element.offsetLeft;
-					this.top = this.element.offsetTop + topHeight / 2;
-					tipDomleft = this.left - this.tipDom.clientWidth + 'px';
-
-					tipDomTop = this.top - this.tipDom.clientHeight / 2 + 'px';
-				} else {
-					// 右边提示
-
-					this.left = this.element.offsetLeft + inputWidth;
-					this.top = this.element.offsetTop + topHeight / 2;
-					tipDomleft = this.left + 'px';
-					tipDomTop = this.top - this.tipDom.clientHeight / 2 + 'px';
-				}
-
-				this.tipDom.style.left = tipDomleft;
-				this.tipDom.style.top = tipDomTop;
-			}
-
-			(0, _dom.addClass)(this.tipDom, 'active');
-
-			// var placement = this.options.placement;
-			// var pos = this.getPosition()
-			// var actualWidth = this.tipDom.offsetWidth
-			// var actualHeight = this.tipDom.offsetHeight
-			// var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight)
-
-			// this.applyPlacement(calculatedOffset, placement)
-		},
-		hide: function hide() {
-			if (this.options.showFix) {
-				if (document.body.contains(this.tipDom)) {
-					(0, _dom.removeClass)(this.tipDom, 'active');
-					document.body.removeChild(this.tipDom);
-				}
-			} else {
-				if (this.container.contains(this.tipDom)) {
-					(0, _dom.removeClass)(this.tipDom, 'active');
-					this.container.removeChild(this.tipDom);
-				}
-			}
-		},
-		applyPlacement: function applyPlacement(offset, placement) {
-			var width = this.tipDom.offsetWidth;
-			var height = this.tipDom.offsetHeight;
-
-			// manually read margins because getBoundingClientRect includes difference
-			var marginTop = parseInt(this.tipDom.style.marginTop, 10);
-			var marginLeft = parseInt(this.tipDom.style.marginTop, 10);
-
-			// we must check for NaN for ie 8/9
-			if (isNaN(marginTop)) marginTop = 0;
-			if (isNaN(marginLeft)) marginLeft = 0;
-
-			offset.top = offset.top + marginTop;
-			offset.left = offset.left + marginLeft;
-
-			// $.fn.offset doesn't round pixel values
-			// so we use setOffset directly with our own function B-0
-			this.tipDom.style.left = offset.left + 'px';
-			this.tipDom.style.top = offset.top + 'px';
-
-			(0, _dom.addClass)(this.tipDom, 'active');
-
-			// check to see if placing tip in new offset caused the tip to resize itself
-			var actualWidth = this.tipDom.offsetWidth;
-			var actualHeight = this.tipDom.offsetHeight;
-
-			if (placement == 'top' && actualHeight != height) {
-				offset.top = offset.top + height - actualHeight;
-			}
-			var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight);
-
-			if (delta.left) offset.left += delta.left;else offset.top += delta.top;
-
-			var isVertical = /top|bottom/.test(placement);
-			var arrowDelta = isVertical ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight;
-			var arrowOffsetPosition = isVertical ? 'offsetWidth' : 'offsetHeight';
-
-			//$tip.offset(offset)
-			this.tipDom.style.left = offset.left + 'px';
-			this.tipDom.style.top = offset.top - 4 + 'px';
-
-			// this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], isVertical)
-		},
-		getCalculatedOffset: function getCalculatedOffset(placement, pos, actualWidth, actualHeight) {
-			return placement == 'bottom' ? {
-				top: pos.top + pos.height,
-				left: pos.left + pos.width / 2 - actualWidth / 2
-			} : placement == 'top' ? {
-				top: pos.top - actualHeight,
-				left: pos.left + pos.width / 2 - actualWidth / 2
-			} : placement == 'left' ? {
-				top: pos.top + pos.height / 2 - actualHeight / 2,
-				left: pos.left - actualWidth
-			} :
-			/* placement == 'right' */
-			{
-				top: pos.top + pos.height / 2 - actualHeight / 2,
-				left: pos.left + pos.width
-			};
-		},
-		getPosition: function getPosition(el) {
-			el = el || this.element;
-			var isBody = el.tagName == 'BODY';
-			var elRect = el.getBoundingClientRect();
-			if (elRect.width == null) {
-				// width and height are missing in IE8, so compute them manually; see https://github.com/twbs/bootstrap/issues/14093
-				elRect = (0, _extend.extend)({}, elRect, {
-					width: elRect.right - elRect.left,
-					height: elRect.bottom - elRect.top
-				});
-			}
-			var elOffset = isBody ? {
-				top: 0,
-				left: 0
-			} : {
-				top: el.offsetTop,
-				left: el.offsetLeft
-			};
-			var scroll = {
-				scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop : el.scrollTop
-			};
-			var outerDims = isBody ? {
-				width: window.innerWidth || document.body.clientWidth,
-				height: window.innerHeight || document.body.clientHeight
-			} : null;
-			//return extend({}, elRect, scroll, outerDims, elOffset)
-			return (0, _extend.extend)({}, elRect, scroll, outerDims);
-		},
-		getViewportAdjustedDelta: function getViewportAdjustedDelta(placement, pos, actualWidth, actualHeight) {
-			var delta = {
-				top: 0,
-				left: 0
-			};
-			if (!this._viewport) return delta;
-
-			var viewportPadding = this.options.viewport && this.options.viewport.padding || 0;
-			var viewportDimensions = this.getPosition(this._viewport);
-
-			if (/right|left/.test(placement)) {
-				var topEdgeOffset = pos.top - viewportPadding - viewportDimensions.scroll;
-				var bottomEdgeOffset = pos.top + viewportPadding - viewportDimensions.scroll + actualHeight;
-				if (topEdgeOffset < viewportDimensions.top) {
-					// top overflow
-					delta.top = viewportDimensions.top - topEdgeOffset;
-				} else if (bottomEdgeOffset > viewportDimensions.top + viewportDimensions.height) {
-					// bottom overflow
-					delta.top = viewportDimensions.top + viewportDimensions.height - bottomEdgeOffset;
-				}
-			} else {
-				var leftEdgeOffset = pos.left - viewportPadding;
-				var rightEdgeOffset = pos.left + viewportPadding + actualWidth;
-				if (leftEdgeOffset < viewportDimensions.left) {
-					// left overflow
-					delta.left = viewportDimensions.left - leftEdgeOffset;
-				} else if (rightEdgeOffset > viewportDimensions.width) {
-					// right overflow
-					delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset;
-				}
-			}
-
-			return delta;
-		},
-		replaceArrow: function replaceArrow(delta, dimension, isHorizontal) {
-			if (isHorizontal) {
-				this.arrow.style.left = 50 * (1 - delta / dimension) + '%';
-				this.arrow.style.top = '';
-			} else {
-				this.arrow.style.top = 50 * (1 - delta / dimension) + '%';
-				this.arrow.style.left = '';
-			}
-		},
-		destory: function destory() {},
-		setTitle: function setTitle(title) {
-			this.options.title = title;
-		}
-
-	};
-
-	exports.Tooltip = Tooltip;
-
-/***/ },
-/* 120 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.trans = undefined;
-
-	var _cookies = __webpack_require__(121);
-
-	var _enumerables = __webpack_require__(111);
-
-	// 从datatable/src/compatiable/u/JsExtension.js抽取
-	/**
-	 * Module : Sparrow i18n
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-29 10:16:54
-	 */
-	//import {uuii18n} from '?';//缺失故修改为default值
-	window.getCurrentJsPath = function () {
-		var doc = document,
-		    a = {},
-		    expose = +new Date(),
-		    rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/,
-		    isLtIE8 = ('' + doc.querySelector).indexOf('[native code]') === -1;
-		// FF,Chrome
-		if (doc.currentScript) {
-			return doc.currentScript.src;
-		}
-
-		var stack;
-		try {
-			a.b();
-		} catch (e) {
-			stack = e.fileName || e.sourceURL || e.stack || e.stacktrace;
-		}
-		// IE10
-		if (stack) {
-			var absPath = rExtractUri.exec(stack)[1];
-			if (absPath) {
-				return absPath;
-			}
-		}
-
-		// IE5-9
-		for (var scripts = doc.scripts, i = scripts.length - 1, script; script = scripts[i--];) {
-			if (script.className !== expose && script.readyState === 'interactive') {
-				script.className = expose;
-				// if less than ie 8, must get abs path by getAttribute(src, 4)
-				return isLtIE8 ? script.getAttribute('src', 4) : script.src;
-			}
-		}
-	};
-
-	if (window.i18n) {
-		var scriptPath = getCurrentJsPath(),
-		    _temp = scriptPath.substr(0, scriptPath.lastIndexOf('/')),
-		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/')),
-		    resGetPath = u.i18nPath || __FOLDER__ + '/locales/__lng__/__ns__.json';
-		i18n.init({
-			postAsync: false,
-			getAsync: false,
-			fallbackLng: false,
-			ns: { namespaces: ['uui-trans'] },
-			lng: (0, _cookies.getCookie)(_enumerables.U_LOCALE) || 'zh',
-			resGetPath: resGetPath
-		});
-	}
-
-	var trans = function trans(key, dftValue) {
-		return window.i18n ? i18n.t('uui-trans:' + key) : dftValue;
-	};
-
-	exports.trans = trans;
-
-/***/ },
-/* 121 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	/**
-	 * Module : Sparrow cookies
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-
-	var setCookie = function setCookie(sName, sValue, oExpires, sPath, sDomain, bSecure) {
-		var sCookie = sName + "=" + encodeURIComponent(sValue);
-		if (oExpires) sCookie += "; expires=" + oExpires.toGMTString();
-		if (sPath) sCookie += "; path=" + sPath;
-		if (sDomain) sCookie += "; domain=" + sDomain;
-		if (bSecure) sCookie += "; secure=" + bSecure;
-		document.cookie = sCookie;
-	};
-
-	var getCookie = function getCookie(sName) {
-		var sRE = "(?:; )?" + sName + "=([^;]*);?";
-		var oRE = new RegExp(sRE);
-
-		if (oRE.test(document.cookie)) {
-			return decodeURIComponent(RegExp["$1"]);
-		} else return null;
-	};
-
-	exports.setCookie = setCookie;
-	exports.getCookie = getCookie;
-
-/***/ },
-/* 122 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22978,13 +20569,13 @@
 	exports.__esModule = true;
 	exports.CheckboxAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _util = __webpack_require__(5);
 
-	var _neouiCheckbox = __webpack_require__(25);
+	var _neouiCheckbox = __webpack_require__(27);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _dom = __webpack_require__(8);
 
@@ -23283,7 +20874,7 @@
 	exports.CheckboxAdapter = CheckboxAdapter;
 
 /***/ },
-/* 123 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23291,9 +20882,9 @@
 	exports.__esModule = true;
 	exports.CkEditorAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : Kero webpack entry index
@@ -23385,7 +20976,7 @@
 	exports.CkEditorAdapter = CkEditorAdapter;
 
 /***/ },
-/* 124 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23393,11 +20984,11 @@
 	exports.__esModule = true;
 	exports.ComboboxAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _util = __webpack_require__(5);
 
-	var _neouiCombo = __webpack_require__(26);
+	var _neouiCombo = __webpack_require__(28);
 
 	var _env = __webpack_require__(6);
 
@@ -23405,7 +20996,7 @@
 
 	var _dom = __webpack_require__(8);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var ComboboxAdapter = _baseAdapter.BaseAdapter.extend({
 	    init: function init() {
@@ -23517,7 +21108,7 @@
 	exports.ComboboxAdapter = ComboboxAdapter;
 
 /***/ },
-/* 125 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23525,23 +21116,23 @@
 	exports.__esModule = true;
 	exports.CurrencyAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _util = __webpack_require__(5);
 
-	var _neouiCheckbox = __webpack_require__(25);
+	var _neouiCheckbox = __webpack_require__(27);
 
-	var _indexDataTable = __webpack_require__(60);
+	var _indexDataTable = __webpack_require__(62);
 
-	var _formater = __webpack_require__(15);
+	var _formater = __webpack_require__(13);
 
-	var _keroaFloat = __webpack_require__(126);
+	var _keroaFloat = __webpack_require__(115);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _core = __webpack_require__(10);
 
-	var _masker = __webpack_require__(16);
+	var _masker = __webpack_require__(14);
 
 	/**
 	 * 货币控件
@@ -23621,7 +21212,7 @@
 	exports.CurrencyAdapter = CurrencyAdapter;
 
 /***/ },
-/* 126 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23629,7 +21220,7 @@
 	exports.__esModule = true;
 	exports.FloatAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _event = __webpack_require__(7);
 
@@ -23637,13 +21228,13 @@
 
 	var _core = __webpack_require__(10);
 
-	var _formater = __webpack_require__(15);
+	var _formater = __webpack_require__(13);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _masker = __webpack_require__(16);
+	var _masker = __webpack_require__(14);
 
 	var _util = __webpack_require__(5);
 
@@ -23795,7 +21386,7 @@
 	exports.FloatAdapter = FloatAdapter;
 
 /***/ },
-/* 127 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23803,7 +21394,7 @@
 	exports.__esModule = true;
 	exports.DateTimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _event = __webpack_require__(7);
 
@@ -23811,15 +21402,15 @@
 
 	var _core = __webpack_require__(10);
 
-	var _indexDataTable = __webpack_require__(60);
+	var _indexDataTable = __webpack_require__(62);
 
 	var _env = __webpack_require__(6);
 
-	var _neouiDatetimepicker = __webpack_require__(46);
+	var _neouiDatetimepicker = __webpack_require__(48);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _util = __webpack_require__(5);
 
@@ -24201,7 +21792,7 @@
 	exports.DateTimeAdapter = DateTimeAdapter;
 
 /***/ },
-/* 128 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24215,57 +21806,57 @@
 	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-09 16:17:17
 	                                                                                                                                                                                                                                                                               */
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _util = __webpack_require__(5);
 
-	var _formater = __webpack_require__(15);
+	var _formater = __webpack_require__(13);
 
-	var _masker = __webpack_require__(16);
+	var _masker = __webpack_require__(14);
 
-	var _dataRender = __webpack_require__(14);
+	var _dataRender = __webpack_require__(12);
 
-	var _indexDataTable = __webpack_require__(60);
+	var _indexDataTable = __webpack_require__(62);
 
 	var _event = __webpack_require__(7);
 
-	var _keroaYear = __webpack_require__(129);
+	var _keroaYear = __webpack_require__(118);
 
-	var _keroaMonth = __webpack_require__(130);
+	var _keroaMonth = __webpack_require__(119);
 
-	var _keroaYearmonth = __webpack_require__(131);
+	var _keroaYearmonth = __webpack_require__(120);
 
-	var _keroaTime = __webpack_require__(132);
+	var _keroaTime = __webpack_require__(121);
 
-	var _keroaString = __webpack_require__(133);
+	var _keroaString = __webpack_require__(122);
 
-	var _keroaInteger = __webpack_require__(134);
+	var _keroaInteger = __webpack_require__(123);
 
-	var _keroaCheckbox = __webpack_require__(122);
+	var _keroaCheckbox = __webpack_require__(111);
 
-	var _keroaCombo = __webpack_require__(124);
+	var _keroaCombo = __webpack_require__(113);
 
-	var _keroaRadio = __webpack_require__(135);
+	var _keroaRadio = __webpack_require__(124);
 
-	var _keroaFloat = __webpack_require__(126);
+	var _keroaFloat = __webpack_require__(115);
 
-	var _keroaCurrency = __webpack_require__(125);
+	var _keroaCurrency = __webpack_require__(114);
 
-	var _keroaDatetimepicker = __webpack_require__(127);
+	var _keroaDatetimepicker = __webpack_require__(116);
 
-	var _keroaUrl = __webpack_require__(136);
+	var _keroaUrl = __webpack_require__(125);
 
-	var _keroaPassword = __webpack_require__(137);
+	var _keroaPassword = __webpack_require__(126);
 
-	var _keroaPercent = __webpack_require__(138);
+	var _keroaPercent = __webpack_require__(127);
 
-	var _neouiValidate = __webpack_require__(47);
+	var _neouiValidate = __webpack_require__(49);
 
-	var _neouiMessage = __webpack_require__(37);
+	var _neouiMessage = __webpack_require__(39);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
-	var _i18n = __webpack_require__(18);
+	var _i18n = __webpack_require__(16);
 
 	var _core = __webpack_require__(10);
 
@@ -24356,7 +21947,7 @@
 				eOptions.data = options['data'];
 				eOptions.field = column['field'];
 				// 默认按照string处理
-				if (eType == '') eType = 'string';
+				if (!eType) eType = 'string';
 				if (eType == 'number') // 兼容之前版本
 					eType = 'integer';
 				if (eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime' || eType == 'year' || eType == 'month' || eType == 'yearmonth' || eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent' || eType == 'phoneNumber' || eType == 'landLine') {
@@ -25996,7 +23587,7 @@
 	exports.GridAdapter = GridAdapter;
 
 /***/ },
-/* 129 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26004,11 +23595,11 @@
 	exports.__esModule = true;
 	exports.YearAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _neouiYear = __webpack_require__(56);
+	var _neouiYear = __webpack_require__(58);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var YearAdapter = _baseAdapter.BaseAdapter.extend({
 	    init: function init() {
@@ -26047,7 +23638,7 @@
 	exports.YearAdapter = YearAdapter;
 
 /***/ },
-/* 130 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26055,11 +23646,11 @@
 	exports.__esModule = true;
 	exports.MonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _neouiMonth = __webpack_require__(50);
+	var _neouiMonth = __webpack_require__(52);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var MonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    init: function init() {
@@ -26101,7 +23692,7 @@
 	exports.MonthAdapter = MonthAdapter;
 
 /***/ },
-/* 131 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26109,11 +23700,11 @@
 	exports.__esModule = true;
 	exports.YearMonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _neouiYearmonth = __webpack_require__(57);
+	var _neouiYearmonth = __webpack_require__(59);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var YearMonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    init: function init() {
@@ -26151,7 +23742,7 @@
 	exports.YearMonthAdapter = YearMonthAdapter;
 
 /***/ },
-/* 132 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26159,7 +23750,7 @@
 	exports.__esModule = true;
 	exports.TimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _event = __webpack_require__(7);
 
@@ -26167,13 +23758,13 @@
 
 	var _env = __webpack_require__(6);
 
-	var _dateUtils = __webpack_require__(17);
+	var _dateUtils = __webpack_require__(15);
 
-	var _neouiClockpicker = __webpack_require__(45);
+	var _neouiClockpicker = __webpack_require__(47);
 
-	var _neouiTime = __webpack_require__(55);
+	var _neouiTime = __webpack_require__(57);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : Kero time adapter
@@ -26258,7 +23849,7 @@
 	exports.TimeAdapter = TimeAdapter;
 
 /***/ },
-/* 133 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26266,13 +23857,13 @@
 	exports.__esModule = true;
 	exports.StringAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _extend = __webpack_require__(2);
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : Kero string adapter
@@ -26338,7 +23929,7 @@
 	exports.StringAdapter = StringAdapter;
 
 /***/ },
-/* 134 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26346,7 +23937,7 @@
 	exports.__esModule = true;
 	exports.IntegerAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _util = __webpack_require__(5);
 
@@ -26354,13 +23945,13 @@
 
 	var _core = __webpack_require__(10);
 
-	var _formater = __webpack_require__(15);
+	var _formater = __webpack_require__(13);
 
-	var _masker = __webpack_require__(16);
+	var _masker = __webpack_require__(14);
 
 	var _env = __webpack_require__(6);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * Module : Kero integer
@@ -26455,7 +24046,7 @@
 	exports.IntegerAdapter = IntegerAdapter;
 
 /***/ },
-/* 135 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26463,7 +24054,7 @@
 	exports.__esModule = true;
 	exports.RadioAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _util = __webpack_require__(5);
 
@@ -26471,9 +24062,9 @@
 
 	var _event = __webpack_require__(7);
 
-	var _neouiRadio = __webpack_require__(42);
+	var _neouiRadio = __webpack_require__(44);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _env = __webpack_require__(6);
 
@@ -26720,7 +24311,7 @@
 	exports.RadioAdapter = RadioAdapter;
 
 /***/ },
-/* 136 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26728,11 +24319,11 @@
 	exports.__esModule = true;
 	exports.UrlAdapter = undefined;
 
-	var _keroaString = __webpack_require__(133);
+	var _keroaString = __webpack_require__(122);
 
 	var _dom = __webpack_require__(8);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var UrlAdapter = _keroaString.StringAdapter.extend({
 	    init: function init() {
@@ -26785,7 +24376,7 @@
 	exports.UrlAdapter = UrlAdapter;
 
 /***/ },
-/* 137 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26793,7 +24384,7 @@
 	exports.__esModule = true;
 	exports.PassWordAdapter = undefined;
 
-	var _keroaString = __webpack_require__(133);
+	var _keroaString = __webpack_require__(122);
 
 	var _util = __webpack_require__(5);
 
@@ -26801,7 +24392,7 @@
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * 密码控件
@@ -26856,7 +24447,7 @@
 	exports.PassWordAdapter = PassWordAdapter;
 
 /***/ },
-/* 138 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26864,15 +24455,15 @@
 	exports.__esModule = true;
 	exports.PercentAdapter = undefined;
 
-	var _keroaFloat = __webpack_require__(126);
+	var _keroaFloat = __webpack_require__(115);
 
-	var _formater = __webpack_require__(15);
+	var _formater = __webpack_require__(13);
 
-	var _masker = __webpack_require__(16);
+	var _masker = __webpack_require__(14);
 
 	var _core = __webpack_require__(10);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	/**
 	 * 百分比控件
@@ -26901,7 +24492,7 @@
 	exports.PercentAdapter = PercentAdapter;
 
 /***/ },
-/* 139 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26909,15 +24500,15 @@
 	exports.__esModule = true;
 	exports.PaginationAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _extend = __webpack_require__(2);
 
-	var _neouiPagination = __webpack_require__(40);
+	var _neouiPagination = __webpack_require__(42);
 
 	var _util = __webpack_require__(5);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var PaginationAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [],
@@ -27016,7 +24607,7 @@
 	exports.PaginationAdapter = PaginationAdapter;
 
 /***/ },
-/* 140 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27024,13 +24615,13 @@
 	exports.__esModule = true;
 	exports.PhoneNumberAdapter = undefined;
 
-	var _keroaString = __webpack_require__(133);
+	var _keroaString = __webpack_require__(122);
 
-	var _masker = __webpack_require__(16);
+	var _masker = __webpack_require__(14);
 
 	var _core = __webpack_require__(10);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _event = __webpack_require__(7);
 
@@ -27071,7 +24662,7 @@
 	exports.PhoneNumberAdapter = PhoneNumberAdapter;
 
 /***/ },
-/* 141 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27079,13 +24670,13 @@
 	exports.__esModule = true;
 	exports.LandLineAdapter = undefined;
 
-	var _keroaString = __webpack_require__(133);
+	var _keroaString = __webpack_require__(122);
 
-	var _masker = __webpack_require__(16);
+	var _masker = __webpack_require__(14);
 
 	var _core = __webpack_require__(10);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _event = __webpack_require__(7);
 
@@ -27126,7 +24717,7 @@
 	exports.LandLineAdapter = LandLineAdapter;
 
 /***/ },
-/* 142 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27134,11 +24725,11 @@
 	exports.__esModule = true;
 	exports.ProgressAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _neouiProgress = __webpack_require__(41);
+	var _neouiProgress = __webpack_require__(43);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
 	    init: function init() {
@@ -27169,7 +24760,7 @@
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 143 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27177,11 +24768,11 @@
 	exports.__esModule = true;
 	exports.SwitchAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _neouiSwitch = __webpack_require__(53);
+	var _neouiSwitch = __webpack_require__(55);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
 	    init: function init() {
@@ -27247,7 +24838,7 @@
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 144 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27255,11 +24846,11 @@
 	exports.__esModule = true;
 	exports.TextAreaAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _event = __webpack_require__(7);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
 	    init: function init() {
@@ -27295,7 +24886,7 @@
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 145 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27303,19 +24894,19 @@
 	exports.__esModule = true;
 	exports.TextFieldAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
 	var _extend = __webpack_require__(2);
 
-	var _neouiTextfield = __webpack_require__(27);
+	var _neouiTextfield = __webpack_require__(29);
 
-	var _keroaFloat = __webpack_require__(126);
+	var _keroaFloat = __webpack_require__(115);
 
-	var _keroaString = __webpack_require__(133);
+	var _keroaString = __webpack_require__(122);
 
-	var _keroaInteger = __webpack_require__(134);
+	var _keroaInteger = __webpack_require__(123);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
 	    init: function init() {
@@ -27366,7 +24957,7 @@
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 146 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27374,11 +24965,11 @@
 	exports.__esModule = true;
 	exports.MonthDateAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _neouiMonthdate = __webpack_require__(51);
+	var _neouiMonthdate = __webpack_require__(53);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var MonthDateAdapter = _baseAdapter.BaseAdapter.extend({
 	    init: function init() {
@@ -27419,7 +25010,7 @@
 	exports.MonthDateAdapter = MonthDateAdapter;
 
 /***/ },
-/* 147 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27427,15 +25018,15 @@
 	exports.__esModule = true;
 	exports.TreeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _neouiYear = __webpack_require__(56);
+	var _neouiYear = __webpack_require__(58);
 
 	var _util = __webpack_require__(5);
 
-	var _indexDataTable = __webpack_require__(60);
+	var _indexDataTable = __webpack_require__(62);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var TreeAdapter = _baseAdapter.BaseAdapter.extend({
 		mixins: [],
@@ -27870,7 +25461,7 @@
 	exports.TreeAdapter = TreeAdapter;
 
 /***/ },
-/* 148 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27878,11 +25469,11 @@
 	exports.__esModule = true;
 	exports.MultilangAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _baseAdapter = __webpack_require__(106);
 
-	var _neouiMultilang = __webpack_require__(38);
+	var _neouiMultilang = __webpack_require__(40);
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _core = __webpack_require__(10);
 
@@ -28111,7 +25702,7 @@
 	exports.MultilangAdapter = MultilangAdapter;
 
 /***/ },
-/* 149 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28121,13 +25712,13 @@
 	});
 	exports.u = undefined;
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _extend = __webpack_require__(2);
 
 	var _event = __webpack_require__(7);
 
-	var _createApp = __webpack_require__(150);
+	var _createApp = __webpack_require__(139);
 
 	window.App = _createApp.App;
 
@@ -28153,7 +25744,7 @@
 	exports.u = api;
 
 /***/ },
-/* 150 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28163,11 +25754,11 @@
 	});
 	exports.createApp = exports.App = undefined;
 
-	var _compMgr = __webpack_require__(12);
+	var _compMgr = __webpack_require__(22);
 
 	var _util = __webpack_require__(5);
 
-	var _hotKeys = __webpack_require__(19);
+	var _hotKeys = __webpack_require__(17);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
 	                                                                                                                                                           * Module : compox createApp
@@ -28237,30 +25828,30 @@
 	exports.createApp = createApp;
 
 /***/ },
-/* 151 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _createApp = __webpack_require__(150);
+	var _createApp = __webpack_require__(139);
 
-	var _adjustMetaFunc = __webpack_require__(152);
+	var _adjustMetaFunc = __webpack_require__(141);
 
-	var _dataTable = __webpack_require__(153);
+	var _dataTable = __webpack_require__(142);
 
-	var _comp = __webpack_require__(154);
+	var _comp = __webpack_require__(143);
 
-	var _validate = __webpack_require__(156);
+	var _validate = __webpack_require__(144);
 
-	var _cache = __webpack_require__(157);
+	var _cache = __webpack_require__(145);
 
-	var _iwebCore = __webpack_require__(158);
+	var _iwebCore = __webpack_require__(146);
 
-	var _ajax = __webpack_require__(159);
+	var _ajax = __webpack_require__(147);
 
-	var _serverEvent = __webpack_require__(160);
+	var _serverEvent = __webpack_require__(148);
 
-	var _util = __webpack_require__(161);
+	var _util = __webpack_require__(149);
 
 	// setAdjustMetaFunc
 	/**
@@ -28307,12 +25898,14 @@
 	_createApp.App.prototype.setEnable = _util.setEnable;
 
 /***/ },
-/* 152 */
+/* 141 */
 /***/ function(module, exports) {
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	/**
 	 * Module : compox-util setAdjustMetaFunc
 	 * Author : huyue(huyueb@yonyou.com)
@@ -28326,12 +25919,14 @@
 	exports.setAdjustMetaFunc = setAdjustMetaFunc;
 
 /***/ },
-/* 153 */
+/* 142 */
 /***/ function(module, exports) {
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : compox-util dataTable
 	 * Author : huyue(huyueb@yonyou.com)
@@ -28355,15 +25950,17 @@
 	exports.getDataTables = getDataTables;
 
 /***/ },
-/* 154 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.showComp = exports.getComps = exports.getCompsByType = exports.getCompsByDataTable = exports.getComp = exports.createComp = undefined;
 
-	var _compMgr = __webpack_require__(155);
+	var _compMgr = __webpack_require__(25);
 
 	var _util = __webpack_require__(5);
 
@@ -28483,280 +26080,14 @@
 	exports.showComp = showComp;
 
 /***/ },
-/* 155 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.__esModule = true;
-	exports.compMgr = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow compMgr
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-28 18:41:06
-	                                                                                                                                                                                                                                                                               * Update : 2016-09-13 09:26:00
-	                                                                                                                                                                                                                                                                               */
-
-	var _dom = __webpack_require__(8);
-
-	var _util = __webpack_require__(5);
-
-	function _findRegisteredClass(name, optReplace) {
-	    for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	        if (CompMgr.registeredControls[i].className === name) {
-	            if (typeof optReplace !== 'undefined') {
-	                CompMgr.registeredControls[i] = optReplace;
-	            }
-	            return CompMgr.registeredControls[i];
-	        }
-	    }
-	    return false;
-	}
-
-	function _getUpgradedListOfElement(element) {
-	    var dataUpgraded = element.getAttribute('data-upgraded');
-	    // Use `['']` as default value to conform the `,name,name...` style.
-	    return dataUpgraded === null ? [''] : dataUpgraded.split(',');
-	}
-
-	function _isElementUpgraded(element, jsClass) {
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    return upgradedList.indexOf(jsClass) != -1;
-	}
-
-	function _upgradeElement(element, optJsClass) {
-	    if (!((typeof element === 'undefined' ? 'undefined' : _typeof(element)) === 'object' && element instanceof Element)) {
-	        throw new Error('Invalid argument provided to upgrade MDL element.');
-	    }
-	    var upgradedList = _getUpgradedListOfElement(element);
-	    var classesToUpgrade = [];
-	    if (!optJsClass) {
-	        var className = element.className;
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            var component = CompMgr.registeredControls[i];
-	            if (className.indexOf(component.cssClass) > -1 && classesToUpgrade.indexOf(component) === -1 && !_isElementUpgraded(element, component.className)) {
-	                classesToUpgrade.push(component);
-	            }
-	        }
-	    } else if (!_isElementUpgraded(element, optJsClass)) {
-	        classesToUpgrade.push(_findRegisteredClass(optJsClass));
-	    }
-
-	    // Upgrade the element for each classes.
-	    for (var i = 0, n = classesToUpgrade.length, registeredClass; i < n; i++) {
-	        registeredClass = classesToUpgrade[i];
-	        if (registeredClass) {
-	            if (element[registeredClass.className]) {
-	                continue;
-	            }
-	            // Mark element as upgraded.
-	            upgradedList.push(registeredClass.className);
-	            element.setAttribute('data-upgraded', upgradedList.join(','));
-	            var instance = new registeredClass.classConstructor(element);
-	            CompMgr.createdControls.push(instance);
-	            // Call any callbacks the user has registered with this component type.
-	            for (var j = 0, m = registeredClass.callbacks.length; j < m; j++) {
-	                registeredClass.callbacks[j](element);
-	            }
-	            element[registeredClass.className] = instance;
-	        } else {
-	            throw new Error('Unable to find a registered component for the given class.');
-	        }
-	    }
-	}
-
-	function _upgradeDomInternal(optJsClass, optCssClass, ele) {
-	    if (typeof optJsClass === 'undefined' && typeof optCssClass === 'undefined') {
-	        for (var i = 0; i < CompMgr.registeredControls.length; i++) {
-	            _upgradeDomInternal(CompMgr.registeredControls[i].className, registeredControls[i].cssClass, ele);
-	        }
-	    } else {
-	        var jsClass = optJsClass;
-	        if (!optCssClass) {
-	            var registeredClass = _findRegisteredClass(jsClass);
-	            if (registeredClass) {
-	                optCssClass = registeredClass.cssClass;
-	            }
-	        }
-	        var elements;
-	        if (ele) {
-	            elements = (0, _dom.hasClass)(ele, optCssClass) ? [ele] : ele.querySelectorAll('.' + optCssClass);
-	        } else {
-	            elements = document.querySelectorAll('.' + optCssClass);
-	        }
-	        for (var n = 0; n < elements.length; n++) {
-	            _upgradeElement(elements[n], jsClass);
-	        }
-	    }
-	}
-
-	var CompMgr = {
-	    plugs: {},
-	    dataAdapters: {},
-	    /** 注册的控件*/
-	    registeredControls: [],
-	    createdControls: [],
-	    /**
-	     *
-	     * @param options  {el:'#content', model:{}}
-	     */
-	    apply: function apply(options) {
-	        if (options) {
-	            var _el = options.el || document.body;
-	            var model = options.model;
-	        }
-	        if (typeof _el == 'string') {
-	            _el = document.body.querySelector(_el);
-	        }
-	        if (_el == null || (typeof _el === 'undefined' ? 'undefined' : _typeof(_el)) != 'object') _el = document.body;
-	        var comps = _el.querySelectorAll('[u-meta]');
-	        comps.forEach(function (element) {
-	            if (element['comp']) return;
-	            var options = JSON.parse(element.getAttribute('u-meta'));
-	            if (options && options['type']) {
-	                //var comp = CompMgr._createComp({el:element,options:options,model:model});
-	                var comp = CompMgr.createDataAdapter({
-	                    el: element,
-	                    options: options,
-	                    model: model
-	                });
-	                if (comp) {
-	                    element['adpt'] = comp;
-	                    element['u-meta'] = comp;
-	                }
-	            }
-	        });
-	    },
-	    addPlug: function addPlug(config) {
-	        var plug = config['plug'],
-	            name = config['name'];
-	        this.plugs || (this.plugs = {});
-	        if (this.plugs[name]) {
-	            throw new Error('plug has exist:' + name);
-	        }
-	        plug.compType = name;
-	        this.plugs[name] = plug;
-	    },
-	    addDataAdapter: function addDataAdapter(config) {
-	        var adapter = config['adapter'],
-	            name = config['name'];
-	        //dataType = config['dataType'] || ''
-	        //var key = dataType ? name + '.' + dataType : name;
-	        this.dataAdapters || (dataAdapters = {});
-	        if (this.dataAdapters[name]) {
-	            throw new Error('dataAdapter has exist:' + name);
-	        }
-	        this.dataAdapters[name] = adapter;
-	    },
-	    getDataAdapter: function getDataAdapter(name) {
-	        if (!name) return;
-	        this.dataAdapters || (dataAdapters = {});
-	        //var key = dataType ? name + '.' + dataType : name;
-	        return this.dataAdapters[name];
-	    },
-	    createDataAdapter: function createDataAdapter(options) {
-	        var opt = options['options'];
-	        var type = opt['type'],
-	            id = opt['id'];
-	        var adpt = this.dataAdapters[type];
-	        if (!adpt) return null;
-	        var comp = new adpt(options);
-	        comp.type = type;
-	        comp.id = id;
-	        return comp;
-	    },
-	    _createComp: function _createComp(options) {
-	        var opt = options['options'];
-	        var type = opt['type'];
-	        var plug = this.plugs[type];
-	        if (!plug) return null;
-	        var comp = new plug(options);
-	        comp.type = type;
-	        return comp;
-	    },
-	    /**
-	     * 注册UI控件
-	     */
-	    regComp: function regComp(config) {
-	        var newConfig = {
-	            classConstructor: config.comp,
-	            className: config.compAsString || config['compAsString'],
-	            cssClass: config.css || config['css'],
-	            callbacks: [],
-	            dependencies: config.dependencies || []
-	        };
-	        config.comp.prototype.compType = config.compAsString;
-	        for (var i = 0; i < this.registeredControls.length; i++) {
-	            var item = this.registeredControls[i];
-	            //registeredControls.forEach(function(item) {
-	            if (item.cssClass === newConfig.cssClass) {
-	                throw new Error('The provided cssClass has already been registered: ' + item.cssClass);
-	            }
-	            if (item.className === newConfig.className) {
-	                throw new Error('The provided className has already been registered');
-	            }
-	        };
-	        this.registeredControls.push(newConfig);
-	    },
-
-	    updateComp: function updateComp(ele) {
-	        this._reorderComps();
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            _upgradeDomInternal(this.registeredControls[n].className, null, ele);
-	        }
-	    },
-	    // 后续遍历registeredControls，重新排列
-	    _reorderComps: function _reorderComps() {
-	        var tmpArray = [];
-	        var dictory = {};
-
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            dictory[this.registeredControls[n].className] = this.registeredControls[n];
-	        }
-	        for (var n = 0; n < this.registeredControls.length; n++) {
-	            traverse(this.registeredControls[n]);
-	        }
-
-	        this.registeredControls = tmpArray;
-
-	        function traverse(control) {
-	            if ((0, _util.inArray)(control, tmpArray)) return;
-	            if (control.dependencies.length > 0) {
-	                for (var i = 0, len = control.dependencies.length; i < len; i++) {
-	                    var childControl = dictory[control.dependencies[i]];
-	                    traverse(childControl);
-	                }
-	            }
-	            tmpArray.push(control);
-	        }
-	    }
-	};
-
-	var compMgr = CompMgr;
-	exports.compMgr = compMgr;
-
-	///**
-	// * 加载控件
-	// */
-	//
-	//if (document.readyState && document.readyState === 'complete'){
-	//    compMgr.updateComp();
-	//}else{
-	//    on(window, 'load', function() {
-	//
-	//        //扫描并生成控件
-	//        compMgr.updateComp();
-	//    });
-	//}
-
-/***/ },
-/* 156 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.compsValidateMultiParam = exports.compsValidate = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -28822,12 +26153,14 @@
 	exports.compsValidateMultiParam = compsValidateMultiParam;
 
 /***/ },
-/* 157 */
+/* 145 */
 /***/ function(module, exports) {
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : compox-util cache
 	 * Author : huyue(huyueb@yonyou.com)
@@ -28887,12 +26220,14 @@
 	exports.removeSessionCache = removeSessionCache;
 
 /***/ },
-/* 158 */
+/* 146 */
 /***/ function(module, exports) {
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : compox-util iwebCore
 	 * Author : huyue(huyueb@yonyou.com)
@@ -28916,15 +26251,17 @@
 	exports.getClientAttribute = getClientAttribute;
 
 /***/ },
-/* 159 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ajax = undefined;
 
-	var _ajax = __webpack_require__(13);
+	var _ajax = __webpack_require__(11);
 
 	var ajax = function ajax(params) {
 	    params = _wrapAjax.call(this, params);
@@ -28982,12 +26319,14 @@
 	exports.ajax = ajax;
 
 /***/ },
-/* 160 */
+/* 148 */
 /***/ function(module, exports) {
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	/**
 	 * Module : compox-util serverEvent
 	 * Author : huyue(huyueb@yonyou.com)
@@ -29001,12 +26340,14 @@
 	exports.serverEvent = serverEvent;
 
 /***/ },
-/* 161 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.setEnable = undefined;
 
 	var _util = __webpack_require__(5);
@@ -29031,18 +26372,18 @@
 	exports.setEnable = setEnable;
 
 /***/ },
-/* 162 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _serverDataTable = __webpack_require__(163);
+	var _serverDataTable = __webpack_require__(151);
 
-	var _serverFire = __webpack_require__(165);
+	var _serverFire = __webpack_require__(152);
 
-	var _serverProcessXHRError = __webpack_require__(170);
+	var _serverProcessXHRError = __webpack_require__(153);
 
-	var _serverUtil = __webpack_require__(171);
+	var _serverUtil = __webpack_require__(154);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
 	                                                                                                                                                           * Module : Kero webpack entry serverEvnet index
@@ -29099,7 +26440,7 @@
 	window.ServerEvent = ServerEvent;
 
 /***/ },
-/* 163 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29107,7 +26448,7 @@
 	exports.__esModule = true;
 	exports.updateDataTables = exports.addAllDataTables = exports.addDataTables = exports.addDataTable = undefined;
 
-	var _util = __webpack_require__(164);
+	var _util = __webpack_require__(5);
 
 	var addDataTable = function addDataTable(dataTableId, rule) {
 	    var dataTable = this.app.getDataTable(dataTableId);
@@ -29173,167 +26514,7 @@
 	exports.updateDataTables = updateDataTables;
 
 /***/ },
-/* 164 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	/**
-	 * Module : Sparrow util tools
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-
-	/**
-	 * 创建一个带壳的对象,防止外部修改
-	 * @param {Object} proto
-	 */
-	var createShellObject = function createShellObject(proto) {
-		var exf = function exf() {};
-		exf.prototype = proto;
-		return new exf();
-	};
-	var execIgnoreError = function execIgnoreError(a, b, c) {
-		try {
-			a.call(b, c);
-		} catch (e) {}
-	};
-
-	var getFunction = function getFunction(target, val) {
-		if (!val || typeof val == 'function') return val;
-		if (typeof target[val] == 'function') return target[val];else if (typeof window[val] == 'function') return window[val];else if (val.indexOf('.') != -1) {
-			var func = getJSObject(target, val);
-			if (typeof func == 'function') return func;
-			func = getJSObject(window, val);
-			if (typeof func == 'function') return func;
-		}
-		return val;
-	};
-	var getJSObject = function getJSObject(target, names) {
-		if (!names) {
-			return;
-		}
-		if ((typeof names === 'undefined' ? 'undefined' : _typeof(names)) == 'object') return names;
-		var nameArr = names.split('.');
-		var obj = target;
-		for (var i = 0; i < nameArr.length; i++) {
-			obj = obj[nameArr[i]];
-			if (!obj) return null;
-		}
-		return obj;
-	};
-	var isDate = function isDate(input) {
-		return Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
-	};
-	var isNumber = function isNumber(obj) {
-		//return obj === +obj
-		//加了个typeof 判断，因为'431027199110.078573'会解析成number
-		return obj - parseFloat(obj) + 1 >= 0;
-	};
-	var isArray = Array.isArray || function (val) {
-		return Object.prototype.toString.call(val) === '[object Array]';
-	};
-	var isEmptyObject = function isEmptyObject(obj) {
-		var name;
-		for (name in obj) {
-			return false;
-		}
-		return true;
-	};
-	var inArray = function inArray(node, arr) {
-		if (!arr instanceof Array) {
-			throw "arguments is not Array";
-		}
-		for (var i = 0, k = arr.length; i < k; i++) {
-			if (node == arr[i]) {
-				return true;
-			}
-		}
-		return false;
-	};
-	var isDomElement = function isDomElement(obj) {
-		if (window['HTMLElement']) {
-			return obj instanceof HTMLElement;
-		} else {
-			return obj && obj.tagName && obj.nodeType === 1;
-		}
-	};
-	var each = function each(obj, callback) {
-		if (obj.forEach) {
-			obj.forEach(function (v, k) {
-				callback(k, v);
-			});
-		} else if (obj instanceof Object) {
-			for (var k in obj) {
-				callback(k, obj[k]);
-			}
-		} else {
-			return;
-		}
-	};
-	try {
-		NodeList.prototype.forEach = Array.prototype.forEach;
-	} catch (e) {}
-
-	/**
-	 * 获得字符串的字节长度
-	 */
-	String.prototype.lengthb = function () {
-		//	var str = this.replace(/[^\x800-\x10000]/g, "***");
-		var str = this.replace(/[^\x00-\xff]/g, "**");
-		return str.length;
-	};
-
-	/**
-	 * 将AFindText全部替换为ARepText
-	 */
-	String.prototype.replaceAll = function (AFindText, ARepText) {
-		//自定义String对象的方法
-		var raRegExp = new RegExp(AFindText, "g");
-		return this.replace(raRegExp, ARepText);
-	};
-
-	var dateFormat = function dateFormat(str) {
-		//如果不是string类型  原型返回
-		if (typeof str !== 'string') {
-			return str;
-		}
-		//判断 str 格式如果是 yy-mm-dd
-		if (str && str.indexOf('-') > -1) {
-			//获取当前是否是 ios版本,>8是因为ios不识别new Date（“2016/11”）格式
-			var ua = navigator.userAgent.toLowerCase();
-			if (/iphone|ipad|ipod/.test(ua)) {
-				//转换成 yy/mm/dd
-				str = str.replace(/-/g, "/");
-				str = str.replace(/(^\s+)|(\s+$)/g, "");
-				if (str.length <= 8) {
-					str = str += "/01";
-				}
-			}
-		}
-
-		return str;
-	};
-
-	exports.createShellObject = createShellObject;
-	exports.execIgnoreError = execIgnoreError;
-	exports.getFunction = getFunction;
-	exports.getJSObject = getJSObject;
-	exports.isDate = isDate;
-	exports.isNumber = isNumber;
-	exports.isArray = isArray;
-	exports.isEmptyObject = isEmptyObject;
-	exports.inArray = inArray;
-	exports.isDomElement = isDomElement;
-	exports.each = each;
-	exports.dateFormat = dateFormat;
-
-/***/ },
-/* 165 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29341,9 +26522,9 @@
 	exports.__esModule = true;
 	exports.setSuccessFunc = exports._successFunc = exports.fire = undefined;
 
-	var _extend = __webpack_require__(166);
+	var _extend = __webpack_require__(2);
 
-	var _ajax = __webpack_require__(168);
+	var _ajax = __webpack_require__(11);
 
 	/**
 	 * Module : kero app serverEvent fire
@@ -29418,424 +26599,7 @@
 	exports.setSuccessFunc = setSuccessFunc;
 
 /***/ },
-/* 166 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.extend = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : Sparrow extend
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-07-27 21:46:50
-	                                                                                                                                                                                                                                                                               */
-
-	var _enumerables = __webpack_require__(167);
-
-	/**
-	 * 复制对象属性
-	 *
-	 * @param {Object}  目标对象
-	 * @param {config} 源对象
-	 */
-	var extend = function extend(object, config) {
-		var args = arguments,
-		    options;
-		if (args.length > 1) {
-			for (var len = 1; len < args.length; len++) {
-				options = args[len];
-				if (object && options && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					var i, j, k;
-					for (i in options) {
-						object[i] = options[i];
-					}
-					if (_enumerables.enumerables) {
-						for (j = _enumerables.enumerables.length; j--;) {
-							k = _enumerables.enumerables[j];
-							if (options.hasOwnProperty && options.hasOwnProperty(k)) {
-								object[k] = options[k];
-							}
-						}
-					}
-				}
-			}
-		}
-		return object;
-	};
-
-	exports.extend = extend;
-
-/***/ },
-/* 167 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	exports.__esModule = true;
-	/**
-	 * Module : Sparrow extend enum
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-27 21:46:50
-	 */
-
-	var U_LANGUAGES = "i_languages";
-	var U_THEME = "u_theme";
-	var U_LOCALE = "u_locale";
-	var U_USERCODE = "usercode";
-
-	var enumerables = true,
-	    enumerablesTest = {
-		toString: 1
-	},
-	    toString = Object.prototype.toString;
-	for (var i in enumerablesTest) {
-		exports.enumerables = enumerables = null;
-	}
-	if (enumerables) {
-		exports.enumerables = enumerables = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
-	}
-
-	exports.enumerables = enumerables;
-	exports.U_LANGUAGES = U_LANGUAGES;
-	exports.U_THEME = U_THEME;
-	exports.U_LOCALE = U_LOCALE;
-	exports.U_USERCODE = U_USERCODE;
-
-/***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-	exports.ajax = undefined;
-
-	var _env = __webpack_require__(169);
-
-	var XmlHttp = {
-		get: "get",
-		post: "post",
-		reqCount: 4,
-		createXhr: function createXhr() {
-			var xmlhttp = null;
-			/*if (window.XMLHttpRequest) {
-	    xmlhttp = new XMLHttpRequest();
-	  } else {
-	    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	  }*/
-			if (_env.env.isIE8) {
-				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); //IE低版本创建XMLHTTP
-			} else if (_env.env.isIE) {
-				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP"); //IE高版本创建XMLHTTP
-			} else if (window.XMLHttpRequest) {
-				xmlhttp = new XMLHttpRequest();
-			}
-			return xmlhttp;
-		},
-		ajax: function ajax(_json) {
-			var url = _json["url"];
-			var callback = _json["success"];
-			var async = _json["async"] == undefined ? true : _json["async"];
-			var error = _json["error"];
-			var params = _json["data"] || {};
-			var method = (_json["type"] == undefined ? XmlHttp.post : _json["type"]).toLowerCase();
-			var gzipFlag = params.compressType;
-			url = XmlHttp.serializeUrl(url);
-			params = XmlHttp.serializeParams(params);
-			if (method == XmlHttp.get && params != null) {
-				url += "&" + params;
-				params = null; //如果是get请求,保证最终会执行send(null)
-			}
-
-			var xmlhttp = XmlHttp.createXhr();
-			//xmlhttp.open(method, url+ escape(new Date()), async);
-			xmlhttp.open(method, url, async);
-
-			if (method == XmlHttp.post) {
-				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=UTF-8");
-			}
-
-			var execount = 0;
-			// 异步
-			if (async) {
-				// readyState 从 1~4发生4次变化
-				xmlhttp.onreadystatechange = function () {
-					execount++;
-					// 等待readyState状态不再变化之后,再执行回调函数
-					//if (execount == XmlHttp.reqCount) {// 火狐下存在问题，修改判断方式
-					if (xmlhttp.readyState == XmlHttp.reqCount) {
-						XmlHttp.execBack(xmlhttp, callback, error);
-					}
-				};
-				// send方法要在在回调函数之后执行
-				xmlhttp.send(params);
-			} else {
-				// 同步 readyState 直接变为 4
-				// 并且 send 方法要在回调函数之前执行
-				xmlhttp.send(params);
-				XmlHttp.execBack(xmlhttp, callback, error);
-			}
-		},
-		execBack: function execBack(xmlhttp, callback, error) {
-			//if (xmlhttp.readyState == 4
-			if (xmlhttp.status == 200 || xmlhttp.status == 304 || xmlhttp.readyState == 4) {
-				callback(xmlhttp.responseText, xmlhttp.status, xmlhttp);
-			} else {
-				if (error) {
-					error(xmlhttp.responseText, xmlhttp.status, xmlhttp);
-				} else {
-					var errorMsg = "no error callback function!";
-					if (xmlhttp.responseText) {
-						errorMsg = xmlhttp.responseText;
-					}
-					alert(errorMsg);
-					// throw errorMsg;
-				}
-			}
-		},
-		serializeUrl: function serializeUrl(url) {
-			var cache = "cache=" + Math.random();
-			if (url.indexOf("?") > 0) {
-				url += "&" + cache;
-			} else {
-				url += "?" + cache;
-			}
-			return url;
-		},
-		serializeParams: function serializeParams(params) {
-			var ud = undefined;
-			if (ud == params || params == null || params == "") {
-				return null;
-			}
-			if (params.constructor == Object) {
-				var result = "";
-				for (var p in params) {
-					result += p + "=" + encodeURIComponent(params[p]) + "&";
-				}
-				return result.substring(0, result.length - 1);
-			}
-			return params;
-		}
-	}; /**
-	    * Module : Sparrow ajax
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-07-28 19:06:36
-	    */
-
-	var ajax = XmlHttp.ajax;
-	exports.ajax = ajax;
-
-/***/ },
-/* 169 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.env = undefined;
-
-	var _extend = __webpack_require__(166);
-
-	var u = {}; /**
-	             * Module : Sparrow browser environment
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-07-27 21:46:50
-	             */
-
-	(0, _extend.extend)(u, {
-		isIE: false,
-		isFF: false,
-		isOpera: false,
-		isChrome: false,
-		isSafari: false,
-		isWebkit: false,
-		isIE8_BEFORE: false,
-		isIE8: false,
-		isIE8_CORE: false,
-		isIE9: false,
-		isIE9_CORE: false,
-		isIE10: false,
-		isIE10_ABOVE: false,
-		isIE11: false,
-		isEdge: false,
-		isIOS: false,
-		isIphone: false,
-		isIPAD: false,
-		isStandard: false,
-		version: 0,
-		isWin: false,
-		isUnix: false,
-		isLinux: false,
-		isAndroid: false,
-		isAndroidPAD: false,
-		isAndroidPhone: false,
-		isMac: false,
-		hasTouch: false,
-		isMobile: false
-	});
-
-	(function () {
-		var userAgent = navigator.userAgent,
-		    rMsie = /(msie\s|trident.*rv:)([\w.]+)/,
-		    rFirefox = /(firefox)\/([\w.]+)/,
-		    rOpera = /(opera).+version\/([\w.]+)/,
-		    rChrome = /(chrome)\/([\w.]+)/,
-		    rSafari = /version\/([\w.]+).*(safari)/,
-		    version,
-		    ua = userAgent.toLowerCase(),
-		    s,
-		    browserMatch = {
-			browser: "",
-			version: ''
-		},
-		    match = rMsie.exec(ua);
-
-		if (match != null) {
-			browserMatch = {
-				browser: "IE",
-				version: match[2] || "0"
-			};
-		}
-		match = rFirefox.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[1] || "",
-				version: match[2] || "0"
-			};
-		}
-		match = rOpera.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[1] || "",
-				version: match[2] || "0"
-			};
-		}
-		match = rChrome.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[1] || "",
-				version: match[2] || "0"
-			};
-		}
-		match = rSafari.exec(ua);
-		if (match != null) {
-			browserMatch = {
-				browser: match[2] || "",
-				version: match[1] || "0"
-			};
-		}
-
-		if (userAgent.indexOf("Edge") > -1) {
-			u.isEdge = true;
-		}
-		if (s = ua.match(/opera.([\d.]+)/)) {
-			u.isOpera = true;
-		} else if (browserMatch.browser == "IE" && browserMatch.version == 11) {
-			u.isIE11 = true;
-			u.isIE = true;
-		} else if (s = ua.match(/chrome\/([\d.]+)/)) {
-			u.isChrome = true;
-			u.isStandard = true;
-		} else if (s = ua.match(/version\/([\d.]+).*safari/)) {
-			u.isSafari = true;
-			u.isStandard = true;
-		} else if (s = ua.match(/gecko/)) {
-			//add by licza : support XULRunner
-			u.isFF = true;
-			u.isStandard = true;
-		} else if (s = ua.match(/msie ([\d.]+)/)) {
-			u.isIE = true;
-		} else if (s = ua.match(/firefox\/([\d.]+)/)) {
-			u.isFF = true;
-			u.isStandard = true;
-		}
-		if (ua.match(/webkit\/([\d.]+)/)) {
-			u.isWebkit = true;
-		}
-		if (ua.match(/ipad/i)) {
-			u.isIOS = true;
-			u.isIPAD = true;
-			u.isStandard = true;
-		}
-
-		if (ua.match(/iphone/i)) {
-			u.isIOS = true;
-			u.isIphone = true;
-		}
-
-		if (navigator.platform == "Mac68K" || navigator.platform == "MacPPC" || navigator.platform == "Macintosh" || navigator.platform == "MacIntel") {
-			//u.isIOS = true;
-			u.isMac = true;
-		}
-
-		if (navigator.platform == "Win32" || navigator.platform == "Windows" || navigator.platform == "Win64") {
-			u.isWin = true;
-		}
-
-		if (navigator.platform == "X11" && !u.isWin && !u.isMac) {
-			u.isUnix = true;
-		}
-		if (String(navigator.platform).indexOf("Linux") > -1) {
-			u.isLinux = true;
-		}
-
-		if (ua.indexOf('Android') > -1 || ua.indexOf('android') > -1 || ua.indexOf('Adr') > -1 || ua.indexOf('adr') > -1) {
-			u.isAndroid = true;
-		}
-
-		u.version = version ? browserMatch.version ? browserMatch.version : 0 : 0;
-		if (u.isAndroid) {
-			if (window.screen.width >= 768 && window.screen.width < 1024) {
-				u.isAndroidPAD = true;
-			}
-			if (window.screen.width <= 768) {
-				u.isAndroidPhone = true;
-			}
-		}
-		if (u.isIE) {
-			var intVersion = parseInt(u.version);
-			var mode = document.documentMode;
-			if (mode == null) {
-				if (intVersion == 6 || intVersion == 7) {
-					u.isIE8_BEFORE = true;
-				}
-			} else {
-				if (mode == 7) {
-					u.isIE8_BEFORE = true;
-				} else if (mode == 8) {
-					u.isIE8 = true;
-				} else if (mode == 9) {
-					u.isIE9 = true;
-					u.isSTANDARD = true;
-				} else if (mode == 10) {
-					u.isIE10 = true;
-					u.isSTANDARD = true;
-					u.isIE10_ABOVE = true;
-				} else {
-					u.isSTANDARD = true;
-				}
-				if (intVersion == 8) {
-					u.isIE8_CORE = true;
-				} else if (intVersion == 9) {
-					u.isIE9_CORE = true;
-				} else if (browserMatch.version == 11) {
-					u.isIE11 = true;
-				}
-			}
-		}
-		if ("ontouchend" in document) {
-			u.hasTouch = true;
-		}
-		if (u.isIphone || u.isAndroidPhone) u.isMobile = true;
-	})();
-
-	var env = u;
-	exports.env = env;
-
-/***/ },
-/* 170 */
+/* 153 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -29864,7 +26628,7 @@
 	exports.processXHRError = processXHRError;
 
 /***/ },
-/* 171 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29872,11 +26636,11 @@
 	exports.__esModule = true;
 	exports.updateDom = exports.getData = exports.setEvent = exports.addParameter = exports.setCompression = undefined;
 
-	var _util = __webpack_require__(164);
+	var _util = __webpack_require__(5);
 
-	var _event = __webpack_require__(172);
+	var _event = __webpack_require__(7);
 
-	var _env = __webpack_require__(169);
+	var _env = __webpack_require__(6);
 
 	var setCompression = function setCompression(compression) {
 	    if (!_env.env.isIE8 && !window.pako && compression == true) alert("can't compression, please include  pako!");else this.compression = compression;
@@ -29968,399 +26732,7 @@
 	exports.updateDom = updateDom;
 
 /***/ },
-/* 172 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
-
-	var _env = __webpack_require__(169);
-
-	var u = {}; /**
-	             * Module : Sparrow touch event
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-07-28 14:41:17
-	             */
-
-	u.event = {};
-
-	var touchStartEvent = _env.env.hasTouch ? "touchstart" : "mousedown",
-	    touchStopEvent = _env.env.hasTouch ? "touchend" : "mouseup",
-	    touchMoveEvent = _env.env.hasTouch ? "touchmove" : "mousemove";
-
-	// tap和taphold
-	u.event.tap = {
-		tapholdThreshold: 750,
-		emitTapOnTaphold: true,
-		touchstartFun: function touchstartFun() {
-			trigger(this, 'vmousedown');
-		},
-		touchendFun: function touchendFun() {
-			trigger(this, 'vmouseup');
-			trigger(this, 'vclick');
-		},
-		setup: function setup() {
-			var thisObject = this,
-			    isTaphold = false;
-
-			on(thisObject, "vmousedown", function (event) {
-				isTaphold = false;
-				if (event.which && event.which !== 1) {
-					return false;
-				}
-
-				var origTarget = event.target,
-				    timer;
-
-				function clearTapTimer() {
-					clearTimeout(timer);
-				}
-
-				function clearTapHandlers() {
-					clearTapTimer();
-
-					off(thisObject, 'vclick');
-					off(thisObject, 'vmouseup');
-					off(document, 'vmousecancel');
-				}
-
-				function clickHandler(event) {
-					clearTapHandlers();
-
-					// ONLY trigger a 'tap' event if the start target is
-					// the same as the stop target.
-					if (!isTaphold && origTarget === event.target) {
-						trigger(thisObject, 'tap');
-					} else if (isTaphold) {
-						event.preventDefault();
-					}
-				}
-				on(thisObject, 'vmouseup', clearTapTimer);
-				on(thisObject, 'vclick', clickHandler);
-				on(document, 'vmousecancel', clearTapHandlers);
-
-				timer = setTimeout(function () {
-					if (!u.event.tap.emitTapOnTaphold) {
-						isTaphold = true;
-					}
-					trigger(thisObject, "taphold");
-					clearTapHandlers();
-				}, u.event.tap.tapholdThreshold);
-			});
-
-			on(thisObject, 'touchstart', u.event.tap.touchstartFun);
-			on(thisObject, 'touchend', u.event.tap.touchendFun);
-		},
-		teardown: function teardown() {
-			off(thisObject, 'vmousedown');
-			off(thisObject, 'vclick');
-			off(thisObject, 'vmouseup');
-			off(document, 'vmousecancel');
-		}
-	};
-
-	u.event.taphold = u.event.tap;
-
-	u.event.swipe = {
-
-		// More than this horizontal displacement, and we will suppress scrolling.
-		scrollSupressionThreshold: 30,
-
-		// More time than this, and it isn't a swipe.
-		durationThreshold: 1000,
-
-		// Swipe horizontal displacement must be more than this.
-		horizontalDistanceThreshold: 30,
-
-		// Swipe vertical displacement must be less than this.
-		verticalDistanceThreshold: 30,
-
-		getLocation: function getLocation(event) {
-			var winPageX = window.pageXOffset,
-			    winPageY = window.pageYOffset,
-			    x = event.clientX,
-			    y = event.clientY;
-
-			if (event.pageY === 0 && Math.floor(y) > Math.floor(event.pageY) || event.pageX === 0 && Math.floor(x) > Math.floor(event.pageX)) {
-
-				// iOS4 clientX/clientY have the value that should have been
-				// in pageX/pageY. While pageX/page/ have the value 0
-				x = x - winPageX;
-				y = y - winPageY;
-			} else if (y < event.pageY - winPageY || x < event.pageX - winPageX) {
-
-				// Some Android browsers have totally bogus values for clientX/Y
-				// when scrolling/zooming a page. Detectable since clientX/clientY
-				// should never be smaller than pageX/pageY minus page scroll
-				x = event.pageX - winPageX;
-				y = event.pageY - winPageY;
-			}
-
-			return {
-				x: x,
-				y: y
-			};
-		},
-
-		start: function start(event) {
-			var data = event.touches ? event.touches[0] : event,
-			    location = u.event.swipe.getLocation(data);
-			return {
-				time: new Date().getTime(),
-				coords: [location.x, location.y],
-				origin: event.target
-			};
-		},
-
-		stop: function stop(event) {
-			var data = event.touches ? event.touches[0] : event,
-			    location = u.event.swipe.getLocation(data);
-			return {
-				time: new Date().getTime(),
-				coords: [location.x, location.y]
-			};
-		},
-
-		handleSwipe: function handleSwipe(start, stop, thisObject, origTarget) {
-			if (stop.time - start.time < u.event.swipe.durationThreshold && Math.abs(start.coords[0] - stop.coords[0]) > u.event.swipe.horizontalDistanceThreshold && Math.abs(start.coords[1] - stop.coords[1]) < u.event.swipe.verticalDistanceThreshold) {
-				var direction = start.coords[0] > stop.coords[0] ? "swipeleft" : "swiperight";
-
-				trigger(thisObject, "swipe");
-				trigger(thisObject, direction);
-				return true;
-			}
-			return false;
-		},
-
-		// This serves as a flag to ensure that at most one swipe event event is
-		// in work at any given time
-		eventInProgress: false,
-
-		setup: function setup() {
-			var events,
-			    thisObject = this,
-			    context = {};
-
-			// Retrieve the events data for this element and add the swipe context
-			events = thisObject["mobile-events"];
-			if (!events) {
-				events = {
-					length: 0
-				};
-				thisObject["mobile-events"] = events;
-			}
-			events.length++;
-			events.swipe = context;
-
-			context.start = function (event) {
-
-				// Bail if we're already working on a swipe event
-				if (u.event.swipe.eventInProgress) {
-					return;
-				}
-				u.event.swipe.eventInProgress = true;
-
-				var stop,
-				    start = u.event.swipe.start(event),
-				    origTarget = event.target,
-				    emitted = false;
-
-				context.move = function (event) {
-					// if ( !start || event.isDefaultPrevented() ) {
-					if (!start) {
-						return;
-					}
-
-					stop = u.event.swipe.stop(event);
-					if (!emitted) {
-						emitted = u.event.swipe.handleSwipe(start, stop, thisObject, origTarget);
-						if (emitted) {
-
-							// Reset the context to make way for the next swipe event
-							u.event.swipe.eventInProgress = false;
-						}
-					}
-					// prevent scrolling
-					if (Math.abs(start.coords[0] - stop.coords[0]) > u.event.swipe.scrollSupressionThreshold) {
-						event.preventDefault();
-					}
-				};
-
-				context.stop = function () {
-					emitted = true;
-
-					// Reset the context to make way for the next swipe event
-					u.event.swipe.eventInProgress = false;
-					off(document, touchMoveEvent, context.move);
-					context.move = null;
-				};
-
-				on(document, touchMoveEvent, context.move);
-				on(document, touchStopEvent, context.stop);
-			};
-			on(thisObject, touchStartEvent, context.start);
-		},
-
-		teardown: function teardown() {
-			var events, context;
-
-			events = thisObject["mobile-events"];
-			if (events) {
-				context = events.swipe;
-				delete events.swipe;
-				events.length--;
-				if (events.length === 0) {
-					thisObject["mobile-events"] = null;
-				}
-			}
-
-			if (context) {
-				if (context.start) {
-					off(thisObject, touchStartEvent, context.start);
-				}
-				if (context.move) {
-					off(document, touchMoveEvent, context.move);
-				}
-				if (context.stop) {
-					off(document, touchStopEvent, context.stop);
-				}
-			}
-		}
-	};
-
-	u.event.swipeleft = u.event.swipe;
-
-	u.event.swiperight = u.event.swipe;
-
-	var event = u.event;
-
-	var on = function on(element, eventName, child, listener) {
-		if (!element) return;
-		if (arguments.length < 4) {
-			listener = child;
-			child = undefined;
-		} else {
-			var childlistener = function childlistener(e) {
-				if (!e) {
-					return;
-				}
-				var tmpchildren = element.querySelectorAll(child);
-				tmpchildren.forEach(function (node) {
-					if (node == e.target) {
-						listener.call(e.target, e);
-					}
-				});
-			};
-		}
-		//capture = capture || false;
-
-		if (!element["uEvent"]) {
-			//在dom上添加记录区
-			element["uEvent"] = {};
-		}
-		//判断是否元素上是否用通过on方法填加进去的事件
-		if (!element["uEvent"][eventName]) {
-			element["uEvent"][eventName] = [child ? childlistener : listener];
-			if (u.event && u.event[eventName] && u.event[eventName].setup) {
-				u.event[eventName].setup.call(element);
-			}
-			element["uEvent"][eventName + 'fn'] = function (e) {
-				//火狐下有问题修改判断
-				if (!e) e = typeof event != 'undefined' && event ? event : window.event;
-				element["uEvent"][eventName].forEach(function (fn) {
-					try {
-						e.target = e.target || e.srcElement; //兼容IE8
-					} catch (ee) {}
-					if (fn) fn.call(element, e);
-				});
-			};
-			if (element.addEventListener) {
-				// 用于支持DOM的浏览器
-				element.addEventListener(eventName, element["uEvent"][eventName + 'fn']);
-			} else if (element.attachEvent) {
-				// 用于IE浏览器
-				element.attachEvent("on" + eventName, element["uEvent"][eventName + 'fn']);
-			} else {
-				// 用于其它浏览器
-				element["on" + eventName] = element["uEvent"][eventName + 'fn'];
-			}
-		} else {
-			//如果有就直接往元素的记录区添加事件
-			var lis = child ? childlistener : listener;
-			var hasLis = false;
-			element["uEvent"][eventName].forEach(function (fn) {
-				if (fn == lis) {
-					hasLis = true;
-				}
-			});
-			if (!hasLis) {
-				element["uEvent"][eventName].push(child ? childlistener : listener);
-			}
-		}
-	};
-
-	var off = function off(element, eventName, listener) {
-		//删除事件数组
-		if (listener) {
-			if (element && element["uEvent"] && element["uEvent"][eventName]) {
-				element["uEvent"][eventName].forEach(function (fn, i) {
-					if (fn == listener) {
-						element["uEvent"][eventName].splice(i, 1);
-					}
-				});
-			}
-			return;
-		}
-		var eventfn;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) eventfn = element["uEvent"][eventName + 'fn'];
-		if (element.removeEventListener) {
-			// 用于支持DOM的浏览器
-			element.removeEventListener(eventName, eventfn);
-		} else if (element.removeEvent) {
-			// 用于IE浏览器
-			element.removeEvent("on" + eventName, eventfn);
-		} else {
-			// 用于其它浏览器
-			delete element["on" + eventName];
-		}
-		if (u.event && u.event[eventName] && u.event[eventName].teardown) {
-			u.event[eventName].teardown.call(element);
-		}
-
-		if (element && element["uEvent"] && element["uEvent"][eventName]) element["uEvent"][eventName] = undefined;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) element["uEvent"][eventName + 'fn'] = undefined;
-	};
-	var trigger = function trigger(element, eventName) {
-		if (element["uEvent"] && element["uEvent"][eventName]) {
-			element["uEvent"][eventName + 'fn']();
-		}
-	};
-
-	/**
-	 * 阻止冒泡
-	 */
-	var stopEvent = function stopEvent(e) {
-		if (typeof e != "undefined") {
-			if (e.stopPropagation) e.stopPropagation();else {
-				e.cancelBubble = true;
-			}
-			//阻止默认浏览器动作(W3C)
-			if (e && e.preventDefault) e.preventDefault();
-			//IE中阻止函数器默认动作的方式
-			else window.event.returnValue = false;
-		}
-	};
-
-	exports.on = on;
-	exports.off = off;
-	exports.trigger = trigger;
-	exports.stopEvent = stopEvent;
-	exports.event = event;
-
-/***/ },
-/* 173 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30370,15 +26742,15 @@
 	});
 	exports.u = undefined;
 
-	var _extend = __webpack_require__(110);
+	var _extend = __webpack_require__(2);
 
-	var _enableMixin = __webpack_require__(174);
+	var _enableMixin = __webpack_require__(108);
 
-	var _requiredMixin = __webpack_require__(175);
+	var _requiredMixin = __webpack_require__(109);
 
-	var _validateMixin = __webpack_require__(176);
+	var _validateMixin = __webpack_require__(110);
 
-	var _valueMixin = __webpack_require__(177);
+	var _valueMixin = __webpack_require__(107);
 
 	var ex = {
 	  EnableMixin: _enableMixin.EnableMixin,
@@ -30395,372 +26767,6 @@
 	(0, _extend.extend)(ex, window.u || {});
 	window.u = ex;
 	exports.u = ex;
-
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.EnableMixin = undefined;
-
-	var _dom = __webpack_require__(107);
-
-	var EnableMixin = {
-	    init: function init() {
-	        var self = this;
-	        //处理只读
-	        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)) {
-	            this.setEnable(false);
-	        } else {
-	            this.dataModel.refEnable(this.field).subscribe(function (value) {
-	                self.setEnable(value);
-	            });
-	            this.setEnable(this.dataModel.isEnable(this.field));
-	        }
-	    },
-	    methods: {
-	        setEnable: function setEnable(enable) {
-	            if (enable === true || enable === 'true') {
-	                this.enable = true;
-	                this.element.removeAttribute('readonly');
-	                (0, _dom.removeClass)(this.element.parentNode, 'disablecover');
-	            } else if (enable === false || enable === 'false') {
-	                this.enable = false;
-	                this.element.setAttribute('readonly', 'readonly');
-	                (0, _dom.addClass)(this.element.parentNode, 'disablecover');
-	            }
-	        }
-	    }
-	}; /**
-	    * Module : Kero Enable Mixin
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-08 16:32:54
-	    */
-	exports.EnableMixin = EnableMixin;
-
-/***/ },
-/* 175 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : Kero Enable Mixin
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-08 16:32:54
-	 */
-
-	var RequiredMixin = {
-	    init: function init() {
-	        var self = this;
-	        this.required = this.getOption('required');
-	        this.dataModel.refRowMeta(this.field, "required").subscribe(function (value) {
-	            self.setRequired(value);
-	        });
-	        //this.setRequired(this.dataModel.getMeta(this.field, "required"));
-	    },
-	    methods: {
-	        setRequired: function setRequired(required) {
-	            if (required === true || required === 'true') {
-	                this.required = true;
-	            } else if (required === false || required === 'false') {
-	                this.required = false;
-	            }
-	        }
-	    }
-	};
-
-	exports.RequiredMixin = RequiredMixin;
-
-/***/ },
-/* 176 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.ValidateMixin = undefined;
-
-	var _neouiValidate = __webpack_require__(114);
-
-	var ValidateMixin = {
-	    init: function init() {
-	        this.placement = this.getOption('placement');
-	        this.tipId = this.getOption('tipId');
-	        this.tipAliveTime = this.getOption('tipAliveTime');
-	        this.errorMsg = this.getOption('errorMsg');
-	        this.nullMsg = this.getOption('nullMsg');
-	        this.regExp = this.getOption('regExp');
-	        this.successId = this.getOption('successId');
-	        this.hasSuccess = this.getOption('hasSuccess');
-	        this.notipFlag = this.getOption('notipFlag');
-	        this.showFix = this.getOption('showFix');
-
-	        // if (this.validType) {
-	        this.validate = new _neouiValidate.Validate({
-	            el: this.element,
-	            single: true,
-	            validMode: 'manually',
-	            required: this.required,
-	            validType: this.validType,
-	            placement: this.placement,
-	            tipId: this.tipId,
-	            tipAliveTime: this.tipAliveTime,
-	            successId: this.successId,
-	            notipFlag: this.notipFlag,
-	            hasSuccess: this.hasSuccess,
-	            errorMsg: this.errorMsg,
-	            nullMsg: this.nullMsg,
-	            maxLength: this.maxLength,
-	            minLength: this.minLength,
-	            max: this.max,
-	            min: this.min,
-	            maxNotEq: this.maxNotEq,
-	            minNotEq: this.minNotEq,
-	            reg: this.regExp,
-	            showFix: this.showFix
-	        });
-	        // };
-	    },
-	    methods: {
-	        /**
-	         *校验
-	         */
-	        doValidate: function doValidate(options) {
-	            if (this.validate) {
-	                if (options && options['trueValue'] === true) {
-	                    options['showMsg'] = options['showMsg'] || false;
-	                    var result = this.validate.check({ pValue: this.getValue(), showMsg: options['showMsg'] });
-	                } else {
-	                    var result = this.validate.check();
-	                }
-	                result.comp = this;
-	                return result;
-	            } else {
-	                return { passed: true, comp: this };
-	            }
-	        },
-	        /**
-	         * 是否需要清除数据
-	         */
-	        _needClean: function _needClean() {
-	            if (this.validate) return this.validate._needClean();else return false;
-	        }
-	    }
-	}; /**
-	    * Module : Kero Validate Mixin
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-10 14:53:43
-	    */
-	exports.ValidateMixin = ValidateMixin;
-
-/***/ },
-/* 177 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Module : Kero Value Mixin
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date   : 2016-08-08 15:58:49
-	 */
-
-	var ValueMixin = {
-	    init: function init() {
-	        var self = this;
-
-	        // 如果存在行对象则处理数据都针对此行进行处理
-	        if (parseInt(this.options.rowIndex) > -1) {
-	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
-	                // 主子表的情况
-	                var childObj = this.getChildVariable();
-	                var lastRow = childObj.lastRow;
-	                var lastField = childObj.lastField;
-
-	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
-	                    var id = opt.rowId;
-	                    var field = opt.field;
-	                    var value = opt.newValue;
-	                    var obj = {
-	                        fullField: self.options.field,
-	                        index: self.options.rowIndex
-	                    };
-	                    var selfRow = self.dataModel.getChildRow(obj);
-	                    var row = opt.rowObj;
-	                    if (selfRow == row && field == lastField) {
-	                        self.modelValueChange(value);
-	                    }
-	                });
-
-	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
-	                    var obj = {
-	                        fullField: self.options.field,
-	                        index: self.options.rowIndex
-	                    };
-	                    var rowObj = self.dataModel.getChildRow(obj);
-	                    if (rowObj) {
-	                        self.modelValueChange(rowObj.getValue(lastField));
-	                    }
-	                });
-
-	                if (lastRow) {
-	                    this.modelValueChange(lastRow.getValue(lastField));
-	                }
-	            } else {
-
-	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
-	                    var id = opt.rowId;
-	                    var field = opt.field;
-	                    var value = opt.newValue;
-	                    var row = opt.rowObj;
-	                    var rowIndex = self.dataModel.getRowIndex(row);
-	                    if (rowIndex == self.options.rowIndex && field == self.field) {
-	                        self.modelValueChange(value);
-	                    }
-	                });
-
-	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
-	                    var rowObj = self.dataModel.getRow(self.options.rowIndex);
-	                    if (rowObj) {
-	                        self.modelValueChange(rowObj.getValue(self.field));
-	                    }
-	                });
-
-	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
-	                if (rowObj) {
-	                    this.modelValueChange(rowObj.getValue(this.field));
-	                }
-	            }
-	        } else {
-	            this.dataModel.ref(this.field).subscribe(function (value) {
-	                self.modelValueChange(value);
-	            });
-	            this.modelValueChange(this.dataModel.getValue(this.field));
-	        }
-	    },
-	    methods: {
-	        /**
-	         * 获取与子表相关的变量
-	         * @param {Object} value
-	         */
-	        getChildVariable: function getChildVariable() {
-	            var indexArr = this.options.rowIndex.split('.');
-	            var lastIndex = indexArr[indexArr.length - 1];
-	            var fieldArr = this.options.field.split('.');
-	            var lastField = fieldArr[fieldArr.length - 1];
-	            var lastDataTable = this.dataModel;
-	            var lastRow = null;
-
-	            for (var i = 0; i < fieldArr.length; i++) {
-	                lastRow = lastDataTable.getRow(indexArr[i]);
-	                if (!lastRow) break;
-	                if (i < fieldArr.length - 1) {
-	                    lastDataTable = lastRow.getValue(fieldArr[i]);
-	                }
-	            }
-	            return {
-	                lastField: lastField,
-	                lastIndex: lastIndex,
-	                lastDataTable: lastDataTable,
-	                lastRow: lastRow
-	            };
-	        },
-	        /**
-	         * 模型数据改变
-	         * @param {Object} value
-	         */
-	        modelValueChange: function modelValueChange(value) {
-	            if (this.slice) return;
-	            if (value === null || typeof value == "undefined") value = "";
-	            this.trueValue = this.formater ? this.formater.format(value) : value;
-	            //this.element.trueValue = this.trueValue;
-	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
-	            this.setShowValue(this.showValue);
-
-	            //this.trueValue = value;
-	            //this.showValue = value;
-	            //this.setShowValue(this.showValue);
-	        },
-
-	        ///**
-	        // * 设置模型值
-	        // * @param {Object} value
-	        // */
-	        //setModelValue: function (value) {
-	        //    if (!this.dataModel) return;
-	        //    this.dataModel.setValue(this.field, value)
-	        //},
-	        /**
-	         * 设置控件值
-	         * @param {Object} value
-	         */
-	        setValue: function setValue(value) {
-	            this.trueValue = this.formater ? this.formater.format(value) : value;
-	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
-	            this.setShowValue(this.showValue);
-	            this.slice = true;
-	            if (parseInt(this.options.rowIndex) > -1) {
-	                if ((this.options.rowIndex + '').indexOf('.') > 0) {
-	                    var childObj = this.getChildVariable();
-	                    var lastRow = childObj.lastRow;
-	                    var lastField = childObj.lastField;
-	                    if (lastRow) lastRow.setValue(lastField, this.trueValue);
-	                } else {
-	                    var rowObj = this.dataModel.getRow(this.options.rowIndex);
-	                    if (rowObj) rowObj.setValue(this.field, this.trueValue);
-	                }
-	            } else {
-	                this.dataModel.setValue(this.field, this.trueValue);
-	            }
-	            this.slice = false;
-	        },
-	        /**
-	         * 取控件的值
-	         */
-	        getValue: function getValue() {
-	            return this.trueValue;
-	        },
-	        setShowValue: function setShowValue(showValue) {
-	            this.showValue = showValue;
-	            this.element.value = showValue;
-	            this.element.title = showValue;
-	        },
-	        getShowValue: function getShowValue() {
-	            return this.showValue;
-	        },
-	        setModelValue: function setModelValue(value) {
-	            if (!this.dataModel) return;
-	            if (parseInt(this.options.rowIndex) > -1) {
-	                if ((this.options.rowIndex + '').indexOf('.') > 0) {
-	                    var childObj = this.getChildVariable();
-	                    var lastRow = childObj.lastRow;
-	                    var lastField = childObj.lastField;
-	                    if (lastRow) lastRow.setValue(lastField, this.trueValue);
-	                } else {
-	                    var rowObj = this.dataModel.getRow(this.options.rowIndex);
-	                    if (rowObj) rowObj.setValue(this.field, value);
-	                }
-	            } else {
-	                this.dataModel.setValue(this.field, value);
-	            }
-	        }
-	    }
-	};
-
-	exports.ValueMixin = ValueMixin;
 
 /***/ }
 /******/ ]);

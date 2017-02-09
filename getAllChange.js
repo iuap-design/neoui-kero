@@ -3,7 +3,7 @@ var path = require('path');
 
 var prodNameArr = [
 	'kero',
-	'kero-adapter',
+	'neoui-kero',
 	'tinper-neoui',
 	'tinper-neoui-grid',
 	'tinper-neoui-polyfill',
@@ -24,7 +24,7 @@ var otherAllArr = [];
 var featAllArr = [];
 for(var i in prodNameArr){
 	var prodName = prodNameArr[i];
-	if(prodName == 'kero-adapter'){
+	if(prodName == 'neoui-kero'){
 		var filePath = getResolvePath('CHANGELOG.md');
 	}else{
 		var filePath = getResolvePath('./node_modules/' + prodName + '/CHANGELOG.md');
