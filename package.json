@@ -1,7 +1,7 @@
 {
-  "name": "kero-adapter",
+  "name": "neoui-kero",
   "version": "3.1.22",
-  "description": "kero adapter",
+  "description": "neoui kero",
   "main": "js/index.js",
   "scripts": {
     "watch": " webpack --progress --colors --watch --mode=dev",
@@ -52,14 +52,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iuap-design/kero-adapter.git"
+    "url": "git+https://github.com/iuap-design/neoui-kero.git"
   },
   "author": "yonyou FED",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iuap-design/kero-adapter/issues"
+    "url": "https://github.com/iuap-design/neoui-kero/issues"
   },
-  "homepage": "https://github.com/iuap-design/kero-adapter#readme",
+  "homepage": "https://github.com/iuap-design/neoui-kero#readme",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
