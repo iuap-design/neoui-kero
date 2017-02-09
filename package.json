@@ -1,7 +1,7 @@
 {
   "name": "neoui-kero",
   "version": "3.1.22",
-  "description": "kero adapter",
+  "description": "neoui kero",
   "main": "js/index.js",
   "scripts": {
     "watch": " webpack --progress --colors --watch --mode=dev",
