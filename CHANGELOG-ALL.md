@@ -10,6 +10,18 @@
 
 * grid close事件 ([cc979bc](https://github.com/iuap-design/tinper-neoui-grid/commit/cc979bc))
 
+<a name="3.1.25"></a>
+<h2 class="logtit"> V3.1.25 <a class="u-button u-button-floating loglink" href="//design.yyuap.com/static/download/iuap-design-3.1.25.zip"><i class="icon uf uf-downloadd logicon"></i></a> <i class="logdate">(2017-2-10)</i></h2>
+
+### Bug Fixes 
+* editType 默认值 ([f535189](https://github.com/iuap-design/neoui-kero/commit/f535189))
+
+* grid中字段为float时编辑问题、月日控件多次赋值问题、tree中onclick问题 ([297dbc8](https://github.com/iuap-design/neoui-kero/commit/297dbc8))
+
+* time设置值 ([7aefd7c](https://github.com/iuap-design/neoui-kero/commit/7aefd7c))
+
+* grid close事件 ([cc979bc](https://github.com/iuap-design/tinper-neoui-grid/commit/cc979bc))
+
 <a name="3.1.24"></a>
 <h2 class="logtit"> V3.1.24 <a class="u-button u-button-floating loglink" href="//design.yyuap.com/static/download/iuap-design-3.1.24.zip"><i class="icon uf uf-downloadd logicon"></i></a> <i class="logdate">(2017-2-10)</i></h2>
 
