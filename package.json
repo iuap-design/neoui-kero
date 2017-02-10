@@ -1,6 +1,6 @@
 {
   "name": "neoui-kero",
-  "version": "3.1.24",
+  "version": "3.1.25",
   "description": "neoui kero",
   "main": "js/index.js",
   "scripts": {
@@ -15,16 +15,16 @@
     "utipbuild": "webpack --colors --progress && gulp dist"
   },
   "dependencies": {
-    "kero-fetch": "^1.0.0",
-    "neoui-kero-mixin": "^1.0.0",
-    "compox": "^1.0.0",
-    "compox-util": "^1.0.0",
-    "kero": "^2.1.22",
-    "tinper-neoui": "^3.1.22",
-    "tinper-neoui-grid": "^3.1.22",
-    "tinper-neoui-polyfill": "^3.1.22",
-    "tinper-neoui-tree": "^3.1.22",
-    "tinper-sparrow": "^3.1.22"
+    "compox": "^3.1.25",
+    "compox-util": "^3.1.25",
+    "kero": "^3.1.25",
+    "kero-fetch": "^3.1.25",
+    "neoui-kero-mixin": "^3.1.25",
+    "tinper-neoui": "^3.1.25",
+    "tinper-neoui-grid": "^3.1.25",
+    "tinper-neoui-polyfill": "^3.1.25",
+    "tinper-neoui-tree": "^3.1.25",
+    "tinper-sparrow": "^3.1.25"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
