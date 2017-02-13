@@ -1,3 +1,17 @@
+<a name="3.1.25"></a>
+## [3.1.25](https://github.com/iuap-design/neoui-kero/compare/v3.1.22...v3.1.25) (2017-02-10)
+
+
+### Bug Fixes
+* editType 默认值 ([f535189](https://github.com/iuap-design/neoui-kero/commit/f535189))
+
+* grid中字段为float时编辑问题、月日控件多次赋值问题、tree中onclick问题 ([297dbc8](https://github.com/iuap-design/neoui-kero/commit/297dbc8))
+
+* time设置值 ([7aefd7c](https://github.com/iuap-design/neoui-kero/commit/7aefd7c))
+
+
+
+
 <a name="3.1.22"></a>
 ## [3.1.22](https://github.com/iuap-design/neoui-kero/compare/v3.1.21...v3.1.22) (2017-01-10)
 
@@ -134,6 +148,11 @@
 * fix: IUAPDESIGN-68:云表��单��:日期控件手机端格式问题 ([d9e60c1](https://github.com/iuap-design/neoui-kero/commit/d9e60c1))
 * fix:IUAPDESIGN-258:源云表单：日期显示格式问题 ([87f99d0](https://github.com/iuap-design/neoui-kero/commit/87f99d0))
 * fix:云表��：日期控件手机端设置startend op对象获取不到单 ([3037a62](https://github.com/iuap-design/neoui-kero/commit/3037a62))
+
+
+
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/iuap-design/neoui-kero/compare/v1.5.11...v3.1.1) (2016-10-17)
 
 
 
