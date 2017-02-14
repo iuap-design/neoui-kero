@@ -304,7 +304,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 		// this.formater = new $.DateFormater(this.maskerMeta.format);
 		// this.masker = new DateTimeMasker(this.maskerMeta);
 	},
-	setValue: function (value) {
+	beforeSetValue: function (value) {
 		if(this.dataModel){
 			var valueObj = date.getDateObj(value);
 			if(valueObj){
@@ -332,13 +332,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 			}
 		}
 		value = date.format(value,this.options.format);
-		ValueMixin.methods.setValue.call(this,value);
-        // this.trueValue = this.formater ? this.formater.format(value) : value;
-        // this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
-        // this.setShowValue(this.showValue);
-        // this.slice = true;
-        // this.dataModel.setValue(this.field, this.trueValue);
-        // this.slice = false;
+		return value;
     },
     setEnable: function(enable){
         if (enable === true || enable === 'true') {

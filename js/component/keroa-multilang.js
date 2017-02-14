@@ -39,7 +39,7 @@ var MultilangAdapter = BaseAdapter.extend({
                 var childObj = ValueMixin.methods.getChildVariable.call(this);
                 var lastRow = childObj.lastRow;
                 var lastField = childObj.lastField;
-                this.field = lastField;            
+                this.field = lastField;
             }
         }
 
@@ -185,7 +185,7 @@ var MultilangAdapter = BaseAdapter.extend({
         // if (rowObj) {
         //     this.modelValueChange(rowObj.getValue(this.field));
         // }
-        
+
         // UI传值到datatable
         this.comp.on('change.u.multilang', function(object){
             self.slice = true;
@@ -198,13 +198,17 @@ var MultilangAdapter = BaseAdapter.extend({
     modelValueChange: function(field,value) {
         this.comp.setDataValue(field,value);
     },
+    /**
+     * [setValue   由于多语组件对应多个field，因此setValue需要额外传入field字段]
+     * @param {[type]} field [发生改变的字段]
+     * @param {[type]} value [发生改变的值]
+     */
     setValue: function(field,value){
         this.slice = true;
         if(parseInt(this.options.rowIndex) > -1){
             if((this.options.rowIndex + '').indexOf('.') > 0){
                 var childObj = ValueMixin.methods.getChildVariable.call(this);
                 var lastRow = childObj.lastRow;
-                var lastField = childObj.lastField;
                 if(lastRow)
                     lastRow.setValue(field, value);
             }else{
