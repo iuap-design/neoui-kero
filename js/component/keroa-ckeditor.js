@@ -25,7 +25,7 @@ var CkEditorAdapter = BaseAdapter.extend({
         this.tmpeditor.on('blur',function(){
             self.setValue(tmpeditor.getData())
         });
-        
+
         this.tmpeditor.on('focus',function(){
             self.setShowValue(self.getValue())
         });
@@ -39,23 +39,13 @@ var CkEditorAdapter = BaseAdapter.extend({
         this.setShowValue(this.showValue)
     },
 
-    setValue: function(value) {
-        this.trueValue = value
-        this.showValue = value
-        this.setShowValue(this.showValue)
-        this.slice = true
-        this.dataModel.setValue(this.field, this.trueValue);
-        this.slice = false
-        //this.trigger(Editor.EVENT_VALUE_CHANGE, this.trueValue)
-    },
-
     getValue : function() {
         return this.trueValue
     },
 
     setShowValue : function(showValue) {
         var self = this;
-        this.showValue = showValue          
+        this.showValue = showValue
         this.element.value = showValue
         this.tmpeditor.setData(showValue);
 
