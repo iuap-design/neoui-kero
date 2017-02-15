@@ -1,0 +1,115 @@
+
+
+<div class="example-content"><div id="treeTest" class="ztree" u-meta='{"id":"tree2","data":"dataTable","type":"tree","idField":"id","pidField":"pid","nameField":"title","setting":"treeSetting"}'>
+</div>
+</div>
+<div class="example-content ex-hide"><script>$(document).ready(function () {
+    var viewModel = {
+        dataTable: new u.DataTable({
+            meta: {
+                'id': {
+                    'value':""
+                },
+                'pid': {
+                    'value':""
+                },
+                'title':{
+                    'value':""
+                }
+            }
+        }),
+        treeSetting:{
+            view:{
+                showLine:false,
+                multiSelect:true
+            }
+        }
+    };
+
+    app = u.createApp({
+        el: 'body',
+        model: viewModel
+    });
+
+    var data = [{
+                "id": "01",
+                "pid": "root",
+                "title": "f1"
+            },{
+                "id": "02",
+                "pid": "root",
+                "title": "f2"
+            },{
+                "id": "101",
+                "pid": "01",
+                "title": "f11"
+            },{
+                "id": "102",
+                "pid": "01",
+                "title": "f12"
+            },{
+                "id": "201",
+                "pid": "02",
+                "title": "f21"
+            }]
+    viewModel.dataTable.removeAllRows();
+    viewModel.dataTable.setSimpleData(data);
+});
+</script></div>
+<div class="examples-code"><pre><code>&lt;div id="treeTest" class="ztree" u-meta='{"id":"tree2","data":"dataTable","type":"tree","idField":"id","pidField":"pid","nameField":"title","setting":"treeSetting"}'>
+&lt;/div>
+</code></pre>
+</div>
+<div class="examples-code"><pre><code>$(document).ready(function () {
+    var viewModel = {
+        dataTable: new u.DataTable({
+            meta: {
+                'id': {
+                    'value':""
+                },
+                'pid': {
+                    'value':""
+                },
+                'title':{
+                    'value':""
+                }
+            }
+        }),
+        treeSetting:{
+            view:{
+                showLine:false,
+                multiSelect:true
+            }
+        }
+    };
+
+    app = u.createApp({
+        el: 'body',
+        model: viewModel
+    });
+
+    var data = [{
+                "id": "01",
+                "pid": "root",
+                "title": "f1"
+            },{
+                "id": "02",
+                "pid": "root",
+                "title": "f2"
+            },{
+                "id": "101",
+                "pid": "01",
+                "title": "f11"
+            },{
+                "id": "102",
+                "pid": "01",
+                "title": "f12"
+            },{
+                "id": "201",
+                "pid": "02",
+                "title": "f21"
+            }]
+    viewModel.dataTable.removeAllRows();
+    viewModel.dataTable.setSimpleData(data);
+});</code></pre>
+</div>
