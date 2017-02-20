@@ -1,6 +1,6 @@
 {
   "name": "neoui-kero",
-  "version": "3.1.25",
+  "version": "3.1.26",
   "description": "neoui kero",
   "main": "js/index.js",
   "scripts": {
@@ -15,11 +15,11 @@
     "utipbuild": "npm run es && npm run build && npm run dev"
   },
   "dependencies": {
-    "compox": "^3.1.25",
-    "kero": "^3.1.25",
-    "neoui-kero-mixin": "^3.1.25",
-    "tinper-neoui": "^3.1.25",
-    "tinper-sparrow": "^3.1.25"
+    "compox": "^3.1.26",
+    "kero": "^3.1.26",
+    "neoui-kero-mixin": "^3.1.26",
+    "tinper-neoui": "^3.1.26",
+    "tinper-sparrow": "^3.1.26"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

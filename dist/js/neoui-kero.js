@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.1.25
+ * neoui-kero v3.1.26
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -123,8 +123,6 @@
 	var _validateMixin = __webpack_require__(12);
 
 	var _valueMixin = __webpack_require__(6);
-
-	// console.log(TextAreaAdapter);
 
 	var ex = {
 		BaseAdapter: _keroaBaseAdapter.BaseAdapter,
@@ -18093,8 +18091,6 @@
 	    }
 
 	});
-	// import {MonthDate} from 'tinper-neoui/src/neoui-monthdate';
-
 
 	_compMgr.compMgr.addDataAdapter({
 	    adapter: MultilangAdapter,
