@@ -12,7 +12,7 @@
     "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
     "product": "npm run es && npm run build && npm run dev",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "utipbuild": "webpack --colors --progress && gulp dist"
+    "utipbuild": "npm run es && npm run build && npm run dev"
   },
   "dependencies": {
     "compox": "^3.1.25",
