@@ -1,32 +1,32 @@
-/**
- * Module : webpack config
- * Author : Kvkens(yueming@yonyou.com)
- * Date	  : 2016-08-09 10:18:10
- */
-
 var webpack = require('webpack');
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var path = require('path');
 var env = require('yargs').argv.mode;
+var fs = require('fs');
 
-var plugins = [],
-	outputFile;
-
-var	entryAry = {
-		"u": __dirname + '/src/u.js'
-	};
+var libraryName = 'neoui-kero';
+var data = fs.readFileSync('./package.json', 'utf8');
+var packageObj = JSON.parse(data);
+var headerStr = '';
+headerStr += packageObj.name + ' v' + packageObj.version + '\r\n';
+headerStr += packageObj.description + '\r\n';
+headerStr += 'author : ' + packageObj.author + '\r\n';
+headerStr += 'homepage : ' + packageObj.homepage + '\r\n';
+headerStr += 'bugs : ' + packageObj.bugs.url;
+var plugins = [new webpack.BannerPlugin(headerStr)],
+    outputFile;
 
 if(env === 'build') {
 	plugins.push(new UglifyJsPlugin({
 		minimize: true
 	}));
-	outputFile = '[name].min.js';
+	outputFile = libraryName + '.min.js';
 } else {
-	outputFile = '[name].js';
+	outputFile = libraryName + '.js';
 }
 
 var config = {
-	entry: entryAry,
+	entry: __dirname + '/src/index.js',
 	// devtool: 'source-map',
 	output: {
 		path: __dirname + '/dist/js',
@@ -47,7 +47,7 @@ var config = {
 		}]
 	},
 	resolve: {
-		root: path.resolve('./js'),
+		root: path.resolve('./src'),
 		extensions: ['', '.js']
 	},
 	plugins: plugins

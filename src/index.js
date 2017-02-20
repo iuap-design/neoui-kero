@@ -39,8 +39,6 @@ import {RequiredMixin} from 'neoui-kero-mixin/src/requiredMixin';
 import {ValidateMixin} from 'neoui-kero-mixin/src/validateMixin';
 import {ValueMixin} from 'neoui-kero-mixin/src/valueMixin';
 
-// console.log(TextAreaAdapter);
-
 var ex = {
 	BaseAdapter: BaseAdapter,
 	CheckboxAdapter: CheckboxAdapter,

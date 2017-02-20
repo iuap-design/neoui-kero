@@ -5,25 +5,20 @@
   "main": "js/index.js",
   "scripts": {
     "watch": " webpack --progress --colors --watch --mode=dev",
-    "build": "webpack --colors --progress --mode=build && node version --mode=build",
-    "dev": "webpack --progress --colors  --mode=dev && node version --mode=dev",
+    "build": "webpack --colors --progress --mode=build",
+    "dev": "webpack --progress --colors  --mode=dev",
     "es": "babel src -d lib",
     "dist": "webpack --progress --colors  --mode=dev && webpack --colors --progress --mode=build && node version --mode=dev &&  node version --mode=build",
     "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
-    "product": "npm run build && npm run dev && gulp dist",
+    "product": "npm run es && npm run build && npm run dev",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && node changeSort.js && node getAllChange.js",
     "utipbuild": "webpack --colors --progress && gulp dist"
   },
   "dependencies": {
     "compox": "^3.1.25",
-    "compox-util": "^3.1.25",
     "kero": "^3.1.25",
-    "kero-fetch": "^3.1.25",
     "neoui-kero-mixin": "^3.1.25",
     "tinper-neoui": "^3.1.25",
-    "tinper-neoui-grid": "^3.1.25",
-    "tinper-neoui-polyfill": "^3.1.25",
-    "tinper-neoui-tree": "^3.1.25",
     "tinper-sparrow": "^3.1.25"
   },
   "devDependencies": {
