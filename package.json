@@ -7,7 +7,7 @@
     "watch": " webpack --progress --colors --watch --mode=dev",
     "build": "webpack --colors --progress --mode=build && node version --mode=build",
     "dev": "webpack --progress --colors  --mode=dev && node version --mode=dev",
-    "es": "babel js -d lib",
+    "es": "babel src -d lib",
     "dist": "webpack --progress --colors  --mode=dev && webpack --colors --progress --mode=build && node version --mode=dev &&  node version --mode=build",
     "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
     "product": "npm run build && npm run dev && gulp dist",

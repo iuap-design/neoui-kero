@@ -7,13 +7,13 @@
 var webpack = require('webpack');
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var path = require('path');
-var env = require('yargs').argv.mode;	
+var env = require('yargs').argv.mode;
 
 var plugins = [],
 	outputFile;
 
 var	entryAry = {
-		"u": __dirname + '/js/u.js'
+		"u": __dirname + '/src/u.js'
 	};
 
 if(env === 'build') {

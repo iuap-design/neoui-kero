@@ -97,7 +97,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.DataTable = exports.u = undefined;
 
 	var _index = __webpack_require__(1);
@@ -130,10 +132,10 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	// import * as u from 'tinper-sparrow/js/index';
-	// import * as neoui from 'neoui/js/index';
-	// import {DataTable, u as kero} from 'kero/js/index';
-	// import * as adapter from 'neoui-kero/js/index';
+	// import * as u from 'tinper-sparrow/src/index';
+	// import * as neoui from 'neoui/src/index';
+	// import {DataTable, u as kero} from 'kero/src/index';
+	// import * as adapter from 'neoui-kero/src/index';
 
 	exports.u = _index.u;
 	exports.DataTable = _index3.DataTable;
@@ -144,7 +146,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.u = undefined;
 
 	var _extend = __webpack_require__(2);
@@ -262,7 +266,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.extend = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -312,7 +318,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	/**
 	 * Module : Sparrow extend enum
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -348,7 +356,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	/**
 	 * Module : Sparrow cookies
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -382,7 +392,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -542,7 +554,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.env = undefined;
 
 	var _extend = __webpack_require__(2);
@@ -749,7 +763,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.event = exports.stopEvent = exports.trigger = exports.off = exports.on = undefined;
 
 	var _env = __webpack_require__(6);
@@ -1141,7 +1157,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.getElementTop = exports.getElementLeft = exports.showPanelByEle = exports.getScroll = exports.getOffset = exports.makeModal = exports.makeDOM = exports.getZIndex = exports.getStyle = exports.wrap = exports.css = exports.closest = exports.toggleClass = exports.hasClass = exports.removeClass = exports.addClass = undefined;
 
 	var _event = __webpack_require__(7);
@@ -1458,7 +1476,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	/**
 	 * Module : Sparrow class
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -1645,7 +1665,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.core = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -1831,7 +1853,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.ajax = undefined;
 
 	var _env = __webpack_require__(6);
@@ -1955,7 +1979,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.phoneNumberRender = exports.dateToUTCString = exports.percentRender = exports.timeRender = exports.dateTimeRender = exports.dateRender = exports.integerRender = exports.floatRender = undefined;
 
 	var _core = __webpack_require__(10);
@@ -2059,7 +2085,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.DateFormater = exports.NumberFormater = undefined;
 
 	var _util = __webpack_require__(5);
@@ -2123,7 +2151,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.PhoneNumberMasker = exports.PercentMasker = exports.CurrencyMasker = exports.NumberMasker = exports.AddressMasker = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -2649,7 +2679,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.date = undefined;
 
 	var _core = __webpack_require__(10);
@@ -2927,7 +2959,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.trans = undefined;
 
 	var _cookies = __webpack_require__(4);
@@ -2956,7 +2990,7 @@
 		try {
 			a.b();
 		} catch (e) {
-			stack = e.fileName || e.sourceURL || e.stack || e.stacktrace;
+			stack = e.stack || e.fileName || e.sourceURL || e.stacktrace;
 		}
 		// IE10
 		if (stack) {
@@ -3004,7 +3038,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.hotkeys = undefined;
 
 	var _class = __webpack_require__(9);
@@ -3169,7 +3205,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.URipple = exports.Ripple = undefined;
 
 	var _env = __webpack_require__(6);
@@ -3398,7 +3436,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : Sparrow rsa utils
 	 * Author : Kvkens(yueming@yonyou.com)
@@ -4102,7 +4142,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.u = undefined;
 
 	var _extend = __webpack_require__(2);
@@ -4176,25 +4218,6 @@
 	var _neouiYearmonth = __webpack_require__(57);
 
 	var _neouiMonthdate = __webpack_require__(51);
-
-	//import {setCookie,getCookie} from 'tinper-sparrow/lib/cookies';
-	//import {createShellObject,execIgnoreError,getFunction,getJSObject,isDate,isNumber,isArray,isEmptyObject,inArray,isDomElement,each} from 'tinper-sparrow/lib/util';
-	//import {env} from 'tinper-sparrow/lib/env';
-	//import {on,off,trigger,stopEvent,event} from 'tinper-sparrow/lib/event';
-	//import {addClass,removeClass,hasClass,toggleClass,closest,css,wrap,getStyle,getZIndex,makeDOM,makeModal,getOffset,getScroll,showPanelByEle} from 'tinper-sparrow/lib/dom';
-	//import {Class} from 'tinper-sparrow/lib/class';
-	//import {core} from 'tinper-sparrow/lib/core';
-	//import {compMgr} from 'tinper-sparrow/lib/compMgr';
-	//import {BaseComponent} from 'tinper-sparrow/lib/BaseComponent';
-	//import {ajax} from 'tinper-sparrow/lib/ajax';
-	//import {floatRender,integerRender,dateRender,dateTimeRender,timeRender,percentRender,dateToUTCString} from 'tinper-sparrow/lib/util/dataRender';
-	//import {NumberFormater,DateFormater} from 'tinper-sparrow/lib/util/formater';
-	//import {date} from 'tinper-sparrow/lib/util/dateUtils';
-	//import {AddressMasker,NumberMasker,CurrencyMasker,PercentMasker} from 'tinper-sparrow/lib/util/masker'
-	//import {hotkeys} from 'tinper-sparrow/lib/util/hotKeys';
-	//import {Ripple} from 'tinper-sparrow/lib/util/ripple';
-	//import {RSAUtils,BigInt,BarrettMu,twoDigit} from 'tinper-sparrow/lib/util/rsautils';
-	//import {trans} from 'tinper-sparrow/lib/util/i18n';
 
 	//Neoui import
 	/**
@@ -4328,7 +4351,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.BaseComponent = undefined;
 
 	var _class = __webpack_require__(9);
@@ -4728,10 +4753,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Autocomplete = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -4753,7 +4780,7 @@
 	 * Date	  : 2016-08-02 15:14:43
 	 */
 
-	var Autocomplete = _BaseComponent.BaseComponent.extend({
+	var Autocomplete = _neouiBaseComponent.BaseComponent.extend({
 		defaults: {
 			inputClass: "ac_input",
 			resultsClass: "ac_results",
@@ -5328,10 +5355,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Button = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -5349,7 +5378,7 @@
 	 * Date	  : 2016-08-02 13:01:05
 	 */
 
-	var Button = _BaseComponent.BaseComponent.extend({
+	var Button = _neouiBaseComponent.BaseComponent.extend({
 		init: function init() {
 			try {
 				var rippleContainer = document.createElement('span');
@@ -5396,10 +5425,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Checkbox = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -5409,7 +5440,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Checkbox = _BaseComponent.BaseComponent.extend({
+	var Checkbox = _neouiBaseComponent.BaseComponent.extend({
 	    _Constant: {
 	        TINY_TIMEOUT: 0.001
 	    },
@@ -5644,10 +5675,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Combo = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -5661,7 +5694,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Combo = _BaseComponent.BaseComponent.extend({
+	var Combo = _neouiBaseComponent.BaseComponent.extend({
 	    init: function init() {
 	        this.name = '';
 	        this.mutilSelect = this.options['mutilSelect'] || false;
@@ -6149,10 +6182,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Text = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -6162,7 +6197,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Text = _BaseComponent.BaseComponent.extend({
+	var Text = _neouiBaseComponent.BaseComponent.extend({
 	    _Constant: {
 	        NO_MAX_ROWS: -1,
 	        MAX_ROWS_ATTRIBUTE: 'maxrows'
@@ -6388,7 +6423,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.showCollapse = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -6398,7 +6435,7 @@
 	                                                                                                                                                                                                                                                                               *
 	                                                                                                                                                                                                                                                                               */
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -6473,7 +6510,7 @@
 
 	};
 
-	var showCollapse = _BaseComponent.BaseComponent.extend({
+	var showCollapse = _neouiBaseComponent.BaseComponent.extend({
 
 	    /* COLLAPSIBLE DATA-API
 	     * ==================== */
@@ -6523,10 +6560,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Combobox = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -6544,7 +6583,7 @@
 	 * Date	  : 2016-08-02 18:42:07
 	 */
 
-	var Combobox = _BaseComponent.BaseComponent.extend({
+	var Combobox = _neouiBaseComponent.BaseComponent.extend({
 		DEFAULTS: {
 			dataSource: {},
 			mutil: false,
@@ -7048,10 +7087,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Table = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _event = __webpack_require__(7);
 
@@ -7065,7 +7106,7 @@
 	 * Date	  : 2016-08-02 15:23:19
 	 */
 
-	var Table = _BaseComponent.BaseComponent.extend({
+	var Table = _neouiBaseComponent.BaseComponent.extend({
 	    _CssClasses: {
 
 	        SELECTABLE: 'selectable',
@@ -7160,10 +7201,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.iframeDialog = exports.dialogWizard = exports.dialog = exports.dialogMode = exports.confirmDialog = exports.messageDialog = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -7811,10 +7854,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.MDLayout = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -7828,7 +7873,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var MDLayout = _BaseComponent.BaseComponent.extend({
+	var MDLayout = _neouiBaseComponent.BaseComponent.extend({
 		_CssClasses: {
 			MASTER: 'u-mdlayout-master',
 			DETAIL: 'u-mdlayout-detail',
@@ -8049,10 +8094,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.NavLayoutTab = exports.NavLayout = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -8070,7 +8117,7 @@
 	 * Date	  : 2016-08-02 15:56:32
 	 */
 
-	var NavLayout = _BaseComponent.BaseComponent.extend({
+	var NavLayout = _neouiBaseComponent.BaseComponent.extend({
 	    _Constant: {
 	        MAX_WIDTH: '(max-width: 1024px)',
 	        TAB_SCROLL_PIXELS: 100,
@@ -8553,7 +8600,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.hideLoader = exports.showLoader = undefined;
 
 	var _dom = __webpack_require__(8);
@@ -8627,10 +8676,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.removeWaiting = exports.showWaiting = exports.hideLoading = exports.showLoading = exports.Loading = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -8640,7 +8691,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Loading = _BaseComponent.BaseComponent.extend({
+	var Loading = _neouiBaseComponent.BaseComponent.extend({
 		_Constant: {
 			U_LOADING_LAYER_COUNT: 4
 		},
@@ -8756,10 +8807,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Menu = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -8776,7 +8829,7 @@
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-02 19:22:32
 	 */
-	var Menu = _BaseComponent.BaseComponent.extend({
+	var Menu = _neouiBaseComponent.BaseComponent.extend({
 		_Keycodes: {
 			ENTER: 13,
 			ESCAPE: 27,
@@ -9265,7 +9318,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.showMessage = exports.showMessageDialog = undefined;
 
 	var _dom = __webpack_require__(8);
@@ -9369,7 +9424,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Multilang = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -9378,7 +9435,7 @@
 	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-02 20:19:37
 	                                                                                                                                                                                                                                                                               */
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _extend = __webpack_require__(2);
 
@@ -9390,7 +9447,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Multilang = _BaseComponent.BaseComponent.extend({
+	var Multilang = _neouiBaseComponent.BaseComponent.extend({
 		init: function init() {
 			var self = this;
 			var element = this.element;
@@ -9552,10 +9609,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.NavMenu = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _extend = __webpack_require__(2);
 
@@ -9573,7 +9632,7 @@
 	 * Date	  : 2016-08-03 08:45:49
 	 */
 
-	var NavMenu = _BaseComponent.BaseComponent.extend({
+	var NavMenu = _neouiBaseComponent.BaseComponent.extend({
 		_Constant: {},
 		_CssClasses: {
 			NAV: 'u-navmenu',
@@ -9658,7 +9717,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.pagination = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -9667,7 +9728,7 @@
 	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-03 08:45:49
 	                                                                                                                                                                                                                                                                               */
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _extend = __webpack_require__(2);
 
@@ -9681,7 +9742,7 @@
 
 	var _i18n = __webpack_require__(16);
 
-	var pagination = _BaseComponent.BaseComponent.extend({});
+	var pagination = _neouiBaseComponent.BaseComponent.extend({});
 
 	var PageProxy = function PageProxy(options, page) {
 		this.isCurrent = function () {
@@ -10082,10 +10143,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Progress = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -10095,7 +10158,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Progress = _BaseComponent.BaseComponent.extend({
+	var Progress = _neouiBaseComponent.BaseComponent.extend({
 		_Constant: {},
 		_CssClasses: {
 			INDETERMINATE_CLASS: 'u-progress__indeterminate'
@@ -10207,10 +10270,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Radio = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -10228,7 +10293,7 @@
 	 * Date	  : 2016-08-03 11:16:00
 	 */
 
-	var Radio = _BaseComponent.BaseComponent.extend({
+	var Radio = _neouiBaseComponent.BaseComponent.extend({
 	    Constant_: {
 	        TINY_TIMEOUT: 0.001
 	    },
@@ -10445,10 +10510,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.refer = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _extend = __webpack_require__(2);
 
@@ -10730,10 +10797,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.ClockPicker = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -10751,7 +10820,7 @@
 
 	var _i18n = __webpack_require__(16);
 
-	var ClockPicker = _BaseComponent.BaseComponent.extend({
+	var ClockPicker = _neouiBaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
 			var self = this;
@@ -11202,12 +11271,14 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.DateTimePicker = undefined;
 
 	var _extend = __webpack_require__(2);
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _env = __webpack_require__(6);
 
@@ -11229,7 +11300,7 @@
 
 	var _i18n = __webpack_require__(16);
 
-	var DateTimePicker = _BaseComponent.BaseComponent.extend({});
+	var DateTimePicker = _neouiBaseComponent.BaseComponent.extend({});
 
 	DateTimePicker.fn = DateTimePicker.prototype;
 
@@ -12657,7 +12728,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.doValidate = exports.validate = exports.Validate = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -12667,7 +12740,7 @@
 	                                                                                                                                                                                                                                                                               */
 
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _extend = __webpack_require__(2);
 
@@ -12683,7 +12756,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Validate = _BaseComponent.BaseComponent.extend({
+	var Validate = _neouiBaseComponent.BaseComponent.extend({
 
 	    init: function init() {
 	        var self = this;
@@ -13257,7 +13330,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Tooltip = undefined;
 
 	var _extend = __webpack_require__(2);
@@ -13613,12 +13688,14 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.MobDateTimePicker = undefined;
 
 	var _extend = __webpack_require__(2);
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _env = __webpack_require__(6);
 
@@ -13638,7 +13715,7 @@
 
 	var _util = __webpack_require__(5);
 
-	var MobDateTimePicker = _BaseComponent.BaseComponent.extend({});
+	var MobDateTimePicker = _neouiBaseComponent.BaseComponent.extend({});
 
 	MobDateTimePicker.fn = MobDateTimePicker.prototype;
 
@@ -13811,10 +13888,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Month = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _event = __webpack_require__(7);
 
@@ -13835,7 +13914,7 @@
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-08-11 15:17:07
 	 */
-	var Month = _BaseComponent.BaseComponent.extend({
+	var Month = _neouiBaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
 			var self = this;
@@ -14063,10 +14142,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.MonthDate = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _env = __webpack_require__(6);
 
@@ -14086,7 +14167,7 @@
 
 	var _i18n = __webpack_require__(16);
 
-	var MonthDate = _BaseComponent.BaseComponent.extend({
+	var MonthDate = _neouiBaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
 	    init: function init() {
 	        var self = this;
@@ -14433,7 +14514,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.slidePanel = undefined;
 
 	var _dom = __webpack_require__(8);
@@ -14508,10 +14591,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Switch = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -14521,7 +14606,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Switch = _BaseComponent.BaseComponent.extend({
+	var Switch = _neouiBaseComponent.BaseComponent.extend({
 		_Constant: {
 			TINY_TIMEOUT: 0.001
 		},
@@ -14696,10 +14781,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Tabs = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _dom = __webpack_require__(8);
 
@@ -14709,7 +14796,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Tabs = _BaseComponent.BaseComponent.extend({
+	var Tabs = _neouiBaseComponent.BaseComponent.extend({
 		_Constant: {},
 		_CssClasses: {
 			TAB_CLASS: 'u-tabs__tab',
@@ -14842,12 +14929,14 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Time = undefined;
 
 	var _extend = __webpack_require__(2);
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _env = __webpack_require__(6);
 
@@ -14857,7 +14946,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var Time = _BaseComponent.BaseComponent.extend({
+	var Time = _neouiBaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
 			var self = this;
@@ -15082,10 +15171,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Year = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _event = __webpack_require__(7);
 
@@ -15103,7 +15194,7 @@
 	 * Date	  : 2016-08-11 15:17:07
 	 */
 
-	var Year = _BaseComponent.BaseComponent.extend({
+	var Year = _neouiBaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
 		init: function init() {
 			var self = this;
@@ -15327,10 +15418,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.YearMonth = undefined;
 
-	var _BaseComponent = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/BaseComponent\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _neouiBaseComponent = __webpack_require__(21);
 
 	var _event = __webpack_require__(7);
 
@@ -15348,7 +15441,7 @@
 
 	var _dateUtils = __webpack_require__(15);
 
-	var YearMonth = _BaseComponent.BaseComponent.extend({
+	var YearMonth = _neouiBaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
 	    init: function init() {
 	        var self = this;
@@ -15661,7 +15754,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.DataTable = exports.u = undefined;
 
 	var _indexDataTable = __webpack_require__(60);
@@ -15694,7 +15789,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.DataTable = undefined;
 
 	var _extend = __webpack_require__(2);
@@ -16008,7 +16105,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.Events = undefined;
 
 	var _events = __webpack_require__(62);
@@ -16040,7 +16139,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -16172,7 +16273,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable copyRow
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16202,7 +16305,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable data
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16297,7 +16402,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable enable
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16334,7 +16441,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16366,7 +16475,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16716,7 +16827,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	/**
 	 * Module : kero dataTable getFocus
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16746,7 +16859,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getMete
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16783,7 +16898,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getPage
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16813,7 +16930,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	/**
 	 * Module : kero dataTable getParam
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16832,7 +16951,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16910,7 +17031,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable getSimpleData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -16958,7 +17081,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -17099,7 +17224,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable page
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -17347,7 +17474,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable param
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -17373,7 +17502,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable ref
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -17511,7 +17642,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
 
 	var _util = __webpack_require__(79);
@@ -17596,7 +17729,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports._formatToIndicesArray = exports.isChanged = undefined;
 
 	var _util = __webpack_require__(5);
@@ -17636,7 +17771,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
 
 	var _util = __webpack_require__(5);
@@ -17757,7 +17894,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable rowCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -17784,7 +17923,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
 
 	var _util = __webpack_require__(79);
@@ -17853,7 +17994,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
 
 	var _util = __webpack_require__(5);
@@ -18057,7 +18200,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
 
 	var _util = __webpack_require__(5);
@@ -18142,7 +18287,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.addSimpleData = exports.setSimpleData = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -18221,7 +18368,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.Page = undefined;
 
 	var _pageData = __webpack_require__(87);
@@ -18281,7 +18430,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable page data
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -18332,7 +18483,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable page getData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -18400,7 +18553,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable page getMeta
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -18424,7 +18579,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable page meta
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -18449,7 +18606,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.updateFocusIndex = exports.updateSelectedIndices = exports.removeRowByRowId = undefined;
 
 	var _util = __webpack_require__(5);
@@ -18528,7 +18687,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.Row = undefined;
 
 	var _indexEvents = __webpack_require__(61);
@@ -18569,7 +18730,7 @@
 	    function Row(options) {
 	        _classCallCheck(this, Row);
 
-	        var _this = _possibleConstructorReturn(this, _Events.call(this));
+	        var _this = _possibleConstructorReturn(this, (Row.__proto__ || Object.getPrototypeOf(Row)).call(this));
 
 	        var self = _this;
 	        _this.rowId = options['id'] || Row.getRandomRowId();
@@ -18677,7 +18838,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.updateRow = exports.setData = exports.setChildSimpleDataByRowId = exports.setChildValue = exports.setValue = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -18915,14 +19078,16 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports._findField = exports._getField = exports.formatValue = exports._triggerChange = exports._dateToUTCString = exports.eq = undefined;
 
 	var _util = __webpack_require__(5);
 
 	var eq = function eq(a, b) {
 	    if ((a === null || a === undefined || a === '') && (b === null || b === undefined || b === '')) return true;
-	    //判断输入的值是否相等，a,b是字符串直接比较这两个值即可，没必要判断是否是数据，判断是否是数据使用parseFloat转换有时精度不准（431027199110.078573） 
+	    //判断输入的值是否相等，a,b是字符串直接比较这两个值即可，没必要判断是否是数据，判断是否是数据使用parseFloat转换有时精度不准（431027199110.078573）
 	    //if (isNumber(a) && isNumber(b) && parseFloat(a) == parseFloat(b)) return true;
 	    if (a + '' == b + '') return true;
 	    return false;
@@ -19062,7 +19227,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.getEmptyData = exports.getData = exports.getChildValue = exports.getValue = undefined;
 
 	var _rowUtil = __webpack_require__(94);
@@ -19157,7 +19324,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.getMeta = undefined;
 
 	var _rowUtil = __webpack_require__(94);
@@ -19190,7 +19359,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.getSimpleData = exports.formatValueFun = undefined;
 
 	var _rowUtil = __webpack_require__(94);
@@ -19274,7 +19445,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -19340,7 +19513,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.setMeta = undefined;
 
 	var _rowUtil = __webpack_require__(94);
@@ -19402,7 +19577,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.refEnum = exports.refDate = exports.refCombo = exports.refMeta = exports.ref = undefined;
 
 	var _util = __webpack_require__(5);
@@ -19533,7 +19710,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero dataTable row rowSelect
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -19571,7 +19750,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	/**
 	 * Module : kero dataTable row simpleData
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -19594,12 +19775,14 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.u = undefined;
 
 	var _extend = __webpack_require__(2);
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _keroaCheckbox = __webpack_require__(109);
 
@@ -19666,7 +19849,7 @@
 	// console.log(TextAreaAdapter);
 
 	var ex = {
-		BaseAdapter: _baseAdapter.BaseAdapter,
+		BaseAdapter: _keroaBaseAdapter.BaseAdapter,
 		CheckboxAdapter: _keroaCheckbox.CheckboxAdapter,
 		CkEditorAdapter: _keroaCkeditor.CkEditorAdapter,
 		ComboboxAdapter: _keroaCombo.ComboboxAdapter,
@@ -19713,7 +19896,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.BaseAdapter = undefined;
 
 	var _class = __webpack_require__(9);
@@ -19946,6 +20131,7 @@
 	         * @param {Object} value
 	         */
 	        setValue: function setValue(value) {
+	            value = this.beforeSetValue(value);
 	            this.trueValue = this.formater ? this.formater.format(value) : value;
 	            this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
 	            this.setShowValue(this.showValue);
@@ -19964,6 +20150,9 @@
 	                this.dataModel.setValue(this.field, this.trueValue);
 	            }
 	            this.slice = false;
+	        },
+	        beforeSetValue: function beforeSetValue(value) {
+	            return value;
 	        },
 	        /**
 	         * 取控件的值
@@ -20173,10 +20362,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.CheckboxAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _util = __webpack_require__(5);
 
@@ -20190,7 +20381,7 @@
 
 	var _env = __webpack_require__(6);
 
-	var CheckboxAdapter = _baseAdapter.BaseAdapter.extend({
+	var CheckboxAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
@@ -20486,10 +20677,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.CkEditorAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _compMgr = __webpack_require__(22);
 
@@ -20498,7 +20691,7 @@
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-09 09:52:13
 	 */
-	var CkEditorAdapter = _baseAdapter.BaseAdapter.extend({
+	var CkEditorAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.e_editor = this.id + "-ckeditor";
@@ -20529,16 +20722,6 @@
 	        this.trueValue = value;
 	        this.showValue = value;
 	        this.setShowValue(this.showValue);
-	    },
-
-	    setValue: function setValue(value) {
-	        this.trueValue = value;
-	        this.showValue = value;
-	        this.setShowValue(this.showValue);
-	        this.slice = true;
-	        this.dataModel.setValue(this.field, this.trueValue);
-	        this.slice = false;
-	        //this.trigger(Editor.EVENT_VALUE_CHANGE, this.trueValue)
 	    },
 
 	    getValue: function getValue() {
@@ -20588,10 +20771,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ComboboxAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _util = __webpack_require__(5);
 
@@ -20605,7 +20790,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var ComboboxAdapter = _baseAdapter.BaseAdapter.extend({
+	var ComboboxAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.datasource = (0, _util.getJSObject)(this.viewModel, this.options['datasource']);
@@ -20720,10 +20905,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.CurrencyAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _util = __webpack_require__(5);
 
@@ -20824,10 +21011,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.FloatAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _event = __webpack_require__(7);
 
@@ -20845,7 +21034,7 @@
 
 	var _util = __webpack_require__(5);
 
-	var FloatAdapter = _baseAdapter.BaseAdapter.extend({
+	var FloatAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -20998,10 +21187,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.DateTimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _event = __webpack_require__(7);
 
@@ -21027,7 +21218,7 @@
 	 * Date	  : 2016-08-09 14:59:37
 	 */
 
-	var DateTimeAdapter = _baseAdapter.BaseAdapter.extend({
+	var DateTimeAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 		init: function init() {
 			var self = this,
 			    adapterType,
@@ -21314,7 +21505,7 @@
 			// this.formater = new $.DateFormater(this.maskerMeta.format);
 			// this.masker = new DateTimeMasker(this.maskerMeta);
 		},
-		setValue: function setValue(value) {
+		beforeSetValue: function beforeSetValue(value) {
 			if (this.dataModel) {
 				var valueObj = _dateUtils.date.getDateObj(value);
 				if (valueObj) {
@@ -21342,13 +21533,7 @@
 				}
 			}
 			value = _dateUtils.date.format(value, this.options.format);
-			ValueMixin.methods.setValue.call(this, value);
-			// this.trueValue = this.formater ? this.formater.format(value) : value;
-			// this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
-			// this.setShowValue(this.showValue);
-			// this.slice = true;
-			// this.dataModel.setValue(this.field, this.trueValue);
-			// this.slice = false;
+			return value;
 		},
 		setEnable: function setEnable(enable) {
 			if (enable === true || enable === 'true') {
@@ -21404,7 +21589,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.GridAdapter = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
@@ -21413,7 +21600,7 @@
 	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-09 16:17:17
 	                                                                                                                                                                                                                                                                               */
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _util = __webpack_require__(5);
 
@@ -21469,7 +21656,7 @@
 
 	var _dom = __webpack_require__(8);
 
-	var GridAdapter = _baseAdapter.BaseAdapter.extend({
+	var GridAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 		mixins: [],
 		init: function init() {
 			var options = this.options,
@@ -21957,7 +22144,7 @@
 			});
 
 			//暂时未使用，后续考虑完善代码，不要删除！
-			/* 
+			/*
 	  var app = options['app'];
 	  if (app && app.adjustFunc)
 	   	app.adjustFunc.call(app, {id: this.id, type:'gridColumn', columns:columns});
@@ -23199,16 +23386,18 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.YearAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _neouiYear = __webpack_require__(56);
 
 	var _compMgr = __webpack_require__(22);
 
-	var YearAdapter = _baseAdapter.BaseAdapter.extend({
+	var YearAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.validType = 'year';
@@ -23250,16 +23439,18 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.MonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _neouiMonth = __webpack_require__(50);
 
 	var _compMgr = __webpack_require__(22);
 
-	var MonthAdapter = _baseAdapter.BaseAdapter.extend({
+	var MonthAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.validType = 'month';
@@ -23304,16 +23495,18 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.YearMonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _neouiYearmonth = __webpack_require__(57);
 
 	var _compMgr = __webpack_require__(22);
 
-	var YearMonthAdapter = _baseAdapter.BaseAdapter.extend({
+	var YearMonthAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.validType = 'yearmonth';
@@ -23354,10 +23547,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.TimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _event = __webpack_require__(7);
 
@@ -23379,7 +23574,7 @@
 	 * Date	  : 2016-08-10 12:40:46
 	 */
 
-	var TimeAdapter = _baseAdapter.BaseAdapter.extend({
+	var TimeAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init(options) {
 	        var self = this;
 	        this.validType = 'time';
@@ -23461,10 +23656,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.StringAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _extend = __webpack_require__(2);
 
@@ -23477,7 +23674,7 @@
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-09 20:12:42
 	 */
-	var StringAdapter = _baseAdapter.BaseAdapter.extend({
+	var StringAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -23541,10 +23738,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.IntegerAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _util = __webpack_require__(5);
 
@@ -23566,7 +23765,7 @@
 	 * Date	  : 2016-08-09 18:29:59
 	 */
 
-	var IntegerAdapter = _baseAdapter.BaseAdapter.extend({
+	var IntegerAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -23658,10 +23857,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.RadioAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _util = __webpack_require__(5);
 
@@ -23681,7 +23882,7 @@
 	 * Date	  : 2016-08-10 10:33:09
 	 */
 
-	var RadioAdapter = _baseAdapter.BaseAdapter.extend({
+	var RadioAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.dynamic = false;
@@ -23923,7 +24124,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.UrlAdapter = undefined;
 
 	var _keroaString = __webpack_require__(120);
@@ -23988,7 +24191,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.PassWordAdapter = undefined;
 
 	var _keroaString = __webpack_require__(120);
@@ -24059,7 +24264,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.PercentAdapter = undefined;
 
 	var _keroaFloat = __webpack_require__(113);
@@ -24104,10 +24311,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.PaginationAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _extend = __webpack_require__(2);
 
@@ -24117,7 +24326,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var PaginationAdapter = _baseAdapter.BaseAdapter.extend({
+	var PaginationAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    mixins: [],
 	    init: function init() {
 	        var self = this;
@@ -24219,7 +24428,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.PhoneNumberAdapter = undefined;
 
 	var _keroaString = __webpack_require__(120);
@@ -24274,7 +24485,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.LandLineAdapter = undefined;
 
 	var _keroaString = __webpack_require__(120);
@@ -24329,16 +24542,18 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ProgressAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _neouiProgress = __webpack_require__(41);
 
 	var _compMgr = __webpack_require__(22);
 
-	var ProgressAdapter = _baseAdapter.BaseAdapter.extend({
+	var ProgressAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 
@@ -24372,16 +24587,18 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.SwitchAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _neouiSwitch = __webpack_require__(53);
 
 	var _compMgr = __webpack_require__(22);
 
-	var SwitchAdapter = _baseAdapter.BaseAdapter.extend({
+	var SwitchAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.options = this.options;
@@ -24450,16 +24667,18 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.TextAreaAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _event = __webpack_require__(7);
 
 	var _compMgr = __webpack_require__(22);
 
-	var TextAreaAdapter = _baseAdapter.BaseAdapter.extend({
+	var TextAreaAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.element = this.element.nodeName === 'TEXTAREA' ? this.element : this.element.querySelector('textarea');
@@ -24498,10 +24717,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.TextFieldAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _extend = __webpack_require__(2);
 
@@ -24515,7 +24736,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var TextFieldAdapter = _baseAdapter.BaseAdapter.extend({
+	var TextFieldAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var options = {};
 	        var dataType = this.dataModel.getMeta(this.field, 'type') || 'string';
@@ -24569,16 +24790,18 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.MonthDateAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _neouiMonthdate = __webpack_require__(51);
 
 	var _compMgr = __webpack_require__(22);
 
-	var MonthDateAdapter = _baseAdapter.BaseAdapter.extend({
+	var MonthDateAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 	        var self = this;
 	        this.validType = 'monthdate';
@@ -24622,10 +24845,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.TreeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _neouiYear = __webpack_require__(56);
 
@@ -24635,7 +24860,7 @@
 
 	var _compMgr = __webpack_require__(22);
 
-	var TreeAdapter = _baseAdapter.BaseAdapter.extend({
+	var TreeAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 		mixins: [],
 		init: function init() {
 			var options = this.options,
@@ -25073,10 +25298,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.MultilangAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(104);
+	var _keroaBaseAdapter = __webpack_require__(104);
 
 	var _neouiMultilang = __webpack_require__(38);
 
@@ -25089,7 +25316,7 @@
 	 * Author : Kvkens(yueming@yonyou.com)
 	 * Date	  : 2016-08-10 14:11:50
 	 */
-	var MultilangAdapter = _baseAdapter.BaseAdapter.extend({
+	var MultilangAdapter = _keroaBaseAdapter.BaseAdapter.extend({
 	    init: function init() {
 
 	        // 1.创建控件
@@ -25279,13 +25506,17 @@
 	    modelValueChange: function modelValueChange(field, value) {
 	        this.comp.setDataValue(field, value);
 	    },
+	    /**
+	     * [setValue   由于多语组件对应多个field，因此setValue需要额外传入field字段]
+	     * @param {[type]} field [发生改变的字段]
+	     * @param {[type]} value [发生改变的值]
+	     */
 	    setValue: function setValue(field, value) {
 	        this.slice = true;
 	        if (parseInt(this.options.rowIndex) > -1) {
 	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
 	                var childObj = ValueMixin.methods.getChildVariable.call(this);
 	                var lastRow = childObj.lastRow;
-	                var lastField = childObj.lastField;
 	                if (lastRow) lastRow.setValue(field, value);
 	            } else {
 	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
@@ -25298,7 +25529,7 @@
 	    }
 
 	});
-	// import {MonthDate} from 'tinper-neoui/js/neoui-monthdate';
+	// import {MonthDate} from 'tinper-neoui/src/neoui-monthdate';
 
 
 	_compMgr.compMgr.addDataAdapter({
@@ -25567,7 +25798,7 @@
 	});
 	exports.showComp = exports.getComps = exports.getCompsByType = exports.getCompsByDataTable = exports.getComp = exports.createComp = undefined;
 
-	var _compMgr = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"tinper-sparrow/js/compMgr\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _compMgr = __webpack_require__(22);
 
 	var _util = __webpack_require__(5);
 
@@ -26052,7 +26283,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.updateDataTables = exports.addAllDataTables = exports.addDataTables = exports.addDataTable = undefined;
 
 	var _util = __webpack_require__(5);
@@ -26126,7 +26359,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.setSuccessFunc = exports._successFunc = exports.fire = undefined;
 
 	var _extend = __webpack_require__(2);
@@ -26211,7 +26446,9 @@
 
 	"use strict";
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	/**
 	 * Module : kero app serverEvent processXHRError
 	 * Author : liuyk(liuyk@yonyou.com)
@@ -26240,7 +26477,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.updateDom = exports.getData = exports.setEvent = exports.addParameter = exports.setCompression = undefined;
 
 	var _util = __webpack_require__(5);
