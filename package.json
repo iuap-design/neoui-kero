@@ -11,8 +11,8 @@
     "dist": "webpack --progress --colors  --mode=dev && webpack --colors --progress --mode=build && node version --mode=dev &&  node version --mode=build",
     "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
     "product": "npm run es && npm run build && npm run dev",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && node changeSort.js && node getAllChange.js",
-    "utipbuild": "npm run es && npm run build && npm run dev"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "utipbuild": "webpack --colors --progress && gulp dist"
   },
   "dependencies": {
     "compox": "^3.1.25",
