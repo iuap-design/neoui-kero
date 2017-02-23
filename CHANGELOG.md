@@ -1,3 +1,8 @@
+<a name="3.1.27"></a>
+## [3.1.27](https://github.com/iuap-design/neoui-kero/compare/v3.1.26...v3.1.27) (2017-02-23)
+
+
+
 <a name="3.1.26"></a>
 ## [3.1.26](https://github.com/iuap-design/neoui-kero/compare/v3.1.25...v3.1.26) (2017-02-20)
 
