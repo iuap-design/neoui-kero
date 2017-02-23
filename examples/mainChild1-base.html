@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Title</title>
+<link rel="stylesheet" href="//design.yyuap.com/static/uploader/css/webuploader.css">
+<link rel="stylesheet" href="//design.yyuap.com/static/uui/latest/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="//design.yyuap.com/static/uui/latest/css/u.css">
+<link rel="stylesheet" type="text/css" href="//design.yyuap.com/static/uui/latest/css/tree.css">
+<link rel="stylesheet" type="text/css" href="//design.yyuap.com/static/uui/latest/css/grid.css">
+<style id="demo-style" media="screen">
+</style>
+</head>
+<body style="background-color: #eceff1;margin-left: 20px;width: calc(100% - 20px );">
+<div class="u-container-fluid u-widget-bg">
+    <div class="u-row">
+        <div class="u-col-md-12">
+            <div class="u-widget  u-widget-right">
+                <div class="u-widget-heading">
+                    <div class="u-widget-title">主表</div>
+                </div>
+                <div class="u-widget-body" style="margin-bottom: 30px">
+                    <div id="mainGridDiv" u-meta='{"id":"mainGrid","data":"mainDataTable","type":"grid","onRowSelected":"mainGridRowSelect"}'>
+						<div options='{"field":"name","dataType":"String","title":"姓名"}'></div>
+						<div options='{"field":"tel","dataType":"String","title":"手机"}'></div>
+						<div options='{"field":"email","dataType":"String","title":"邮件"}'></div>
+						<div options='{"field":"depart","dataType":"String","title":"部门"}'></div>
+						<div options='{"field":"company","dataType":"String","title":"公司"}'></div>
+					</div>
+                </div>
+            </div>
+        </div>
+        <div class="u-col-md-12">
+            <div class="u-widget  u-widget-right">
+                <div class="u-widget-heading">
+                    <div class="u-widget-title">子表</div>
+                </div>
+                <div class="u-widget-body" style="margin-bottom: 30px">
+                    <div id="childGridDiv" u-meta='{"id":"childGrid","data":"childDataTable","type":"grid"}'>
+						<div options='{"field":"name","dataType":"String","title":"报销人"}'></div>
+						<div options='{"field":"date","dataType":"String","title":"日期"}'></div>
+						<div options='{"field":"type","dataType":"String","title":"费用类型"}'></div>
+						<div options='{"field":"detail","dataType":"String","title":"事由"}'></div>
+						<div options='{"field":"count","dataType":"String","title":"报销金额"}'></div>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><script src="//design.yyuap.com/static/jquery/jquery-1.11.2.js"></script>
+<script src="//design.yyuap.com/static/uploader/js/webuploader.js"></script>
+<script src="//design.yyuap.com/static/knockout/knockout-3.2.0.debug.js"></script>
+<script src="//design.yyuap.com/static/uui/latest/js/u-polyfill.js"></script>
+<script src="//design.yyuap.com/static/uui/latest/js/u.js"></script>
+<script src="//design.yyuap.com/static/uui/latest/js/u-tree.js"></script>
+<script src="//design.yyuap.com/static/uui/latest/js/u-grid.js"></script>
+<script src="//design.yyuap.com/static/requirejs/require.debug.js"></script>
+<script>
+﻿$(document).ready(function () {
+    
+	// 创建viewModel,包含主子表对应dataTable以及grid中使用的function变量
+	viewModel = {
+		// 主表对应的dataTable
+        mainDataTable: new u.DataTable({
+            meta: {
+                "name": "",
+                "tel": "",
+                "email": "",
+				"depart": "",
+				"company": "",
+            }
+        }),
+		// 子表对应的dataTable
+		childDataTable: new u.DataTable({
+            meta: {
+                "name": "",
+                "date": "",
+                "type": "",
+				"detail": "",
+				"count": "",
+            }
+        }),
+		//主表对应的表格控件选中行时执行的function
+        mainGridRowSelect: function(obj){
+			var filterName = obj.rowObj.value.name;
+			var newData = filterData(childData,filterName);
+			viewModel.childDataTable.removeAllRows();
+			viewModel.childDataTable.setSimpleData(newData);
+        }
+    }
+
+	// 创建主子表数据信息
+	var mainData = [{
+            email: "li@126.com",
+            depart: "UAPweb",
+            company: "UAP",
+            name: '张三',
+            tel: '13610068888'
+        }, {
+            email: "li@126.com",
+            depart: "UAPweb",
+            company: "UAP",
+            name: '李四',
+            tel: '13610068888'
+        }, {
+            email: "li@126.com",
+            depart: "UAPweb",
+            company: "UAP",
+            name: '王五',
+            tel: '13610068888'
+        }, {
+            email: "li@126.com",
+            depart: "UAPweb",
+            company: "UAP",
+            name: '郭六',
+            tel: '13610068888'
+        }, {
+            email: "li@126.com",
+            depart: "UAPweb",
+            company: "UAP",
+            name: '田七',
+            tel: '13610068888'
+        }];
+	var childData = [{
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '李四',
+            count: '60'
+        }, {
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '李四',
+            count: '60'
+        }, {
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '李四',
+            count: '60'
+        }, {
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '张三',
+            count: '60'
+        }, {
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '张三',
+            count: '60'
+        }, {
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '王五',
+            count: '60'
+        }, {
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '郭六',
+            count: '60'
+        }, {
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '郭六',
+            count: '60'
+        }, {
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '田七',
+            count: '60'
+        }, {
+            date: "2015-05-15 00:00:00",
+            type: "加班打车费用",
+            detail: "加班",
+            name: '田七',
+            count: '60'
+        }];
+	/**
+	 * 子表数据校验：
+	 *  data: 子表数据集合
+	 *  filtername: 过滤操作匹配值
+	 */
+	filterData = function(data,filtername){
+        var temp = []
+        for(var i in data){
+            if(data[i].name === filtername){
+                temp.push(data[i]);
+            }
+        }
+        return temp;
+    }
+	// 创建app
+	var app = u.createApp({
+		el: 'body',
+		model: viewModel
+	});
+	// 为主表添加数据
+	viewModel.mainDataTable.setSimpleData(mainData);
+});</script>
+</body>
+</html>

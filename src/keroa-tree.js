@@ -111,7 +111,13 @@ var TreeAdapter = BaseAdapter.extend({
 					// 根据idValue查找到对应数据的rowId
 					var rowId = oThis.getRowIdByIdValue(idValue);
 					var index = oThis.dataTable.getIndexByRowId(rowId);
-					oThis.dataTable.setRowSelect(index);
+					//上面这种情况说明是checkbox选中需要addRowSelect
+					if (oThis.tree.setting.check.enable && oThis.tree.setting.check.chkStyle==='checkbox') {
+						oThis.dataTable.addRowSelect(index);
+					} else {
+						oThis.dataTable.setRowSelect(index);
+					}
+					
 					if (oThis.events.onClick) {
 						getFunction(viewModel, oThis.events.onClick)(e, id, node);
 					}
