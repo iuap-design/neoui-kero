@@ -26,55 +26,7 @@
 
 
 
-<div class="example-content"><div id="gridTest1" u-meta='{"id":"grid1","data":"dataTable","type":"grid","multiSelect":true,"editable":true,"onBeforeClickFun":"onBeforeClickFun1"}'>
-	<div options='{"field":"name","dataType":"String","title":"名","editType":"string","sortable":true,"canSwap":true,"editOptions":{"validType":"string","maxLength":6}}'></div>
-    <div options='{"field":"surname","dataType":"String","title":"姓氏","editType":"string" ,"renderType":"timeRender","sortable":true,"editOptions":{"validType":"string","required":true}}'></div>
-	<div options='{"field":"currency","dataType":"String","title":"余额","editType":"float","editOptions":{"validType":"float","precision":"3","max":10000},"sumCol":true}'></div>
-</div></div>
-
-<div class="example-content ex-hide"><style>
-
-</style></div>
-
-<script>
-$(document).ready(function () {
-	// 创建viewModel,包含dataTable以及grid中使用的function变量
-    viewModel = {
-        dataTable: new u.DataTable({
-            meta: {
-                "name": "",
-                "surname":"",
-                "currency": ""
-            }
-        }),
-		// 表格点击行之前触发的事件
-        onBeforeClickFun1:function(obj){
-            obj.gridObj.setGridEditType('default');
-            return true;
-        },
-    }
-	// 创建APP
-    app = u.createApp({
-        el: 'body',
-        model: viewModel
-    });
-	// 添加数据到dataTable中
-    var data = [{
-                "name": "Teagan",
-                "surname": "Prohaska",
-                "currency": "200"
-            }, {
-                "name": "Andy",
-                "surname": "Gaylord",
-                "currency": "300"
-            }]
-    viewModel.dataTable.removeAllRows();
-    viewModel.dataTable.setSimpleData(data);
-});
-
-</script>
-
-<div class="ex-code-par"><button  class="u-button u-button-block u-button-accent margin-top-15 codeOptBtn" ><i class="uf uf-arrow-down"></i>查看代码</button><div class="examples-code"><pre><code>
+<div class="examples-code"><pre><code>
 &lt;div id="gridTest1" u-meta='{"id":"grid1","data":"dataTable","type":"grid","multiSelect":true,"editable":true,"onBeforeClickFun":"onBeforeClickFun1"}'>
 	&lt;div options='{"field":"name","dataType":"String","title":"名","editType":"string","sortable":true,"canSwap":true,"editOptions":{"validType":"string","maxLength":6}}'>&lt;/div>
     &lt;div options='{"field":"surname","dataType":"String","title":"姓氏","editType":"string" ,"renderType":"timeRender","sortable":true,"editOptions":{"validType":"string","required":true}}'>&lt;/div>
@@ -123,4 +75,3 @@ $(document).ready(function () {
 });
 </code></pre>
 
-</div>
