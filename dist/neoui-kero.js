@@ -5422,47 +5422,112 @@
 	                                                                                                                                                          * Date   : 2016-08-09 15:24:46
 	                                                                                                                                                          */
 
-	var DataTable =
-	// class DataTable extends Events{
-	function DataTable(options) {
+	/**
+	 * DataTable
+	 * @namespace
+	 * @description 前端数据模型对象
+	 */
+	var DataTable = function DataTable(options) {
 	    _classCallCheck(this, DataTable);
 
-	    // IE9下转化之后的代码有问题，无法获得superClass方法
-	    // super();
 	    options = options || {};
+	    /**
+	     * DataTable对应的唯一标识
+	     * @type {string}
+	     */
 	    this.id = options['id'];
+	    /**
+	     * 在设置数据时是否自动创建对应字段，如果为true则不自动创建，如果为false则自动创建缺失的字段
+	     * @type {boolean}
+	     * @default false
+	     */
 	    this.strict = options['strict'] || false;
+	    /**
+	     * DataTable的所有字段属性信息
+	     * @type {object}
+	     */
 	    this.meta = DataTable.createMetaItems(options['meta']);
+	    /**
+	     * DataTable的是否支持编辑功能
+	     * @type {boolean}
+	     * @default true
+	     */
 	    this.enable = options['enable'] || DataTable.DEFAULTS.enable;
+	    /**
+	     * DataTable支持翻页功能时每页显示数据条数
+	     * @type {number}
+	     * @default 20
+	     */
 	    this.pageSize = ko.observable(options['pageSize'] || DataTable.DEFAULTS.pageSize);
+	    /**
+	     * DataTable支持翻页功能时当前页码
+	     * @type {number}
+	     * @default 0
+	     */
 	    this.pageIndex = ko.observable(options['pageIndex'] || DataTable.DEFAULTS.pageIndex);
+	    /**
+	     * DataTable支持翻页功能时总页数
+	     * @type {number}
+	     * @default 0
+	     */
 	    this.totalPages = ko.observable(options['totalPages'] || DataTable.DEFAULTS.totalPages);
+	    // 存储所有行对象
 	    this.totalRow = ko.observable();
+	    /**
+	     * DataTable的是否支持前端缓存，支持前端缓存则前端会存储所有页的数据信息，否则只保存当前页的数据信息。如果使用前端缓存则需要使用框架封装的fire方法来与后台进行交互
+	     * @type {boolean}
+	     * @default false
+	     */
 	    this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
+	    // 存储所有row对象
 	    this.rows = ko.observableArray([]);
+	    // 存储所有的选中行的index
 	    this.selectedIndices = ko.observableArray([]);
+	    // 原有的当前行，用于判断当前行是否发生变化
 	    this._oldCurrentIndex = -1;
+	    // 当前focus行
 	    this.focusIndex = ko.observable(-1);
+	    // 存储所有页对象
 	    this.cachedPages = [];
+	    // 存储meta改变信息
 	    this.metaChange = {};
+	    // 存储valuecahnge改变信息
 	    this.valueChange = {}; //ko.observable(1);
+	    // 监听当前行改变
 	    this.currentRowChange = ko.observable(1);
+	    // 监听是否可修改属性的改变
 	    this.enableChange = ko.observable(1);
+	    /**
+	     * 使用者自定义的属性合集，框架内部不会针对此属性进行特殊处理，仅用于设置及获取
+	     * @type {object}
+	     */
 	    this.params = options['params'] || {};
+	    /**
+	     * 使用者自定义的属性，框架内部不会针对此属性进行特殊处理，仅用于设置及获取。
+	     * @type {string}
+	     */
 	    this.master = options['master'] || '';
+	    // 监听是否全部选中
 	    this.allSelected = ko.observable(false);
-	    //dateNoconvert：true时，时间不转化，按真实走，false是，时间转换成long型
-	    this.dateNoConvert = options['dateNoConvert'];
+	    /**
+	     * 通过getSimpleData获取数据时，日期字段是否转化为long型，如果为true时不进行转化，为false时转化为long型
+	     * @type {boolean}
+	     * @default false
+	     */
+	    this.dateNoConvert = options['dateNoConvert'] || false;
+	    // 对于子表通过root字段存储根datatable对象
 	    if (options['root']) {
 	        this.root = options['root'];
 	    } else {
 	        this.root = this;
 	    }
+	    // 记录子表的路径
 	    if (options['ns']) {
 	        this.ns = options['ns'];
 	    } else {
 	        this.ns = '';
 	    }
+	    // 前端分页情况下记录前端新增的数据
 	    this.newCount = 0;
 	};
 
@@ -5716,16 +5781,22 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
-	 * Module : kero dataTable events
+	 * Module : kero DataTable events
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-07-30 14:34:01
 	 */
 
 	/**
-	 * 绑定事件
-	 * 支持的格式： 1. on(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
-	 * 2. on([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
-	 * 3. on({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
+	 * 为DataTable对象添加监听
+	 * @memberof DataTable
+	 * @param  {string|array|object}   name     针对不同用法分别对应监听名称、监听名称对应的数组、监听名称及对应的回调组成的对象
+	 * @param  {function} [callback] 监听对应的回调函数
+	 * @param  {boolean}   [one]      是否只执行一次监听，为true则表示只执行一次回调函数，否则每次触发监听都是执行回调函数
+	 * @return {DataTable}            当前的DataTable对象
+	 * @example
+	 * datatable.on(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
+	 * datatable.on([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
+	 * datatable.on({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
 	 */
 	var on = function on(name, _callback, one) {
 	    var self = this,
@@ -5759,10 +5830,19 @@
 	};
 
 	/**
-	 * 解绑事件
-	 * 
-	**/
+	 * 为DataTable对象取消监听
+	 * @memberof DataTable
+	 * @param  {string|array|object}   name     针对不同用法分别对应监听名称、监听名称对应的数组、监听名称及对应的回调组成的对象
+	 * @param  {function} [callback] 监听对应的回调函数
+	 * @return {DataTable}            当前的DataTable对象
+	 * @example
+	 * datatable.off(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
+	 * datatable.off([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
+	 * datatable.off({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
+	 */
 	var off = function off(name, callback) {
+	    name = name.toLowerCase();
+	    if (!this._events) return this;
 	    if (Object.prototype.toString.call(name) == '[object Array]') {
 	        // 数组
 	        for (var i in name) {
@@ -5792,14 +5872,26 @@
 	};
 
 	/**
-	 * 
-	**/
+	 * 为DataTable对象添加只执行一次的监听
+	 * @memberof DataTable
+	 * @param  {string|array|object}   name     针对不同用法分别对应监听名称、监听名称对应的数组、监听名称及对应的回调组成的对象
+	 * @param  {function} [callback] 监听对应的回调函数
+	 * @example
+	 * datatable.one(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
+	 * datatable.one([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
+	 * datatable.one({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
+	 */
 	var one = function one(name, callback) {
 	    this.on(name, callback, 1);
 	};
 
 	/**
-	 * 触发事件
+	 * 触发DataTable对象绑定的事件监听
+	 * @memberof DataTable
+	 * @param  {string} name 需要触发的事件监听对应的名称
+	 * @return {DataTable}            当前的DataTable对象
+	 * @example
+	 * datatable.trigger('valuechange')
 	 */
 	var trigger = function trigger(name) {
 	    name = name.toLowerCase();
@@ -5812,6 +5904,7 @@
 	    return this;
 	};
 
+	// 带返回值的trigger，可以获取回调函数的返回值
 	var triggerReturn = function triggerReturn(name) {
 	    name = name.toLowerCase();
 	    if (!this._events || !this._events[name]) return this;
@@ -5824,6 +5917,7 @@
 	    return flag;
 	};
 
+	// 获取监听名称对应的回调函数
 	var getEvent = function getEvent(name) {
 	    name = name.toLowerCase();
 	    this._events || (this._events = {});
@@ -5844,26 +5938,51 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	/**
-	 * Module : kero dataTable copyRow
+	 * Module : kero DataTable copyRow
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-08-01 14:34:01
 	 */
 
+	/**
+	 * 在指定index位置插入单条数据行
+	 * @memberof DataTable
+	 * @param  {number} index 数据行插入之后的位置
+	 * @param  {object} row   数据行信息
+	 * @example
+	 * var row = {
+	 *    field1:'value1'
+	 * }
+	 * datatable.copyRow(1,row)
+	 */
 	var copyRow = function copyRow(index, row) {
-	    this.copyRows(index, [row]);
+	  this.copyRows(index, [row]);
 	};
 
+	/**
+	 * 在指定index位置插入多条数据行
+	 * @memberof DataTable
+	 * @param  {number} index 数据行插入之后的位置
+	 * @param  {array} rows   存储数据行信息的数组
+	 * @example
+	 * var row1 = {
+	 *    field1:'value1'
+	 * }
+	 * var row2 = {
+	 *    field1:'value1'
+	 * }
+	 * datatable.copyRow(1,[row1,row2])
+	 */
 	var copyRows = function copyRows(index, rows) {
-	    for (var i = 0; i < rows.length; i++) {
-	        var newRow = new Row({ parent: this });
-	        if (rows[i]) {
-	            newRow.setData(rows[i].getData());
-	        }
-	        this.insertRows(index === undefined ? this.rows().length : index, [newRow]);
+	  for (var i = 0; i < rows.length; i++) {
+	    var newRow = new Row({ parent: this });
+	    if (rows[i]) {
+	      newRow.setData(rows[i].getData());
 	    }
+	    this.insertRows(index === undefined ? this.rows().length : index, [newRow]);
+	  }
 	};
 
 	exports.copyRow = copyRow;
@@ -5879,14 +5998,40 @@
 	    value: true
 	});
 	/**
-	 * Module : kero dataTable data
+	 * Module : kero DataTable data
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date	  : 2016-07-30 14:34:01
 	 */
 
 	/**
-	 *设置数据
-	 *
+	 * 设置数据信息
+	 * @memberof DataTable
+	 * @param {object} data    需要设置的数据信息，必须包含rows或者pages属性
+	 * @param {array} [data.rows]    数据信息中的行信息数组
+	 * @param {array} [data.pages]    数据信息中的page对象数组
+	 * @param {number} [data.pageIndex=DataTable对象当前的页码]    数据信息中的当前页码
+	 * @param {number} [data.pageSize=DataTable对象当前的每页显示条数]    数据信息中的每页显示条数
+	 * @param {number} [data.totalPages=DataTable对象当前的总页数]    数据信息中的总页数
+	 * @param {number} [data.totalRow=如果存在rows则为rows的长度，否则为DataTable对象当前的总条数]    数据信息中的总条数
+	 * @param {number} [data.select]    数据信息中的选中行行号
+	 * @param {number} [data.focus]    数据信息中的focus行行号
+	 * @param {object} options 设置数据时的配置参数
+	 * @param {boolean} options.unSelect=false 是否默认选中第一行，如果为true则不选中第一行，否则选中第一行
+	 * @example
+	 * var data = {
+	 *    rows:[{
+	 *      filed1:'value1',
+	 *      field2:'value2'
+	 *    },{
+	 *      filed1:'value11',
+	 *      field2:'value21'
+	 *    }],
+	 *    select:0,
+	 * }
+	 * var op = {
+	 *     unSelect:true
+	 * }
+	 * datatable.setData(data,op)
 	 */
 	var setData = function setData(data, options) {
 	    if (data.pageIndex || data.pageIndex === 0) {
@@ -5953,6 +6098,19 @@
 	    if (focus !== undefined && this.getRow(focus)) this.setRowFocus(focus);
 	};
 
+	/**
+	 * 设置对应行对应字段的值
+	 * @memberof DataTable
+	 * @param {string} fieldName 需要设置的字段
+	 * @param {string} value     需要设置的值
+	 * @param {u.row} [row=当前行] 需要设置的u.row对象，
+	 * @param {*} [ctx]        自定义属性，在valuechange监听传入对象中可通过ctx获取此处设置
+	 * @example
+	 * datatable.setValue('filed1','value1') //设置当前行字段值
+	 * var row = datatable.getRow(1)
+	 * datatable.setValue('filed1','value1',row) //设置在指定行字段值
+	 * datatable.setValue('filed1','value1',row,'ctx') //设置在指定行字段值，同时传入自定义数据
+	 */
 	var setValue = function setValue(fieldName, value, row, ctx) {
 	    if (arguments.length === 1) {
 	        value = fieldName;
@@ -5976,17 +6134,33 @@
 	    value: true
 	});
 	/**
-	 * Module : kero dataTable enable
+	 * Module : kero DataTable enable
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-08 09:59:01
 	 */
 
+	/**
+	 * 判断DataTable或指定字段是否可修改
+	 * @memberof DataTable
+	 * @param  {string}  [fieldName] 需要进行判断的字段值
+	 * @return {boolean}  DataTable/指定字段是否可修改
+	 * @example
+	 * datatable.isEnable() //获取datatable是否可修改
+	 * datatable.isEnable('field1') //获取字段field1是否可修改
+	 */
 	var isEnable = function isEnable(fieldName) {
 	    var fieldEnable = this.getMeta(fieldName, 'enable');
 	    if (typeof fieldEnable == 'undefined' || fieldEnable == null) fieldEnable = true;
 	    return fieldEnable && this.enable;
 	};
 
+	/**
+	 * 设置DataTable是否可修改
+	 * @memberof DataTable
+	 * @param {boolean} enable true表示可修改，否则表示不可修改
+	 * @example
+	 * datatable.setEnable(true)
+	 */
 	var setEnable = function setEnable(enable) {
 	    if (this.enable == enable) return;
 	    //当传入的参数不为false时，默认enable为true
@@ -6015,21 +6189,30 @@
 	    value: true
 	});
 	/**
-	 * Module : kero dataTable getCurrent
+	 * Module : kero DataTable getCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-08 09:59:01
 	 */
 
 	/**
-	 * 获取当前操作行
-	 * 规则： focus 行优先，没有focus行时，取第一选中行
+	 * 获取DataTable对象的当前行
+	 * @memberof DataTable
+	 * @return {null|u.Row} DataTable对象的当前行
+	 * @example
+	 * datatable.getCurrentRow()
 	 */
 	var getCurrentRow = function getCurrentRow() {
 	    if (this.focusIndex() != -1) return this.getFocusRow();
 	    var index = this.getSelectedIndex();
 	    if (index == -1) return null;else return this.getRow(index);
 	};
-
+	/**
+	 * 获取DataTable对象的当前行对应的index
+	 * @memberof DataTable
+	 * @return {number} DataTable对象的当前行对应的index
+	 * @example
+	 * datatable.getCurrentIndex()
+	 */
 	var getCurrentIndex = function getCurrentIndex() {
 	    if (this.focusIndex() != -1) return this.focusIndex();
 	    var index = this.getSelectedIndex();
@@ -6049,13 +6232,17 @@
 	    value: true
 	});
 	/**
-	 * Module : kero dataTable getData
+	 * Module : kero DataTable getData
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-07-30 14:34:01
 	 */
 
 	/**
-	 * 获取当前页数据
+	 * 获取DataTable的数据信息
+	 * @memberof DataTable
+	 * @return {array} 数据信息对应的数组，每项对应一条数据
+	 * @example
+	 * datatable.getData()
 	 */
 	var getData = function getData() {
 	    var datas = [],
@@ -6066,9 +6253,7 @@
 	    return datas;
 	};
 
-	/**
-	 * 将page转为row对象格式
-	 */
+	// 将page转为row对象格式
 	var page2data = function page2data(page, pageIndex) {
 	    var data = {};
 	    data.focus = page.focus;
@@ -6076,6 +6261,23 @@
 	    data.select = page.selectedIndices;
 	    return data;
 	};
+
+	/**
+	 * 按照特定规则获取数据
+	 * @memberof DataTable
+	 * @param  {string} rule
+	 * DataTable.SUBMIT.current('current') ：当前选中行
+	 * DataTable.SUBMIT.focus('focus') ：当前focus行
+	 * DataTable.SUBMIT.all('all') ：所有行
+	 * DataTable.SUBMIT.select('select') ：当前页选中行
+	 * DataTable.SUBMIT.change('change') ：发生改变的行
+	 * DataTable.SUBMIT.empty('empty') ：不获取数据，返回空数组
+	 * DataTable.SUBMIT.allSelect('allSelect') ：所有页选中行
+	 * DataTable.SUBMIT.allPages('allPages') ：所有页的数据
+	 * @return {array}      按照规则获取到的数据信息
+	 * @example
+	 * datatable.getDataByRule(‘all’)
+	 */
 
 	var getDataByRule = function getDataByRule(rule) {
 	    var returnData = {},
@@ -6203,11 +6405,20 @@
 	    return returnData;
 	};
 
+	/**
+	 * 根据索引获取指定行数据信息
+	 * @memberof DataTable
+	 * @param  {number} index 需要获取的数据信息的索引
+	 * @return {object}      获取到的指定行数据信息
+	 * @example
+	 * datatable.getRow(1)
+	 */
 	var getRow = function getRow(index) {
 	    //return this.rows()[index]   //modify by licza.   improve performance
 	    return this.rows.peek()[index];
 	};
 
+	// 获取子表的数据行
 	var getChildRow = function getChildRow(obj) {
 	    var fullField = obj.fullField,
 	        index = obj.index,
@@ -6216,13 +6427,13 @@
 	        if ((index + '').indexOf('.') > 0) {
 	            var fieldArr = fullField.split('.');
 	            var indexArr = index.split('.');
-	            var nowDatatable = this;
+	            var nowDataTable = this;
 	            var nowRow = null;
 	            for (var i = 0; i < indexArr.length; i++) {
-	                nowRow = nowDatatable.getRow(indexArr[i]);
+	                nowRow = nowDataTable.getRow(indexArr[i]);
 	                if (i < indexArr.length - 1) {
 	                    if (nowRow) {
-	                        nowDatatable = nowRow.getValue(fieldArr[i]);
+	                        nowDataTable = nowRow.getValue(fieldArr[i]);
 	                    } else {
 	                        nowRow = null;
 	                        break;
@@ -6238,9 +6449,12 @@
 	};
 
 	/**
-	 * 根据rowid取row对象
-	 * @param rowid
-	 * @returns {*}
+	 * 根据rowid获取Row对象
+	 * @memberof DataTable
+	 * @param {string} rowid 需要获取的Row对应的rowid
+	 * @returns {Row}
+	 * @example
+	 * datatable.getRowByRowId('rowid')
 	 */
 	var getRowByRowId = function getRowByRowId(rowid) {
 	    var rows = this.rows.peek();
@@ -6251,9 +6465,13 @@
 	};
 
 	/**
-	 * 取行索引
-	 * @param row
+	 * 获取Row对象对应的索引
+	 * @memberof DataTable
+	 * @param {u.Row} 需要获取索引的row对象
 	 * @returns {*}
+	 * @example
+	 * var row = datatable.getRow(1)
+	 * datatable.getRowIndex(row) // 1
 	 */
 	var getRowIndex = function getRowIndex(row) {
 	    var rows = this.rows.peek();
@@ -6263,6 +6481,15 @@
 	    return -1;
 	};
 
+	/**
+	 * 根据字段及字段值获取所有数据行
+	 * @memberof DataTable
+	 * @param  {string} field 需要获取行的对应字段
+	 * @param  {string} value 需要获取行的对应字段值
+	 * @return {array}      根据字段及字段值获取的所有数据行
+	 * @example
+	 * datatable.getRowsByField('field1','value1')
+	 */
 	var getRowsByField = function getRowsByField(field, value) {
 	    var rows = this.rows.peek();
 	    var returnRows = new Array();
@@ -6272,6 +6499,15 @@
 	    return returnRows;
 	};
 
+	/**
+	 * 根据字段及字段值获取第一条数据行
+	 * @memberof DataTable
+	 * @param  {string} field 需要获取行的对应字段
+	 * @param  {string} value 需要获取行的对应字段值
+	 * @return {u.Row}      根据字段及字段值获取第一条数据行
+	 * @example
+	 * datatable.getRowByField('field1','value1')
+	 */
 	var getRowByField = function getRowByField(field, value) {
 	    var rows = this.rows.peek();
 	    for (var i = 0, count = rows.length; i < count; i++) {
@@ -6280,10 +6516,24 @@
 	    return null;
 	};
 
+	/**
+	 * 获取当前页的所有数据行
+	 * @memberof DataTable
+	 * @return {array} 获取到的数据行
+	 * @example
+	 * datatable.getAllRows()
+	 */
 	var getAllRows = function getAllRows() {
 	    return this.rows.peek();
 	};
 
+	/**
+	 * 获取所有页的所有数据行
+	 * @memberof DataTable
+	 * @return {array} 获取到的数据行
+	 * @example
+	 * datatable.getAllPageRows()
+	 */
 	var getAllPageRows = function getAllPageRows() {
 	    var datas = [],
 	        rows;
@@ -6305,7 +6555,12 @@
 	};
 
 	/**
-	 * 获取变动的数据(新增、修改)
+	 * 获取发生变化的数据信息
+	 * @memberof DataTable
+	 * @param  {boolean} withEmptyRow=false 未发生变化的数据是否使用空行代替，true表示以空行代替未发生变化行，false相反
+	 * @return {array}            发生变化的数据信息
+	 * @example
+	 * datatable.getChangedDatas()
 	 */
 	var getChangedDatas = function getChangedDatas(withEmptyRow) {
 	    var datas = [],
@@ -6321,7 +6576,11 @@
 	};
 
 	/**
-	 * 取改变的行
+	 * 获取发生改变的Row对象
+	 * @memberof DataTable
+	 * @return {array} 发生改变的Row对象
+	 * @example
+	 * datatable.getChangedRows()
 	 */
 	var getChangedRows = function getChangedRows() {
 	    var changedRows = [],
@@ -6334,6 +6593,17 @@
 	    return changedRows;
 	};
 
+	/**
+	 * 根据字段获取对应Row对象的字段值
+	 * @memberof DataTable
+	 * @param  {string} fieldName 需要获取的值对应的字段
+	 * @param  {u.Row} [row=默认为当前行]     对应的数据行
+	 * @return {string}     获取到的字段值
+	 * @example
+	 * datatable.getValue('field1')
+	 * var row = datatable.getRow(1)
+	 * datatable.getValue('field1',row)
+	 */
 	var getValue = function getValue(fieldName, row) {
 	    row = row || this.getCurrentRow();
 	    if (row) return row.getValue(fieldName);else return '';
@@ -6341,7 +6611,10 @@
 
 	/**
 	 * 根据行号获取行索引
+	 * @memberof DataTable
 	 * @param {String} rowId
+	 * @example
+	 * datatable.getIndexByRowId('rowid')
 	 */
 	var getIndexByRowId = function getIndexByRowId(rowId) {
 	    var rows = this.rows();
@@ -6352,7 +6625,11 @@
 	};
 
 	/**
-	 * 获取所有行数据
+	 * 获取所有行数据信息
+	 * @memberof DataTable
+	 * @return {array} 所有行数据信息
+	 * @example
+	 * datatable.getAllDatas()
 	 */
 	var getAllDatas = function getAllDatas() {
 	    var rows = this.getAllRows();
@@ -6363,8 +6640,12 @@
 	};
 
 	/**
-	 * 根据索引取rowid
-	 * @param {Object} indices
+	 * 根据索引获取rowid
+	 * @memberof DataTable
+	 * @param  {array} indices 需要获取rowid的索引值
+	 * @return {array}         获取到的rowid
+	 * @example
+	 * datatable.getRowIdsByIndices([1,2,5])
 	 */
 	var getRowIdsByIndices = function getRowIdsByIndices(indices) {
 	    var rowIds = [];
@@ -6408,13 +6689,21 @@
 
 	/**
 	 * 获取焦点行
+	 * @memberof DataTable
+	 * @return {u.Row} 焦点行
+	 * @example
+	 * datatable.getFocusRow()
 	 */
 	var getFocusRow = function getFocusRow() {
 	  if (this.focusIndex() != -1) return this.getRow(this.focusIndex());else return null;
 	};
 
 	/**
-	 * 获取焦点行
+	 * 获取焦点行索引
+	 * @memberof DataTable
+	 * @return {number} 焦点行索引
+	 * @example
+	 * datatable.getFocusIndex()
 	 */
 	var getFocusIndex = function getFocusIndex() {
 	  return this.focusIndex();
@@ -6439,10 +6728,15 @@
 	 */
 
 	/**
-	 * 获取meta信息，先取row上的信息，没有时，取dataTable上的信息
-	 * @param {Object} fieldName
-	 * @param {Object} key
-	 * @param {Object} row
+	 * 获取meta信息
+	 * @memberof DataTable
+	 * @param  {string} [fieldName] 需要获取的字段
+	 * @param  {string} [key]       需要获取的字段指定meta信息
+	 * @return {object}           meta信息
+	 * @example
+	 * datatable.getMeta() // 获取所有meta信息
+	 * datatable.getMeta('field1') // 获取field1所有meta信息
+	 * datatable.getMeta('field1','type') // 获取field1的key信息
 	 */
 	var getMeta = function getMeta(fieldName, key) {
 	    if (arguments.length === 0) return this.meta;else if (arguments.length === 1) return this.meta[fieldName];
@@ -6454,6 +6748,17 @@
 	    }
 	};
 
+	/**
+	 * 获取当前行的meta信息，如果不存在当前行则获取DataTable的meta信息
+	 * @memberof DataTable
+	 * @param  {string} [fieldName] 需要获取的字段
+	 * @param  {string} [key]       需要获取的字段指定meta信息
+	 * @return {object}           meta信息
+	 * @example
+	 * datatable.getRowMeta() // 获取当前行所有meta信息
+	 * datatable.getRowMeta('field1') // 获取当前行field1所有meta信息
+	 * datatable.getRowMeta('field1','type') // 获取当前行field1的key信息
+	 */
 	var getRowMeta = function getRowMeta(fieldName, key) {
 	    var row = this.getCurrentRow();
 	    if (row) return row.getMeta(fieldName, key);else return this.getMeta(fieldName, key);
@@ -6469,7 +6774,7 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	/**
 	 * Module : kero dataTable getPage
@@ -6477,18 +6782,33 @@
 	 * Date	  : 2016-08-01 14:34:01
 	 */
 
+	/**
+	 * 获取指定索引的Page对象
+	 * @memberof DataTable
+	 * @param  {number} pageIndex 需要获取的page对应的索引
+	 * @return {Page|-1}           获取到的Page对象，不存在则返回-1
+	 * @example
+	 * datatable.getPage(1)
+	 */
 	var getPage = function getPage(pageIndex) {
-	    if (this.pageCache) {
-	        return this.cachedPages[pageIndex];
-	    }
-	    return -1;
+	  if (this.pageCache) {
+	    return this.cachedPages[pageIndex];
+	  }
+	  return -1;
 	};
 
+	/**
+	 * 获取所有的Page对象
+	 * @memberof DataTable
+	 * @return {array} 所有的Page对象
+	 * @example
+	 * datatable.getPages()
+	 */
 	var getPages = function getPages() {
-	    if (this.pageCache) {
-	        return this.cachedPages;
-	    }
-	    return [];
+	  if (this.pageCache) {
+	    return this.cachedPages;
+	  }
+	  return [];
 	};
 
 	exports.getPage = getPage;
@@ -6509,6 +6829,14 @@
 	 * Date	  : 2016-07-30 14:34:01
 	 */
 
+	/**
+	 * 获取Param参数值
+	 * @memberof DataTable
+	 * @param  {string} key Param对应的key
+	 * @return {*}     Param参数值
+	 * @example
+	 * datatable.getParam('param1')
+	 */
 	var getParam = function getParam(key) {
 	  return this.params[key];
 	};
@@ -6532,6 +6860,10 @@
 
 	/**
 	 * 获取选中行索引，多选时，只返回第一个行索引
+	 * @memberof DataTable
+	 * @return {number} 选中行索引
+	 * @example
+	 * datatable.getSelectedIndex()
 	 */
 	var getSelectedIndex = function getSelectedIndex() {
 	    var selectedIndices = this.selectedIndices();
@@ -6540,7 +6872,11 @@
 	};
 
 	/**
-	 *获取选中的所有行索引数组索引
+	 * 获取选中的所有行索引数组
+	 * @memberof DataTable
+	 * @return {array} 所有行索引数组
+	 * @example
+	 * datatable.getSelectedIndices()
 	 */
 	var getSelectedIndices = function getSelectedIndices() {
 	    var selectedIndices = this.selectedIndices();
@@ -6548,15 +6884,19 @@
 	    return selectedIndices;
 	};
 
-	/**
-	 * 兼容保留，不要用
-	 */
+	// 兼容保留，不要用
 	var getSelectedIndexs = function getSelectedIndexs() {
 	    return this.getSelectedIndices();
 	};
 
 	/**
-	 * 获取选中行数据
+	 * 获取选中行的数据信息
+	 * @memberof DataTable
+	 * @param  {boolean} [withEmptyRow=false] 未选中的数据是否使用空行代替，true表示以空行代替未选中行，false相反
+	 * @return {array}            发生变化的数据信息
+	 * @example
+	 * datatable.getSelectedDatas()
+	 * datatable.getSelectedDatas(true)
 	 */
 	var getSelectedDatas = function getSelectedDatas(withEmptyRow) {
 	    var selectedIndices = this.selectedIndices();
@@ -6573,7 +6913,11 @@
 	};
 
 	/**
-	 * 取选中行
+	 * 获取选中的Row对象
+	 * @memberof DataTable
+	 * @return {array} 选中的Row对象
+	 * @example
+	 * datatable.getSelectedRows()
 	 */
 	var getSelectedRows = function getSelectedRows() {
 	    var selectedIndices = this.selectedIndices();
@@ -6611,7 +6955,21 @@
 	 */
 
 	/**
-	 * 获取数据,只取字段名与字段值
+	 * 获取数据信息，只获取字段名与字段值
+	 * @memberof DataTable
+	 * @param  {object} [options] [description]
+	 * @param  {string} [options.type=all]    获取数据的规则
+	 * all：所有数据
+	 * current：当前行数据
+	 * focus：焦点行数据
+	 * select：选中行数据
+	 * change：发生改变的数据
+	 * @param  {array} [options.fields]    需要获取数据的字段名数组
+	 * @return {array}        获取到的数据信息
+	 * @example
+	 * datatable.getSimpleData() // 获取所有数据信息
+	 * datatable.getSimpleData({type:'current'}) // 获取当前行数据信息
+	 * datatable.getSimpleData({type:'current','fields':['filed1','field3']}) // 获取当前行field1和filed3数据信息
 	 */
 	var getSimpleData = function getSimpleData(options) {
 	    options = options || {};
@@ -6663,6 +7021,15 @@
 	 * Date	  : 2016-07-30 14:34:01
 	 */
 
+	/**
+	 * 设置meta信息
+	 * @memberof DataTable
+	 * @param {string} fieldName 需要设置meta信息的字段名
+	 * @param {string} key       meta信息的key
+	 * @param {string} value     meta信息的值
+	 * @example
+	 * datatable.setMeta('filed1','type','string')
+	 */
 	var setMeta = function setMeta(fieldName, key, value) {
 	    if (!this.meta[fieldName]) return;
 	    var oldValue = this.meta[fieldName][key];
@@ -6689,7 +7056,12 @@
 	};
 
 	/**
-	 * example: meta: {supplier: {meta: {precision:'3', default: '0239900x', display:'显示名称'}}}
+	 * 更新meta信息
+	 * @memberof DataTable
+	 * @param  {object} meta 需要更新的meta信息
+	 * @example
+	 * var metaObj = {supplier: {meta: {precision:'3', default: '0239900x', display:'显示名称'}}}
+	 * datatable.updateMeta(metaObj)
 	 */
 	var updateMeta = function updateMeta(meta) {
 	    if (!meta) {
@@ -6726,11 +7098,8 @@
 	    }
 	};
 
-	/**
-	 * 字段不存在时，创建字段
-	 * @param fieldName
-	 * @param options
-	 */
+	// 字段不存在时创建字段，fieldName为需要创建的字段
+	// options.meta为对应的meta信息
 	var createField = function createField(fieldName, options) {
 	    //字段不主动定义，则不创建
 	    if (this.root.strict == true) return;
@@ -6803,6 +7172,7 @@
 	 * Date	  : 2016-08-01 14:34:01
 	 */
 
+	// 设置当前页
 	var setCurrentPage = function setCurrentPage(pageIndex, notCacheCurrentPage) {
 	    var nowTotalRow = this.totalRow();
 	    if (pageIndex != this.pageIndex() && notCacheCurrentPage != true) this.cacheCurrentPage();
@@ -6818,9 +7188,7 @@
 	    this.totalRow(nowTotalRow);
 	};
 
-	/**
-	 * 更新分页数据
-	 */
+	// 更新分页信息，通过fire调用，不对外提供
 	var updatePages = function updatePages(pages) {
 	    var pageSize = this.pageSize(),
 	        pageIndex = 0,
@@ -6908,10 +7276,7 @@
 	    }
 	};
 
-	/**
-	 * 前端分页方法，不建议使用，建议在后端进行分页
-	 * @param allRows
-	 */
+	// 前端分页方法，不建议使用，建议在后端进行分页
 	var setPages = function setPages(allRows) {
 	    var pageSize = this.pageSize(),
 	        pageIndex = 0,
@@ -6930,14 +7295,17 @@
 	    this.totalPages(pageIndex + 1);
 	};
 
+	// 判断是否存在索引对应的Page
 	var hasPage = function hasPage(pageIndex) {
 	    return this.pageCache && this.cachedPages[pageIndex] ? true : false;
 	};
 
+	// 清空cachedPages
 	var clearCache = function clearCache() {
 	    this.cachedPages = [];
 	};
 
+	// 更新当前分页的page对象
 	var cacheCurrentPage = function cacheCurrentPage() {
 	    if (this.pageCache && this.pageIndex() > -1) {
 	        var page = new Page({ parent: this });
@@ -6954,9 +7322,7 @@
 	    }
 	};
 
-	/**
-	 * [updatePagesSelect 根据datatable的选中行更新每页的选中行]
-	 */
+	//根据datatable的选中行更新每页的选中行
 	var updatePagesSelect = function updatePagesSelect() {
 	    var selectRows = this.getSelectedRows();
 	    var pages = this.getPages();
@@ -6977,9 +7343,7 @@
 	    }
 	};
 
-	/**
-	 * [updatePageRows 根据datatable的rows更新当前页的rows]
-	 */
+	//根据datatable的rows更新当前页的rows
 	var updatePageRows = function updatePageRows() {
 	    if (this.pageCache) {
 	        var pageIndex = this.pageIndex();
@@ -6990,9 +7354,7 @@
 	    }
 	};
 
-	/**
-	 * [updatePageSelect 根据datatable的选中行更新page的选中行]
-	 */
+	//根据datatable的选中行更新page的选中行
 	var updatePageSelect = function updatePageSelect() {
 	    if (this.pageCache) {
 	        var pageIndex = this.pageIndex();
@@ -7004,9 +7366,7 @@
 	    }
 	};
 
-	/**
-	 * [updatePageFocus 根据datatable的focus更新page的focus]
-	 */
+	//根据datatable的focus更新page的focus
 	var updatePageFocus = function updatePageFocus() {
 	    if (this.pageCache) {
 	        var pageIndex = this.pageIndex();
@@ -7017,9 +7377,7 @@
 	    }
 	};
 
-	/**
-	 * [updatePageAll 根据datatable更新page对象]
-	 */
+	// 根据datatable更新page对象
 	var updatePageAll = function updatePageAll() {
 	    this.updatePageRows();
 	    this.updatePageSelect();
@@ -7045,7 +7403,7 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	/**
 	 * Module : kero dataTable param
@@ -7053,14 +7411,33 @@
 	 * Date	  : 2016-07-30 14:34:01
 	 */
 
+	/**
+	 * 增加Param参数
+	 * @memberof DataTable
+	 * @param {string} key   需要增加的key值
+	 * @param {*} value 需要增加的具体指
+	 * @example
+	 * datatable.addParam('precision','3')
+	 */
 	var addParam = function addParam(key, value) {
-	    this.params[key] = value;
+	  this.params[key] = value;
 	};
 
+	/**
+	 * 增加多个Param参数
+	 * @memberof DataTable
+	 * @param {object} params 需要增加的Param对象
+	 * @example
+	 * var paramsObj = {
+	 *  'precision':'3',
+	 *  'default':'1.234'
+	 * }
+	 * datatable.addParams(paramsObj)
+	 */
 	var addParams = function addParams(params) {
-	    for (var key in params) {
-	        this.params[key] = params[key];
-	    }
+	  for (var key in params) {
+	    this.params[key] = params[key];
+	  }
 	};
 
 	exports.addParam = addParam;
@@ -7081,6 +7458,13 @@
 	 * Date   : 2016-08-01 14:34:01
 	 */
 
+	/**
+	 * 为选中行绑定监听，当选中行发生改变时触发对应方法
+	 * @memberof DataTable
+	 * @param {string} fieldName 绑定的字段名
+	 * @example
+	 * datatable.refSelectedRows().subscribe(function(){})
+	 */
 	var refSelectedRows = function refSelectedRows() {
 	    return ko.pureComputed({
 	        read: function read() {
@@ -7096,8 +7480,11 @@
 	};
 
 	/**
-	 * 绑定字段值
-	 * @param {Object} fieldName
+	 * 为某个字段绑定监听，当字段发生改变时触发对应方法
+	 * @memberof DataTable
+	 * @param {string} fieldName 绑定的字段名
+	 * @example
+	 * datatable.ref('field1').subscribe(function(){})
 	 */
 	var ref = function ref(fieldName) {
 	    this.createField(fieldName);
@@ -7119,39 +7506,13 @@
 	    });
 	};
 
-	var refByRow = function refByRow(obj) {
-	    var fieldName = obj.fieldName,
-	        fullField = obj.fullField;
-	    this.createField(fieldName);
-	    if (!this.valueChange[fieldName]) this.valueChange[fieldName] = ko.observable(1);
-	    return ko.pureComputed({
-	        read: function read() {
-	            this.valueChange[fieldName]();
-	            this.currentRowChange();
-	            var row,
-	                index = obj.index + '';
-	            var childRowObj = {
-	                fullField: fullField,
-	                index: index
-	            };
-	            row = this.getChildRow(childRowObj);
-
-	            if (row) {
-	                return row.getChildValue(fieldName);
-	            } else return '';
-	        },
-	        write: function write(value) {
-	            var row;
-	            if (obj.index > -1) row = this.getRow(obj.index);
-	            if (row) row.setChildValue(fieldName, value);
-	        },
-	        owner: this
-	    });
-	};
 	/**
-	 * 绑定字段属性
-	 * @param {Object} fieldName
-	 * @param {Object} key
+	 * 绑定字段属性，当字段属性发生改变时触发对应方法
+	 * @memberof DataTable
+	 * @param {string} fieldName 绑定的字段名
+	 * @param {string} key 绑定的属性key
+	 * @example
+	 * datatable.refMeta('field1','type').subscribe(function(){})
 	 */
 	var refMeta = function refMeta(fieldName, key) {
 	    if (!this.metaChange[fieldName + '.' + key]) this.metaChange[fieldName + '.' + key] = ko.observable(1);
@@ -7168,6 +7529,14 @@
 	    });
 	};
 
+	/**
+	 * 绑定当前行的字段属性，当字段属性发生改变时触发对应方法
+	 * @memberof DataTable
+	 * @param {string} fieldName 绑定的字段名
+	 * @param {string} key 绑定的属性key
+	 * @example
+	 * datatable.refRowMeta('field1','type').subscribe(function(){})
+	 */
 	var refRowMeta = function refRowMeta(fieldName, key) {
 	    if (!this.metaChange[fieldName + '.' + key]) this.metaChange[fieldName + '.' + key] = ko.observable(1);
 	    return ko.pureComputed({
@@ -7185,6 +7554,13 @@
 	    });
 	};
 
+	/**
+	 * 绑定字段是否可修改属性，当字段可修改属性发生改变时触发对应方法
+	 * @memberof DataTable
+	 * @param {string} fieldName 绑定的字段名
+	 * @example
+	 * datatable.refEnable('field1').subscribe(function(){})
+	 */
 	var refEnable = function refEnable(fieldName) {
 	    return ko.pureComputed({
 	        //enable优先级： dataTable.enable >  row上的enable >  field中的enable定义
@@ -7204,7 +7580,6 @@
 	exports.refMeta = refMeta;
 	exports.refRowMeta = refRowMeta;
 	exports.refEnable = refEnable;
-	exports.refByRow = refByRow;
 
 /***/ },
 /* 45 */
@@ -7219,16 +7594,30 @@
 
 	var _util = __webpack_require__(46);
 
+	/**
+	 * 根据rowId删除指定行
+	 * @memberof DataTable
+	 * @param  {string} rowId 需要删除行的rowId
+	 * @example
+	 * datatable.removeRowByRowId('rowid1')
+	 */
 	var removeRowByRowId = function removeRowByRowId(rowId) {
 	    var index = this.getIndexByRowId(rowId);
 	    if (index != -1) this.removeRow(index);
-	}; /**
-	    * Module : kero dataTable removeRow
-	    * Author : liuyk(liuyk@yonyou.com)
-	    * Date   : 2016-08-01 14:34:01
-	    */
+	};
 
-
+	/**
+	 *根据索引删除指定行
+	 * @memberof DataTable
+	 * @param  {number} index 需要删除行的索引
+	 * @example
+	 * datatable.removeRow(1)
+	 */
+	/**
+	 * Module : kero dataTable removeRow
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-01 14:34:01
+	 */
 	var removeRow = function removeRow(index) {
 	    if (index instanceof Row) {
 	        index = this.getIndexByRowId(index.rowId);
@@ -7236,6 +7625,12 @@
 	    this.removeRows([index]);
 	};
 
+	/**
+	 * 删除所有行
+	 * @memberof DataTable
+	 * @example
+	 * datatable.removeAllRows();
+	 */
 	var removeAllRows = function removeAllRows() {
 	    this.rows([]);
 	    this.selectedIndices([]);
@@ -7244,6 +7639,13 @@
 	    this.updateCurrIndex();
 	};
 
+	/**
+	 * 根据索引数据删除多条数据行
+	 * @memberof DataTable
+	 * @param  {array} indices 需要删除的数据行对应索引数组
+	 * @example
+	 * datatable.removeRows([1,2])
+	 */
 	var removeRows = function removeRows(indices) {
 	    indices = (0, _util._formatToIndicesArray)(this, indices);
 	    indices = indices.sort(function (a, b) {
@@ -7277,6 +7679,9 @@
 
 	/**
 	 * 清空datatable的所有数据以及分页数据以及index
+	 * @memberof DataTable
+	 * @example
+	 * datatable.clear()
 	 */
 	var clear = function clear() {
 	    this.removeAllRows();
@@ -7306,19 +7711,21 @@
 
 	var _util = __webpack_require__(5);
 
+	// 判断DataTable对象是否发生了改变
 	var isChanged = function isChanged() {
 	    var rows = this.getAllRows();
 	    for (var i = 0; i < rows.length; i++) {
 	        if (rows[i].status != Row.STATUS.NORMAL) return true;
 	    }
 	    return false;
-	}; /**
-	    * Module : kero dataTable util
-	    * Author : liuyk(liuyk@yonyou.com)
-	    * Date   : 2016-08-08 09:59:01
-	    */
+	};
 
-
+	// 将Row对象转为索引数组或者将Row对象数组转为索引数组
+	/**
+	 * Module : kero dataTable util
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-08-08 09:59:01
+	 */
 	var _formatToIndicesArray = function _formatToIndicesArray(dataTableObj, indices) {
 	    if (typeof indices == 'string' || typeof indices == 'number') {
 	        indices = [indices];
@@ -7348,10 +7755,7 @@
 
 	var _util = __webpack_require__(5);
 
-	/**
-	 * 设置行数据
-	 * @param {Object} rows
-	 */
+	// 添加数据，建议使用setData或者setSimpleData
 	var setRows = function setRows(rows, options) {
 	    var insertRows = [],
 	        _id;
@@ -7397,7 +7801,16 @@
 	};
 
 	/**
-	 *追加行
+	 * 在最后位置添加一条数据行
+	 * @memberof DataTable
+	 * @param {u.Row} row 数据行
+	 * @example
+	 * var row1 = new Row({parent: datatable})
+	 * row1.setData({
+	 *  field1: 'value1',
+	 *  field2: 'value2'
+	 * })
+	 * datatable.addRow(row1)
 	 */
 	/**
 	 * Module : kero dataTable row
@@ -7409,12 +7822,39 @@
 	};
 
 	/**
-	 *追加多行
+	 * 在最后位置添加多条数据行
+	 * @memberof DataTable
+	 * @param {array} rows  数据行数组
+	 * @example
+	 * var row1 = new Row({parent: datatable})
+	 * row1.setData({
+	 *  field1: 'value1',
+	 *  field2: 'value2'
+	 * })
+	 * var row2 = new Row({parent: datatable})
+	 * row2.setData({
+	 *  field1: 'value11',
+	 *  field2: 'value22'
+	 * })
+	 * datatable.addRow([row1,row2])
 	 */
 	var addRows = function addRows(rows) {
 	    this.insertRows(this.rows().length, rows);
 	};
 
+	/**
+	 * 在指定索引位置添加一条数据行
+	 * @memberof DataTable
+	 * @param  {number} index 指定索引
+	 * @param  {u.Row} row   数据行
+	 * @example
+	 * var row1 = new Row({parent: datatable})
+	 * row1.setData({
+	 *  field1: 'value1',
+	 *  field2: 'value2'
+	 * })
+	 * datatable.insertRow(1,row1)
+	 */
 	var insertRow = function insertRow(index, row) {
 	    if (!row) {
 	        row = new Row({ parent: this });
@@ -7422,6 +7862,23 @@
 	    this.insertRows(index, [row]);
 	};
 
+	/**
+	 * 在指定索引位置添加多条数据行
+	 * @memberof DataTable
+	 * @param  {number} index 指定索引
+	 * @param  {array} rows  数据行数组
+	 * var row1 = new Row({parent: datatable})
+	 * row1.setData({
+	 *  field1: 'value1',
+	 *  field2: 'value2'
+	 * })
+	 * var row2 = new Row({parent: datatable})
+	 * row2.setData({
+	 *  field1: 'value11',
+	 *  field2: 'value22'
+	 * })
+	 * datatable.insertRows(1,[row1,row2])
+	 */
 	var insertRows = function insertRows(index, rows) {
 	    var args = [index, 0];
 	    for (var i = 0; i < rows.length; i++) {
@@ -7443,11 +7900,16 @@
 
 	/**
 	 * 创建空行
+	 * @memberof DataTable
+	 * @return {u.Row} 空行对象
+	 * @example
+	 * datatable.createEmptyRow();
 	 */
 	var createEmptyRow = function createEmptyRow() {
 	    var r = new Row({ parent: this });
 	    this.addRow(r);
-	    if (!this.getCurrentRow()) this.setRowSelect(r);
+	    // if (!this.getCurrentRow())
+	    //     this.setRowSelect(r);
 	    return r;
 	};
 
@@ -7473,6 +7935,7 @@
 	 * Date   : 2016-08-08 09:59:01
 	 */
 
+	// 更新当前行对应索引
 	var updateCurrIndex = function updateCurrIndex() {
 	    var currentIndex = this.focusIndex() != -1 ? this.focusIndex() : this.getSelectedIndex();
 	    if (this._oldCurrentIndex != currentIndex) {
@@ -7500,9 +7963,9 @@
 
 	var _util = __webpack_require__(46);
 
-	/**
-	 * 设置行删除
-	 * @param {Object} index
+	/***
+	 * 根据索引删除数据行
+	 * @param {number} index 需要删除数据行的索引
 	 */
 	var setRowDelete = function setRowDelete(index) {
 	    if (index instanceof Row) {
@@ -7511,8 +7974,8 @@
 	    this.setRowsDelete([index]);
 	};
 
-	/**
-	 * 设置所有行删除
+	/***
+	 * 删除所有数据行
 	 */
 	/**
 	 * Module : kero dataTable rowDelete
@@ -7528,9 +7991,9 @@
 	    this.setRowsDelete(indices);
 	};
 
-	/**
-	 * 设置行删除
-	 * @param {Array} indices
+	/***
+	 * 根据索引数组删除数据行
+	 * @param {Array} indices 需要删除数据行的索引数组
 	 */
 	var setRowsDelete = function setRowsDelete(indices) {
 	    indices = (0, _util._formatToIndicesArray)(this, indices);
@@ -7574,6 +8037,12 @@
 	var _util2 = __webpack_require__(46);
 
 	/**
+	 * 设置所有行选中
+	 * @memberof DataTable
+	 * @example
+	 * datatable.setAllRowsSelect()
+	 */
+	/**
 	 * Module : kero dataTable rowSelect
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-01 14:34:01
@@ -7589,7 +8058,11 @@
 	};
 
 	/**
-	 * 设置选中行，清空之前已选中的所有行
+	 * 根据索引设置选中行，清空之前已选中的所有行
+	 * @memberof DataTable
+	 * @param {number} index 需要选中行的索引
+	 * @example
+	 * datatable.setRowSelect(1)
 	 */
 	var setRowSelect = function setRowSelect(index) {
 	    if (index instanceof Row) {
@@ -7599,6 +8072,13 @@
 	    this.setRowFocus(this.getSelectedIndex());
 	};
 
+	/**
+	 * 根据索引数组设置选中行，清空之前已选中的所有行
+	 * @memberof DataTable
+	 * @param {array} indices 需要选中行的索引数组
+	 * @example
+	 * datatable.setRowsSelect([1,2])
+	 */
 	var setRowsSelect = function setRowsSelect(indices) {
 	    indices = indices || -1;
 	    if (indices == -1) {
@@ -7612,7 +8092,7 @@
 	        return;
 	    }
 
-	    if (u.isArray(indices)) {
+	    if ((0, _util.isArray)(indices)) {
 	        var rowNum = this.rows().length;
 	        for (var i = 0; i < indices.length; i++) {
 	            if (indices[i] < 0 || indices[i] >= rowNum) indices.splice(i, 1);
@@ -7634,7 +8114,11 @@
 	};
 
 	/**
-	 * 添加选中行，不会清空之前已选中的行
+	 * 根据索引添加选中行，不会清空之前已选中的行
+	 * @memberof DataTable
+	 * @param {number} index 需要选中行的索引
+	 * @example
+	 * datatable.addRowSelect(1)
 	 */
 	var addRowSelect = function addRowSelect(index) {
 	    if (index instanceof Row) {
@@ -7644,7 +8128,11 @@
 	};
 
 	/**
-	 * 添加选中行，不会清空之前已选中的行
+	 * 根据索引数组添加选中行，不会清空之前已选中的行
+	 * @memberof DataTable
+	 * @param {array} indices 需要选中行的索引数组
+	 * @example
+	 * datatabel.addRowsSelect([1,2])
 	 */
 	var addRowsSelect = function addRowsSelect(indices) {
 	    indices = (0, _util2._formatToIndicesArray)(this, indices);
@@ -7678,6 +8166,12 @@
 
 	/**
 	 * 全部取消选中
+	 * @memberof DataTable
+	 * @param {object} [options] 可选参数
+	 * @param {boolean} [options.quiet] 如果为true则不触发事件，否则触发事件
+	 * @example
+	 * datatable.setAllRowsUnSelect() // 全部取消选中
+	 * datatable.setAllRowsUnSelect({quiet:true}) // 全部取消选中,不触发事件
 	 */
 	var setAllRowsUnSelect = function setAllRowsUnSelect(options) {
 	    this.selectedIndices([]);
@@ -7690,7 +8184,11 @@
 	};
 
 	/**
-	 * 取消选中
+	 * 根据索引取消选中
+	 * @memberof DataTable
+	 * @param {number} index 需要取消选中的行索引
+	 * @example
+	 * datatable.setRowUnSelect(1)
 	 */
 	var setRowUnSelect = function setRowUnSelect(index) {
 	    if (index instanceof Row) {
@@ -7699,6 +8197,13 @@
 	    this.setRowsUnSelect([index]);
 	};
 
+	/**
+	 * 根据索引数组取消选中
+	 * @memberof DataTable
+	 * @param {array} indices 需要取消选中的行索引数组
+	 * @example
+	 * datatable.setRowsUnSelect([1,2])
+	 */
 	var setRowsUnSelect = function setRowsUnSelect(indices) {
 	    indices = (0, _util2._formatToIndicesArray)(this, indices);
 	    var selectedIndices = this.selectedIndices().slice();
@@ -7722,6 +8227,10 @@
 	    this.allSelected(false);
 	};
 
+	/**
+	 * 当全部选中时取消选中，否则全部选中
+	 * @memberof DataTable
+	 */
 	var toggleAllSelect = function toggleAllSelect() {
 	    if (this.allSelected()) {
 	        this.setAllRowsUnSelect();
@@ -7730,10 +8239,12 @@
 	    }
 	};
 
-	/**
-	 *
-	 * @param {Object} index 要处理的起始行索引
-	 * @param {Object} type   增加或减少  + -
+	/***
+	 * 数据行发生改变时更新focusindex
+	 * @memberof DataTable
+	 * @param  {number} index 发生改变的数据行位置
+	 * @param  {string} type  +表示新增行，-表示减少行
+	 * @param  {number} num     新增/减少的行数
 	 */
 	var updateSelectedIndices = function updateSelectedIndices(index, type, num) {
 	    if (!(0, _util.isNumber)(num)) {
@@ -7779,9 +8290,14 @@
 
 	/**
 	 * 设置焦点行
-	 * @param {Object} index 行对象或者行index
-	 * @param quiet 不触发事件
-	 * @param force 当index行与已focus的行相等时，仍然触发事件
+	 * @memberof DataTable
+	 * @param {number|u.Row} index 行对象或者行index
+	 * @param {boolean} [quiet] 如果为true则不触发事件，否则触发事件
+	 * @param {boolean} [force] 如果为true当index行与已focus的行相等时，仍然触发事件，否则不触发事件
+	 * @example
+	 * datatable.setRowFocus(1) // 设置第二行为焦点行
+	 * datatable.setRowFocus(1,true) // 设置第二行为焦点行，不触发事件
+	 * datatable.setRowFocus(1,false,true) // 设置第二行为焦点行，如果当前焦点行为第二行，仍旧触发事件
 	 */
 	var setRowFocus = function setRowFocus(index, quiet, force) {
 	    var rowId = null;
@@ -7809,6 +8325,9 @@
 
 	/**
 	 * 焦点行反选
+	 * @memberof DataTable
+	 * @example
+	 * datatable.setRowUnFocus()
 	 */
 	/**
 	 * Module : kero dataTable rowFocus
@@ -7830,6 +8349,14 @@
 	    this.updateCurrIndex();
 	};
 
+	/***
+	 * 数据行发生改变时更新focusindex
+	 * @memberof DataTable
+	 * @param  {number} opIndex 发生改变的数据行位置
+	 * @param  {string} opType  +表示新增行，-表示减少行
+	 * @param  {number} num     新增/减少的行数
+	 *
+	 */
 	var updateFocusIndex = function updateFocusIndex(opIndex, opType, num) {
 	    if (!(0, _util.isNumber)(num)) {
 	        num = 1;
@@ -7873,8 +8400,20 @@
 
 	/**
 	 * 设置数据, 只设置字段值
-	 * @param {array} data
-	 *options{} unSelect为true：不选中，为false则选中，默认选中0行
+	 * @memberof DataTable
+	 * @param {array} data 数据信息
+	 * @param {boject} [options] 可配置参数
+	 * @param {boject} [options.unSelect=true] 是否默认选中第一行，如果为true则不选中第一行，否则选中第一行
+	 * @example
+	 * var data = [{
+	 *   filed1:'value1',
+	 *   field2:'value2'
+	 * },{
+	 *   filed1:'value11',
+	 *   field2:'value21'
+	 * }]
+	 * datatable.setSimpleData(data)
+	 * datatable.setSimpleData(data,{unSelect:false})
 	 */
 	var setSimpleData = function setSimpleData(data, options) {
 	    this.removeAllRows();
@@ -7915,8 +8454,19 @@
 	};
 
 	/**
-	 * 追加数据
-	 * @param data
+	 * 追加数据, 只设置字段值
+	 * @memberof DataTable
+	 * @param {array} data 数据信息
+	 * @param {string} status 追加数据信息的状态，参照Row对象的状态介绍
+	 * @example
+	 * var data = [{
+	 *   filed1:'value1',
+	 *   field2:'value2'
+	 * },{
+	 *   filed1:'value11',
+	 *   field2:'value21'
+	 * }]
+	 * datatable.addSimpleData(data,Row.STATUS.NEW)
 	 */
 	var addSimpleData = function addSimpleData(data, status) {
 	    if (!data) {
@@ -9833,11 +10383,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -9930,11 +10480,11 @@
 	        self._fillYear();
 	        stopEvent(e)
 	    });
-	      on(this._headerMonth, 'click', function(e){
+	     on(this._headerMonth, 'click', function(e){
 	        self._fillMonth();
 	        stopEvent(e)
 	    });
-	      on(this._headerTime, 'click', function(e){
+	     on(this._headerTime, 'click', function(e){
 	        self._fillTime();
 	        stopEvent(e)
 	    });*/
@@ -13626,11 +14176,16 @@
 	var YearMonth = _neouiBaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
 	    init: function init() {
+	        var _fmt, _defaultFmt;
 	        var self = this;
 	        var element = this.element;
 	        this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
 	        this.panelDiv = null;
 	        this.input = this.element.querySelector("input");
+
+	        _defaultFmt = "YYYY-M";
+	        _fmt = this.element.getAttribute("format");
+	        this.format = _fmt || this.options['format'] || _defaultFmt;
 
 	        var d = new Date();
 	        this.year = d.getFullYear();
@@ -13800,7 +14355,8 @@
 	            value = this.year + '-' + this.month;
 	        }
 	        this.value = value;
-	        this.input.value = value;
+	        // this.input.value = value;
+	        this.input.value = _dateUtils.date.format(this.value, this.format);
 	        this.trigger('valueChange', { value: value });
 	    },
 
@@ -14936,6 +15492,7 @@
 	    },
 	    hide: function hide() {
 	        var self = this;
+	        self.element.value = (self.element.value + '').replace(/\,/g, '');
 	        if (self.enable) {
 	            if (!self.doValidate() && self._needClean()) {
 	                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
@@ -16711,7 +17268,7 @@
 			/*swith按钮点击时，会闪一下，注释以下代码，取消此效果*/
 			/*var focusHelper = document.createElement('span');
 	  addClass(focusHelper, this._CssClasses.FOCUS_HELPER);
-	  		thumb.appendChild(focusHelper);*/
+	  	thumb.appendChild(focusHelper);*/
 
 			this.element.appendChild(track);
 			this.element.appendChild(thumb);

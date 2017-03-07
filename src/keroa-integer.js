@@ -83,6 +83,7 @@ var IntegerAdapter = BaseAdapter.extend({
     },
     hide: function() {
         var self = this
+        self.element.value = (self.element.value + '').replace(/\,/g,'');
         if (self.enable) {
             if (!self.doValidate() && self._needClean()) {
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
