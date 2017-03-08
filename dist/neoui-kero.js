@@ -70,51 +70,51 @@
 
 	var _keroaCurrency = __webpack_require__(26);
 
-	var _keroaDatetimepicker = __webpack_require__(58);
+	var _keroaDatetimepicker = __webpack_require__(57);
 
-	var _keroaFloat = __webpack_require__(54);
+	var _keroaFloat = __webpack_require__(53);
 
-	var _keroaGrid = __webpack_require__(60);
+	var _keroaGrid = __webpack_require__(59);
 
-	var _keroaInteger = __webpack_require__(72);
+	var _keroaInteger = __webpack_require__(71);
 
-	var _keroaMonth = __webpack_require__(64);
+	var _keroaMonth = __webpack_require__(63);
 
-	var _keroaPagination = __webpack_require__(79);
+	var _keroaPagination = __webpack_require__(78);
 
-	var _keroaPassword = __webpack_require__(76);
+	var _keroaPassword = __webpack_require__(75);
 
-	var _keroaPercent = __webpack_require__(77);
+	var _keroaPercent = __webpack_require__(76);
 
-	var _keroaPhoneNumber = __webpack_require__(81);
+	var _keroaPhoneNumber = __webpack_require__(80);
 
-	var _keroaLandLine = __webpack_require__(82);
+	var _keroaLandLine = __webpack_require__(81);
 
-	var _keroaString = __webpack_require__(71);
+	var _keroaString = __webpack_require__(70);
 
-	var _keroaProgress = __webpack_require__(83);
+	var _keroaProgress = __webpack_require__(82);
 
-	var _keroaRadio = __webpack_require__(73);
+	var _keroaRadio = __webpack_require__(72);
 
-	var _keroaSwitch = __webpack_require__(85);
+	var _keroaSwitch = __webpack_require__(84);
 
-	var _keroaTextarea = __webpack_require__(87);
+	var _keroaTextarea = __webpack_require__(86);
 
-	var _keroaTextfield = __webpack_require__(88);
+	var _keroaTextfield = __webpack_require__(87);
 
-	var _keroaTime = __webpack_require__(68);
+	var _keroaTime = __webpack_require__(67);
 
-	var _keroaUrl = __webpack_require__(75);
+	var _keroaUrl = __webpack_require__(74);
 
-	var _keroaYear = __webpack_require__(62);
+	var _keroaYear = __webpack_require__(61);
 
-	var _keroaYearmonth = __webpack_require__(66);
+	var _keroaYearmonth = __webpack_require__(65);
 
-	var _keroaMonthdate = __webpack_require__(89);
+	var _keroaMonthdate = __webpack_require__(88);
 
-	var _keroaTree = __webpack_require__(91);
+	var _keroaTree = __webpack_require__(90);
 
-	var _keroaMultilang = __webpack_require__(92);
+	var _keroaMultilang = __webpack_require__(91);
 
 	var _enableMixin = __webpack_require__(7);
 
@@ -2585,14 +2585,7 @@
 	    compAsString: 'u.Validate',
 	    css: 'u-validate'
 	});
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
+
 	exports.Validate = Validate;
 	exports.validate = validate;
 	exports.doValidate = doValidate;
@@ -4027,14 +4020,7 @@
 	    compAsString: 'u.Checkbox',
 	    css: 'u-checkbox'
 	});
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
+
 	exports.Checkbox = Checkbox;
 
 /***/ },
@@ -4774,7 +4760,7 @@
 
 	    selectItem: function selectItem(index) {
 	        var self = this;
-
+	        self._inputFocus = false;
 	        if (this.mutilSelect) {
 	            var val = this.comboDatas[index].value;
 	            var name = this.comboDatas[index].name;
@@ -4996,14 +4982,7 @@
 	    compAsString: 'u.Combo',
 	    css: 'u-combo'
 	});
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
+
 	exports.Combo = Combo;
 
 /***/ },
@@ -5237,14 +5216,7 @@
 	    compAsString: 'u.Text',
 	    css: 'u-text'
 	});
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
+
 	exports.Text = Text;
 
 /***/ },
@@ -5266,15 +5238,15 @@
 
 	var _indexDataTable = __webpack_require__(27);
 
-	var _formater = __webpack_require__(53);
+	var _formater = __webpack_require__(52);
 
-	var _keroaFloat = __webpack_require__(54);
+	var _keroaFloat = __webpack_require__(53);
 
 	var _compMgr = __webpack_require__(15);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(56);
 
 	/**
 	 * 货币控件
@@ -5366,61 +5338,59 @@
 
 	var _extend = __webpack_require__(1);
 
-	var _indexEvents = __webpack_require__(28);
+	var _copyRow = __webpack_require__(28);
 
-	var _copyRow = __webpack_require__(30);
+	var _data = __webpack_require__(29);
 
-	var _data = __webpack_require__(31);
+	var _enable = __webpack_require__(30);
 
-	var _enable = __webpack_require__(32);
+	var _getCurrent = __webpack_require__(31);
 
-	var _getCurrent = __webpack_require__(33);
+	var _getData = __webpack_require__(32);
 
-	var _getData = __webpack_require__(34);
+	var _getFocus = __webpack_require__(33);
 
-	var _getFocus = __webpack_require__(35);
+	var _getMeta = __webpack_require__(34);
 
-	var _getMeta = __webpack_require__(36);
+	var _getPage = __webpack_require__(35);
 
-	var _getPage = __webpack_require__(37);
+	var _getParam = __webpack_require__(36);
 
-	var _getParam = __webpack_require__(38);
+	var _getSelect = __webpack_require__(37);
 
-	var _getSelect = __webpack_require__(39);
+	var _getSimpleData = __webpack_require__(38);
 
-	var _getSimpleData = __webpack_require__(40);
+	var _meta = __webpack_require__(39);
 
-	var _meta = __webpack_require__(41);
+	var _page = __webpack_require__(40);
 
-	var _page = __webpack_require__(42);
+	var _param = __webpack_require__(41);
 
-	var _param = __webpack_require__(43);
+	var _ref = __webpack_require__(42);
 
-	var _ref = __webpack_require__(44);
+	var _removeRow = __webpack_require__(43);
 
-	var _removeRow = __webpack_require__(45);
+	var _row = __webpack_require__(45);
 
-	var _row = __webpack_require__(47);
+	var _rowCurrent = __webpack_require__(46);
 
-	var _rowCurrent = __webpack_require__(48);
+	var _rowDelete = __webpack_require__(47);
 
-	var _rowDelete = __webpack_require__(49);
+	var _rowSelect = __webpack_require__(48);
 
-	var _rowSelect = __webpack_require__(50);
+	var _rowFocus = __webpack_require__(49);
 
-	var _rowFocus = __webpack_require__(51);
+	var _simpleData = __webpack_require__(50);
 
-	var _simpleData = __webpack_require__(52);
+	var _util = __webpack_require__(44);
 
-	var _util = __webpack_require__(46);
-
-	var _events = __webpack_require__(29);
+	var _events = __webpack_require__(51);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
-	                                                                                                                                                          * Module : Kero webpack entry dataTable index
-	                                                                                                                                                          * Author : liuyk(liuyuekai@yonyou.com)
-	                                                                                                                                                          * Date   : 2016-08-09 15:24:46
-	                                                                                                                                                          */
+	                                                                                                                                                           * Module : Kero webpack entry dataTable index
+	                                                                                                                                                           * Author : liuyk(liuyuekai@yonyou.com)
+	                                                                                                                                                           * Date   : 2016-08-09 15:24:46
+	                                                                                                                                                           */
 
 	/**
 	 * DataTable
@@ -5531,147 +5501,31 @@
 	    this.newCount = 0;
 	};
 
-	DataTable.prototype.on = _events.on;
-	DataTable.prototype.off = _events.off;
-	DataTable.prototype.one = _events.one;
-	DataTable.prototype.trigger = _events.trigger;
-	DataTable.prototype.triggerReturn = _events.triggerReturn;
-	DataTable.prototype.getEvent = _events.getEvent;
-	//copyRow
-	DataTable.prototype.copyRow = _copyRow.copyRow;
-	DataTable.prototype.copyRows = _copyRow.copyRows;
-
-	//data
-	DataTable.prototype.setData = _data.setData;
-	DataTable.prototype.setValue = _data.setValue;
-
-	//enable
-	DataTable.prototype.isEnable = _enable.isEnable;
-	DataTable.prototype.setEnable = _enable.setEnable;
-
-	//getData
-	DataTable.prototype.getData = _getData.getData;
-	DataTable.prototype.getDataByRule = _getData.getDataByRule;
-	DataTable.prototype.getRow = _getData.getRow;
-	DataTable.prototype.getChildRow = _getData.getChildRow;
-	DataTable.prototype.getRowByRowId = _getData.getRowByRowId;
-	DataTable.prototype.getRowIndex = _getData.getRowIndex;
-	DataTable.prototype.getRowsByField = _getData.getRowsByField;
-	DataTable.prototype.getRowByField = _getData.getRowByField;
-	DataTable.prototype.getAllRows = _getData.getAllRows;
-	DataTable.prototype.getAllPageRows = _getData.getAllPageRows;
-	DataTable.prototype.getChangedDatas = _getData.getChangedDatas;
-	DataTable.prototype.getChangedRows = _getData.getChangedRows;
-	DataTable.prototype.getValue = _getData.getValue;
-	DataTable.prototype.getIndexByRowId = _getData.getIndexByRowId;
-	DataTable.prototype.getAllDatas = _getData.getAllDatas;
-	DataTable.prototype.getRowIdsByIndices = _getData.getRowIdsByIndices;
-
-	//getCurrent
-	DataTable.prototype.getCurrentRow = _getCurrent.getCurrentRow;
-	DataTable.prototype.getCurrentIndex = _getCurrent.getCurrentIndex;
-
-	//getFocus
-	DataTable.prototype.getFocusRow = _getFocus.getFocusRow;
-	DataTable.prototype.getFocusIndex = _getFocus.getFocusIndex;
-
-	//getMeta
-	DataTable.prototype.getMeta = _getMeta.getMeta;
-	DataTable.prototype.getRowMeta = _getMeta.getRowMeta;
-
-	//getPage
-	DataTable.prototype.getPage = _getPage.getPage;
-	DataTable.prototype.getPages = _getPage.getPages;
-
-	//getParam
-	DataTable.prototype.getParam = _getParam.getParam;
-
-	//getSelect
-	DataTable.prototype.getSelectedIndex = _getSelect.getSelectedIndex;
-	DataTable.prototype.getSelectedIndices = _getSelect.getSelectedIndices;
-	DataTable.prototype.getSelectedIndexs = _getSelect.getSelectedIndexs;
-	DataTable.prototype.getSelectedDatas = _getSelect.getSelectedDatas;
-	DataTable.prototype.getSelectedRows = _getSelect.getSelectedRows;
-
-	//getSimpleData
-	DataTable.prototype.getSimpleData = _getSimpleData.getSimpleData;
-
-	//meta
-	DataTable.prototype.setMeta = _meta.setMeta;
-	DataTable.prototype.updateMeta = _meta.updateMeta;
-	DataTable.prototype.createField = _meta.createField;
-
-	//page
-	DataTable.prototype.setCurrentPage = _page.setCurrentPage;
-	DataTable.prototype.updatePages = _page.updatePages;
-	DataTable.prototype.setPages = _page.setPages;
-	DataTable.prototype.hasPage = _page.hasPage;
-	DataTable.prototype.clearCache = _page.clearCache;
-	DataTable.prototype.cacheCurrentPage = _page.cacheCurrentPage;
-	DataTable.prototype.updatePagesSelect = _page.updatePagesSelect;
-	DataTable.prototype.updatePageRows = _page.updatePageRows;
-	DataTable.prototype.updatePageSelect = _page.updatePageSelect;
-	DataTable.prototype.updatePageFocus = _page.updatePageFocus;
-	DataTable.prototype.updatePageAll = _page.updatePageAll;
-
-	//param
-	DataTable.prototype.addParam = _param.addParam;
-	DataTable.prototype.addParams = _param.addParams;
-
-	//ref
-	DataTable.prototype.refSelectedRows = _ref.refSelectedRows;
-	DataTable.prototype.ref = _ref.ref;
-	DataTable.prototype.refMeta = _ref.refMeta;
-	DataTable.prototype.refRowMeta = _ref.refRowMeta;
-	DataTable.prototype.refEnable = _ref.refEnable;
-	DataTable.prototype.refByRow = _ref.refByRow;
-
-	//row
-	DataTable.prototype.setRows = _row.setRows;
-	DataTable.prototype.addRow = _row.addRow;
-	DataTable.prototype.addRows = _row.addRows;
-	DataTable.prototype.insertRow = _row.insertRow;
-	DataTable.prototype.insertRows = _row.insertRows;
-	DataTable.prototype.createEmptyRow = _row.createEmptyRow;
-
-	//removeRow
-	DataTable.prototype.removeRowByRowId = _removeRow.removeRowByRowId;
-	DataTable.prototype.removeRow = _removeRow.removeRow;
-	DataTable.prototype.removeAllRows = _removeRow.removeAllRows;
-	DataTable.prototype.removeRows = _removeRow.removeRows;
-	DataTable.prototype.clear = _removeRow.clear;
-
-	//rowCurrent
-	DataTable.prototype.updateCurrIndex = _rowCurrent.updateCurrIndex;
-
-	//rowDelete
-	DataTable.prototype.setRowDelete = _rowDelete.setRowDelete;
-	DataTable.prototype.setAllRowsDelete = _rowDelete.setAllRowsDelete;
-	DataTable.prototype.setRowsDelete = _rowDelete.setRowsDelete;
-
-	//rowFocus
-	DataTable.prototype.setRowFocus = _rowFocus.setRowFocus;
-	DataTable.prototype.setRowUnFocus = _rowFocus.setRowUnFocus;
-	DataTable.prototype.updateFocusIndex = _rowFocus.updateFocusIndex;
-
-	//rowSelect
-	DataTable.prototype.setAllRowsSelect = _rowSelect.setAllRowsSelect;
-	DataTable.prototype.setRowSelect = _rowSelect.setRowSelect;
-	DataTable.prototype.setRowsSelect = _rowSelect.setRowsSelect;
-	DataTable.prototype.addRowSelect = _rowSelect.addRowSelect;
-	DataTable.prototype.addRowsSelect = _rowSelect.addRowsSelect;
-	DataTable.prototype.setAllRowsUnSelect = _rowSelect.setAllRowsUnSelect;
-	DataTable.prototype.setRowUnSelect = _rowSelect.setRowUnSelect;
-	DataTable.prototype.setRowsUnSelect = _rowSelect.setRowsUnSelect;
-	DataTable.prototype.toggleAllSelect = _rowSelect.toggleAllSelect;
-	DataTable.prototype.updateSelectedIndices = _rowSelect.updateSelectedIndices;
-
-	//simpleData
-	DataTable.prototype.setSimpleData = _simpleData.setSimpleData;
-	DataTable.prototype.addSimpleData = _simpleData.addSimpleData;
-
-	//util
-	DataTable.prototype.isChanged = _util.isChanged;
+	var DataTableProto = DataTable.prototype;
+	Object.assign(DataTableProto, _copyRow.copyRowFunObj);
+	Object.assign(DataTableProto, _data.dataFunObj);
+	Object.assign(DataTableProto, _enable.enableFunObj);
+	Object.assign(DataTableProto, _getCurrent.getCurrentFunObj);
+	Object.assign(DataTableProto, _getData.getDataFunObj);
+	Object.assign(DataTableProto, _getFocus.getFocusFunObj);
+	Object.assign(DataTableProto, _getMeta.getMetaFunObj);
+	Object.assign(DataTableProto, _getPage.getPageFunObj);
+	Object.assign(DataTableProto, _getParam.getParamFunObj);
+	Object.assign(DataTableProto, _getSelect.getSelectFunObj);
+	Object.assign(DataTableProto, _getSimpleData.getSimpleDataFunObj);
+	Object.assign(DataTableProto, _page.pageFunObj);
+	Object.assign(DataTableProto, _meta.metaFunObj);
+	Object.assign(DataTableProto, _ref.refFunObj);
+	Object.assign(DataTableProto, _param.paramFunObj);
+	Object.assign(DataTableProto, _row.rowFunObj);
+	Object.assign(DataTableProto, _removeRow.removeRowFunObj);
+	Object.assign(DataTableProto, _rowCurrent.rowCurrentFunObj);
+	Object.assign(DataTableProto, _simpleData.simpleDataFunObj);
+	Object.assign(DataTableProto, _rowFocus.rowFocusFunObj);
+	Object.assign(DataTableProto, _events.eventsFunObj);
+	Object.assign(DataTableProto, _util.utilFunObj);
+	Object.assign(DataTableProto, _rowSelect.rowSelectFunObj);
+	Object.assign(DataTableProto, _rowDelete.rowDeleteFunObj);
 
 	DataTable.DEFAULTS = {
 	    pageSize: 20,
@@ -5736,209 +5590,12 @@
 
 /***/ },
 /* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.Events = undefined;
-
-	var _events = __webpack_require__(29);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
-	                                                                                                                                                           * Module : Kero webpack entry events index
-	                                                                                                                                                           * Author : liuyk(liuyuekai@yonyou.com)
-	                                                                                                                                                           * Date   : 2016-08-09 15:24:46
-	                                                                                                                                                           */
-
-	//相关依赖导入
-
-
-	var Events = function Events() {
-	  _classCallCheck(this, Events);
-	};
-
-	Events.prototype.on = _events.on;
-	Events.prototype.off = _events.off;
-	Events.prototype.one = _events.one;
-	Events.prototype.trigger = _events.trigger;
-	Events.prototype.getEvent = _events.getEvent;
-
-	exports.Events = Events;
-
-/***/ },
-/* 29 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	/**
-	 * Module : kero DataTable events
-	 * Author : liuyk(liuyk@yonyou.com)
-	 * Date   : 2016-07-30 14:34:01
-	 */
-
-	/**
-	 * 为DataTable对象添加监听
-	 * @memberof DataTable
-	 * @param  {string|array|object}   name     针对不同用法分别对应监听名称、监听名称对应的数组、监听名称及对应的回调组成的对象
-	 * @param  {function} [callback] 监听对应的回调函数
-	 * @param  {boolean}   [one]      是否只执行一次监听，为true则表示只执行一次回调函数，否则每次触发监听都是执行回调函数
-	 * @return {DataTable}            当前的DataTable对象
-	 * @example
-	 * datatable.on(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
-	 * datatable.on([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
-	 * datatable.on({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
-	 */
-	var on = function on(name, _callback, one) {
-	    var self = this,
-	        origCb = _callback;
-	    if (Object.prototype.toString.call(name) == '[object Array]') {
-	        // 数组
-	        for (var i in name) {
-	            this.on(name[i], _callback);
-	        }
-	        return this;
-	    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
-	        // map
-	        for (var key in name) {
-	            this.on(key, name[key]);
-	        }
-	        return this;
-	    }
-	    if (one) {
-	        _callback = function callback() {
-	            self.off(name, _callback);
-	            origCb.apply(this, arguments);
-	        };
-	    }
-	    name = name.toLowerCase();
-	    this._events || (this._events = {});
-	    var events = this._events[name] || (this._events[name] = []);
-	    events.push({
-	        callback: _callback
-	    });
-	    return this;
-	};
-
-	/**
-	 * 为DataTable对象取消监听
-	 * @memberof DataTable
-	 * @param  {string|array|object}   name     针对不同用法分别对应监听名称、监听名称对应的数组、监听名称及对应的回调组成的对象
-	 * @param  {function} [callback] 监听对应的回调函数
-	 * @return {DataTable}            当前的DataTable对象
-	 * @example
-	 * datatable.off(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
-	 * datatable.off([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
-	 * datatable.off({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
-	 */
-	var off = function off(name, callback) {
-	    name = name.toLowerCase();
-	    if (!this._events) return this;
-	    if (Object.prototype.toString.call(name) == '[object Array]') {
-	        // 数组
-	        for (var i in name) {
-	            this.off(name[i], callback);
-	        }
-	        return this;
-	    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
-	        // map
-	        for (var key in name) {
-	            this.off(key, name[key]);
-	        }
-	        return this;
-	    }
-	    var cbs = this._events[name];
-	    if (!cbs) return this;
-	    if (!callback) {
-	        // 解绑所有事件
-	        cbs = null;
-	    } else {
-	        for (var i = cbs.length - 1; i >= 0; i--) {
-	            if (cbs[i] == callback) {
-	                cbs.splice(i, 1);
-	            }
-	        }
-	    }
-	    return this;
-	};
-
-	/**
-	 * 为DataTable对象添加只执行一次的监听
-	 * @memberof DataTable
-	 * @param  {string|array|object}   name     针对不同用法分别对应监听名称、监听名称对应的数组、监听名称及对应的回调组成的对象
-	 * @param  {function} [callback] 监听对应的回调函数
-	 * @example
-	 * datatable.one(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
-	 * datatable.one([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
-	 * datatable.one({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
-	 */
-	var one = function one(name, callback) {
-	    this.on(name, callback, 1);
-	};
-
-	/**
-	 * 触发DataTable对象绑定的事件监听
-	 * @memberof DataTable
-	 * @param  {string} name 需要触发的事件监听对应的名称
-	 * @return {DataTable}            当前的DataTable对象
-	 * @example
-	 * datatable.trigger('valuechange')
-	 */
-	var trigger = function trigger(name) {
-	    name = name.toLowerCase();
-	    if (!this._events || !this._events[name]) return this;
-	    var args = Array.prototype.slice.call(arguments, 1);
-	    var events = this._events[name];
-	    for (var i = 0, count = events.length; i < count; i++) {
-	        events[i].callback.apply(this, args);
-	    }
-	    return this;
-	};
-
-	// 带返回值的trigger，可以获取回调函数的返回值
-	var triggerReturn = function triggerReturn(name) {
-	    name = name.toLowerCase();
-	    if (!this._events || !this._events[name]) return this;
-	    var args = Array.prototype.slice.call(arguments, 1);
-	    var events = this._events[name];
-	    var flag = true;
-	    for (var i = 0, count = events.length; i < count; i++) {
-	        flag = flag && events[i].callback.apply(this, args);
-	    }
-	    return flag;
-	};
-
-	// 获取监听名称对应的回调函数
-	var getEvent = function getEvent(name) {
-	    name = name.toLowerCase();
-	    this._events || (this._events = {});
-	    return this._events[name];
-	};
-
-	exports.on = on;
-	exports.off = off;
-	exports.one = one;
-	exports.trigger = trigger;
-	exports.triggerReturn = triggerReturn;
-	exports.getEvent = getEvent;
-
-/***/ },
-/* 30 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	/**
 	 * Module : kero DataTable copyRow
@@ -5958,7 +5615,7 @@
 	 * datatable.copyRow(1,row)
 	 */
 	var copyRow = function copyRow(index, row) {
-	  this.copyRows(index, [row]);
+	    this.copyRows(index, [row]);
 	};
 
 	/**
@@ -5976,20 +5633,24 @@
 	 * datatable.copyRow(1,[row1,row2])
 	 */
 	var copyRows = function copyRows(index, rows) {
-	  for (var i = 0; i < rows.length; i++) {
-	    var newRow = new Row({ parent: this });
-	    if (rows[i]) {
-	      newRow.setData(rows[i].getData());
+	    for (var i = 0; i < rows.length; i++) {
+	        var newRow = new Row({
+	            parent: this
+	        });
+	        if (rows[i]) {
+	            newRow.setData(rows[i].getData());
+	        }
+	        this.insertRows(index === undefined ? this.rows().length : index, [newRow]);
 	    }
-	    this.insertRows(index === undefined ? this.rows().length : index, [newRow]);
-	  }
 	};
 
-	exports.copyRow = copyRow;
-	exports.copyRows = copyRows;
+	var copyRowFunObj = exports.copyRowFunObj = {
+	    copyRow: copyRow,
+	    copyRows: copyRows
+	};
 
 /***/ },
-/* 31 */
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6121,11 +5782,13 @@
 	    if (row) row.setValue(fieldName, value, ctx);
 	};
 
-	exports.setData = setData;
-	exports.setValue = setValue;
+	var dataFunObj = exports.dataFunObj = {
+	    setData: setData,
+	    setValue: setValue
+	};
 
 /***/ },
-/* 32 */
+/* 30 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6176,11 +5839,13 @@
 	    });
 	};
 
-	exports.isEnable = isEnable;
-	exports.setEnable = setEnable;
+	var enableFunObj = exports.enableFunObj = {
+	    isEnable: isEnable,
+	    setEnable: setEnable
+	};
 
 /***/ },
-/* 33 */
+/* 31 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6219,11 +5884,13 @@
 	    if (index == -1) return -1;else return index;
 	};
 
-	exports.getCurrentRow = getCurrentRow;
-	exports.getCurrentIndex = getCurrentIndex;
+	var getCurrentFunObj = exports.getCurrentFunObj = {
+	    getCurrentRow: getCurrentRow,
+	    getCurrentIndex: getCurrentIndex
+	};
 
 /***/ },
-/* 34 */
+/* 32 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6364,7 +6031,12 @@
 	            datas = [];
 	        }
 	        if (pages.length < 1 || !pages[this.pageIndex()]) {
-	            datas = [{ index: this.pageIndex(), select: [], focus: -1, rows: [] }];
+	            datas = [{
+	                index: this.pageIndex(),
+	                select: [],
+	                focus: -1,
+	                rows: []
+	            }];
 	        }
 	        returnData.pages = datas;
 	    } else {
@@ -6655,31 +6327,33 @@
 	    return rowIds;
 	};
 
-	exports.getData = getData;
-	exports.getDataByRule = getDataByRule;
-	exports.getRow = getRow;
-	exports.getChildRow = getChildRow;
-	exports.getRowByRowId = getRowByRowId;
-	exports.getRowIndex = getRowIndex;
-	exports.getRowsByField = getRowsByField;
-	exports.getRowByField = getRowByField;
-	exports.getAllRows = getAllRows;
-	exports.getAllPageRows = getAllPageRows;
-	exports.getChangedDatas = getChangedDatas;
-	exports.getChangedRows = getChangedRows;
-	exports.getValue = getValue;
-	exports.getIndexByRowId = getIndexByRowId;
-	exports.getAllDatas = getAllDatas;
-	exports.getRowIdsByIndices = getRowIdsByIndices;
+	var getDataFunObj = exports.getDataFunObj = {
+	    getData: getData,
+	    getDataByRule: getDataByRule,
+	    getRow: getRow,
+	    getChildRow: getChildRow,
+	    getRowByRowId: getRowByRowId,
+	    getRowIndex: getRowIndex,
+	    getRowsByField: getRowsByField,
+	    getRowByField: getRowByField,
+	    getAllRows: getAllRows,
+	    getAllPageRows: getAllPageRows,
+	    getChangedDatas: getChangedDatas,
+	    getChangedRows: getChangedRows,
+	    getValue: getValue,
+	    getIndexByRowId: getIndexByRowId,
+	    getAllDatas: getAllDatas,
+	    getRowIdsByIndices: getRowIdsByIndices
+	};
 
 /***/ },
-/* 35 */
+/* 33 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	/**
 	 * Module : kero dataTable getFocus
@@ -6695,7 +6369,7 @@
 	 * datatable.getFocusRow()
 	 */
 	var getFocusRow = function getFocusRow() {
-	  if (this.focusIndex() != -1) return this.getRow(this.focusIndex());else return null;
+	    if (this.focusIndex() != -1) return this.getRow(this.focusIndex());else return null;
 	};
 
 	/**
@@ -6706,14 +6380,16 @@
 	 * datatable.getFocusIndex()
 	 */
 	var getFocusIndex = function getFocusIndex() {
-	  return this.focusIndex();
+	    return this.focusIndex();
 	};
 
-	exports.getFocusRow = getFocusRow;
-	exports.getFocusIndex = getFocusIndex;
+	var getFocusFunObj = exports.getFocusFunObj = {
+	    getFocusRow: getFocusRow,
+	    getFocusIndex: getFocusIndex
+	};
 
 /***/ },
-/* 36 */
+/* 34 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6764,17 +6440,19 @@
 	    if (row) return row.getMeta(fieldName, key);else return this.getMeta(fieldName, key);
 	};
 
-	exports.getMeta = getMeta;
-	exports.getRowMeta = getRowMeta;
+	var getMetaFunObj = exports.getMetaFunObj = {
+	    getMeta: getMeta,
+	    getRowMeta: getRowMeta
+	};
 
 /***/ },
-/* 37 */
+/* 35 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	/**
 	 * Module : kero dataTable getPage
@@ -6791,10 +6469,10 @@
 	 * datatable.getPage(1)
 	 */
 	var getPage = function getPage(pageIndex) {
-	  if (this.pageCache) {
-	    return this.cachedPages[pageIndex];
-	  }
-	  return -1;
+	    if (this.pageCache) {
+	        return this.cachedPages[pageIndex];
+	    }
+	    return -1;
 	};
 
 	/**
@@ -6805,17 +6483,19 @@
 	 * datatable.getPages()
 	 */
 	var getPages = function getPages() {
-	  if (this.pageCache) {
-	    return this.cachedPages;
-	  }
-	  return [];
+	    if (this.pageCache) {
+	        return this.cachedPages;
+	    }
+	    return [];
 	};
 
-	exports.getPage = getPage;
-	exports.getPages = getPages;
+	var getPageFunObj = exports.getPageFunObj = {
+	    getPage: getPage,
+	    getPages: getPages
+	};
 
 /***/ },
-/* 38 */
+/* 36 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6841,10 +6521,12 @@
 	  return this.params[key];
 	};
 
-	exports.getParam = getParam;
+	var getParamFunObj = exports.getParamFunObj = {
+	  getParam: getParam
+	};
 
 /***/ },
-/* 39 */
+/* 37 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6933,14 +6615,16 @@
 	    return selectRows;
 	};
 
-	exports.getSelectedIndex = getSelectedIndex;
-	exports.getSelectedIndices = getSelectedIndices;
-	exports.getSelectedIndexs = getSelectedIndexs;
-	exports.getSelectedDatas = getSelectedDatas;
-	exports.getSelectedRows = getSelectedRows;
+	var getSelectFunObj = exports.getSelectFunObj = {
+	    getSelectedIndex: getSelectedIndex,
+	    getSelectedIndices: getSelectedIndices,
+	    getSelectedIndexs: getSelectedIndexs,
+	    getSelectedDatas: getSelectedDatas,
+	    getSelectedRows: getSelectedRows
+	};
 
 /***/ },
-/* 40 */
+/* 38 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6993,7 +6677,9 @@
 	    }
 
 	    for (var i = 0; i < rows.length; i++) {
-	        _rowData.push(rows[i].getSimpleData({ fields: fields }));
+	        _rowData.push(rows[i].getSimpleData({
+	            fields: fields
+	        }));
 	    }
 	    if (_rowData.length == 0) {
 	        _rowData = this.setSimpleDataReal; //云采提的#需求
@@ -7001,10 +6687,12 @@
 	    return _rowData;
 	};
 
-	exports.getSimpleData = getSimpleData;
+	var getSimpleDataFunObj = exports.getSimpleDataFunObj = {
+	    getSimpleData: getSimpleData
+	};
 
 /***/ },
-/* 41 */
+/* 39 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7153,12 +6841,14 @@
 	    }
 	};
 
-	exports.setMeta = setMeta;
-	exports.updateMeta = updateMeta;
-	exports.createField = createField;
+	var metaFunObj = exports.metaFunObj = {
+	    setMeta: setMeta,
+	    updateMeta: updateMeta,
+	    createField: createField
+	};
 
 /***/ },
-/* 42 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7207,7 +6897,9 @@
 	            continue;
 	        }
 	        if (!this.cachedPages[index]) {
-	            page = new Page({ parent: this });
+	            page = new Page({
+	                parent: this
+	            });
 	            page.rows = rows;
 	            for (var j = 0; j < page.rows.length; j++) {
 	                page.rows[j].rowId = page.rows[j].id;
@@ -7285,7 +6977,9 @@
 	    for (var i = 0; i < allRows.length; i++) {
 	        pageIndex = Math.floor(i / pageSize);
 	        if (!this.cachedPages[pageIndex]) {
-	            page = new Page({ parent: this });
+	            page = new Page({
+	                parent: this
+	            });
 	            this.cachedPages[pageIndex] = page;
 	        }
 	        page.rows.push(allRows[i]);
@@ -7308,7 +7002,9 @@
 	// 更新当前分页的page对象
 	var cacheCurrentPage = function cacheCurrentPage() {
 	    if (this.pageCache && this.pageIndex() > -1) {
-	        var page = new Page({ parent: this });
+	        var page = new Page({
+	            parent: this
+	        });
 	        page.focus = this.getFocusIndex();
 	        page.selectedIndices = this.selectedIndices().slice();
 	        var rows = this.rows.peek();
@@ -7384,26 +7080,28 @@
 	    this.updatePageFocus();
 	};
 
-	exports.setCurrentPage = setCurrentPage;
-	exports.updatePages = updatePages;
-	exports.setPages = setPages;
-	exports.hasPage = hasPage;
-	exports.clearCache = clearCache;
-	exports.cacheCurrentPage = cacheCurrentPage;
-	exports.updatePagesSelect = updatePagesSelect;
-	exports.updatePageRows = updatePageRows;
-	exports.updatePageSelect = updatePageSelect;
-	exports.updatePageFocus = updatePageFocus;
-	exports.updatePageAll = updatePageAll;
+	var pageFunObj = exports.pageFunObj = {
+	    setCurrentPage: setCurrentPage,
+	    updatePages: updatePages,
+	    setPages: setPages,
+	    hasPage: hasPage,
+	    clearCache: clearCache,
+	    cacheCurrentPage: cacheCurrentPage,
+	    updatePagesSelect: updatePagesSelect,
+	    updatePageRows: updatePageRows,
+	    updatePageSelect: updatePageSelect,
+	    updatePageFocus: updatePageFocus,
+	    updatePageAll: updatePageAll
+	};
 
 /***/ },
-/* 43 */
+/* 41 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	/**
 	 * Module : kero dataTable param
@@ -7420,7 +7118,7 @@
 	 * datatable.addParam('precision','3')
 	 */
 	var addParam = function addParam(key, value) {
-	  this.params[key] = value;
+	    this.params[key] = value;
 	};
 
 	/**
@@ -7435,16 +7133,18 @@
 	 * datatable.addParams(paramsObj)
 	 */
 	var addParams = function addParams(params) {
-	  for (var key in params) {
-	    this.params[key] = params[key];
-	  }
+	    for (var key in params) {
+	        this.params[key] = params[key];
+	    }
 	};
 
-	exports.addParam = addParam;
-	exports.addParams = addParams;
+	var paramFunObj = exports.paramFunObj = {
+	    addParam: addParam,
+	    addParams: addParams
+	};
 
 /***/ },
-/* 44 */
+/* 42 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7475,7 +7175,8 @@
 	                selectedRows.push(rs[i]);
 	            }
 	            return selectedRows;
-	        }, owner: this
+	        },
+	        owner: this
 	    });
 	};
 
@@ -7575,14 +7276,16 @@
 	    });
 	};
 
-	exports.refSelectedRows = refSelectedRows;
-	exports.ref = ref;
-	exports.refMeta = refMeta;
-	exports.refRowMeta = refRowMeta;
-	exports.refEnable = refEnable;
+	var refFunObj = exports.refFunObj = {
+	    refSelectedRows: refSelectedRows,
+	    ref: ref,
+	    refMeta: refMeta,
+	    refRowMeta: refRowMeta,
+	    refEnable: refEnable
+	};
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7590,9 +7293,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.clear = exports.removeRows = exports.removeAllRows = exports.removeRow = exports.removeRowByRowId = undefined;
+	exports.removeRowFunObj = undefined;
 
-	var _util = __webpack_require__(46);
+	var _util = __webpack_require__(44);
 
 	/**
 	 * 根据rowId删除指定行
@@ -7647,7 +7350,7 @@
 	 * datatable.removeRows([1,2])
 	 */
 	var removeRows = function removeRows(indices) {
-	    indices = (0, _util._formatToIndicesArray)(this, indices);
+	    indices = _util.utilFunObj._formatToIndicesArray(this, indices);
 	    indices = indices.sort(function (a, b) {
 	        return a - b;
 	    });
@@ -7692,14 +7395,16 @@
 	    this.selectedIndices([]);
 	};
 
-	exports.removeRowByRowId = removeRowByRowId;
-	exports.removeRow = removeRow;
-	exports.removeAllRows = removeAllRows;
-	exports.removeRows = removeRows;
-	exports.clear = clear;
+	var removeRowFunObj = exports.removeRowFunObj = {
+	    removeRowByRowId: removeRowByRowId,
+	    removeRow: removeRow,
+	    removeAllRows: removeAllRows,
+	    removeRows: removeRows,
+	    clear: clear
+	};
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7707,7 +7412,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports._formatToIndicesArray = exports.isChanged = undefined;
+	exports.utilFunObj = undefined;
 
 	var _util = __webpack_require__(5);
 
@@ -7739,11 +7444,14 @@
 	    return indices;
 	};
 
-	exports.isChanged = isChanged;
-	exports._formatToIndicesArray = _formatToIndicesArray;
+	var utilFunObj = exports.utilFunObj = {
+	    isChanged: isChanged,
+	    _formatToIndicesArray: _formatToIndicesArray
+
+	};
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7751,7 +7459,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.createEmptyRow = exports.insertRows = exports.insertRow = exports.addRows = exports.addRow = exports.setRows = undefined;
+	exports.rowFunObj = undefined;
 
 	var _util = __webpack_require__(5);
 
@@ -7786,7 +7494,10 @@
 	                    }
 	                }
 	            } else {
-	                row = new Row({ parent: this, id: _id });
+	                row = new Row({
+	                    parent: this,
+	                    id: _id
+	                });
 	                row.setData(rows[i], null, options);
 	                insertRows.push(row);
 	            }
@@ -7857,7 +7568,9 @@
 	 */
 	var insertRow = function insertRow(index, row) {
 	    if (!row) {
-	        row = new Row({ parent: this });
+	        row = new Row({
+	            parent: this
+	        });
 	    }
 	    this.insertRows(index, [row]);
 	};
@@ -7906,22 +7619,26 @@
 	 * datatable.createEmptyRow();
 	 */
 	var createEmptyRow = function createEmptyRow() {
-	    var r = new Row({ parent: this });
+	    var r = new Row({
+	        parent: this
+	    });
 	    this.addRow(r);
 	    // if (!this.getCurrentRow())
 	    //     this.setRowSelect(r);
 	    return r;
 	};
 
-	exports.setRows = setRows;
-	exports.addRow = addRow;
-	exports.addRows = addRows;
-	exports.insertRow = insertRow;
-	exports.insertRows = insertRows;
-	exports.createEmptyRow = createEmptyRow;
+	var rowFunObj = exports.rowFunObj = {
+	    setRows: setRows,
+	    addRow: addRow,
+	    addRows: addRows,
+	    insertRow: insertRow,
+	    insertRows: insertRows,
+	    createEmptyRow: createEmptyRow
+	};
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7929,7 +7646,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	/**
+	/***
 	 * Module : kero dataTable rowCurrent
 	 * Author : liuyk(liuyk@yonyou.com)
 	 * Date   : 2016-08-08 09:59:01
@@ -7948,10 +7665,12 @@
 	    }
 	};
 
-	exports.updateCurrIndex = updateCurrIndex;
+	var rowCurrentFunObj = exports.rowCurrentFunObj = {
+	    updateCurrIndex: updateCurrIndex
+	};
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7959,9 +7678,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.setRowsDelete = exports.setAllRowsDelete = exports.setRowDelete = undefined;
+	exports.rowDeleteFunObj = undefined;
 
-	var _util = __webpack_require__(46);
+	var _util = __webpack_require__(44);
 
 	/***
 	 * 根据索引删除数据行
@@ -7996,7 +7715,7 @@
 	 * @param {Array} indices 需要删除数据行的索引数组
 	 */
 	var setRowsDelete = function setRowsDelete(indices) {
-	    indices = (0, _util._formatToIndicesArray)(this, indices);
+	    indices = _util.utilFunObj._formatToIndicesArray(this, indices);
 	    var rowIds = this.getRowIdsByIndices(indices);
 	    this.trigger(DataTable.ON_DELETE, {
 	        falseDelete: true,
@@ -8017,12 +7736,14 @@
 	    }
 	};
 
-	exports.setRowDelete = setRowDelete;
-	exports.setAllRowsDelete = setAllRowsDelete;
-	exports.setRowsDelete = setRowsDelete;
+	var rowDeleteFunObj = exports.rowDeleteFunObj = {
+	    setRowDelete: setRowDelete,
+	    setAllRowsDelete: setAllRowsDelete,
+	    setRowsDelete: setRowsDelete
+	};
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8030,11 +7751,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.updateSelectedIndices = exports.toggleAllSelect = exports.setRowsUnSelect = exports.setRowUnSelect = exports.setAllRowsUnSelect = exports.addRowsSelect = exports.addRowSelect = exports.setRowsSelect = exports.setRowSelect = exports.setAllRowsSelect = undefined;
+	exports.rowSelectFunObj = undefined;
 
 	var _util = __webpack_require__(5);
 
-	var _util2 = __webpack_require__(46);
+	var _util2 = __webpack_require__(44);
 
 	/**
 	 * 设置所有行选中
@@ -8082,10 +7803,12 @@
 	var setRowsSelect = function setRowsSelect(indices) {
 	    indices = indices || -1;
 	    if (indices == -1) {
-	        this.setAllRowsUnSelect({ quiet: true });
+	        this.setAllRowsUnSelect({
+	            quiet: true
+	        });
 	        return;
 	    }
-	    indices = (0, _util2._formatToIndicesArray)(this, indices);
+	    indices = _util2.utilFunObj._formatToIndicesArray(this, indices);
 	    var sIns = this.selectedIndices();
 	    if ((0, _util.isArray)(indices) && (0, _util.isArray)(sIns) && indices.join() == sIns.join()) {
 	        // 避免与控件循环触发
@@ -8099,7 +7822,9 @@
 	        }
 	    }
 
-	    this.setAllRowsUnSelect({ quiet: true });
+	    this.setAllRowsUnSelect({
+	        quiet: true
+	    });
 	    try {
 	        this.selectedIndices(indices);
 	    } catch (e) {}
@@ -8135,7 +7860,7 @@
 	 * datatabel.addRowsSelect([1,2])
 	 */
 	var addRowsSelect = function addRowsSelect(indices) {
-	    indices = (0, _util2._formatToIndicesArray)(this, indices);
+	    indices = _util2.utilFunObj._formatToIndicesArray(this, indices);
 	    var selectedIndices = this.selectedIndices().slice();
 	    var needTrigger = false;
 	    for (var i = 0; i < indices.length; i++) {
@@ -8205,7 +7930,7 @@
 	 * datatable.setRowsUnSelect([1,2])
 	 */
 	var setRowsUnSelect = function setRowsUnSelect(indices) {
-	    indices = (0, _util2._formatToIndicesArray)(this, indices);
+	    indices = _util2.utilFunObj._formatToIndicesArray(this, indices);
 	    var selectedIndices = this.selectedIndices().slice();
 
 	    // 避免与控件循环触发
@@ -8264,19 +7989,21 @@
 	    this.selectedIndices(selectedIndices);
 	    this.updatePageSelect();
 	};
-	exports.setAllRowsSelect = setAllRowsSelect;
-	exports.setRowSelect = setRowSelect;
-	exports.setRowsSelect = setRowsSelect;
-	exports.addRowSelect = addRowSelect;
-	exports.addRowsSelect = addRowsSelect;
-	exports.setAllRowsUnSelect = setAllRowsUnSelect;
-	exports.setRowUnSelect = setRowUnSelect;
-	exports.setRowsUnSelect = setRowsUnSelect;
-	exports.toggleAllSelect = toggleAllSelect;
-	exports.updateSelectedIndices = updateSelectedIndices;
+	var rowSelectFunObj = exports.rowSelectFunObj = {
+	    setAllRowsSelect: setAllRowsSelect,
+	    setRowSelect: setRowSelect,
+	    setRowsSelect: setRowsSelect,
+	    addRowSelect: addRowSelect,
+	    addRowsSelect: addRowsSelect,
+	    setAllRowsUnSelect: setAllRowsUnSelect,
+	    setRowUnSelect: setRowUnSelect,
+	    setRowsUnSelect: setRowsUnSelect,
+	    toggleAllSelect: toggleAllSelect,
+	    updateSelectedIndices: updateSelectedIndices
+	};
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8284,7 +8011,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.updateFocusIndex = exports.setRowUnFocus = exports.setRowFocus = undefined;
+	exports.rowFocusFunObj = undefined;
 
 	var _util = __webpack_require__(5);
 
@@ -8374,12 +8101,14 @@
 	    }
 	};
 
-	exports.setRowFocus = setRowFocus;
-	exports.setRowUnFocus = setRowUnFocus;
-	exports.updateFocusIndex = updateFocusIndex;
+	var rowFocusFunObj = exports.rowFocusFunObj = {
+	    setRowFocus: setRowFocus,
+	    setRowUnFocus: setRowUnFocus,
+	    updateFocusIndex: updateFocusIndex
+	};
 
 /***/ },
-/* 52 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8387,7 +8116,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.addSimpleData = exports.setSimpleData = undefined;
+	exports.simpleDataFunObj = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
 	                                                                                                                                                                                                                                                                               * Module : kero dataTable simpleData
@@ -8479,11 +8208,178 @@
 	    }
 	};
 
-	exports.setSimpleData = setSimpleData;
-	exports.addSimpleData = addSimpleData;
+	var simpleDataFunObj = exports.simpleDataFunObj = {
+	    setSimpleData: setSimpleData,
+	    addSimpleData: addSimpleData
+	};
 
 /***/ },
-/* 53 */
+/* 51 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/**
+	 * Module : kero DataTable events
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date   : 2016-07-30 14:34:01
+	 */
+
+	/**
+	 * 为DataTable对象添加监听
+	 * @memberof DataTable
+	 * @param  {string|array|object}   name     针对不同用法分别对应监听名称、监听名称对应的数组、监听名称及对应的回调组成的对象
+	 * @param  {function} [callback] 监听对应的回调函数
+	 * @param  {boolean}   [one]      是否只执行一次监听，为true则表示只执行一次回调函数，否则每次触发监听都是执行回调函数
+	 * @return {DataTable}            当前的DataTable对象
+	 * @example
+	 * datatable.on(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
+	 * datatable.on([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
+	 * datatable.on({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
+	 */
+	var on = function on(name, _callback, one) {
+	    var self = this,
+	        origCb = _callback;
+	    if (Object.prototype.toString.call(name) == '[object Array]') {
+	        // 数组
+	        for (var i in name) {
+	            this.on(name[i], _callback);
+	        }
+	        return this;
+	    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
+	        // map
+	        for (var key in name) {
+	            this.on(key, name[key]);
+	        }
+	        return this;
+	    }
+	    if (one) {
+	        _callback = function callback() {
+	            self.off(name, _callback);
+	            origCb.apply(this, arguments);
+	        };
+	    }
+	    name = name.toLowerCase();
+	    this._events || (this._events = {});
+	    var events = this._events[name] || (this._events[name] = []);
+	    events.push({
+	        callback: _callback
+	    });
+	    return this;
+	};
+
+	/**
+	 * 为DataTable对象取消监听
+	 * @memberof DataTable
+	 * @param  {string|array|object}   name     针对不同用法分别对应监听名称、监听名称对应的数组、监听名称及对应的回调组成的对象
+	 * @param  {function} [callback] 监听对应的回调函数
+	 * @return {DataTable}            当前的DataTable对象
+	 * @example
+	 * datatable.off(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
+	 * datatable.off([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
+	 * datatable.off({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
+	 */
+	var off = function off(name, callback) {
+	    name = name.toLowerCase();
+	    if (!this._events) return this;
+	    if (Object.prototype.toString.call(name) == '[object Array]') {
+	        // 数组
+	        for (var i in name) {
+	            this.off(name[i], callback);
+	        }
+	        return this;
+	    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
+	        // map
+	        for (var key in name) {
+	            this.off(key, name[key]);
+	        }
+	        return this;
+	    }
+	    var cbs = this._events[name];
+	    if (!cbs) return this;
+	    if (!callback) {
+	        // 解绑所有事件
+	        cbs = null;
+	    } else {
+	        for (var i = cbs.length - 1; i >= 0; i--) {
+	            if (cbs[i] == callback) {
+	                cbs.splice(i, 1);
+	            }
+	        }
+	    }
+	    return this;
+	};
+
+	/**
+	 * 为DataTable对象添加只执行一次的监听
+	 * @memberof DataTable
+	 * @param  {string|array|object}   name     针对不同用法分别对应监听名称、监听名称对应的数组、监听名称及对应的回调组成的对象
+	 * @param  {function} [callback] 监听对应的回调函数
+	 * @example
+	 * datatable.one(u.DataTable.ON_ROW_FOCUS, function() {}) // 普通
+	 * datatable.one([u.DataTable.ON_INSERT, u.DataTable.ON_DELETE], function() {}) // 数组
+	 * datatable.one({u.DataTable.ON_INSERT: function() {}, u.DataTable.ON_DELETE: function() {}}) // map
+	 */
+	var one = function one(name, callback) {
+	    this.on(name, callback, 1);
+	};
+
+	/**
+	 * 触发DataTable对象绑定的事件监听
+	 * @memberof DataTable
+	 * @param  {string} name 需要触发的事件监听对应的名称
+	 * @return {DataTable}            当前的DataTable对象
+	 * @example
+	 * datatable.trigger('valuechange')
+	 */
+	var trigger = function trigger(name) {
+	    name = name.toLowerCase();
+	    if (!this._events || !this._events[name]) return this;
+	    var args = Array.prototype.slice.call(arguments, 1);
+	    var events = this._events[name];
+	    for (var i = 0, count = events.length; i < count; i++) {
+	        events[i].callback.apply(this, args);
+	    }
+	    return this;
+	};
+
+	// 带返回值的trigger，可以获取回调函数的返回值
+	var triggerReturn = function triggerReturn(name) {
+	    name = name.toLowerCase();
+	    if (!this._events || !this._events[name]) return this;
+	    var args = Array.prototype.slice.call(arguments, 1);
+	    var events = this._events[name];
+	    var flag = true;
+	    for (var i = 0, count = events.length; i < count; i++) {
+	        flag = flag && events[i].callback.apply(this, args);
+	    }
+	    return flag;
+	};
+
+	// 获取监听名称对应的回调函数
+	var getEvent = function getEvent(name) {
+	    name = name.toLowerCase();
+	    this._events || (this._events = {});
+	    return this._events[name];
+	};
+
+	var eventsFunObj = exports.eventsFunObj = {
+	    on: on,
+	    off: off,
+	    one: one,
+	    trigger: trigger,
+	    triggerReturn: triggerReturn,
+	    getEvent: getEvent
+	};
+
+/***/ },
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8549,7 +8445,7 @@
 	exports.DateFormater = DateFormater;
 
 /***/ },
-/* 54 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8565,15 +8461,15 @@
 
 	var _dom = __webpack_require__(8);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
-	var _formater = __webpack_require__(53);
+	var _formater = __webpack_require__(52);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(55);
 
 	var _compMgr = __webpack_require__(15);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(56);
 
 	var _util = __webpack_require__(5);
 
@@ -8725,7 +8621,7 @@
 	exports.FloatAdapter = FloatAdapter;
 
 /***/ },
-/* 55 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8913,7 +8809,7 @@
 	exports.core = core;
 
 /***/ },
-/* 56 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8923,7 +8819,7 @@
 	});
 	exports.date = undefined;
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
 	var _util = __webpack_require__(5);
 
@@ -9193,7 +9089,7 @@
 	exports.date = date;
 
 /***/ },
-/* 57 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9721,7 +9617,7 @@
 	exports.PhoneNumberMasker = PhoneNumberMasker;
 
 /***/ },
-/* 58 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9737,15 +9633,15 @@
 
 	var _dom = __webpack_require__(8);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
 	var _indexDataTable = __webpack_require__(27);
 
 	var _env = __webpack_require__(10);
 
-	var _neouiDatetimepicker = __webpack_require__(59);
+	var _neouiDatetimepicker = __webpack_require__(58);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(55);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -10123,7 +10019,7 @@
 	exports.DateTimeAdapter = DateTimeAdapter;
 
 /***/ },
-/* 59 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10143,9 +10039,9 @@
 
 	var _dom = __webpack_require__(8);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(55);
 
 	var _neouiValidate = __webpack_require__(13);
 
@@ -11568,19 +11464,10 @@
 	    });
 	}
 
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
-
 	exports.DateTimePicker = DateTimePicker;
 
 /***/ },
-/* 60 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11600,55 +11487,55 @@
 
 	var _util = __webpack_require__(5);
 
-	var _formater = __webpack_require__(53);
+	var _formater = __webpack_require__(52);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(56);
 
-	var _dataRender = __webpack_require__(61);
+	var _dataRender = __webpack_require__(60);
 
 	var _indexDataTable = __webpack_require__(27);
 
 	var _event = __webpack_require__(9);
 
-	var _keroaYear = __webpack_require__(62);
+	var _keroaYear = __webpack_require__(61);
 
-	var _keroaMonth = __webpack_require__(64);
+	var _keroaMonth = __webpack_require__(63);
 
-	var _keroaYearmonth = __webpack_require__(66);
+	var _keroaYearmonth = __webpack_require__(65);
 
-	var _keroaTime = __webpack_require__(68);
+	var _keroaTime = __webpack_require__(67);
 
-	var _keroaString = __webpack_require__(71);
+	var _keroaString = __webpack_require__(70);
 
-	var _keroaInteger = __webpack_require__(72);
+	var _keroaInteger = __webpack_require__(71);
 
 	var _keroaCheckbox = __webpack_require__(19);
 
 	var _keroaCombo = __webpack_require__(23);
 
-	var _keroaRadio = __webpack_require__(73);
+	var _keroaRadio = __webpack_require__(72);
 
-	var _keroaFloat = __webpack_require__(54);
+	var _keroaFloat = __webpack_require__(53);
 
 	var _keroaCurrency = __webpack_require__(26);
 
-	var _keroaDatetimepicker = __webpack_require__(58);
+	var _keroaDatetimepicker = __webpack_require__(57);
 
-	var _keroaUrl = __webpack_require__(75);
+	var _keroaUrl = __webpack_require__(74);
 
-	var _keroaPassword = __webpack_require__(76);
+	var _keroaPassword = __webpack_require__(75);
 
-	var _keroaPercent = __webpack_require__(77);
+	var _keroaPercent = __webpack_require__(76);
 
 	var _neouiValidate = __webpack_require__(13);
 
-	var _neouiMessage = __webpack_require__(78);
+	var _neouiMessage = __webpack_require__(77);
 
 	var _compMgr = __webpack_require__(15);
 
 	var _i18n = __webpack_require__(17);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
 	var _dom = __webpack_require__(8);
 
@@ -13377,7 +13264,7 @@
 	exports.GridAdapter = GridAdapter;
 
 /***/ },
-/* 61 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13387,13 +13274,13 @@
 	});
 	exports.phoneNumberRender = exports.dateToUTCString = exports.percentRender = exports.timeRender = exports.dateTimeRender = exports.dateRender = exports.integerRender = exports.floatRender = undefined;
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
-	var _formater = __webpack_require__(53);
+	var _formater = __webpack_require__(52);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(56);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(55);
 
 	/**
 	 * Module : Sparrow data display formater
@@ -13483,7 +13370,7 @@
 	exports.phoneNumberRender = phoneNumberRender;
 
 /***/ },
-/* 62 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13495,7 +13382,7 @@
 
 	var _keroaBaseAdapter = __webpack_require__(3);
 
-	var _neouiYear = __webpack_require__(63);
+	var _neouiYear = __webpack_require__(62);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -13536,7 +13423,7 @@
 	exports.YearAdapter = YearAdapter;
 
 /***/ },
-/* 63 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13772,18 +13659,11 @@
 		compAsString: 'u.Year',
 		css: 'u-year'
 	});
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
+
 	exports.Year = Year;
 
 /***/ },
-/* 64 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13795,7 +13675,7 @@
 
 	var _keroaBaseAdapter = __webpack_require__(3);
 
-	var _neouiMonth = __webpack_require__(65);
+	var _neouiMonth = __webpack_require__(64);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -13839,7 +13719,7 @@
 	exports.MonthAdapter = MonthAdapter;
 
 /***/ },
-/* 65 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13863,7 +13743,7 @@
 
 	var _i18n = __webpack_require__(17);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(55);
 
 	/**
 	 * Module : neoui-month
@@ -14082,18 +13962,11 @@
 		compAsString: 'u.Month',
 		css: 'u-month'
 	});
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
+
 	exports.Month = Month;
 
 /***/ },
-/* 66 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14105,7 +13978,7 @@
 
 	var _keroaBaseAdapter = __webpack_require__(3);
 
-	var _neouiYearmonth = __webpack_require__(67);
+	var _neouiYearmonth = __webpack_require__(66);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -14145,7 +14018,7 @@
 	exports.YearMonthAdapter = YearMonthAdapter;
 
 /***/ },
-/* 67 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14171,7 +14044,7 @@
 
 	var _i18n = __webpack_require__(17);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(55);
 
 	var YearMonth = _neouiBaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
@@ -14475,18 +14348,11 @@
 	    compAsString: 'u.YearMonth',
 	    css: 'u-yearmonth'
 	});
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
+
 	exports.YearMonth = YearMonth;
 
 /***/ },
-/* 68 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14500,15 +14366,15 @@
 
 	var _event = __webpack_require__(9);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
 	var _env = __webpack_require__(10);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(55);
 
-	var _neouiClockpicker = __webpack_require__(69);
+	var _neouiClockpicker = __webpack_require__(68);
 
-	var _neouiTime = __webpack_require__(70);
+	var _neouiTime = __webpack_require__(69);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -14595,7 +14461,7 @@
 	exports.TimeAdapter = TimeAdapter;
 
 /***/ },
-/* 69 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14617,9 +14483,9 @@
 
 	var _extend = __webpack_require__(1);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(55);
 
 	var _i18n = __webpack_require__(17);
 
@@ -15058,18 +14924,10 @@
 		});
 	}
 
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
 	exports.ClockPicker = ClockPicker;
 
 /***/ },
-/* 70 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15299,19 +15157,10 @@
 		});
 	}
 
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-
 	exports.Time = Time;
 
 /***/ },
-/* 71 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15393,7 +15242,7 @@
 	exports.StringAdapter = StringAdapter;
 
 /***/ },
-/* 72 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15409,11 +15258,11 @@
 
 	var _event = __webpack_require__(9);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
-	var _formater = __webpack_require__(53);
+	var _formater = __webpack_require__(52);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(56);
 
 	var _env = __webpack_require__(10);
 
@@ -15513,7 +15362,7 @@
 	exports.IntegerAdapter = IntegerAdapter;
 
 /***/ },
-/* 73 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15531,7 +15380,7 @@
 
 	var _event = __webpack_require__(9);
 
-	var _neouiRadio = __webpack_require__(74);
+	var _neouiRadio = __webpack_require__(73);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -15780,7 +15629,7 @@
 	exports.RadioAdapter = RadioAdapter;
 
 /***/ },
-/* 74 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16008,19 +15857,10 @@
 	    css: 'u-radio'
 	});
 
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
-
 	exports.Radio = Radio;
 
 /***/ },
-/* 75 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16030,7 +15870,7 @@
 	});
 	exports.UrlAdapter = undefined;
 
-	var _keroaString = __webpack_require__(71);
+	var _keroaString = __webpack_require__(70);
 
 	var _dom = __webpack_require__(8);
 
@@ -16087,7 +15927,7 @@
 	exports.UrlAdapter = UrlAdapter;
 
 /***/ },
-/* 76 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16097,7 +15937,7 @@
 	});
 	exports.PassWordAdapter = undefined;
 
-	var _keroaString = __webpack_require__(71);
+	var _keroaString = __webpack_require__(70);
 
 	var _util = __webpack_require__(5);
 
@@ -16160,7 +16000,7 @@
 	exports.PassWordAdapter = PassWordAdapter;
 
 /***/ },
-/* 77 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16170,13 +16010,13 @@
 	});
 	exports.PercentAdapter = undefined;
 
-	var _keroaFloat = __webpack_require__(54);
+	var _keroaFloat = __webpack_require__(53);
 
-	var _formater = __webpack_require__(53);
+	var _formater = __webpack_require__(52);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(56);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -16207,7 +16047,7 @@
 	exports.PercentAdapter = PercentAdapter;
 
 /***/ },
-/* 78 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16313,7 +16153,7 @@
 	exports.showMessage = showMessage;
 
 /***/ },
-/* 79 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16327,7 +16167,7 @@
 
 	var _extend = __webpack_require__(1);
 
-	var _neouiPagination = __webpack_require__(80);
+	var _neouiPagination = __webpack_require__(79);
 
 	var _util = __webpack_require__(5);
 
@@ -16430,7 +16270,7 @@
 	exports.PaginationAdapter = PaginationAdapter;
 
 /***/ },
-/* 80 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16844,19 +16684,10 @@
 		css: 'u-pagination'
 	});
 
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-
 	exports.pagination = pagination;
 
 /***/ },
-/* 81 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16866,11 +16697,11 @@
 	});
 	exports.PhoneNumberAdapter = undefined;
 
-	var _keroaString = __webpack_require__(71);
+	var _keroaString = __webpack_require__(70);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(56);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -16913,7 +16744,7 @@
 	exports.PhoneNumberAdapter = PhoneNumberAdapter;
 
 /***/ },
-/* 82 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16923,11 +16754,11 @@
 	});
 	exports.LandLineAdapter = undefined;
 
-	var _keroaString = __webpack_require__(71);
+	var _keroaString = __webpack_require__(70);
 
-	var _masker = __webpack_require__(57);
+	var _masker = __webpack_require__(56);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -16970,7 +16801,7 @@
 	exports.LandLineAdapter = LandLineAdapter;
 
 /***/ },
-/* 83 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16982,7 +16813,7 @@
 
 	var _keroaBaseAdapter = __webpack_require__(3);
 
-	var _neouiProgress = __webpack_require__(84);
+	var _neouiProgress = __webpack_require__(83);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -17015,7 +16846,7 @@
 	exports.ProgressAdapter = ProgressAdapter;
 
 /***/ },
-/* 84 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17131,18 +16962,11 @@
 		compAsString: 'u.Progress',
 		css: 'u-progress'
 	});
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
+
 	exports.Progress = Progress;
 
 /***/ },
-/* 85 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17154,7 +16978,7 @@
 
 	var _keroaBaseAdapter = __webpack_require__(3);
 
-	var _neouiSwitch = __webpack_require__(86);
+	var _neouiSwitch = __webpack_require__(85);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -17222,7 +17046,7 @@
 	exports.SwitchAdapter = SwitchAdapter;
 
 /***/ },
-/* 86 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17400,19 +17224,10 @@
 		css: 'u-switch'
 	});
 
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-
 	exports.Switch = Switch;
 
 /***/ },
-/* 87 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17462,7 +17277,7 @@
 	exports.TextAreaAdapter = TextAreaAdapter;
 
 /***/ },
-/* 88 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17478,11 +17293,11 @@
 
 	var _neouiTextfield = __webpack_require__(25);
 
-	var _keroaFloat = __webpack_require__(54);
+	var _keroaFloat = __webpack_require__(53);
 
-	var _keroaString = __webpack_require__(71);
+	var _keroaString = __webpack_require__(70);
 
-	var _keroaInteger = __webpack_require__(72);
+	var _keroaInteger = __webpack_require__(71);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -17535,7 +17350,7 @@
 	exports.TextFieldAdapter = TextFieldAdapter;
 
 /***/ },
-/* 89 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17547,7 +17362,7 @@
 
 	var _keroaBaseAdapter = __webpack_require__(3);
 
-	var _neouiMonthdate = __webpack_require__(90);
+	var _neouiMonthdate = __webpack_require__(89);
 
 	var _compMgr = __webpack_require__(15);
 
@@ -17590,7 +17405,7 @@
 	exports.MonthDateAdapter = MonthDateAdapter;
 
 /***/ },
-/* 90 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17608,9 +17423,9 @@
 
 	var _dom = __webpack_require__(8);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
-	var _dateUtils = __webpack_require__(56);
+	var _dateUtils = __webpack_require__(55);
 
 	var _extend = __webpack_require__(1);
 
@@ -17951,18 +17766,11 @@
 	    compAsString: 'u.MonthDate',
 	    css: 'u-monthdate'
 	});
-	if (document.readyState && document.readyState === 'complete') {
-	    _compMgr.compMgr.updateComp();
-	} else {
-	    (0, _event.on)(window, 'load', function () {
-	        //扫描并生成控件
-	        _compMgr.compMgr.updateComp();
-	    });
-	}
+
 	exports.MonthDate = MonthDate;
 
 /***/ },
-/* 91 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17974,7 +17782,7 @@
 
 	var _keroaBaseAdapter = __webpack_require__(3);
 
-	var _neouiYear = __webpack_require__(63);
+	var _neouiYear = __webpack_require__(62);
 
 	var _util = __webpack_require__(5);
 
@@ -18421,7 +18229,7 @@
 	exports.TreeAdapter = TreeAdapter;
 
 /***/ },
-/* 92 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18433,11 +18241,11 @@
 
 	var _keroaBaseAdapter = __webpack_require__(3);
 
-	var _neouiMultilang = __webpack_require__(93);
+	var _neouiMultilang = __webpack_require__(92);
 
 	var _compMgr = __webpack_require__(15);
 
-	var _core = __webpack_require__(55);
+	var _core = __webpack_require__(54);
 
 	/**
 	 * Module : Kero multilang adapter
@@ -18666,7 +18474,7 @@
 	exports.MultilangAdapter = MultilangAdapter;
 
 /***/ },
-/* 93 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18838,15 +18646,6 @@
 		compAsString: 'u.Multilang',
 		css: 'u-multilang'
 	});
-
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
 
 	exports.Multilang = Multilang;
 

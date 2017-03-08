@@ -868,7 +868,7 @@ var GridAdapter = BaseAdapter.extend({
 			}
 			if (meta == 'precision'){
 				var comp = oThis.editComponent[field];
-				if(comp) {
+				if(comp && comp.setPrecision) {
 					comp.setPrecision(newValue)
 				}
 
