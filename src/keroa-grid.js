@@ -343,7 +343,8 @@ var GridAdapter = BaseAdapter.extend({
 
 				  //需要将key转化为name
 					var ds = getJSObject(viewModel, eOptions['datasource'])
-
+					if(!ds)
+						ds = getJSObject(viewModel, column['datasource'])
 					obj.element.innerHTML = '';
 					if(nameArr){
 						nameArr.length = 0
@@ -398,6 +399,8 @@ var GridAdapter = BaseAdapter.extend({
 				column.renderType = function(params){
 					//debugger
 					var ds = getJSObject(viewModel, eOptions['datasource'])
+					if(!ds)
+						ds = getJSObject(viewModel, column['datasource'])
 					var value = params.value
 					var compDiv = $('<div class="u-grid-edit-item-radio"></div>');
 					var checkStr = '';
@@ -1095,7 +1098,8 @@ var GridAdapter = BaseAdapter.extend({
 
 			  //需要将key转化为name
 				var ds = getJSObject(viewModel, eOptions['datasource'])
-
+				if(!ds)
+					ds = getJSObject(viewModel, column['datasource'])
 				obj.element.innerHTML = '';
 				if(nameArr){
 					nameArr.length = 0
@@ -1150,6 +1154,8 @@ var GridAdapter = BaseAdapter.extend({
 			var renderType = function(params){
 				//debugger
 				var ds = getJSObject(viewModel, eOptions['datasource'])
+				if(!ds)
+					ds = getJSObject(viewModel, column['datasource'])
 				var value = params.value
 				var compDiv = $('<div class="u-grid-edit-item-radio"></div>');
 
