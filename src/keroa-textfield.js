@@ -35,7 +35,8 @@ var TextFieldAdapter = BaseAdapter.extend({
         else if (dataType === 'integer'){
             this.trueAdpt = new IntegerAdapter(options);
         }else{
-            throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" +this.field+ "'");
+            return
+            //throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" +this.field+ "'");
         }
         extend(this, this.trueAdpt);
 

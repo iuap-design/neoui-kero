@@ -15,29 +15,39 @@
 ## Features
 
 
-### Create component
-
-
-### Simplify data manipulation
-
-
+* Create component
+*  Simplify data manipulation
 
 ## Quickstart
 
-### Quickstart
+###Get neoui-kero
 
-- From github
+* npm
 ```
-git clone git@github.com:iuap-design/neoui-kero.git
-```
-
-- npm
-
-```
-npm install neoui-kero
+    npm install neoui-kero
 ```
 
-### simple example
+* cdn 
+```
+    //design.yyuap.com/static/neoui-kero/latest/js/neoui-kero.js
+```
+### Introducing  neoui-kero
+- ES6
+```
+    <!-- neoui-kero -->
+    import { u } from "neoui-kero"
+    
+```
+- HTML
+
+```
+    <!-- neoui-kero -->
+    <script src="//design.yyuap.com/static/neoui-kero/latest/neoui-kero.js"></script>
+```
+**注**： neoui-kero often used in conjunction with [neoui](https://github.com/iuap-design/tinper-neoui), [kero](https://github.com/iuap-design/kero)
+
+
+### Use
 
 
 ```
@@ -55,7 +65,7 @@ viewModel = {
     dt1: new u.DataTable({
         meta:{
             f1:{
-            	type:'string'
+                type:'string'
             }
         }
     })
@@ -76,27 +86,18 @@ var demoInput = document.getElementById('demo_input');
 var demoDiv = document.getElementById('demo_div');
 
 var getDtValue = function() {
-	var dtVal = viewModel.dt1.getValue('f1');
-	demoDiv.innerHTML = dtVal;
+    var dtVal = viewModel.dt1.getValue('f1');
+    demoDiv.innerHTML = dtVal;
 };
 demoInput.addEventListener('blur',getDtValue);
 getDtValue();
 
 ```
-## Document
 
-[Develop documentation](http://tinper.org/dist/kero/docs/module.html)
+Read the [Develop documentation](http://tinper.org/dist/kero/docs/module.html) 
 
-[Website](http://tinper.org)
 
 ## Contributing
-
-
-### Feedback
-
-If you encounter any problems , submit [issues](https://github.com/iuap-design/neoui-kero/issues),or pull request。
-
-[PR code](CONTRIBUTING.md)
 
 ### Develop
 
@@ -124,9 +125,13 @@ build：
 $ npm run product
 ```
 
-### Website Chat Group
 
-527124070
+### Feedback
+
+If you encounter any problems , submit [issues](https://github.com/iuap-design/neoui-kero/issues),or pull request。
+
+[PR code](CONTRIBUTING.md)
+
 
 ## Licence 版权
 

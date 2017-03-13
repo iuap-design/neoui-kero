@@ -11,8 +11,8 @@ var MonthDateAdapter = BaseAdapter.extend({
     init: function () {
         var self = this;
         this.validType = 'monthdate';
-
-        this.comp = new MonthDate({el:this.element,showFix:this.options.showFix});
+         this.format  = this.getOption('format') ;
+        this.comp = new MonthDate({el:this.element,showFix:this.options.showFix,format: this.format});
 
 
         this.comp.on('valueChange', function(event){

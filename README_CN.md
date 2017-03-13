@@ -35,12 +35,6 @@
 ### 引入neoui-kero
 - ES6语法
 ```
-	<!-- neoui资源 -->
-	import { neoui } from "tinper-neoui"
-	
-	<!-- kero资源 -->
-	import { Datatable } from "kero"
-	
 	<!-- neoui-kero资源 -->
 	import { u } from "neoui-kero"
 	
@@ -48,12 +42,7 @@
 - HTML直接引入
 
 ```
-	<!--neoui相关资源 -->
-	<script src="//design.yyuap.com/static/jquery/jquery-1.11.2.js"></script>
-	<script src="//design.yyuap.com/static/neoui/latest/js/neoui.js"></script>
-	<!--kero相关资源 -->
-	<script src="//design.yyuap.com/static/knockout/knockout-3.2.0.debug.js"></script>
-	<script src="//design.yyuap.com/static/kero/latest/kero.js"></script>
+	
 	<!--neoui-kero资源-->
     <script src="//design.yyuap.com/static/neoui-kero/latest/neoui-kero.js"></script>
 ```
