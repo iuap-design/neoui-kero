@@ -20,6 +20,7 @@ import {CurrencyMasker} from 'tinper-sparrow/src/util/masker';
  */
 var CurrencyAdapter = FloatAdapter.extend({
     init: function () {
+        FloatAdapter.prototype.init.call(this);
         var self = this;
         this.maskerMeta = core.getMaskerMeta('currency') || {};
         this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;

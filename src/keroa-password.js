@@ -15,6 +15,7 @@ import {compMgr} from 'compox/src/compMgr';
 var PassWordAdapter = StringAdapter.extend({
     init: function () {
         var oThis = this;
+        StringAdapter.prototype.init.call(this);
         if(env.isIE8){
             var outStr = this.element.outerHTML;
             var l = outStr.length;
@@ -42,7 +43,7 @@ var PassWordAdapter = StringAdapter.extend({
                 }
             });
         }
-        
+
     },
     setShowValue: function (showValue) {
         this.showValue = showValue;

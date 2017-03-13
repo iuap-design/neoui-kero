@@ -202,7 +202,7 @@ var RadioAdapter = BaseAdapter.extend({
                 fetch = true;
                 this.slice = true;
                 addClass(this.comp.element,'is-checked')
-                this.comp._btnElement.click();
+                //this.comp._btnElement.click(); // https://github.com/iuap-design/tinper.org/issues/41
                 this.slice = false;
             }
         }

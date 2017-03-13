@@ -10,6 +10,7 @@ import {compMgr} from 'compox/src/compMgr';
 var UrlAdapter = StringAdapter.extend({
     init: function () {
         this.validType = 'url';
+        UrlAdapter.superclass.init.apply(this);
         /*
          * 因为需要输入，因此不显示为超链接
          */
@@ -51,4 +52,3 @@ compMgr.addDataAdapter({
 	name: 'url'
 });
 export {UrlAdapter};
-
