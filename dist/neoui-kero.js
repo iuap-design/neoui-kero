@@ -4699,7 +4699,10 @@
 	            var options = this.element.getElementsByTagName('option');
 	            for (i = 0; i < options.length; i++) {
 	                option = options[i];
-	                datas.push({ value: option.value, name: option.text });
+	                datas.push({
+	                    value: option.value,
+	                    name: option.text
+	                });
 	            }
 
 	            this._input = this.element.querySelector("input");
@@ -4876,7 +4879,10 @@
 	            (0, _event.off)(document, 'click', this.callback);
 	            (0, _dom.removeClass)(this._ul, 'is-visible');
 	            this._ul.style.zIndex = -1;
-	            this.trigger('select', { value: this.value, name: this._input.value });
+	            this.trigger('select', {
+	                value: this.value,
+	                name: this._input.value
+	            });
 	        },
 
 	        /**
@@ -4893,7 +4899,10 @@
 	            if (!options) this.comboDatas = datas;else {
 	                this.comboDatas = [];
 	                for (var i = 0; i < datas.length; i++) {
-	                    this.comboDatas.push({ name: datas[i][options.name], value: datas[i][options.value] });
+	                    this.comboDatas.push({
+	                        name: datas[i][options.name],
+	                        value: datas[i][options.value]
+	                    });
 	                }
 	            }
 
@@ -4940,6 +4949,9 @@
 	                var flag;
 	                if (this.fullWidth == 0) {
 	                    this.fullWidth = this._input.offsetWidth;
+	                    if (this.fullWidth < 0 || this.fullWidth == 0) {
+	                        this.fullWidth = parseInt($(this._input).width()) + parseInt($(this._input).css('border-left-width')) * 2 + parseInt($(this._input).css('padding-left')) * 2 + 'px';
+	                    }
 	                    if (this.fullWidth > 0) {
 	                        if (this._combo_name_par) {
 	                            this._combo_name_par.style.maxWidth = this.fullWidth + 'px';
@@ -5122,7 +5134,10 @@
 	            if (!this.onlySelect && !matched) {
 	                this.value = value;
 	                this._input.value = value;
-	                this.trigger('select', { value: this.value, name: this._input.value });
+	                this.trigger('select', {
+	                    value: this.value,
+	                    name: this._input.value
+	                });
 	            }
 	        },
 
@@ -5432,6 +5447,7 @@
 
 	    var CurrencyAdapter = _keroaFloat.FloatAdapter.extend({
 	        init: function init() {
+	            _keroaFloat.FloatAdapter.prototype.init.call(this);
 	            var self = this;
 	            this.maskerMeta = _core.core.getMaskerMeta('currency') || {};
 	            this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
@@ -16042,7 +16058,7 @@
 	                    fetch = true;
 	                    this.slice = true;
 	                    (0, _dom.addClass)(this.comp.element, 'is-checked');
-	                    this.comp._btnElement.click();
+	                    //this.comp._btnElement.click(); // https://github.com/iuap-design/tinper.org/issues/41
 	                    this.slice = false;
 	                }
 	            }
@@ -16488,50 +16504,51 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
-	  if (true) {
-	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(52), __webpack_require__(56), __webpack_require__(55), __webpack_require__(53), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	  } else if (typeof exports !== "undefined") {
-	    factory(exports, require('./keroa-float'), require('tinper-sparrow/src/util/formater'), require('tinper-sparrow/src/util/masker'), require('tinper-sparrow/src/core'), require('compox/src/compMgr'));
-	  } else {
-	    var mod = {
-	      exports: {}
-	    };
-	    factory(mod.exports, global.keroaFloat, global.formater, global.masker, global.core, global.compMgr);
-	    global.keroaPercent = mod.exports;
-	  }
-	})(this, function (exports, _keroaFloat, _formater, _masker, _core, _compMgr) {
-	  'use strict';
-
-	  Object.defineProperty(exports, "__esModule", {
-	    value: true
-	  });
-	  exports.PercentAdapter = undefined;
-
-	  /**
-	   * 百分比控件
-	   */
-	  var PercentAdapter = _keroaFloat.FloatAdapter.extend({
-	    init: function init() {
-	      this.validType = 'float';
-	      this.maskerMeta = _core.core.getMaskerMeta('percent') || {};
-	      this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
-	      if (this.maskerMeta.precision) {
-	        this.maskerMeta.precision = parseInt(this.maskerMeta.precision) + 2;
-	      }
-	      this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
-	      this.masker = new _masker.PercentMasker(this.maskerMeta);
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(52), __webpack_require__(56), __webpack_require__(55), __webpack_require__(53), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if (typeof exports !== "undefined") {
+	        factory(exports, require('./keroa-float'), require('tinper-sparrow/src/util/formater'), require('tinper-sparrow/src/util/masker'), require('tinper-sparrow/src/core'), require('compox/src/compMgr'));
+	    } else {
+	        var mod = {
+	            exports: {}
+	        };
+	        factory(mod.exports, global.keroaFloat, global.formater, global.masker, global.core, global.compMgr);
+	        global.keroaPercent = mod.exports;
 	    }
-	  }); /**
-	       * Module : Kero percent
-	       * Author : Kvkens(yueming@yonyou.com)
-	       * Date	  : 2016-08-09 20:02:50
-	       */
+	})(this, function (exports, _keroaFloat, _formater, _masker, _core, _compMgr) {
+	    'use strict';
 
-	  _compMgr.compMgr.addDataAdapter({
-	    adapter: PercentAdapter,
-	    name: 'percent'
-	  });
-	  exports.PercentAdapter = PercentAdapter;
+	    Object.defineProperty(exports, "__esModule", {
+	        value: true
+	    });
+	    exports.PercentAdapter = undefined;
+
+	    /**
+	     * 百分比控件
+	     */
+	    var PercentAdapter = _keroaFloat.FloatAdapter.extend({
+	        init: function init() {
+	            _keroaFloat.FloatAdapter.prototype.init.call(this);
+	            this.validType = 'float';
+	            this.maskerMeta = _core.core.getMaskerMeta('percent') || {};
+	            this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
+	            if (this.maskerMeta.precision) {
+	                this.maskerMeta.precision = parseInt(this.maskerMeta.precision) + 2;
+	            }
+	            this.formater = new _formater.NumberFormater(this.maskerMeta.precision);
+	            this.masker = new _masker.PercentMasker(this.maskerMeta);
+	        }
+	    }); /**
+	         * Module : Kero percent
+	         * Author : Kvkens(yueming@yonyou.com)
+	         * Date	  : 2016-08-09 20:02:50
+	         */
+
+	    _compMgr.compMgr.addDataAdapter({
+	        adapter: PercentAdapter,
+	        name: 'percent'
+	    });
+	    exports.PercentAdapter = PercentAdapter;
 	});
 
 /***/ },
@@ -17278,6 +17295,7 @@
 	     */
 	    var LandLineAdapter = _keroaString.StringAdapter.extend({
 	        init: function init() {
+	            // StringAdapter.prototype.init.call(this);
 	            var self = this;
 	            this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
 	            LandLineAdapter.superclass.init.apply(this);
