@@ -20,6 +20,9 @@ var IntegerAdapter = BaseAdapter.extend({
         if (!this.element) {
             throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
         };
+        var placeholder = this.options['placeholder']
+        if (placeholder)
+            this.element.placeholder = placeholder;
         this.maskerMeta = core.getMaskerMeta('integer') || {};
         this.validType = this.options['validType'] || 'integer';
         this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;

@@ -4,30 +4,39 @@
  * Date	  : 2016-08-10 12:40:46
  */
 
-import {BaseAdapter} from './keroa-baseAdapter';
-import {on} from 'tinper-sparrow/src/event';
-import {compMgr} from 'compox/src/compMgr';
+import {
+    BaseAdapter
+} from './keroa-baseAdapter';
+import {
+    on
+} from 'tinper-sparrow/src/event';
+import {
+    compMgr
+} from 'compox/src/compMgr';
 
 
 var TextAreaAdapter = BaseAdapter.extend({
-    init: function () {
+    init: function() {
         var self = this;
         this.element = this.element.nodeName === 'TEXTAREA' ? this.element : this.element.querySelector('textarea');
-        if (!this.element){
+        if (!this.element) {
             throw new Error('not found TEXTAREA element, u-meta:' + JSON.stringify(this.options));
         };
+        var placeholder = this.options['placeholder']
+        if (placeholder)
+            this.element.placeholder = placeholder;
 
-        on(this.element, 'focus', function () {
+        on(this.element, 'focus', function() {
             self.setShowValue(self.getValue())
         });
-        on(this.element, 'blur', function () {
+        on(this.element, 'blur', function() {
             self.setValue(self.element.value)
         })
     }
 });
 compMgr.addDataAdapter({
-	adapter: TextAreaAdapter,
-	name: 'textarea'
+    adapter: TextAreaAdapter,
+    name: 'textarea'
 });
 
 compMgr.addDataAdapter({
@@ -35,4 +44,6 @@ compMgr.addDataAdapter({
     name: 'u-textarea'
 });
 
-export {TextAreaAdapter};
+export {
+    TextAreaAdapter
+};

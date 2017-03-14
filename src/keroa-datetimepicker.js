@@ -108,6 +108,9 @@ var DateTimeAdapter = BaseAdapter.extend({
 			this._span = this.element.querySelector("span");
 			this.element = this.element.querySelector("input");
 			this.element.setAttribute('readonly','readonly');
+			var placeholder = this.options['placeholder']
+			if (placeholder)
+					this.element.placeholder = placeholder;
 			if (this._span){
 		        on(this._span, 'click', function(e){
 		            self.element.focus();
@@ -120,7 +123,7 @@ var DateTimeAdapter = BaseAdapter.extend({
 				$(this.element).mobiscroll().datetime(this.op);
 			}
 		}else{
-			this.comp = new DateTimePicker({el:this.element,format:this.maskerMeta.format,showFix:this.options.showFix,beforeValueChangeFun:this.beforeValueChangeFun});
+			this.comp = new DateTimePicker({el:this.element,placeholder:this.options.placeholder,format:this.maskerMeta.format,showFix:this.options.showFix,beforeValueChangeFun:this.beforeValueChangeFun});
 		}
 
 		this.element['u.DateTimePicker'] = this.comp;

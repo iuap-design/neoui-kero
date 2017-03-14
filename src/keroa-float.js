@@ -26,6 +26,9 @@ var FloatAdapter = BaseAdapter.extend({
         this.maskerMeta.precision = this.getOption('precision') || this.maskerMeta.precision;
         this.max = this.getOption('max') ;
         this.min = this.getOption('min') ;
+        var placeholder = this.options['placeholder']
+        if (placeholder)
+            this.element.placeholder = placeholder;
         //如果max为false并且不为0
         if(!this.max && this.max !== 0) {
             this.max = "10000000000000000000";
@@ -129,7 +132,7 @@ var FloatAdapter = BaseAdapter.extend({
 
         this.setShowValue(this.showValue)
     },
-    
+
     onFocusin: function () {
         var v = this.getValue(), vstr = v + '', focusValue = v;
         if (isNumber(v) && isNumber(this.maskerMeta.precision)) {

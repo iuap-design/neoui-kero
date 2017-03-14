@@ -18,16 +18,19 @@ var StringAdapter = BaseAdapter.extend({
         this.validType = this.options['validType'] || 'string';
         this.minLength = this.getOption('minLength');
         this.maxLength = this.getOption('maxLength');
+        var placeholder = this.options['placeholder']
+        if (placeholder)
+            this.element.placeholder = placeholder;
 
         on(this.element, 'focus', function(){
             if(self.enable){
                 self.setShowValue(self.getValue())
                 try{
-                    var e = event.srcElement; 
-                    var r = e.createTextRange(); 
-                    r.moveStart('character',e.value.length); 
-                    r.collapse(true); 
-                    r.select(); 
+                    var e = event.srcElement;
+                    var r = e.createTextRange();
+                    r.moveStart('character',e.value.length);
+                    r.collapse(true);
+                    r.select();
                 }catch(e){
                 }
             }
@@ -69,5 +72,5 @@ compMgr.addDataAdapter({
         name: 'string'
     });
 
-	
+
 export {StringAdapter};
