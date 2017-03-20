@@ -1,9 +1,9 @@
-# 表格控件
+#### 表格控件
 
 表格控件将数据以表格的方式进行展示，同时提供了排序、交换列、数字列、复选、合计、自定义渲染、修改等复杂功能，满足了复杂场景下数据展示的需求。
 
 
-# 依赖资源
+#### 依赖资源
 
 http://design.yyuap.com/static/uui/latest/css/font-awesome.css
 
@@ -19,7 +19,7 @@ http://design.yyuap.com/static/uui/latest/js/u.js
 
 http://design.yyuap.com/static/uui/latest/js/u-grid.js
 
-# 如何使用
+#### 如何使用
 
 1、创建div
 
@@ -64,7 +64,7 @@ http://design.yyuap.com/static/uui/latest/js/u-grid.js
 表格的详细API：http://tinper.org/dist/neoui/plugin/grid.html
 
 2、创建viewModel
-	
+
 	$(document).ready(function () {
 		viewModel = {
 			dataTable: new u.dataTable({
@@ -83,7 +83,7 @@ http://design.yyuap.com/static/uui/latest/js/u-grid.js
 	});
 
 过程1中使用的dataTable以及grid中的function类型的变量都需要定义到viewModel中。
-    
+
 3、创建app
 
 	var app = u.createApp({
@@ -109,6 +109,4 @@ http://design.yyuap.com/static/uui/latest/js/u-grid.js
 
 通过dataTable的setSimpleData方法将数据插入dataTable中。框架会自动将数据传入表格控件并显示。
 
-# 示例
-
-
+#### 示例

@@ -1,13 +1,13 @@
-# 年月选择
+#### 年月选择
 
 本例展示:年月UI控件绑定默认数据。
 
 [试一试](http://tinper.org/webide/#/demos/kero/yearmonth)
 
 
-# API
+#### API
 
-## \# u-meta 属性
+#### u-meta 属性
 
 * type：`u-yearmonth`
 

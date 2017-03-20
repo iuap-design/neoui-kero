@@ -1,5 +1,5 @@
 
-# API
+#### API
 
 ```html
 <div class="u-text"  u-meta='{"id":"f1","data":"dt1","field":"f1","type":"u-text"}'>
@@ -20,16 +20,16 @@
 
   ​
 
-## Type类型
+### Type类型
 
-### 数据
+#### 数据
 
 | 类型      | 说明      |
 | ------- | ------- |
 | integer | 整数数字输入框 |
 | float   | 浮点数字输入框 |
 
-### 日期
+#### 日期
 
 | 类型            | 说明           |
 | ------------- | ------------ |
@@ -47,7 +47,7 @@
 
 
 
-### 文本
+#### 文本
 
 | 类型       | 说明    |
 | -------- | ----- |
@@ -56,7 +56,7 @@
 
 
 
-### 选择下拉
+#### 选择下拉
 
 | 类型          | 说明   |
 | ----------- | ---- |
@@ -108,7 +108,7 @@
 
 
 
-### 进度条
+#### 进度条
 
 | 类型          | 说明   |
 | ----------- | ---- |
@@ -121,7 +121,7 @@
   ```
 
 
-### 树
+#### 树
 
 | 类型    | 说明   |
 | ----- | ---- |
@@ -139,4 +139,4 @@
   <div id="treeTest" class="ztree" u-meta='{"id":"tree2","data":"dataTable1","type":"tree","multiSelect":"true","idField":"id","pidField":"pid","nameField":"title","setting":"treeSetting"}'></div>
   ```
 
-  更多`tree`属性参照:[zTree API Document](http://www.ztree.me/v3/api.php)
+  更多`tree`属性参照:[zTree## API Document](http://www.ztree.me/v3/api.php)

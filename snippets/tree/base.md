@@ -1,13 +1,13 @@
-# 树
+#### 树
 
 本例实现NeoUI组件ztree的数据绑定。
 
 [试一试](http://tinper.org/webide/#/demos/kero/tree-dt)
 
 
-# API
+#### API
 
-## \# u-meta 属性
+#### u-meta 属性
 
 * type：`tree`
 
@@ -22,4 +22,4 @@
 
 相关内容：
 
-[基础树](http://tinper.org/dist/neoui/plugin/tree.html) 
+[基础树](http://tinper.org/dist/neoui/plugin/tree.html)

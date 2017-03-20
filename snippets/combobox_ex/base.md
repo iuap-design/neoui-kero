@@ -1,13 +1,13 @@
-# 下拉框
+#### 下拉框
 
 本例展示下拉框示例。
 
 [试一试](http://tinper.org/webide/#/demos/kero/combobox)
 
 
-# API
+#### API
 
-## \# u-meta 属性
+#### u-meta 属性
 
 * type：`u-combobox`
 
@@ -15,11 +15,11 @@
 	* 类型： Array
 	* 说明：设置下拉框的数据源，具体数组内容需要在viewmodel中定义，数组中的每个对象需要有value，name字段。其中name为下拉框的显示值，value为下拉框的真实值。
 	* 用法：
-	 
+
 		```
-	
+
 		comboData:[{name:'cc',value:'03'},{name:'dd',value:'04'}]
-	
+
 		```
 
 **注**：如果在开发时要求兼容ie8,ie9，datasource必须定义。　
@@ -29,7 +29,7 @@ u-meta基础api请参考[这里](http://tinper.org/dist/kero/docs/moduleapi.html
 
 
 
-## \# ComboboxAdapter对象
+#### ComboboxAdapter对象
 
 * 类型：`Object`
 * 说明： 获取ComboboxAdapter对象，可以通过此对象的一些方法来改变下拉框的效果状态。下面方法均是在此对象基础上调用的。
@@ -49,7 +49,7 @@ var comboboxAObject = app.getComp('c1');//c1为在u-meta中定义的id值
 ```
 
 
-## \# setEnable对象
+#### setEnable对象
 
 * 类型： `Function`
 * 说明： 设置下拉框是否可用。

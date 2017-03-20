@@ -1,6 +1,6 @@
-# 主子表
+#### 主子表
 
-# 依赖资源
+#### 依赖资源
 
 http://design.yyuap.com/static/uui/latest/css/font-awesome.css
 
@@ -16,7 +16,7 @@ http://design.yyuap.com/static/uui/latest/js/u.js
 
 http://design.yyuap.com/static/uui/latest/js/u-grid.js
 
-# 如何使用
+#### 如何使用
 
 1、创建主子表DOM元素
 
@@ -107,12 +107,12 @@ DOM说明：#mainGridDiv 为主表对应的表格控件的顶层div，#childGrid
         return temp;
     }
  4、创建app
- 
+
 	var app = u.createApp({
 		el: 'body',
 		model: viewModel
 	});
-	
+
 5、创建主子表数据集合并为主表添加数据
 
 	// 创建主子表数据信息
@@ -210,6 +210,4 @@ DOM说明：#mainGridDiv 为主表对应的表格控件的顶层div，#childGrid
         }];
     // 为主表添加数据
 	viewModel.mainDataTable.setSimpleData(mainData);
-# 示例
-
-
+#### 示例

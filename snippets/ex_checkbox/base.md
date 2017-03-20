@@ -1,4 +1,4 @@
-# 复选框
+#### 复选框
 
 本例实现NeoUI组件checkbox数据绑定。
 
@@ -11,9 +11,9 @@
 2、checkout选中的真实值会绑定到dataTable对应的字段上
 
 
-# API
+#### API
 
-## \# u-meta 属性
+#### u-meta 属性
 
 * type：`u-checkbox`
 
@@ -42,7 +42,7 @@ u-meta基础api请参考[这里](http://tinper.org/dist/kero/docs/moduleapi.html
 
 
 
-## \# CheckboxAdapter对象
+#### CheckboxAdapter对象
 
 * 类型：`Object`
 * 说明： 获取checkboxAdapter对象，可以通过此对象的一些方法来改变复选框的效果状态。下面方法均是在此对象基础上调用的。
@@ -66,7 +66,7 @@ var checkboxAObject = app.getComp('c1');//c1为在u-meta中定义的id值
 **注：** 复选框在dataTable中对应的字段应该是`string`类型。 对该字段赋值如下： yourDataTable.setValue('f1',选中的值);如果checkbox为多选时，“选中的值”需要用逗号分隔。如：'a,b,c'
 
 
-## \# setEnable对象
+#### setEnable对象
 
 * 类型： `Function`
 * 说明： 设置复选框是否可用。

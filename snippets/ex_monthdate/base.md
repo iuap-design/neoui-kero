@@ -1,13 +1,13 @@
-# 月日选择
+#### 月日选择
 
 本例展示:月日UI控件绑定默认数据。
 
 [试一试](http://tinper.org/webide/#/demos/kero/monthdate)
 
 
-# API
+#### API
 
-## \# u-meta 属性
+#### u-meta 属性
 
 * type：`u-monthdate`
 

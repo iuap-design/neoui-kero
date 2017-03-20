@@ -1,4 +1,4 @@
-# 月份选择
+#### 月份选择
 
 本例展示:月份UI控件绑定默认数据。
 
@@ -8,9 +8,9 @@
 **注**：设置月份时，通过dataTable中的对应行row调用setValue设置字段值即可。eg：`row.setValue("f1", "11")`
 
 
-# API
+#### API
 
-## \# u-meta 属性
+#### u-meta 属性
 
 * type：`u-month`
 

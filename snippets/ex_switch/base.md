@@ -1,4 +1,4 @@
-# 开关
+#### 开关
 
 本例实现UI控件switch的数据绑定。
 
@@ -6,9 +6,9 @@
 
 
 
-# API
+#### API
 
-## \# u-meta 属性
+#### u-meta 属性
 
 * type：`u-switch`
 
@@ -25,7 +25,7 @@ u-meta基础api请参考[这里](http://tinper.org/dist/kero/docs/moduleapi.html
 
 
 
-## \# SwitchAdapter对象
+#### SwitchAdapter对象
 
 * 类型：`Object`
 * 说明： 获取switchAdapter对象，可以通过此对象的一些方法来改变开关的效果状态。下面方法均是在此对象基础上调用的。
@@ -46,7 +46,7 @@ var switchAObject = app.getComp('s1');//s1为在u-meta中定义的id值
 ```
 
 
-## \# setEnable对象
+#### setEnable对象
 
 * 类型： `Function`
 * 说明： 设置开关是否可用。
