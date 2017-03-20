@@ -78,11 +78,12 @@ var BaseAdapter = Class.create({
         }else {
             return rs || this.options[key];
         }
-        
+
     },
     init: function(){
 
     }
 });
-
+window.u = window.u || {};
+u.BaseAdapter = BaseAdapter;
 export {BaseAdapter};

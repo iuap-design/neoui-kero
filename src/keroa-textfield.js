@@ -4,19 +4,29 @@
  * Date	  : 2016-08-10 13:00:27
  */
 
-import {BaseAdapter} from './keroa-baseAdapter';
-import {extend} from 'tinper-sparrow/src/extend';
-import {Text} from 'tinper-neoui/src/neoui-textfield';
-import {FloatAdapter} from './keroa-float';
-import {StringAdapter} from './keroa-string';
-import {IntegerAdapter} from './keroa-integer';
-import {compMgr} from 'compox/src/compMgr';
+
+import {
+    extend
+} from 'tinper-sparrow/src/extend';
+import {
+    Text
+} from 'tinper-neoui/src/neoui-textfield';
+import {
+    FloatAdapter
+} from './keroa-float';
+import {
+    StringAdapter
+} from './keroa-string';
+import {
+    IntegerAdapter
+} from './keroa-integer';
 
 
-var TextFieldAdapter = BaseAdapter.extend({
-    init: function () {
+
+var TextFieldAdapter = u.BaseAdapter.extend({
+    init: function() {
         var options = {};
-        var dataType = this.dataModel.getMeta(this.field,'type') || 'string';
+        var dataType = this.dataModel.getMeta(this.field, 'type') || 'string';
         this.comp = new Text(this.element);
         this.element['u.Text'] = this.comp;
 
@@ -26,36 +36,38 @@ var TextFieldAdapter = BaseAdapter.extend({
         options["app"] = this.app;
 
 
-        if (dataType === 'float'){
+        if (dataType === 'float') {
             this.trueAdpt = new FloatAdapter(options);
-        }
-        else if (dataType === 'string'){
+        } else if (dataType === 'string') {
             this.trueAdpt = new StringAdapter(options);
-        }
-        else if (dataType === 'integer'){
+        } else if (dataType === 'integer') {
             this.trueAdpt = new IntegerAdapter(options);
-        }else{
-            throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" +this.field+ "'");
+        } else {
+            return
+            //throw new Error("'u-text' only support 'float' or 'string' or 'integer' field type, not support type: '" + dataType + "', field: '" +this.field+ "'");
         }
         extend(this, this.trueAdpt);
 
         this.trueAdpt.comp = this.comp;
-        this.trueAdpt.setShowValue = function (showValue) {
+        this.trueAdpt.setShowValue = function(showValue) {
             this.showValue = showValue;
             this.comp.change(showValue);
             this.element.title = showValue;
         }
         // 解决初始设置值后，没有走这个setShowValue方法问题
-        if(this.trueAdpt.enable){
+        if (this.trueAdpt.enable) {
             this.trueAdpt.setShowValue(this.trueAdpt.getValue())
         }
         return this.trueAdpt;
     }
 });
 
-compMgr.addDataAdapter({
-	adapter: TextFieldAdapter,
-	name: 'u-text'
-});
+if (u.compMgr)
+    u.compMgr.addDataAdapter({
+        adapter: TextFieldAdapter,
+        name: 'u-text'
+    });
 
-export {TextFieldAdapter};
+export {
+    TextFieldAdapter
+};

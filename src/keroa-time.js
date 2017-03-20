@@ -4,19 +4,31 @@
  * Date	  : 2016-08-10 12:40:46
  */
 
-import {BaseAdapter} from './keroa-baseAdapter';
-import {on} from 'tinper-sparrow/src/event';
-import {core} from 'tinper-sparrow/src/core';
-import {env} from 'tinper-sparrow/src/env';
-import {date} from 'tinper-sparrow/src/util/dateUtils';
-import {ClockPicker} from 'tinper-neoui/src/neoui-clockpicker';
-import {Time} from 'tinper-neoui/src/neoui-time';
-import {compMgr} from 'compox/src/compMgr';
+
+import {
+    on
+} from 'tinper-sparrow/src/event';
+import {
+    core
+} from 'tinper-sparrow/src/core';
+import {
+    env
+} from 'tinper-sparrow/src/env';
+import {
+    date
+} from 'tinper-sparrow/src/util/dateUtils';
+import {
+    ClockPicker
+} from 'tinper-neoui/src/neoui-clockpicker';
+import {
+    Time
+} from 'tinper-neoui/src/neoui-time';
 
 
 
-var TimeAdapter = BaseAdapter.extend({
-    init: function (options) {
+
+var TimeAdapter = u.BaseAdapter.extend({
+    init: function(options) {
         var self = this;
         this.validType = 'time';
 
@@ -27,27 +39,27 @@ var TimeAdapter = BaseAdapter.extend({
             this.comp = new ClockPicker(this.element);
         else
             this.comp = new Time(this.element);
-        var dataType = this.dataModel.getMeta(this.field,'type');
-        this.dataType =  dataType || 'string';
+        var dataType = this.dataModel.getMeta(this.field, 'type');
+        this.dataType = dataType || 'string';
 
 
-        this.comp.on('valueChange', function(event){
+        this.comp.on('valueChange', function(event) {
             self.slice = true;
-            if(event.value == ''){
-                self.dataModel.setValue(self.field,'')
-            }else{
+            if (event.value == '') {
+                self.dataModel.setValue(self.field, '')
+            } else {
                 var _date = self.dataModel.getValue(self.field);
                 if (self.dataType === 'datetime') {
                     var valueArr = event.value.split(':');
-                   //如果_date为空时赋值就无法赋值，所以为空时设置了个默认值
+                    //如果_date为空时赋值就无法赋值，所以为空时设置了个默认值
                     if (!_date) {
                         _date = "1970-01-01 00:00:00";
                     }
                     _date = date.getDateObj(_date);
-                    if (!_date){
-                        self.dataModel.setValue(self.field,'');
-                    }else {
-                        if (event.value == (_date.getHours()<10 ?'0'+_date.getHours() :_date.getHours()) + ':' + (_date.getMinutes() <10 ? '0'+_date.getMinutes() :_date.getMinutes()) + ':' +( _date.getSeconds()<10?'0'+_date.getSeconds():_date.getSeconds()) ) {
+                    if (!_date) {
+                        self.dataModel.setValue(self.field, '');
+                    } else {
+                        if (event.value == (_date.getHours() < 10 ? '0' + _date.getHours() : _date.getHours()) + ':' + (_date.getMinutes() < 10 ? '0' + _date.getMinutes() : _date.getMinutes()) + ':' + (_date.getSeconds() < 10 ? '0' + _date.getSeconds() : _date.getSeconds())) {
                             self.slice = false;
                             return;
                         }
@@ -56,8 +68,7 @@ var TimeAdapter = BaseAdapter.extend({
                         _date.setSeconds(valueArr[2]);
                         self.dataModel.setValue(self.field, u.date.format(_date, 'YYYY-MM-DD HH:mm:ss'));
                     }
-                }
-                else{
+                } else {
                     if (event.value == _date)
                         return;
                     self.dataModel.setValue(self.field, event.value);
@@ -73,7 +84,7 @@ var TimeAdapter = BaseAdapter.extend({
 
 
     },
-    modelValueChange: function (value) {
+    modelValueChange: function(value) {
         if (this.slice) return;
         var compValue = '';
         if (this.dataType === 'datetime') {
@@ -81,25 +92,27 @@ var TimeAdapter = BaseAdapter.extend({
             if (!_date)
                 compValue = ''
             else
-                compValue = (_date.getHours()<10 ?'0'+_date.getHours() :_date.getHours()) + ':' + (_date.getMinutes() <10 ? '0'+_date.getMinutes() :_date.getMinutes()) + ':' +( _date.getSeconds()<10?'0'+_date.getSeconds():_date.getSeconds()) ;
-        }
-        else{
+                compValue = (_date.getHours() < 10 ? '0' + _date.getHours() : _date.getHours()) + ':' + (_date.getMinutes() < 10 ? '0' + _date.getMinutes() : _date.getMinutes()) + ':' + (_date.getSeconds() < 10 ? '0' + _date.getSeconds() : _date.getSeconds());
+        } else {
             compValue = value;
         }
         this.comp.setValue(compValue);
     },
-    setEnable: function (enable) {
-    }
+    setEnable: function(enable) {}
 });
 
-compMgr.addDataAdapter({
-	adapter: TimeAdapter,
-	name: 'u-time'
-});
+if (u.compMgr)
+    u.compMgr.addDataAdapter({
+        adapter: TimeAdapter,
+        name: 'u-time'
+    });
 
-compMgr.addDataAdapter({
-	adapter: TimeAdapter,
-	name: 'u-clockpicker'
-});
+if (u.compMgr)
+    u.compMgr.addDataAdapter({
+        adapter: TimeAdapter,
+        name: 'u-clockpicker'
+    });
 
-export {TimeAdapter};
+export {
+    TimeAdapter
+};
