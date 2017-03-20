@@ -5,17 +5,11 @@
  */
 
 import {
-    BaseAdapter
-} from './keroa-baseAdapter';
-import {
     on
 } from 'tinper-sparrow/src/event';
-import {
-    compMgr
-} from 'compox/src/compMgr';
 
 
-var TextAreaAdapter = BaseAdapter.extend({
+var TextAreaAdapter = u.BaseAdapter.extend({
     init: function() {
         var self = this;
         this.element = this.element.nodeName === 'TEXTAREA' ? this.element : this.element.querySelector('textarea');
@@ -34,15 +28,17 @@ var TextAreaAdapter = BaseAdapter.extend({
         })
     }
 });
-compMgr.addDataAdapter({
-    adapter: TextAreaAdapter,
-    name: 'textarea'
-});
+if (u.compMgr)
+    u.compMgr.addDataAdapter({
+        adapter: TextAreaAdapter,
+        name: 'textarea'
+    });
 
-compMgr.addDataAdapter({
-    adapter: TextAreaAdapter,
-    name: 'u-textarea'
-});
+if (u.compMgr)
+    u.compMgr.addDataAdapter({
+        adapter: TextAreaAdapter,
+        name: 'u-textarea'
+    });
 
 export {
     TextAreaAdapter

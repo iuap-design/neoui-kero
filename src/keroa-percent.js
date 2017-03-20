@@ -15,9 +15,6 @@ import {
 import {
     core
 } from 'tinper-sparrow/src/core';
-import {
-    compMgr
-} from 'compox/src/compMgr';
 /**
  * 百分比控件
  */
@@ -34,10 +31,11 @@ var PercentAdapter = FloatAdapter.extend({
         this.masker = new PercentMasker(this.maskerMeta);
     }
 });
-compMgr.addDataAdapter({
-    adapter: PercentAdapter,
-    name: 'percent'
-});
+if (u.compMgr)
+    u.compMgr.addDataAdapter({
+        adapter: PercentAdapter,
+        name: 'percent'
+    });
 export {
     PercentAdapter
 };

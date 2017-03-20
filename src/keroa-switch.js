@@ -4,38 +4,40 @@
  * Date	  : 2016-08-10 10:42:15
  */
 
-import {BaseAdapter} from './keroa-baseAdapter';
-import {Switch} from 'tinper-neoui/src/neoui-switch';
-import {compMgr} from 'compox/src/compMgr';
+
+import {
+    Switch
+} from 'tinper-neoui/src/neoui-switch';
 
 
-var SwitchAdapter = BaseAdapter.extend({
-    init: function () {
+
+var SwitchAdapter = u.BaseAdapter.extend({
+    init: function() {
         var self = this;
         this.options = this.options;
         this.comp = new Switch(this.element);
         this.element['u.Switch'] = this.comp;
-        this.checkedValue =  this.options['checkedValue'] || this.comp._inputElement.value;
-        this.unCheckedValue =  this.options["unCheckedValue"];
-        this.comp.on('change', function(event){
+        this.checkedValue = this.options['checkedValue'] || this.comp._inputElement.value;
+        this.unCheckedValue = this.options["unCheckedValue"];
+        this.comp.on('change', function(event) {
             if (self.slice) return;
             if (self.comp._inputElement.checked) {
                 self.dataModel.setValue(self.field, self.checkedValue);
-            }else{
+            } else {
                 self.dataModel.setValue(self.field, self.unCheckedValue)
             }
         });
 
         this.dataModel.ref(this.field).subscribe(function(value) {
-        	self.modelValueChange(value)
+            self.modelValueChange(value)
         })
 
         var self = this;
         //处理只读
-        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)){
-                this.setEnable(false);
-        }else {
-            this.dataModel.refEnable(this.field).subscribe(function (value) {
+        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)) {
+            this.setEnable(false);
+        } else {
+            this.dataModel.refEnable(this.field).subscribe(function(value) {
                 self.setEnable(value);
             });
             this.setEnable(this.dataModel.isEnable(this.field));
@@ -44,16 +46,16 @@ var SwitchAdapter = BaseAdapter.extend({
 
     },
 
-    modelValueChange: function (val) {
+    modelValueChange: function(val) {
         if (this.slice) return;
-        if (this.comp._inputElement.checked != (val === this.checkedValue)){
+        if (this.comp._inputElement.checked != (val === this.checkedValue)) {
             this.slice = true;
             this.comp.toggle();
             this.slice = false;
         }
 
     },
-    setEnable: function (enable) {
+    setEnable: function(enable) {
         if (enable === true || enable === 'true') {
             this.enable = true;
             this.comp.enable();
@@ -65,10 +67,13 @@ var SwitchAdapter = BaseAdapter.extend({
 })
 
 
-compMgr.addDataAdapter({
-	adapter: SwitchAdapter,
-	name: 'u-switch'
-});
+if (u.compMgr)
+    u.compMgr.addDataAdapter({
+        adapter: SwitchAdapter,
+        name: 'u-switch'
+    });
 
 
-export {SwitchAdapter};
+export {
+    SwitchAdapter
+};

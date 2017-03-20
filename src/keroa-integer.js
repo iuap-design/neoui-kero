@@ -4,16 +4,30 @@
  * Date	  : 2016-08-09 18:29:59
  */
 
-import {BaseAdapter} from './keroa-baseAdapter';
-import {isNumber} from 'tinper-sparrow/src/util';
-import {on,off,stopEvent} from 'tinper-sparrow/src/event';
-import {core} from 'tinper-sparrow/src/core';
-import {NumberFormater} from 'tinper-sparrow/src/util/formater';
-import {NumberMasker} from 'tinper-sparrow/src/util/masker';
-import {env} from 'tinper-sparrow/src/env';
-import {compMgr} from 'compox/src/compMgr';
 
-var IntegerAdapter = BaseAdapter.extend({
+import {
+    isNumber
+} from 'tinper-sparrow/src/util';
+import {
+    on,
+    off,
+    stopEvent
+} from 'tinper-sparrow/src/event';
+import {
+    core
+} from 'tinper-sparrow/src/core';
+import {
+    NumberFormater
+} from 'tinper-sparrow/src/util/formater';
+import {
+    NumberMasker
+} from 'tinper-sparrow/src/util/masker';
+import {
+    env
+} from 'tinper-sparrow/src/env';
+
+
+var IntegerAdapter = u.BaseAdapter.extend({
     init: function() {
         var self = this;
         this.element = this.element.nodeName === 'INPUT' ? this.element : this.element.querySelector('input');
@@ -72,6 +86,10 @@ var IntegerAdapter = BaseAdapter.extend({
         on(this.element, 'keydown', function(e) {
             if (self.enable) {
                 var code = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+                if (e.ctrlKey && (e.keyCode == 67 || e.keyCode == 86)) {
+                    //复制粘贴
+                    return true;
+                }
                 if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
@@ -86,7 +104,7 @@ var IntegerAdapter = BaseAdapter.extend({
     },
     hide: function() {
         var self = this
-        self.element.value = (self.element.value + '').replace(/\,/g,'');
+        self.element.value = (self.element.value + '').replace(/\,/g, '');
         if (self.enable) {
             if (!self.doValidate() && self._needClean()) {
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
@@ -99,10 +117,11 @@ var IntegerAdapter = BaseAdapter.extend({
         }
     }
 });
-compMgr.addDataAdapter({
-    adapter: IntegerAdapter,
-    name: 'integer'
-});
+if (u.compMgr)
+    u.compMgr.addDataAdapter({
+        adapter: IntegerAdapter,
+        name: 'integer'
+    });
 
 export {
     IntegerAdapter

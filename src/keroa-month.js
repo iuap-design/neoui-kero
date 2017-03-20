@@ -4,19 +4,24 @@
  * Date	  : 2016-08-09 18:46:30
  */
 
-import {BaseAdapter} from './keroa-baseAdapter';
-import {Month} from 'tinper-neoui/src/neoui-month';
-import {compMgr} from 'compox/src/compMgr';
 
-var MonthAdapter = BaseAdapter.extend({
-    init: function () {
+import {
+    Month
+} from 'tinper-neoui/src/neoui-month';
+
+
+var MonthAdapter = u.BaseAdapter.extend({
+    init: function() {
         var self = this;
         this.validType = 'month';
 
-        this.comp = new Month({el:this.element,showFix:this.options.showFix});
+        this.comp = new Month({
+            el: this.element,
+            showFix: this.options.showFix
+        });
 
         // ui影响datatable
-        this.comp.on('valueChange', function(event){
+        this.comp.on('valueChange', function(event) {
             // 防止循环
             self.slice = true;
             self.dataModel.setValue(self.field, event.value);
@@ -31,17 +36,19 @@ var MonthAdapter = BaseAdapter.extend({
 
     },
     // 触发空间
-    modelValueChange: function (value) {
+    modelValueChange: function(value) {
         if (this.slice) return;
         this.comp.setValue(value);
     },
-    setEnable: function (enable) {
-    }
+    setEnable: function(enable) {}
 });
 
-compMgr.addDataAdapter({
-	adapter: MonthAdapter,
-	name: 'u-month'
-});
+if (u.compMgr)
+    u.compMgr.addDataAdapter({
+        adapter: MonthAdapter,
+        name: 'u-month'
+    });
 
-export {MonthAdapter};
+export {
+    MonthAdapter
+};
