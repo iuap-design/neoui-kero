@@ -13,7 +13,7 @@ gulp.task('webpack', function() {
 
 function runWebpack(mode) {
     var dir_js = path.resolve(__dirname, 'src');
-    var dir_build = path.resolve(__dirname, 'dist');
+
 
 
     var data = fs.readFileSync('./package.json', 'utf8');
@@ -46,9 +46,13 @@ function runWebpack(mode) {
     }
     var objArr = [];
     glob.sync(__dirname + '/src/*.js').forEach(function(name) {
+        var dir_build = path.resolve(__dirname, 'dist/component');
         var n = name.slice(name.lastIndexOf('src/') + 4, name.length - 3);
-        if (n == 'index')
+        if (n == 'index'){
             n = 'neoui-kero'
+            dir_build = path.resolve(__dirname, 'dist');
+        }
+
         var outputFile = ''
         if (mode == 'build') {
             outputFile = n + '.min.js';
