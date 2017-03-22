@@ -29,9 +29,6 @@ var MonthAdapter = u.BaseAdapter.extend({
             //self.setValue(event.value);
         });
         // datatable反影响ui
-        this.dataModel.ref(this.field).subscribe(function(value) {
-            self.modelValueChange(value)
-        })
 
 
     },

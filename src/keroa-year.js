@@ -26,10 +26,6 @@ var YearAdapter = u.BaseAdapter.extend({
             self.slice = false;
             //self.setValue(event.value);
         });
-        this.dataModel.ref(this.field).subscribe(function(value) {
-            self.modelValueChange(value)
-        })
-
 
     },
     modelValueChange: function(value) {
