@@ -4,7 +4,7 @@ var path = require('path');
 var yaml = require('js-yaml');
 var async = require('async');
 var ut = require('./utool.js')
-   
+
 var envPath = process.cwd();
 var ymlPath = path.join(envPath, '_config.yml');
 var ymlConfig = yaml.safeLoad(fs.readFileSync(ymlPath, 'utf8'));
