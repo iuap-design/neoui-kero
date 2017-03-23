@@ -25,9 +25,6 @@ var YearMonthAdapter = u.BaseAdapter.extend({
             self.dataModel.setValue(self.field, event.value);
             self.slice = false;
         });
-        this.dataModel.ref(this.field).subscribe(function(value) {
-            self.modelValueChange(value)
-        })
 
 
     },
