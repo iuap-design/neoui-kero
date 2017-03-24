@@ -11,10 +11,10 @@
 
 * type：`u-yearmonth`
 
-u-meta基础api请参考[这里](http://tinper.org/dist/kero/docs/moduleapi.html)
+u-meta基础api请参考[这里](http://docs.tinper.org/moy/kero-model.html#Type类型)
 
 相关内容：
 
-[基础年月控件](http://tinper.org/dist/neoui/plugin/yearmonth.html)    
+[基础年月控件](http://docs.tinper.org/neoui/plugin.html#年月)    
 
 [年月控件在grid中使用](http://tinper.org/webide/#/demos/grids/edit)

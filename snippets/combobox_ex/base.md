@@ -25,7 +25,7 @@
 **注**：如果在开发时要求兼容ie8,ie9，datasource必须定义。　
 
 
-u-meta基础api请参考[这里](http://tinper.org/dist/kero/docs/moduleapi.html)
+u-meta基础api请参考[这里](http://docs.tinper.org/moy/kero-model.html#Type类型)
 
 
 
@@ -64,6 +64,6 @@ comboboxAObject.setEnable(true);//设置可用
 
 相关内容：
 
-[基础下拉框](http://tinper.org/dist/neoui/plugin/combobox.html)    
+[基础下拉框](http://docs.tinper.org/neoui/plugin.html#下拉框)    
 
 [下拉框在grid中使用](http://tinper.org/webide/#/demos/grids/edit)

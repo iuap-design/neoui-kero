@@ -6,7 +6,7 @@
 
 注意：
 
-1、`u-datepicker`元素中format用来定义日期的显示格式，具体定义请参考UI控件中的[日期](http://tinper.org/dist/neoui/plugin/date.html)中的定义
+1、`u-datepicker`元素中format用来定义日期的显示格式，具体定义请参考UI控件中的[日期](http://docs.tinper.org/neoui/plugin.html#日期)中的定义
 
 
 
@@ -25,7 +25,7 @@
 
 * format
 	* 类型：String
-	* 说明：日期的显示格式。具体请参考[日期控件](http://tinper.org/dist/neoui/plugin/date.html)。默认显示"YYYY-MM-DD HH:mm:ss"
+	* 说明：日期的显示格式。具体请参考[日期控件](http://docs.tinper.org/neoui/plugin.html#日期)。默认显示"YYYY-MM-DD HH:mm:ss"
 * startField
 	* 类型：String
 	* 说明：日期的起始时间
@@ -35,7 +35,7 @@
 	* 说明：日期的结束日期
 
 
-u-meta基础api请参考[这里](http://tinper.org/dist/kero/docs/moduleapi.html)
+u-meta基础api请参考[这里](http://docs.tinper.org/moy/kero-model.html#Type类型)
 
 
 
@@ -76,6 +76,6 @@ dateTimeAObject.setEnable(true);//设置可用
 
 相关内容：
 
-[基础日期控件](http://tinper.org/dist/neoui/plugin/date.html)    
+[基础日期控件](http://docs.tinper.org/neoui/plugin.html#日期)    
 
 [日期控件在grid中使用](http://tinper.org/webide/#/demos/grids/edit)

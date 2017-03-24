@@ -70,6 +70,6 @@ radioAObject.setEnable(true);//设置可用
 
 相关内容：
 
-[基础单选框](http://tinper.org/dist/neoui/global/radio.html)  
+[基础单选框](http://docs.tinper.org/neoui/plugin.html#单选框)  
 
 [单选框在grid中使用](http://tinper.org/webide/#/demos/grids/edit)

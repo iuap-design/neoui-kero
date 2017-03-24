@@ -139,4 +139,4 @@
   <div id="treeTest" class="ztree" u-meta='{"id":"tree2","data":"dataTable1","type":"tree","multiSelect":"true","idField":"id","pidField":"pid","nameField":"title","setting":"treeSetting"}'></div>
   ```
 
-  更多`tree`属性参照:[zTree## API Document](http://www.ztree.me/v3/api.php)
+  更多`tree`属性参照:[zTree## API Document](http://www.treejs.cn/v3/api.php)

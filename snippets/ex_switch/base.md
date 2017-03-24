@@ -21,7 +21,7 @@
 
 
 
-u-meta基础api请参考[这里](http://tinper.org/dist/kero/docs/moduleapi.html)
+u-meta基础api请参考[这里](http://docs.tinper.org/moy/kero-model.html#Type类型)
 
 
 
@@ -62,5 +62,5 @@ switchAObject.setEnable(true);//设置可用
 
 相关内容：
 
-[基础开关](http://tinper.org/dist/neoui/plugin/jsswitch.html)    
+[基础开关](http://docs.tinper.org/neoui/plugin.html#开关)    
 [开关在grid中使用](http://tinper.org/webide/#/demos/grids/edit)
