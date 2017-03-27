@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.1.27
+ * neoui-kero v3.2.0
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -471,6 +471,7 @@
         }
         return object;
     };
+    Object.assign || (Object.assign = extend);
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_event__ = __webpack_require__(6), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_core__ = (__webpack_require__(9), 
@@ -667,7 +668,7 @@
             var i, length, array = formatString.match(u.date._formattingTokens), output = "", _date = u.date.getDateObj(date);
             if (!_date) return date;
             for (language = language || __WEBPACK_IMPORTED_MODULE_0__core__.a.getLanguages(), 
-            i = 0, length = array.length; i < length; i++) output += u.date._formats[array[i]] ? u.date._formats[array[i]](_date, language) : array[i];
+            i = 0, length = array.length; i < length; i++) u.date._formats[array[i]] ? output += u.date._formats[array[i]](_date, language) : output += array[i];
             return output;
         },
         _addOrSubtract: function(date, period, value, isAdding) {

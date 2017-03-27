@@ -1,3 +1,21 @@
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/iuap-design/neoui-kero/compare/v3.1.27...v3.2.0) (2017-03-24)
+
+
+### Bug Fixes
+
+* 产出重命名 ([89689f2](https://github.com/iuap-design/neoui-kero/commit/89689f2))
+* 币种组件不再显示币种效果 ([70dac96](https://github.com/iuap-design/neoui-kero/commit/70dac96))
+
+
+### Features
+
+* grid组件使用comboRender及radioRender时可以直接在column上定义datasource ([2cbbe2a](https://github.com/iuap-design/neoui-kero/commit/2cbbe2a))
+* neoui-kero支持按照组件产出对应的js文件以方便项目使用 ([f0bc2b9](https://github.com/iuap-design/neoui-kero/commit/f0bc2b9))
+* 输入组件支持placeholder属性 ([9d67ed0](https://github.com/iuap-design/neoui-kero/commit/9d67ed0))
+
+
+
 <a name="3.1.27"></a>
 ## [3.1.27](https://github.com/iuap-design/neoui-kero/compare/v3.1.26...v3.1.27) (2017-02-23)
 

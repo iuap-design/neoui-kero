@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.1.27
+ * neoui-kero v3.2.0
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -56,6 +56,7 @@
         }
         return object;
     };
+    Object.assign || (Object.assign = extend);
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     __webpack_require__.d(__webpack_exports__, "a", function() {
@@ -233,24 +234,24 @@
         var options = (new Date().valueOf(), this.options);
         if (!options.totalPages) return void (this.$element.style.display = "none");
         this.$element.style.display = "block";
-        var pageProxy, htmlArr = [], currentPageProxy = new PageProxy(options, options.currentPage), windows = 2, total = options.totalPages - 0, current = options.currentPage - 0, fix = 0;
-        if (current - 2 <= windows + 1) {
+        var pageProxy, htmlArr = [], currentPageProxy = new PageProxy(options, options.currentPage), total = options.totalPages - 0, current = options.currentPage - 0, fix = 0;
+        if (current - 2 <= 3) {
             for (var i = 1; i <= current; i++) pageProxy = new PageProxy(options, i), htmlArr.push(View.page(this, options, pageProxy));
-            if (fix = windows - (current - 1) < 0 ? 0 : windows - (current - 1), total - current - fix <= windows + 1) for (var i = current + 1; i <= total; i++) pageProxy = new PageProxy(options, i), 
+            if (fix = 2 - (current - 1) < 0 ? 0 : 2 - (current - 1), total - current - fix <= 3) for (var i = current + 1; i <= total; i++) pageProxy = new PageProxy(options, i), 
             htmlArr.push(View.page(this, options, pageProxy)); else {
-                for (var i = current + 1; i <= current + windows + fix; i++) pageProxy = new PageProxy(options, i), 
+                for (var i = current + 1; i <= current + 2 + fix; i++) pageProxy = new PageProxy(options, i), 
                 htmlArr.push(View.page(this, options, pageProxy));
                 htmlArr.push(View.gap(this, options)), pageProxy = new PageProxy(options, total), 
                 htmlArr.push(View.page(this, options, pageProxy));
             }
-        } else if (total - current <= windows + 1) {
-            fix = windows - (total - current) < 0 ? 0 : windows - (total - current);
-            for (var i = current - windows - fix; i <= total; i++) pageProxy = new PageProxy(options, i), 
+        } else if (total - current <= 3) {
+            fix = 2 - (total - current) < 0 ? 0 : 2 - (total - current);
+            for (var i = current - 2 - fix; i <= total; i++) pageProxy = new PageProxy(options, i), 
             htmlArr.push(View.page(this, options, pageProxy));
             i >= 2 && (htmlArr.unshift(View.gap(this, options)), pageProxy = new PageProxy(options, 1), 
             htmlArr.unshift(View.page(this, options, pageProxy)));
         } else {
-            for (var i = current - windows; i <= current + windows; i++) pageProxy = new PageProxy(options, i), 
+            for (var i = current - 2; i <= current + 2; i++) pageProxy = new PageProxy(options, i), 
             htmlArr.push(View.page(this, options, pageProxy));
             htmlArr.push(View.gap(this, options)), pageProxy = new PageProxy(options, total), 
             htmlArr.push(View.page(this, options, pageProxy)), htmlArr.unshift(View.gap(this, options)), 
@@ -261,12 +262,12 @@
         options.showState) {
             var pageOption = "";
             options.pageList.forEach(function(item) {
-                pageOption += options.pageSize - 0 == item ? "<option selected>" + item + "</option>" : "<option>" + item + "</option>";
+                options.pageSize - 0 == item ? pageOption += "<option selected>" + item + "</option>" : pageOption += "<option>" + item + "</option>";
             });
             var htmlTmp = "";
             options.showTotal && (htmlTmp += '<div class="pagination-state">' + options.totalText + "&nbsp;" + options.totalCount + "&nbsp;" + options.listText + "</div>"), 
-            options.showColumn && (htmlTmp += __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.$ul, "pagination-sm") ? '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_sm">' + pageOption + "</select>" + options.listText + "</div>" : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.$ul, "pagination-lg") ? '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_lg">' + pageOption + "</select>" + options.listText + "</div>" : '<div class="pagination-state">' + options.showText + '<select  class="page_z">' + pageOption + "</select>" + options.listText + "</div>"), 
-            options.showJump && (htmlTmp += __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.$ul, "pagination-sm") ? '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_sm padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump pagination-jump-sm" type="button" value="' + options.okText + '"/></div>' : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.$ul, "pagination-lg") ? '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_lg padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump pagination-jump-lg" type="button" value="' + options.okText + '"/></div>' : '<div class="pagination-state">' + options.toText + '<input class="page_j text-center padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump" type="button" value="' + options.okText + '"/></div>'), 
+            options.showColumn && (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.$ul, "pagination-sm") ? htmlTmp += '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_sm">' + pageOption + "</select>" + options.listText + "</div>" : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.$ul, "pagination-lg") ? htmlTmp += '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_lg">' + pageOption + "</select>" + options.listText + "</div>" : htmlTmp += '<div class="pagination-state">' + options.showText + '<select  class="page_z">' + pageOption + "</select>" + options.listText + "</div>"), 
+            options.showJump && (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.$ul, "pagination-sm") ? htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_sm padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump pagination-jump-sm" type="button" value="' + options.okText + '"/></div>' : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.$ul, "pagination-lg") ? htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_lg padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump pagination-jump-lg" type="button" value="' + options.okText + '"/></div>' : htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump" type="button" value="' + options.okText + '"/></div>'), 
             htmlArr.push(htmlTmp);
         }
         this.$ul.innerHTML = "", this.$ul.insertAdjacentHTML("beforeEnd", htmlArr.join(""));

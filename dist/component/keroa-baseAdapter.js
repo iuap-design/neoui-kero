@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.1.27
+ * neoui-kero v3.2.0
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -184,6 +184,7 @@
         }
         return object;
     };
+    Object.assign || (Object.assign = extend);
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__ = __webpack_require__(0);

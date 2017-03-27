@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.1.27
+ * neoui-kero v3.2.0
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -103,6 +103,7 @@
         }
         return object;
     };
+    Object.assign || (Object.assign = extend);
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     var __WEBPACK_IMPORTED_MODULE_0__extend__ = __webpack_require__(1), __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(8), __WEBPACK_IMPORTED_MODULE_2__cookies__ = __webpack_require__(6), __WEBPACK_IMPORTED_MODULE_3__enumerables__ = __webpack_require__(4);
@@ -217,7 +218,7 @@
         hasTouch: !1,
         isMobile: !1
     }), function() {
-        var version, userAgent = navigator.userAgent, rMsie = /(msie\s|trident.*rv:)([\w.]+)/, rFirefox = /(firefox)\/([\w.]+)/, rOpera = /(opera).+version\/([\w.]+)/, rChrome = /(chrome)\/([\w.]+)/, rSafari = /version\/([\w.]+).*(safari)/, ua = userAgent.toLowerCase(), browserMatch = {
+        var userAgent = navigator.userAgent, rMsie = /(msie\s|trident.*rv:)([\w.]+)/, rFirefox = /(firefox)\/([\w.]+)/, rOpera = /(opera).+version\/([\w.]+)/, rChrome = /(chrome)\/([\w.]+)/, rSafari = /version\/([\w.]+).*(safari)/, ua = userAgent.toLowerCase(), browserMatch = {
             browser: "",
             version: ""
         }, match = rMsie.exec(ua);
@@ -245,7 +246,7 @@
         "Win32" != navigator.platform && "Windows" != navigator.platform && "Win64" != navigator.platform || (u.isWin = !0), 
         "X11" != navigator.platform || u.isWin || u.isMac || (u.isUnix = !0), String(navigator.platform).indexOf("Linux") > -1 && (u.isLinux = !0), 
         (ua.indexOf("Android") > -1 || ua.indexOf("android") > -1 || ua.indexOf("Adr") > -1 || ua.indexOf("adr") > -1) && (u.isAndroid = !0), 
-        u.version = version && browserMatch.version ? browserMatch.version : 0, u.isAndroid && (window.screen.width >= 768 && window.screen.width < 1024 && (u.isAndroidPAD = !0), 
+        u.version = 0, u.isAndroid && (window.screen.width >= 768 && window.screen.width < 1024 && (u.isAndroidPAD = !0), 
         window.screen.width <= 768 && (u.isAndroidPhone = !0)), u.isIE) {
             var intVersion = parseInt(u.version), mode = document.documentMode;
             null == mode ? 6 != intVersion && 7 != intVersion || (u.isIE8_BEFORE = !0) : (7 == mode ? u.isIE8_BEFORE = !0 : 8 == mode ? u.isIE8 = !0 : 9 == mode ? (u.isIE9 = !0, 
@@ -390,7 +391,7 @@
             var i, length, array = formatString.match(u.date._formattingTokens), output = "", _date = u.date.getDateObj(date);
             if (!_date) return date;
             for (language = language || __WEBPACK_IMPORTED_MODULE_0__core__.a.getLanguages(), 
-            i = 0, length = array.length; i < length; i++) output += u.date._formats[array[i]] ? u.date._formats[array[i]](_date, language) : array[i];
+            i = 0, length = array.length; i < length; i++) u.date._formats[array[i]] ? output += u.date._formats[array[i]](_date, language) : output += array[i];
             return output;
         },
         _addOrSubtract: function(date, period, value, isAdding) {
@@ -675,12 +676,12 @@
             }
         },
         setHand: function() {
-            var innerRadius = 54, outerRadius = 80, view = this.currentView, value = this[view], isHours = "hours" === view, unit = Math.PI / (isHours ? 6 : 30), radian = value * unit, radius = isHours && value > 0 && value < 13 ? innerRadius : outerRadius, x = Math.sin(radian) * radius, y = -Math.cos(radian) * radius;
+            var view = this.currentView, value = this[view], isHours = "hours" === view, unit = Math.PI / (isHours ? 6 : 30), radian = value * unit, radius = isHours && value > 0 && value < 13 ? 54 : 80, x = Math.sin(radian) * radius, y = -Math.cos(radian) * radius;
             this.setHandFun(x, y);
         },
         setHandFun: function(x, y, roundBy5, dragging) {
-            var value, innerRadius = 54, outerRadius = 80, radian = Math.atan2(x, -y), isHours = "hours" === this.currentView, unit = Math.PI / (isHours ? 6 : 30), z = Math.sqrt(x * x + y * y), options = this.options, inner = isHours && z < (outerRadius + innerRadius) / 2, radius = inner ? innerRadius : outerRadius;
-            this.twelvehour && (radius = outerRadius), radian < 0 && (radian = 2 * Math.PI + radian), 
+            var value, radian = Math.atan2(x, -y), isHours = "hours" === this.currentView, unit = Math.PI / (isHours ? 6 : 30), z = Math.sqrt(x * x + y * y), options = this.options, inner = isHours && z < 67, radius = inner ? 54 : 80;
+            this.twelvehour && (radius = 80), radian < 0 && (radian = 2 * Math.PI + radian), 
             value = Math.round(radian / unit), radian = value * unit, options.twelvehour ? isHours ? 0 === value && (value = 12) : (roundBy5 && (value *= 5), 
             60 === value && (value = 0)) : isHours ? (12 === value && (value = 0), value = inner ? 0 === value ? 12 : value : 0 === value ? 0 : value + 12) : (roundBy5 && (value *= 5), 
             60 === value && (value = 0));
@@ -928,8 +929,6 @@
                     }
                 }
                 self.slice = !1;
-            }), this.dataModel.ref(this.field).subscribe(function(value) {
-                self.modelValueChange(value);
             });
         },
         modelValueChange: function(value) {

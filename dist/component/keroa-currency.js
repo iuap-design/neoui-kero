@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.1.27
+ * neoui-kero v3.2.0
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -150,6 +150,7 @@
         }
         return object;
     };
+    Object.assign || (Object.assign = extend);
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     var __WEBPACK_IMPORTED_MODULE_0__extend__ = __webpack_require__(3), __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_2__cookies__ = __webpack_require__(9), __WEBPACK_IMPORTED_MODULE_3__enumerables__ = __webpack_require__(6);
@@ -1044,6 +1045,9 @@
     }, getChangedRows = function() {
         for (var changedRows = [], rows = this.rows.peek(), i = 0, count = rows.length; i < count; i++) rows[i] && rows[i].status != Row.STATUS.NORMAL && changedRows.push(rows[i]);
         return changedRows;
+    }, getDeleteRows = function() {
+        for (var deleteRows = [], rows = this.rows.peek(), i = 0, count = rows.length; i < count; i++) rows[i] && rows[i].status == Row.STATUS.FALSE_DELETE && deleteRows.push(rows[i]);
+        return deleteRows;
     }, getValue = function(fieldName, row) {
         return row = row || this.getCurrentRow(), row ? row.getValue(fieldName) : "";
     }, getIndexByRowId = function(rowId) {
@@ -1068,6 +1072,7 @@
         getAllPageRows: getAllPageRows,
         getChangedDatas: getChangedDatas,
         getChangedRows: getChangedRows,
+        getDeleteRows: getDeleteRows,
         getValue: getValue,
         getIndexByRowId: getIndexByRowId,
         getAllDatas: getAllDatas,
@@ -1430,7 +1435,7 @@
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(1);
+    __webpack_require__(1);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return removeRowFunObj;
     });
@@ -1443,23 +1448,7 @@
         this.rows([]), this.selectedIndices([]), this.focusIndex(-1), this.trigger(DataTable.ON_DELETE_ALL), 
         this.updateCurrIndex();
     }, removeRows = function(indices) {
-        indices = __WEBPACK_IMPORTED_MODULE_0__util__.a._formatToIndicesArray(this, indices), 
-        indices = indices.sort(function(a, b) {
-            return a - b;
-        });
-        for (var rowIds = [], rows = this.rows(), deleteRows = [], i = indices.length - 1; i >= 0; i--) {
-            var index = indices[i], delRow = rows[index];
-            if (null != delRow) {
-                rowIds.push(delRow.rowId);
-                var deleteRow = rows.splice(index, 1);
-                deleteRows.push(deleteRow[0]), this.updateSelectedIndices(index, "-"), this.updateFocusIndex(index, "-");
-            }
-        }
-        this.rows(rows), this.deleteRows = deleteRows, this.trigger(DataTable.ON_DELETE, {
-            indices: indices,
-            rowIds: rowIds,
-            deleteRows: deleteRows
-        }), this.updateCurrIndex();
+        this.setRowsDelete(indices);
     }, clear = function() {
         this.removeAllRows(), this.cachedPages = [], this.totalPages(1), this.pageIndex(0), 
         this.focusIndex(-1), this.selectedIndices([]);
@@ -1510,11 +1499,12 @@
             index: index,
             rows: rows
         }), this.ns && this.root.valueChange[this.ns] && this.root.valueChange[this.ns](-this.root.valueChange[this.ns]());
-    }, createEmptyRow = function() {
+    }, createEmptyRow = function(options) {
         var r = new Row({
             parent: this
         });
-        return this.addRow(r), r;
+        return this.addRow(r), !!options && options.unSelect || this.getCurrentRow() || this.setRowSelect(r), 
+        r;
     }, rowFunObj = {
         setRows: setRows,
         addRow: addRow,
@@ -1548,22 +1538,24 @@
         for (var indices = new Array(this.rows().length), i = 0; i < indices.length; i++) indices[i] = i;
         this.setRowsDelete(indices);
     }, setRowsDelete = function(indices) {
-        indices = __WEBPACK_IMPORTED_MODULE_0__util__.a._formatToIndicesArray(this, indices);
-        var rowIds = this.getRowIdsByIndices(indices);
-        this.trigger(DataTable.ON_DELETE, {
-            falseDelete: !0,
-            indices: indices,
-            rowIds: rowIds
+        indices = __WEBPACK_IMPORTED_MODULE_0__util__.a._formatToIndicesArray(this, indices), 
+        indices = indices.sort(function(a, b) {
+            return b - a;
         });
-        for (var i = 0; i < indices.length; i++) {
+        for (var rowIds = this.getRowIdsByIndices(indices), i = 0; i < indices.length; i++) {
             var row = this.getRow(indices[i]);
-            if (row.status == Row.STATUS.NEW) this.rows().splice(indices[i], 1), this.updateSelectedIndices(indices[i], "-"), 
-            this.updateFocusIndex(index, "-"); else {
+            if (row.status == Row.STATUS.NEW) this.rows().splice(indices[i], 1); else {
                 row.setStatus(Row.STATUS.FALSE_DELETE);
                 var temprows = this.rows().splice(indices[i], 1);
                 this.rows().push(temprows[0]);
             }
+            this.updateSelectedIndices(indices[i], "-"), this.updateFocusIndex(indices[i], "-");
         }
+        this.updateCurrIndex(), this.trigger(DataTable.ON_DELETE, {
+            falseDelete: !0,
+            indices: indices,
+            rowIds: rowIds
+        });
     }, rowDeleteFunObj = {
         setRowDelete: setRowDelete,
         setAllRowsDelete: setAllRowsDelete,
@@ -1715,11 +1707,11 @@
             rows: rows
         };
         options && void 0 === options.fieldFlag && (options.fieldFlag = !0), this.setData(_data, options);
-    }, addSimpleData = function(data, status) {
+    }, addSimpleData = function(data, status, options) {
         if (!data) throw new Error("dataTable.addSimpleData param can't be null!");
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.b)(data) || (data = [ data ]);
         for (var i = 0; i < data.length; i++) {
-            this.createEmptyRow().setSimpleData(data[i], status);
+            this.createEmptyRow(options).setSimpleData(data[i], status);
         }
     }, simpleDataFunObj = {
         setSimpleData: setSimpleData,
@@ -1763,7 +1755,7 @@
         hasTouch: !1,
         isMobile: !1
     }), function() {
-        var version, userAgent = navigator.userAgent, rMsie = /(msie\s|trident.*rv:)([\w.]+)/, rFirefox = /(firefox)\/([\w.]+)/, rOpera = /(opera).+version\/([\w.]+)/, rChrome = /(chrome)\/([\w.]+)/, rSafari = /version\/([\w.]+).*(safari)/, ua = userAgent.toLowerCase(), browserMatch = {
+        var userAgent = navigator.userAgent, rMsie = /(msie\s|trident.*rv:)([\w.]+)/, rFirefox = /(firefox)\/([\w.]+)/, rOpera = /(opera).+version\/([\w.]+)/, rChrome = /(chrome)\/([\w.]+)/, rSafari = /version\/([\w.]+).*(safari)/, ua = userAgent.toLowerCase(), browserMatch = {
             browser: "",
             version: ""
         }, match = rMsie.exec(ua);
@@ -1791,7 +1783,7 @@
         "Win32" != navigator.platform && "Windows" != navigator.platform && "Win64" != navigator.platform || (u.isWin = !0), 
         "X11" != navigator.platform || u.isWin || u.isMac || (u.isUnix = !0), String(navigator.platform).indexOf("Linux") > -1 && (u.isLinux = !0), 
         (ua.indexOf("Android") > -1 || ua.indexOf("android") > -1 || ua.indexOf("Adr") > -1 || ua.indexOf("adr") > -1) && (u.isAndroid = !0), 
-        u.version = version && browserMatch.version ? browserMatch.version : 0, u.isAndroid && (window.screen.width >= 768 && window.screen.width < 1024 && (u.isAndroidPAD = !0), 
+        u.version = 0, u.isAndroid && (window.screen.width >= 768 && window.screen.width < 1024 && (u.isAndroidPAD = !0), 
         window.screen.width <= 768 && (u.isAndroidPhone = !0)), u.isIE) {
             var intVersion = parseInt(u.version), mode = document.documentMode;
             null == mode ? 6 != intVersion && 7 != intVersion || (u.isIE8_BEFORE = !0) : (7 == mode ? u.isIE8_BEFORE = !0 : 8 == mode ? u.isIE8 = !0 : 9 == mode ? (u.isIE9 = !0, 
@@ -1913,7 +1905,7 @@
             var i, length, array = formatString.match(u.date._formattingTokens), output = "", _date = u.date.getDateObj(date);
             if (!_date) return date;
             for (language = language || __WEBPACK_IMPORTED_MODULE_0__core__.a.getLanguages(), 
-            i = 0, length = array.length; i < length; i++) output += u.date._formats[array[i]] ? u.date._formats[array[i]](_date, language) : array[i];
+            i = 0, length = array.length; i < length; i++) u.date._formats[array[i]] ? output += u.date._formats[array[i]](_date, language) : output += array[i];
             return output;
         },
         _addOrSubtract: function(date, period, value, isAdding) {

@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.1.27
+ * neoui-kero v3.2.0
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -277,6 +277,7 @@
         }
         return object;
     };
+    Object.assign || (Object.assign = extend);
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     var __WEBPACK_IMPORTED_MODULE_0__extend__ = __webpack_require__(3);
@@ -315,7 +316,7 @@
         hasTouch: !1,
         isMobile: !1
     }), function() {
-        var version, userAgent = navigator.userAgent, rMsie = /(msie\s|trident.*rv:)([\w.]+)/, rFirefox = /(firefox)\/([\w.]+)/, rOpera = /(opera).+version\/([\w.]+)/, rChrome = /(chrome)\/([\w.]+)/, rSafari = /version\/([\w.]+).*(safari)/, ua = userAgent.toLowerCase(), browserMatch = {
+        var userAgent = navigator.userAgent, rMsie = /(msie\s|trident.*rv:)([\w.]+)/, rFirefox = /(firefox)\/([\w.]+)/, rOpera = /(opera).+version\/([\w.]+)/, rChrome = /(chrome)\/([\w.]+)/, rSafari = /version\/([\w.]+).*(safari)/, ua = userAgent.toLowerCase(), browserMatch = {
             browser: "",
             version: ""
         }, match = rMsie.exec(ua);
@@ -343,7 +344,7 @@
         "Win32" != navigator.platform && "Windows" != navigator.platform && "Win64" != navigator.platform || (u.isWin = !0), 
         "X11" != navigator.platform || u.isWin || u.isMac || (u.isUnix = !0), String(navigator.platform).indexOf("Linux") > -1 && (u.isLinux = !0), 
         (ua.indexOf("Android") > -1 || ua.indexOf("android") > -1 || ua.indexOf("Adr") > -1 || ua.indexOf("adr") > -1) && (u.isAndroid = !0), 
-        u.version = version && browserMatch.version ? browserMatch.version : 0, u.isAndroid && (window.screen.width >= 768 && window.screen.width < 1024 && (u.isAndroidPAD = !0), 
+        u.version = 0, u.isAndroid && (window.screen.width >= 768 && window.screen.width < 1024 && (u.isAndroidPAD = !0), 
         window.screen.width <= 768 && (u.isAndroidPhone = !0)), u.isIE) {
             var intVersion = parseInt(u.version), mode = document.documentMode;
             null == mode ? 6 != intVersion && 7 != intVersion || (u.isIE8_BEFORE = !0) : (7 == mode ? u.isIE8_BEFORE = !0 : 8 == mode ? u.isIE8 = !0 : 9 == mode ? (u.isIE9 = !0, 
@@ -545,7 +546,7 @@
             var i, length, array = formatString.match(u.date._formattingTokens), output = "", _date = u.date.getDateObj(date);
             if (!_date) return date;
             for (language = language || __WEBPACK_IMPORTED_MODULE_0__core__.a.getLanguages(), 
-            i = 0, length = array.length; i < length; i++) output += u.date._formats[array[i]] ? u.date._formats[array[i]](_date, language) : array[i];
+            i = 0, length = array.length; i < length; i++) u.date._formats[array[i]] ? output += u.date._formats[array[i]](_date, language) : output += array[i];
             return output;
         },
         _addOrSubtract: function(date, period, value, isAdding) {
@@ -2106,8 +2107,6 @@
                 showFix: this.options.showFix
             }), this.comp.on("valueChange", function(event) {
                 self.slice = !0, self.dataModel.setValue(self.field, event.value), self.slice = !1;
-            }), this.dataModel.ref(this.field).subscribe(function(value) {
-                self.modelValueChange(value);
             });
         },
         modelValueChange: function(value) {
@@ -2305,8 +2304,6 @@
                     }
                 }
                 self.slice = !1;
-            }), this.dataModel.ref(this.field).subscribe(function(value) {
-                self.modelValueChange(value);
             });
         },
         modelValueChange: function(value) {
@@ -2372,8 +2369,6 @@
                 showFix: this.options.showFix
             }), this.comp.on("valueChange", function(event) {
                 self.slice = !0, self.setValue(event.value), self.slice = !1;
-            }), this.dataModel.ref(this.field).subscribe(function(value) {
-                self.modelValueChange(value);
             });
         },
         modelValueChange: function(value) {
@@ -2399,8 +2394,6 @@
                 showFix: this.options.showFix
             }), this.comp.on("valueChange", function(event) {
                 self.slice = !0, self.dataModel.setValue(self.field, event.value), self.slice = !1;
-            }), this.dataModel.ref(this.field).subscribe(function(value) {
-                self.modelValueChange(value);
             });
         },
         modelValueChange: function(value) {
@@ -2843,7 +2836,8 @@
             this.gridOptions.onBeforeClickFun = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.onBeforeClickFun), 
             this.gridOptions.onBeforeEditFun = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.onBeforeEditFun), 
             this.gridOptions.onRowHover = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.onRowHover), 
-            this.gridOptions.afterCreate = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.afterCreate);
+            this.gridOptions.afterCreate = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.afterCreate), 
+            this.gridOptions.onSortFun = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.onSortFun);
             var customOnBeforeEditFun = this.gridOptions.onBeforeEditFun, newOnBeforeEditFun = function(obj) {
                 var colIndex = obj.colIndex, $tr = obj.$tr;
                 return !($($tr.find("td")[colIndex]).find("[type=radio]").length > 0 || $($tr.find("td")[colIndex]).find("[type=checkbox]").length > 0) && ("function" != typeof customOnBeforeEditFun || customOnBeforeEditFun(obj));
@@ -2866,8 +2860,9 @@
                     obj.element.innerHTML = "";
                     var row = oThis.getDataTableRow(obj.rowObj);
                     $(obj.element).append(oThis.editComponentDiv[column.field]), comp.required && $(obj.element).parent().parent().find(".u-grid-edit-mustFlag").show(), 
-                    $(obj.element).parent().focus(), comp && comp.modelValueChange(obj.value), obj.gridObj.editComp = comp, 
-                    "function" == typeof afterEType && afterEType.call(this, obj);
+                    $(obj.element).parent().focus(), comp && comp.modelValueChange && setTimeout(function() {
+                        comp.modelValueChange(obj.value);
+                    }), obj.gridObj.editComp = comp, "function" == typeof afterEType && afterEType.call(this, obj);
                 }) : "function" == typeof eType && (column.editType = eType), "booleanRender" == rType ? (column.renderType = function(obj) {
                     var grid = obj.gridObj, datatable = grid.dataTable, rowId = obj.row.value["$_#_@_id"], row = datatable.getRowByRowId(rowId), checkStr = "", disableStr = "";
                     "Y" != obj.value && "true" != obj.value || (checkStr = "is-checked"), "form" == grid.options.editType && (disableStr = "is-disabled");
@@ -3515,8 +3510,6 @@
             }), this.comp.on("valueChange", function(event) {
                 self.slice = !0, self.dataModel.getValue(self.field) !== event.value && self.dataModel.setValue(self.field, event.value), 
                 self.slice = !1;
-            }), this.dataModel.ref(this.field).subscribe(function(value) {
-                self.modelValueChange(value);
             });
         },
         modelValueChange: function(value) {
@@ -4289,6 +4282,9 @@
     }, getChangedRows = function() {
         for (var changedRows = [], rows = this.rows.peek(), i = 0, count = rows.length; i < count; i++) rows[i] && rows[i].status != Row.STATUS.NORMAL && changedRows.push(rows[i]);
         return changedRows;
+    }, getDeleteRows = function() {
+        for (var deleteRows = [], rows = this.rows.peek(), i = 0, count = rows.length; i < count; i++) rows[i] && rows[i].status == Row.STATUS.FALSE_DELETE && deleteRows.push(rows[i]);
+        return deleteRows;
     }, getValue = function(fieldName, row) {
         return row = row || this.getCurrentRow(), row ? row.getValue(fieldName) : "";
     }, getIndexByRowId = function(rowId) {
@@ -4313,6 +4309,7 @@
         getAllPageRows: getAllPageRows,
         getChangedDatas: getChangedDatas,
         getChangedRows: getChangedRows,
+        getDeleteRows: getDeleteRows,
         getValue: getValue,
         getIndexByRowId: getIndexByRowId,
         getAllDatas: getAllDatas,
@@ -4675,7 +4672,7 @@
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(14);
+    __webpack_require__(14);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return removeRowFunObj;
     });
@@ -4688,23 +4685,7 @@
         this.rows([]), this.selectedIndices([]), this.focusIndex(-1), this.trigger(DataTable.ON_DELETE_ALL), 
         this.updateCurrIndex();
     }, removeRows = function(indices) {
-        indices = __WEBPACK_IMPORTED_MODULE_0__util__.a._formatToIndicesArray(this, indices), 
-        indices = indices.sort(function(a, b) {
-            return a - b;
-        });
-        for (var rowIds = [], rows = this.rows(), deleteRows = [], i = indices.length - 1; i >= 0; i--) {
-            var index = indices[i], delRow = rows[index];
-            if (null != delRow) {
-                rowIds.push(delRow.rowId);
-                var deleteRow = rows.splice(index, 1);
-                deleteRows.push(deleteRow[0]), this.updateSelectedIndices(index, "-"), this.updateFocusIndex(index, "-");
-            }
-        }
-        this.rows(rows), this.deleteRows = deleteRows, this.trigger(DataTable.ON_DELETE, {
-            indices: indices,
-            rowIds: rowIds,
-            deleteRows: deleteRows
-        }), this.updateCurrIndex();
+        this.setRowsDelete(indices);
     }, clear = function() {
         this.removeAllRows(), this.cachedPages = [], this.totalPages(1), this.pageIndex(0), 
         this.focusIndex(-1), this.selectedIndices([]);
@@ -4755,11 +4736,12 @@
             index: index,
             rows: rows
         }), this.ns && this.root.valueChange[this.ns] && this.root.valueChange[this.ns](-this.root.valueChange[this.ns]());
-    }, createEmptyRow = function() {
+    }, createEmptyRow = function(options) {
         var r = new Row({
             parent: this
         });
-        return this.addRow(r), r;
+        return this.addRow(r), !!options && options.unSelect || this.getCurrentRow() || this.setRowSelect(r), 
+        r;
     }, rowFunObj = {
         setRows: setRows,
         addRow: addRow,
@@ -4793,22 +4775,24 @@
         for (var indices = new Array(this.rows().length), i = 0; i < indices.length; i++) indices[i] = i;
         this.setRowsDelete(indices);
     }, setRowsDelete = function(indices) {
-        indices = __WEBPACK_IMPORTED_MODULE_0__util__.a._formatToIndicesArray(this, indices);
-        var rowIds = this.getRowIdsByIndices(indices);
-        this.trigger(DataTable.ON_DELETE, {
-            falseDelete: !0,
-            indices: indices,
-            rowIds: rowIds
+        indices = __WEBPACK_IMPORTED_MODULE_0__util__.a._formatToIndicesArray(this, indices), 
+        indices = indices.sort(function(a, b) {
+            return b - a;
         });
-        for (var i = 0; i < indices.length; i++) {
+        for (var rowIds = this.getRowIdsByIndices(indices), i = 0; i < indices.length; i++) {
             var row = this.getRow(indices[i]);
-            if (row.status == Row.STATUS.NEW) this.rows().splice(indices[i], 1), this.updateSelectedIndices(indices[i], "-"), 
-            this.updateFocusIndex(index, "-"); else {
+            if (row.status == Row.STATUS.NEW) this.rows().splice(indices[i], 1); else {
                 row.setStatus(Row.STATUS.FALSE_DELETE);
                 var temprows = this.rows().splice(indices[i], 1);
                 this.rows().push(temprows[0]);
             }
+            this.updateSelectedIndices(indices[i], "-"), this.updateFocusIndex(indices[i], "-");
         }
+        this.updateCurrIndex(), this.trigger(DataTable.ON_DELETE, {
+            falseDelete: !0,
+            indices: indices,
+            rowIds: rowIds
+        });
     }, rowDeleteFunObj = {
         setRowDelete: setRowDelete,
         setAllRowsDelete: setAllRowsDelete,
@@ -4960,11 +4944,11 @@
             rows: rows
         };
         options && void 0 === options.fieldFlag && (options.fieldFlag = !0), this.setData(_data, options);
-    }, addSimpleData = function(data, status) {
+    }, addSimpleData = function(data, status, options) {
         if (!data) throw new Error("dataTable.addSimpleData param can't be null!");
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.b)(data) || (data = [ data ]);
         for (var i = 0; i < data.length; i++) {
-            this.createEmptyRow().setSimpleData(data[i], status);
+            this.createEmptyRow(options).setSimpleData(data[i], status);
         }
     }, simpleDataFunObj = {
         setSimpleData: setSimpleData,
@@ -5085,12 +5069,12 @@
             }
         },
         setHand: function() {
-            var innerRadius = 54, outerRadius = 80, view = this.currentView, value = this[view], isHours = "hours" === view, unit = Math.PI / (isHours ? 6 : 30), radian = value * unit, radius = isHours && value > 0 && value < 13 ? innerRadius : outerRadius, x = Math.sin(radian) * radius, y = -Math.cos(radian) * radius;
+            var view = this.currentView, value = this[view], isHours = "hours" === view, unit = Math.PI / (isHours ? 6 : 30), radian = value * unit, radius = isHours && value > 0 && value < 13 ? 54 : 80, x = Math.sin(radian) * radius, y = -Math.cos(radian) * radius;
             this.setHandFun(x, y);
         },
         setHandFun: function(x, y, roundBy5, dragging) {
-            var value, innerRadius = 54, outerRadius = 80, radian = Math.atan2(x, -y), isHours = "hours" === this.currentView, unit = Math.PI / (isHours ? 6 : 30), z = Math.sqrt(x * x + y * y), options = this.options, inner = isHours && z < (outerRadius + innerRadius) / 2, radius = inner ? innerRadius : outerRadius;
-            this.twelvehour && (radius = outerRadius), radian < 0 && (radian = 2 * Math.PI + radian), 
+            var value, radian = Math.atan2(x, -y), isHours = "hours" === this.currentView, unit = Math.PI / (isHours ? 6 : 30), z = Math.sqrt(x * x + y * y), options = this.options, inner = isHours && z < 67, radius = inner ? 54 : 80;
+            this.twelvehour && (radius = 80), radian < 0 && (radian = 2 * Math.PI + radian), 
             value = Math.round(radian / unit), radian = value * unit, options.twelvehour ? isHours ? 0 === value && (value = 12) : (roundBy5 && (value *= 5), 
             60 === value && (value = 0)) : isHours ? (12 === value && (value = 0), value = inner ? 0 === value ? 12 : value : 0 === value ? 0 : value + 12) : (roundBy5 && (value *= 5), 
             60 === value && (value = 0));
@@ -5484,7 +5468,7 @@
         }.bind(this)), "current" === type ? this._zoomIn(yearPage) : "next" === type ? this._carousel(yearPage, "left") : "preivous" === type && this._carousel(yearPage, "right"), 
         this.currentPanel = "year";
     }, DateTimePicker.fn._fillMonth = function() {
-        var template, monthPage, _month, cells, i, language;
+        var template, monthPage, cells, i, language;
         template = [ '<div class="u-date-content-page">', '<div class="u-date-content-title">', "</div>", '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[0] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[1] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[2] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[3] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[4] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[5] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[6] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[7] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[8] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[9] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[10] + "</div>", '<div class="u-date-content-year-cell">' + __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._jsonLocale.monthsShort[11] + "</div>", "</div>", "</div>" ].join(""), 
         monthPage = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.e)(template), 
         language = __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_core__.a.getLanguages(), 
@@ -5496,7 +5480,7 @@
         __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._formats.ss(this.pickerDate, language), 
         this._monthTitle = monthPage.querySelector(".u-date-content-title"), this._monthTitle.innerHTML = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a._formats.MMM(this.pickerDate, language), 
         "date" == this.type && (this._headerTime.style.display = "none"), cells = monthPage.querySelectorAll(".u-date-content-year-cell");
-        for (var i = 0; i < cells.length; i++) _month - 1 == i && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.f)(cells[i], "current"), 
+        for (var i = 0; i < cells.length; i++) NaN == i && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.f)(cells[i], "current"), 
         this.beginYear && (this.pickerDate.getFullYear() == this.beginYear && i < this.beginMonth && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.f)(cells[i], "u-disabled"), 
         this.pickerDate.getFullYear() < this.beginYear && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.f)(cells[i], "u-disabled")), 
         this.overYear && (this.pickerDate.getFullYear() == this.overYear && i > this.overMonth && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.f)(cells[i], "u-disabled"), 
@@ -5781,11 +5765,11 @@
             timePage.querySelector(".u-date-content-title-time").innerHTML;
         }
     }, DateTimePicker.fn.setHand = function() {
-        var innerRadius = 54, outerRadius = 80, view = this.currentView, value = this[view], isHours = "hours" === view, unit = Math.PI / (isHours ? 6 : 30), radian = value * unit, radius = isHours && value > 0 && value < 13 ? innerRadius : outerRadius, x = Math.sin(radian) * radius, y = -Math.cos(radian) * radius;
+        var view = this.currentView, value = this[view], isHours = "hours" === view, unit = Math.PI / (isHours ? 6 : 30), radian = value * unit, radius = isHours && value > 0 && value < 13 ? 54 : 80, x = Math.sin(radian) * radius, y = -Math.cos(radian) * radius;
         this.setHandFun(x, y);
     }, DateTimePicker.fn.setHandFun = function(x, y, roundBy5, dragging) {
-        var value, innerRadius = 54, outerRadius = 80, radian = Math.atan2(x, -y), isHours = "hours" === this.currentView, unit = Math.PI / (isHours ? 6 : 30), z = Math.sqrt(x * x + y * y), options = this.options, inner = isHours && z < (outerRadius + innerRadius) / 2, radius = inner ? innerRadius : outerRadius;
-        this.twelvehour && (radius = outerRadius), radian < 0 && (radian = 2 * Math.PI + radian), 
+        var value, radian = Math.atan2(x, -y), isHours = "hours" === this.currentView, unit = Math.PI / (isHours ? 6 : 30), z = Math.sqrt(x * x + y * y), options = this.options, inner = isHours && z < 67, radius = inner ? 54 : 80;
+        this.twelvehour && (radius = 80), radian < 0 && (radian = 2 * Math.PI + radian), 
         value = Math.round(radian / unit), radian = value * unit, options.twelvehour ? isHours ? 0 === value && (value = 12) : (roundBy5 && (value *= 5), 
         60 === value && (value = 0)) : isHours ? (12 === value && (value = 0), value = inner ? 0 === value ? 12 : value : 0 === value ? 0 : value + 12) : (roundBy5 && (value *= 5), 
         60 === value && (value = 0));
@@ -5943,13 +5927,13 @@
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return showMessage;
     });
-    var messageTemplate = '<div class="u-message"><span class="u-msg-close uf uf-close"></span>{msg}</div>', showMessage = function(options) {
+    var showMessage = function(options) {
         var msg, position, width, showSeconds, msgType, template, darkType;
         "string" == typeof options && (options = {
             msg: options
         }), msg = options.msg || "", position = options.position || "bottom", width = options.width || "", 
         msgType = options.msgType || "info", showSeconds = parseInt(options.showSeconds) || ("info" == msgType ? 2 : 0), 
-        darkType = options.darkType || "", template = options.template || messageTemplate, 
+        darkType = options.darkType || "", template = options.template || '<div class="u-message"><span class="u-msg-close uf uf-close"></span>{msg}</div>', 
         template = template.replace("{msg}", msg);
         var msgDom = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__.e)(template);
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__.f)(msgDom, "u-mes" + msgType), 
@@ -6417,24 +6401,24 @@
         var options = (new Date().valueOf(), this.options);
         if (!options.totalPages) return void (this.$element.style.display = "none");
         this.$element.style.display = "block";
-        var pageProxy, htmlArr = [], currentPageProxy = new PageProxy(options, options.currentPage), windows = 2, total = options.totalPages - 0, current = options.currentPage - 0, fix = 0;
-        if (current - 2 <= windows + 1) {
+        var pageProxy, htmlArr = [], currentPageProxy = new PageProxy(options, options.currentPage), total = options.totalPages - 0, current = options.currentPage - 0, fix = 0;
+        if (current - 2 <= 3) {
             for (var i = 1; i <= current; i++) pageProxy = new PageProxy(options, i), htmlArr.push(View.page(this, options, pageProxy));
-            if (fix = windows - (current - 1) < 0 ? 0 : windows - (current - 1), total - current - fix <= windows + 1) for (var i = current + 1; i <= total; i++) pageProxy = new PageProxy(options, i), 
+            if (fix = 2 - (current - 1) < 0 ? 0 : 2 - (current - 1), total - current - fix <= 3) for (var i = current + 1; i <= total; i++) pageProxy = new PageProxy(options, i), 
             htmlArr.push(View.page(this, options, pageProxy)); else {
-                for (var i = current + 1; i <= current + windows + fix; i++) pageProxy = new PageProxy(options, i), 
+                for (var i = current + 1; i <= current + 2 + fix; i++) pageProxy = new PageProxy(options, i), 
                 htmlArr.push(View.page(this, options, pageProxy));
                 htmlArr.push(View.gap(this, options)), pageProxy = new PageProxy(options, total), 
                 htmlArr.push(View.page(this, options, pageProxy));
             }
-        } else if (total - current <= windows + 1) {
-            fix = windows - (total - current) < 0 ? 0 : windows - (total - current);
-            for (var i = current - windows - fix; i <= total; i++) pageProxy = new PageProxy(options, i), 
+        } else if (total - current <= 3) {
+            fix = 2 - (total - current) < 0 ? 0 : 2 - (total - current);
+            for (var i = current - 2 - fix; i <= total; i++) pageProxy = new PageProxy(options, i), 
             htmlArr.push(View.page(this, options, pageProxy));
             i >= 2 && (htmlArr.unshift(View.gap(this, options)), pageProxy = new PageProxy(options, 1), 
             htmlArr.unshift(View.page(this, options, pageProxy)));
         } else {
-            for (var i = current - windows; i <= current + windows; i++) pageProxy = new PageProxy(options, i), 
+            for (var i = current - 2; i <= current + 2; i++) pageProxy = new PageProxy(options, i), 
             htmlArr.push(View.page(this, options, pageProxy));
             htmlArr.push(View.gap(this, options)), pageProxy = new PageProxy(options, total), 
             htmlArr.push(View.page(this, options, pageProxy)), htmlArr.unshift(View.gap(this, options)), 
@@ -6445,12 +6429,12 @@
         options.showState) {
             var pageOption = "";
             options.pageList.forEach(function(item) {
-                pageOption += options.pageSize - 0 == item ? "<option selected>" + item + "</option>" : "<option>" + item + "</option>";
+                options.pageSize - 0 == item ? pageOption += "<option selected>" + item + "</option>" : pageOption += "<option>" + item + "</option>";
             });
             var htmlTmp = "";
             options.showTotal && (htmlTmp += '<div class="pagination-state">' + options.totalText + "&nbsp;" + options.totalCount + "&nbsp;" + options.listText + "</div>"), 
-            options.showColumn && (htmlTmp += __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.$ul, "pagination-sm") ? '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_sm">' + pageOption + "</select>" + options.listText + "</div>" : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.$ul, "pagination-lg") ? '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_lg">' + pageOption + "</select>" + options.listText + "</div>" : '<div class="pagination-state">' + options.showText + '<select  class="page_z">' + pageOption + "</select>" + options.listText + "</div>"), 
-            options.showJump && (htmlTmp += __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.$ul, "pagination-sm") ? '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_sm padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump pagination-jump-sm" type="button" value="' + options.okText + '"/></div>' : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.$ul, "pagination-lg") ? '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_lg padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump pagination-jump-lg" type="button" value="' + options.okText + '"/></div>' : '<div class="pagination-state">' + options.toText + '<input class="page_j text-center padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump" type="button" value="' + options.okText + '"/></div>'), 
+            options.showColumn && (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.$ul, "pagination-sm") ? htmlTmp += '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_sm">' + pageOption + "</select>" + options.listText + "</div>" : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.$ul, "pagination-lg") ? htmlTmp += '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_lg">' + pageOption + "</select>" + options.listText + "</div>" : htmlTmp += '<div class="pagination-state">' + options.showText + '<select  class="page_z">' + pageOption + "</select>" + options.listText + "</div>"), 
+            options.showJump && (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.$ul, "pagination-sm") ? htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_sm padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump pagination-jump-sm" type="button" value="' + options.okText + '"/></div>' : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.$ul, "pagination-lg") ? htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center page_j_lg padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump pagination-jump-lg" type="button" value="' + options.okText + '"/></div>' : htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j text-center padding-left-0" value=' + options.currentPage + ">" + options.pageText + '<input class="pagination-jump" type="button" value="' + options.okText + '"/></div>'), 
             htmlArr.push(htmlTmp);
         }
         this.$ul.innerHTML = "", this.$ul.insertAdjacentHTML("beforeEnd", htmlArr.join(""));

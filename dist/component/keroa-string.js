@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.1.27
+ * neoui-kero v3.2.0
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -67,7 +67,22 @@
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    __webpack_require__(2), "function" == typeof Symbol && Symbol.iterator;
+    var __WEBPACK_IMPORTED_MODULE_0__enumerables__ = __webpack_require__(2), _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj) {
+        return typeof obj;
+    } : function(obj) {
+        return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    }, extend = function(object, config) {
+        var options, args = arguments;
+        if (args.length > 1) for (var len = 1; len < args.length; len++) if (options = args[len], 
+        object && options && "object" === (void 0 === options ? "undefined" : _typeof(options))) {
+            var i, j, k;
+            for (i in options) object[i] = options[i];
+            if (__WEBPACK_IMPORTED_MODULE_0__enumerables__.a) for (j = __WEBPACK_IMPORTED_MODULE_0__enumerables__.a.length; j--; ) k = __WEBPACK_IMPORTED_MODULE_0__enumerables__.a[j], 
+            options.hasOwnProperty && options.hasOwnProperty(k) && (object[k] = options[k]);
+        }
+        return object;
+    };
+    Object.assign || (Object.assign = extend);
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     __webpack_require__.d(__webpack_exports__, "a", function() {
