@@ -30,19 +30,19 @@
 
 * cdn 资源
 ```
-	//design.yyuap.com/static/neoui-kero/latest/js/neoui-kero.js
+	//design.yyuap.com/static/neoui-kero/latest/neoui-kero.js
 ```
 ### 引入neoui-kero
 - ES6语法
 ```
 	<!-- neoui-kero资源 -->
 	import { u } from "neoui-kero"
-	
+
 ```
 - HTML直接引入
 
 ```
-	
+
 	<!--neoui-kero资源-->
     <script src="//design.yyuap.com/static/neoui-kero/latest/neoui-kero.js"></script>
 ```
@@ -55,9 +55,9 @@
 - 双向绑定： #demo_div获取#demo_input默认的值、及#demo_input修改失去焦点后的值
 
 ```
-<!-- 
+<!--
 	HTML
-	u-meta:框架特有标记，框架通过识别此标记创建对应UI组件，以及进行数据绑定 
+	u-meta:框架特有标记，框架通过识别此标记创建对应UI组件，以及进行数据绑定
 	id,type.data,field为必选项
 	id:创建组件唯一标识
 	type:创建组件对应的类型

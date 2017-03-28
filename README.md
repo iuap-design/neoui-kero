@@ -27,16 +27,16 @@
     npm install neoui-kero
 ```
 
-* cdn 
+* cdn
 ```
-    //design.yyuap.com/static/neoui-kero/latest/js/neoui-kero.js
+    //design.yyuap.com/static/neoui-kero/latest/neoui-kero.js
 ```
 ### Introducing  neoui-kero
 - ES6
 ```
     <!-- neoui-kero -->
     import { u } from "neoui-kero"
-    
+
 ```
 - HTML
 
@@ -94,7 +94,7 @@ getDtValue();
 
 ```
 
-Read the [Develop documentation](http://tinper.org/dist/kero/docs/module.html) 
+Read the [Develop documentation](http://tinper.org/dist/kero/docs/module.html)
 
 
 ## Contributing
