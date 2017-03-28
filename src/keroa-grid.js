@@ -1885,6 +1885,10 @@ var GridAdapter = u.BaseAdapter.extend({
         //获取comboboxAdapter
         comboboxAdapter = oThis.editComponent[data.fieldName];
         comboboxAdapter.comp.setComboData(data.comboData);
+    },
+
+    setColumnFixed: function(field, fixed) {
+        this.grid.setColumnFixed(field, fixed)
     }
 });
 
