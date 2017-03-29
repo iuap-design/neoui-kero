@@ -15,8 +15,9 @@ import {
 
 var UrlAdapter = StringAdapter.extend({
     init: function() {
-        this.validType = 'url';
+
         UrlAdapter.superclass.init.apply(this);
+        this.validType = 'url';
         /*
          * 因为需要输入，因此不显示为超链接
          */
