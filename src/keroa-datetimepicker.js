@@ -24,6 +24,12 @@ import {
     env
 } from 'tinper-sparrow/src/env';
 import {
+    getCookie
+} from 'tinper-sparrow/src/cookies';
+import {
+    U_TIMEZONE
+} from 'tinper-sparrow/src/enumerables';
+import {
     DateTimePicker
 } from 'tinper-neoui/src/neoui-datetimepicker';
 import {
@@ -42,6 +48,14 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         } else {
             this.adapterType = 'datetime'
             addClass(this.element, 'time');
+        }
+
+        this.timezone = this.getOption('timezone') || getCookie(U_TIMEZONE);
+
+        if(!this.options['format'] && typeof getFormatFun == 'function'){
+          // 根据语种获取format
+          this.options['format'] = getFormatFun();
+
         }
 
         this.beforeValueChangeFun = getFunction(this.viewModel, this.options['beforeValueChangeFun']);
@@ -149,7 +163,8 @@ var DateTimeAdapter = u.BaseAdapter.extend({
                 placeholder: this.options.placeholder,
                 format: this.maskerMeta.format,
                 showFix: this.options.showFix,
-                beforeValueChangeFun: this.beforeValueChangeFun
+                beforeValueChangeFun: this.beforeValueChangeFun,
+                timezone: this.timezone
             });
         }
 
@@ -334,17 +349,24 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         // this.formater = new $.DateFormater(this.maskerMeta.format);
         // this.masker = new DateTimeMasker(this.maskerMeta);
     },
+
+
     beforeSetValue: function(value) {
         if (this.dataModel) {
             var valueObj = date.getDateObj(value);
             if (valueObj) {
-                this.resetDataObj(valueObj);
+                if (!(typeof this.timezone != 'undefined' && this.timezone != null && this.timezone != '')) {
+                    this.resetDataObj(valueObj);
+                }
+
             }
             if (this.startField) {
                 var startValue = this.dataModel.getValue(this.startField);
                 var startValueObj = date.getDateObj(startValue);
                 if (startValueObj) {
-                    this.resetDataObj(startValueObj);
+                    if (!(typeof this.timezone != 'undefined' && this.timezone != null && this.timezone != '')) {
+                        this.resetDataObj(startValueObj);
+                    }
                 }
                 if (startValueObj && valueObj && valueObj.getTime() < startValueObj.getTime()) {
                     return;
@@ -354,14 +376,20 @@ var DateTimeAdapter = u.BaseAdapter.extend({
                 var endValue = this.dataModel.getValue(this.endField);
                 var endValueObj = date.getDateObj(endValue);
                 if (endValueObj) {
-                    this.resetDataObj(endValueObj);
+                    if (!(typeof this.timezone != 'undefined' && this.timezone != null && this.timezone != '')) {
+                        this.resetDataObj(endValueObj);
+                    }
                 }
                 if (endValueObj && valueObj && valueObj.getTime() > endValueObj.getTime()) {
                     return;
                 }
             }
         }
-        value = date.format(value, this.options.format);
+        if (!(typeof this.timezone != 'undefined' && this.timezone != null && this.timezone != '')) {
+            value = date.format(value, this.options.format);
+        } else {
+            value = value.getTime();
+        }
         return value;
     },
     setEnable: function(enable) {
