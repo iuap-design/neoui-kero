@@ -44,6 +44,7 @@ var TimeAdapter = u.BaseAdapter.extend({
 
 
         this.comp.on('valueChange', function(event) {
+            var setValueFlag = false;
             self.slice = true;
             if (event.value == '') {
                 self.dataModel.setValue(self.field, '')
@@ -54,14 +55,17 @@ var TimeAdapter = u.BaseAdapter.extend({
                     //如果_date为空时赋值就无法赋值，所以为空时设置了个默认值
                     if (!_date) {
                         _date = "1970-01-01 00:00:00";
+                        setValueFlag = true;
                     }
                     _date = date.getDateObj(_date);
                     if (!_date) {
                         self.dataModel.setValue(self.field, '');
                     } else {
                         if (event.value == (_date.getHours() < 10 ? '0' + _date.getHours() : _date.getHours()) + ':' + (_date.getMinutes() < 10 ? '0' + _date.getMinutes() : _date.getMinutes()) + ':' + (_date.getSeconds() < 10 ? '0' + _date.getSeconds() : _date.getSeconds())) {
-                            self.slice = false;
-                            return;
+                            if (!setValueFlag) {
+                                self.slice = false;
+                                return;
+                            }
                         }
                         _date.setHours(valueArr[0]);
                         _date.setMinutes(valueArr[1]);
