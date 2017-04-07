@@ -344,9 +344,8 @@ var TreeAdapter = u.BaseAdapter.extend({
 
         this.dataTable.on(DataTable.ON_DELETE, function(event) {
             /*index转化为grid的index*/
-            $.each(event.rowIds, function() {
-                var rowid = this;
-                var row = oThis.dataTable.getRowByRowId(rowid);
+            $.each(event.rows, function() {
+                var row = this;
                 var idValue = row.getValue(oThis.options.idField);
                 var node = oThis.tree.getNodeByParam('id', idValue);
                 oThis.tree.removeNode(node)
