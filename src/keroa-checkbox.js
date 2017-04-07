@@ -233,6 +233,7 @@ var CheckboxAdapter = u.BaseAdapter.extend({
 
         if (this.isGroup) {
             if (this.datasource) {
+                this.showValue = '';
                 this.trueValue = val;
                 if (this.options.hasOther) {
                     var otherVal = '';
@@ -252,6 +253,11 @@ var CheckboxAdapter = u.BaseAdapter.extend({
                             if (self.options.hasOther) {
                                 otherVal = otherVal.replace(inputValue + ',', '');
                             }
+                            var nameSpan = ele.querySelector('[data-role=name]');
+                            var showValue = $(nameSpan).text();
+                            if (showValue) {
+                                self.showValue += showValue + ',';
+                            }
                         }
                     }
                 })
@@ -264,7 +270,11 @@ var CheckboxAdapter = u.BaseAdapter.extend({
                     if (otherVal) {
                         self.otherInput.oldValue = otherVal;
                         self.otherInput.value = otherVal;
+                        self.showValue += otherVal + ',';
                         self.otherInput.removeAttribute('disabled');
+                        self.otherComp._inputElement.checked = true;
+                        self.otherComp._updateClasses();
+
                     }
                 }
             }

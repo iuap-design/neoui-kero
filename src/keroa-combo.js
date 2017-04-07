@@ -63,25 +63,12 @@ var ComboboxAdapter = u.BaseAdapter.extend({
         }
 
 
-        ////TODO 后续支持多选
-        //if (this.mutil) {
-        //    //$(this.comboEle).on("mutilSelect", function (event, value) {
-        //    //    self.setValue(value)
-        //    //})
-        //}
+
         this.comp.on('select', function(event) {
-            // self.slice = true;
-            // if(self.dataModel)
-            //     self.dataModel.setValue(self.field, event.value);
-            // self.slice = false;
             self.setValue(event.value);
             self.setShowValue(event.name);
         });
-        //if(this.dataModel){
-        //    this.dataModel.ref(this.field).subscribe(function(value) {
-        //        self.modelValueChange(value)
-        //    })
-        //}
+
     },
     modelValueChange: function(value) {
         if (this.slice) return;
@@ -89,13 +76,11 @@ var ComboboxAdapter = u.BaseAdapter.extend({
         if (value === null || typeof value == "undefined")
             value = "";
         this.comp.setValue(value);
-        // this.trueValue = this.formater ? this.formater.format(value) : value;
-        // this.element.trueValue = this.trueValue;
+        if (this.mutil)
+            this.showValue = this.comp.name;
         //下面两句会在校验中用到
         this.trueValue = this.formater ? this.formater.format(value) : value;
         this.element.trueValue = this.trueValue;
-        // this.showValue = this.masker ? this.masker.format(this.trueValue).value : this.trueValue;
-        // this.setShowValue(this.showValue);
     },
 
     //getValue: function () {

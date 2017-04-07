@@ -194,9 +194,10 @@ var RadioAdapter = u.BaseAdapter.extend({
 
     modelValueChange: function(value) {
         if (this.slice) return;
-        var fetch = false;
+        var fetch = false,self = this;
         if (this.dynamic) {
             if (this.datasource) {
+                this.showValue = '';
                 this.trueValue = value;
                 this.element.querySelectorAll('.u-radio').forEach(function(ele) {
                     var comp = ele['u.Radio'];
@@ -206,6 +207,11 @@ var RadioAdapter = u.BaseAdapter.extend({
                             fetch = true;
                             addClass(comp.element, 'is-checked')
                             comp._btnElement.click();
+                            var nameSpan = ele.querySelector('.u-radio-label');
+                            var showValue = $(nameSpan).text();
+                            if (showValue) {
+                                self.showValue = showValue;
+                            }
                         } else {
                             removeClass(comp.element, 'is-checked')
                         }
@@ -222,6 +228,7 @@ var RadioAdapter = u.BaseAdapter.extend({
             }
         }
         if (this.options.hasOther && !fetch && value) {
+            this.showValue = value;
             if (!this.enable) {
                 this.lastRadio.removeAttribute('disabled');
             }
