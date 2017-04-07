@@ -344,18 +344,13 @@ var TreeAdapter = u.BaseAdapter.extend({
 
         this.dataTable.on(DataTable.ON_DELETE, function(event) {
             /*index转化为grid的index*/
-            var gridIndexs = new Array();
-            if (this.deleteRows.length > 0) {
-
-                for (var i = 0; i < this.deleteRows.length; i++) {
-                    var row = this.deleteRows[i];
-                    var dataObj = row.data;
-                    var idValue = dataObj[oThis.options.idField].value;
-                    var node = oThis.tree.getNodeByParam('id', idValue);
-                    oThis.tree.removeNode(node)
-                }
-
-            }
+            $.each(event.rowIds, function() {
+                var rowid = this;
+                var row = oThis.dataTable.getRowByRowId(rowid);
+                var idValue = row.getValue(oThis.options.idField);
+                var node = oThis.tree.getNodeByParam('id', idValue);
+                oThis.tree.removeNode(node)
+            });
         });
 
         this.dataTable.on(DataTable.ON_DELETE_ALL, function(event) {
