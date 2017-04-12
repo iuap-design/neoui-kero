@@ -131,6 +131,7 @@ var GridAdapter = u.BaseAdapter.extend({
         this.gridOptions.onRowHover = getFunction(viewModel, this.gridOptions.onRowHover);
         this.gridOptions.afterCreate = getFunction(viewModel, this.gridOptions.afterCreate);
         this.gridOptions.onSortFun = getFunction(viewModel, this.gridOptions.onSortFun);
+        this.gridOptions.filterDataFun = getFunction(viewModel, this.gridOptions.filterDataFun);
 
         /*扩展onBeforeEditFun，如果点击的是单选或者复选的话则不执行原有的编辑处理，直接通过此js进行处理*/
         var customOnBeforeEditFun = this.gridOptions.onBeforeEditFun;
