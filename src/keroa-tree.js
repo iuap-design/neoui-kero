@@ -103,7 +103,12 @@ var TreeAdapter = u.BaseAdapter.extend({
 
                     oThis.dataTable.addRowsSelect(needSelectArr);
                     oThis.dataTable.setRowsUnSelect(needUnSelectArr);
-
+                    // 获取到节点的idValue
+                    var idValue = node.id;
+                    // 根据idValue查找到对应数据的rowId
+                    var rowId = oThis.getRowIdByIdValue(idValue);
+                    var index = oThis.dataTable.getIndexByRowId(rowId);
+                    oThis.dataTable.setRowFocus(index);
                 },
                 // 单选时点击触发选中
                 onClick: function(e, id, node) {
@@ -124,6 +129,7 @@ var TreeAdapter = u.BaseAdapter.extend({
                     } else {
                         oThis.dataTable.setRowSelect(index);
                     }
+                    oThis.dataTable.setRowFocus(index);
 
                     if (oThis.events.onClick) {
                         getFunction(viewModel, oThis.events.onClick)(e, id, node);
@@ -335,7 +341,7 @@ var TreeAdapter = u.BaseAdapter.extend({
             })
             if (!hasChild) { //如果没有子节点，将当前节点作为根节点之间插入
                 nodes = oThis.tree.transformTozTreeNodes(dataArray);
-                oThis.tree.addNodes(null, nodes, true);
+                oThis.tree.addNodes(null, nodes, true, event.index);
             } else { //如果含有子节点,重新渲染
 
             }
