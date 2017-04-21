@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.2.0
+ * neoui-kero v3.2.1
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -434,9 +434,26 @@
     }, setValue = function(fieldName, value, row, ctx) {
         1 === arguments.length && (value = fieldName, fieldName = "$data"), (row = row ? row : this.getCurrentRow()) && row.setValue(fieldName, value, ctx);
     }, resetAllValue = function() {
-        for (var rows = this.rows(), i = 0; i < rows.length; i++) rows[i].resetValue();
+        for (var rows = this.rows(), i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            if (row.status == Row.STATUS.NEW) this.setRowsDelete(row); else if (row.status == Row.STATUS.FALSE_DELETE) {
+                row.status = Row.STATUS.NORMAL;
+                var rows = [ row ];
+                this.trigger(DataTable.ON_INSERT, {
+                    index: 0,
+                    rows: rows
+                });
+            } else row.status == Row.STATUS.UPDATE && (row.status = Row.STATUS.NORMAL, rows[i].resetValue());
+        }
     }, resetValueByRow = function(row) {
-        row.resetValue();
+        if (row.status == Row.STATUS.NEW) this.setRowsDelete(row); else if (row.status == Row.STATUS.FALSE_DELETE) {
+            row.status = Row.STATUS.NORMAL;
+            var rows = [ row ];
+            this.trigger(DataTable.ON_INSERT, {
+                index: 0,
+                rows: rows
+            });
+        } else row.status == Row.STATUS.UPDATE && (row.status = Row.STATUS.NORMAL, rows[i].resetValue());
     }, dataFunObj = {
         setData: setData,
         setValue: setValue,
@@ -689,6 +706,9 @@
     }, getRowIdsByIndices = function(indices) {
         for (var rowIds = [], i = 0; i < indices.length; i++) rowIds.push(this.getRow(indices[i]).rowId);
         return rowIds;
+    }, getRowsByIndices = function(indices) {
+        for (var rows = [], i = 0; i < indices.length; i++) rows.push(this.getRow(indices[i]));
+        return rows;
     }, getDataFunObj = {
         getData: getData,
         getDataByRule: getDataByRule,
@@ -706,7 +726,8 @@
         getValue: getValue,
         getIndexByRowId: getIndexByRowId,
         getAllDatas: getAllDatas,
-        getRowIdsByIndices: getRowIdsByIndices
+        getRowIdsByIndices: getRowIdsByIndices,
+        getRowsByIndices: getRowsByIndices
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
@@ -1115,9 +1136,15 @@
         }
         return insertRows.length > 0 && this.addRows(insertRows), insertRows;
     }, addRow = function(row) {
-        this.insertRow(this.rows().length, row);
+        this.insertRow(this.rows().length, row), this.resetDelRowEnd();
+    }, resetDelRowEnd = function() {
+        for (var i = 0; i < this.rows().length; i++) {
+            var row = this.rows()[i];
+            row.status != Row.STATUS.DELETE && row.status != Row.STATUS.FALSE_DELETE || (this.rows().splice(i, 1), 
+            this.rows().push(row));
+        }
     }, addRows = function(rows) {
-        this.insertRows(this.rows().length, rows);
+        this.insertRows(this.rows().length, rows), this.resetDelRowEnd();
     }, insertRow = function(index, row) {
         row || (row = new Row({
             parent: this
@@ -1141,7 +1168,8 @@
         addRows: addRows,
         insertRow: insertRow,
         insertRows: insertRows,
-        createEmptyRow: createEmptyRow
+        createEmptyRow: createEmptyRow,
+        resetDelRowEnd: resetDelRowEnd
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
@@ -1172,7 +1200,7 @@
         indices = indices.sort(function(a, b) {
             return b - a;
         });
-        for (var rowIds = this.getRowIdsByIndices(indices), i = 0; i < indices.length; i++) {
+        for (var rowIds = this.getRowIdsByIndices(indices), rows = this.getRowsByIndices(indices), i = 0; i < indices.length; i++) {
             var row = this.getRow(indices[i]);
             if (row.status == Row.STATUS.NEW) this.rows().splice(indices[i], 1); else {
                 row.setStatus(Row.STATUS.FALSE_DELETE);
@@ -1184,7 +1212,8 @@
         this.updateCurrIndex(), this.trigger(DataTable.ON_DELETE, {
             falseDelete: !0,
             indices: indices,
-            rowIds: rowIds
+            rowIds: rowIds,
+            rows: rows
         });
     }, rowDeleteFunObj = {
         setRowDelete: setRowDelete,
@@ -1215,7 +1244,7 @@
         }), this.focusIndex(-1), this.updateCurrIndex();
     }, updateFocusIndex = function(opIndex, opType, num) {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.d)(num) || (num = 1), 
-        opIndex <= this.focusIndex() && this.focusIndex() != -1 && ("+" === opType ? this.focusIndex(this.focusIndex() + num) : "-" === opType && (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1 ? this.focusIndex(this.focusIndex() - 1) : this.focusIndex() > opIndex + num - 1 && this.focusIndex(this.focusIndex() - num)));
+        opIndex <= this.focusIndex() && this.focusIndex() != -1 && ("+" === opType ? this.focusIndex(this.focusIndex() + num) : "-" === opType && (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1 ? this.focusIndex(-1) : this.focusIndex() > opIndex + num - 1 && this.focusIndex(this.focusIndex() - num)));
     }, rowFocusFunObj = {
         setRowFocus: setRowFocus,
         setRowUnFocus: setRowUnFocus,
@@ -1570,13 +1599,15 @@
                             hasFlag || needUnSelectArr.push(nowIndex);
                         }
                         oThis.dataTable.addRowsSelect(needSelectArr), oThis.dataTable.setRowsUnSelect(needUnSelectArr);
+                        var idValue = node.id, rowId = oThis.getRowIdByIdValue(idValue), index = oThis.dataTable.getIndexByRowId(rowId);
+                        oThis.dataTable.setRowFocus(index);
                     },
                     onClick: function(e, id, node) {
                         $("#" + id + " li").removeClass("focusNode"), $("#" + id + " a").removeClass("focusNode"), 
                         $("#" + node.tId).addClass("focusNode"), $("#" + node.tId + "_a").addClass("focusNode");
                         var idValue = node.id, rowId = oThis.getRowIdByIdValue(idValue), index = oThis.dataTable.getIndexByRowId(rowId);
                         oThis.tree.setting.check.enable && "checkbox" === oThis.tree.setting.check.chkStyle ? oThis.dataTable.addRowSelect(index) : oThis.dataTable.setRowSelect(index), 
-                        oThis.events.onClick && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util__.b)(viewModel, oThis.events.onClick)(e, id, node);
+                        oThis.dataTable.setRowFocus(index), oThis.events.onClick && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util__.b)(viewModel, oThis.events.onClick)(e, id, node);
                     }
                 }
             }, setting = {};
@@ -1655,13 +1686,12 @@
                     var childNode = oThis.tree.getNodeByParam("pid", idValue), pNode = oThis.tree.getNodeByParam("id", pidValue);
                     childNode && childNode.length > 0 && (hasChild = !0), pNode && pNode.length > 0 && (hasPar = !0), 
                     !hasChild && hasPar ? oThis.tree.addNodes(pNode, value, !0) : dataArray.push(value);
-                }), hasChild || (nodes = oThis.tree.transformTozTreeNodes(dataArray), oThis.tree.addNodes(null, nodes, !0));
+                }), hasChild || (nodes = oThis.tree.transformTozTreeNodes(dataArray), oThis.tree.addNodes(null, nodes, !0, event.index));
             }), this.dataTable.on(__WEBPACK_IMPORTED_MODULE_2_kero_src_indexDataTable__.a.ON_DELETE, function(event) {
-                new Array();
-                if (this.deleteRows.length > 0) for (var i = 0; i < this.deleteRows.length; i++) {
-                    var row = this.deleteRows[i], dataObj = row.data, idValue = dataObj[oThis.options.idField].value, node = oThis.tree.getNodeByParam("id", idValue);
+                $.each(event.rows, function() {
+                    var row = this, idValue = row.getValue(oThis.options.idField), node = oThis.tree.getNodeByParam("id", idValue);
                     oThis.tree.removeNode(node);
-                }
+                });
             }), this.dataTable.on(__WEBPACK_IMPORTED_MODULE_2_kero_src_indexDataTable__.a.ON_DELETE_ALL, function(event) {
                 for (var nodes = oThis.tree.getNodes(), i = 0, l = nodes.length; i < l; i++) {
                     var node = oThis.tree.getNodeByParam("id", nodes[i].id);

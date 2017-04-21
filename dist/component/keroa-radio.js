@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.2.0
+ * neoui-kero v3.2.1
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -473,17 +473,23 @@
         },
         modelValueChange: function(value) {
             if (!this.slice) {
-                var fetch = !1;
-                this.dynamic ? this.datasource && (this.trueValue = value, this.element.querySelectorAll(".u-radio").forEach(function(ele) {
+                var fetch = !1, self = this;
+                this.dynamic ? this.datasource && (this.showValue = "", this.trueValue = value, 
+                this.element.querySelectorAll(".u-radio").forEach(function(ele) {
                     var comp = ele["u.Radio"];
                     if (comp) {
                         var inptuValue = comp._btnElement.value;
-                        inptuValue && inptuValue == value ? (fetch = !0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.b)(comp.element, "is-checked"), 
-                        comp._btnElement.click()) : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(comp.element, "is-checked");
+                        if (inptuValue && inptuValue == value) {
+                            fetch = !0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.b)(comp.element, "is-checked"), 
+                            comp._btnElement.click();
+                            var nameSpan = ele.querySelector(".u-radio-label"), showValue = $(nameSpan).text();
+                            showValue && (self.showValue = showValue);
+                        } else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(comp.element, "is-checked");
                     }
                 })) : this.eleValue == value && (fetch = !0, this.slice = !0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.b)(this.comp.element, "is-checked"), 
-                this.slice = !1), this.options.hasOther && !fetch && value && (this.enable || this.lastRadio.removeAttribute("disabled"), 
-                u.addClass(this.lastLabel, "is-checked"), this.lastRadio.checked = !0, value != this.otherValue && (this.otherInput.value = value), 
+                this.slice = !1), this.options.hasOther && !fetch && value && (this.showValue = value, 
+                this.enable || this.lastRadio.removeAttribute("disabled"), u.addClass(this.lastLabel, "is-checked"), 
+                this.lastRadio.checked = !0, value != this.otherValue && (this.otherInput.value = value), 
                 this.lastRadio.removeAttribute("disabled"), this.otherInput.removeAttribute("disabled"), 
                 this.enable || this.lastRadio.setAttribute("disabled", !0));
             }

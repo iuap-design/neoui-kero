@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.2.0
+ * neoui-kero v3.2.1
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -642,9 +642,8 @@
             this.notipFlag = this.options.notipFlag, this.hasSuccess = this.options.hasSuccess, 
             this.showFix = this.options.showFix, this.tipId = this.options.tipId ? this.options.tipId : null, 
             this.successId = this.options.successId ? this.options.successId : null, this.hasSuccess && !this.successId && (this.successId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)('<span class="u-form-control-success uf uf-correct" ></span>'), 
-            this.referDom.nextSibling ? this.referDom.parentNode.insertBefore(this.successId, this.referDom.nextSibling) : this.referDom.parentNode.appendChild(this.successId)), 
-            this.notipFlag && !this.tipId && (this.tipId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)('<span class="u-form-control-info uf uf-exc-c-o "></span>'), 
-            this.referDom.parentNode.appendChild(this.tipId), this.referDom.nextSibling ? this.referDom.parentNode.insertBefore(this.tipId, this.referDom.nextSibling) : this.referDom.parentNode.appendChild(this.tipId)), 
+            this.referDom.parentNode.appendChild(this.successId)), this.notipFlag && !this.tipId && (this.tipId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)('<span class="u-form-control-info uf uf-exc-c-o "></span>'), 
+            this.referDom.parentNode.appendChild(this.tipId), this.referDom.parentNode.appendChild(this.tipId)), 
             this.placement = this.options.placement ? this.options.placement : Validate.DEFAULTS.placement, 
             this.minLength = this.options.minLength > 0 ? this.options.minLength : null, this.maxLength = this.options.maxLength > 0 ? this.options.maxLength : null, 
             this.min = void 0 !== this.options.min ? this.options.min : null, this.max = void 0 !== this.options.max ? this.options.max : null, 
@@ -678,6 +677,7 @@
         phone: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_phone", "手机号码格式不对！"),
         landline: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_landline", "座机号码格式不对！"),
         email: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_email", "邮箱地址格式不对！"),
+        idcard: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_email", "身份证格式不对！"),
         url: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_url", "网址格式不对！"),
         datetime: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_datetime", "日期格式不对！"),
         phoneNumber: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_phoneNumber", "号码格式不对！")
@@ -694,6 +694,7 @@
         float: /^-?\d+(\.\d+)?$/,
         zipCode: /^[0-9]{6}$/,
         phone: /^1[3|4|5|7|8]\d{9}$/,
+        idcard: /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/,
         landline: /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
         email: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
         url: /^(\w+:\/\/)?\w+(\.\w+)+.*$/,

@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.2.0
+ * neoui-kero v3.2.1
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -258,7 +258,7 @@
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0__enumerables__ = __webpack_require__(17);
+    var __WEBPACK_IMPORTED_MODULE_0__enumerables__ = __webpack_require__(13);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return extend;
     });
@@ -356,7 +356,7 @@
     var env = u;
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0__extend__ = __webpack_require__(3), __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_2__cookies__ = __webpack_require__(37), __WEBPACK_IMPORTED_MODULE_3__enumerables__ = __webpack_require__(17);
+    var __WEBPACK_IMPORTED_MODULE_0__extend__ = __webpack_require__(3), __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_2__cookies__ = __webpack_require__(16), __WEBPACK_IMPORTED_MODULE_3__enumerables__ = __webpack_require__(13);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return core;
     });
@@ -542,12 +542,24 @@
             }
         },
         format: function(date, formatString, language) {
-            if (!date) return "";
+            if (!date && 0 != date) return "";
             var i, length, array = formatString.match(u.date._formattingTokens), output = "", _date = u.date.getDateObj(date);
             if (!_date) return date;
             for (language = language || __WEBPACK_IMPORTED_MODULE_0__core__.a.getLanguages(), 
             i = 0, length = array.length; i < length; i++) u.date._formats[array[i]] ? output += u.date._formats[array[i]](_date, language) : output += array[i];
             return output;
+        },
+        strToDateByTimezone: function(str, timezone) {
+            var dateObj = u.date.getDateObj(str), localTime = dateObj.getTime(), localOffset = 6e4 * dateObj.getTimezoneOffset(), utc = localTime + localOffset;
+            return utc += 36e5 * parseFloat(timezone);
+        },
+        getDateByTimeZonec2z: function(date, timezone) {
+            var dateObj = u.date.getDateObj(date), localTime = dateObj.getTime(), localOffset = 6e4 * dateObj.getTimezoneOffset(), utc = localTime + localOffset, calctime = utc + 36e5 * parseFloat(timezone);
+            return new Date(calctime);
+        },
+        getDateByTimeZonez2c: function(date, timezone) {
+            var dateObj = u.date.getDateObj(date), localTime = dateObj.getTime(), localOffset = 6e4 * dateObj.getTimezoneOffset(), utc = localTime - 36e5 * parseFloat(timezone) - localOffset;
+            return new Date(utc);
         },
         _addOrSubtract: function(date, period, value, isAdding) {
             var times = date.getTime(), d = date.getDate(), m = date.getMonth(), _date = u.date.getDateObj(date);
@@ -563,30 +575,29 @@
         sub: function(date, period, value) {
             return u.date._addOrSubtract(date, period, value, -1);
         },
-        getDateObj: function(value) {
-            if (!value || void 0 === value) return value;
+        getDateObj: function(value, obj) {
+            var timezone;
+            if (obj && (timezone = obj.timezone), !value && 0 != value || void 0 === value) return value;
             var dateFlag = !1, _date = new Date(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util__.f)(value));
             if (isNaN(_date)) {
                 var index1, index2, index3, s1, s2, s3, s4;
-                if (value.indexOf) if (index1 = value.indexOf("-"), index2 = value.indexOf(":"), 
-                index3 = value.indexOf(" "), index1 > 0 || index2 > 0 || index3 > 0) _date = new Date(), 
-                index3 > 0 ? (s3 = value.split(" "), s1 = s3[0].split("-"), s2 = s3[1].split(":"), 
-                s4 = s3[2]) : index1 > 0 ? s1 = value.split("-") : index2 > 0 && (s2 = value.split(":")), 
+                value.indexOf && (index1 = value.indexOf("-"), index2 = value.indexOf(":"), index3 = value.indexOf(" "), 
+                index1 > 0 || index2 > 0 || index3 > 0 ? (_date = new Date(), index3 > 0 ? (s3 = value.split(" "), 
+                s1 = s3[0].split("-"), s2 = s3[1].split(":"), s4 = s3[2]) : index1 > 0 ? s1 = value.split("-") : index2 > 0 && (s2 = value.split(":")), 
                 s1 && s1.length > 0 && (_date.setYear(s1[0]), _date.setMonth(parseInt(s1[1] - 1)), 
-                _date.setDate(s1[2] ? s1[2] : 0), dateFlag = !0), s2 && s2.length > 0 && ("pm" == s4 && (s2[0] = s2[0] - -12), 
-                _date.setHours(s2[0] ? s2[0] : 0), _date.setMinutes(s2[1] ? s2[1] : 0), _date.setSeconds(s2[2] ? s2[2] : 0), 
-                dateFlag = !0); else {
-                    if (_date = new Date(parseInt(value)), isNaN(_date)) throw new TypeError("invalid Date parameter");
-                    dateFlag = !0;
-                }
+                _date.setDate(s1[2] ? s1[2] : 0), _date.setMonth(parseInt(s1[1] - 1)), _date.setDate(s1[2] ? s1[2] : 0), 
+                dateFlag = !0), s2 && s2.length > 0 && ("pm" == s4 && (s2[0] = s2[0] - -12), _date.setHours(s2[0] ? s2[0] : 0), 
+                _date.setMinutes(s2[1] ? s2[1] : 0), _date.setSeconds(s2[2] ? s2[2] : 0), dateFlag = !0)) : (_date = new Date(parseInt(value)), 
+                isNaN(_date) || (dateFlag = !0)));
             } else dateFlag = !0;
-            return dateFlag ? _date : null;
+            return dateFlag ? (timezone && (_date = u.date.getDateByTimeZonec2z(_date, timezone)), 
+            _date) : null;
         }
     };
     var date = u.date;
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0__cookies__ = __webpack_require__(37), __WEBPACK_IMPORTED_MODULE_1__enumerables__ = __webpack_require__(17);
+    var __WEBPACK_IMPORTED_MODULE_0__cookies__ = __webpack_require__(16), __WEBPACK_IMPORTED_MODULE_1__enumerables__ = __webpack_require__(13);
     if (__webpack_require__.d(__webpack_exports__, "a", function() {
         return trans;
     }), window.getCurrentJsPath = function() {
@@ -1060,10 +1071,31 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
+    __webpack_require__.d(__webpack_exports__, "a", function() {
+        return enumerables;
+    }), __webpack_require__.d(__webpack_exports__, "b", function() {
+        return U_LANGUAGES;
+    }), __webpack_require__.d(__webpack_exports__, "c", function() {
+        return U_THEME;
+    }), __webpack_require__.d(__webpack_exports__, "d", function() {
+        return U_LOCALE;
+    }), __webpack_require__.d(__webpack_exports__, "e", function() {
+        return U_USERCODE;
+    }), __webpack_require__.d(__webpack_exports__, "f", function() {
+        return U_TIMEZONE;
+    });
+    var U_LANGUAGES = "i_languages", U_THEME = "u_theme", U_LOCALE = "u_locale", U_USERCODE = "usercode", U_TIMEZONE = "u_timezone", enumerables = !0, enumerablesTest = {
+        toString: 1
+    };
+    Object.prototype.toString;
+    for (var i in enumerablesTest) enumerables = null;
+    enumerables && (enumerables = [ "hasOwnProperty", "valueOf", "isPrototypeOf", "propertyIsEnumerable", "toLocaleString", "toString", "constructor" ]);
+}, function(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_extend__ = __webpack_require__(3), __WEBPACK_IMPORTED_MODULE_1__copyRow__ = __webpack_require__(51), __WEBPACK_IMPORTED_MODULE_2__data__ = __webpack_require__(52), __WEBPACK_IMPORTED_MODULE_3__enable__ = __webpack_require__(53), __WEBPACK_IMPORTED_MODULE_4__getCurrent__ = __webpack_require__(55), __WEBPACK_IMPORTED_MODULE_5__getData__ = __webpack_require__(56), __WEBPACK_IMPORTED_MODULE_6__getFocus__ = __webpack_require__(57), __WEBPACK_IMPORTED_MODULE_7__getMeta__ = __webpack_require__(58), __WEBPACK_IMPORTED_MODULE_8__getPage__ = __webpack_require__(59), __WEBPACK_IMPORTED_MODULE_9__getParam__ = __webpack_require__(60), __WEBPACK_IMPORTED_MODULE_10__getSelect__ = __webpack_require__(61), __WEBPACK_IMPORTED_MODULE_11__getSimpleData__ = __webpack_require__(62), __WEBPACK_IMPORTED_MODULE_12__meta__ = __webpack_require__(63), __WEBPACK_IMPORTED_MODULE_13__page__ = __webpack_require__(64), __WEBPACK_IMPORTED_MODULE_14__param__ = __webpack_require__(65), __WEBPACK_IMPORTED_MODULE_15__ref__ = __webpack_require__(66), __WEBPACK_IMPORTED_MODULE_16__removeRow__ = __webpack_require__(67), __WEBPACK_IMPORTED_MODULE_17__row__ = __webpack_require__(68), __WEBPACK_IMPORTED_MODULE_18__rowCurrent__ = __webpack_require__(69), __WEBPACK_IMPORTED_MODULE_19__rowDelete__ = __webpack_require__(70), __WEBPACK_IMPORTED_MODULE_20__rowSelect__ = __webpack_require__(72), __WEBPACK_IMPORTED_MODULE_21__rowFocus__ = __webpack_require__(71), __WEBPACK_IMPORTED_MODULE_22__simpleData__ = __webpack_require__(73), __WEBPACK_IMPORTED_MODULE_23__util__ = __webpack_require__(14), __WEBPACK_IMPORTED_MODULE_24__events__ = __webpack_require__(54);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_extend__ = __webpack_require__(3), __WEBPACK_IMPORTED_MODULE_1__copyRow__ = __webpack_require__(51), __WEBPACK_IMPORTED_MODULE_2__data__ = __webpack_require__(52), __WEBPACK_IMPORTED_MODULE_3__enable__ = __webpack_require__(53), __WEBPACK_IMPORTED_MODULE_4__getCurrent__ = __webpack_require__(55), __WEBPACK_IMPORTED_MODULE_5__getData__ = __webpack_require__(56), __WEBPACK_IMPORTED_MODULE_6__getFocus__ = __webpack_require__(57), __WEBPACK_IMPORTED_MODULE_7__getMeta__ = __webpack_require__(58), __WEBPACK_IMPORTED_MODULE_8__getPage__ = __webpack_require__(59), __WEBPACK_IMPORTED_MODULE_9__getParam__ = __webpack_require__(60), __WEBPACK_IMPORTED_MODULE_10__getSelect__ = __webpack_require__(61), __WEBPACK_IMPORTED_MODULE_11__getSimpleData__ = __webpack_require__(62), __WEBPACK_IMPORTED_MODULE_12__meta__ = __webpack_require__(63), __WEBPACK_IMPORTED_MODULE_13__page__ = __webpack_require__(64), __WEBPACK_IMPORTED_MODULE_14__param__ = __webpack_require__(65), __WEBPACK_IMPORTED_MODULE_15__ref__ = __webpack_require__(66), __WEBPACK_IMPORTED_MODULE_16__removeRow__ = __webpack_require__(67), __WEBPACK_IMPORTED_MODULE_17__row__ = __webpack_require__(68), __WEBPACK_IMPORTED_MODULE_18__rowCurrent__ = __webpack_require__(69), __WEBPACK_IMPORTED_MODULE_19__rowDelete__ = __webpack_require__(70), __WEBPACK_IMPORTED_MODULE_20__rowSelect__ = __webpack_require__(72), __WEBPACK_IMPORTED_MODULE_21__rowFocus__ = __webpack_require__(71), __WEBPACK_IMPORTED_MODULE_22__simpleData__ = __webpack_require__(73), __WEBPACK_IMPORTED_MODULE_23__util__ = __webpack_require__(15), __WEBPACK_IMPORTED_MODULE_24__events__ = __webpack_require__(54);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return DataTable;
     });
@@ -1144,6 +1176,22 @@
     }, utilFunObj = {
         isChanged: isChanged,
         _formatToIndicesArray: _formatToIndicesArray
+    };
+}, function(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+    __webpack_require__.d(__webpack_exports__, "a", function() {
+        return setCookie;
+    }), __webpack_require__.d(__webpack_exports__, "b", function() {
+        return getCookie;
+    });
+    var setCookie = function(sName, sValue, oExpires, sPath, sDomain, bSecure) {
+        var sCookie = sName + "=" + encodeURIComponent(sValue);
+        oExpires && (sCookie += "; expires=" + oExpires.toGMTString()), sPath && (sCookie += "; path=" + sPath), 
+        sDomain && (sCookie += "; domain=" + sDomain), bSecure && (sCookie += "; secure=" + bSecure), 
+        document.cookie = sCookie;
+    }, getCookie = function(sName) {
+        var sRE = "(?:; )?" + sName + "=([^;]*);?";
+        return new RegExp(sRE).test(document.cookie) ? decodeURIComponent(RegExp.$1) : null;
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
@@ -1228,9 +1276,8 @@
             this.notipFlag = this.options.notipFlag, this.hasSuccess = this.options.hasSuccess, 
             this.showFix = this.options.showFix, this.tipId = this.options.tipId ? this.options.tipId : null, 
             this.successId = this.options.successId ? this.options.successId : null, this.hasSuccess && !this.successId && (this.successId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.e)('<span class="u-form-control-success uf uf-correct" ></span>'), 
-            this.referDom.nextSibling ? this.referDom.parentNode.insertBefore(this.successId, this.referDom.nextSibling) : this.referDom.parentNode.appendChild(this.successId)), 
-            this.notipFlag && !this.tipId && (this.tipId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.e)('<span class="u-form-control-info uf uf-exc-c-o "></span>'), 
-            this.referDom.parentNode.appendChild(this.tipId), this.referDom.nextSibling ? this.referDom.parentNode.insertBefore(this.tipId, this.referDom.nextSibling) : this.referDom.parentNode.appendChild(this.tipId)), 
+            this.referDom.parentNode.appendChild(this.successId)), this.notipFlag && !this.tipId && (this.tipId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.e)('<span class="u-form-control-info uf uf-exc-c-o "></span>'), 
+            this.referDom.parentNode.appendChild(this.tipId), this.referDom.parentNode.appendChild(this.tipId)), 
             this.placement = this.options.placement ? this.options.placement : Validate.DEFAULTS.placement, 
             this.minLength = this.options.minLength > 0 ? this.options.minLength : null, this.maxLength = this.options.maxLength > 0 ? this.options.maxLength : null, 
             this.min = void 0 !== this.options.min ? this.options.min : null, this.max = void 0 !== this.options.max ? this.options.max : null, 
@@ -1264,6 +1311,7 @@
         phone: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_phone", "手机号码格式不对！"),
         landline: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_landline", "座机号码格式不对！"),
         email: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_email", "邮箱地址格式不对！"),
+        idcard: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_email", "身份证格式不对！"),
         url: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_url", "网址格式不对！"),
         datetime: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_datetime", "日期格式不对！"),
         phoneNumber: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_i18n__.a)("validate.error_phoneNumber", "号码格式不对！")
@@ -1280,6 +1328,7 @@
         float: /^-?\d+(\.\d+)?$/,
         zipCode: /^[0-9]{6}$/,
         phone: /^1[3|4|5|7|8]\d{9}$/,
+        idcard: /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/,
         landline: /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/,
         email: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
         url: /^(\w+:\/\/)?\w+(\.\w+)+.*$/,
@@ -1483,25 +1532,6 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    __webpack_require__.d(__webpack_exports__, "a", function() {
-        return enumerables;
-    }), __webpack_require__.d(__webpack_exports__, "b", function() {
-        return U_LANGUAGES;
-    }), __webpack_require__.d(__webpack_exports__, "c", function() {
-        return U_THEME;
-    }), __webpack_require__.d(__webpack_exports__, "d", function() {
-        return U_LOCALE;
-    }), __webpack_require__.d(__webpack_exports__, "e", function() {
-        return U_USERCODE;
-    });
-    var U_LANGUAGES = "i_languages", U_THEME = "u_theme", U_LOCALE = "u_locale", U_USERCODE = "usercode", enumerables = !0, enumerablesTest = {
-        toString: 1
-    };
-    Object.prototype.toString;
-    for (var i in enumerablesTest) enumerables = null;
-    enumerables && (enumerables = [ "hasOwnProperty", "valueOf", "isPrototypeOf", "propertyIsEnumerable", "toLocaleString", "toString", "constructor" ]);
-}, function(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
     var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__ = __webpack_require__(1);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return EnableMixin;
@@ -1541,7 +1571,7 @@
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_neoui_src_neoui_validate__ = __webpack_require__(16);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_neoui_src_neoui_validate__ = __webpack_require__(18);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return ValidateMixin;
     });
@@ -1687,7 +1717,7 @@
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_1_tinper_neoui_src_neoui_checkbox__ = __webpack_require__(34), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_dom__ = __webpack_require__(1), __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__ = __webpack_require__(4);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_1_tinper_neoui_src_neoui_checkbox__ = __webpack_require__(35), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_dom__ = __webpack_require__(1), __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__ = __webpack_require__(4);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return CheckboxAdapter;
     });
@@ -1792,7 +1822,7 @@
             var self = this;
             if (!this.slice) if (this.isGroup) {
                 if (this.datasource) {
-                    if (this.trueValue = val, this.options.hasOther) {
+                    if (this.showValue = "", this.trueValue = val, this.options.hasOther) {
                         var otherVal = "";
                         val && (otherVal = val + ",");
                     }
@@ -1800,12 +1830,17 @@
                         var comp = ele["u.Checkbox"];
                         if (comp) {
                             var inputValue = comp._inputElement.value;
-                            inputValue && comp._inputElement.checked != (val + ",").indexOf(inputValue + ",") > -1 && (self.slice = !0, 
-                            comp.toggle(), self.slice = !1), inputValue && (val + ",").indexOf(inputValue + ",") > -1 && self.options.hasOther && (otherVal = otherVal.replace(inputValue + ",", ""));
+                            if (inputValue && comp._inputElement.checked != (val + ",").indexOf(inputValue + ",") > -1 && (self.slice = !0, 
+                            comp.toggle(), self.slice = !1), inputValue && (val + ",").indexOf(inputValue + ",") > -1) {
+                                self.options.hasOther && (otherVal = otherVal.replace(inputValue + ",", ""));
+                                var nameSpan = ele.querySelector("[data-role=name]"), showValue = $(nameSpan).text();
+                                showValue && (self.showValue += showValue + ",");
+                            }
                         }
                     }), this.options.hasOther && (otherVal.indexOf(this.otherValue + ",") > -1 && (self.lastCheck.value = this.otherValue, 
                     otherVal = otherVal.replace(this.otherValue + ",", "")), (otherVal = otherVal.replace(/\,/g, "")) && (self.otherInput.oldValue = otherVal, 
-                    self.otherInput.value = otherVal, self.otherInput.removeAttribute("disabled")));
+                    self.otherInput.value = otherVal, self.showValue += otherVal + ",", self.otherInput.removeAttribute("disabled"), 
+                    self.otherComp._inputElement.checked = !0, self.otherComp._updateClasses()));
                 }
             } else {
                 var flag;
@@ -1856,7 +1891,8 @@
         },
         modelValueChange: function(value) {
             this.slice || (null !== value && void 0 !== value || (value = ""), this.comp.setValue(value), 
-            this.trueValue = this.formater ? this.formater.format(value) : value, this.element.trueValue = this.trueValue);
+            this.mutil && (this.showValue = this.comp.name), this.trueValue = this.formater ? this.formater.format(value) : value, 
+            this.element.trueValue = this.trueValue);
         },
         setEnable: function(enable) {
             var self = this;
@@ -1878,8 +1914,8 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_2_kero_src_indexDataTable__ = (__webpack_require__(34), 
-    __webpack_require__(13)), __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_util_formater__ = __webpack_require__(11), __WEBPACK_IMPORTED_MODULE_4__keroa_float__ = __webpack_require__(12), __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_core__ = __webpack_require__(5), __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_masker__ = __webpack_require__(9);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_2_kero_src_indexDataTable__ = (__webpack_require__(35), 
+    __webpack_require__(14)), __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_util_formater__ = __webpack_require__(11), __WEBPACK_IMPORTED_MODULE_4__keroa_float__ = __webpack_require__(12), __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_core__ = __webpack_require__(5), __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_masker__ = __webpack_require__(9);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return CurrencyAdapter;
     });
@@ -1926,7 +1962,7 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__ = __webpack_require__(1), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_core__ = __webpack_require__(5), __WEBPACK_IMPORTED_MODULE_3_kero_src_indexDataTable__ = __webpack_require__(13), __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__ = __webpack_require__(4), __WEBPACK_IMPORTED_MODULE_5_tinper_neoui_src_neoui_datetimepicker__ = __webpack_require__(76), __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__ = __webpack_require__(6), __WEBPACK_IMPORTED_MODULE_7_tinper_sparrow_src_util__ = __webpack_require__(2);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__ = __webpack_require__(1), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_core__ = __webpack_require__(5), __WEBPACK_IMPORTED_MODULE_3_kero_src_indexDataTable__ = __webpack_require__(14), __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__ = __webpack_require__(4), __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_cookies__ = __webpack_require__(16), __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_enumerables__ = __webpack_require__(13), __WEBPACK_IMPORTED_MODULE_7_tinper_neoui_src_neoui_datetimepicker__ = __webpack_require__(76), __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__ = __webpack_require__(6), __WEBPACK_IMPORTED_MODULE_9_tinper_sparrow_src_util__ = __webpack_require__(2);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return DateTimeAdapter;
     });
@@ -1935,7 +1971,9 @@
             var format, self = this;
             "u-date" === this.options.type ? this.adapterType = "date" : (this.adapterType = "datetime", 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.f)(this.element, "time")), 
-            this.beforeValueChangeFun = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_tinper_sparrow_src_util__.h)(this.viewModel, this.options.beforeValueChangeFun), 
+            this.timezone = this.getOption("timezone") || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_cookies__.b)(__WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_enumerables__.f), 
+            this.options.format || "function" != typeof getFormatFun || (this.options.format = getFormatFun()), 
+            this.beforeValueChangeFun = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9_tinper_sparrow_src_util__.h)(this.viewModel, this.options.beforeValueChangeFun), 
             this.maskerMeta = __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_core__.a.getMaskerMeta(this.adapterType) || {}, 
             this.maskerMeta.format = this.options.format || this.maskerMeta.format, this.dataModel && this.dataModel.on(this.field + ".format." + __WEBPACK_IMPORTED_MODULE_3_kero_src_indexDataTable__.a.ON_CURRENT_META_CHANGE, function(event) {
                 self.setFormat(event.newValue);
@@ -1984,12 +2022,13 @@
                 placeholder && (this.element.placeholder = placeholder), this._span && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_event__.a)(this._span, "click", function(e) {
                     self.element.focus(), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_event__.b)(e);
                 }), "date" == this.adapterType ? $(this.element).mobiscroll().date(this.op) : $(this.element).mobiscroll().datetime(this.op);
-            } else this.comp = new __WEBPACK_IMPORTED_MODULE_5_tinper_neoui_src_neoui_datetimepicker__.a({
+            } else this.comp = new __WEBPACK_IMPORTED_MODULE_7_tinper_neoui_src_neoui_datetimepicker__.a({
                 el: this.element,
                 placeholder: this.options.placeholder,
                 format: this.maskerMeta.format,
                 showFix: this.options.showFix,
-                beforeValueChangeFun: this.beforeValueChangeFun
+                beforeValueChangeFun: this.beforeValueChangeFun,
+                timezone: this.timezone
             });
             this.element["u.DateTimePicker"] = this.comp, __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile || this.comp.on("select", function(event) {
                 self.setValue(event.value);
@@ -2001,20 +2040,20 @@
             var self = this;
             if (self.endField = endField, self.dataModel && (self.endField && self.dataModel.ref(self.endField).subscribe(function(value) {
                 if (__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile) {
-                    var valueObj = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
+                    var valueObj = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
                     valueObj && self.resetDataObj(valueObj), self.op.minDate = valueObj, "date" == self.adapterType ? $(self.element).mobiscroll().date(self.op) : $(self.element).mobiscroll().datetime(self.op);
-                    var nowDate = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(self.dataModel.getValue(self.field));
+                    var nowDate = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(self.dataModel.getValue(self.field));
                     nowDate && self.resetDataObj(nowDate), nowDate && nowDate.getTime() > valueObj.getTime() && value && self.dataModel.setValue(self.field, "");
                 } else {
                     self.comp.setEndDate(value);
                     var nowDate = self.comp.date;
                     nowDate && self.resetDataObj(nowDate);
-                    var valueObj = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
+                    var valueObj = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
                     valueObj && self.resetDataObj(valueObj), nowDate && value && nowDate.getTime() > valueObj.getTime() && self.dataModel.setValue(self.field, "");
                 }
             }), self.endField)) {
                 var endValue = self.dataModel.getValue(self.endField);
-                endValue && (__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile ? (self.op.minDate = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(endValue), 
+                endValue && (__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile ? (self.op.minDate = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(endValue), 
                 "date" == self.adapterType ? $(self.element).mobiscroll().date(self.op) : $(self.element).mobiscroll().datetime(self.op)) : self.comp.setEndDate(endValue));
             }
         },
@@ -2022,38 +2061,38 @@
             var self = this;
             if (self.startField = startField, self.dataModel && (self.startField && self.dataModel.ref(self.startField).subscribe(function(value) {
                 if (__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile) {
-                    value = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
+                    value = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
                     var valueObj = value;
                     valueObj && self.resetDataObj(valueObj), self.op.minDate = valueObj, "date" == self.adapterType ? $(self.element).mobiscroll().date(self.op) : $(self.element).mobiscroll().datetime(self.op);
-                    var nowDate = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(self.dataModel.getValue(self.field));
+                    var nowDate = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(self.dataModel.getValue(self.field));
                     nowDate && self.resetDataObj(nowDate), nowDate && nowDate.getTime() < valueObj.getTime() && value && self.dataModel.setValue(self.field, "");
                 } else {
                     self.comp.setStartDate(value, self.options.format);
                     var nowDate = self.comp.date;
                     nowDate && self.resetDataObj(nowDate);
-                    var valueObj = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
+                    var valueObj = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
                     valueObj && self.resetDataObj(valueObj), nowDate && value && nowDate.getTime() < valueObj.getTime() && self.dataModel.setValue(self.field, "");
                 }
             }), self.startField)) {
                 var startValue = self.dataModel.getValue(self.startField);
-                startValue && (__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile ? (startValue = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(startValue), 
+                startValue && (__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile ? (startValue = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(startValue), 
                 self.op.minDate = self.setMobileStartDate(startValue, self.options.format), "date" == self.adapterType ? $(self.element).mobiscroll().date(self.op) : $(self.element).mobiscroll().datetime(self.op)) : self.comp.setStartDate(startValue, self.options.format));
             }
         },
         setMobileStartDate: function(startDate, type) {
             if (startDate) switch (type) {
               case "YYYY-MM":
-                startDate = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.add(startDate, "M", 1);
+                startDate = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.add(startDate, "M", 1);
                 break;
 
               case "YYYY-MM-DD":
-                startDate = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.add(startDate, "d", 1);
+                startDate = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.add(startDate, "d", 1);
             }
             return startDate;
         },
         modelValueChange: function(value) {
-            this.slice || (this.trueValue = value, __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile ? value ? (value = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.format(value, this.options.format), 
-            $(this.element).scroller("setDate", __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value), !0)) : this.setShowValue("") : this.comp.setDate(value));
+            this.slice || (this.trueValue = value, __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile ? value ? (value = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.format(value, this.options.format), 
+            $(this.element).scroller("setDate", __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value), !0)) : this.setShowValue("") : this.comp.setDate(value));
         },
         setFormat: function(format) {
             this.maskerMeta.format != format && (this.options.format = format, this.maskerMeta.format = format, 
@@ -2061,17 +2100,20 @@
         },
         beforeSetValue: function(value) {
             if (this.dataModel) {
-                var valueObj = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
-                if (valueObj && this.resetDataObj(valueObj), this.startField) {
-                    var startValue = this.dataModel.getValue(this.startField), startValueObj = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(startValue);
-                    if (startValueObj && this.resetDataObj(startValueObj), startValueObj && valueObj && valueObj.getTime() < startValueObj.getTime()) return;
+                var valueObj = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
+                if (valueObj && (void 0 !== this.timezone && null != this.timezone && "" != this.timezone || this.resetDataObj(valueObj)), 
+                this.startField) {
+                    var startValue = this.dataModel.getValue(this.startField), startValueObj = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(startValue);
+                    if (startValueObj && (void 0 !== this.timezone && null != this.timezone && "" != this.timezone || this.resetDataObj(startValueObj)), 
+                    startValueObj && valueObj && valueObj.getTime() < startValueObj.getTime()) return;
                 }
                 if (this.endField) {
-                    var endValue = this.dataModel.getValue(this.endField), endValueObj = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.getDateObj(endValue);
-                    if (endValueObj && this.resetDataObj(endValueObj), endValueObj && valueObj && valueObj.getTime() > endValueObj.getTime()) return;
+                    var endValue = this.dataModel.getValue(this.endField), endValueObj = __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.getDateObj(endValue);
+                    if (endValueObj && (void 0 !== this.timezone && null != this.timezone && "" != this.timezone || this.resetDataObj(endValueObj)), 
+                    endValueObj && valueObj && valueObj.getTime() > endValueObj.getTime()) return;
                 }
             }
-            return value = __WEBPACK_IMPORTED_MODULE_6_tinper_sparrow_src_util_dateUtils__.a.format(value, this.options.format);
+            return value = void 0 === this.timezone || null == this.timezone || "" == this.timezone ? __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.format(value, this.options.format) : value.getTime();
         },
         setEnable: function(enable) {
             enable === !0 || "true" === enable ? (this.enable = !0, __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.b.isMobile ? this.element.removeAttribute("disabled") : this.comp._input.removeAttribute("readonly"), 
@@ -2247,17 +2289,23 @@
         },
         modelValueChange: function(value) {
             if (!this.slice) {
-                var fetch = !1;
-                this.dynamic ? this.datasource && (this.trueValue = value, this.element.querySelectorAll(".u-radio").forEach(function(ele) {
+                var fetch = !1, self = this;
+                this.dynamic ? this.datasource && (this.showValue = "", this.trueValue = value, 
+                this.element.querySelectorAll(".u-radio").forEach(function(ele) {
                     var comp = ele["u.Radio"];
                     if (comp) {
                         var inptuValue = comp._btnElement.value;
-                        inptuValue && inptuValue == value ? (fetch = !0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.f)(comp.element, "is-checked"), 
-                        comp._btnElement.click()) : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.d)(comp.element, "is-checked");
+                        if (inptuValue && inptuValue == value) {
+                            fetch = !0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.f)(comp.element, "is-checked"), 
+                            comp._btnElement.click();
+                            var nameSpan = ele.querySelector(".u-radio-label"), showValue = $(nameSpan).text();
+                            showValue && (self.showValue = showValue);
+                        } else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.d)(comp.element, "is-checked");
                     }
                 })) : this.eleValue == value && (fetch = !0, this.slice = !0, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.f)(this.comp.element, "is-checked"), 
-                this.slice = !1), this.options.hasOther && !fetch && value && (this.enable || this.lastRadio.removeAttribute("disabled"), 
-                u.addClass(this.lastLabel, "is-checked"), this.lastRadio.checked = !0, value != this.otherValue && (this.otherInput.value = value), 
+                this.slice = !1), this.options.hasOther && !fetch && value && (this.showValue = value, 
+                this.enable || this.lastRadio.removeAttribute("disabled"), u.addClass(this.lastLabel, "is-checked"), 
+                this.lastRadio.checked = !0, value != this.otherValue && (this.otherInput.value = value), 
                 this.lastRadio.removeAttribute("disabled"), this.otherInput.removeAttribute("disabled"), 
                 this.enable || this.lastRadio.setAttribute("disabled", !0));
             }
@@ -2289,12 +2337,13 @@
             "u-clockpicker" != this.options.type || __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_env__.b.isIE8 ? this.comp = new __WEBPACK_IMPORTED_MODULE_5_tinper_neoui_src_neoui_time__.a(this.element) : this.comp = new __WEBPACK_IMPORTED_MODULE_4_tinper_neoui_src_neoui_clockpicker__.a(this.element);
             var dataType = this.dataModel.getMeta(this.field, "type");
             this.dataType = dataType || "string", this.comp.on("valueChange", function(event) {
+                var setValueFlag = !1;
                 if (self.slice = !0, "" == event.value) self.dataModel.setValue(self.field, ""); else {
                     var _date = self.dataModel.getValue(self.field);
                     if ("datetime" === self.dataType) {
                         var valueArr = event.value.split(":");
-                        if (_date || (_date = "1970-01-01 00:00:00"), _date = __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_util_dateUtils__.a.getDateObj(_date)) {
-                            if (event.value == (_date.getHours() < 10 ? "0" + _date.getHours() : _date.getHours()) + ":" + (_date.getMinutes() < 10 ? "0" + _date.getMinutes() : _date.getMinutes()) + ":" + (_date.getSeconds() < 10 ? "0" + _date.getSeconds() : _date.getSeconds())) return void (self.slice = !1);
+                        if (_date || (_date = "1970-01-01 00:00:00", setValueFlag = !0), _date = __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_util_dateUtils__.a.getDateObj(_date)) {
+                            if (event.value == (_date.getHours() < 10 ? "0" + _date.getHours() : _date.getHours()) + ":" + (_date.getMinutes() < 10 ? "0" + _date.getMinutes() : _date.getMinutes()) + ":" + (_date.getSeconds() < 10 ? "0" + _date.getSeconds() : _date.getSeconds()) && !setValueFlag) return void (self.slice = !1);
                             _date.setHours(valueArr[0]), _date.setMinutes(valueArr[1]), _date.setSeconds(valueArr[2]), 
                             self.dataModel.setValue(self.field, u.date.format(_date, "YYYY-MM-DD HH:mm:ss"));
                         } else self.dataModel.setValue(self.field, "");
@@ -2333,7 +2382,7 @@
     });
     var UrlAdapter = __WEBPACK_IMPORTED_MODULE_0__keroa_string__.a.extend({
         init: function() {
-            this.validType = "url", UrlAdapter.superclass.init.apply(this);
+            UrlAdapter.superclass.init.apply(this), this.validType = "url";
         },
         setEnable: function(enable) {
             if (enable === !0 || "true" === enable) this.enable = !0, this.element.removeAttribute("readonly"), 
@@ -2357,7 +2406,7 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_neoui_src_neoui_year__ = __webpack_require__(36);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_neoui_src_neoui_year__ = __webpack_require__(37);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return YearAdapter;
     });
@@ -2701,23 +2750,7 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    __webpack_require__.d(__webpack_exports__, "a", function() {
-        return setCookie;
-    }), __webpack_require__.d(__webpack_exports__, "b", function() {
-        return getCookie;
-    });
-    var setCookie = function(sName, sValue, oExpires, sPath, sDomain, bSecure) {
-        var sCookie = sName + "=" + encodeURIComponent(sValue);
-        oExpires && (sCookie += "; expires=" + oExpires.toGMTString()), sPath && (sCookie += "; path=" + sPath), 
-        sDomain && (sCookie += "; domain=" + sDomain), bSecure && (sCookie += "; secure=" + bSecure), 
-        document.cookie = sCookie;
-    }, getCookie = function(sName) {
-        var sRE = "(?:; )?" + sName + "=([^;]*);?";
-        return new RegExp(sRE).test(document.cookie) ? decodeURIComponent(RegExp.$1) : null;
-    };
-}, function(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_class__ = __webpack_require__(88), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_2_neoui_kero_mixin_src_valueMixin__ = __webpack_require__(21), __WEBPACK_IMPORTED_MODULE_3_neoui_kero_mixin_src_enableMixin__ = __webpack_require__(18), __WEBPACK_IMPORTED_MODULE_4_neoui_kero_mixin_src_requiredMixin__ = __webpack_require__(19), __WEBPACK_IMPORTED_MODULE_5_neoui_kero_mixin_src_validateMixin__ = __webpack_require__(20);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_class__ = __webpack_require__(88), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_2_neoui_kero_mixin_src_valueMixin__ = __webpack_require__(22), __WEBPACK_IMPORTED_MODULE_3_neoui_kero_mixin_src_enableMixin__ = __webpack_require__(19), __WEBPACK_IMPORTED_MODULE_4_neoui_kero_mixin_src_requiredMixin__ = __webpack_require__(20), __WEBPACK_IMPORTED_MODULE_5_neoui_kero_mixin_src_validateMixin__ = __webpack_require__(21);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return BaseAdapter;
     });
@@ -2806,7 +2839,7 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util_formater__ = __webpack_require__(11), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_util_masker__ = __webpack_require__(9), __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_util_dataRender__ = __webpack_require__(89), __WEBPACK_IMPORTED_MODULE_4_kero_src_indexDataTable__ = __webpack_require__(13), __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_6__keroa_year__ = __webpack_require__(32), __WEBPACK_IMPORTED_MODULE_7__keroa_month__ = __webpack_require__(26), __WEBPACK_IMPORTED_MODULE_8__keroa_yearmonth__ = __webpack_require__(33), __WEBPACK_IMPORTED_MODULE_9__keroa_time__ = __webpack_require__(30), __WEBPACK_IMPORTED_MODULE_10__keroa_string__ = __webpack_require__(10), __WEBPACK_IMPORTED_MODULE_11__keroa_integer__ = __webpack_require__(15), __WEBPACK_IMPORTED_MODULE_12__keroa_checkbox__ = __webpack_require__(22), __WEBPACK_IMPORTED_MODULE_13__keroa_combo__ = __webpack_require__(23), __WEBPACK_IMPORTED_MODULE_14__keroa_radio__ = __webpack_require__(29), __WEBPACK_IMPORTED_MODULE_15__keroa_float__ = __webpack_require__(12), __WEBPACK_IMPORTED_MODULE_16__keroa_currency__ = __webpack_require__(24), __WEBPACK_IMPORTED_MODULE_17__keroa_datetimepicker__ = __webpack_require__(25), __WEBPACK_IMPORTED_MODULE_18__keroa_url__ = __webpack_require__(31), __WEBPACK_IMPORTED_MODULE_19__keroa_password__ = __webpack_require__(27), __WEBPACK_IMPORTED_MODULE_20__keroa_percent__ = __webpack_require__(28), __WEBPACK_IMPORTED_MODULE_21_tinper_neoui_src_neoui_validate__ = __webpack_require__(16), __WEBPACK_IMPORTED_MODULE_22_tinper_neoui_src_neoui_message__ = __webpack_require__(77), __WEBPACK_IMPORTED_MODULE_23_tinper_sparrow_src_util_i18n__ = __webpack_require__(7), __WEBPACK_IMPORTED_MODULE_24_tinper_sparrow_src_core__ = __webpack_require__(5), __WEBPACK_IMPORTED_MODULE_25_tinper_sparrow_src_dom__ = __webpack_require__(1), _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj) {
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util_formater__ = __webpack_require__(11), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_util_masker__ = __webpack_require__(9), __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_util_dataRender__ = __webpack_require__(89), __WEBPACK_IMPORTED_MODULE_4_kero_src_indexDataTable__ = __webpack_require__(14), __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_6__keroa_year__ = __webpack_require__(33), __WEBPACK_IMPORTED_MODULE_7__keroa_month__ = __webpack_require__(27), __WEBPACK_IMPORTED_MODULE_8__keroa_yearmonth__ = __webpack_require__(34), __WEBPACK_IMPORTED_MODULE_9__keroa_time__ = __webpack_require__(31), __WEBPACK_IMPORTED_MODULE_10__keroa_string__ = __webpack_require__(10), __WEBPACK_IMPORTED_MODULE_11__keroa_integer__ = __webpack_require__(17), __WEBPACK_IMPORTED_MODULE_12__keroa_checkbox__ = __webpack_require__(23), __WEBPACK_IMPORTED_MODULE_13__keroa_combo__ = __webpack_require__(24), __WEBPACK_IMPORTED_MODULE_14__keroa_radio__ = __webpack_require__(30), __WEBPACK_IMPORTED_MODULE_15__keroa_float__ = __webpack_require__(12), __WEBPACK_IMPORTED_MODULE_16__keroa_currency__ = __webpack_require__(25), __WEBPACK_IMPORTED_MODULE_17__keroa_datetimepicker__ = __webpack_require__(26), __WEBPACK_IMPORTED_MODULE_18__keroa_url__ = __webpack_require__(32), __WEBPACK_IMPORTED_MODULE_19__keroa_password__ = __webpack_require__(28), __WEBPACK_IMPORTED_MODULE_20__keroa_percent__ = __webpack_require__(29), __WEBPACK_IMPORTED_MODULE_21_tinper_neoui_src_neoui_validate__ = __webpack_require__(18), __WEBPACK_IMPORTED_MODULE_22_tinper_neoui_src_neoui_message__ = __webpack_require__(77), __WEBPACK_IMPORTED_MODULE_23_tinper_sparrow_src_util_i18n__ = __webpack_require__(7), __WEBPACK_IMPORTED_MODULE_24_tinper_sparrow_src_core__ = __webpack_require__(5), __WEBPACK_IMPORTED_MODULE_25_tinper_sparrow_src_dom__ = __webpack_require__(1), _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj) {
         return typeof obj;
     } : function(obj) {
         return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
@@ -2837,7 +2870,8 @@
             this.gridOptions.onBeforeEditFun = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.onBeforeEditFun), 
             this.gridOptions.onRowHover = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.onRowHover), 
             this.gridOptions.afterCreate = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.afterCreate), 
-            this.gridOptions.onSortFun = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.onSortFun);
+            this.gridOptions.onSortFun = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.onSortFun), 
+            this.gridOptions.filterDataFun = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.h)(viewModel, this.gridOptions.filterDataFun);
             var customOnBeforeEditFun = this.gridOptions.onBeforeEditFun, newOnBeforeEditFun = function(obj) {
                 var colIndex = obj.colIndex, $tr = obj.$tr;
                 return !($($tr.find("td")[colIndex]).find("[type=radio]").length > 0 || $($tr.find("td")[colIndex]).find("[type=checkbox]").length > 0) && ("function" != typeof customOnBeforeEditFun || customOnBeforeEditFun(obj));
@@ -3462,6 +3496,9 @@
         setComboDataByField: function(data) {
             var oThis, comboboxAdapter;
             oThis = this, data && (comboboxAdapter = oThis.editComponent[data.fieldName], comboboxAdapter.comp.setComboData(data.comboData));
+        },
+        setColumnFixed: function(field, fixed) {
+            this.grid.setColumnFixed(field, fixed);
         }
     });
     u.compMgr && u.compMgr.addDataAdapter({
@@ -3782,7 +3819,7 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_extend__ = __webpack_require__(3), __WEBPACK_IMPORTED_MODULE_1_tinper_neoui_src_neoui_textfield__ = __webpack_require__(35), __WEBPACK_IMPORTED_MODULE_2__keroa_float__ = __webpack_require__(12), __WEBPACK_IMPORTED_MODULE_3__keroa_string__ = __webpack_require__(10), __WEBPACK_IMPORTED_MODULE_4__keroa_integer__ = __webpack_require__(15);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_extend__ = __webpack_require__(3), __WEBPACK_IMPORTED_MODULE_1_tinper_neoui_src_neoui_textfield__ = __webpack_require__(36), __WEBPACK_IMPORTED_MODULE_2__keroa_float__ = __webpack_require__(12), __WEBPACK_IMPORTED_MODULE_3__keroa_string__ = __webpack_require__(10), __WEBPACK_IMPORTED_MODULE_4__keroa_integer__ = __webpack_require__(17);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return TextFieldAdapter;
     });
@@ -3808,8 +3845,8 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util__ = (__webpack_require__(36), 
-    __webpack_require__(2)), __WEBPACK_IMPORTED_MODULE_2_kero_src_indexDataTable__ = __webpack_require__(13), TreeAdapter = u.BaseAdapter.extend({
+    var __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util__ = (__webpack_require__(37), 
+    __webpack_require__(2)), __WEBPACK_IMPORTED_MODULE_2_kero_src_indexDataTable__ = __webpack_require__(14), TreeAdapter = u.BaseAdapter.extend({
         mixins: [],
         init: function() {
             var options = this.options, opt = options || {}, viewModel = this.viewModel, element = this.element;
@@ -3854,13 +3891,15 @@
                             hasFlag || needUnSelectArr.push(nowIndex);
                         }
                         oThis.dataTable.addRowsSelect(needSelectArr), oThis.dataTable.setRowsUnSelect(needUnSelectArr);
+                        var idValue = node.id, rowId = oThis.getRowIdByIdValue(idValue), index = oThis.dataTable.getIndexByRowId(rowId);
+                        oThis.dataTable.setRowFocus(index);
                     },
                     onClick: function(e, id, node) {
                         $("#" + id + " li").removeClass("focusNode"), $("#" + id + " a").removeClass("focusNode"), 
                         $("#" + node.tId).addClass("focusNode"), $("#" + node.tId + "_a").addClass("focusNode");
                         var idValue = node.id, rowId = oThis.getRowIdByIdValue(idValue), index = oThis.dataTable.getIndexByRowId(rowId);
                         oThis.tree.setting.check.enable && "checkbox" === oThis.tree.setting.check.chkStyle ? oThis.dataTable.addRowSelect(index) : oThis.dataTable.setRowSelect(index), 
-                        oThis.events.onClick && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util__.h)(viewModel, oThis.events.onClick)(e, id, node);
+                        oThis.dataTable.setRowFocus(index), oThis.events.onClick && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_util__.h)(viewModel, oThis.events.onClick)(e, id, node);
                     }
                 }
             }, setting = {};
@@ -3939,13 +3978,12 @@
                     var childNode = oThis.tree.getNodeByParam("pid", idValue), pNode = oThis.tree.getNodeByParam("id", pidValue);
                     childNode && childNode.length > 0 && (hasChild = !0), pNode && pNode.length > 0 && (hasPar = !0), 
                     !hasChild && hasPar ? oThis.tree.addNodes(pNode, value, !0) : dataArray.push(value);
-                }), hasChild || (nodes = oThis.tree.transformTozTreeNodes(dataArray), oThis.tree.addNodes(null, nodes, !0));
+                }), hasChild || (nodes = oThis.tree.transformTozTreeNodes(dataArray), oThis.tree.addNodes(null, nodes, !0, event.index));
             }), this.dataTable.on(__WEBPACK_IMPORTED_MODULE_2_kero_src_indexDataTable__.a.ON_DELETE, function(event) {
-                new Array();
-                if (this.deleteRows.length > 0) for (var i = 0; i < this.deleteRows.length; i++) {
-                    var row = this.deleteRows[i], dataObj = row.data, idValue = dataObj[oThis.options.idField].value, node = oThis.tree.getNodeByParam("id", idValue);
+                $.each(event.rows, function() {
+                    var row = this, idValue = row.getValue(oThis.options.idField), node = oThis.tree.getNodeByParam("id", idValue);
                     oThis.tree.removeNode(node);
-                }
+                });
             }), this.dataTable.on(__WEBPACK_IMPORTED_MODULE_2_kero_src_indexDataTable__.a.ON_DELETE_ALL, function(event) {
                 for (var nodes = oThis.tree.getNodes(), i = 0, l = nodes.length; i < l; i++) {
                     var node = oThis.tree.getNodeByParam("id", nodes[i].id);
@@ -4041,9 +4079,26 @@
     }, setValue = function(fieldName, value, row, ctx) {
         1 === arguments.length && (value = fieldName, fieldName = "$data"), (row = row ? row : this.getCurrentRow()) && row.setValue(fieldName, value, ctx);
     }, resetAllValue = function() {
-        for (var rows = this.rows(), i = 0; i < rows.length; i++) rows[i].resetValue();
+        for (var rows = this.rows(), i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            if (row.status == Row.STATUS.NEW) this.setRowsDelete(row); else if (row.status == Row.STATUS.FALSE_DELETE) {
+                row.status = Row.STATUS.NORMAL;
+                var rows = [ row ];
+                this.trigger(DataTable.ON_INSERT, {
+                    index: 0,
+                    rows: rows
+                });
+            } else row.status == Row.STATUS.UPDATE && (row.status = Row.STATUS.NORMAL, rows[i].resetValue());
+        }
     }, resetValueByRow = function(row) {
-        row.resetValue();
+        if (row.status == Row.STATUS.NEW) this.setRowsDelete(row); else if (row.status == Row.STATUS.FALSE_DELETE) {
+            row.status = Row.STATUS.NORMAL;
+            var rows = [ row ];
+            this.trigger(DataTable.ON_INSERT, {
+                index: 0,
+                rows: rows
+            });
+        } else row.status == Row.STATUS.UPDATE && (row.status = Row.STATUS.NORMAL, rows[i].resetValue());
     }, dataFunObj = {
         setData: setData,
         setValue: setValue,
@@ -4296,6 +4351,9 @@
     }, getRowIdsByIndices = function(indices) {
         for (var rowIds = [], i = 0; i < indices.length; i++) rowIds.push(this.getRow(indices[i]).rowId);
         return rowIds;
+    }, getRowsByIndices = function(indices) {
+        for (var rows = [], i = 0; i < indices.length; i++) rows.push(this.getRow(indices[i]));
+        return rows;
     }, getDataFunObj = {
         getData: getData,
         getDataByRule: getDataByRule,
@@ -4313,7 +4371,8 @@
         getValue: getValue,
         getIndexByRowId: getIndexByRowId,
         getAllDatas: getAllDatas,
-        getRowIdsByIndices: getRowIdsByIndices
+        getRowIdsByIndices: getRowIdsByIndices,
+        getRowsByIndices: getRowsByIndices
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
@@ -4672,7 +4731,7 @@
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    __webpack_require__(14);
+    __webpack_require__(15);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return removeRowFunObj;
     });
@@ -4722,9 +4781,15 @@
         }
         return insertRows.length > 0 && this.addRows(insertRows), insertRows;
     }, addRow = function(row) {
-        this.insertRow(this.rows().length, row);
+        this.insertRow(this.rows().length, row), this.resetDelRowEnd();
+    }, resetDelRowEnd = function() {
+        for (var i = 0; i < this.rows().length; i++) {
+            var row = this.rows()[i];
+            row.status != Row.STATUS.DELETE && row.status != Row.STATUS.FALSE_DELETE || (this.rows().splice(i, 1), 
+            this.rows().push(row));
+        }
     }, addRows = function(rows) {
-        this.insertRows(this.rows().length, rows);
+        this.insertRows(this.rows().length, rows), this.resetDelRowEnd();
     }, insertRow = function(index, row) {
         row || (row = new Row({
             parent: this
@@ -4748,7 +4813,8 @@
         addRows: addRows,
         insertRow: insertRow,
         insertRows: insertRows,
-        createEmptyRow: createEmptyRow
+        createEmptyRow: createEmptyRow,
+        resetDelRowEnd: resetDelRowEnd
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
@@ -4765,7 +4831,7 @@
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(14);
+    var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(15);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return rowDeleteFunObj;
     });
@@ -4779,7 +4845,7 @@
         indices = indices.sort(function(a, b) {
             return b - a;
         });
-        for (var rowIds = this.getRowIdsByIndices(indices), i = 0; i < indices.length; i++) {
+        for (var rowIds = this.getRowIdsByIndices(indices), rows = this.getRowsByIndices(indices), i = 0; i < indices.length; i++) {
             var row = this.getRow(indices[i]);
             if (row.status == Row.STATUS.NEW) this.rows().splice(indices[i], 1); else {
                 row.setStatus(Row.STATUS.FALSE_DELETE);
@@ -4791,7 +4857,8 @@
         this.updateCurrIndex(), this.trigger(DataTable.ON_DELETE, {
             falseDelete: !0,
             indices: indices,
-            rowIds: rowIds
+            rowIds: rowIds,
+            rows: rows
         });
     }, rowDeleteFunObj = {
         setRowDelete: setRowDelete,
@@ -4822,7 +4889,7 @@
         }), this.focusIndex(-1), this.updateCurrIndex();
     }, updateFocusIndex = function(opIndex, opType, num) {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.d)(num) || (num = 1), 
-        opIndex <= this.focusIndex() && this.focusIndex() != -1 && ("+" === opType ? this.focusIndex(this.focusIndex() + num) : "-" === opType && (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1 ? this.focusIndex(this.focusIndex() - 1) : this.focusIndex() > opIndex + num - 1 && this.focusIndex(this.focusIndex() - num)));
+        opIndex <= this.focusIndex() && this.focusIndex() != -1 && ("+" === opType ? this.focusIndex(this.focusIndex() + num) : "-" === opType && (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1 ? this.focusIndex(-1) : this.focusIndex() > opIndex + num - 1 && this.focusIndex(this.focusIndex() - num)));
     }, rowFocusFunObj = {
         setRowFocus: setRowFocus,
         setRowUnFocus: setRowUnFocus,
@@ -4830,7 +4897,7 @@
     };
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(14);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(15);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return rowSelectFunObj;
     });
@@ -5177,7 +5244,7 @@
     });
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__ = __webpack_require__(1), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__ = __webpack_require__(4), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_3__neoui_textfield__ = __webpack_require__(35), __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_util_ripple__ = __webpack_require__(8), Combo = u.BaseComponent.extend({
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__ = __webpack_require__(1), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__ = __webpack_require__(4), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_3__neoui_textfield__ = __webpack_require__(36), __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_util_ripple__ = __webpack_require__(8), Combo = u.BaseComponent.extend({
         init: function() {
             this.name = "", this.mutilSelect = this.options.mutilSelect || !1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__.c)(this.element, "mutil-select") && (this.mutilSelect = !0), 
             this.onlySelect = this.options.onlySelect || !1, this.mutilSelect && (this.onlySelect = !0), 
@@ -5268,9 +5335,11 @@
         hide: function() {
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__.c)(document, "click", this.callback), 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__.d)(this._ul, "is-visible"), 
-            this._ul.style.zIndex = -1, this.trigger("select", {
+            this._ul.style.zIndex = -1;
+            var name = this._input.value;
+            this.mutilSelect && (name = this.name), this.trigger("select", {
                 value: this.value,
-                name: this._input.value
+                name: name
             });
         },
         setComboData: function(datas, options) {
@@ -5352,20 +5421,23 @@
         },
         setValue: function(value) {
             var self = this;
-            value += "", value = value || "";
+            this.name = "", value += "", value = value || "";
             var values = value.split(",");
             this.mutilSelect === !0 && (self._combo_name_par && (self._combo_name_par.innerHTML = "", 
             $(self._combo_name_par).removeClass("u-combo-overwidth")), this.value = ""), value || (this._input.value = "", 
             this.value = "", this._updateItemSelect());
             var matched = !1;
-            this.nowWidth = 0, this.showNowWidth = 0, this.multiNoneArr = [], this.comboDatas.forEach(function(item, index) {
+            if (this.nowWidth = 0, this.showNowWidth = 0, this.multiNoneArr = [], this.comboDatas.forEach(function(item, index) {
                 if (this.mutilSelect === !0) values.indexOf(item.value) != -1 && this.selectItem(index); else if (item.value + "" === value) return this.selectItem(index), 
                 void (matched = !0);
-            }.bind(this)), this.onlySelect || matched || (this.value = value, this._input.value = value, 
-            this.trigger("select", {
-                value: this.value,
-                name: this._input.value
-            }));
+            }.bind(this)), !this.onlySelect && !matched) {
+                this.value = value, this._input.value = value;
+                var name = this._input.value;
+                this.mutilSelect && (name = this.name), this.trigger("select", {
+                    value: this.value,
+                    name: name
+                });
+            }
         },
         emptyValue: function() {
             this.value = "", this._input.value = "";
@@ -5384,13 +5456,13 @@
 }, function(module, __webpack_exports__, __webpack_require__) {
     "use strict";
     var __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__ = (__webpack_require__(3), 
-    __webpack_require__(4)), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__ = __webpack_require__(1), __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_core__ = __webpack_require__(5), __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__ = __webpack_require__(6), __WEBPACK_IMPORTED_MODULE_6__neoui_validate__ = __webpack_require__(16), __WEBPACK_IMPORTED_MODULE_7_tinper_sparrow_src_util_ripple__ = __webpack_require__(8), __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_9_tinper_sparrow_src_util_i18n__ = __webpack_require__(7);
+    __webpack_require__(4)), __WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__ = __webpack_require__(0), __WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__ = __webpack_require__(1), __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_core__ = __webpack_require__(5), __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__ = __webpack_require__(6), __WEBPACK_IMPORTED_MODULE_6__neoui_validate__ = __webpack_require__(18), __WEBPACK_IMPORTED_MODULE_7_tinper_sparrow_src_util_ripple__ = __webpack_require__(8), __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util__ = __webpack_require__(2), __WEBPACK_IMPORTED_MODULE_9_tinper_sparrow_src_util_i18n__ = __webpack_require__(7), __WEBPACK_IMPORTED_MODULE_10_tinper_sparrow_src_cookies__ = __webpack_require__(16), __WEBPACK_IMPORTED_MODULE_11_tinper_sparrow_src_enumerables__ = __webpack_require__(13);
     __webpack_require__.d(__webpack_exports__, "a", function() {
         return DateTimePicker;
     });
     var DateTimePicker = u.BaseComponent.extend({});
     DateTimePicker.fn = DateTimePicker.prototype, DateTimePicker.fn.init = function() {
-        var _fmt, _defaultFmt, self = this;
+        var _fmt, _defaultFmt, cusFormat, self = this;
         this.enable = !0, this._element = this.element, this._input = this._element.querySelector("input"), 
         this.options.placeholder && (this._input.placeholder = this.options.placeholder), 
         setTimeout(function() {
@@ -5403,14 +5475,13 @@
             self._input.focus();
         }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.c)(this._element, "time") ? (this.type = "datetime", 
         _defaultFmt = "YYYY-MM-DD hh:mm:ss") : (this.type = "date", _defaultFmt = "YYYY-MM-DD"), 
-        _fmt = this._element.getAttribute("format"), this.format = _fmt || this.options.format || _defaultFmt, 
+        _fmt = this._element.getAttribute("format"), "function" == typeof getFormatFun && (cusFormat = getFormatFun()), 
+        this.format = _fmt || this.options.format || cusFormat || _defaultFmt, this.timezone = this.options.timezone || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10_tinper_sparrow_src_cookies__.b)(__WEBPACK_IMPORTED_MODULE_11_tinper_sparrow_src_enumerables__.f), 
         this.isShow = !1;
     }, DateTimePicker.fn._carousel = function(newPage, direction) {
         if ("left" == direction ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.f)(newPage, "right-page") : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.f)(newPage, "left-page"), 
-        this._dateContent.appendChild(newPage), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__.b.isIE8 || __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__.b.isIE9 || __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__.b.isFF) {
-            for (var pages = this._dateContent.querySelectorAll(".u-date-content-page"), i = 0; i < pages.length; i++) this._dateContent.removeChild(pages[i]);
-            this.contentPage = newPage, this._dateContent.appendChild(newPage), "left" == direction ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(newPage, "right-page") : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(newPage, "left-page");
-        } else {
+        this._dateContent.appendChild(newPage), __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__.b.isIE8 || __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__.b.isIE9 || __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__.b.isFF, 
+        0) {
             var cleanup = function() {
                 newPage.removeEventListener("transitionend", cleanup), newPage.removeEventListener("webkitTransitionEnd", cleanup);
                 for (var pages = this._dateContent.querySelectorAll(".u-date-content-page"), i = 0; i < pages.length; i++) this._dateContent.removeChild(pages[i]);
@@ -5422,6 +5493,9 @@
                 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(newPage, "right-page")) : (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.f)(this.contentPage, "right-page"), 
                 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(newPage, "left-page"));
             }.bind(this));
+        } else {
+            for (var pages = this._dateContent.querySelectorAll(".u-date-content-page"), i = 0; i < pages.length; i++) this._dateContent.removeChild(pages[i]);
+            this.contentPage = newPage, this._dateContent.appendChild(newPage), "left" == direction ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(newPage, "right-page") : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(newPage, "left-page");
         }
     }, DateTimePicker.fn._zoomIn = function(newPage) {
         if (!this.contentPage) return this._dateContent.appendChild(newPage), void (this.contentPage = newPage);
@@ -5499,7 +5573,7 @@
         return d = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.sub(d, "d", day);
     }, DateTimePicker.fn._getPickerEndDate = function(date) {
         var d = new Date(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util__.f)(date));
-        d.setDate(1), d.setMonth(d.getMonth() + 1), d.setDate(0);
+        d.setDate(1), d.setDate(0), d.setMonth(d.getMonth() + 1);
         var day = d.getDay();
         return d = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.add(d, "d", 6 - day);
     }, DateTimePicker.fn._fillDate = function(type) {
@@ -5544,7 +5618,8 @@
                 var _d = e.target._value;
                 if (_d) {
                     this.pickerDate.setFullYear(e.target._year), this.pickerDate.setMonth(e.target._month), 
-                    this.pickerDate.setDate(_d), this.pickerDate && this.resetDataObj(this.pickerDate);
+                    this.pickerDate.setDate(_d), this.pickerDate.setMonth(e.target._month), this.pickerDate.setDate(_d), 
+                    this.pickerDate && this.resetDataObj(this.pickerDate);
                     var _cell = e.target.parentNode.querySelector(".u-date-cell.current");
                     _cell && (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(_cell, "current"), 
                     (__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__.b.isIE8 || __WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_env__.b.isIE9) && (_cell.style.backgroundColor = "#fff")), 
@@ -5798,7 +5873,7 @@
     DateTimePicker.fn.show = function(evt) {
         if (this.enable) {
             var inputValue = this._input.value;
-            this.setDate(inputValue);
+            void 0 !== this.timezone && null != this.timezone && "" != this.timezone ? this.date = inputValue ? new Date(inputValue) : __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.getDateByTimeZonec2z(new Date(), this.timezone, this.type) : this.setDate(inputValue);
             var self = this;
             if (!this._panel) {
                 this._panel = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.e)(dateTimePickerTemplateArr.join("")), 
@@ -5869,16 +5944,22 @@
         }
     }, DateTimePicker.fn.onOk = function() {
         if ("function" != typeof this.options.beforeValueChangeFun || this.options.beforeValueChangeFun.call(this, this.pickerDate)) {
+            this.pickerDate && this.pickerDate.setMilliseconds && this.pickerDate.setMilliseconds(0);
             var flag = !0;
             this.beginDateObj && this.pickerDate && this.pickerDate.getTime() < this.beginDateObj.getTime() && (flag = !1), 
             this.overDateObj && this.pickerDate && this.pickerDate.getTime() > this.overDateObj.getTime() && (flag = !1), 
-            flag && this.setDate(this.pickerDate), this.isShow = !1, this.timeOpen = !1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(this._panel, "is-visible");
+            flag && (void 0 !== this.timezone && null != this.timezone && "" != this.timezone ? this.setDate(__WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.getDateByTimeZonez2c(this.pickerDate, this.timezone)) : this.setDate(this.pickerDate)), 
+            this.isShow = !1, this.timeOpen = !1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(this._panel, "is-visible");
             try {
                 document.body.removeChild(this.overlayDiv);
             } catch (e) {}
-            flag && (this.trigger("select", {
-                value: this.pickerDate
-            }), this.trigger("validate"), (u.isIE || u.isEdge) && this.element.querySelector("input").blur());
+            if (flag) {
+                var v = this.pickerDate;
+                void 0 !== this.timezone && null != this.timezone && "" != this.timezone && (v = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.getDateByTimeZonez2c(this.pickerDate, this.timezone)), 
+                this.trigger("select", {
+                    value: v
+                }), this.trigger("validate"), (u.isIE || u.isEdge) && this.element.querySelector("input").blur();
+            }
         }
     }, DateTimePicker.fn.hide = function() {
         this.isShow = !1, this.timeOpen = !1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_dom__.d)(this._panel, "is-visible");
@@ -5890,9 +5971,12 @@
         this.trigger("validate");
     }, DateTimePicker.fn.setDate = function(value) {
         if (!value) return this.date = null, void (this._input.value = "");
-        var _date = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value);
+        var obj = {};
+        obj.timezone = this.timezone;
+        var _date = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.getDateObj(value, obj);
         if (_date) {
-            if (_date && this.resetDataObj(_date), this.beginDateObj && (this.beginDateObj && this.resetDataObj(this.beginDateObj), 
+            if (_date.setMilliseconds && _date.setMilliseconds(0), _date && this.resetDataObj(_date), 
+            this.beginDateObj && (this.beginDateObj && this.resetDataObj(this.beginDateObj), 
             _date.getTime() < this.beginDateObj.getTime())) return;
             if (this.overDateObj && (this.overDateObj && this.resetDataObj(this.overDateObj), 
             _date.getTime() > this.overDateObj.getTime())) return;
@@ -5901,15 +5985,22 @@
     }, DateTimePicker.fn.setFormat = function(format) {
         this.format = format, this._input.value = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.format(this.date, this.format);
     }, DateTimePicker.fn.setStartDate = function(startDate, type) {
-        startDate ? (this.beginDateObj = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.getDateObj(startDate), 
-        this.beginDateObj && this.resetDataObj(this.beginDateObj), this.beginYear = this.beginDateObj.getFullYear(), 
-        this.beginMonth = this.beginDateObj.getMonth(), this.beginDate = this.beginDateObj.getDate()) : (this.beginDateObj = null, 
-        this.beginYear = null, this.beginMonth = null, this.beginDate = null);
+        if (startDate) {
+            var obj = {};
+            obj.timezone = this.timezone, this.beginDateObj = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.getDateObj(startDate, obj), 
+            this.beginDateObj && (this.resetDataObj(this.beginDateObj), this.beginDateObj.setMilliseconds && this.beginDateObj.setMilliseconds(0)), 
+            this.beginYear = this.beginDateObj.getFullYear(), this.beginMonth = this.beginDateObj.getMonth(), 
+            this.beginDate = this.beginDateObj.getDate();
+        } else this.beginDateObj = null, this.beginYear = null, this.beginMonth = null, 
+        this.beginDate = null;
     }, DateTimePicker.fn.setEndDate = function(endDate) {
-        endDate ? (this.overDateObj = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.getDateObj(endDate), 
-        this.overDateObj && this.resetDataObj(this.overDateObj), this.overYear = this.overDateObj.getFullYear(), 
-        this.overMonth = this.overDateObj.getMonth(), this.overDate = this.overDateObj.getDate()) : (this.overDateObj = null, 
-        this.overYear = null, this.overMonth = null, this.overDate = null);
+        if (endDate) {
+            var obj = {};
+            obj.timezone = this.timezone, this.overDateObj = __WEBPACK_IMPORTED_MODULE_5_tinper_sparrow_src_util_dateUtils__.a.getDateObj(endDate, obj), 
+            this.overDateObj && (this.resetDataObj(this.overDateObj), this.overDateObj.setMilliseconds && this.overDateObj.setMilliseconds(0)), 
+            this.overYear = this.overDateObj.getFullYear(), this.overMonth = this.overDateObj.getMonth(), 
+            this.overDate = this.overDateObj.getDate();
+        } else this.overDateObj = null, this.overYear = null, this.overMonth = null, this.overDate = null;
     }, DateTimePicker.fn.setEnable = function(enable) {
         this.enable = enable === !0 || "true" === enable;
     }, DateTimePicker.fn.resetDataObj = function(dataObj) {
@@ -7245,9 +7336,9 @@
     Object.defineProperty(__webpack_exports__, "__esModule", {
         value: !0
     });
-    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_extend__ = __webpack_require__(3), __WEBPACK_IMPORTED_MODULE_1__keroa_baseAdapter__ = __webpack_require__(38), __WEBPACK_IMPORTED_MODULE_2__keroa_checkbox__ = __webpack_require__(22), __WEBPACK_IMPORTED_MODULE_3__keroa_ckeditor__ = __webpack_require__(39), __WEBPACK_IMPORTED_MODULE_4__keroa_combo__ = __webpack_require__(23), __WEBPACK_IMPORTED_MODULE_5__keroa_currency__ = __webpack_require__(24), __WEBPACK_IMPORTED_MODULE_6__keroa_datetimepicker__ = __webpack_require__(25), __WEBPACK_IMPORTED_MODULE_7__keroa_float__ = __webpack_require__(12), __WEBPACK_IMPORTED_MODULE_9__keroa_integer__ = (__webpack_require__(40), 
-    __webpack_require__(15)), __WEBPACK_IMPORTED_MODULE_10__keroa_month__ = __webpack_require__(26), __WEBPACK_IMPORTED_MODULE_11__keroa_pagination__ = __webpack_require__(44), __WEBPACK_IMPORTED_MODULE_12__keroa_password__ = __webpack_require__(27), __WEBPACK_IMPORTED_MODULE_13__keroa_percent__ = __webpack_require__(28), __WEBPACK_IMPORTED_MODULE_14__keroa_phoneNumber__ = __webpack_require__(45), __WEBPACK_IMPORTED_MODULE_15__keroa_landLine__ = __webpack_require__(41), __WEBPACK_IMPORTED_MODULE_16__keroa_string__ = __webpack_require__(10), __WEBPACK_IMPORTED_MODULE_17__keroa_progress__ = __webpack_require__(46), __WEBPACK_IMPORTED_MODULE_18__keroa_radio__ = __webpack_require__(29), __WEBPACK_IMPORTED_MODULE_19__keroa_switch__ = __webpack_require__(47), __WEBPACK_IMPORTED_MODULE_20__keroa_textarea__ = __webpack_require__(48), __WEBPACK_IMPORTED_MODULE_21__keroa_textfield__ = __webpack_require__(49), __WEBPACK_IMPORTED_MODULE_22__keroa_time__ = __webpack_require__(30), __WEBPACK_IMPORTED_MODULE_23__keroa_url__ = __webpack_require__(31), __WEBPACK_IMPORTED_MODULE_24__keroa_year__ = __webpack_require__(32), __WEBPACK_IMPORTED_MODULE_25__keroa_yearmonth__ = __webpack_require__(33), __WEBPACK_IMPORTED_MODULE_26__keroa_monthdate__ = __webpack_require__(42), __WEBPACK_IMPORTED_MODULE_28__keroa_multilang__ = (__webpack_require__(50), 
-    __webpack_require__(43)), __WEBPACK_IMPORTED_MODULE_29_neoui_kero_mixin_src_enableMixin__ = __webpack_require__(18), __WEBPACK_IMPORTED_MODULE_30_neoui_kero_mixin_src_requiredMixin__ = __webpack_require__(19), __WEBPACK_IMPORTED_MODULE_31_neoui_kero_mixin_src_validateMixin__ = __webpack_require__(20), __WEBPACK_IMPORTED_MODULE_32_neoui_kero_mixin_src_valueMixin__ = __webpack_require__(21);
+    var __WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_extend__ = __webpack_require__(3), __WEBPACK_IMPORTED_MODULE_1__keroa_baseAdapter__ = __webpack_require__(38), __WEBPACK_IMPORTED_MODULE_2__keroa_checkbox__ = __webpack_require__(23), __WEBPACK_IMPORTED_MODULE_3__keroa_ckeditor__ = __webpack_require__(39), __WEBPACK_IMPORTED_MODULE_4__keroa_combo__ = __webpack_require__(24), __WEBPACK_IMPORTED_MODULE_5__keroa_currency__ = __webpack_require__(25), __WEBPACK_IMPORTED_MODULE_6__keroa_datetimepicker__ = __webpack_require__(26), __WEBPACK_IMPORTED_MODULE_7__keroa_float__ = __webpack_require__(12), __WEBPACK_IMPORTED_MODULE_9__keroa_integer__ = (__webpack_require__(40), 
+    __webpack_require__(17)), __WEBPACK_IMPORTED_MODULE_10__keroa_month__ = __webpack_require__(27), __WEBPACK_IMPORTED_MODULE_11__keroa_pagination__ = __webpack_require__(44), __WEBPACK_IMPORTED_MODULE_12__keroa_password__ = __webpack_require__(28), __WEBPACK_IMPORTED_MODULE_13__keroa_percent__ = __webpack_require__(29), __WEBPACK_IMPORTED_MODULE_14__keroa_phoneNumber__ = __webpack_require__(45), __WEBPACK_IMPORTED_MODULE_15__keroa_landLine__ = __webpack_require__(41), __WEBPACK_IMPORTED_MODULE_16__keroa_string__ = __webpack_require__(10), __WEBPACK_IMPORTED_MODULE_17__keroa_progress__ = __webpack_require__(46), __WEBPACK_IMPORTED_MODULE_18__keroa_radio__ = __webpack_require__(30), __WEBPACK_IMPORTED_MODULE_19__keroa_switch__ = __webpack_require__(47), __WEBPACK_IMPORTED_MODULE_20__keroa_textarea__ = __webpack_require__(48), __WEBPACK_IMPORTED_MODULE_21__keroa_textfield__ = __webpack_require__(49), __WEBPACK_IMPORTED_MODULE_22__keroa_time__ = __webpack_require__(31), __WEBPACK_IMPORTED_MODULE_23__keroa_url__ = __webpack_require__(32), __WEBPACK_IMPORTED_MODULE_24__keroa_year__ = __webpack_require__(33), __WEBPACK_IMPORTED_MODULE_25__keroa_yearmonth__ = __webpack_require__(34), __WEBPACK_IMPORTED_MODULE_26__keroa_monthdate__ = __webpack_require__(42), __WEBPACK_IMPORTED_MODULE_28__keroa_multilang__ = (__webpack_require__(50), 
+    __webpack_require__(43)), __WEBPACK_IMPORTED_MODULE_29_neoui_kero_mixin_src_enableMixin__ = __webpack_require__(19), __WEBPACK_IMPORTED_MODULE_30_neoui_kero_mixin_src_requiredMixin__ = __webpack_require__(20), __WEBPACK_IMPORTED_MODULE_31_neoui_kero_mixin_src_validateMixin__ = __webpack_require__(21), __WEBPACK_IMPORTED_MODULE_32_neoui_kero_mixin_src_valueMixin__ = __webpack_require__(22);
     __webpack_require__.d(__webpack_exports__, "u", function() {
         return ex;
     });

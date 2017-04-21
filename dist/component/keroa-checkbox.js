@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.2.0
+ * neoui-kero v3.2.1
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -528,7 +528,7 @@
             var self = this;
             if (!this.slice) if (this.isGroup) {
                 if (this.datasource) {
-                    if (this.trueValue = val, this.options.hasOther) {
+                    if (this.showValue = "", this.trueValue = val, this.options.hasOther) {
                         var otherVal = "";
                         val && (otherVal = val + ",");
                     }
@@ -536,12 +536,17 @@
                         var comp = ele["u.Checkbox"];
                         if (comp) {
                             var inputValue = comp._inputElement.value;
-                            inputValue && comp._inputElement.checked != (val + ",").indexOf(inputValue + ",") > -1 && (self.slice = !0, 
-                            comp.toggle(), self.slice = !1), inputValue && (val + ",").indexOf(inputValue + ",") > -1 && self.options.hasOther && (otherVal = otherVal.replace(inputValue + ",", ""));
+                            if (inputValue && comp._inputElement.checked != (val + ",").indexOf(inputValue + ",") > -1 && (self.slice = !0, 
+                            comp.toggle(), self.slice = !1), inputValue && (val + ",").indexOf(inputValue + ",") > -1) {
+                                self.options.hasOther && (otherVal = otherVal.replace(inputValue + ",", ""));
+                                var nameSpan = ele.querySelector("[data-role=name]"), showValue = $(nameSpan).text();
+                                showValue && (self.showValue += showValue + ",");
+                            }
                         }
                     }), this.options.hasOther && (otherVal.indexOf(this.otherValue + ",") > -1 && (self.lastCheck.value = this.otherValue, 
                     otherVal = otherVal.replace(this.otherValue + ",", "")), (otherVal = otherVal.replace(/\,/g, "")) && (self.otherInput.oldValue = otherVal, 
-                    self.otherInput.value = otherVal, self.otherInput.removeAttribute("disabled")));
+                    self.otherInput.value = otherVal, self.showValue += otherVal + ",", self.otherInput.removeAttribute("disabled"), 
+                    self.otherComp._inputElement.checked = !0, self.otherComp._updateClasses()));
                 }
             } else {
                 var flag;

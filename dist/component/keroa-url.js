@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.2.0
+ * neoui-kero v3.2.1
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -166,7 +166,7 @@
     });
     var UrlAdapter = __WEBPACK_IMPORTED_MODULE_0__keroa_string__.a.extend({
         init: function() {
-            this.validType = "url", UrlAdapter.superclass.init.apply(this);
+            UrlAdapter.superclass.init.apply(this), this.validType = "url";
         },
         setEnable: function(enable) {
             if (enable === !0 || "true" === enable) this.enable = !0, this.element.removeAttribute("readonly"), 

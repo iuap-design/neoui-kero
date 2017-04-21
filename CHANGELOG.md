@@ -1,3 +1,15 @@
+<a name="3.2.1"></a>
+## [3.2.1](https://github.com/iuap-design/neoui-kero/compare/v3.2.0...v3.2.1) (2017-04-19)
+
+
+### Bug Fixes
+
+* 单选、下拉、多选getShowValue获取不到值 ([860f4c1](https://github.com/iuap-design/neoui-kero/commit/860f4c1))
+* 解决clockpickler组件第一次选择00:00无法存储数据的问题 ([0df9705](https://github.com/iuap-design/neoui-kero/commit/0df9705))
+* 解决tree通过datatable删除数据时报错的问题 ([12c2900](https://github.com/iuap-design/neoui-kero/commit/12c2900))
+
+
+
 <a name="3.2.0"></a>
 # [3.2.0](https://github.com/iuap-design/neoui-kero/compare/v3.1.27...v3.2.0) (2017-03-24)
 

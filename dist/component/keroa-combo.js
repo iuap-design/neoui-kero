@@ -1,5 +1,5 @@
 /*!
- * neoui-kero v3.2.0
+ * neoui-kero v3.2.1
  * neoui kero
  * author : yonyou FED
  * homepage : https://github.com/iuap-design/neoui-kero#readme
@@ -300,9 +300,11 @@
         hide: function() {
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__.c)(document, "click", this.callback), 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__.a)(this._ul, "is-visible"), 
-            this._ul.style.zIndex = -1, this.trigger("select", {
+            this._ul.style.zIndex = -1;
+            var name = this._input.value;
+            this.mutilSelect && (name = this.name), this.trigger("select", {
                 value: this.value,
-                name: this._input.value
+                name: name
             });
         },
         setComboData: function(datas, options) {
@@ -384,20 +386,23 @@
         },
         setValue: function(value) {
             var self = this;
-            value += "", value = value || "";
+            this.name = "", value += "", value = value || "";
             var values = value.split(",");
             this.mutilSelect === !0 && (self._combo_name_par && (self._combo_name_par.innerHTML = "", 
             $(self._combo_name_par).removeClass("u-combo-overwidth")), this.value = ""), value || (this._input.value = "", 
             this.value = "", this._updateItemSelect());
             var matched = !1;
-            this.nowWidth = 0, this.showNowWidth = 0, this.multiNoneArr = [], this.comboDatas.forEach(function(item, index) {
+            if (this.nowWidth = 0, this.showNowWidth = 0, this.multiNoneArr = [], this.comboDatas.forEach(function(item, index) {
                 if (this.mutilSelect === !0) values.indexOf(item.value) != -1 && this.selectItem(index); else if (item.value + "" === value) return this.selectItem(index), 
                 void (matched = !0);
-            }.bind(this)), this.onlySelect || matched || (this.value = value, this._input.value = value, 
-            this.trigger("select", {
-                value: this.value,
-                name: this._input.value
-            }));
+            }.bind(this)), !this.onlySelect && !matched) {
+                this.value = value, this._input.value = value;
+                var name = this._input.value;
+                this.mutilSelect && (name = this.name), this.trigger("select", {
+                    value: this.value,
+                    name: name
+                });
+            }
         },
         emptyValue: function() {
             this.value = "", this._input.value = "";
@@ -668,7 +673,8 @@
         },
         modelValueChange: function(value) {
             this.slice || (null !== value && void 0 !== value || (value = ""), this.comp.setValue(value), 
-            this.trueValue = this.formater ? this.formater.format(value) : value, this.element.trueValue = this.trueValue);
+            this.mutil && (this.showValue = this.comp.name), this.trueValue = this.formater ? this.formater.format(value) : value, 
+            this.element.trueValue = this.trueValue);
         },
         setEnable: function(enable) {
             var self = this;
