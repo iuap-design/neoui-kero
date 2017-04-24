@@ -391,7 +391,7 @@
             this.comp.toggle(), this.slice = !1);
         },
         setEnable: function(enable) {
-            enable === !0 || "true" === enable ? (this.enable = !0, this.comp.enable()) : enable !== !1 && "false" !== enable || (this.enable = !1, 
+            !0 === enable || "true" === enable ? (this.enable = !0, this.comp.enable()) : !1 !== enable && "false" !== enable || (this.enable = !1, 
             this.comp.disable());
         }
     });

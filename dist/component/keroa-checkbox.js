@@ -281,7 +281,7 @@
         if (!val || "function" == typeof val) return val;
         if ("function" == typeof target[val]) return target[val];
         if ("function" == typeof window[val]) return window[val];
-        if (val.indexOf(".") != -1) {
+        if (-1 != val.indexOf(".")) {
             var func = getJSObject(target, val);
             if ("function" == typeof func) return func;
             if ("function" == typeof (func = getJSObject(window, val))) return func;
@@ -430,7 +430,7 @@
     var CheckboxAdapter = u.BaseAdapter.extend({
         init: function() {
             var self = this;
-            if (this.isGroup = this.options.isGroup === !0 || "true" === this.options.isGroup, 
+            if (this.isGroup = !0 === this.options.isGroup || "true" === this.options.isGroup, 
             this.otherValue = this.options.otherValue || "其他", this.beforeEdit = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.a)(this.viewModel, this.options.beforeEdit), 
             this.options.datasource || this.options.hasOther) if (__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.a.isIE) this.checkboxTemplateHTML = this.element.innerHTML; else {
                 this.checkboxTemplateArray = [];
@@ -443,7 +443,7 @@
             this.comp.on("change", function() {
                 if (!self.slice && self.dataModel) {
                     var modelValue = self.dataModel.getValue(self.field);
-                    if (modelValue = modelValue ? modelValue : "", self.isGroup) {
+                    if (modelValue = modelValue || "", self.isGroup) {
                         var valueArr = "" == modelValue ? [] : modelValue.split(",");
                         if (self.comp._inputElement.checked) valueArr.push(self.checkedValue); else {
                             var index = valueArr.indexOf(self.checkedValue);
@@ -470,7 +470,7 @@
                 self.lastLabel["u.Checkbox"] = comp, self.otherComp = comp, comp.on("change", function() {
                     if (!self.slice) {
                         var modelValue = self.dataModel.getValue(self.field);
-                        modelValue = modelValue ? modelValue : "";
+                        modelValue = modelValue || "";
                         var valueArr = "" == modelValue ? [] : modelValue.split(",");
                         if (comp._inputElement.checked) {
                             var oldIndex = valueArr.indexOf(self.otherInput.oldValue);
@@ -513,7 +513,7 @@
                 comp.beforeEdit = self.beforeEdit), ele["u.Checkbox"] = comp, comp.on("change", function() {
                     if (!self.slice) {
                         var modelValue = self.dataModel.getValue(self.field);
-                        modelValue = modelValue ? modelValue : "";
+                        modelValue = modelValue || "";
                         var valueArr = "" == modelValue ? [] : modelValue.split(",");
                         if (comp._inputElement.checked) valueArr.push(comp._inputElement.value); else {
                             var index = valueArr.indexOf(comp._inputElement.value);
@@ -550,16 +550,16 @@
                 }
             } else {
                 var flag;
-                flag = this.checkedValue === !0 ? val === this.checkedValue || "true" === val : val === this.checkedValue, 
+                flag = !0 === this.checkedValue ? val === this.checkedValue || "true" === val : val === this.checkedValue, 
                 this.comp._inputElement.checked != flag && (this.slice = !0, this.comp.toggle(), 
                 this.slice = !1);
             }
         },
         setEnable: function(enable) {
-            this.enable = enable === !0 || "true" === enable, this.isGroup ? this.datasource && (this.otherInput && !this.enable && this.otherInput.setAttribute("disabled", !0), 
+            this.enable = !0 === enable || "true" === enable, this.isGroup ? this.datasource && (this.otherInput && !this.enable && this.otherInput.setAttribute("disabled", !0), 
             this.element.querySelectorAll(".u-checkbox").forEach(function(ele) {
                 var comp = ele["u.Checkbox"];
-                comp && (enable === !0 || "true" === enable ? comp.enable() : comp.disable());
+                comp && (!0 === enable || "true" === enable ? comp.enable() : comp.disable());
             })) : this.enable ? this.comp.enable() : this.comp.disable();
         }
     });

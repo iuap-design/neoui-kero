@@ -189,7 +189,7 @@
             this.panelContentDiv.appendChild(yearPage), this.currentPanel = "year";
         },
         setValue: function(value) {
-            value = value ? value : "", this.value = value, this.year = value ? value : this.defaultYear, 
+            value = value || "", this.value = value, this.year = value || this.defaultYear, 
             this.startYear = this.year - this.year % 10 - 1, this.input.value = value, this.trigger("valueChange", {
                 value: value
             });

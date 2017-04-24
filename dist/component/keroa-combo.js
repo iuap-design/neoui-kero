@@ -242,9 +242,6 @@
                 var keyCode = e.keyCode;
                 if (self.isAutoTip) switch (keyCode) {
                   case 38:
-                    u.stopEvent(e);
-                    break;
-
                   case 40:
                     u.stopEvent(e);
                     break;
@@ -337,7 +334,7 @@
                 var flag, val = this.comboDatas[index].value, name = this.comboDatas[index].name, index = (this.value + ",").indexOf(val + ","), l = val.length + 1;
                 if (0 == this.fullWidth && (this.fullWidth = this._input.offsetWidth, (this.fullWidth < 0 || 0 == this.fullWidth) && (this.fullWidth = parseInt($(this._input).width()) + 2 * parseInt($(this._input).css("border-left-width")) + 2 * parseInt($(this._input).css("padding-left")) + "px"), 
                 this.fullWidth > 0 && this._combo_name_par && (this._combo_name_par.style.maxWidth = this.fullWidth + "px")), 
-                index != -1 ? (this.value = this.value.substring(0, index) + this.value.substring(index + l), 
+                -1 != index ? (this.value = this.value.substring(0, index) + this.value.substring(index + l), 
                 flag = "-") : (this.value = this.value ? this.value + val + "," : val + ",", flag = "+"), 
                 "+" == flag) {
                     this.name += name + ",";
@@ -388,12 +385,12 @@
             var self = this;
             this.name = "", value += "", value = value || "";
             var values = value.split(",");
-            this.mutilSelect === !0 && (self._combo_name_par && (self._combo_name_par.innerHTML = "", 
+            !0 === this.mutilSelect && (self._combo_name_par && (self._combo_name_par.innerHTML = "", 
             $(self._combo_name_par).removeClass("u-combo-overwidth")), this.value = ""), value || (this._input.value = "", 
             this.value = "", this._updateItemSelect());
             var matched = !1;
             if (this.nowWidth = 0, this.showNowWidth = 0, this.multiNoneArr = [], this.comboDatas.forEach(function(item, index) {
-                if (this.mutilSelect === !0) values.indexOf(item.value) != -1 && this.selectItem(index); else if (item.value + "" === value) return this.selectItem(index), 
+                if (!0 === this.mutilSelect) -1 != values.indexOf(item.value) && this.selectItem(index); else if (item.value + "" === value) return this.selectItem(index), 
                 void (matched = !0);
             }.bind(this)), !this.onlySelect && !matched) {
                 this.value = value, this._input.value = value;
@@ -678,13 +675,13 @@
         },
         setEnable: function(enable) {
             var self = this;
-            enable === !0 || "true" === enable ? (this.enable = !0, this.element.removeAttribute("readonly"), 
+            !0 === enable || "true" === enable ? (this.enable = !0, this.element.removeAttribute("readonly"), 
             this.comp._input.removeAttribute("readonly"), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_dom__.a)(this.element.parentNode, "disablecover"), 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.a)(this.comp._input, "focus", function(e) {
                 self.comp.show(e), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.b)(e);
             }), this.comp.iconBtn && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.a)(this.comp.iconBtn, "click", function(e) {
                 self.comp.show(e), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.b)(e);
-            })) : enable !== !1 && "false" !== enable || (this.enable = !1, this.element.setAttribute("readonly", "readonly"), 
+            })) : !1 !== enable && "false" !== enable || (this.enable = !1, this.element.setAttribute("readonly", "readonly"), 
             this.comp._input.setAttribute("readonly", "readonly"), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_dom__.b)(this.element.parentNode, "disablecover"), 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.c)(this.comp._input, "focus"), 
             this.comp.iconBtn && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.c)(this.comp.iconBtn, "click"));

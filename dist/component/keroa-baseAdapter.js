@@ -200,8 +200,8 @@
         },
         methods: {
             setEnable: function(enable) {
-                enable === !0 || "true" === enable ? (this.enable = !0, this.element.removeAttribute("readonly"), 
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__.e)(this.element.parentNode, "disablecover")) : enable !== !1 && "false" !== enable || (this.enable = !1, 
+                !0 === enable || "true" === enable ? (this.enable = !0, this.element.removeAttribute("readonly"), 
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__.e)(this.element.parentNode, "disablecover")) : !1 !== enable && "false" !== enable || (this.enable = !1, 
                 this.element.setAttribute("readonly", "readonly"), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_dom__.b)(this.element.parentNode, "disablecover"));
             }
         }
@@ -220,7 +220,7 @@
         },
         methods: {
             setRequired: function(required) {
-                required === !0 || "true" === required ? this.required = !0 : required !== !1 && "false" !== required || (this.required = !1);
+                !0 === required || "true" === required ? this.required = !0 : !1 !== required && "false" !== required || (this.required = !1);
             }
         }
     };
@@ -264,7 +264,7 @@
         methods: {
             doValidate: function(options) {
                 if (this.validate) {
-                    if (options && options.trueValue === !0) {
+                    if (options && !0 === options.trueValue) {
                         options.showMsg = options.showMsg || !1;
                         var result = this.validate.check({
                             pValue: this.getValue(),
@@ -382,7 +382,7 @@
     function Ctor() {}
     function mix(r, s, wl) {
         for (var p in s) if (s.hasOwnProperty(p)) {
-            if (wl && indexOf(wl, p) === -1) continue;
+            if (wl && -1 === indexOf(wl, p)) continue;
             "prototype" !== p && (r[p] = s[p]);
         }
     }
@@ -396,7 +396,7 @@
         function SubClass() {
             var ret;
             return parent.apply(this, arguments), this.constructor === SubClass && this.initialize && (ret = this.initialize.apply(this, arguments)), 
-            ret ? ret : this;
+            ret || this;
         }
         return isFunction(parent) || (properties = parent, parent = null), properties || (properties = {}), 
         parent || (parent = properties.Extends || Class), properties.Extends = parent, parent !== Class && mix(SubClass, parent, parent.StaticsWhiteList), 
@@ -752,7 +752,7 @@
                 passed: !0
             };
             var r = value.match(reg);
-            if (null === r || r === !1) return this.showMsg(this.errorMsg), this.needClean = !0, 
+            if (null === r || !1 === r) return this.showMsg(this.errorMsg), this.needClean = !0, 
             {
                 passed: !1,
                 Msg: this.errorMsg
@@ -856,7 +856,7 @@
                 this.tooltip && this.tooltip.hide(), this.tooltip = new __WEBPACK_IMPORTED_MODULE_4__neoui_tooltip__.a(this.referDom, tipOptions), 
                 this.tooltip.setTitle(msg), this.tooltip.show();
             }
-            this.tipAliveTime !== -1 && (clearTimeout(this.timeout), this.timeout = setTimeout(function() {
+            -1 !== this.tipAliveTime && (clearTimeout(this.timeout), this.timeout = setTimeout(function() {
                 self.hideMsg();
             }, this.tipAliveTime));
         }
@@ -911,7 +911,7 @@
     if (__webpack_require__.d(__webpack_exports__, "a", function() {
         return trans;
     }), window.getCurrentJsPath = function() {
-        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = ("" + doc.querySelector).indexOf("[native code]") === -1;
+        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = -1 === ("" + doc.querySelector).indexOf("[native code]");
         if (doc.currentScript) return doc.currentScript.src;
         var stack;
         try {

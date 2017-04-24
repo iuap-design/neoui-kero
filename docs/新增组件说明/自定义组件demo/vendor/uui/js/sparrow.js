@@ -1,5 +1,5 @@
 /*!
- * tinper-sparrow v3.1.3
+ * tinper-sparrow v0.1.1
  * sparrow.js
  * author : Yonyou FED
  * homepage : https://github.com/iuap-design/tinper-sparrow#readme
@@ -2886,16 +2886,17 @@
 	};
 
 	PhoneNumberMasker.prototype.formatArgument = function (obj) {
-		var numberObj = {};
-		numberObj.value = obj;
-		return numberObj;
+		return obj;
 	};
 
 	PhoneNumberMasker.prototype.innerFormat = function (obj) {
 		if (!obj) {
 			return;
 		}
-		return obj;
+		var val = obj;
+		return {
+			value: val
+		};
 	};
 
 	NumberMasker.DefaultFormatMeta = {

@@ -495,10 +495,10 @@
             }
         },
         setEnable: function(enable) {
-            this.enable = enable === !0 || "true" === enable, this.dynamic ? this.datasource && (this.otherInput && !this.enable && this.otherInput.setAttribute("disabled", !0), 
+            this.enable = !0 === enable || "true" === enable, this.dynamic ? this.datasource && (this.otherInput && !this.enable && this.otherInput.setAttribute("disabled", !0), 
             this.element.querySelectorAll(".u-radio").forEach(function(ele) {
                 var comp = ele["u.Radio"];
-                comp && (enable === !0 || "true" === enable ? comp.enable() : comp.disable());
+                comp && (!0 === enable || "true" === enable ? comp.enable() : comp.disable());
             })) : this.enable ? this.comp.enable() : this.comp.disable();
         }
     });

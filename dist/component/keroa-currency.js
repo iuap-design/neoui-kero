@@ -72,9 +72,8 @@
     var dateFormat = function(str) {
         if ("string" != typeof str) return str;
         if (str && str.indexOf("-") > -1) {
-            var ua = navigator.userAgent.toLowerCase();
-            /iphone|ipad|ipod/.test(ua) && (str = str.replace(/-/g, "/"), str = str.replace(/(^\s+)|(\s+$)/g, ""), 
-            str.length <= 8 && (str = str += "/01"));
+            /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) && (str = str.replace(/-/g, "/"), 
+            str = str.replace(/(^\s+)|(\s+$)/g, ""), str.length <= 8 && (str = str += "/01"));
         }
         return str;
     };
@@ -790,7 +789,7 @@
         if (data.totalRow || 0 === data.totalRow) var newTotalRow = data.totalRow; else if (data.rows) var newTotalRow = data.rows.length; else var newTotalRow = this.totalRow();
         var select, focus, unSelect = !!options && options.unSelect;
         if (this.pageIndex(newIndex), this.pageSize(newSize), this.pageCache = data.pageCache || this.pageCache, 
-        this.pageCache === !0) {
+        !0 === this.pageCache) {
             if (this.updatePages(data.pages), newIndex != this.pageIndex()) return this.setCurrentPage(newIndex, !0), 
             this.totalPages(newTotalPages), void this.totalRow(newTotalRow + this.newCount);
             this.removeAllRows(), select = this.getPage(newIndex).selectedIndices, focus = this.getPage(newIndex).focus;
@@ -802,7 +801,7 @@
         this.updateSelectedIndices(), select && select.length > 0 && this.rows().length > 0 && this.setRowsSelect(select), 
         void 0 !== focus && this.getRow(focus) && this.setRowFocus(focus);
     }, setValue = function(fieldName, value, row, ctx) {
-        1 === arguments.length && (value = fieldName, fieldName = "$data"), (row = row ? row : this.getCurrentRow()) && row.setValue(fieldName, value, ctx);
+        1 === arguments.length && (value = fieldName, fieldName = "$data"), (row = row || this.getCurrentRow()) && row.setValue(fieldName, value, ctx);
     }, resetAllValue = function() {
         for (var rows = this.rows(), i = 0; i < rows.length; i++) {
             var row = rows[i];
@@ -839,7 +838,7 @@
         var fieldEnable = this.getMeta(fieldName, "enable");
         return void 0 !== fieldEnable && null != fieldEnable || (fieldEnable = !0), fieldEnable && this.enable;
     }, setEnable = function(enable) {
-        this.enable != enable && (enable = enable !== !1, this.enable = enable, this.enableChange(-this.enableChange()), 
+        this.enable != enable && (enable = !1 !== enable, this.enable = enable, this.enableChange(-this.enableChange()), 
         this.trigger(DataTable.ON_ENABLE_CHANGE, {
             enable: this.enable
         }));
@@ -911,13 +910,13 @@
         return getCurrentFunObj;
     });
     var getCurrentRow = function() {
-        if (this.focusIndex() != -1) return this.getFocusRow();
+        if (-1 != this.focusIndex()) return this.getFocusRow();
         var index = this.getSelectedIndex();
-        return index == -1 ? null : this.getRow(index);
+        return -1 == index ? null : this.getRow(index);
     }, getCurrentIndex = function() {
-        if (this.focusIndex() != -1) return this.focusIndex();
+        if (-1 != this.focusIndex()) return this.focusIndex();
         var index = this.getSelectedIndex();
-        return index == -1 ? -1 : index;
+        return -1 == index ? -1 : index;
     }, getCurrentFunObj = {
         getCurrentRow: getCurrentRow,
         getCurrentIndex: getCurrentIndex
@@ -944,7 +943,7 @@
                 var pageIndex = this.pageIndex(), currPage = pages[pageIndex];
                 if (currPage) {
                     var currIndex = this.focusIndex();
-                    rule == DataTable.SUBMIT.current && currIndex == -1 && (currIndex = this.getSelectedIndex());
+                    rule == DataTable.SUBMIT.current && -1 == currIndex && (currIndex = this.getSelectedIndex());
                     var data = page2data(currPage, pageIndex);
                     data.rows = [];
                     for (var i = 0, count = currPage.rows.length; i < count; i++) {
@@ -1006,7 +1005,7 @@
             if (rule == DataTable.SUBMIT.current) {
                 datas = [];
                 var currIndex = this.focusIndex();
-                currIndex == -1 && (currIndex = this.getSelectedIndex()), rows = this.rows();
+                -1 == currIndex && (currIndex = this.getSelectedIndex()), rows = this.rows();
                 for (var i = 0, count = rows.length; i < count; i++) i == currIndex ? datas.push(rows[i].getData()) : datas.push(rows[i].getEmptyData());
             } else if (rule == DataTable.SUBMIT.focus) {
                 datas = [], rows = this.rows();
@@ -1105,7 +1104,7 @@
         return getFocusFunObj;
     });
     var getFocusRow = function() {
-        return this.focusIndex() != -1 ? this.getRow(this.focusIndex()) : null;
+        return -1 != this.focusIndex() ? this.getRow(this.focusIndex()) : null;
     }, getFocusIndex = function() {
         return this.focusIndex();
     }, getFocusFunObj = {
@@ -1164,11 +1163,11 @@
         return this.getSelectedIndices();
     }, getSelectedDatas = function(withEmptyRow) {
         for (var selectedIndices = this.selectedIndices(), datas = [], sIndices = [], i = 0, count = selectedIndices.length; i < count; i++) sIndices.push(selectedIndices[i]);
-        for (var rows = this.rows(), i = 0, count = rows.length; i < count; i++) sIndices.indexOf(i) != -1 ? datas.push(rows[i].getData()) : 1 == withEmptyRow && datas.push(rows[i].getEmptyData());
+        for (var rows = this.rows(), i = 0, count = rows.length; i < count; i++) -1 != sIndices.indexOf(i) ? datas.push(rows[i].getData()) : 1 == withEmptyRow && datas.push(rows[i].getEmptyData());
         return datas;
     }, getSelectedRows = function() {
         for (var selectedIndices = this.selectedIndices(), selectRows = [], rows = this.rows.peek(), sIndices = [], i = 0, count = selectedIndices.length; i < count; i++) sIndices.push(selectedIndices[i]);
-        for (var i = 0, count = rows.length; i < count; i++) sIndices.indexOf(i) != -1 && selectRows.push(rows[i]);
+        for (var i = 0, count = rows.length; i < count; i++) -1 != sIndices.indexOf(i) && selectRows.push(rows[i]);
         return selectRows;
     }, getSelectFunObj = {
         getSelectedIndex: getSelectedIndex,
@@ -1244,7 +1243,7 @@
         }
     }, createField = function(fieldName, options) {
         if (1 != this.root.strict) {
-            if (fieldName.indexOf(".") != -1) for (var fNames = fieldName.split("."), _name = fNames[0], i = 0, count = fNames.length; i < count; i++) {
+            if (-1 != fieldName.indexOf(".")) for (var fNames = fieldName.split("."), _name = fNames[0], i = 0, count = fNames.length; i < count; i++) {
                 if (this.meta[_name] && "child" === this.meta[_name].type) return;
                 i + 1 < count && (_name = _name + "." + fNames[i + 1]);
             }
@@ -1462,7 +1461,7 @@
     });
     var removeRowByRowId = function(rowId) {
         var index = this.getIndexByRowId(rowId);
-        index != -1 && this.removeRow(index);
+        -1 != index && this.removeRow(index);
     }, removeRow = function(index) {
         index instanceof Row && (index = this.getIndexByRowId(index.rowId)), this.removeRows([ index ]);
     }, removeAllRows = function() {
@@ -1508,7 +1507,7 @@
     }, addRow = function(row) {
         this.insertRow(this.rows().length, row), this.resetDelRowEnd();
     }, resetDelRowEnd = function() {
-        for (var i = 0; i < this.rows().length; i++) {
+        for (var i = this.rows().length - 1; i > -1; i--) {
             var row = this.rows()[i];
             row.status != Row.STATUS.DELETE && row.status != Row.STATUS.FALSE_DELETE || (this.rows().splice(i, 1), 
             this.rows().push(row));
@@ -1547,7 +1546,7 @@
         return rowCurrentFunObj;
     });
     var updateCurrIndex = function() {
-        var currentIndex = this.focusIndex() != -1 ? this.focusIndex() : this.getSelectedIndex();
+        var currentIndex = -1 != this.focusIndex() ? this.focusIndex() : this.getSelectedIndex();
         this._oldCurrentIndex != currentIndex && (this._oldCurrentIndex = currentIndex, 
         this.trigger(DataTable.ON_CURRENT_ROW_CHANGE), this.currentRowChange(-this.currentRowChange()), 
         this.ns && this.root.valueChange[this.ns] && this.root.valueChange[this.ns](-this.root.valueChange[this.ns]()));
@@ -1599,7 +1598,7 @@
     var setRowFocus = function(index, quiet, force) {
         var rowId = null;
         index instanceof Row && (index = this.getIndexByRowId(index.rowId), rowId = index.rowId), 
-        index === -1 || index === this.focusIndex() && !force || (this.focusIndex(index), 
+        -1 === index || index === this.focusIndex() && !force || (this.focusIndex(index), 
         quiet || (this.currentRowChange(-this.currentRowChange()), rowId || (rowId = this.getRow(index).rowId), 
         this.trigger(DataTable.ON_ROW_FOCUS, {
             index: index,
@@ -1608,13 +1607,13 @@
     }, setRowUnFocus = function() {
         this.currentRowChange(-this.currentRowChange());
         var indx = this.focusIndex(), rowId = null;
-        indx !== -1 && (rowId = this.getRow(indx).rowId), this.trigger(DataTable.ON_ROW_UNFOCUS, {
+        -1 !== indx && (rowId = this.getRow(indx).rowId), this.trigger(DataTable.ON_ROW_UNFOCUS, {
             index: indx,
             rowId: rowId
         }), this.focusIndex(-1), this.updateCurrIndex();
     }, updateFocusIndex = function(opIndex, opType, num) {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.a)(num) || (num = 1), 
-        opIndex <= this.focusIndex() && this.focusIndex() != -1 && ("+" === opType ? this.focusIndex(this.focusIndex() + num) : "-" === opType && (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1 ? this.focusIndex(-1) : this.focusIndex() > opIndex + num - 1 && this.focusIndex(this.focusIndex() - num)));
+        opIndex <= this.focusIndex() && -1 != this.focusIndex() && ("+" === opType ? this.focusIndex(this.focusIndex() + num) : "-" === opType && (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1 ? this.focusIndex(-1) : this.focusIndex() > opIndex + num - 1 && this.focusIndex(this.focusIndex() - num)));
     }, rowFocusFunObj = {
         setRowFocus: setRowFocus,
         setRowUnFocus: setRowUnFocus,
@@ -1633,7 +1632,7 @@
         index instanceof Row && (index = this.getIndexByRowId(index.rowId)), this.setRowsSelect([ index ]), 
         this.setRowFocus(this.getSelectedIndex());
     }, setRowsSelect = function(indices) {
-        if ((indices = indices || -1) == -1) return void this.setAllRowsUnSelect({
+        if (-1 == (indices = indices || -1)) return void this.setAllRowsUnSelect({
             quiet: !0
         });
         indices = __WEBPACK_IMPORTED_MODULE_1__util__.a._formatToIndicesArray(this, indices);
@@ -1675,10 +1674,10 @@
     }, setRowsUnSelect = function(indices) {
         indices = __WEBPACK_IMPORTED_MODULE_1__util__.a._formatToIndicesArray(this, indices);
         var selectedIndices = this.selectedIndices().slice();
-        if (selectedIndices.indexOf(indices[0]) != -1) {
+        if (-1 != selectedIndices.indexOf(indices[0])) {
             for (var i = 0; i < indices.length; i++) {
                 var index = indices[i], pos = selectedIndices.indexOf(index);
-                pos != -1 && selectedIndices.splice(pos, 1);
+                -1 != pos && selectedIndices.splice(pos, 1);
             }
             this.selectedIndices(selectedIndices), this.updatePageSelect();
             var rowIds = this.getRowIdsByIndices(indices);
@@ -1902,9 +1901,9 @@
             a: function(date) {
                 return date.getHours() > 12 ? "pm" : "am";
             },
-            h: function h(date) {
+            h: function(date) {
                 var h = date.getHours();
-                return h = h > 12 ? h - 12 : h;
+                return h = h > 12 ? h - 12 : h, h;
             },
             hh: function(date) {
                 var h = u.date._formats.h(date);
@@ -1989,7 +1988,7 @@
     if (__webpack_require__.d(__webpack_exports__, "a", function() {
         return trans;
     }), window.getCurrentJsPath = function() {
-        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = ("" + doc.querySelector).indexOf("[native code]") === -1;
+        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = -1 === ("" + doc.querySelector).indexOf("[native code]");
         if (doc.currentScript) return doc.currentScript.src;
         var stack;
         try {

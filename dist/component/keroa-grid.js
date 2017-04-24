@@ -186,7 +186,7 @@
         if (!val || "function" == typeof val) return val;
         if ("function" == typeof target[val]) return target[val];
         if ("function" == typeof window[val]) return window[val];
-        if (val.indexOf(".") != -1) {
+        if (-1 != val.indexOf(".")) {
             var func = getJSObject(target, val);
             if ("function" == typeof func) return func;
             if ("function" == typeof (func = getJSObject(window, val))) return func;
@@ -230,9 +230,8 @@
     var dateFormat = function(str) {
         if ("string" != typeof str) return str;
         if (str && str.indexOf("-") > -1) {
-            var ua = navigator.userAgent.toLowerCase();
-            /iphone|ipad|ipod/.test(ua) && (str = str.replace(/-/g, "/"), str = str.replace(/(^\s+)|(\s+$)/g, ""), 
-            str.length <= 8 && (str = str += "/01"));
+            /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) && (str = str.replace(/-/g, "/"), 
+            str = str.replace(/(^\s+)|(\s+$)/g, ""), str.length <= 8 && (str = str += "/01"));
         }
         return str;
     };
@@ -494,9 +493,9 @@
             a: function(date) {
                 return date.getHours() > 12 ? "pm" : "am";
             },
-            h: function h(date) {
+            h: function(date) {
                 var h = date.getHours();
-                return h = h > 12 ? h - 12 : h;
+                return h = h > 12 ? h - 12 : h, h;
             },
             hh: function(date) {
                 var h = u.date._formats.h(date);
@@ -581,7 +580,7 @@
     if (__webpack_require__.d(__webpack_exports__, "a", function() {
         return trans;
     }), window.getCurrentJsPath = function() {
-        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = ("" + doc.querySelector).indexOf("[native code]") === -1;
+        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = -1 === ("" + doc.querySelector).indexOf("[native code]");
         if (doc.currentScript) return doc.currentScript.src;
         var stack;
         try {
@@ -1313,7 +1312,7 @@
                 passed: !0
             };
             var r = value.match(reg);
-            if (null === r || r === !1) return this.showMsg(this.errorMsg), this.needClean = !0, 
+            if (null === r || !1 === r) return this.showMsg(this.errorMsg), this.needClean = !0, 
             {
                 passed: !1,
                 Msg: this.errorMsg
@@ -1417,7 +1416,7 @@
                 this.tooltip && this.tooltip.hide(), this.tooltip = new __WEBPACK_IMPORTED_MODULE_4__neoui_tooltip__.a(this.referDom, tipOptions), 
                 this.tooltip.setTitle(msg), this.tooltip.show();
             }
-            this.tipAliveTime !== -1 && (clearTimeout(this.timeout), this.timeout = setTimeout(function() {
+            -1 !== this.tipAliveTime && (clearTimeout(this.timeout), this.timeout = setTimeout(function() {
                 self.hideMsg();
             }, this.tipAliveTime));
         }
@@ -1619,7 +1618,7 @@
     var CheckboxAdapter = u.BaseAdapter.extend({
         init: function() {
             var self = this;
-            if (this.isGroup = this.options.isGroup === !0 || "true" === this.options.isGroup, 
+            if (this.isGroup = !0 === this.options.isGroup || "true" === this.options.isGroup, 
             this.otherValue = this.options.otherValue || "其他", this.beforeEdit = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.b)(this.viewModel, this.options.beforeEdit), 
             this.options.datasource || this.options.hasOther) if (__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.a.isIE) this.checkboxTemplateHTML = this.element.innerHTML; else {
                 this.checkboxTemplateArray = [];
@@ -1632,7 +1631,7 @@
             this.comp.on("change", function() {
                 if (!self.slice && self.dataModel) {
                     var modelValue = self.dataModel.getValue(self.field);
-                    if (modelValue = modelValue ? modelValue : "", self.isGroup) {
+                    if (modelValue = modelValue || "", self.isGroup) {
                         var valueArr = "" == modelValue ? [] : modelValue.split(",");
                         if (self.comp._inputElement.checked) valueArr.push(self.checkedValue); else {
                             var index = valueArr.indexOf(self.checkedValue);
@@ -1659,7 +1658,7 @@
                 self.lastLabel["u.Checkbox"] = comp, self.otherComp = comp, comp.on("change", function() {
                     if (!self.slice) {
                         var modelValue = self.dataModel.getValue(self.field);
-                        modelValue = modelValue ? modelValue : "";
+                        modelValue = modelValue || "";
                         var valueArr = "" == modelValue ? [] : modelValue.split(",");
                         if (comp._inputElement.checked) {
                             var oldIndex = valueArr.indexOf(self.otherInput.oldValue);
@@ -1702,7 +1701,7 @@
                 comp.beforeEdit = self.beforeEdit), ele["u.Checkbox"] = comp, comp.on("change", function() {
                     if (!self.slice) {
                         var modelValue = self.dataModel.getValue(self.field);
-                        modelValue = modelValue ? modelValue : "";
+                        modelValue = modelValue || "";
                         var valueArr = "" == modelValue ? [] : modelValue.split(",");
                         if (comp._inputElement.checked) valueArr.push(comp._inputElement.value); else {
                             var index = valueArr.indexOf(comp._inputElement.value);
@@ -1739,16 +1738,16 @@
                 }
             } else {
                 var flag;
-                flag = this.checkedValue === !0 ? val === this.checkedValue || "true" === val : val === this.checkedValue, 
+                flag = !0 === this.checkedValue ? val === this.checkedValue || "true" === val : val === this.checkedValue, 
                 this.comp._inputElement.checked != flag && (this.slice = !0, this.comp.toggle(), 
                 this.slice = !1);
             }
         },
         setEnable: function(enable) {
-            this.enable = enable === !0 || "true" === enable, this.isGroup ? this.datasource && (this.otherInput && !this.enable && this.otherInput.setAttribute("disabled", !0), 
+            this.enable = !0 === enable || "true" === enable, this.isGroup ? this.datasource && (this.otherInput && !this.enable && this.otherInput.setAttribute("disabled", !0), 
             this.element.querySelectorAll(".u-checkbox").forEach(function(ele) {
                 var comp = ele["u.Checkbox"];
-                comp && (enable === !0 || "true" === enable ? comp.enable() : comp.disable());
+                comp && (!0 === enable || "true" === enable ? comp.enable() : comp.disable());
             })) : this.enable ? this.comp.enable() : this.comp.disable();
         }
     });
@@ -1791,13 +1790,13 @@
         },
         setEnable: function(enable) {
             var self = this;
-            enable === !0 || "true" === enable ? (this.enable = !0, this.element.removeAttribute("readonly"), 
+            !0 === enable || "true" === enable ? (this.enable = !0, this.element.removeAttribute("readonly"), 
             this.comp._input.removeAttribute("readonly"), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_dom__.c)(this.element.parentNode, "disablecover"), 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.b)(this.comp._input, "focus", function(e) {
                 self.comp.show(e), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.a)(e);
             }), this.comp.iconBtn && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.b)(this.comp.iconBtn, "click", function(e) {
                 self.comp.show(e), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.a)(e);
-            })) : enable !== !1 && "false" !== enable || (this.enable = !1, this.element.setAttribute("readonly", "readonly"), 
+            })) : !1 !== enable && "false" !== enable || (this.enable = !1, this.element.setAttribute("readonly", "readonly"), 
             this.comp._input.setAttribute("readonly", "readonly"), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_dom__.a)(this.element.parentNode, "disablecover"), 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.c)(this.comp._input, "focus"), 
             this.comp.iconBtn && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_tinper_sparrow_src_event__.c)(this.comp.iconBtn, "click"));
@@ -2011,8 +2010,8 @@
             return value = void 0 === this.timezone || null == this.timezone || "" == this.timezone ? __WEBPACK_IMPORTED_MODULE_8_tinper_sparrow_src_util_dateUtils__.a.format(value, this.options.format) : value.getTime();
         },
         setEnable: function(enable) {
-            enable === !0 || "true" === enable ? (this.enable = !0, __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.a.isMobile ? this.element.removeAttribute("disabled") : this.comp._input.removeAttribute("readonly"), 
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.element.parentNode, "disablecover")) : enable !== !1 && "false" !== enable || (this.enable = !1, 
+            !0 === enable || "true" === enable ? (this.enable = !0, __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.a.isMobile ? this.element.removeAttribute("disabled") : this.comp._input.removeAttribute("readonly"), 
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.element.parentNode, "disablecover")) : !1 !== enable && "false" !== enable || (this.enable = !1, 
             __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.a.isMobile ? this.element.setAttribute("disabled", "disabled") : this.comp._input.setAttribute("readonly", "readonly"), 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.element.parentNode, "disablecover")), 
             __WEBPACK_IMPORTED_MODULE_4_tinper_sparrow_src_env__.a.isMobile || this.comp.setEnable(enable);
@@ -2259,10 +2258,10 @@
             }
         },
         setEnable: function(enable) {
-            this.enable = enable === !0 || "true" === enable, this.dynamic ? this.datasource && (this.otherInput && !this.enable && this.otherInput.setAttribute("disabled", !0), 
+            this.enable = !0 === enable || "true" === enable, this.dynamic ? this.datasource && (this.otherInput && !this.enable && this.otherInput.setAttribute("disabled", !0), 
             this.element.querySelectorAll(".u-radio").forEach(function(ele) {
                 var comp = ele["u.Radio"];
-                comp && (enable === !0 || "true" === enable ? comp.enable() : comp.disable());
+                comp && (!0 === enable || "true" === enable ? comp.enable() : comp.disable());
             })) : this.enable ? this.comp.enable() : this.comp.disable();
         }
     });
@@ -2333,9 +2332,9 @@
             UrlAdapter.superclass.init.apply(this), this.validType = "url";
         },
         setEnable: function(enable) {
-            if (enable === !0 || "true" === enable) this.enable = !0, this.element.removeAttribute("readonly"), 
+            if (!0 === enable || "true" === enable) this.enable = !0, this.element.removeAttribute("readonly"), 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)(this.element.parentNode, "disablecover"), 
-            this.aDom && (this.aDom.style.display = "none"); else if (enable === !1 || "false" === enable) {
+            this.aDom && (this.aDom.style.display = "none"); else if (!1 === enable || "false" === enable) {
                 if (this.enable = !1, this.element.setAttribute("readonly", "readonly"), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.element.parentNode, "disablecover"), 
                 !this.aDom) {
                     this.aDom = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.b)('<div style="position:absolute;background:#fff;z-index:999;"><a href="' + this.trueValue + '" target="_blank" style="position:absolue;">' + this.trueValue + "</a></div>");
@@ -2432,7 +2431,7 @@
         if (data.totalRow || 0 === data.totalRow) var newTotalRow = data.totalRow; else if (data.rows) var newTotalRow = data.rows.length; else var newTotalRow = this.totalRow();
         var select, focus, unSelect = !!options && options.unSelect;
         if (this.pageIndex(newIndex), this.pageSize(newSize), this.pageCache = data.pageCache || this.pageCache, 
-        this.pageCache === !0) {
+        !0 === this.pageCache) {
             if (this.updatePages(data.pages), newIndex != this.pageIndex()) return this.setCurrentPage(newIndex, !0), 
             this.totalPages(newTotalPages), void this.totalRow(newTotalRow + this.newCount);
             this.removeAllRows(), select = this.getPage(newIndex).selectedIndices, focus = this.getPage(newIndex).focus;
@@ -2444,7 +2443,7 @@
         this.updateSelectedIndices(), select && select.length > 0 && this.rows().length > 0 && this.setRowsSelect(select), 
         void 0 !== focus && this.getRow(focus) && this.setRowFocus(focus);
     }, setValue = function(fieldName, value, row, ctx) {
-        1 === arguments.length && (value = fieldName, fieldName = "$data"), (row = row ? row : this.getCurrentRow()) && row.setValue(fieldName, value, ctx);
+        1 === arguments.length && (value = fieldName, fieldName = "$data"), (row = row || this.getCurrentRow()) && row.setValue(fieldName, value, ctx);
     }, resetAllValue = function() {
         for (var rows = this.rows(), i = 0; i < rows.length; i++) {
             var row = rows[i];
@@ -2481,7 +2480,7 @@
         var fieldEnable = this.getMeta(fieldName, "enable");
         return void 0 !== fieldEnable && null != fieldEnable || (fieldEnable = !0), fieldEnable && this.enable;
     }, setEnable = function(enable) {
-        this.enable != enable && (enable = enable !== !1, this.enable = enable, this.enableChange(-this.enableChange()), 
+        this.enable != enable && (enable = !1 !== enable, this.enable = enable, this.enableChange(-this.enableChange()), 
         this.trigger(DataTable.ON_ENABLE_CHANGE, {
             enable: this.enable
         }));
@@ -2553,13 +2552,13 @@
         return getCurrentFunObj;
     });
     var getCurrentRow = function() {
-        if (this.focusIndex() != -1) return this.getFocusRow();
+        if (-1 != this.focusIndex()) return this.getFocusRow();
         var index = this.getSelectedIndex();
-        return index == -1 ? null : this.getRow(index);
+        return -1 == index ? null : this.getRow(index);
     }, getCurrentIndex = function() {
-        if (this.focusIndex() != -1) return this.focusIndex();
+        if (-1 != this.focusIndex()) return this.focusIndex();
         var index = this.getSelectedIndex();
-        return index == -1 ? -1 : index;
+        return -1 == index ? -1 : index;
     }, getCurrentFunObj = {
         getCurrentRow: getCurrentRow,
         getCurrentIndex: getCurrentIndex
@@ -2586,7 +2585,7 @@
                 var pageIndex = this.pageIndex(), currPage = pages[pageIndex];
                 if (currPage) {
                     var currIndex = this.focusIndex();
-                    rule == DataTable.SUBMIT.current && currIndex == -1 && (currIndex = this.getSelectedIndex());
+                    rule == DataTable.SUBMIT.current && -1 == currIndex && (currIndex = this.getSelectedIndex());
                     var data = page2data(currPage, pageIndex);
                     data.rows = [];
                     for (var i = 0, count = currPage.rows.length; i < count; i++) {
@@ -2648,7 +2647,7 @@
             if (rule == DataTable.SUBMIT.current) {
                 datas = [];
                 var currIndex = this.focusIndex();
-                currIndex == -1 && (currIndex = this.getSelectedIndex()), rows = this.rows();
+                -1 == currIndex && (currIndex = this.getSelectedIndex()), rows = this.rows();
                 for (var i = 0, count = rows.length; i < count; i++) i == currIndex ? datas.push(rows[i].getData()) : datas.push(rows[i].getEmptyData());
             } else if (rule == DataTable.SUBMIT.focus) {
                 datas = [], rows = this.rows();
@@ -2747,7 +2746,7 @@
         return getFocusFunObj;
     });
     var getFocusRow = function() {
-        return this.focusIndex() != -1 ? this.getRow(this.focusIndex()) : null;
+        return -1 != this.focusIndex() ? this.getRow(this.focusIndex()) : null;
     }, getFocusIndex = function() {
         return this.focusIndex();
     }, getFocusFunObj = {
@@ -2806,11 +2805,11 @@
         return this.getSelectedIndices();
     }, getSelectedDatas = function(withEmptyRow) {
         for (var selectedIndices = this.selectedIndices(), datas = [], sIndices = [], i = 0, count = selectedIndices.length; i < count; i++) sIndices.push(selectedIndices[i]);
-        for (var rows = this.rows(), i = 0, count = rows.length; i < count; i++) sIndices.indexOf(i) != -1 ? datas.push(rows[i].getData()) : 1 == withEmptyRow && datas.push(rows[i].getEmptyData());
+        for (var rows = this.rows(), i = 0, count = rows.length; i < count; i++) -1 != sIndices.indexOf(i) ? datas.push(rows[i].getData()) : 1 == withEmptyRow && datas.push(rows[i].getEmptyData());
         return datas;
     }, getSelectedRows = function() {
         for (var selectedIndices = this.selectedIndices(), selectRows = [], rows = this.rows.peek(), sIndices = [], i = 0, count = selectedIndices.length; i < count; i++) sIndices.push(selectedIndices[i]);
-        for (var i = 0, count = rows.length; i < count; i++) sIndices.indexOf(i) != -1 && selectRows.push(rows[i]);
+        for (var i = 0, count = rows.length; i < count; i++) -1 != sIndices.indexOf(i) && selectRows.push(rows[i]);
         return selectRows;
     }, getSelectFunObj = {
         getSelectedIndex: getSelectedIndex,
@@ -2886,7 +2885,7 @@
         }
     }, createField = function(fieldName, options) {
         if (1 != this.root.strict) {
-            if (fieldName.indexOf(".") != -1) for (var fNames = fieldName.split("."), _name = fNames[0], i = 0, count = fNames.length; i < count; i++) {
+            if (-1 != fieldName.indexOf(".")) for (var fNames = fieldName.split("."), _name = fNames[0], i = 0, count = fNames.length; i < count; i++) {
                 if (this.meta[_name] && "child" === this.meta[_name].type) return;
                 i + 1 < count && (_name = _name + "." + fNames[i + 1]);
             }
@@ -3104,7 +3103,7 @@
     });
     var removeRowByRowId = function(rowId) {
         var index = this.getIndexByRowId(rowId);
-        index != -1 && this.removeRow(index);
+        -1 != index && this.removeRow(index);
     }, removeRow = function(index) {
         index instanceof Row && (index = this.getIndexByRowId(index.rowId)), this.removeRows([ index ]);
     }, removeAllRows = function() {
@@ -3150,7 +3149,7 @@
     }, addRow = function(row) {
         this.insertRow(this.rows().length, row), this.resetDelRowEnd();
     }, resetDelRowEnd = function() {
-        for (var i = 0; i < this.rows().length; i++) {
+        for (var i = this.rows().length - 1; i > -1; i--) {
             var row = this.rows()[i];
             row.status != Row.STATUS.DELETE && row.status != Row.STATUS.FALSE_DELETE || (this.rows().splice(i, 1), 
             this.rows().push(row));
@@ -3189,7 +3188,7 @@
         return rowCurrentFunObj;
     });
     var updateCurrIndex = function() {
-        var currentIndex = this.focusIndex() != -1 ? this.focusIndex() : this.getSelectedIndex();
+        var currentIndex = -1 != this.focusIndex() ? this.focusIndex() : this.getSelectedIndex();
         this._oldCurrentIndex != currentIndex && (this._oldCurrentIndex = currentIndex, 
         this.trigger(DataTable.ON_CURRENT_ROW_CHANGE), this.currentRowChange(-this.currentRowChange()), 
         this.ns && this.root.valueChange[this.ns] && this.root.valueChange[this.ns](-this.root.valueChange[this.ns]()));
@@ -3241,7 +3240,7 @@
     var setRowFocus = function(index, quiet, force) {
         var rowId = null;
         index instanceof Row && (index = this.getIndexByRowId(index.rowId), rowId = index.rowId), 
-        index === -1 || index === this.focusIndex() && !force || (this.focusIndex(index), 
+        -1 === index || index === this.focusIndex() && !force || (this.focusIndex(index), 
         quiet || (this.currentRowChange(-this.currentRowChange()), rowId || (rowId = this.getRow(index).rowId), 
         this.trigger(DataTable.ON_ROW_FOCUS, {
             index: index,
@@ -3250,13 +3249,13 @@
     }, setRowUnFocus = function() {
         this.currentRowChange(-this.currentRowChange());
         var indx = this.focusIndex(), rowId = null;
-        indx !== -1 && (rowId = this.getRow(indx).rowId), this.trigger(DataTable.ON_ROW_UNFOCUS, {
+        -1 !== indx && (rowId = this.getRow(indx).rowId), this.trigger(DataTable.ON_ROW_UNFOCUS, {
             index: indx,
             rowId: rowId
         }), this.focusIndex(-1), this.updateCurrIndex();
     }, updateFocusIndex = function(opIndex, opType, num) {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_tinper_sparrow_src_util__.c)(num) || (num = 1), 
-        opIndex <= this.focusIndex() && this.focusIndex() != -1 && ("+" === opType ? this.focusIndex(this.focusIndex() + num) : "-" === opType && (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1 ? this.focusIndex(-1) : this.focusIndex() > opIndex + num - 1 && this.focusIndex(this.focusIndex() - num)));
+        opIndex <= this.focusIndex() && -1 != this.focusIndex() && ("+" === opType ? this.focusIndex(this.focusIndex() + num) : "-" === opType && (this.focusIndex() >= opIndex && this.focusIndex() <= opIndex + num - 1 ? this.focusIndex(-1) : this.focusIndex() > opIndex + num - 1 && this.focusIndex(this.focusIndex() - num)));
     }, rowFocusFunObj = {
         setRowFocus: setRowFocus,
         setRowUnFocus: setRowUnFocus,
@@ -3275,7 +3274,7 @@
         index instanceof Row && (index = this.getIndexByRowId(index.rowId)), this.setRowsSelect([ index ]), 
         this.setRowFocus(this.getSelectedIndex());
     }, setRowsSelect = function(indices) {
-        if ((indices = indices || -1) == -1) return void this.setAllRowsUnSelect({
+        if (-1 == (indices = indices || -1)) return void this.setAllRowsUnSelect({
             quiet: !0
         });
         indices = __WEBPACK_IMPORTED_MODULE_1__util__.a._formatToIndicesArray(this, indices);
@@ -3317,10 +3316,10 @@
     }, setRowsUnSelect = function(indices) {
         indices = __WEBPACK_IMPORTED_MODULE_1__util__.a._formatToIndicesArray(this, indices);
         var selectedIndices = this.selectedIndices().slice();
-        if (selectedIndices.indexOf(indices[0]) != -1) {
+        if (-1 != selectedIndices.indexOf(indices[0])) {
             for (var i = 0; i < indices.length; i++) {
                 var index = indices[i], pos = selectedIndices.indexOf(index);
-                pos != -1 && selectedIndices.splice(pos, 1);
+                -1 != pos && selectedIndices.splice(pos, 1);
             }
             this.selectedIndices(selectedIndices), this.updatePageSelect();
             var rowIds = this.getRowIdsByIndices(indices);
@@ -3518,7 +3517,7 @@
             this.bg.setAttribute("cy", cy), this.fg.setAttribute("cx", cx), this.fg.setAttribute("cy", cy);
         },
         setValue: function(value) {
-            value = value ? value : "";
+            value = value || "";
             var oldShowValue;
             if ("" == value) return void ("" != this.input.value && (this.input.value = "", 
             this.trigger("valueChange", {
@@ -3644,9 +3643,6 @@
                 var keyCode = e.keyCode;
                 if (self.isAutoTip) switch (keyCode) {
                   case 38:
-                    u.stopEvent(e);
-                    break;
-
                   case 40:
                     u.stopEvent(e);
                     break;
@@ -3739,7 +3735,7 @@
                 var flag, val = this.comboDatas[index].value, name = this.comboDatas[index].name, index = (this.value + ",").indexOf(val + ","), l = val.length + 1;
                 if (0 == this.fullWidth && (this.fullWidth = this._input.offsetWidth, (this.fullWidth < 0 || 0 == this.fullWidth) && (this.fullWidth = parseInt($(this._input).width()) + 2 * parseInt($(this._input).css("border-left-width")) + 2 * parseInt($(this._input).css("padding-left")) + "px"), 
                 this.fullWidth > 0 && this._combo_name_par && (this._combo_name_par.style.maxWidth = this.fullWidth + "px")), 
-                index != -1 ? (this.value = this.value.substring(0, index) + this.value.substring(index + l), 
+                -1 != index ? (this.value = this.value.substring(0, index) + this.value.substring(index + l), 
                 flag = "-") : (this.value = this.value ? this.value + val + "," : val + ",", flag = "+"), 
                 "+" == flag) {
                     this.name += name + ",";
@@ -3790,12 +3786,12 @@
             var self = this;
             this.name = "", value += "", value = value || "";
             var values = value.split(",");
-            this.mutilSelect === !0 && (self._combo_name_par && (self._combo_name_par.innerHTML = "", 
+            !0 === this.mutilSelect && (self._combo_name_par && (self._combo_name_par.innerHTML = "", 
             $(self._combo_name_par).removeClass("u-combo-overwidth")), this.value = ""), value || (this._input.value = "", 
             this.value = "", this._updateItemSelect());
             var matched = !1;
             if (this.nowWidth = 0, this.showNowWidth = 0, this.multiNoneArr = [], this.comboDatas.forEach(function(item, index) {
-                if (this.mutilSelect === !0) values.indexOf(item.value) != -1 && this.selectItem(index); else if (item.value + "" === value) return this.selectItem(index), 
+                if (!0 === this.mutilSelect) -1 != values.indexOf(item.value) && this.selectItem(index); else if (item.value + "" === value) return this.selectItem(index), 
                 void (matched = !0);
             }.bind(this)), !this.onlySelect && !matched) {
                 this.value = value, this._input.value = value;
@@ -3835,7 +3831,7 @@
         setTimeout(function() {
             self._input && self._input.setAttribute("readonly", "readonly");
         }, 1e3), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__.b)(this._input, "focus", function(e) {
-            self._inputFocus = !0, self.isShow !== !0 && self.show(e), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__.a)(e);
+            self._inputFocus = !0, !0 !== self.isShow && self.show(e), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__.a)(e);
         }), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__.b)(this._input, "blur", function(e) {
             self._inputFocus = !1;
         }), this._span = this._element.querySelector("span"), this._span && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_tinper_sparrow_src_event__.b)(this._span, "click", function(e) {
@@ -4369,7 +4365,7 @@
             this.overDate = this.overDateObj.getDate();
         } else this.overDateObj = null, this.overYear = null, this.overMonth = null, this.overDate = null;
     }, DateTimePicker.fn.setEnable = function(enable) {
-        this.enable = enable === !0 || "true" === enable;
+        this.enable = !0 === enable || "true" === enable;
     }, DateTimePicker.fn.resetDataObj = function(dataObj) {
         this.format.indexOf("h") < 0 && this.format.indexOf("H") < 0 && dataObj.setHours(0), 
         this.format.indexOf("m") < 0 && dataObj.setMinutes(0), this.format.indexOf("s") < 0 && (dataObj.setSeconds(0), 
@@ -4429,7 +4425,7 @@
             this.panelContentDiv.appendChild(monthPage), this.currentPanel = "month";
         },
         setValue: function(value) {
-            value = value ? value : "", this.value = value, parseInt(this.value) > 0 && parseInt(this.value) < 13 ? (this.month = value, 
+            value = value || "", this.value = value, parseInt(this.value) > 0 && parseInt(this.value) < 13 ? (this.month = value, 
             this.input.value = this.month, this.trigger("valueChange", {
                 value: value
             })) : (this.month = this.defaultMonth, this.input.value = "");
@@ -4709,7 +4705,7 @@
         }
     }, Time.fn.setValue = function(value) {
         var hour = "", min = "", sec = "";
-        if ((value = value ? value : "") != this.input.value) {
+        if ((value = value || "") != this.input.value) {
             if (value && value.indexOf(":") > -1) {
                 var vA = value.split(":"), hour = vA[0];
                 hour %= 24, hour = hour > 9 ? "" + hour : "0" + hour;
@@ -5008,7 +5004,7 @@
             this.panelContentDiv.appendChild(yearPage), this.currentPanel = "year";
         },
         setValue: function(value) {
-            value = value ? value : "", this.value = value, this.year = value ? value : this.defaultYear, 
+            value = value || "", this.value = value, this.year = value || this.defaultYear, 
             this.startYear = this.year - this.year % 10 - 1, this.input.value = value, this.trigger("valueChange", {
                 value: value
             });
@@ -5159,7 +5155,7 @@
             }
         },
         setValue: function(value) {
-            if ((value = value ? value : "") && value.indexOf("-") > -1) {
+            if ((value = value || "") && value.indexOf("-") > -1) {
                 var vA = value.split("-");
                 this.year = vA[0];
                 var month = vA[1];
@@ -5489,7 +5485,7 @@
             }), this.dataTable.on(__WEBPACK_IMPORTED_MODULE_4_kero_src_indexDataTable__.a.ON_VALUE_CHANGE, function(obj) {
                 oThis.silence = !0;
                 var id = obj.rowId, index = oThis.grid.getRowIndexByValue("$_#_@_id", id);
-                if (index != -1) {
+                if (-1 != index) {
                     var field = obj.field, value = obj.newValue;
                     oThis.grid.updateValueAt(index, field, value), oThis.silence = !1;
                 }
@@ -5540,7 +5536,7 @@
                     var comp = oThis.editComponent[field];
                     comp && comp.setPrecision && comp.setPrecision(newValue);
                     var index = oThis.grid.getRowIndexByValue("$_#_@_id", row.rowId);
-                    if (index == -1) return;
+                    if (-1 == index) return;
                     var value = row.getValue(field);
                     oThis.grid.updateValueAt(index, field, value, !0);
                 }

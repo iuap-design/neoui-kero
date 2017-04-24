@@ -72,7 +72,7 @@
         if (!val || "function" == typeof val) return val;
         if ("function" == typeof target[val]) return target[val];
         if ("function" == typeof window[val]) return window[val];
-        if (val.indexOf(".") != -1) {
+        if (-1 != val.indexOf(".")) {
             var func = getJSObject(target, val);
             if ("function" == typeof func) return func;
             if ("function" == typeof (func = getJSObject(window, val))) return func;
@@ -345,7 +345,7 @@
     if (__webpack_require__.d(__webpack_exports__, "a", function() {
         return trans;
     }), window.getCurrentJsPath = function() {
-        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = ("" + doc.querySelector).indexOf("[native code]") === -1;
+        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = -1 === ("" + doc.querySelector).indexOf("[native code]");
         if (doc.currentScript) return doc.currentScript.src;
         var stack;
         try {

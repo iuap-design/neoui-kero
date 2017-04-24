@@ -169,9 +169,9 @@
             UrlAdapter.superclass.init.apply(this), this.validType = "url";
         },
         setEnable: function(enable) {
-            if (enable === !0 || "true" === enable) this.enable = !0, this.element.removeAttribute("readonly"), 
+            if (!0 === enable || "true" === enable) this.enable = !0, this.element.removeAttribute("readonly"), 
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.a)(this.element.parentNode, "disablecover"), 
-            this.aDom && (this.aDom.style.display = "none"); else if (enable === !1 || "false" === enable) {
+            this.aDom && (this.aDom.style.display = "none"); else if (!1 === enable || "false" === enable) {
                 if (this.enable = !1, this.element.setAttribute("readonly", "readonly"), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.b)(this.element.parentNode, "disablecover"), 
                 !this.aDom) {
                     this.aDom = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_tinper_sparrow_src_dom__.c)('<div style="position:absolute;background:#fff;z-index:999;"><a href="' + this.trueValue + '" target="_blank" style="position:absolue;">' + this.trueValue + "</a></div>");

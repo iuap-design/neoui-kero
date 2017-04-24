@@ -355,9 +355,8 @@
     var dateFormat = function(str) {
         if ("string" != typeof str) return str;
         if (str && str.indexOf("-") > -1) {
-            var ua = navigator.userAgent.toLowerCase();
-            /iphone|ipad|ipod/.test(ua) && (str = str.replace(/-/g, "/"), str = str.replace(/(^\s+)|(\s+$)/g, ""), 
-            str.length <= 8 && (str = str += "/01"));
+            /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) && (str = str.replace(/-/g, "/"), 
+            str = str.replace(/(^\s+)|(\s+$)/g, ""), str.length <= 8 && (str = str += "/01"));
         }
         return str;
     };
@@ -367,7 +366,7 @@
     if (__webpack_require__.d(__webpack_exports__, "a", function() {
         return trans;
     }), window.getCurrentJsPath = function() {
-        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = ("" + doc.querySelector).indexOf("[native code]") === -1;
+        var doc = document, a = {}, expose = +new Date(), rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/, isLtIE8 = -1 === ("" + doc.querySelector).indexOf("[native code]");
         if (doc.currentScript) return doc.currentScript.src;
         var stack;
         try {
@@ -493,7 +492,7 @@
         },
         setValue: function(value) {
             var inputValue = "";
-            if (value = value ? value : "", this.value !== value) {
+            if (value = value || "", this.value !== value) {
                 if (value && value.indexOf("-") > -1) {
                     var vA = value.split("-"), month = vA[0];
                     this.month = month % 12, 0 == this.month && (this.month = 12), this.date = vA[1], 
@@ -646,9 +645,9 @@
             a: function(date) {
                 return date.getHours() > 12 ? "pm" : "am";
             },
-            h: function h(date) {
+            h: function(date) {
                 var h = date.getHours();
-                return h = h > 12 ? h - 12 : h;
+                return h = h > 12 ? h - 12 : h, h;
             },
             hh: function(date) {
                 var h = u.date._formats.h(date);

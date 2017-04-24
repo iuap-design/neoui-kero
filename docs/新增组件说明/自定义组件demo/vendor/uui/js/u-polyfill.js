@@ -1,3 +1,10 @@
+/** 
+ * neoui-kero v3.2.1
+ * neoui kero
+ * author : [object Object]
+ * homepage : https://github.com/iuap-design/neoui-kero#readme
+ * bugs : https://github.com/iuap-design/neoui-kero/issues
+ **/ 
 if(!window.hasJsExtensions){
 
     window.hasJsExtensions = true;
@@ -183,6 +190,30 @@ if(!window.hasJsExtensions){
                 }
         return string
 	};
+    if(!window.requestAnimationFrame) {
+        window.requestAnimationFrame = (window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+            var self = this, start, finish;
+            return window.setTimeout(function() {
+                start = +new Date();
+                callback(start);
+                finish = +new Date();
+                self.timeout = 1000/60 - (finish - start);
+            }, self.timeout);
+        });
+    }
+    window.cancelRequestAnimFrame = ( function() {
+        return window.cancelAnimationFrame ||
+            window.webkitCancelRequestAnimationFrame ||
+            window.mozCancelRequestAnimationFrame ||
+            window.oCancelRequestAnimationFrame ||
+            window.msCancelRequestAnimationFrame ||
+            clearTimeout;
+    } )();
+
 }
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')

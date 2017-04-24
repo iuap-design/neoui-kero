@@ -1144,7 +1144,7 @@
 				element["uEvent"][eventName].forEach(function (fn) {
 					try {
 						e.target = e.target || e.srcElement; //兼容IE8
-					} catch (ee) {}
+					} catch (e) {}
 					if (fn) fn.call(element, e);
 				});
 			};
@@ -1185,8 +1185,7 @@
 			}
 			return;
 		}
-		var eventfn;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) eventfn = element["uEvent"][eventName + 'fn'];
+		var eventfn = element["uEvent"][eventName + 'fn'];
 		if (element.removeEventListener) {
 			// 用于支持DOM的浏览器
 			element.removeEventListener(eventName, eventfn);
@@ -1200,9 +1199,8 @@
 		if (u.event && u.event[eventName] && u.event[eventName].teardown) {
 			u.event[eventName].teardown.call(element);
 		}
-
-		if (element && element["uEvent"] && element["uEvent"][eventName]) element["uEvent"][eventName] = undefined;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) element["uEvent"][eventName + 'fn'] = undefined;
+		element["uEvent"][eventName] = undefined;
+		element["uEvent"][eventName + 'fn'] = undefined;
 	};
 	var trigger = function trigger(element, eventName) {
 		if (element["uEvent"] && element["uEvent"][eventName]) {
@@ -1263,7 +1261,6 @@
 		isIE10: false,
 		isIE10_ABOVE: false,
 		isIE11: false,
-		isEdge: false,
 		isIOS: false,
 		isIphone: false,
 		isIPAD: false,
@@ -1331,9 +1328,6 @@
 			};
 		}
 
-		if (userAgent.indexOf("Edge") > -1) {
-			u.isEdge = true;
-		}
 		if (s = ua.match(/opera.([\d.]+)/)) {
 			u.isOpera = true;
 		} else if (browserMatch.browser == "IE" && browserMatch.version == 11) {
@@ -1583,7 +1577,6 @@
 	};
 	var isNumber = function isNumber(obj) {
 		//return obj === +obj
-		//加了个typeof 判断，因为'431027199110.078573'会解析成number
 		return obj - parseFloat(obj) + 1 >= 0;
 	};
 	var isArray = Array.isArray || function (val) {
@@ -2412,7 +2405,7 @@
 	        if (typeof data === 'string') data = JSON.parse(data);
 	        if (self.serverEventObj.processXHRError(self, data, state, xhr)) {
 	            orignSuccess.call(null, data);
-	            _successFunc(data, deferred);
+	            self._successFunc(data, deferred);
 	        } else {
 	            deferred.reject();
 	        }
@@ -2421,7 +2414,7 @@
 	        if (typeof data === 'string') data = JSON.parse(data);
 	        if (self.serverEventObj.processXHRError(self, data, state, xhr)) {
 	            orignError.call(null, data);
-	            _successFunc(data, deferred);
+	            self._successFunc(data, deferred);
 	        } else {
 	            deferred.reject();
 	        }
@@ -3112,7 +3105,6 @@
 	    } else {
 	        this.ns = '';
 	    }
-	    this.newCount = 0;
 	};
 
 	DataTable.prototype.on = _events.on;
@@ -3563,7 +3555,7 @@
 	        if (newIndex != this.pageIndex()) {
 	            this.setCurrentPage(newIndex, true);
 	            this.totalPages(newTotalPages);
-	            this.totalRow(newTotalRow + this.newCount);
+	            this.totalRow(newTotalRow);
 	            return;
 	        } else {
 	            // 首先删除数据，然后将当前页数据插入
@@ -3577,8 +3569,8 @@
 	        if (data.totalPages) {
 	            this.totalPages(data.totalPages);
 	        }
-	        if (data.totalRow || data.totalRow === 0) {
-	            this.totalRow(data.totalRow + this.newCount);
+	        if (data.totalRow) {
+	            this.totalRow(data.totalRow);
 	        }
 	    } else {
 	        select = data.select || (!unSelect ? [0] : []);
@@ -4475,33 +4467,21 @@
 	                r = rows[j];
 	                if (!r.id) r.id = Row.getRandomRowId();
 	                if (r.status == Row.STATUS.DELETE) {
-
-	                    var row = page.getRowByRowId(r.id);
-	                    if (row) {
-	                        // 针对后台不传回总行数的情况下更新总行数
-	                        var oldTotalRow = this.totalRow();
-	                        var newTotalRow = oldTotalRow - 1;
-	                        this.totalRow(newTotalRow);
-	                        if (row.status == Row.STATUS.NEW) {
-	                            this.newCount -= 1;
-	                            if (this.newCount < 0) this.newCount = 0;
-	                        }
-	                    }
 	                    this.removeRowByRowId(r.id);
 	                    page.removeRowByRowId(r.id);
+	                    // 针对后台不传回总行数的情况下更新总行数
+	                    var oldTotalRow = this.totalRow();
+	                    var newTotalRow = oldTotalRow - 1;
+	                    this.totalRow(newTotalRow);
 	                } else {
 	                    row = page.getRowByRowId(r.id);
 	                    if (row) {
 	                        page.updateRow(row, r);
-	                        // if(row.status == Row.STATUS.NEW){
-	                        //     // 针对后台不传回总行数的情况下更新总行数
-	                        //     var oldTotalRow = this.totalRow();
-	                        //     var newTotalRow = oldTotalRow + 1;
-	                        //     this.totalRow(newTotalRow);
-	                        // }
-	                        if (row.status == Row.STATUS.NEW && r.status != Row.STATUS.NEW) {
-	                            this.newCount -= 1;
-	                            if (this.newCount < 0) this.newCount = 0;
+	                        if (row.status == Row.STATUS.NEW) {
+	                            // 针对后台不传回总行数的情况下更新总行数
+	                            var oldTotalRow = this.totalRow();
+	                            var newTotalRow = oldTotalRow + 1;
+	                            this.totalRow(newTotalRow);
 	                        }
 	                        row.status = Row.STATUS.NORMAL;
 	                        if (r.status == Row.STATUS.NEW) {
@@ -4513,8 +4493,6 @@
 	                        page.rows.push(r);
 	                        if (r.status != Row.STATUS.NEW) {
 	                            r.status = Row.STATUS.NORMAL;
-	                        } else {
-	                            this.newCount += 1;
 	                        }
 	                        // 针对后台不传回总行数的情况下更新总行数
 	                        var oldTotalRow = this.totalRow();
@@ -5261,8 +5239,7 @@
 	                toAdd = false;
 	            }
 	        }
-	        //indices[i]存在并且大于-1
-	        if (toAdd && indices[i] > -1) {
+	        if (toAdd) {
 	            needTrigger = true;
 	            selectedIndices.push(indices[i]);
 	        }
@@ -5863,9 +5840,9 @@
 
 	var _rowRef = __webpack_require__(69);
 
-	var _rowRowSelect = __webpack_require__(74);
+	var _rowRowSelect = __webpack_require__(73);
 
-	var _rowSimpleData = __webpack_require__(75);
+	var _rowSimpleData = __webpack_require__(74);
 
 	var _rowUtil = __webpack_require__(63);
 
@@ -6238,8 +6215,7 @@
 
 	var eq = function eq(a, b) {
 	    if ((a === null || a === undefined || a === '') && (b === null || b === undefined || b === '')) return true;
-	    //判断输入的值是否相等，a,b是字符串直接比较这两个值即可，没必要判断是否是数据，判断是否是数据使用parseFloat转换有时精度不准（431027199110.078573） 
-	    //if (isNumber(a) && isNumber(b) && parseFloat(a) == parseFloat(b)) return true;
+	    if ((0, _util.isNumber)(a) && (0, _util.isNumber)(b) && parseFloat(a) == parseFloat(b)) return true;
 	    if (a + '' == b + '') return true;
 	    return false;
 	}; /**
@@ -6360,6 +6336,7 @@
 	    var rat = _findField(rowObj, fieldName);
 	    if (!rat) {
 	        var msg = 'field:' + fieldName + ' not exist in dataTable:' + rowObj.parent.root.id + '!';
+	        console.error(msg);
 	        throw new Error(msg);
 	    }
 	    return rat;
@@ -6856,14 +6833,13 @@
 
 	var _util = __webpack_require__(10);
 
-	var _i18n = __webpack_require__(73);
+	/**
+	 * Module : Sparrow date util
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-06 13:37:20
+	 */
 
-	var u = {}; /**
-	             * Module : Sparrow date util
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-08-06 13:37:20
-	             */
-
+	var u = {};
 	u.date = {
 
 		/**
@@ -6885,14 +6861,6 @@
 				weekdaysShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
 				weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
 			}
-		},
-		_jsonLocale: {
-			months: (0, _i18n.trans)('date.months', "一月\n二月\n三月\n四月\n五月\n六月\n七月\n八月\n九月\n十月\n十一月\n十二月").split('\n'),
-			monthsShort: (0, _i18n.trans)('date.monthsShort', "1月\n2月\n3月\n4月\n5月\n6月\n7月\n8月\n9月\n10月\n11月\n12月").split('\n'),
-			weekdays: (0, _i18n.trans)('date.weekdays', "星期日\n星期一\n星期二\n星期三\n星期四\n星期五\n星期六").split('\n'),
-			weekdaysShort: (0, _i18n.trans)('date.weekdaysShort', "周日\n周一\n周二\n周三\n周四\n周五\n周六").split('\n'),
-			weekdaysMin: (0, _i18n.trans)('date.weekdaysMin', "日\n一\n二\n三\n四\n五\n六").split('\n'),
-			defaultMonth: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
 		},
 
 		_formattingTokens: /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYY|YY|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
@@ -6924,13 +6892,11 @@
 			},
 			MMM: function MMM(date, language) {
 				var m = date.getMonth();
-				// return u.date._dateLocale[language].monthsShort[m];
-				return u.date._jsonLocale.monthsShort[m];
+				return u.date._dateLocale[language].monthsShort[m];
 			},
 			MMMM: function MMMM(date, language) {
 				var m = date.getMonth();
-				// return u.date._dateLocale[language].months[m];
-				return u.date._jsonLocale.months[m];
+				return u.date._dateLocale[language].months[m];
 			},
 			//date
 			D: function D(date) {
@@ -6946,18 +6912,15 @@
 			},
 			dd: function dd(date, language) {
 				var d = u.date._formats.d(date);
-				// return u.date._dateLocale[language].weekdaysMin[d];
-				return u.date._jsonLocale.weekdaysMin[d];
+				return u.date._dateLocale[language].weekdaysMin[d];
 			},
 			ddd: function ddd(date, language) {
 				var d = u.date._formats.d(date);
-				// return u.date._dateLocale[language].weekdaysShort[d];
-				return u.date._jsonLocale.weekdaysShort[d];
+				return u.date._dateLocale[language].weekdaysShort[d];
 			},
 			dddd: function dddd(date, language) {
 				var d = u.date._formats.d(date);
-				// return u.date._dateLocale[language].weekdays[d];
-				return u.date._jsonLocale.weekdays[d];
+				return u.date._dateLocale[language].weekdays[d];
 			},
 			// am pm
 			a: function a(date) {
@@ -7005,7 +6968,7 @@
 	  * @param formatString
 	  */
 		format: function format(date, formatString, language) {
-			if (!date) return ''; // renturn date 改为 return '',因：setFormat初始会赋值为undefined,造成二次选择报错
+			if (!date) return date;
 			var array = formatString.match(u.date._formattingTokens),
 			    i,
 			    length,
@@ -7068,7 +7031,7 @@
 			var _date = new Date((0, _util.dateFormat)(value));
 			if (isNaN(_date)) {
 				// IE的话对"2016-2-13 12:13:22"进行处理
-				var index1, index2, index3, s1, s2, s3, s4;
+				var index1, index2, index3, s1, s2, s3;
 				if (value.indexOf) {
 					index1 = value.indexOf('-');
 					index2 = value.indexOf(':');
@@ -7079,7 +7042,6 @@
 							s3 = value.split(' ');
 							s1 = s3[0].split('-');
 							s2 = s3[1].split(':');
-							s4 = s3[2];
 						} else if (index1 > 0) {
 							s1 = value.split('-');
 						} else if (index2 > 0) {
@@ -7092,10 +7054,6 @@
 							dateFlag = true;
 						}
 						if (s2 && s2.length > 0) {
-							//解决ie和firefox等时间pm直接变am问题
-							if (s4 == "pm") {
-								s2[0] = s2[0] - -12;
-							}
 							_date.setHours(s2[0] ? s2[0] : 0);
 							_date.setMinutes(s2[1] ? s2[1] : 0);
 							_date.setSeconds(s2[2] ? s2[2] : 0);
@@ -7104,7 +7062,9 @@
 					} else {
 						_date = new Date(parseInt(value));
 						if (isNaN(_date)) {
-							throw new TypeError('invalid Date parameter');
+							// 输入值不正确时，默认为空，如果抛出异常会后面内容的解析
+							// throw new TypeError('invalid Date parameter');
+							_date = "";
 						} else {
 							dateFlag = true;
 						}
@@ -7343,83 +7303,6 @@
 
 /***/ },
 /* 73 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.trans = undefined;
-
-	var _cookies = __webpack_require__(72);
-
-	var _enumerables = __webpack_require__(9);
-
-	// 从datatable/src/compatiable/u/JsExtension.js抽取
-	/**
-	 * Module : Sparrow i18n
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-29 10:16:54
-	 */
-	//import {uuii18n} from '?';//缺失故修改为default值
-	window.getCurrentJsPath = function () {
-		var doc = document,
-		    a = {},
-		    expose = +new Date(),
-		    rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/,
-		    isLtIE8 = ('' + doc.querySelector).indexOf('[native code]') === -1;
-		// FF,Chrome
-		if (doc.currentScript) {
-			return doc.currentScript.src;
-		}
-
-		var stack;
-		try {
-			a.b();
-		} catch (e) {
-			stack = e.fileName || e.sourceURL || e.stack || e.stacktrace;
-		}
-		// IE10
-		if (stack) {
-			var absPath = rExtractUri.exec(stack)[1];
-			if (absPath) {
-				return absPath;
-			}
-		}
-
-		// IE5-9
-		for (var scripts = doc.scripts, i = scripts.length - 1, script; script = scripts[i--];) {
-			if (script.className !== expose && script.readyState === 'interactive') {
-				script.className = expose;
-				// if less than ie 8, must get abs path by getAttribute(src, 4)
-				return isLtIE8 ? script.getAttribute('src', 4) : script.src;
-			}
-		}
-	};
-
-	if (window.i18n) {
-		window.u = window.u || {};
-		var scriptPath = getCurrentJsPath(),
-		    _temp = scriptPath.substr(0, scriptPath.lastIndexOf('/')),
-		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/')),
-		    resGetPath = u.i18nPath || __FOLDER__ + '/locales/__lng__/__ns__.json';
-		i18n.init({
-			postAsync: false,
-			getAsync: false,
-			fallbackLng: false,
-			ns: { namespaces: ['uui-trans'] },
-			lng: (0, _cookies.getCookie)(_enumerables.U_LOCALE) || 'zh',
-			resGetPath: resGetPath
-		});
-	}
-
-	var trans = function trans(key, dftValue) {
-		return window.i18n ? i18n.t('uui-trans:' + key) : dftValue;
-	};
-
-	exports.trans = trans;
-
-/***/ },
-/* 74 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7457,7 +7340,7 @@
 	exports.multiSelect = multiSelect;
 
 /***/ },
-/* 75 */
+/* 74 */
 /***/ function(module, exports) {
 
 	'use strict';
