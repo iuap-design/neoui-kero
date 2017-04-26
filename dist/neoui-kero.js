@@ -32,7 +32,27 @@ if (enumerables) {
 	enumerables = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
 }
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
 
 /**
  * Module : Sparrow extend
@@ -252,8 +272,6 @@ var indexOf = function indexOf(arr, item) {
 	}
 };
 
-var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /**
  * Module : Sparrow util tools
  * Author : Kvkens(yueming@yonyou.com)
@@ -283,7 +301,7 @@ var getJSObject = function getJSObject(target, names) {
 	if (!names) {
 		return;
 	}
-	if ((typeof names === 'undefined' ? 'undefined' : _typeof$1(names)) == 'object') return names;
+	if ((typeof names === 'undefined' ? 'undefined' : _typeof(names)) == 'object') return names;
 	var nameArr = names.split('.');
 	var obj = target;
 	for (var i = 0; i < nameArr.length; i++) {
@@ -4999,8 +5017,6 @@ var getSimpleDataFunObj = {
     getSimpleData: getSimpleData
 };
 
-var _typeof$3 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /**
  * Module : kero dataTable mete
  * Author : liuyk(liuyk@yonyou.com)
@@ -5101,7 +5117,7 @@ var createField = function createField(fieldName, options) {
     if (!this.meta[fieldName]) {
         this.meta[fieldName] = {};
     }
-    if ((typeof options === 'undefined' ? 'undefined' : _typeof$3(options)) === 'object') {
+    if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
         if (options['meta']) {
             for (var key in options['meta']) {
                 //if (!this.meta[fieldName][key]){
@@ -5129,7 +5145,7 @@ var createField = function createField(fieldName, options) {
         if (!_fieldMeta[fieldName]) {
             _fieldMeta[fieldName] = {};
         }
-        if ((typeof options === 'undefined' ? 'undefined' : _typeof$3(options)) === 'object') {
+        if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
             for (var key in options) {
                 if (!_fieldMeta[fieldName][key]) {
                     _fieldMeta[fieldName][key] = options[key];
@@ -6283,8 +6299,6 @@ var rowFocusFunObj = {
     updateFocusIndex: updateFocusIndex
 };
 
-var _typeof$4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /**
  * Module : kero dataTable simpleData
  * Author : liuyk(liuyk@yonyou.com)
@@ -6328,7 +6342,7 @@ var setSimpleData = function setSimpleData(data, options) {
         // for(var f in _data){
         //     this.createField(f)
         // }
-        if (_typeof$4(data[i]) !== 'object') _data = { $data: data[i] };
+        if (_typeof(data[i]) !== 'object') _data = { $data: data[i] };
         rows.push({
             status: Row.STATUS.NORMAL,
             data: _data
@@ -6379,8 +6393,6 @@ var simpleDataFunObj = {
     addSimpleData: addSimpleData
 };
 
-var _typeof$5 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /**
  * Module : kero DataTable events
  * Author : liuyk(liuyk@yonyou.com)
@@ -6408,7 +6420,7 @@ var on$1 = function on(name, _callback, one) {
             this.on(name[i], _callback);
         }
         return this;
-    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof$5(name)) == 'object') {
+    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
         // map
         for (var key in name) {
             this.on(key, name[key]);
@@ -6450,7 +6462,7 @@ var off$1 = function off(name, callback) {
             this.off(name[i], callback);
         }
         return this;
-    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof$5(name)) == 'object') {
+    } else if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) == 'object') {
         // map
         for (var key in name) {
             this.off(key, name[key]);
@@ -6534,8 +6546,6 @@ var eventsFunObj = {
     getEvent: getEvent
 };
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 /**
  * Module : Kero webpack entry dataTable index
  * Author : liuyk(liuyuekai@yonyou.com)
@@ -6549,7 +6559,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 
 var DataTable$1 = function DataTable(options) {
-    _classCallCheck(this, DataTable);
+    classCallCheck(this, DataTable);
 
     options = options || {};
     /**
@@ -6773,8 +6783,6 @@ NumberFormater.prototype.format = function (value) {
     return result;
 };
 
-var _typeof$6 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /**
  * Module : Sparrow core context
  * Author : Kvkens(yueming@yonyou.com)
@@ -6910,7 +6918,7 @@ fn.setMaskerMeta = function (type, meta) {
 		getMetaFunc = type;
 	} else {
 		if (!maskerMeta[type]) maskerMeta[type] = meta;else {
-			if ((typeof meta === 'undefined' ? 'undefined' : _typeof$6(meta)) != 'object') maskerMeta[type] = meta;else for (var key in meta) {
+			if ((typeof meta === 'undefined' ? 'undefined' : _typeof(meta)) != 'object') maskerMeta[type] = meta;else for (var key in meta) {
 				maskerMeta[type][key] = meta[key];
 			}
 		}
@@ -12045,8 +12053,6 @@ var showMessage = function showMessage(options) {
     }, showSeconds * 1);
 };
 
-var _typeof$8 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /**
  * Module : Kero Grid Adapter
  * Author : Kvkens(yueming@yonyou.com)
@@ -12953,7 +12959,7 @@ var GridAdapter = u.BaseAdapter.extend({
         var viewModel = oThis.grid.viewModel;
         if (eOptions) {
             //判断是否为json对象
-            if ((typeof eOptions === 'undefined' ? 'undefined' : _typeof$8(eOptions)) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length) {
+            if ((typeof eOptions === 'undefined' ? 'undefined' : _typeof(eOptions)) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length) {
                 eOptions = eOptions;
                 //判断是否为string
             } else if (typeof eOptions == "string") {
@@ -13271,7 +13277,7 @@ var GridAdapter = u.BaseAdapter.extend({
 
         if (eOptions) {
             //判断是否为json对象
-            if ((typeof eOptions === 'undefined' ? 'undefined' : _typeof$8(eOptions)) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length) {
+            if ((typeof eOptions === 'undefined' ? 'undefined' : _typeof(eOptions)) == "object" && Object.prototype.toString.call(eOptions).toLowerCase() == "[object object]" && !obj.length) {
                 eOptions = eOptions;
                 //判断是否为string
             } else if (typeof eOptions == "string") {
@@ -15609,8 +15615,6 @@ if (u.compMgr) u.compMgr.addDataAdapter({
     //dataType: 'float'
 });
 
-var _typeof$10 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /**
  * Module : neoui-multilang
  * Author : Kvkens(yueming@yonyou.com)
@@ -15634,7 +15638,7 @@ Multilang.fn.addData = function (val) {
         target_div = target.parentNode;
     if (val === null || typeof val === 'undefined') {
         tmparray = [];
-    } else if ((typeof val === 'undefined' ? 'undefined' : _typeof$10(val)) == "object") {
+    } else if ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) == "object") {
         tmparray = val;
     } else {
         tmparray = val.split(",");
