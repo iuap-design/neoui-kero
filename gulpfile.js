@@ -4,6 +4,8 @@ var webpack = require('webpack');
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var fs = require('fs');
 var glob = require('glob');
+var rollupEach = require('gulp-rollup-each');
+var resolve = require("rollup-plugin-node-resolve");
 
 
 gulp.task('webpack', function() {
@@ -85,4 +87,28 @@ function runWebpack(mode) {
 }
 
 
-gulp.task('default',['webpack']);
+// gulp.task('default',['webpack']);
+
+gulp.task('default',['rollup']);
+
+/**
+ * 使用gulp的rollup插件来对单个组件进行编译
+ * @type {String}
+ */
+gulp.task('rollup', () => {
+    return gulp.src([
+            'src/*.js',
+            '!src/index.js' // exclude modules
+        ])
+        .pipe(rollupEach({
+            // rollup.rollup( options )
+            plugins: [
+                resolve(),
+            ]
+        }, {
+            // bundle.generate( options )
+            format: 'iife',
+            moduleName: "bar"
+        }))
+        .pipe(gulp.dest('dist/component'))
+})

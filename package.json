@@ -1,64 +1,74 @@
 {
-  "name": "neoui-kero",
-  "version": "3.2.1",
-  "description": "neoui kero",
-  "main": "js/index.js",
-  "scripts": {
-    "watch": " webpack --progress --colors --watch --mode=dev",
-    "build": "webpack --colors --progress --mode=build",
-    "dev": "webpack --progress --colors  --mode=dev",
-    "es": "babel src -d lib",
-    "dist": "webpack --progress --colors  --mode=dev && webpack --colors --progress --mode=build && node version --mode=dev &&  node version --mode=build",
-    "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
-    "product": "npm run es && gulp",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "docs": "node bin/mdconcat.js"
-  },
-  "dependencies": {
-    "compox": "^3.2.0",
-    "kero": "^3.2.2",
-    "neoui-kero-mixin": "^3.2.0",
-    "tinper-neoui": "^3.2.1",
-    "tinper-sparrow": "^3.2.1"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.11.4",
-    "babel-core": "^6.13.2",
-    "babel-eslint": "^6.1.2",
-    "babel-loader": "^6.2.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
-    "babel-plugin-transform-es2015-modules-umd": "^6.23.0",
-    "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
-    "babel-plugin-transform-es3-property-literals": "^6.8.0",
-    "babel-polyfill": "^6.3.14",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-es2015-loose": "^8.0.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "chai": "^3.5.0",
-    "cz-conventional-changelog": "^1.2.0",
-    "eslint": "^3.2.2",
-    "eslint-loader": "^1.5.0",
-    "file": "^0.2.2",
-    "fs-extra": "^2.0.0",
-    "gulp": "^3.9.1",
-    "mocha": "^3.0.2",
-    "webpack": "^2.2.1",
-    "yargs": "^5.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iuap-design/neoui-kero.git"
-  },
-  "author": "yonyou FED",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/iuap-design/neoui-kero/issues"
-  },
-  "homepage": "https://github.com/iuap-design/neoui-kero#readme",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+    "name": "neoui-kero",
+    "version": "3.2.1",
+    "description": "neoui kero",
+    "main": "js/index.js",
+    "scripts": {
+        "r-watch": "rollup -c -w",
+        "r-build": "rollup -c",
+        "watch": " webpack --progress --colors --watch --mode=dev",
+        "build": "webpack --colors --progress --mode=build",
+        "dev": "webpack --progress --colors  --mode=dev",
+        "es": "babel src -d lib",
+        "dist": "webpack --progress --colors  --mode=dev && webpack --colors --progress --mode=build && node version --mode=dev &&  node version --mode=build",
+        "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
+        "product": "npm run es && npm run r-build && gulp",
+        "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+        "docs": "node bin/mdconcat.js"
+    },
+    "dependencies": {
+        "compox": "^3.2.0",
+        "kero": "^3.2.2",
+        "neoui-kero-mixin": "^3.2.0",
+        "tinper-neoui": "^3.2.1",
+        "tinper-sparrow": "^3.2.1"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.11.4",
+        "babel-core": "^6.13.2",
+        "babel-eslint": "^6.1.2",
+        "babel-loader": "^6.2.0",
+        "babel-plugin-add-module-exports": "^0.2.1",
+        "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
+        "babel-plugin-transform-es2015-modules-umd": "^6.23.0",
+        "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
+        "babel-plugin-transform-es3-property-literals": "^6.8.0",
+        "babel-polyfill": "^6.3.14",
+        "babel-preset-es2015": "^6.3.13",
+        "babel-preset-es2015-loose": "^8.0.0",
+        "babel-preset-stage-0": "^6.5.0",
+        "chai": "^3.5.0",
+        "cz-conventional-changelog": "^1.2.0",
+        "eslint": "^3.2.2",
+        "eslint-loader": "^1.5.0",
+        "file": "^0.2.2",
+        "fs-extra": "^2.0.0",
+        "gulp": "^3.9.1",
+        "mocha": "^3.0.2",
+        "gulp-rollup-each": "^0.2.2",
+        "rollup-plugin-babel": "^2.7.1",
+        "rollup-plugin-license": "^0.3.0",
+        "rollup-plugin-multi-entry": "^2.0.1",
+        "rollup-plugin-multidest": "^1.0.1",
+        "rollup-plugin-node-resolve": "^3.0.0",
+        "rollup-plugin-uglify": "^1.0.2",
+        "rollup-watch": "^3.2.2",
+        "webpack": "^2.2.1",
+        "yargs": "^5.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/iuap-design/neoui-kero.git"
+    },
+    "author": "yonyou FED",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/iuap-design/neoui-kero/issues"
+    },
+    "homepage": "https://github.com/iuap-design/neoui-kero#readme",
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
-  }
 }
