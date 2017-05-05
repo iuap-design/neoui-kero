@@ -30,7 +30,7 @@
 
 * cdn 资源
 ```
-	//design.yyuap.com/static/neoui-kero/latest/neoui-kero.js
+	//design.yonyoucloud.com/static/neoui-kero/latest/neoui-kero.js
 ```
 ### 引入neoui-kero
 - ES6语法
@@ -44,7 +44,7 @@
 ```
 
 	<!--neoui-kero资源-->
-    <script src="//design.yyuap.com/static/neoui-kero/latest/neoui-kero.js"></script>
+    <script src="//design.yonyoucloud.com/static/neoui-kero/latest/neoui-kero.js"></script>
 ```
 **注**： neoui-kero使用需要neoui和kero结合。因此需要引入neoui和kero相关资源。
 

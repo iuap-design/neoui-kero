@@ -29,7 +29,7 @@
 
 * cdn
 ```
-    //design.yyuap.com/static/neoui-kero/latest/neoui-kero.js
+    //design.yonyoucloud.com/static/neoui-kero/latest/neoui-kero.js
 ```
 ### Introducing  neoui-kero
 - ES6
@@ -42,7 +42,7 @@
 
 ```
     <!-- neoui-kero -->
-    <script src="//design.yyuap.com/static/neoui-kero/latest/neoui-kero.js"></script>
+    <script src="//design.yonyoucloud.com/static/neoui-kero/latest/neoui-kero.js"></script>
 ```
 **注**： neoui-kero often used in conjunction with [neoui](https://github.com/iuap-design/tinper-neoui), [kero](https://github.com/iuap-design/kero)
 

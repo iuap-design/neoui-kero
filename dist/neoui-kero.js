@@ -5653,9 +5653,10 @@ var removeAllRows = function removeAllRows() {
 /**
  * 根据索引数据删除多条数据行
  * @memberof DataTable
- * @param  {array} indices 需要删除的数据行对应索引数组
+ * @param  {array} indices 需要删除的数据行对应数组，数组中既可以是索引也可以是row对象
  * @example
  * datatable.removeRows([1,2])
+ * datatable.removeRows([row1,row2])
  */
 var removeRows = function removeRows(indices) {
     this.setRowsDelete(indices);
@@ -5755,7 +5756,7 @@ var addRow = function addRow(row) {
 };
 
 var resetDelRowEnd = function resetDelRowEnd() {
-    for (var i = 0; i < this.rows().length; i++) {
+    for (var i = this.rows().length - 1; i > -1; i--) {
         var row = this.rows()[i];
         if (row.status == Row.STATUS.DELETE || row.status == Row.STATUS.FALSE_DELETE) {
             this.rows().splice(i, 1);
@@ -5850,6 +5851,7 @@ var insertRows = function insertRows(index, rows) {
  * @return {u.Row} 空行对象
  * @example
  * datatable.createEmptyRow();
+ * datatable.createEmptyRow({unSelect:true})
  */
 var createEmptyRow = function createEmptyRow(options) {
     var r = new Row({
