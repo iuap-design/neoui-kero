@@ -169,7 +169,9 @@ var GridAdapter = u.BaseAdapter.extend({
             var afterEType = getFunction(viewModel, column.afterEType);
             var afterRType = getFunction(viewModel, column.afterRType);
             var sumRenderType = getFunction(viewModel, column.sumRenderType);
+            var groupSumRenderType = getFunction(viewModel, column.groupSumRenderType);
             column.sumRenderType = sumRenderType;
+            column.groupSumRenderType = groupSumRenderType;
             var eOptions = {};
             if (column.editOptions) {
                 if (typeof(column.editOptions) == "undefined")
@@ -274,10 +276,10 @@ var GridAdapter = u.BaseAdapter.extend({
                         disableStr = '';
 
                     if (obj.value == 'Y' || obj.value == 'true') {
-                        checkStr = 'is-checked';
+                        checkStr = ' is-checked';
                     }
                     if (grid.options.editType == 'form') {
-                        disableStr = 'is-disabled';
+                        disableStr = ' is-disabled';
                     }
                     var htmlStr = '<label class="u-checkbox is-upgraded ' + checkStr + disableStr + '">' +
                         '<input type="checkbox" class="u-checkbox-input">' +
@@ -304,6 +306,39 @@ var GridAdapter = u.BaseAdapter.extend({
                         var field = column.options.field
                         row.setValue(field, value);
                     })
+
+                    // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                    if (typeof afterRType == 'function') {
+                        afterRType.call(this, obj);
+                    }
+                }
+                // 如果是booleanRender并且没有设置eType则设置eType为空方法
+                if (!column.eType && !column.editable) {
+                    column.editable = false;
+                }
+            } if (rType == 'disableBooleanRender') {
+                column.renderType = function(obj) {
+
+                    var grid = obj.gridObj;
+                    var datatable = grid.dataTable;
+                    var rowId = obj.row.value['$_#_@_id'];
+                    var row = datatable.getRowByRowId(rowId);
+                    var checkStr = '',
+                        disableStr = '';
+
+                    if (obj.value == 'Y' || obj.value == 'true') {
+                        checkStr = 'is-checked';
+                    }
+                        disableStr = ' is-disabled';
+                    var htmlStr = '<label class="u-checkbox is-upgraded ' + checkStr + disableStr + '">' +
+                        '<input type="checkbox" class="u-checkbox-input">' +
+                        '<span class="u-checkbox-label"></span>' +
+                        '<span class="u-checkbox-focus-helper"></span><span class="u-checkbox-outline"><span class="u-checkbox-tick-outline"></span></span>' +
+                        '</label>'
+
+                    obj.element.innerHTML = htmlStr;
+
+
 
                     // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
                     if (typeof afterRType == 'function') {
@@ -1065,7 +1100,27 @@ var GridAdapter = u.BaseAdapter.extend({
                     afterRType.call(this, obj);
                 }
             }
-        } else if (rType == 'integerRender') {
+        } else if (rType == 'disableBooleanRender') {
+            var renderType = function(obj) {
+                var checkStr = '';
+                if (obj.value == 'Y') {
+                    checkStr = 'checked';
+                }
+                var htmlStr = '<input type="checkbox"  disabled style="cursor:default;" ' + checkStr + '>'
+                obj.element.innerHTML = htmlStr;
+
+                var grid = obj.gridObj
+                var datatable = grid.dataTable
+                var rowId = obj.row.value['$_#_@_id'];
+
+                var row = datatable.getRowByRowId(rowId);
+
+                // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                if (typeof afterRType == 'function') {
+                    afterRType.call(this, obj);
+                }
+            }
+        }else if (rType == 'integerRender') {
             column.dataType = 'Int';
             var renderType = function(obj) {
                 var grid = obj.gridObj
