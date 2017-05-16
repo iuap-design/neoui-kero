@@ -58,7 +58,9 @@ var TreeAdapter = u.BaseAdapter.extend({
                 },
                 // 选中/取消选中事件
                 onCheck: function(e, id, node) {
-
+                    if (oThis.selectSilence) {
+                        return;
+                    }
                     var nodes = oThis.tree.getCheckedNodes();
                     var nowSelectIndexs = oThis.dataTable.getSelectedIndexs();
                     var indexArr = []
@@ -112,6 +114,9 @@ var TreeAdapter = u.BaseAdapter.extend({
                 },
                 // 单选时点击触发选中
                 onClick: function(e, id, node) {
+                    if (oThis.selectSilence) {
+                        return;
+                    }
                     //点击时取消所有超链接效果
                     $('#' + id + ' li').removeClass('focusNode');
                     $('#' + id + ' a').removeClass('focusNode');
@@ -278,6 +283,16 @@ var TreeAdapter = u.BaseAdapter.extend({
 
         // dataTable事件
         this.dataTable.on(DataTable.ON_ROW_SELECT, function(event) {
+            oThis.selectSilence = true;
+            var nodes = oThis.tree.getCheckedNodes();
+            $.each(nodes, function() {
+                var node = this;
+                if (oThis.tree.setting.view.selectedMulti == true && node.checked) {
+                    oThis.tree.checkNode(node, false, true, true);
+                } else {
+                    oThis.tree.cancelSelectedNode(node)
+                }
+            });
             /*index转化为grid的index*/
             $.each(event.rowIds, function() {
                 var row = oThis.dataTable.getRowByRowId(this);
@@ -291,6 +306,7 @@ var TreeAdapter = u.BaseAdapter.extend({
                     oThis.tree.selectNode(node, false);
                 }
             });
+            oThis.selectSilence = false;
         });
 
         this.dataTable.on(DataTable.ON_ROW_UNSELECT, function(event) {
