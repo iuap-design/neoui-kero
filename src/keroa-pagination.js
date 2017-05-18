@@ -33,19 +33,16 @@ var PaginationAdapter = u.BaseAdapter.extend({
         this.sizeChange = getFunction(this.viewModel, this.options['sizeChange']);
 
         this.comp.on('pageChange', function(pageIndex) {
+            self.defaultPageChange(pageIndex);
             if (typeof self.pageChange == 'function') {
                 self.pageChange(pageIndex);
-            } else {
-                self.defaultPageChange(pageIndex);
             }
 
         });
         this.comp.on('sizeChange', function(size, pageIndex) {
+            elf.defaultSizeChange(size, pageIndex);
             if (typeof self.sizeChange == 'function') {
                 self.sizeChange(size, pageIndex);
-            } else {
-                self.defaultSizeChange(size, pageIndex);
-                // showMessage({msg:"没有注册sizeChange事件"});
             }
         });
 
@@ -101,6 +98,7 @@ var PaginationAdapter = u.BaseAdapter.extend({
     },
 
     defaultPageChange: function(pageIndex) {
+        this.dataModel.pageIndex(pageIndex);
         if (this.dataModel.hasPage(pageIndex)) {
             this.dataModel.setCurrentPage(pageIndex)
         } else {}

@@ -450,7 +450,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     var nameArr = []
                     for (var i = 0, length = ds.length; i < length; i++) {
                         for (var j = 0; j < valArr.length; j++) {
-                            if (ds[i].value == valArr[j]) {
+                            if (valArr[j] != '' && valArr[j] != null && typeof valArr[j] != 'undefined' && ds[i].value == valArr[j]) {
                                 nameArr.push(ds[i].name)
                             }
                         }
