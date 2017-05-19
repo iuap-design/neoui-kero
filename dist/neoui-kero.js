@@ -16375,6 +16375,7 @@ if (u.compMgr) u.compMgr.addDataAdapter({
  */
 var ex = {
 	BaseAdapter: BaseAdapter,
+	CascaderAdapter: CascaderAdapter,
 	CheckboxAdapter: CheckboxAdapter,
 	CkEditorAdapter: CkEditorAdapter,
 	ComboboxAdapter: ComboboxAdapter,
