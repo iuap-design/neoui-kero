@@ -2863,10 +2863,9 @@ const removeAllRows = function() {
 /**
  * 根据索引数据删除多条数据行
  * @memberof DataTable
- * @param  {array} indices 需要删除的数据行对应数组，数组中既可以是索引也可以是row对象
+ * @param  {array} indices 需要删除的数据行对应索引数组
  * @example
  * datatable.removeRows([1,2])
- * datatable.removeRows([row1,row2])
  */
 const removeRows = function(indices) {
     this.setRowsDelete(indices);
@@ -2971,7 +2970,7 @@ const addRow = function(row) {
 };
 
 const resetDelRowEnd = function() {
-    for (var i = this.rows().length - 1; i > -1; i--) {
+    for (var i = 0; i < this.rows().length; i++) {
         var row = this.rows()[i];
         if (row.status == Row.STATUS.DELETE || row.status == Row.STATUS.FALSE_DELETE) {
             this.rows().splice(i, 1);
@@ -3067,7 +3066,6 @@ const insertRows = function(index, rows) {
  * @return {u.Row} 空行对象
  * @example
  * datatable.createEmptyRow();
- * datatable.createEmptyRow({unSelect:true})
  */
 const createEmptyRow = function(options) {
     var r = new Row({
@@ -4039,7 +4037,9 @@ var TreeAdapter = u.BaseAdapter.extend({
                 },
                 // 选中/取消选中事件
                 onCheck: function(e, id, node) {
-
+                    if (oThis.selectSilence) {
+                        return;
+                    }
                     var nodes = oThis.tree.getCheckedNodes();
                     var nowSelectIndexs = oThis.dataTable.getSelectedIndexs();
                     var indexArr = [];
@@ -4093,6 +4093,9 @@ var TreeAdapter = u.BaseAdapter.extend({
                 },
                 // 单选时点击触发选中
                 onClick: function(e, id, node) {
+                    if (oThis.selectSilence) {
+                        return;
+                    }
                     //点击时取消所有超链接效果
                     $('#' + id + ' li').removeClass('focusNode');
                     $('#' + id + ' a').removeClass('focusNode');
@@ -4259,6 +4262,16 @@ var TreeAdapter = u.BaseAdapter.extend({
 
         // dataTable事件
         this.dataTable.on(DataTable$1.ON_ROW_SELECT, function(event) {
+            oThis.selectSilence = true;
+            var nodes = oThis.tree.getCheckedNodes();
+            $.each(nodes, function() {
+                var node = this;
+                if (oThis.tree.setting.view.selectedMulti == true && node.checked) {
+                    oThis.tree.checkNode(node, false, true, true);
+                } else {
+                    oThis.tree.cancelSelectedNode(node);
+                }
+            });
             /*index转化为grid的index*/
             $.each(event.rowIds, function() {
                 var row = oThis.dataTable.getRowByRowId(this);
@@ -4272,6 +4285,7 @@ var TreeAdapter = u.BaseAdapter.extend({
                     oThis.tree.selectNode(node, false);
                 }
             });
+            oThis.selectSilence = false;
         });
 
         this.dataTable.on(DataTable$1.ON_ROW_UNSELECT, function(event) {

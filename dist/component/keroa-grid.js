@@ -2963,10 +2963,9 @@ const removeAllRows = function() {
 /**
  * 根据索引数据删除多条数据行
  * @memberof DataTable
- * @param  {array} indices 需要删除的数据行对应数组，数组中既可以是索引也可以是row对象
+ * @param  {array} indices 需要删除的数据行对应索引数组
  * @example
  * datatable.removeRows([1,2])
- * datatable.removeRows([row1,row2])
  */
 const removeRows = function(indices) {
     this.setRowsDelete(indices);
@@ -3071,7 +3070,7 @@ const addRow = function(row) {
 };
 
 const resetDelRowEnd = function() {
-    for (var i = this.rows().length - 1; i > -1; i--) {
+    for (var i = 0; i < this.rows().length; i++) {
         var row = this.rows()[i];
         if (row.status == Row.STATUS.DELETE || row.status == Row.STATUS.FALSE_DELETE) {
             this.rows().splice(i, 1);
@@ -3167,7 +3166,6 @@ const insertRows = function(index, rows) {
  * @return {u.Row} 空行对象
  * @example
  * datatable.createEmptyRow();
- * datatable.createEmptyRow({unSelect:true})
  */
 const createEmptyRow = function(options) {
     var r = new Row({
@@ -11954,7 +11952,9 @@ var GridAdapter = u.BaseAdapter.extend({
             var afterEType = getFunction(viewModel, column.afterEType);
             var afterRType = getFunction(viewModel, column.afterRType);
             var sumRenderType = getFunction(viewModel, column.sumRenderType);
+            var groupSumRenderType = getFunction(viewModel, column.groupSumRenderType);
             column.sumRenderType = sumRenderType;
+            column.groupSumRenderType = groupSumRenderType;
             var eOptions = {};
             if (column.editOptions) {
                 if (typeof(column.editOptions) == "undefined")
@@ -12059,10 +12059,10 @@ var GridAdapter = u.BaseAdapter.extend({
                         disableStr = '';
 
                     if (obj.value == 'Y' || obj.value == 'true') {
-                        checkStr = 'is-checked';
+                        checkStr = ' is-checked';
                     }
                     if (grid.options.editType == 'form') {
-                        disableStr = 'is-disabled';
+                        disableStr = ' is-disabled';
                     }
                     var htmlStr = '<label class="u-checkbox is-upgraded ' + checkStr + disableStr + '">' +
                         '<input type="checkbox" class="u-checkbox-input">' +
@@ -12089,6 +12089,39 @@ var GridAdapter = u.BaseAdapter.extend({
                         var field = column.options.field;
                         row.setValue(field, value);
                     });
+
+                    // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                    if (typeof afterRType == 'function') {
+                        afterRType.call(this, obj);
+                    }
+                };
+                // 如果是booleanRender并且没有设置eType则设置eType为空方法
+                if (!column.eType && !column.editable) {
+                    column.editable = false;
+                }
+            } if (rType == 'disableBooleanRender') {
+                column.renderType = function(obj) {
+
+                    var grid = obj.gridObj;
+                    var datatable = grid.dataTable;
+                    var rowId = obj.row.value['$_#_@_id'];
+                    var row = datatable.getRowByRowId(rowId);
+                    var checkStr = '',
+                        disableStr = '';
+
+                    if (obj.value == 'Y' || obj.value == 'true') {
+                        checkStr = 'is-checked';
+                    }
+                        disableStr = ' is-disabled';
+                    var htmlStr = '<label class="u-checkbox is-upgraded ' + checkStr + disableStr + '">' +
+                        '<input type="checkbox" class="u-checkbox-input">' +
+                        '<span class="u-checkbox-label"></span>' +
+                        '<span class="u-checkbox-focus-helper"></span><span class="u-checkbox-outline"><span class="u-checkbox-tick-outline"></span></span>' +
+                        '</label>';
+
+                    obj.element.innerHTML = htmlStr;
+
+
 
                     // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
                     if (typeof afterRType == 'function') {
@@ -12200,7 +12233,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     var nameArr = [];
                     for (var i = 0, length = ds.length; i < length; i++) {
                         for (var j = 0; j < valArr.length; j++) {
-                            if (ds[i].value == valArr[j]) {
+                            if (valArr[j] != '' && valArr[j] != null && typeof valArr[j] != 'undefined' && ds[i].value == valArr[j]) {
                                 nameArr.push(ds[i].name);
                             }
                         }
@@ -12419,7 +12452,7 @@ var GridAdapter = u.BaseAdapter.extend({
         var onRowSelectedFun = this.gridOptions.onRowSelected;
         // 选中
         this.gridOptions.onRowSelected = function(obj) {
-            if (!oThis.silence) {
+            if (!oThis.selectSilence) {
                 var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
                 var index = oThis.dataTable.getIndexByRowId(rowId);
                 if (oThis.grid.options.multiSelect) {
@@ -12433,7 +12466,7 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
         this.dataTable.on(DataTable$1.ON_ROW_SELECT, function(event) {
-            oThis.silence = true;
+            oThis.selectSilence = true;
             var gridSelectRows = [];
             $.each(oThis.grid.getSelectRows(), function() {
                 gridSelectRows.push(this);
@@ -12447,9 +12480,9 @@ var GridAdapter = u.BaseAdapter.extend({
                 });
                 if (unSelectFlag) {
                     var index = oThis.grid.getRowIndexByValue('$_#_@_id', rowId);
-                    oThis.silence = true;
+                    // oThis.selectSilence = true;
                     oThis.grid.setRowUnselect(index);
-                    oThis.silence = false;
+                    // oThis.selectSilence = false;
                 }
             });
 
@@ -12465,28 +12498,24 @@ var GridAdapter = u.BaseAdapter.extend({
                     }
                 }
             });
-            oThis.silence = false;
+            oThis.selectSilence = false;
 
         });
 
         //全选
         this.dataTable.on(DataTable$1.ON_ROW_ALLSELECT, function(event) {
-            oThis.silence = true;
             oThis.grid.setAllRowSelect();
-            oThis.silence = false;
         });
 
         //全返选
         this.dataTable.on(DataTable$1.ON_ROW_ALLUNSELECT, function(event) {
-            oThis.silence = true;
             oThis.grid.setAllRowUnSelect();
-            oThis.silence = false;
         });
 
         // 反选
         var onRowUnSelectedFun = this.gridOptions.onRowUnSelected;
         this.gridOptions.onRowUnSelected = function(obj) {
-            if (!oThis.silence) {
+            if (!oThis.selectSilence) {
                 var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
                 var index = oThis.dataTable.getIndexByRowId(rowId);
                 oThis.dataTable.setRowUnSelect(index);
@@ -12496,7 +12525,7 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
         this.dataTable.on(DataTable$1.ON_ROW_UNSELECT, function(event) {
-            oThis.silence = true;
+            oThis.selectSilence = true;
             $.each(event.rowIds, function() {
                 var index = oThis.grid.getRowIndexByValue('$_#_@_id', this);
                 var unSelectFlag = true;
@@ -12511,13 +12540,13 @@ var GridAdapter = u.BaseAdapter.extend({
                     }
                 }
             });
-            oThis.silence = false;
+            oThis.selectSilence = false;
         });
 
         var onRowFocusFun = this.gridOptions.onRowFocus;
         // focus
         this.gridOptions.onRowFocus = function(obj) {
-            if (!oThis.silence) {
+            if (!oThis.focusSilence) {
                 var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
                 var index = oThis.dataTable.getIndexByRowId(rowId);
 
@@ -12533,7 +12562,7 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
         this.dataTable.on(DataTable$1.ON_ROW_FOCUS, function(event) {
-            oThis.silence = true;
+            oThis.focusSilence = true;
             /*index转化为grid的index*/
             var index = oThis.grid.getRowIndexByValue('$_#_@_id', event.rowId);
 
@@ -12545,13 +12574,13 @@ var GridAdapter = u.BaseAdapter.extend({
                     oThis.dataTable.setRowUnFocus(oThis.dataTable.getIndexByRowId(event.rowId));
                 }
             }
-            oThis.silence = false;
+            oThis.focusSilence = false;
         });
 
         // 反focus
         var onRowUnFocusFun = this.gridOptions.onRowUnFocus;
         this.gridOptions.onRowUnFocus = function(obj) {
-            if (!oThis.silence) {
+            if (!oThis.focusSilence) {
                 var rowId = oThis.grid.dataSourceObj.rows[obj.rowIndex].value['$_#_@_id'];
                 var index = oThis.dataTable.getIndexByRowId(rowId);
                 oThis.dataTable.setRowUnFocus(index);
@@ -12561,7 +12590,7 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
         this.dataTable.on(DataTable$1.ON_ROW_UNFOCUS, function(event) {
-            oThis.silence = true;
+            oThis.focusSilence = true;
             var index = oThis.grid.getRowIndexByValue('$_#_@_id', event.rowId);
             var unFocusFlag = true;
             if (index > -1) {
@@ -12570,7 +12599,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     oThis.dataTable.setRowFocus(oThis.dataTable.getIndexByRowId(event.rowId));
                 }
             }
-            oThis.silence = false;
+            oThis.focusSilence = false;
         });
 
         // 增行,只考虑viewModel传入grid
@@ -12627,36 +12656,6 @@ var GridAdapter = u.BaseAdapter.extend({
             //oThis.grid.editClose();
             oThis.silence = false;
         });
-
-
-        this.gridOptions.onRowDelete = function(obj) {
-            if (!oThis.silence) {
-                var row = obj.row;
-                var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
-                oThis.dataTable.setRowDelete(datatableIndex);
-                $('.tooltip').remove();
-            }
-        };
-        this.dataTable.on(DataTable$1.ON_DELETE, function(event) {
-            oThis.silence = true;
-            /*index转化为grid的index*/
-            var gridIndexs = new Array();
-            $.each(event.rowIds, function() {
-                var index = oThis.grid.getRowIndexByValue('$_#_@_id', this);
-                gridIndexs.push(index);
-            });
-            oThis.grid.deleteRows(gridIndexs);
-            $('.tooltip').remove();
-            oThis.silence = false;
-        });
-
-        this.dataTable.on(DataTable$1.ON_DELETE_ALL, function(event) {
-            oThis.silence = true;
-            oThis.grid.setDataSource({});
-            $('.tooltip').remove();
-            oThis.silence = false;
-        });
-
         // 数据改变
         var onValueChangeFun = this.gridOptions.onValueChange;
         this.gridOptions.onValueChange = function(obj) {
@@ -12675,6 +12674,37 @@ var GridAdapter = u.BaseAdapter.extend({
                 onValueChangeFun.call(oThis, obj);
             }
         };
+
+
+        this.gridOptions.onRowDelete = function(obj) {
+            if (!oThis.deleteSilence) {
+                var row = obj.row;
+                var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
+                oThis.dataTable.setRowDelete(datatableIndex);
+                $('.tooltip').remove();
+            }
+        };
+        this.dataTable.on(DataTable$1.ON_DELETE, function(event) {
+            oThis.deleteSilence = true;
+            /*index转化为grid的index*/
+            var gridIndexs = new Array();
+            $.each(event.rowIds, function() {
+                var index = oThis.grid.getRowIndexByValue('$_#_@_id', this);
+                gridIndexs.push(index);
+            });
+            oThis.grid.deleteRows(gridIndexs);
+            $('.tooltip').remove();
+            oThis.deleteSilence = false;
+        });
+
+        this.dataTable.on(DataTable$1.ON_DELETE_ALL, function(event) {
+            oThis.deleteSilence = true;
+            oThis.grid.setDataSource({});
+            $('.tooltip').remove();
+            oThis.deleteSilence = false;
+        });
+
+
 
         // 加载数据,只考虑viewModel传入grid
         this.dataTable.on(DataTable$1.ON_LOAD, function(data) {
@@ -12700,13 +12730,13 @@ var GridAdapter = u.BaseAdapter.extend({
             oThis.silence = false;
         });
         this.dataTable.on(DataTable$1.ON_ENABLE_CHANGE, function(enable) {
-            oThis.silence = true;
+            oThis.enableSilence = true;
             oThis.grid.setEditable(enable.enable);
-            oThis.silence = false;
+            oThis.enableSilence = false;
         });
 
         this.dataTable.on(DataTable$1.ON_ROW_META_CHANGE, function(event) {
-            oThis.silence = true;
+            oThis.metaSilence = true;
             var field = event.field,
                 meta = event.meta,
                 row = event.row,
@@ -12728,11 +12758,11 @@ var GridAdapter = u.BaseAdapter.extend({
 
                 oThis.grid.updateValueAt(index, field, value, true);
             }
-            oThis.silence = false;
+            oThis.metaSilence = false;
         });
 
         this.dataTable.on(DataTable$1.ON_META_CHANGE, function(event) {
-            oThis.silence = true;
+            oThis.metaSilence = true;
             var field = event.field;
             var meta = event.meta;
             if (meta == 'precision') {
@@ -12740,7 +12770,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     field: field
                 });
             }
-            oThis.silence = false;
+            oThis.metaSilence = false;
         });
 
         this.gridOptions.transMap = {
@@ -12778,14 +12808,14 @@ var GridAdapter = u.BaseAdapter.extend({
             dataSource['values'] = values;
             oThis.grid.setDataSource(dataSource);
         }
+
         // 选中行
-        var selectIndexs = this.dataTable.getSelectedIndexs();
+        var selectIndexs = oThis.dataTable.getSelectedIndexs();
         if (selectIndexs.length > 0) {
             $.each(selectIndexs, function() {
                 oThis.grid.setRowSelect(this);
             });
         }
-
         return this;
     },
 
@@ -12853,7 +12883,27 @@ var GridAdapter = u.BaseAdapter.extend({
                     afterRType.call(this, obj);
                 }
             };
-        } else if (rType == 'integerRender') {
+        } else if (rType == 'disableBooleanRender') {
+            var renderType = function(obj) {
+                var checkStr = '';
+                if (obj.value == 'Y') {
+                    checkStr = 'checked';
+                }
+                var htmlStr = '<input type="checkbox"  disabled style="cursor:default;" ' + checkStr + '>';
+                obj.element.innerHTML = htmlStr;
+
+                var grid = obj.gridObj;
+                var datatable = grid.dataTable;
+                var rowId = obj.row.value['$_#_@_id'];
+
+                var row = datatable.getRowByRowId(rowId);
+
+                // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                if (typeof afterRType == 'function') {
+                    afterRType.call(this, obj);
+                }
+            };
+        }else if (rType == 'integerRender') {
             column.dataType = 'Int';
             var renderType = function(obj) {
                 var grid = obj.gridObj;
