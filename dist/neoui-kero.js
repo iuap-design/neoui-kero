@@ -25,7 +25,7 @@ var enumerables = true;
 var enumerablesTest = {
 	toString: 1
 };
-for (var i$1 in enumerablesTest) {
+for (var i in enumerablesTest) {
 	enumerables = null;
 }
 if (enumerables) {
@@ -2096,6 +2096,312 @@ window.u = window.u || {};
 u.BaseAdapter = BaseAdapter;
 
 /**
+ * Module : neoui-cascader
+ * Author : huyueb(huyueb@yonyou.com)
+ * Date	  : 2017-05-19 13:19:10
+ */
+var Cascader = u.BaseComponent.extend({
+    // 入口方法
+    init: function init() {
+        var self = this,
+            data = self.options['data'],
+            id = '';
+        this._data = data;
+        this.order = [];
+        if (!this.options['id']) {
+            this.options['id'] = new Date().getTime() + '' + parseInt(Math.random() * 10 + 1, 10);
+        }
+        id = this.options['id'];
+
+        $(this.element).append('<div id="' + id + '-input" class="cascader-input" style="width:100%;height:100%;"><input/></div><div id="' + id + '" class="cascader-show"></div>');
+        this.focusFunc();
+        $(this.element).children('.cascader-input').off().on('mouseenter', function () {
+            var $this = $(this);
+            if ($this.children('input').val()) {
+                $this.append('<i class="icon uf uf-close-bold"></i>');
+            }
+            $this.off('mouseleave').on('mouseleave', function () {
+                $this.children('i').remove();
+            }).children('i').on('click', function () {
+                var $this_ = $(this);
+                $this_.siblings('input').val('').attr('tovalue', '').end().parent().next().html('').end().end().remove();
+            });
+        });
+    },
+    triggerChange: function triggerChange(value) {
+        this.trigger('change', {
+            value: value
+        });
+    },
+    setData: function setData(data) {
+        var self = this;
+        self._data = data;
+    },
+
+    setValue: function setValue(value) {
+        var self = this,
+            arr = value.split(',') || [],
+            names = '';
+        if (arr && arr.length > 1) {
+            names = self.transName(arr, self._data);
+        }
+        if (names.length > 1) {
+            names = names.substring(0, names.length - 1);
+            $(this.element).children('.cascader-input').children('input').val(names).attr('tovalue', value);
+        }
+    },
+    //通过设置的value值能去data中查找到对应的name值
+    transName: function transName(arr, data) {
+        var names = '',
+            self = this,
+            flag = -1;
+        for (var j = 0; j < data.length; j++) {
+            if (data[j].value == arr[0]) {
+                flag = j;
+                names += data[j].name + ',';
+            }
+        }
+        if (arr.length > 1) {
+            data = data[flag].children;
+            arr.shift();
+
+            names += self.transName(arr, data);
+        }
+        return names;
+    },
+
+    //还原之前节点的位置
+    transHtml: function transHtml(arr, data, index) {
+        var html = "",
+            self = this,
+            index = index || 0,
+            flag = -1;
+
+        html += "<ul col = " + index + " >";
+
+        for (var j = 0; j < data.length; j++) {
+            if (data[j].value == arr[0]) {
+                flag = j;
+            }
+
+            if (data[j].children) {
+                html += "<li class='" + (flag === j ? 'active' : '') + "' row = " + j + "  value=" + data[j].value + ">" + data[j].name + "<i class='icon uf uf-arrow-right'></i></li>";
+            } else {
+                html += "<li class='" + (flag === j ? 'active' : '') + "' row = " + j + " value=" + data[j].value + ">" + data[j].name + "</li>";
+            }
+        }
+        html += "</ul>";
+        if (arr.length > 1) {
+            data = data[flag].children;
+            arr.shift();
+
+            html += self.transHtml(arr, data, ++index);
+        }
+
+        return html;
+    },
+    //根据传入的data来动态的生成级联组件的列表
+    formData: function formData(data, index, arg) {
+        var self = this,
+            data = data || self._data,
+            html = "",
+            index = index || 0,
+            //来记录是第几个ul，方便进行查找和删除
+        arr = [],
+            trigger_type = self.options['trigger_type'] || 'click';
+        //判断输入框中是否有数据
+        if (!arg) {
+            //当输入框中没有数据，就认为是第一次
+            if ($('#' + self.options['id'] + '>ul').length) {
+                $('#' + self.options['id'] + '>ul[col="' + index + '"]~').remove();
+                index = $('#' + self.options['id'] + '>ul').length;
+            }
+
+            html += "<ul col = " + index + " >";
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].children) {
+                    html += "<li row = " + i + "  value=" + data[i].value + ">" + data[i].name + "<i class='icon uf uf-arrow-right'></i></li>";
+                } else {
+                    html += "<li row = " + i + " value=" + data[i].value + ">" + data[i].name + "</li>";
+                }
+            }
+            html += "</ul>";
+            if ($('#' + self.options['id'] + '>ul').length) {
+
+                $('#' + self.options['id']).append(html);
+            } else {
+                $('#' + self.options['id']).append(html);
+            }
+            index++;
+        } else {
+            //当输入框中有数据的时候，就根据输入框的数据，来显示出相应的列表
+            arr = arg.split(',');
+            html = self.transHtml(arr, data);
+            if ($('#' + self.options['id'] + '>ul').length) {
+
+                $('#' + self.options['id']).append(html);
+            } else {
+                $('#' + self.options['id']).append(html);
+            }
+            index++;
+        }
+
+        if (trigger_type == "mouseenter") {
+            //当触发方式是mouseenter的时候，需要额外定义点击事件。点击则将选中的数据写入input输入框
+            $('#' + self.options['id'] + '>ul>li').off('click').on('click', function (e) {
+                var $this = $(this),
+                    $content = $('#' + self.options['id']),
+                    col = $this.parent().attr('col'),
+                    text = "",
+                    //最后选中之后的input输入框中的文字,如："浙江,杭州"
+                value = ""; //最后选中之后的原始序列,如："01,11"
+                $.each($content.find('li.active'), function (key, val) {
+                    var $val = $(val);
+                    if (key < col - -1) {
+                        text += val.innerText + ',';
+                        value += $val.attr('value') + ',';
+                    }
+                });
+                text = text.substring(0, text.length - 1);
+                value = value.substring(0, value.length - 1);
+
+                $content.prev().children('input').val(text).attr('tovalue', value).end().end().html('');
+
+                //触发adapter层的change事件
+                self.triggerChange(value);
+            });
+        }
+
+        //为级联组件的列表的每个li绑定事件
+        $('#' + self.options['id'] + '>ul>li').off(trigger_type).on(trigger_type, function (e) {
+            var $this = $(this),
+                col = $this.parent().attr('col'),
+                row = $this.attr('row'),
+                data = self._data,
+                $content = $('#' + self.options['id']),
+                text = "",
+                //最后选中之后的input输入框中的文字,如："浙江,杭州"
+            value = ""; //最后选中之后的原始序列,如："01,11"
+
+            $this.siblings().removeClass('active');
+            $this.addClass('active');
+
+            //把超过col+1的ul砍掉，之后的就不显示了
+            self.order.length = col - -1;
+            self.order[col] = row;
+
+            for (var i = 0; i < self.order.length; i++) {
+                //判断此条数据是否还有子数据
+                if (data[self.order[i]].children) {
+                    data = data[self.order[i]].children;
+                } else {
+
+                    if (trigger_type != 'mouseenter') {
+                        //当此条数据没有子数据时，并且是click方式触发，就将之前选择的数据展示到input框中
+                        $.each($content.find('li.active'), function (key, val) {
+                            var $val = $(val);
+                            if (key < col - -1) {
+                                text += val.innerText + ',';
+                                value += $val.attr('value') + ',';
+                            }
+                        });
+                        text = text.substring(0, text.length - 1);
+                        value = value.substring(0, value.length - 1);
+
+                        $content.prev().children('input').val(text).attr('tovalue', value).end().end().html('');
+                        //触发adapter层的change事件
+                        self.triggerChange(value);
+                    } else {
+                        //当此条数据没有子数据时，如果是mouseenter触发，就只是将该条列表后面的内容删掉
+                        $this.parent().nextAll().remove();
+                    }
+                    return;
+                }
+            }
+            if (data) {
+                self.formData(data, col);
+            }
+        });
+        //当点击级联组件的之外的区域时，删除级联组件的显示
+        var callback = function (e) {
+            if (e.target === this._input || self._inputFocus == true) return;
+            if (closest(e.target, 'cascader-show') === self._ul || closest(e.target, 'u-cascader')) return;
+            off(document, 'click', callback);
+            $('#' + self.options['id']).html('');
+        }.bind(this);
+        this.callback = callback;
+        on(document, 'click', callback);
+    },
+    //当input输入框有点击事件的时候就生成级联组件的列表
+    focusFunc: function focusFunc() {
+        var self = this;
+        var caret = $(this.element).find('input')[0];
+        on(caret, 'click', function (e) {
+            var $this = $(this);
+            if (!$('#' + self.options['id']).html()) {
+                self.formData('', '', $this.attr('tovalue'));
+            }
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            } else {
+                e.cancelBubble = true;
+            }
+        });
+    }
+});
+
+if (u.compMgr) u.compMgr.regComp({
+    comp: Cascader,
+    compAsString: 'u.cascader',
+    css: 'u-cascader'
+});
+
+/**
+ * Module : Cascader的Kero组件
+ * Author : huyue(huyueb@yonyou.com)
+ * Date	  : 2017-05-19 09:52:13
+ */
+
+var CascaderAdapter = u.BaseAdapter.extend({
+
+    init: function init() {
+        var self = this;
+        // 获取参数
+        var id = this.options.id,
+            data = this.options.data,
+            is_hover = this.options.is_hover,
+            obj = {
+            el: this.element,
+            id: id,
+            data: getJSObject(this.viewModel, this.options['datasource'])
+        };
+        //判断如果传入了is_hover参数，并且为true，就将触发事件的状态由click改为mouseenter
+        if (is_hover) {
+            obj['trigger_type'] = 'mouseenter';
+        }
+        this.comp = new u.Cascader(obj);
+        this.comp.on('change', function (event) {
+            self.setValue(event.value);
+        });
+    },
+
+    /**
+     * 模型数据 datatable 改变调用的方法
+     * @param {Object} value
+     */
+    modelValueChange: function modelValueChange(value) {
+        this.comp.setValue(value);
+    }
+
+});
+
+if (u.compMgr) u.compMgr.addDataAdapter({
+    adapter: CascaderAdapter,
+    name: 'u-cascader'
+});
+
+/**
  * Module : Sparrow browser environment
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-07-27 21:46:50
@@ -3704,7 +4010,8 @@ var Combo = u.BaseComponent.extend({
     },
 
     _updateItemSelect: function _updateItemSelect() {
-        var lis = this._ul.querySelectorAll('.u-combo-li');
+        var lis = this._ul.querySelectorAll('.u-combo-li'),
+            val = this.value;
         if (this.mutilSelect) {
             var values = this.value.split(',');
             for (var i = 0; i < lis.length; i++) {
@@ -3723,7 +4030,7 @@ var Combo = u.BaseComponent.extend({
             }*/
         } else {
             for (var i = 0; i < lis.length; i++) {
-                if (this.value == this.comboDatas[i].value) {
+                if (val != '' && val != null && typeof val != 'undefined' && val == this.comboDatas[i].value) {
                     addClass(lis[i], 'is-selected');
                 } else {
                     removeClass(lis[i], 'is-selected');
@@ -3986,13 +4293,17 @@ var copyRowFunObj = {
  *    rows:[{
  *      id:'r41201', // 如果需要添加
  *      status:'nrm', // 如果需要添加
- *      filed1:'value1',
- *      field2:'value2'
+ *      data:{
+ *          field1:'value1',
+ *          field2:'value2'
+ *        }
  *    },{
  *      id:'r41202',
  *      status:'nrm',
- *      filed1:'value11',
- *      field2:'value21'
+ *      data:{
+ *          field1:'value11',
+ *          field2:'value21'
+ *        }
  *    },...],
  *    select:[0]
  * }
@@ -4120,22 +4431,11 @@ var setValue = function setValue(fieldName, value, row, ctx) {
  * 重置所有行的数据至nrm状态时的数据
  */
 var resetAllValue = function resetAllValue() {
-    var rows = this.rows();
+    var rows = new Array();
+    rows = rows.concat(this.rows());
     for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
-        if (row.status == Row.STATUS.NEW) {
-            this.setRowsDelete(row);
-        } else if (row.status == Row.STATUS.FALSE_DELETE) {
-            row.status = Row.STATUS.NORMAL;
-            var rows = [row];
-            this.trigger(DataTable.ON_INSERT, {
-                index: 0,
-                rows: rows
-            });
-        } else if (row.status == Row.STATUS.UPDATE) {
-            row.status = Row.STATUS.NORMAL;
-            rows[i].resetValue();
-        }
+        this.resetValueByRow(row);
     }
 };
 
@@ -4155,10 +4455,9 @@ var resetValueByRow = function resetValueByRow(row) {
         });
     } else if (row.status == Row.STATUS.UPDATE) {
         row.status = Row.STATUS.NORMAL;
-        rows[i].resetValue();
+        row.resetValue();
     }
 };
-
 var dataFunObj = {
     setData: setData,
     setValue: setValue,
@@ -4685,7 +4984,7 @@ var getAllDatas = function getAllDatas() {
 var getRowIdsByIndices = function getRowIdsByIndices(indices) {
     var rowIds = [];
     for (var i = 0; i < indices.length; i++) {
-        rowIds.push(this.getRow(indices[i]).rowId);
+        if (this.getRow(indices[i])) rowIds.push(this.getRow(indices[i]).rowId);
     }
     return rowIds;
 };
@@ -5653,9 +5952,10 @@ var removeAllRows = function removeAllRows() {
 /**
  * 根据索引数据删除多条数据行
  * @memberof DataTable
- * @param  {array} indices 需要删除的数据行对应索引数组
+ * @param  {array} indices 需要删除的数据行对应数组，数组中既可以是索引也可以是row对象
  * @example
  * datatable.removeRows([1,2])
+ * datatable.removeRows([row1,row2])
  */
 var removeRows = function removeRows(indices) {
     this.setRowsDelete(indices);
@@ -5744,8 +6044,10 @@ var setRows = function setRows(rows, options) {
  * @example
  * var row1 = new Row({parent: datatable})
  * row1.setData({
- *  field1: 'value1',
- *  field2: 'value2'
+ *  data:{
+ *    field1: 'value1',
+ *    field2: 'value2'
+ *  }
  * })
  * datatable.addRow(row1)
  */
@@ -5755,7 +6057,7 @@ var addRow = function addRow(row) {
 };
 
 var resetDelRowEnd = function resetDelRowEnd() {
-    for (var i = 0; i < this.rows().length; i++) {
+    for (var i = this.rows().length - 1; i > -1; i--) {
         var row = this.rows()[i];
         if (row.status == Row.STATUS.DELETE || row.status == Row.STATUS.FALSE_DELETE) {
             this.rows().splice(i, 1);
@@ -5771,13 +6073,17 @@ var resetDelRowEnd = function resetDelRowEnd() {
  * @example
  * var row1 = new Row({parent: datatable})
  * row1.setData({
- *  field1: 'value1',
- *  field2: 'value2'
+ *  data:{
+ *    field1: 'value1',
+ *    field2: 'value2'
+ *  }
  * })
  * var row2 = new Row({parent: datatable})
  * row2.setData({
- *  field1: 'value11',
- *  field2: 'value22'
+ *  data:{
+ *    field1: 'value11',
+ *    field2: 'value22'
+ *  }
  * })
  * datatable.addRows([row1,row2])
  */
@@ -5794,8 +6100,10 @@ var addRows = function addRows(rows) {
  * @example
  * var row1 = new Row({parent: datatable})
  * row1.setData({
- *  field1: 'value1',
- *  field2: 'value2'
+ *  data:{
+ *    field1: 'value1',
+ *    field2: 'value2'
+ *  }
  * })
  * datatable.insertRow(1,row1)
  */
@@ -5815,13 +6123,17 @@ var insertRow = function insertRow(index, row) {
  * @param  {array} rows  数据行数组
  * var row1 = new Row({parent: datatable})
  * row1.setData({
- *  field1: 'value1',
- *  field2: 'value2'
+ *  data:{
+ *    field1: 'value1',
+ *    field2: 'value2'
+ *  }
  * })
  * var row2 = new Row({parent: datatable})
  * row2.setData({
- *  field1: 'value11',
- *  field2: 'value22'
+ *  data:{
+ *    field1: 'value11',
+ *    field2: 'value22'
+ *  }
  * })
  * datatable.insertRows(1,[row1,row2])
  */
@@ -5850,6 +6162,7 @@ var insertRows = function insertRows(index, rows) {
  * @return {u.Row} 空行对象
  * @example
  * datatable.createEmptyRow();
+ * datatable.createEmptyRow({unSelect:true})
  */
 var createEmptyRow = function createEmptyRow(options) {
     var r = new Row({
@@ -5935,18 +6248,20 @@ var setRowsDelete = function setRowsDelete(indices) {
     });
     var rowIds = this.getRowIdsByIndices(indices);
     var rows = this.getRowsByIndices(indices);
+    var ros = this.rows();
     for (var i = 0; i < indices.length; i++) {
         var row = this.getRow(indices[i]);
-        if (row.status == Row.STATUS.NEW) {
-            this.rows().splice(indices[i], 1);
+        if (row.status == Row.STATUS.NEW || this.forceDel) {
+            ros.splice(indices[i], 1);
         } else {
             row.setStatus(Row.STATUS.FALSE_DELETE);
-            var temprows = this.rows().splice(indices[i], 1);
-            this.rows().push(temprows[0]);
+            var temprows = ros.splice(indices[i], 1);
+            ros.push(temprows[0]);
         }
         this.updateSelectedIndices(indices[i], '-');
         this.updateFocusIndex(indices[i], '-');
     }
+    this.rows(ros);
     this.updateCurrIndex();
     this.trigger(DataTable.ON_DELETE, {
         falseDelete: true,
@@ -6610,6 +6925,12 @@ var DataTable$1 = function DataTable(options) {
      * @default false
      */
     this.pageCache = options['pageCache'] === undefined ? DataTable.DEFAULTS.pageCache : options['pageCache'];
+    /**
+     * DataTable删除数据时是否强制删除，如果设置为true则不再考虑数据的状态，执行删除时则删除此条数据。如果设置为false则需要考虑数据的状态，如果状态为new则删除此条数据否则将状态修改为fdel
+     * @type {boolean}
+     * @default false
+     */
+    this.forceDel = options['forceDel'] === undefined ? DataTable.DEFAULTS.pageCache : options['forceDel'];
     // 存储所有row对象
     this.rows = ko.observableArray([]);
     // 存储所有的选中行的index
@@ -6693,7 +7014,8 @@ DataTable$1.DEFAULTS = {
     pageIndex: 0,
     totalPages: 0,
     pageCache: false,
-    enable: true
+    enable: true,
+    forceDel: false
 };
 
 DataTable$1.META_DEFAULTS = {

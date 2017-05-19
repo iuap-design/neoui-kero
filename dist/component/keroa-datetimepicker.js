@@ -316,7 +316,7 @@ var enumerables = true;
 var enumerablesTest = {
 		toString: 1
 	};
-for(var i$1 in enumerablesTest) {
+for(var i in enumerablesTest) {
 	enumerables = null;
 }
 if(enumerables) {
@@ -774,13 +774,17 @@ const copyRowFunObj = {
  *    rows:[{
  *      id:'r41201', // 如果需要添加
  *      status:'nrm', // 如果需要添加
- *      filed1:'value1',
- *      field2:'value2'
+ *      data:{
+ *          field1:'value1',
+ *          field2:'value2'
+ *        }
  *    },{
  *      id:'r41202',
  *      status:'nrm',
- *      filed1:'value11',
- *      field2:'value21'
+ *      data:{
+ *          field1:'value11',
+ *          field2:'value21'
+ *        }
  *    },...],
  *    select:[0]
  * }
@@ -915,23 +919,11 @@ const setValue = function(fieldName, value, row, ctx) {
  * 重置所有行的数据至nrm状态时的数据
  */
 const resetAllValue = function() {
-    var rows = this.rows();
+    var rows = new Array();
+    rows = rows.concat(this.rows());
     for (var i = 0; i < rows.length; i++) {
-      var row = rows[i];
-      if(row.status == Row.STATUS.NEW){
-        this.setRowsDelete(row);
-      }else if(row.status == Row.STATUS.FALSE_DELETE){
-        row.status = Row.STATUS.NORMAL;
-        var rows = [row];
-        this.trigger(DataTable.ON_INSERT, {
-            index: 0,
-            rows: rows
-        });
-      }else if(row.status == Row.STATUS.UPDATE){
-        row.status = Row.STATUS.NORMAL;
-        rows[i].resetValue();
-      }
-
+        var row = rows[i];
+        this.resetValueByRow(row);
     }
 };
 
@@ -940,22 +932,21 @@ const resetAllValue = function() {
  * @param {u.row} row 需要重置数据的row对象
  */
 const resetValueByRow = function(row) {
-    if(row.status == Row.STATUS.NEW){
-      this.setRowsDelete(row);
-    }else if(row.status == Row.STATUS.FALSE_DELETE){
-      row.status = Row.STATUS.NORMAL;
-      var rows = [row];
-      this.trigger(DataTable.ON_INSERT, {
-          index: 0,
-          rows: rows
-      });
-    }else if(row.status == Row.STATUS.UPDATE){
-      row.status = Row.STATUS.NORMAL;
-      rows[i].resetValue();
+    if (row.status == Row.STATUS.NEW) {
+        this.setRowsDelete(row);
+    } else if (row.status == Row.STATUS.FALSE_DELETE) {
+        row.status = Row.STATUS.NORMAL;
+        var rows = [row];
+        this.trigger(DataTable.ON_INSERT, {
+            index: 0,
+            rows: rows
+        });
+    } else if (row.status == Row.STATUS.UPDATE) {
+        row.status = Row.STATUS.NORMAL;
+        row.resetValue();
     }
 
 };
-
 const dataFunObj = {
     setData: setData,
     setValue: setValue,
@@ -1520,7 +1511,8 @@ const getAllDatas = function() {
 const getRowIdsByIndices = function(indices) {
     var rowIds = [];
     for (var i = 0; i < indices.length; i++) {
-        rowIds.push(this.getRow(indices[i]).rowId);
+        if (this.getRow(indices[i]))
+            rowIds.push(this.getRow(indices[i]).rowId);
     }
     return rowIds
 };
@@ -2548,9 +2540,10 @@ const removeAllRows = function() {
 /**
  * 根据索引数据删除多条数据行
  * @memberof DataTable
- * @param  {array} indices 需要删除的数据行对应索引数组
+ * @param  {array} indices 需要删除的数据行对应数组，数组中既可以是索引也可以是row对象
  * @example
  * datatable.removeRows([1,2])
+ * datatable.removeRows([row1,row2])
  */
 const removeRows = function(indices) {
     this.setRowsDelete(indices);
@@ -2644,8 +2637,10 @@ const setRows = function(rows, options) {
  * @example
  * var row1 = new Row({parent: datatable})
  * row1.setData({
- *  field1: 'value1',
- *  field2: 'value2'
+ *  data:{
+ *    field1: 'value1',
+ *    field2: 'value2'
+ *  }
  * })
  * datatable.addRow(row1)
  */
@@ -2655,7 +2650,7 @@ const addRow = function(row) {
 };
 
 const resetDelRowEnd = function() {
-    for (var i = 0; i < this.rows().length; i++) {
+    for (var i = this.rows().length - 1; i > -1; i--) {
         var row = this.rows()[i];
         if (row.status == Row.STATUS.DELETE || row.status == Row.STATUS.FALSE_DELETE) {
             this.rows().splice(i, 1);
@@ -2671,13 +2666,17 @@ const resetDelRowEnd = function() {
  * @example
  * var row1 = new Row({parent: datatable})
  * row1.setData({
- *  field1: 'value1',
- *  field2: 'value2'
+ *  data:{
+ *    field1: 'value1',
+ *    field2: 'value2'
+ *  }
  * })
  * var row2 = new Row({parent: datatable})
  * row2.setData({
- *  field1: 'value11',
- *  field2: 'value22'
+ *  data:{
+ *    field1: 'value11',
+ *    field2: 'value22'
+ *  }
  * })
  * datatable.addRows([row1,row2])
  */
@@ -2694,8 +2693,10 @@ const addRows = function(rows) {
  * @example
  * var row1 = new Row({parent: datatable})
  * row1.setData({
- *  field1: 'value1',
- *  field2: 'value2'
+ *  data:{
+ *    field1: 'value1',
+ *    field2: 'value2'
+ *  }
  * })
  * datatable.insertRow(1,row1)
  */
@@ -2715,13 +2716,17 @@ const insertRow = function(index, row) {
  * @param  {array} rows  数据行数组
  * var row1 = new Row({parent: datatable})
  * row1.setData({
- *  field1: 'value1',
- *  field2: 'value2'
+ *  data:{
+ *    field1: 'value1',
+ *    field2: 'value2'
+ *  }
  * })
  * var row2 = new Row({parent: datatable})
  * row2.setData({
- *  field1: 'value11',
- *  field2: 'value22'
+ *  data:{
+ *    field1: 'value11',
+ *    field2: 'value22'
+ *  }
  * })
  * datatable.insertRows(1,[row1,row2])
  */
@@ -2751,6 +2756,7 @@ const insertRows = function(index, rows) {
  * @return {u.Row} 空行对象
  * @example
  * datatable.createEmptyRow();
+ * datatable.createEmptyRow({unSelect:true})
  */
 const createEmptyRow = function(options) {
     var r = new Row({
@@ -2840,18 +2846,20 @@ const setRowsDelete = function(indices) {
     });
     var rowIds = this.getRowIdsByIndices(indices);
     var rows = this.getRowsByIndices(indices);
+    var ros = this.rows();
     for (var i = 0; i < indices.length; i++) {
         var row = this.getRow(indices[i]);
-        if (row.status == Row.STATUS.NEW) {
-            this.rows().splice(indices[i], 1);
+        if (row.status == Row.STATUS.NEW || this.forceDel) {
+            ros.splice(indices[i], 1);
         } else {
             row.setStatus(Row.STATUS.FALSE_DELETE);
-            var temprows = this.rows().splice(indices[i], 1);
-            this.rows().push(temprows[0]);
+            var temprows = ros.splice(indices[i], 1);
+            ros.push(temprows[0]);
         }
         this.updateSelectedIndices(indices[i], '-');
         this.updateFocusIndex(indices[i], '-');
     }
+    this.rows(ros);
     this.updateCurrIndex();
     this.trigger(DataTable.ON_DELETE, {
         falseDelete: true,
@@ -3534,6 +3542,12 @@ const eventsFunObj = {
           * @default false
           */
          this.pageCache = options['pageCache'] === undefined ? DataTable$1.DEFAULTS.pageCache : options['pageCache'];
+         /**
+          * DataTable删除数据时是否强制删除，如果设置为true则不再考虑数据的状态，执行删除时则删除此条数据。如果设置为false则需要考虑数据的状态，如果状态为new则删除此条数据否则将状态修改为fdel
+          * @type {boolean}
+          * @default false
+          */
+         this.forceDel = options['forceDel'] === undefined ? DataTable$1.DEFAULTS.pageCache : options['forceDel'];
          // 存储所有row对象
          this.rows = ko.observableArray([]);
          // 存储所有的选中行的index
@@ -3618,7 +3632,8 @@ const eventsFunObj = {
      pageIndex: 0,
      totalPages: 0,
      pageCache: false,
-     enable: true
+     enable: true,
+     forceDel: false
  };
 
  DataTable$1.META_DEFAULTS = {
