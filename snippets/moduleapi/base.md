@@ -106,6 +106,18 @@
   ```
 
 
+#### 级联组件
+
+
+| 类型          | 说明   |
+| ----------- | ---- |
+| u-cascader* | 级联组件  |
+
+* `u-cascader` 表示元素为级联组件，通过设置data中datasource的值来控制列表的展示
+
+  ```html
+  <div class="u-cascader" u-meta='{"id":"t1","type":"u-cascader","data":"dt1","field":"f1","datasource":"ss"}'></div>
+  ```
 
 
 #### 进度条
