@@ -3,6 +3,7 @@ import multidest from "rollup-plugin-multidest";
 import nodeResolve from "rollup-plugin-node-resolve";
 import uglify from "rollup-plugin-uglify";
 import license from "rollup-plugin-license";
+import { minify } from 'uglify-js-harmony';
 
 export default {
     entry: "src/index.js",
@@ -28,7 +29,7 @@ export default {
             {
                 dest: "dist/neoui-kero.min.js",
                 format: "iife",
-                plugins: [uglify()]
+                plugins: [uglify({}, minify)]//压缩
             }
         ]),
         babel({

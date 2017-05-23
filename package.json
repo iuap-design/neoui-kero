@@ -57,6 +57,7 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^1.0.2",
     "rollup-watch": "^3.2.2",
+    "uglify-js-harmony": "^2.7.7",
     "webpack": "^2.2.1",
     "yargs": "^5.0.0"
   },
