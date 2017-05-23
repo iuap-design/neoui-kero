@@ -3830,6 +3830,7 @@ const off = function(name, callback) {
             }
         }
     }
+    this._events[name] = cbs;
     return this;
 };
 

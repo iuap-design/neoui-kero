@@ -1,6 +1,6 @@
 {
   "name": "neoui-kero",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "neoui kero",
   "main": "js/index.js",
   "scripts": {
@@ -17,11 +17,11 @@
     "docs": "node bin/mdconcat.js"
   },
   "dependencies": {
-    "compox": "^3.2.0",
-    "kero": "^3.2.2",
-    "neoui-kero-mixin": "^3.2.0",
-    "tinper-neoui": "^3.2.1",
-    "tinper-sparrow": "^3.2.1"
+    "compox": "^3.2.1",
+    "kero": "^3.2.3",
+    "neoui-kero-mixin": "^3.2.1",
+    "tinper-neoui": "^3.2.3",
+    "tinper-sparrow": "^3.2.2"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

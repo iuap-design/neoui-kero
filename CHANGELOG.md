@@ -1,3 +1,18 @@
+<a name="3.2.2"></a>
+## [3.2.2](https://github.com/iuap-design/neoui-kero/compare/v3.2.1...v3.2.2) (2017-05-23)
+
+
+### Bug Fixes
+
+* 解决树清空选中后原有选中行依旧显示为选中的问题 ([c49fa1b](https://github.com/iuap-design/neoui-kero/commit/c49fa1b))
+
+
+### Features
+
+* 新增Cascader组件 ([027aaef](https://github.com/iuap-design/neoui-kero/commit/027aaef))
+
+
+
 <a name="3.2.1"></a>
 ## [3.2.1](https://github.com/iuap-design/neoui-kero/compare/v3.2.0...v3.2.1) (2017-04-19)
 
