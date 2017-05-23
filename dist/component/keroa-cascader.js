@@ -207,6 +207,9 @@ var closest = function(element, selector) {
             id = '';
         this._data = data;
         this.order = [];
+        if (hasClass(this.element, 'trigger-hover')) {
+            this.options['trigger_type'] = 'mouseenter';
+        }
         if (!this.options['id']) {
             this.options['id'] = new Date().getTime() + '' + parseInt(Math.random() * 10 + 1, 10);
         }
@@ -214,7 +217,8 @@ var closest = function(element, selector) {
 
         $(this.element).append('<div id="' + id + '-input" class="cascader-input" style="width:100%;height:100%;"><input/></div><div id="' + id + '" class="cascader-show"></div>');
         this.focusFunc();
-        $(this.element).children('.cascader-input').off().on('mouseenter', function() {
+        $(this.element).children('.cascader-input').children('input').attr('readonly', 'readonly')
+                        .end().off('mouseenter').on('mouseenter', function() {
             var $this = $(this);
             if ($this.children('input').val()) {
                 $this.append('<i class="icon uf uf-close-bold"></i>');
@@ -239,15 +243,23 @@ var closest = function(element, selector) {
 
     setValue: function(value) {
         var self = this,
-            arr = value.split(',') || [],
+            arr = [],
             names = '';
-        if (arr && arr.length > 1) {
+        //如果value存在的话，就通过split分割
+        if(value){
+            arr = value.split(',');
+        }
+
+        if (arr && arr.length > 0) {
             names = self.transName(arr, self._data);
+            if (names.length > 1) {
+                names = names.substring(0, names.length - 1);
+                $(this.element).children('.cascader-input').children('input').val(names).attr('tovalue', value);
+            }
+        }else{
+            $(this.element).children('.cascader-input').children('input').val('').attr('tovalue', '');
         }
-        if (names.length > 1) {
-            names = names.substring(0, names.length - 1);
-            $(this.element).children('.cascader-input').children('input').val(names).attr('tovalue', value);
-        }
+
 
     },
     //通过设置的value值能去data中查找到对应的name值
@@ -258,7 +270,7 @@ var closest = function(element, selector) {
         for (var j = 0; j < data.length; j++) {
             if (data[j].value == arr[0]) {
                 flag = j;
-                names += data[j].name + ',';
+                names += data[j].name + '/';
             }
         }
         if (arr.length > 1) {
@@ -361,7 +373,7 @@ var closest = function(element, selector) {
                 $.each($content.find('li.active'), function(key, val) {
                     var $val = $(val);
                     if (key < (col - (-1))) {
-                        text += val.innerText + ',';
+                        text += val.innerText + '/';
                         value += $val.attr('value') + ',';
                     }
 
@@ -404,7 +416,7 @@ var closest = function(element, selector) {
                         $.each($content.find('li.active'), function(key, val) {
                             var $val = $(val);
                             if (key < (col - (-1))) {
-                                text += val.innerText + ',';
+                                text += val.innerText + '/';
                                 value += $val.attr('value') + ',';
                             }
                         });
@@ -457,7 +469,7 @@ var closest = function(element, selector) {
 if (u.compMgr)
     u.compMgr.regComp({
         comp: Cascader,
-        compAsString: 'u.cascader',
+        compAsString: 'u.Cascader',
         css: 'u-cascader'
     });
 
