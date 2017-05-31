@@ -316,7 +316,7 @@ var GridAdapter = u.BaseAdapter.extend({
                 if (!column.eType && !column.editable) {
                     column.editable = false;
                 }
-            } if (rType == 'disableBooleanRender') {
+            } else if (rType == 'disableBooleanRender') {
                 column.renderType = function(obj) {
 
                     var grid = obj.gridObj;
@@ -329,7 +329,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     if (obj.value == 'Y' || obj.value == 'true') {
                         checkStr = 'is-checked';
                     }
-                        disableStr = ' is-disabled';
+                    disableStr = ' is-disabled';
                     var htmlStr = '<label class="u-checkbox is-upgraded ' + checkStr + disableStr + '">' +
                         '<input type="checkbox" class="u-checkbox-input">' +
                         '<span class="u-checkbox-label"></span>' +
@@ -348,6 +348,43 @@ var GridAdapter = u.BaseAdapter.extend({
                 // 如果是booleanRender并且没有设置eType则设置eType为空方法
                 if (!column.eType && !column.editable) {
                     column.editable = false;
+                }
+            } else if (rType == 'switchRender') {
+                column.renderType = function(obj) {
+
+                    var grid = obj.gridObj;
+                    var datatable = grid.dataTable;
+                    var rowId = obj.row.value['$_#_@_id'];
+                    var row = datatable.getRowByRowId(rowId);
+                    var checkStr = '',
+                        disableStr = '';
+
+                    if (obj.value == 'Y' || obj.value == 'true') {
+                        checkStr = 'checked';
+                    }
+                    disableStr = ' is-disabled';
+                    var htmlStr = '<label class="u-switch">' +
+                        ' <input type="checkbox"  class="u-switch-input" ' + checkStr + '>' +
+                        ' <span class="u-switch-label"></span>' +
+                        '</label>'
+
+
+                    obj.element.innerHTML = htmlStr;
+                    var comp = new u.Switch($(obj.element).find('label')[0]);
+                    comp.on('change', function(event) {
+                        var column = obj.gridCompColumn;
+                        var field = column.options.field;
+                        if (event.isChecked) {
+                            row.setValue(field, 'Y');
+                        } else {
+                            row.setValue(field, 'N');
+                        }
+                    });
+
+                    // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                    if (typeof afterRType == 'function') {
+                        afterRType.call(this, obj);
+                    }
                 }
             } else if (rType == 'integerRender') {
                 column.renderType = function(obj) {
@@ -683,6 +720,14 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
         this.dataTable.on(DataTable.ON_ROW_SELECT, function(event) {
+            if (oThis.onRowSelectTimeout)
+                clearTimeout(oThis.onRowSelectTimeout);
+            oThis.onRowSelectTimeout = setTimeout(function() {
+                onRowSelectFun(event);
+            }, 200);
+        });
+
+        var onRowSelectFun = function(event) {
             oThis.selectSilence = true;
             var gridSelectRows = [];
             $.each(oThis.grid.getSelectRows(), function() {
@@ -716,8 +761,7 @@ var GridAdapter = u.BaseAdapter.extend({
                 }
             });
             oThis.selectSilence = false;
-
-        });
+        }
 
         //全选
         this.dataTable.on(DataTable.ON_ROW_ALLSELECT, function(event) {
@@ -1120,7 +1164,44 @@ var GridAdapter = u.BaseAdapter.extend({
                     afterRType.call(this, obj);
                 }
             }
-        }else if (rType == 'integerRender') {
+        } else if (rType == 'switchRender') {
+            column.renderType = function(obj) {
+
+                var grid = obj.gridObj;
+                var datatable = grid.dataTable;
+                var rowId = obj.row.value['$_#_@_id'];
+                var row = datatable.getRowByRowId(rowId);
+                var checkStr = '',
+                    disableStr = '';
+
+                if (obj.value == 'Y' || obj.value == 'true') {
+                    checkStr = 'checked';
+                }
+                disableStr = ' is-disabled';
+                var htmlStr = '<label class="u-switch">' +
+                    ' <input type="checkbox"  class="u-switch-input" ' + checkStr + '>' +
+                    ' <span class="u-switch-label"></span>' +
+                    '</label>'
+
+
+                obj.element.innerHTML = htmlStr;
+                var comp = new u.Switch($(obj.element).find('label')[0]);
+                comp.on('change', function(event) {
+                    var column = obj.gridCompColumn;
+                    var field = column.options.field;
+                    if (event.isChecked) {
+                        row.setValue(field, 'Y');
+                    } else {
+                        row.setValue(field, 'N');
+                    }
+                });
+
+                // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                if (typeof afterRType == 'function') {
+                    afterRType.call(this, obj);
+                }
+            }
+        } else if (rType == 'integerRender') {
             column.dataType = 'Int';
             var renderType = function(obj) {
                 var grid = obj.gridObj
