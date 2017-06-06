@@ -81,9 +81,7 @@ var FloatAdapter = u.BaseAdapter.extend({
         on(this.element, 'blur', function() {
             var newValue;
             if (self.enable) {
-                if (!self.doValidate({
-                        'trueValue': true
-                    }) && self._needClean()) {
+                if (!self.doValidate().passed && self._needClean()) {
                     if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                         // 因必输项清空导致检验没通过的情况
                         self.setValue('')
@@ -120,9 +118,7 @@ var FloatAdapter = u.BaseAdapter.extend({
         var self = this,
             newValue;
         if (self.enable) {
-            if (!self.doValidate({
-                    'trueValue': true
-                }) && self._needClean()) {
+            if (!self.doValidate().passed && self._needClean()) {
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                     // 因必输项清空导致检验没通过的情况
                     self.setValue('')
