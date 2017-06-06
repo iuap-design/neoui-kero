@@ -132,6 +132,7 @@ var GridAdapter = u.BaseAdapter.extend({
         this.gridOptions.afterCreate = getFunction(viewModel, this.gridOptions.afterCreate);
         this.gridOptions.onSortFun = getFunction(viewModel, this.gridOptions.onSortFun);
         this.gridOptions.filterDataFun = getFunction(viewModel, this.gridOptions.filterDataFun);
+        this.gridOptions.onTreeExpandFun = getFunction(viewModel, this.gridOptions.onTreeExpandFun);
 
         /*扩展onBeforeEditFun，如果点击的是单选或者复选的话则不执行原有的编辑处理，直接通过此js进行处理*/
         var customOnBeforeEditFun = this.gridOptions.onBeforeEditFun;
@@ -936,15 +937,15 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
 
-
-        this.gridOptions.onRowDelete = function(obj) {
-            if (!oThis.deleteSilence) {
-                var row = obj.row;
-                var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
-                oThis.dataTable.setRowDelete(datatableIndex);
-                $('.tooltip').remove();
-            }
-        };
+        // 删行,只考虑viewModel传入grid
+        // this.gridOptions.onRowDelete = function(obj) {
+        //     if (!oThis.deleteSilence) {
+        //         var row = obj.row;
+        //         var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
+        //         oThis.dataTable.setRowDelete(datatableIndex);
+        //         $('.tooltip').remove();
+        //     }
+        // };
         this.dataTable.on(DataTable.ON_DELETE, function(event) {
             oThis.deleteSilence = true;
             /*index转化为grid的index*/
