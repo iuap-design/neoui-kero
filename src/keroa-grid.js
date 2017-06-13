@@ -721,11 +721,13 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
         this.dataTable.on(DataTable.ON_ROW_SELECT, function(event) {
-            if (oThis.onRowSelectTimeout)
-                clearTimeout(oThis.onRowSelectTimeout);
-            oThis.onRowSelectTimeout = setTimeout(function() {
-                onRowSelectFun(event);
-            }, 200);
+            // if (oThis.onRowSelectTimeout)
+            //     clearTimeout(oThis.onRowSelectTimeout);
+            // oThis.onRowSelectTimeout = setTimeout(function() {
+            //     onRowSelectFun(event);
+            // }, 200);
+            // 后续考虑优化的时候要考虑反选
+            onRowSelectFun(event);
         });
 
         var onRowSelectFun = function(event) {

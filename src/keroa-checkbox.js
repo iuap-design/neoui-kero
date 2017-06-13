@@ -63,7 +63,7 @@ var CheckboxAdapter = u.BaseAdapter.extend({
                 if (self.slice) return;
                 if (!self.dataModel) return;
                 var modelValue = self.dataModel.getValue(self.field);
-                modelValue = modelValue ? modelValue : '';
+                modelValue = modelValue ? modelValue + '' : '';
                 if (self.isGroup) {
                     var valueArr = modelValue == '' ? [] : modelValue.split(',');
 
@@ -118,7 +118,7 @@ var CheckboxAdapter = u.BaseAdapter.extend({
             comp.on('change', function() {
                 if (self.slice) return;
                 var modelValue = self.dataModel.getValue(self.field);
-                modelValue = modelValue ? modelValue : '';
+                modelValue = modelValue ? modelValue + '' : '';
                 var valueArr = modelValue == '' ? [] : modelValue.split(',');
                 if (comp._inputElement.checked) {
                     var oldIndex = valueArr.indexOf(self.otherInput.oldValue)
@@ -212,7 +212,7 @@ var CheckboxAdapter = u.BaseAdapter.extend({
             comp.on('change', function() {
                 if (self.slice) return;
                 var modelValue = self.dataModel.getValue(self.field);
-                modelValue = modelValue ? modelValue : '';
+                modelValue = modelValue ? modelValue + '' : '';
                 var valueArr = modelValue == '' ? [] : modelValue.split(',');
                 if (comp._inputElement.checked) {
                     valueArr.push(comp._inputElement.value)
