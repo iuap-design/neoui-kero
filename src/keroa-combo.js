@@ -70,6 +70,9 @@ var ComboboxAdapter = u.BaseAdapter.extend({
         });
 
     },
+    setComboData: function(datas, options) {
+		this.comp.setComboData(datas, options);
+	},
     modelValueChange: function(value) {
         if (this.slice) return;
         //this.trueValue = value;
