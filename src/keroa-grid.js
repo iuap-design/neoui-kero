@@ -186,7 +186,7 @@ var GridAdapter = u.BaseAdapter.extend({
             if (!eType) eType = 'string';
             if (eType == 'number') // 兼容之前版本
                 eType = 'integer';
-            if (eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime' || eType == 'year' || eType == 'month' || eType == 'yearmonth' || eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent' || eType == 'phoneNumber' || eType == 'landLine') {
+            if (eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime' || eType == 'year' || eType == 'month' || eType == 'yearmonth' || eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent' || eType == 'phoneNumber' || eType == 'landLine' || eType == 'textArea') {
                 oThis.createDefaultEdit(eType, eOptions, options, viewModel, column);
                 column.editType = function(obj) {
                     if (oThis.editComponentDiv[column.field] && oThis.editComponentDiv[column.field][0].childNodes.length > 0) {} else {
@@ -650,6 +650,27 @@ var GridAdapter = u.BaseAdapter.extend({
                     obj.element.innerHTML = svalue
                     $(obj.element).css('text-align', 'right')
                     $(obj.element).attr('title', svalue)
+
+                    // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                    if (typeof afterRType == 'function') {
+                        afterRType.call(this, obj);
+                    }
+                }
+            } else if (rType == 'autoWidthRender') {
+                column.renderType = function(obj) {
+                    var grid = obj.gridObj,
+                        v = obj.value,
+                        ele = obj.element,
+                        column = obj.gridCompColumn;
+
+                    ele.innerHTML = v;
+                    ele.style.position = 'absolute';
+                    var width = ele.offsetWidth;
+                    var nowWidth = column.options.width;
+                    if (width > nowWidth) {
+                        grid.setColumnWidth(column, width);
+                    }
+                    ele.style.position = 'relative';
 
                     // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
                     if (typeof afterRType == 'function') {
@@ -1465,6 +1486,27 @@ var GridAdapter = u.BaseAdapter.extend({
                     afterRType.call(this, obj);
                 }
             }
+        }else if (rType == 'autoWidthRender') {
+            var renderType = function(obj) {
+                var grid = obj.gridObj,
+                    v = obj.value,
+                    ele = obj.element,
+                    column = obj.gridCompColumn;
+
+                ele.innerHTML = v;
+                ele.style.position = 'absolute';
+                var width = ele.offsetWidth;
+                var nowWidth = column.options.width;
+                if (width > nowWidth) {
+                    grid.setColumnWidth(column, width);
+                }
+                ele.style.position = 'relative';
+
+                // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                if (typeof afterRType == 'function') {
+                    afterRType.call(this, obj);
+                }
+            }
         }
         var renderArr = {};
         renderArr[column.field] = renderType;
@@ -1826,6 +1868,16 @@ var GridAdapter = u.BaseAdapter.extend({
                 options: eOptions,
                 model: viewModel
             });
+        } else if (eType == 'textArea'){
+          compDiv = $('<div ><textarea></div>');
+          if (!options.editType || options.editType == "default") {
+              compDiv.addClass("eType-input");
+          }
+          comp = new u.TextAreaAdapter({
+              el: compDiv[0],
+              options: eOptions,
+              model: viewModel
+          });
         }
 
         if (comp && comp.dataAdapter) {
