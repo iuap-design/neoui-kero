@@ -2150,18 +2150,35 @@ const getSimpleData = function(options) {
         type = options['type'] || 'all',
         fields = options['fields'] || null;
 
-    if (type === 'all') {
-        rows = this.rows.peek();
-    } else if (type === 'current') {
+    if (type === 'current') {
         var currRow = this.getCurrentRow();
         rows = currRow == null ? [] : [currRow];
     } else if (type === 'focus') {
         var focusRow = this.getFocusRow();
         rows = focusRow == null ? [] : [focusRow];
-    } else if (type === 'select') {
-        rows = this.getSelectedRows();
-    } else if (type === 'change') {
-        rows = this.getChangedRows();
+    } else {
+        if (this.pageCache) {
+            var pages = this.getPages();
+            rows = [];
+            for (var i = 0; i < pages.length; i++) {
+                var page = pages[i];
+                if (type === 'all') {
+                    rows = rows.concat(page.rows.peek());
+                }else if(type === 'select') {
+                    rows = rows.concat(page.getSelectRows());
+                } else if (type === 'change') {
+                    rows = rows.concat(page.getSelectRows());
+                }
+            }
+        } else {
+            if (type === 'all') {
+                rows = this.rows.peek();
+            } else if (type === 'select') {
+                rows = this.getSelectedRows();
+            } else if (type === 'change') {
+                rows = this.getChangedRows();
+            }
+        }
     }
 
     for (var i = 0; i < rows.length; i++) {
@@ -3863,7 +3880,7 @@ const eventsFunObj = {
           * @type {boolean}
           * @default false
           */
-         this.forceDel = options['forceDel'] === undefined ? DataTable$1.DEFAULTS.pageCache : options['forceDel'];
+         this.forceDel = options['forceDel'] === undefined ? DataTable$1.DEFAULTS.forceDel : options['forceDel'];
          // 存储所有row对象
          this.rows = ko.observableArray([]);
          // 存储所有的选中行的index
@@ -3964,7 +3981,7 @@ const eventsFunObj = {
  DataTable$1.ON_ROW_ALLSELECT = 'allSelect';
  DataTable$1.ON_ROW_ALLUNSELECT = 'allUnselect';
  DataTable$1.ON_VALUE_CHANGE = 'valueChange';
- DataTable$1.ON_BEFORE_VALUE_CHANGE = 'beforeValueCHange';
+ DataTable$1.ON_BEFORE_VALUE_CHANGE = 'beforeValueChange';
  DataTable$1.ON_CURRENT_VALUE_CHANGE = 'currentValueChange'; //当前行变化
  //  DataTable.ON_AFTER_VALUE_CHANGE = 'afterValueChange'
  //  DataTable.ON_ADD_ROW = 'addRow'

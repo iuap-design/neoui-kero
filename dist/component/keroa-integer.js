@@ -950,7 +950,7 @@ var IntegerAdapter = u.BaseAdapter.extend({
 
         on(this.element, 'blur', function() {
             if (self.enable) {
-                if (!self.doValidate() && self._needClean()) {
+                if (!self.doValidate().passed && self._needClean()) {
                     if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                         // 因必输项清空导致检验没通过的情况
                         self.setValue('');
@@ -985,7 +985,7 @@ var IntegerAdapter = u.BaseAdapter.extend({
         var self = this;
         self.element.value = (self.element.value + '').replace(/\,/g, '');
         if (self.enable) {
-            if (!self.doValidate() && self._needClean()) {
+            if (!self.doValidate().passed && self._needClean()) {
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                     // 因必输项清空导致检验没通过的情况
                     self.setValue('');

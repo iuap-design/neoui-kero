@@ -2250,18 +2250,35 @@ const getSimpleData = function(options) {
         type = options['type'] || 'all',
         fields = options['fields'] || null;
 
-    if (type === 'all') {
-        rows = this.rows.peek();
-    } else if (type === 'current') {
+    if (type === 'current') {
         var currRow = this.getCurrentRow();
         rows = currRow == null ? [] : [currRow];
     } else if (type === 'focus') {
         var focusRow = this.getFocusRow();
         rows = focusRow == null ? [] : [focusRow];
-    } else if (type === 'select') {
-        rows = this.getSelectedRows();
-    } else if (type === 'change') {
-        rows = this.getChangedRows();
+    } else {
+        if (this.pageCache) {
+            var pages = this.getPages();
+            rows = [];
+            for (var i = 0; i < pages.length; i++) {
+                var page = pages[i];
+                if (type === 'all') {
+                    rows = rows.concat(page.rows.peek());
+                }else if(type === 'select') {
+                    rows = rows.concat(page.getSelectRows());
+                } else if (type === 'change') {
+                    rows = rows.concat(page.getSelectRows());
+                }
+            }
+        } else {
+            if (type === 'all') {
+                rows = this.rows.peek();
+            } else if (type === 'select') {
+                rows = this.getSelectedRows();
+            } else if (type === 'change') {
+                rows = this.getChangedRows();
+            }
+        }
     }
 
     for (var i = 0; i < rows.length; i++) {
@@ -3963,7 +3980,7 @@ const eventsFunObj = {
           * @type {boolean}
           * @default false
           */
-         this.forceDel = options['forceDel'] === undefined ? DataTable$1.DEFAULTS.pageCache : options['forceDel'];
+         this.forceDel = options['forceDel'] === undefined ? DataTable$1.DEFAULTS.forceDel : options['forceDel'];
          // 存储所有row对象
          this.rows = ko.observableArray([]);
          // 存储所有的选中行的index
@@ -4064,7 +4081,7 @@ const eventsFunObj = {
  DataTable$1.ON_ROW_ALLSELECT = 'allSelect';
  DataTable$1.ON_ROW_ALLUNSELECT = 'allUnselect';
  DataTable$1.ON_VALUE_CHANGE = 'valueChange';
- DataTable$1.ON_BEFORE_VALUE_CHANGE = 'beforeValueCHange';
+ DataTable$1.ON_BEFORE_VALUE_CHANGE = 'beforeValueChange';
  DataTable$1.ON_CURRENT_VALUE_CHANGE = 'currentValueChange'; //当前行变化
  //  DataTable.ON_AFTER_VALUE_CHANGE = 'afterValueChange'
  //  DataTable.ON_ADD_ROW = 'addRow'
@@ -6578,7 +6595,7 @@ var StringAdapter = u.BaseAdapter.extend({
 
         on$1(this.element, 'blur', function(e) {
             if (self.enable) {
-                if (!self.doValidate() && self._needClean()) {
+                if (!self.doValidate().passed && self._needClean()) {
                     if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                         // 因必输项清空导致检验没通过的情况
                         self.setValue('');
@@ -6593,7 +6610,7 @@ var StringAdapter = u.BaseAdapter.extend({
     hide: function() {
         var self = this;
         if (self.enable) {
-            if (!self.doValidate() && self._needClean()) {
+            if (!self.doValidate().passed && self._needClean()) {
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                     // 因必输项清空导致检验没通过的情况
                     self.setValue('');
@@ -6662,7 +6679,7 @@ var IntegerAdapter = u.BaseAdapter.extend({
 
         on$1(this.element, 'blur', function() {
             if (self.enable) {
-                if (!self.doValidate() && self._needClean()) {
+                if (!self.doValidate().passed && self._needClean()) {
                     if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                         // 因必输项清空导致检验没通过的情况
                         self.setValue('');
@@ -6697,7 +6714,7 @@ var IntegerAdapter = u.BaseAdapter.extend({
         var self = this;
         self.element.value = (self.element.value + '').replace(/\,/g, '');
         if (self.enable) {
-            if (!self.doValidate() && self._needClean()) {
+            if (!self.doValidate().passed && self._needClean()) {
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                     // 因必输项清空导致检验没通过的情况
                     self.setValue('');
@@ -6993,7 +7010,7 @@ var CheckboxAdapter = u.BaseAdapter.extend({
                 if (self.slice) return;
                 if (!self.dataModel) return;
                 var modelValue = self.dataModel.getValue(self.field);
-                modelValue = modelValue ? modelValue : '';
+                modelValue = modelValue ? modelValue + '' : '';
                 if (self.isGroup) {
                     var valueArr = modelValue == '' ? [] : modelValue.split(',');
 
@@ -7048,7 +7065,7 @@ var CheckboxAdapter = u.BaseAdapter.extend({
             comp.on('change', function() {
                 if (self.slice) return;
                 var modelValue = self.dataModel.getValue(self.field);
-                modelValue = modelValue ? modelValue : '';
+                modelValue = modelValue ? modelValue + '' : '';
                 var valueArr = modelValue == '' ? [] : modelValue.split(',');
                 if (comp._inputElement.checked) {
                     var oldIndex = valueArr.indexOf(self.otherInput.oldValue);
@@ -7142,7 +7159,7 @@ var CheckboxAdapter = u.BaseAdapter.extend({
             comp.on('change', function() {
                 if (self.slice) return;
                 var modelValue = self.dataModel.getValue(self.field);
-                modelValue = modelValue ? modelValue : '';
+                modelValue = modelValue ? modelValue + '' : '';
                 var valueArr = modelValue == '' ? [] : modelValue.split(',');
                 if (comp._inputElement.checked) {
                     valueArr.push(comp._inputElement.value);
@@ -8039,6 +8056,9 @@ var ComboboxAdapter = u.BaseAdapter.extend({
         });
 
     },
+    setComboData: function(datas, options) {
+		this.comp.setComboData(datas, options);
+	},
     modelValueChange: function(value) {
         if (this.slice) return;
         //this.trueValue = value;
@@ -8622,9 +8642,7 @@ var FloatAdapter = u.BaseAdapter.extend({
         on$1(this.element, 'blur', function() {
             var newValue;
             if (self.enable) {
-                if (!self.doValidate({
-                        'trueValue': true
-                    }) && self._needClean()) {
+                if (!self.doValidate().passed && self._needClean()) {
                     if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                         // 因必输项清空导致检验没通过的情况
                         self.setValue('');
@@ -8661,9 +8679,7 @@ var FloatAdapter = u.BaseAdapter.extend({
         var self = this,
             newValue;
         if (self.enable) {
-            if (!self.doValidate({
-                    'trueValue': true
-                }) && self._needClean()) {
+            if (!self.doValidate().passed && self._needClean()) {
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                     // 因必输项清空导致检验没通过的情况
                     self.setValue('');
@@ -11932,6 +11948,7 @@ var GridAdapter = u.BaseAdapter.extend({
         this.gridOptions.afterCreate = getFunction(viewModel, this.gridOptions.afterCreate);
         this.gridOptions.onSortFun = getFunction(viewModel, this.gridOptions.onSortFun);
         this.gridOptions.filterDataFun = getFunction(viewModel, this.gridOptions.filterDataFun);
+        this.gridOptions.onTreeExpandFun = getFunction(viewModel, this.gridOptions.onTreeExpandFun);
 
         /*扩展onBeforeEditFun，如果点击的是单选或者复选的话则不执行原有的编辑处理，直接通过此js进行处理*/
         var customOnBeforeEditFun = this.gridOptions.onBeforeEditFun;
@@ -11985,7 +12002,7 @@ var GridAdapter = u.BaseAdapter.extend({
             if (!eType) eType = 'string';
             if (eType == 'number') // 兼容之前版本
                 eType = 'integer';
-            if (eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime' || eType == 'year' || eType == 'month' || eType == 'yearmonth' || eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent' || eType == 'phoneNumber' || eType == 'landLine') {
+            if (eType == 'string' || eType == 'integer' || eType == 'checkbox' || eType == 'combo' || eType == 'radio' || eType == 'float' || eType == 'currency' || eType == 'datetime' || eType == 'year' || eType == 'month' || eType == 'yearmonth' || eType == 'date' || eType == 'time' || eType == 'url' || eType == 'password' || eType == 'percent' || eType == 'phoneNumber' || eType == 'landLine' || eType == 'textArea') {
                 oThis.createDefaultEdit(eType, eOptions, options, viewModel, column);
                 column.editType = function(obj) {
                     if (oThis.editComponentDiv[column.field] && oThis.editComponentDiv[column.field][0].childNodes.length > 0) {} else {
@@ -12116,7 +12133,7 @@ var GridAdapter = u.BaseAdapter.extend({
                 if (!column.eType && !column.editable) {
                     column.editable = false;
                 }
-            } if (rType == 'disableBooleanRender') {
+            } else if (rType == 'disableBooleanRender') {
                 column.renderType = function(obj) {
 
                     var grid = obj.gridObj;
@@ -12129,7 +12146,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     if (obj.value == 'Y' || obj.value == 'true') {
                         checkStr = 'is-checked';
                     }
-                        disableStr = ' is-disabled';
+                    disableStr = ' is-disabled';
                     var htmlStr = '<label class="u-checkbox is-upgraded ' + checkStr + disableStr + '">' +
                         '<input type="checkbox" class="u-checkbox-input">' +
                         '<span class="u-checkbox-label"></span>' +
@@ -12149,6 +12166,43 @@ var GridAdapter = u.BaseAdapter.extend({
                 if (!column.eType && !column.editable) {
                     column.editable = false;
                 }
+            } else if (rType == 'switchRender') {
+                column.renderType = function(obj) {
+
+                    var grid = obj.gridObj;
+                    var datatable = grid.dataTable;
+                    var rowId = obj.row.value['$_#_@_id'];
+                    var row = datatable.getRowByRowId(rowId);
+                    var checkStr = '',
+                        disableStr = '';
+
+                    if (obj.value == 'Y' || obj.value == 'true') {
+                        checkStr = 'checked';
+                    }
+                    disableStr = ' is-disabled';
+                    var htmlStr = '<label class="u-switch">' +
+                        ' <input type="checkbox"  class="u-switch-input" ' + checkStr + '>' +
+                        ' <span class="u-switch-label"></span>' +
+                        '</label>';
+
+
+                    obj.element.innerHTML = htmlStr;
+                    var comp = new u.Switch($(obj.element).find('label')[0]);
+                    comp.on('change', function(event) {
+                        var column = obj.gridCompColumn;
+                        var field = column.options.field;
+                        if (event.isChecked) {
+                            row.setValue(field, 'Y');
+                        } else {
+                            row.setValue(field, 'N');
+                        }
+                    });
+
+                    // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                    if (typeof afterRType == 'function') {
+                        afterRType.call(this, obj);
+                    }
+                };
             } else if (rType == 'integerRender') {
                 column.renderType = function(obj) {
                     var grid = obj.gridObj;
@@ -12418,6 +12472,27 @@ var GridAdapter = u.BaseAdapter.extend({
                         afterRType.call(this, obj);
                     }
                 };
+            } else if (rType == 'autoWidthRender') {
+                column.renderType = function(obj) {
+                    var grid = obj.gridObj,
+                        v = obj.value,
+                        ele = obj.element,
+                        column = obj.gridCompColumn;
+
+                    ele.innerHTML = v;
+                    ele.style.position = 'absolute';
+                    var width = ele.offsetWidth;
+                    var nowWidth = column.options.width;
+                    if (width > nowWidth) {
+                        grid.setColumnWidth(column, width);
+                    }
+                    ele.style.position = 'relative';
+
+                    // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                    if (typeof afterRType == 'function') {
+                        afterRType.call(this, obj);
+                    }
+                };
             }
 
             var defineSumRenderType = column.sumRenderType;
@@ -12483,6 +12558,16 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
         this.dataTable.on(DataTable$1.ON_ROW_SELECT, function(event) {
+            // if (oThis.onRowSelectTimeout)
+            //     clearTimeout(oThis.onRowSelectTimeout);
+            // oThis.onRowSelectTimeout = setTimeout(function() {
+            //     onRowSelectFun(event);
+            // }, 200);
+            // 后续考虑优化的时候要考虑反选
+            onRowSelectFun(event);
+        });
+
+        var onRowSelectFun = function(event) {
             oThis.selectSilence = true;
             var gridSelectRows = [];
             $.each(oThis.grid.getSelectRows(), function() {
@@ -12516,8 +12601,7 @@ var GridAdapter = u.BaseAdapter.extend({
                 }
             });
             oThis.selectSilence = false;
-
-        });
+        };
 
         //全选
         this.dataTable.on(DataTable$1.ON_ROW_ALLSELECT, function(event) {
@@ -12692,15 +12776,15 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
 
-
-        this.gridOptions.onRowDelete = function(obj) {
-            if (!oThis.deleteSilence) {
-                var row = obj.row;
-                var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
-                oThis.dataTable.setRowDelete(datatableIndex);
-                $('.tooltip').remove();
-            }
-        };
+        // 删行,只考虑viewModel传入grid
+        // this.gridOptions.onRowDelete = function(obj) {
+        //     if (!oThis.deleteSilence) {
+        //         var row = obj.row;
+        //         var datatableIndex = oThis.getDatatableRowIndexByGridRow(row.value);
+        //         oThis.dataTable.setRowDelete(datatableIndex);
+        //         $('.tooltip').remove();
+        //     }
+        // };
         this.dataTable.on(DataTable$1.ON_DELETE, function(event) {
             oThis.deleteSilence = true;
             /*index转化为grid的index*/
@@ -12920,7 +13004,44 @@ var GridAdapter = u.BaseAdapter.extend({
                     afterRType.call(this, obj);
                 }
             };
-        }else if (rType == 'integerRender') {
+        } else if (rType == 'switchRender') {
+            column.renderType = function(obj) {
+
+                var grid = obj.gridObj;
+                var datatable = grid.dataTable;
+                var rowId = obj.row.value['$_#_@_id'];
+                var row = datatable.getRowByRowId(rowId);
+                var checkStr = '',
+                    disableStr = '';
+
+                if (obj.value == 'Y' || obj.value == 'true') {
+                    checkStr = 'checked';
+                }
+                disableStr = ' is-disabled';
+                var htmlStr = '<label class="u-switch">' +
+                    ' <input type="checkbox"  class="u-switch-input" ' + checkStr + '>' +
+                    ' <span class="u-switch-label"></span>' +
+                    '</label>';
+
+
+                obj.element.innerHTML = htmlStr;
+                var comp = new u.Switch($(obj.element).find('label')[0]);
+                comp.on('change', function(event) {
+                    var column = obj.gridCompColumn;
+                    var field = column.options.field;
+                    if (event.isChecked) {
+                        row.setValue(field, 'Y');
+                    } else {
+                        row.setValue(field, 'N');
+                    }
+                });
+
+                // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                if (typeof afterRType == 'function') {
+                    afterRType.call(this, obj);
+                }
+            };
+        } else if (rType == 'integerRender') {
             column.dataType = 'Int';
             var renderType = function(obj) {
                 var grid = obj.gridObj;
@@ -13175,6 +13296,27 @@ var GridAdapter = u.BaseAdapter.extend({
                 obj.element.innerHTML = svalue;
                 $(obj.element).css('text-align', 'right');
                 $(obj.element).attr('title', svalue);
+
+                // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                if (typeof afterRType == 'function') {
+                    afterRType.call(this, obj);
+                }
+            };
+        }else if (rType == 'autoWidthRender') {
+            var renderType = function(obj) {
+                var grid = obj.gridObj,
+                    v = obj.value,
+                    ele = obj.element,
+                    column = obj.gridCompColumn;
+
+                ele.innerHTML = v;
+                ele.style.position = 'absolute';
+                var width = ele.offsetWidth;
+                var nowWidth = column.options.width;
+                if (width > nowWidth) {
+                    grid.setColumnWidth(column, width);
+                }
+                ele.style.position = 'relative';
 
                 // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
                 if (typeof afterRType == 'function') {
@@ -13542,6 +13684,16 @@ var GridAdapter = u.BaseAdapter.extend({
                 options: eOptions,
                 model: viewModel
             });
+        } else if (eType == 'textArea'){
+          compDiv = $('<div ><textarea></div>');
+          if (!options.editType || options.editType == "default") {
+              compDiv.addClass("eType-input");
+          }
+          comp = new u.TextAreaAdapter({
+              el: compDiv[0],
+              options: eOptions,
+              model: viewModel
+          });
         }
 
         if (comp && comp.dataAdapter) {
