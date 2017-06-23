@@ -1,3 +1,18 @@
+<a name="3.2.3"></a>
+## [3.2.3](https://github.com/iuap-design/neoui-kero/compare/v3.2.2...v3.2.3) (2017-06-22)
+
+
+### Bug Fixes
+
+* 解决数字组件校验失效的问题 ([1f6afdc](https://github.com/iuap-design/neoui-kero/commit/1f6afdc))
+
+
+### Features
+
+* grid支持自动扩展宽度的render为autoWidthRender，支持textArea编辑 ([3fdf9c6](https://github.com/iuap-design/neoui-kero/commit/3fdf9c6))
+
+
+
 <a name="3.2.2"></a>
 ## [3.2.2](https://github.com/iuap-design/neoui-kero/compare/v3.2.1...v3.2.2) (2017-05-23)
 

@@ -637,29 +637,43 @@ var showPanelByEle = function(obj) {
  * Date	  : 2016-08-08 16:32:54
  */
 var EnableMixin = {
-    init: function(){
+    init: function() {
         var self = this;
         //处理只读
-        if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)){
+        /*if (this.options['enable'] && (this.options['enable'] == 'false' || this.options['enable'] == false)){
                 this.setEnable(false);
         }else {
             this.dataModel.refEnable(this.field).subscribe(function (value) {
                 self.setEnable(value);
             });
             this.setEnable(this.dataModel.isEnable(this.field));
+        }*/
+
+
+
+        var oEnable = this.options.enable,enable;
+        if(typeof oEnable == 'undefined'){
+          enable = this.dataModel.getRowMeta(this.field, 'enable');
+        }else{
+          enable = oEnable;
         }
+        this.enable = enable;
+        this.setEnable(this.enable);
+        this.dataModel.refEnable(this.field).subscribe(function(value) {
+            self.setEnable(value);
+        });
     },
-    methods:{
-        setEnable: function(enable){
-                if (enable === true || enable === 'true') {
-                    this.enable = true;
-                    this.element.removeAttribute('readonly');
-                    removeClass(this.element.parentNode,'disablecover');
-                } else if (enable === false || enable === 'false') {
-                    this.enable = false;
-                    this.element.setAttribute('readonly', 'readonly');
-                    addClass(this.element.parentNode,'disablecover');
-                }
+    methods: {
+        setEnable: function(enable) {
+            if (enable === true || enable === 'true') {
+                this.enable = true;
+                this.element.removeAttribute('readonly');
+                removeClass(this.element.parentNode, 'disablecover');
+            } else if (enable === false || enable === 'false') {
+                this.enable = false;
+                this.element.setAttribute('readonly', 'readonly');
+                addClass(this.element.parentNode, 'disablecover');
+            }
         }
     }
 };
