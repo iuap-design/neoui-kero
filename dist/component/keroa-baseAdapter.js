@@ -651,12 +651,15 @@ var EnableMixin = {
 
 
 
-        var oEnable = this.options.enable,enable;
-        if(typeof oEnable == 'undefined'){
-          enable = this.dataModel.getRowMeta(this.field, 'enable');
-        }else{
-          enable = oEnable;
+        var oEnable = this.options.enable,
+            enable;
+        if (typeof oEnable == 'undefined') {
+            enable = this.dataModel.getRowMeta(this.field, 'enable');
+        } else {
+            enable = oEnable;
         }
+        if (typeof enable == 'undefined' || enable == null)
+            enable = true;
         this.enable = enable;
         this.setEnable(this.enable);
         this.dataModel.refEnable(this.field).subscribe(function(value) {
