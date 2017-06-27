@@ -203,7 +203,7 @@ var RadioAdapter = u.BaseAdapter.extend({
                     var comp = ele['u.Radio'];
                     if (comp) {
                         var inptuValue = comp._btnElement.value;
-                        //解决boolean类型的true和false与"true""false"比较
+                        //解决boolean类型的true和false与"true"和"false"比较
                         if (inptuValue && inptuValue == value.toString()) {
                             fetch = true;
                             addClass(comp.element, 'is-checked')
