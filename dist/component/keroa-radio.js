@@ -1042,7 +1042,10 @@ var RadioAdapter = u.BaseAdapter.extend({
 
     modelValueChange: function(value) {
         if (this.slice) return;
-        var fetch = false,self = this;
+        var fetch = false,
+            self = this;
+        if (!value)
+            value = '';
         if (this.dynamic) {
             if (this.datasource) {
                 this.showValue = '';
@@ -1051,7 +1054,8 @@ var RadioAdapter = u.BaseAdapter.extend({
                     var comp = ele['u.Radio'];
                     if (comp) {
                         var inptuValue = comp._btnElement.value;
-                        if (inptuValue && inptuValue == value) {
+                        //解决boolean类型的true和false与"true"和"false"比较
+                        if (inptuValue && inptuValue == value.toString) {
                             fetch = true;
                             addClass(comp.element, 'is-checked');
                             comp._btnElement.click();

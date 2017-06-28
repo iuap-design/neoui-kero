@@ -871,8 +871,6 @@ var makeModal = function(element, parEle) {
 	} else {
 		document.body.appendChild(overlayDiv);
 	}
-	$('.u-overlay').css('display',"none");
-	$('.u-overlay:eq(0)').css('display',"block");
 
 	element.style.zIndex = getZIndex();
 	on(overlayDiv, 'click', function(e) {
@@ -880,6 +878,7 @@ var makeModal = function(element, parEle) {
 	});
 	return overlayDiv;
 };
+
 
 var showPanelByEle = function(obj) {
 		var ele = obj.ele,panel = obj.panel,position = obj.position,
@@ -2143,7 +2142,7 @@ var BaseAdapter = Class.create({
         this.dataModel = getJSObject(this.viewModel, this.options["data"]);
         if (this.dataModel) {
             var opt = {};
-            if (this.options.type === 'u-date') {
+            if (this.options.type === 'u-date' && !this.options.rangeFlag) {
                 opt.type = 'date';
             }
             if (this.field) this.dataModel.createField(this.field, opt);
@@ -9947,6 +9946,7 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         }
 
         this.timezone = this.getOption('timezone') || getCookie(U_TIMEZONE);
+        this.isMobile = env.isMobile;
 
         if (!this.options['format'] && typeof getFormatFun == 'function') {
             // 根据语种获取format
@@ -9979,6 +9979,7 @@ var DateTimeAdapter = u.BaseAdapter.extend({
             }
         }
         format = this.options.format;
+        this.fformat = format;
         this.maskerMeta.format = format || this.maskerMeta.format;
 
         this.startField = this.options.startField ? this.options.startField : this.dataModel.getMeta(this.field, "startField");
@@ -9987,12 +9988,29 @@ var DateTimeAdapter = u.BaseAdapter.extend({
 
         // this.formater = new $.DateFormater(this.maskerMeta.format);
         // this.masker = new DateTimeMasker(this.maskerMeta);
+        this.createUIComp({
+            format: format
+        });
+
+        this.setStartField(this.startField);
+        this.setEndField(this.endField);
+        if (!this.isMobile && !this.antFlag) {
+            // 校验
+            this.comp.on('validate', function (event) {
+                self.doValidate();
+            });
+        }
+    },
+
+    createUIComp: function createUIComp(obj) {
         this.op = {};
-        var mobileDateFormat = "",
+        var format = obj.format,
+            self = this,
+            mobileDateFormat = "",
             mobileTimeFormat = "",
             dateOrder = "",
             timeOrder = "";
-        if (env.isMobile) {
+        if (this.antFlag) {} else if (this.isMobile) {
             switch (format) {
                 case "YYYY-MM-DD":
                     mobileDateFormat = "yy-mm-dd";
@@ -10063,18 +10081,9 @@ var DateTimeAdapter = u.BaseAdapter.extend({
 
         this.element['u.DateTimePicker'] = this.comp;
 
-        if (!env.isMobile) {
+        if (!this.isMobile && !this.antFlag) {
             this.comp.on('select', function (event) {
                 self.setValue(event.value);
-            });
-        }
-
-        this.setStartField(this.startField);
-        this.setEndField(this.endField);
-        if (!env.isMobile) {
-            // 校验
-            this.comp.on('validate', function (event) {
-                self.doValidate();
             });
         }
     },
@@ -10085,7 +10094,7 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         if (self.dataModel) {
             if (self.endField) {
                 self.dataModel.ref(self.endField).subscribe(function (value) {
-                    if (env.isMobile) {
+                    if (self.antFlag) {} else if (self.isMobile) {
                         var valueObj = date.getDateObj(value);
                         if (valueObj) {
                             self.resetDataObj(valueObj);
@@ -10123,7 +10132,7 @@ var DateTimeAdapter = u.BaseAdapter.extend({
             if (self.endField) {
                 var endValue = self.dataModel.getValue(self.endField);
                 if (endValue) {
-                    if (env.isMobile) {
+                    if (self.antFlag) {} else if (self.isMobile) {
                         self.op.minDate = date.getDateObj(endValue);
                         if (self.adapterType == 'date') {
                             $(self.element).mobiscroll().date(self.op);
@@ -10144,7 +10153,7 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         if (self.dataModel) {
             if (self.startField) {
                 self.dataModel.ref(self.startField).subscribe(function (value) {
-                    if (env.isMobile) {
+                    if (self.antFlag) {} else if (self.isMobile) {
                         value = date.getDateObj(value);
 
                         // var valueObj = self.setMobileStartDate(value, self.options.format);
@@ -10184,7 +10193,7 @@ var DateTimeAdapter = u.BaseAdapter.extend({
             if (self.startField) {
                 var startValue = self.dataModel.getValue(self.startField);
                 if (startValue) {
-                    if (env.isMobile) {
+                    if (self.antFlag) {} else if (self.isMobile) {
                         startValue = date.getDateObj(startValue);
                         self.op.minDate = self.setMobileStartDate(startValue, self.options.format);
                         if (self.adapterType == 'date') {
@@ -10218,7 +10227,7 @@ var DateTimeAdapter = u.BaseAdapter.extend({
     modelValueChange: function modelValueChange(value) {
         if (this.slice) return;
         this.trueValue = value;
-        if (env.isMobile) {
+        if (this.antFlag) {} else if (this.isMobile) {
             if (value) {
                 value = date.format(value, this.options.format);
                 $(this.element).scroller('setDate', date.getDateObj(value), true);
@@ -10233,14 +10242,14 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         if (this.maskerMeta.format == format) return;
         this.options.format = format;
         this.maskerMeta.format = format;
-        if (!env.isMobile) this.comp.setFormat(format);
+        if (!this.isMobile && this.antFlag) this.comp.setFormat(format);
         // this.formater = new $.DateFormater(this.maskerMeta.format);
         // this.masker = new DateTimeMasker(this.maskerMeta);
     },
 
     beforeSetValue: function beforeSetValue(value) {
+        var valueObj = date.getDateObj(value);
         if (this.dataModel) {
-            var valueObj = date.getDateObj(value);
             if (valueObj) {
                 if (!(typeof this.timezone != 'undefined' && this.timezone != null && this.timezone != '')) {
                     this.resetDataObj(valueObj);
@@ -10274,14 +10283,14 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         if (!(typeof this.timezone != 'undefined' && this.timezone != null && this.timezone != '')) {
             value = date.format(value, this.options.format);
         } else {
-            value = value.getTime();
+            value = valueObj.getTime();
         }
         return value;
     },
     setEnable: function setEnable(enable) {
         if (enable === true || enable === 'true') {
             this.enable = true;
-            if (env.isMobile) {
+            if (this.antFlag) {} else if (this.isMobile) {
                 this.element.removeAttribute('disabled');
             } else {
                 this.comp._input.removeAttribute('readonly');
@@ -10289,14 +10298,14 @@ var DateTimeAdapter = u.BaseAdapter.extend({
             removeClass(this.element.parentNode, 'disablecover');
         } else if (enable === false || enable === 'false') {
             this.enable = false;
-            if (env.isMobile) {
+            if (this.antFlag) {} else if (this.isMobile) {
                 this.element.setAttribute('disabled', 'disabled');
             } else {
                 this.comp._input.setAttribute('readonly', 'readonly');
             }
             addClass(this.element.parentNode, 'disablecover');
         }
-        if (!env.isMobile) this.comp.setEnable(enable);
+        if (!this.isMobile && !this.antFlag) this.comp.setEnable(enable);
     },
 
     resetDataObj: function resetDataObj(dataObj) {
@@ -12581,6 +12590,7 @@ var RadioAdapter = u.BaseAdapter.extend({
         if (this.slice) return;
         var fetch = false,
             self = this;
+        if (!value) value = '';
         if (this.dynamic) {
             if (this.datasource) {
                 this.showValue = '';
@@ -12589,7 +12599,8 @@ var RadioAdapter = u.BaseAdapter.extend({
                     var comp = ele['u.Radio'];
                     if (comp) {
                         var inptuValue = comp._btnElement.value;
-                        if (inptuValue && inptuValue == value) {
+                        //解决boolean类型的true和false与"true"和"false"比较
+                        if (inptuValue && inptuValue == value.toString) {
                             fetch = true;
                             addClass(comp.element, 'is-checked');
                             comp._btnElement.click();
@@ -14424,8 +14435,12 @@ var GridAdapter = u.BaseAdapter.extend({
                     if (oThis.gridOptions.customEditPanelClass.indexOf('u-date-panel') < 0) {
                         oThis.gridOptions.customEditPanelClass += ',u-date-panel';
                     }
+                    if (oThis.gridOptions.customEditPanelClass.indexOf('ant-calendar-picker-container') < 0) {
+                        oThis.gridOptions.customEditPanelClass += ',ant-calendar-picker-container';
+                    }
                 } else {
                     oThis.gridOptions.customEditPanelClass = 'u-date-panel';
+                    oThis.gridOptions.customEditPanelClass = 'ant-calendar-picker-container';
                 }
             }
         } else if (eType == 'time') {

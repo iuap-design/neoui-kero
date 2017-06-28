@@ -6944,10 +6944,11 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         }
 
         this.timezone = this.getOption('timezone') || getCookie(U_TIMEZONE);
+        this.isMobile = env.isMobile;
 
-        if(!this.options['format'] && typeof getFormatFun == 'function'){
-          // 根据语种获取format
-          this.options['format'] = getFormatFun();
+        if (!this.options['format'] && typeof getFormatFun == 'function') {
+            // 根据语种获取format
+            this.options['format'] = getFormatFun();
 
         }
 
@@ -6978,6 +6979,7 @@ var DateTimeAdapter = u.BaseAdapter.extend({
             }
         }
         format = this.options.format;
+        this.fformat = format;
         this.maskerMeta.format = format || this.maskerMeta.format;
 
         this.startField = this.options.startField ? this.options.startField : this.dataModel.getMeta(this.field, "startField");
@@ -6986,12 +6988,31 @@ var DateTimeAdapter = u.BaseAdapter.extend({
 
         // this.formater = new $.DateFormater(this.maskerMeta.format);
         // this.masker = new DateTimeMasker(this.maskerMeta);
+        this.createUIComp({
+            format: format
+        });
+
+        this.setStartField(this.startField);
+        this.setEndField(this.endField);
+        if (!this.isMobile && !this.antFlag) {
+            // 校验
+            this.comp.on('validate', function(event) {
+                self.doValidate();
+            });
+        }
+    },
+
+    createUIComp: function(obj) {
         this.op = {};
-        var mobileDateFormat = "",
+        var format = obj.format,
+            self = this,
+            mobileDateFormat = "",
             mobileTimeFormat = "",
             dateOrder = "",
             timeOrder = "";
-        if (env.isMobile) {
+        if (this.antFlag) {
+
+        } else if (this.isMobile) {
             switch (format) {
                 case "YYYY-MM-DD":
                     mobileDateFormat = "yy-mm-dd";
@@ -7063,18 +7084,9 @@ var DateTimeAdapter = u.BaseAdapter.extend({
 
         this.element['u.DateTimePicker'] = this.comp;
 
-        if (!env.isMobile) {
+        if (!this.isMobile && !this.antFlag) {
             this.comp.on('select', function(event) {
                 self.setValue(event.value);
-            });
-        }
-
-        this.setStartField(this.startField);
-        this.setEndField(this.endField);
-        if (!env.isMobile) {
-            // 校验
-            this.comp.on('validate', function(event) {
-                self.doValidate();
             });
         }
     },
@@ -7085,7 +7097,9 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         if (self.dataModel) {
             if (self.endField) {
                 self.dataModel.ref(self.endField).subscribe(function(value) {
-                    if (env.isMobile) {
+                    if (self.antFlag) {
+
+                    } else if (self.isMobile) {
                         var valueObj = date.getDateObj(value);
                         if (valueObj) {
                             self.resetDataObj(valueObj);
@@ -7124,7 +7138,9 @@ var DateTimeAdapter = u.BaseAdapter.extend({
             if (self.endField) {
                 var endValue = self.dataModel.getValue(self.endField);
                 if (endValue) {
-                    if (env.isMobile) {
+                    if (self.antFlag) {
+
+                    } else if (self.isMobile) {
                         self.op.minDate = date.getDateObj(endValue);
                         if (self.adapterType == 'date') {
                             $(self.element).mobiscroll().date(self.op);
@@ -7145,7 +7161,9 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         if (self.dataModel) {
             if (self.startField) {
                 self.dataModel.ref(self.startField).subscribe(function(value) {
-                    if (env.isMobile) {
+                    if (self.antFlag) {
+
+                    } else if (self.isMobile) {
                         value = date.getDateObj(value);
 
                         // var valueObj = self.setMobileStartDate(value, self.options.format);
@@ -7186,7 +7204,9 @@ var DateTimeAdapter = u.BaseAdapter.extend({
             if (self.startField) {
                 var startValue = self.dataModel.getValue(self.startField);
                 if (startValue) {
-                    if (env.isMobile) {
+                    if (self.antFlag) {
+
+                    } else if (self.isMobile) {
                         startValue = date.getDateObj(startValue);
                         self.op.minDate = self.setMobileStartDate(startValue, self.options.format);
                         if (self.adapterType == 'date') {
@@ -7221,7 +7241,9 @@ var DateTimeAdapter = u.BaseAdapter.extend({
     modelValueChange: function(value) {
         if (this.slice) return;
         this.trueValue = value;
-        if (env.isMobile) {
+        if (this.antFlag) {
+
+        } else if (this.isMobile) {
             if (value) {
                 value = date.format(value, this.options.format);
                 $(this.element).scroller('setDate', date.getDateObj(value), true);
@@ -7237,7 +7259,7 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         if (this.maskerMeta.format == format) return;
         this.options.format = format;
         this.maskerMeta.format = format;
-        if (!env.isMobile)
+        if (!this.isMobile && this.antFlag)
             this.comp.setFormat(format);
         // this.formater = new $.DateFormater(this.maskerMeta.format);
         // this.masker = new DateTimeMasker(this.maskerMeta);
@@ -7245,13 +7267,12 @@ var DateTimeAdapter = u.BaseAdapter.extend({
 
 
     beforeSetValue: function(value) {
+        var valueObj = date.getDateObj(value);
         if (this.dataModel) {
-            var valueObj = date.getDateObj(value);
             if (valueObj) {
                 if (!(typeof this.timezone != 'undefined' && this.timezone != null && this.timezone != '')) {
                     this.resetDataObj(valueObj);
                 }
-
             }
             if (this.startField) {
                 var startValue = this.dataModel.getValue(this.startField);
@@ -7281,14 +7302,16 @@ var DateTimeAdapter = u.BaseAdapter.extend({
         if (!(typeof this.timezone != 'undefined' && this.timezone != null && this.timezone != '')) {
             value = date.format(value, this.options.format);
         } else {
-            value = value.getTime();
+            value = valueObj.getTime();
         }
         return value;
     },
     setEnable: function(enable) {
         if (enable === true || enable === 'true') {
             this.enable = true;
-            if (env.isMobile) {
+            if (this.antFlag) {
+
+            } else if (this.isMobile) {
                 this.element.removeAttribute('disabled');
             } else {
                 this.comp._input.removeAttribute('readonly');
@@ -7296,14 +7319,16 @@ var DateTimeAdapter = u.BaseAdapter.extend({
             removeClass(this.element.parentNode, 'disablecover');
         } else if (enable === false || enable === 'false') {
             this.enable = false;
-            if (env.isMobile) {
+            if (this.antFlag) {
+
+            } else if (this.isMobile) {
                 this.element.setAttribute('disabled', 'disabled');
             } else {
                 this.comp._input.setAttribute('readonly', 'readonly');
             }
             addClass(this.element.parentNode, 'disablecover');
         }
-        if (!env.isMobile)
+        if (!this.isMobile && !this.antFlag)
             this.comp.setEnable(enable);
     },
 

@@ -196,8 +196,7 @@ var RadioAdapter = u.BaseAdapter.extend({
         if (this.slice) return;
         var fetch = false,
             self = this;
-        if (!value)
-            value = '';
+        if (value === null || typeof value == "undefined") value = "";
         if (this.dynamic) {
             if (this.datasource) {
                 this.showValue = '';
@@ -207,7 +206,7 @@ var RadioAdapter = u.BaseAdapter.extend({
                     if (comp) {
                         var inptuValue = comp._btnElement.value;
                         //解决boolean类型的true和false与"true"和"false"比较
-                        if (inptuValue && inptuValue == value.toString) {
+                        if (inptuValue && inptuValue == value.toString()) {
                             fetch = true;
                             addClass(comp.element, 'is-checked')
                             comp._btnElement.click();
