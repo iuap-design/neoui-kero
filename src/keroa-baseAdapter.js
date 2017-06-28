@@ -64,7 +64,7 @@ var BaseAdapter = Class.create({
         this.dataModel = getJSObject(this.viewModel, this.options["data"]);
         if (this.dataModel){
             var opt = {};
-            if (this.options.type === 'u-date'){
+            if (this.options.type === 'u-date' && !this.options.rangeFlag){
                 opt.type = 'date'
             }
             if (this.field)

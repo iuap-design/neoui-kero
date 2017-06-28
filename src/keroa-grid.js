@@ -1486,7 +1486,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     afterRType.call(this, obj);
                 }
             }
-        }else if (rType == 'autoWidthRender') {
+        } else if (rType == 'autoWidthRender') {
             var renderType = function(obj) {
                 var grid = obj.gridObj,
                     v = obj.value,
@@ -1689,8 +1689,12 @@ var GridAdapter = u.BaseAdapter.extend({
                     if (oThis.gridOptions.customEditPanelClass.indexOf('u-date-panel') < 0) {
                         oThis.gridOptions.customEditPanelClass += ',u-date-panel';
                     }
+                    if (oThis.gridOptions.customEditPanelClass.indexOf('ant-calendar-picker-container') < 0) {
+                        oThis.gridOptions.customEditPanelClass += ',ant-calendar-picker-container';
+                    }
                 } else {
                     oThis.gridOptions.customEditPanelClass = 'u-date-panel';
+                    oThis.gridOptions.customEditPanelClass = 'ant-calendar-picker-container';
                 }
             }
 
@@ -1868,16 +1872,16 @@ var GridAdapter = u.BaseAdapter.extend({
                 options: eOptions,
                 model: viewModel
             });
-        } else if (eType == 'textArea'){
-          compDiv = $('<div ><textarea></div>');
-          if (!options.editType || options.editType == "default") {
-              compDiv.addClass("eType-input");
-          }
-          comp = new u.TextAreaAdapter({
-              el: compDiv[0],
-              options: eOptions,
-              model: viewModel
-          });
+        } else if (eType == 'textArea') {
+            compDiv = $('<div ><textarea></div>');
+            if (!options.editType || options.editType == "default") {
+                compDiv.addClass("eType-input");
+            }
+            comp = new u.TextAreaAdapter({
+                el: compDiv[0],
+                options: eOptions,
+                model: viewModel
+            });
         }
 
         if (comp && comp.dataAdapter) {

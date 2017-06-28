@@ -194,7 +194,10 @@ var RadioAdapter = u.BaseAdapter.extend({
 
     modelValueChange: function(value) {
         if (this.slice) return;
-        var fetch = false,self = this;
+        var fetch = false,
+            self = this;
+        if (!value)
+            value = '';
         if (this.dynamic) {
             if (this.datasource) {
                 this.showValue = '';
