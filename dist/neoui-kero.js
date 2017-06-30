@@ -2145,6 +2145,9 @@ var BaseAdapter = Class.create({
             if (this.options.type === 'u-date' && !this.options.rangeFlag) {
                 opt.type = 'date';
             }
+            if (this.options.type === 'u-datetime' && !this.options.rangeFlag) {
+                opt.type = 'datetime';
+            }
             if (this.field) this.dataModel.createField(this.field, opt);
         }
     },
@@ -3723,10 +3726,10 @@ var Combo = u.BaseComponent.extend({
         if (hasClass(this.element, 'mutil-select')) {
             this.mutilSelect = true;
         }
-
-
-
+        //onlySelect=true，可以设置单选下拉框为readonly
         this.onlySelect = this.options['onlySelect'] || false;
+        //当在多选的时候，设置selectChangeDatatable为true时，选中一个数据就会动态的去改变datatable
+        this.selectChangeDatatable = this.options['selectChangeDatatable'] || false;
         if (this.mutilSelect)
             this.onlySelect = true;
 
@@ -4126,6 +4129,13 @@ var Combo = u.BaseComponent.extend({
                     removeClass(lis[i], 'is-selected');
                 }
             }
+            //选中一个数据就会动态的去改变datatable
+            if(this.selectChangeDatatable){
+                 this.trigger('select', {
+                    value: this.value,
+                    name: this.name
+                });
+            }
             /*根据多选区域div的高度调整input的高度*/
             /*实际上input的高度并不需要调整*/
             /*var h = this._combo_name_par.offsetHeight;
@@ -4238,14 +4248,16 @@ var ComboboxAdapter = u.BaseAdapter.extend({
         this.showFix = this.options.showFix || false;
         this.validType = 'combobox';
         this.isAutoTip = this.options.isAutoTip || false;
-
+        //当在多选的时候，设置selectChangeDatatable为true时，选中一个数据就会动态的去改变datatable
+        this.selectChangeDatatable = this.options.selectChangeDatatable || false;
         if (!this.element['u.Combo']) {
             this.comp = new u.Combo({
                 el: this.element,
                 mutilSelect: this.mutil,
                 onlySelect: this.onlySelect,
                 showFix: this.showFix,
-                isAutoTip: this.isAutoTip
+                isAutoTip: this.isAutoTip,
+                selectChangeDatatable: this.selectChangeDatatable
             });
             this.element['u.Combo'] = this.comp;
         } else {
@@ -12590,7 +12602,7 @@ var RadioAdapter = u.BaseAdapter.extend({
         if (this.slice) return;
         var fetch = false,
             self = this;
-        if (!value) value = '';
+        if (value === null || typeof value == "undefined") value = "";
         if (this.dynamic) {
             if (this.datasource) {
                 this.showValue = '';
@@ -12600,7 +12612,7 @@ var RadioAdapter = u.BaseAdapter.extend({
                     if (comp) {
                         var inptuValue = comp._btnElement.value;
                         //解决boolean类型的true和false与"true"和"false"比较
-                        if (inptuValue && inptuValue == value.toString) {
+                        if (inptuValue && inptuValue == value.toString()) {
                             fetch = true;
                             addClass(comp.element, 'is-checked');
                             comp._btnElement.click();
@@ -12952,6 +12964,7 @@ var GridAdapter = u.BaseAdapter.extend({
         this.gridOptions.onSortFun = getFunction(viewModel, this.gridOptions.onSortFun);
         this.gridOptions.filterDataFun = getFunction(viewModel, this.gridOptions.filterDataFun);
         this.gridOptions.onTreeExpandFun = getFunction(viewModel, this.gridOptions.onTreeExpandFun);
+        this.gridOptions.onBeforeCreateLeftMul = getFunction(viewModel, this.gridOptions.onBeforeCreateLeftMul);
 
         /*扩展onBeforeEditFun，如果点击的是单选或者复选的话则不执行原有的编辑处理，直接通过此js进行处理*/
         var customOnBeforeEditFun = this.gridOptions.onBeforeEditFun;

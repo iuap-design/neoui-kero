@@ -1016,10 +1016,10 @@ var Combo = u.BaseComponent.extend({
         if (hasClass(this.element, 'mutil-select')) {
             this.mutilSelect = true;
         }
-
-
-
+        //onlySelect=true，可以设置单选下拉框为readonly
         this.onlySelect = this.options['onlySelect'] || false;
+        //当在多选的时候，设置selectChangeDatatable为true时，选中一个数据就会动态的去改变datatable
+        this.selectChangeDatatable = this.options['selectChangeDatatable'] || false;
         if (this.mutilSelect)
             this.onlySelect = true;
 
@@ -1419,6 +1419,13 @@ var Combo = u.BaseComponent.extend({
                     removeClass(lis[i], 'is-selected');
                 }
             }
+            //选中一个数据就会动态的去改变datatable
+            if(this.selectChangeDatatable){
+                 this.trigger('select', {
+                    value: this.value,
+                    name: this.name
+                });
+            }
             /*根据多选区域div的高度调整input的高度*/
             /*实际上input的高度并不需要调整*/
             /*var h = this._combo_name_par.offsetHeight;
@@ -1531,14 +1538,16 @@ var ComboboxAdapter = u.BaseAdapter.extend({
         this.showFix = this.options.showFix || false;
         this.validType = 'combobox';
         this.isAutoTip = this.options.isAutoTip || false;
-
+        //当在多选的时候，设置selectChangeDatatable为true时，选中一个数据就会动态的去改变datatable
+        this.selectChangeDatatable = this.options.selectChangeDatatable || false;
         if (!this.element['u.Combo']) {
             this.comp = new u.Combo({
                 el: this.element,
                 mutilSelect: this.mutil,
                 onlySelect: this.onlySelect,
                 showFix: this.showFix,
-                isAutoTip: this.isAutoTip
+                isAutoTip: this.isAutoTip,
+                selectChangeDatatable: this.selectChangeDatatable
             });
             this.element['u.Combo'] = this.comp;
 
