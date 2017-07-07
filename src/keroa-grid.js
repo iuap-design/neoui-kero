@@ -480,6 +480,11 @@ var GridAdapter = u.BaseAdapter.extend({
                     var ds = getJSObject(viewModel, eOptions['datasource'])
                     if (!ds)
                         ds = getJSObject(viewModel, column['datasource'])
+
+                    var isDsObservable = ko.isObservable(ds);
+                    if (isDsObservable) {
+                        ds = ko.toJS(ds);
+                    }
                     obj.element.innerHTML = '';
                     if (nameArr) {
                         nameArr.length = 0
@@ -1320,6 +1325,10 @@ var GridAdapter = u.BaseAdapter.extend({
                 var ds = getJSObject(viewModel, eOptions['datasource'])
                 if (!ds)
                     ds = getJSObject(viewModel, column['datasource'])
+                var isDsObservable = ko.isObservable(ds);
+                if (isDsObservable) {
+                    ds = ko.toJS(ds);
+                }
                 obj.element.innerHTML = '';
                 if (nameArr) {
                     nameArr.length = 0
