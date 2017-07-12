@@ -262,11 +262,6 @@ var GridAdapter = u.BaseAdapter.extend({
             } else if (typeof eType == 'function') {
                 column.editType = eType;
             }
-
-
-
-
-
             if (rType == 'booleanRender') {
                 column.renderType = function(obj) {
 
