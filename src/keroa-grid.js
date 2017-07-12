@@ -293,11 +293,11 @@ var GridAdapter = u.BaseAdapter.extend({
 
 
                     $(obj.element).find('input').on('click', function(e) {
-                        $(this).parent().toggleClass('is-checked');
                         if (!obj.gridObj.options.editable) {
                             stopEvent(e);
                             return false;
                         }
+                        $(this).parent().toggleClass('is-checked');
                         if ($(this).parent().hasClass('is-checked')) {
                             this.checked = true;
                         } else {
