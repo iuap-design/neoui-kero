@@ -356,7 +356,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     var checkStr = '',
                         disableStr = '';
 
-                    if (obj.value == 'Y' || obj.value == 'true') {
+                    if (obj.value == 'Y' || obj.value == 'true' || obj.value == '1') {
                         checkStr = 'checked';
                     }
                     disableStr = ' is-disabled';
