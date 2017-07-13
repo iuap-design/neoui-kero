@@ -383,6 +383,43 @@ var GridAdapter = u.BaseAdapter.extend({
                         afterRType.call(this, obj);
                     }
                 }
+            } else if (rType == 'disableSwitchRender') {
+                column.renderType = function(obj) {
+
+                    var grid = obj.gridObj;
+                    var datatable = grid.dataTable;
+                    var rowId = obj.row.value['$_#_@_id'];
+                    var row = datatable.getRowByRowId(rowId);
+                    var checkStr = '',
+                        disableStr = '';
+
+                    if (obj.value == 'Y' || obj.value == 'true') {
+                        checkStr = 'checked';
+                    }
+                    disableStr = ' disabled';
+                    var htmlStr = '<label class="u-switch">' +
+                        ' <input type="checkbox"  class="u-switch-input" ' + checkStr + disableStr + '>' +
+                        ' <span class="u-switch-label"></span>' +
+                        '</label>'
+
+
+                    obj.element.innerHTML = htmlStr;
+                    var comp = new u.Switch($(obj.element).find('label')[0]);
+                    comp.on('change', function(event) {
+                        var column = obj.gridCompColumn;
+                        var field = column.options.field;
+                        if (event.isChecked) {
+                            row.setValue(field, 'Y');
+                        } else {
+                            row.setValue(field, 'N');
+                        }
+                    });
+
+                    // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                    if (typeof afterRType == 'function') {
+                        afterRType.call(this, obj);
+                    }
+                }
             } else if (rType == 'integerRender') {
                 column.renderType = function(obj) {
                     var grid = obj.gridObj

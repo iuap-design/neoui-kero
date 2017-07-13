@@ -90,7 +90,7 @@ var IntegerAdapter = u.BaseAdapter.extend({
                     //复制粘贴
                     return true;
                 }
-                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46)) {
+                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46 || code == 189)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
                         e.preventDefault();
