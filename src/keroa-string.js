@@ -11,6 +11,10 @@ import {
     on
 } from 'tinper-sparrow/src/event';
 
+import {
+    addClass,
+    removeClass
+} from 'tinper-sparrow/src/dom';
 
 var StringAdapter = u.BaseAdapter.extend({
     init: function() {
@@ -69,6 +73,20 @@ var StringAdapter = u.BaseAdapter.extend({
                 }
             } else
                 self.setValue(self.element.value)
+        }
+    },
+    setEnable: function(enable) {
+        var self = this;
+        if (this.trueAdpt)
+            self = this.trueAdpt
+        if (enable === true || enable === 'true') {
+            self.enable = true;
+            self.element.removeAttribute('readonly');
+            removeClass(self.element.parentNode, 'disablecover');
+        } else if (enable === false || enable === 'false') {
+            self.enable = false;
+            self.element.setAttribute('readonly', 'readonly');
+            addClass(self.element.parentNode, 'disablecover');
         }
     }
 });

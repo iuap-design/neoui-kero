@@ -51,6 +51,7 @@ var TextFieldAdapter = u.BaseAdapter.extend({
         this.trueAdpt.comp = this.comp;
         this.trueAdpt.setShowValue = function(showValue) {
             this.showValue = showValue;
+            this.comp._input = this.element;
             this.comp.change(showValue);
             this.element.title = showValue;
         }
