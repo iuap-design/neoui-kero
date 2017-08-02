@@ -223,6 +223,10 @@ var GridAdapter = u.BaseAdapter.extend({
                     if (comp && comp.modelValueChange) {
                         setTimeout(function() {
                             comp.modelValueChange(obj.value);
+							comp.element.value = obj.value;
+                            comp.element.title = obj.value;
+                            //在grid中由于setShowValue会对控件本身的校验有干扰，所以直接覆盖
+							comp.setShowValue = function(){}
                         })
                     }
 
@@ -1648,7 +1652,7 @@ var GridAdapter = u.BaseAdapter.extend({
 
         } else if (eType == 'combo') {
             // compDiv = $('<div class="input-group  form_date u-grid-edit-item-comb"><div  type="text" class="form-control grid-combox"></div><i class="input-group-addon" ><i class="uf uf-anglearrowdown"></i></i></div>');
-            compDiv = $('<div class="eType-input"><input type="text" class="u-grid-edit-item-float"></div>');
+            compDiv = $('<div class="eType-input"><input type="text" class="u-grid-edit-item-float"><span style="top:2px;" class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span></div>');
             //comp = new $.compManager.plugs.combo(compDiv[0],eOptions,viewModel);
             //comp = new Combobox({
             //	el:compDiv[0],
