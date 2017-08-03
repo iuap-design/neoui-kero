@@ -431,9 +431,9 @@ var GridAdapter = u.BaseAdapter.extend({
                     var field = column.options.field
                     obj.element.innerHTML = obj.value
                     /*设置header为right*/
-                    $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                    $(obj.element).css('text-align', 'right')
-                    $(obj.element).css('color', '#e33c37')
+                    // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                    // $(obj.element).css('text-align', 'right')
+                    // $(obj.element).css('color', '#e33c37')
                     $(obj.element).find('.u-grid-header-link').css('padding-right', '3em')
                     // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
                     if (typeof afterRType == 'function') {
@@ -464,9 +464,9 @@ var GridAdapter = u.BaseAdapter.extend({
                     var svalue = masker.format(formater.format(obj.value)).value
                     obj.element.innerHTML = svalue
                     /*设置header为right*/
-                    $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                    $(obj.element).css('text-align', 'right')
-                    $(obj.element).css('color', '#e33c37')
+                    // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                    // $(obj.element).css('text-align', 'right')
+                    // $(obj.element).css('color', '#e33c37')
                     $(obj.element).find('.u-grid-header-link').css('padding-right', '3em')
                     $(obj.element).attr('title', svalue)
 
@@ -498,9 +498,9 @@ var GridAdapter = u.BaseAdapter.extend({
                     var svalue = masker.format(formater.format(obj.value)).value
                     obj.element.innerHTML = svalue
                     /*设置header为right*/
-                    $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                    $(obj.element).css('text-align', 'right')
-                    $(obj.element).css('color', '#e33c37')
+                    // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                    // $(obj.element).css('text-align', 'right')
+                    // $(obj.element).css('color', '#e33c37')
                     $(obj.element).find('.u-grid-header-link').css('padding-right', '3em')
                     $(obj.element).attr('title', svalue)
 
@@ -690,7 +690,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     var masker = new PercentMasker(maskerMeta)
                     var svalue = masker.format(formater.format(obj.value)).value
                     obj.element.innerHTML = svalue
-                    $(obj.element).css('text-align', 'right')
+                    // $(obj.element).css('text-align', 'right')
                     $(obj.element).attr('title', svalue)
 
                     // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
@@ -1275,9 +1275,9 @@ var GridAdapter = u.BaseAdapter.extend({
                 var field = column.options.field
                 obj.element.innerHTML = obj.value
                 /*设置header为right*/
-                $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                $(obj.element).css('text-align', 'right')
-                $(obj.element).css('color', '#e33c37')
+                // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                // $(obj.element).css('text-align', 'right')
+                // $(obj.element).css('color', '#e33c37')
                 $(obj.element).find('.u-grid-header-link').css('padding-right', '3em')
                 // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
                 if (typeof afterRType == 'function') {
@@ -1308,9 +1308,9 @@ var GridAdapter = u.BaseAdapter.extend({
                 var svalue = masker.format(formater.format(obj.value)).value
                 obj.element.innerHTML = svalue
                 /*设置header为right*/
-                $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                $(obj.element).css('text-align', 'right')
-                $(obj.element).css('color', '#e33c37')
+                // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                // $(obj.element).css('text-align', 'right')
+                // $(obj.element).css('color', '#e33c37')
                 $(obj.element).find('.u-grid-header-link').css('padding-right', '3em')
                 $(obj.element).attr('title', svalue)
 
@@ -1343,9 +1343,9 @@ var GridAdapter = u.BaseAdapter.extend({
                 var svalue = masker.format(formater.format(obj.value)).value
                 obj.element.innerHTML = svalue
                 /*设置header为right*/
-                $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                $(obj.element).css('text-align', 'right')
-                $(obj.element).css('color', '#e33c37')
+                // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                // $(obj.element).css('text-align', 'right')
+                // $(obj.element).css('color', '#e33c37')
                 $(obj.element).find('.u-grid-header-link').css('padding-right', '3em')
                 $(obj.element).attr('title', svalue)
 
@@ -1524,7 +1524,7 @@ var GridAdapter = u.BaseAdapter.extend({
                 var masker = new PercentMasker(maskerMeta)
                 var svalue = masker.format(formater.format(obj.value)).value
                 obj.element.innerHTML = svalue
-                $(obj.element).css('text-align', 'right')
+                // $(obj.element).css('text-align', 'right')
                 $(obj.element).attr('title', svalue)
 
                 // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
