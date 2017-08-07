@@ -1639,13 +1639,16 @@ var FloatAdapter = u.BaseAdapter.extend({
         on(this.element, 'blur', function() {
             var newValue;
             if (self.enable) {
-                if (!self.doValidate().passed && self._needClean()) {
-                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                        // 因必输项清空导致检验没通过的情况
-                        self.setValue('');
-                    } else {
-                        self.element.value = self.getShowValue();
+                if (!self.doValidate().passed) {
+                    if (self._needClean()) {
+                        if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                            // 因必输项清空导致检验没通过的情况
+                            self.setValue('');
+                        } else {
+                            self.element.value = self.getShowValue();
+                        }
                     }
+
                 } else {
                     newValue = self.element.value ? self.element.value.replaceAll(',', '') : "";
                     self.setValue(newValue);
@@ -1660,7 +1663,7 @@ var FloatAdapter = u.BaseAdapter.extend({
                     //复制粘贴
                     return true;
                 }
-                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 102 || code == 39 || code == 8 || code == 46 || code == 110 || code == 190)) {
+                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 102 || code == 39 || code == 8 || code == 46 || code == 110 || code == 190 || code == 189 || code == 109)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
                         e.preventDefault();
@@ -1676,12 +1679,14 @@ var FloatAdapter = u.BaseAdapter.extend({
         var self = this,
             newValue;
         if (self.enable) {
-            if (!self.doValidate().passed && self._needClean()) {
-                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                    // 因必输项清空导致检验没通过的情况
-                    self.setValue('');
-                } else {
-                    self.element.value = self.getShowValue();
+            if (!self.doValidate().passed) {
+                if (self._needClean()) {
+                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                        // 因必输项清空导致检验没通过的情况
+                        self.setValue('');
+                    } else {
+                        self.element.value = self.getShowValue();
+                    }
                 }
             } else {
                 newValue = self.element.value ? self.element.value.replaceAll(',', '') : "";
@@ -1726,9 +1731,6 @@ var FloatAdapter = u.BaseAdapter.extend({
 
         focusValue = parseFloat(focusValue) === 0 ? parseFloat(focusValue) : (parseFloat(focusValue) || '');
         this.setShowValue(focusValue);
-    },
-    _needClean: function() {
-        return true
     }
 });
 
@@ -1773,12 +1775,14 @@ var StringAdapter = u.BaseAdapter.extend({
 
         on(this.element, 'blur', function(e) {
             if (self.enable) {
-                if (!self.doValidate().passed && self._needClean()) {
-                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                        // 因必输项清空导致检验没通过的情况
-                        self.setValue('');
-                    } else {
-                        self.element.value = self.getShowValue();
+                if (!self.doValidate().passed) {
+                    if (self._needClean()) {
+                        if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                            // 因必输项清空导致检验没通过的情况
+                            self.setValue('');
+                        } else {
+                            self.element.value = self.getShowValue();
+                        }
                     }
                 } else
                     self.setValue(self.element.value);
@@ -1788,15 +1792,31 @@ var StringAdapter = u.BaseAdapter.extend({
     hide: function() {
         var self = this;
         if (self.enable) {
-            if (!self.doValidate().passed && self._needClean()) {
-                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                    // 因必输项清空导致检验没通过的情况
-                    self.setValue('');
-                } else {
-                    self.element.value = self.getShowValue();
+            if (!self.doValidate().passed) {
+                if (self._needClean()) {
+                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                        // 因必输项清空导致检验没通过的情况
+                        self.setValue('');
+                    } else {
+                        self.element.value = self.getShowValue();
+                    }
                 }
             } else
                 self.setValue(self.element.value);
+        }
+    },
+    setEnable: function(enable) {
+        var self = this;
+        if (this.trueAdpt)
+            self = this.trueAdpt;
+        if (enable === true || enable === 'true') {
+            self.enable = true;
+            self.element.removeAttribute('readonly');
+            removeClass(self.element.parentNode, 'disablecover');
+        } else if (enable === false || enable === 'false') {
+            self.enable = false;
+            self.element.setAttribute('readonly', 'readonly');
+            addClass(self.element.parentNode, 'disablecover');
         }
     }
 });
@@ -1857,12 +1877,14 @@ var IntegerAdapter = u.BaseAdapter.extend({
 
         on(this.element, 'blur', function() {
             if (self.enable) {
-                if (!self.doValidate().passed && self._needClean()) {
-                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                        // 因必输项清空导致检验没通过的情况
-                        self.setValue('');
-                    } else {
-                        self.element.value = self.getShowValue();
+                if (!self.doValidate().passed) {
+                    if (self._needClean()) {
+                        if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                            // 因必输项清空导致检验没通过的情况
+                            self.setValue('');
+                        } else {
+                            self.element.value = self.getShowValue();
+                        }
                     }
                 } else
                     self.setValue(self.element.value);
@@ -1876,7 +1898,7 @@ var IntegerAdapter = u.BaseAdapter.extend({
                     //复制粘贴
                     return true;
                 }
-                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46)) {
+                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46 || code == 189)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
                         e.preventDefault();
@@ -1892,13 +1914,15 @@ var IntegerAdapter = u.BaseAdapter.extend({
         var self = this;
         self.element.value = (self.element.value + '').replace(/\,/g, '');
         if (self.enable) {
-            if (!self.doValidate().passed && self._needClean()) {
+            if (!self.doValidate().passed  ) {
+              if(self._needClean()){
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                     // 因必输项清空导致检验没通过的情况
                     self.setValue('');
                 } else {
                     self.element.value = self.getShowValue();
                 }
+              }
             } else self.setValue(self.element.value);
         }
     }
@@ -1944,6 +1968,7 @@ var TextFieldAdapter = u.BaseAdapter.extend({
         this.trueAdpt.comp = this.comp;
         this.trueAdpt.setShowValue = function(showValue) {
             this.showValue = showValue;
+            this.comp._input = this.element;
             this.comp.change(showValue);
             this.element.title = showValue;
         };

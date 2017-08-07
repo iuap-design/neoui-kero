@@ -1142,13 +1142,14 @@ const setData = function(data, options) {
  * @param {string} value     需要设置的值
  * @param {u.row} [row=当前行] 需要设置的u.row对象，
  * @param {*} [ctx]        自定义属性，在valuechange监听传入对象中可通过ctx获取此处设置
+ * @param {string} validType 传递值的字符类型，如string，integer等
  * @example
  * datatable.setValue('filed1','value1') //设置当前行字段值
  * var row = datatable.getRow(1)
  * datatable.setValue('filed1','value1',row) //设置在指定行字段值
  * datatable.setValue('filed1','value1',row,'ctx') //设置在指定行字段值，同时传入自定义数据
  */
-const setValue = function(fieldName, value, row, ctx) {
+const setValue = function(fieldName, value, row, ctx, validType) {
     if (arguments.length === 1) {
         value = fieldName;
         fieldName = '$data';
@@ -1156,7 +1157,7 @@ const setValue = function(fieldName, value, row, ctx) {
 
     row = row ? row : this.getCurrentRow();
     if (row)
-        row.setValue(fieldName, value, ctx);
+        row.setValue(fieldName, value, ctx, undefined, validType);
 };
 
 /**
@@ -1586,6 +1587,32 @@ const getRowsByField = function(field, value) {
 };
 
 /**
+ * 根据多个字段及字段值获取所有数据行
+ * @memberof DataTable
+ * @param  {string} fields 需要获取行的对应字段及对应值数组
+ * @return {array}      根据字段及字段值获取的所有数据行
+ * @example
+ * datatable.getRowsByFields([{field:'field1',value:'value1'},{field:'field2',value:'value2'}])
+ */
+const getRowsByFields = function(fileds) {
+    var rows = this.rows.peek();
+    var returnRows = new Array();
+    if (fileds && fileds.length > 0) {
+        for (var i = 0, count = rows.length; i < count; i++) {
+            var matchCount = 0;
+            var l = fileds.length;
+            for (var j = 0; j < l; j++) {
+                if (rows[i].getValue(fileds[j]['field']) === fileds[j]['value'])
+                    matchCount++;
+            }
+            if (matchCount == l)
+                returnRows.push(rows[i]);
+        }
+    }
+    return returnRows;
+};
+
+/**
  * 根据字段及字段值获取第一条数据行
  * @memberof DataTable
  * @param  {string} field 需要获取行的对应字段
@@ -1795,7 +1822,8 @@ const getDataFunObj = {
     getIndexByRowId: getIndexByRowId,
     getAllDatas: getAllDatas,
     getRowIdsByIndices: getRowIdsByIndices,
-    getRowsByIndices: getRowsByIndices
+    getRowsByIndices: getRowsByIndices,
+    getRowsByFields:getRowsByFields
 };
 
 /**
@@ -2042,12 +2070,27 @@ const getSelectedRows = function() {
     return selectRows
 };
 
+const getAllPageSelectedRows = function() {
+    var rows = [];
+    if (this.pageCache) {
+        var pages = this.getPages();
+        for (var i = 0; i < pages.length; i++) {
+            var page = pages[i];
+            if (page) {
+                rows = rows.concat(page.getSelectRows());
+            }
+        }
+    }
+    return rows;
+};
+
 const getSelectFunObj = {
     getSelectedIndex: getSelectedIndex,
     getSelectedIndices: getSelectedIndices,
     getSelectedIndexs: getSelectedIndexs,
     getSelectedDatas: getSelectedDatas,
-    getSelectedRows: getSelectedRows
+    getSelectedRows: getSelectedRows,
+    getAllPageSelectedRows: getAllPageSelectedRows
 };
 
 /**
@@ -2091,12 +2134,14 @@ const getSimpleData = function(options) {
             rows = [];
             for (var i = 0; i < pages.length; i++) {
                 var page = pages[i];
-                if (type === 'all') {
-                    rows = rows.concat(page.rows.peek());
-                }else if(type === 'select') {
-                    rows = rows.concat(page.getSelectRows());
-                } else if (type === 'change') {
-                    rows = rows.concat(page.getSelectRows());
+                if (page) {
+                    if (type === 'all') {
+                        rows = rows.concat(page.rows);
+                    } else if (type === 'select') {
+                        rows = rows.concat(page.getSelectRows());
+                    } else if (type === 'change') {
+                        rows = rows.concat(page.getChangedRows());
+                    }
                 }
             }
         } else {
@@ -2806,8 +2851,8 @@ const removeAllRows = function() {
  * datatable.removeRows([1,2])
  * datatable.removeRows([row1,row2])
  */
-const removeRows = function(indices) {
-    this.setRowsDelete(indices);
+const removeRows = function(indices, obj) {
+    this.setRowsDelete(indices, obj);
 };
 
 
@@ -3001,9 +3046,15 @@ const insertRows = function(index, rows) {
     this.updateSelectedIndices(index, '+', rows.length);
     this.updateFocusIndex(index, '+', rows.length);
     this.updatePageAll();
+    var insertRows = [];
+    $.each(rows,function(i){
+      if(this.status == Row.STATUS.NORMAL || this.status == Row.STATUS.UPDATE || this.status == Row.STATUS.NEW){
+        insertRows.push(this);
+      }
+    });
     this.trigger(DataTable.ON_INSERT, {
         index: index,
-        rows: rows
+        rows: insertRows
     });
     if (this.ns) {
         if (this.root.valueChange[this.ns])
@@ -3100,7 +3151,8 @@ const setAllRowsDelete = function() {
  * 根据索引数组删除数据行
  * @param {Array} indices 需要删除数据行的索引数组
  */
-const setRowsDelete = function(indices) {
+const setRowsDelete = function(indices, obj) {
+    var forceDel = obj ? obj.forceDel : false;
     indices = utilFunObj._formatToIndicesArray(this, indices);
     indices = indices.sort(function(a, b) {
         return b - a;
@@ -3110,7 +3162,7 @@ const setRowsDelete = function(indices) {
     var ros = this.rows();
     for (var i = 0; i < indices.length; i++) {
         var row = this.getRow(indices[i]);
-        if (row.status == Row.STATUS.NEW || this.forceDel) {
+        if (row.status == Row.STATUS.NEW || this.forceDel || forceDel) {
             ros.splice(indices[i], 1);
         } else {
             row.setStatus(Row.STATUS.FALSE_DELETE);
@@ -3219,6 +3271,8 @@ const setRowsSelect = function(indices) {
         rowIds: rowIds
     });
     this.updateCurrIndex();
+
+    this.setRowFocus(indices[0]);
 
 };
 
@@ -3416,8 +3470,12 @@ const setRowFocus = function(index, quiet, force) {
         index = this.getIndexByRowId(index.rowId);
         rowId = index.rowId;
     }
+
     if (index === -1 || (index === this.focusIndex() && !force)) {
         return;
+    }
+    if (this.focusIndex() > -1) {
+        this.setRowUnFocus(this.focusIndex());
     }
     this.focusIndex(index);
     if (quiet) {
@@ -3509,14 +3567,14 @@ const rowFocusFunObj = {
  * datatable.setSimpleData(data)
  * datatable.setSimpleData(data,{unSelect:true})
  */
-const setSimpleData = function(data,options){
+const setSimpleData = function(data, options) {
     this.removeAllRows();
     this.cachedPages = [];
     this.focusIndex(-1);
     this.selectedIndices([]);
 
     this.setSimpleDataReal = [];
-    if (!data){
+    if (!data) {
         this.setSimpleDataReal = data;
         // throw new Error("dataTable.setSimpleData param can't be null!");
         return;
@@ -3525,65 +3583,75 @@ const setSimpleData = function(data,options){
     var rows = [];
     if (!isArray(data))
         data = [data];
-    for (var i =0; i< data.length; i++){
+    for (var i = 0; i < data.length; i++) {
         var _data = data[i];
         /* 判断data中的字段在datatable中是否存在，如果不存在则创建 */
         // for(var f in _data){
         //     this.createField(f)
         // }
         if (typeof data[i] !== 'object')
-            _data = {$data:data[i]};
-        rows.push({
-            status: Row.STATUS.NORMAL,
-            data: _data
-        });
+            _data = {
+                $data: data[i]
+            };
+        if (options && options.status) {
+            rows.push({
+                status: options.status,
+                data: _data
+            });
+        } else {
+            rows.push({
+                status: Row.STATUS.NORMAL,
+                data: _data
+            });
+        }
+
     }
     var _data = {
         rows: rows
     };
-    if(options) {
-        if(typeof options.fieldFlag == 'undefined'){
+    if (options) {
+        if (typeof options.fieldFlag == 'undefined') {
             options.fieldFlag = true;
         }
     }
-    this.setData(_data,options);
+    this.setData(_data, options);
 };
 
 
- /**
-  * 追加数据, 只设置字段值
-  * @memberof DataTable
-  * @param {array} data 数据信息
-  * @param {string} [status=nrm] 追加数据信息的状态，参照Row对象的状态介绍
-  * @param {boject} [options] 可配置参数
-  * @param {boject} [options.unSelect=false] 是否默认选中第一行，如果为true则不选中第一行，否则选中第一行
-  * @example
-  * var data = [{
-  *   filed1:'value1',
-  *   field2:'value2'
-  * },{
-  *   filed1:'value11',
-  *   field2:'value21'
-  * }]
-  * datatable.addSimpleData(data,Row.STATUS.NEW)
-  * datatable.addSimpleData(data, null, {unSelect:true})
-  */
-const addSimpleData = function(data, status, options){
-    if (!data){
+/**
+ * 追加数据, 只设置字段值
+ * @memberof DataTable
+ * @param {array} data 数据信息
+ * @param {string} [status=nrm] 追加数据信息的状态，参照Row对象的状态介绍
+ * @param {boject} [options] 可配置参数
+ * @param {boject} [options.unSelect=false] 是否默认选中第一行，如果为true则不选中第一行，否则选中第一行
+ * @example
+ * var data = [{
+ *   filed1:'value1',
+ *   field2:'value2'
+ * },{
+ *   filed1:'value11',
+ *   field2:'value21'
+ * }]
+ * datatable.addSimpleData(data,Row.STATUS.NEW)
+ * datatable.addSimpleData(data, null, {unSelect:true})
+ */
+const addSimpleData = function(data, status, options) {
+    if (!data) {
         throw new Error("dataTable.addSimpleData param can't be null!");
     }
     if (!isArray(data))
         data = [data];
-    for (var i =0; i< data.length; i++){
+    for (var i = 0; i < data.length; i++) {
         var r = this.createEmptyRow(options);
-        r.setSimpleData(data[i],status);
+        r.setSimpleData(data[i], status);
     }
 
 };
 
 const simpleDataFunObj = {
-	setSimpleData:setSimpleData,
-	addSimpleData:addSimpleData
+    setSimpleData: setSimpleData,
+    addSimpleData: addSimpleData
 };
 
 /**
@@ -3744,7 +3812,7 @@ const eventsFunObj = {
 
 /**
   * Module : Kero webpack entry dataTable index
-  * Author : liuyk(liuyuekai@yonyou.com)
+  * Author : huyue(huyueb@yonyou.com)
   * Date   : 2016-08-09 15:24:46
   */
 
@@ -3939,7 +4007,23 @@ const eventsFunObj = {
      allPages: 'allPages'
  };
 
+/**
+ * 将默认meta与传入进行的meta对象进行合并
+ * meta: {
+     f1: {
+         enable:false
+     }
+ }
+ newMetas：{
+     f1:{
+         enable:false,
+         required:false,
+         descs:{
 
+        }
+    }
+}
+ */
  DataTable$1.createMetaItems = function(metas) {
      var newMetas = {};
      for (var key in metas) {
@@ -4899,13 +4983,16 @@ var FloatAdapter = u.BaseAdapter.extend({
         on(this.element, 'blur', function() {
             var newValue;
             if (self.enable) {
-                if (!self.doValidate().passed && self._needClean()) {
-                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                        // 因必输项清空导致检验没通过的情况
-                        self.setValue('');
-                    } else {
-                        self.element.value = self.getShowValue();
+                if (!self.doValidate().passed) {
+                    if (self._needClean()) {
+                        if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                            // 因必输项清空导致检验没通过的情况
+                            self.setValue('');
+                        } else {
+                            self.element.value = self.getShowValue();
+                        }
                     }
+
                 } else {
                     newValue = self.element.value ? self.element.value.replaceAll(',', '') : "";
                     self.setValue(newValue);
@@ -4920,7 +5007,7 @@ var FloatAdapter = u.BaseAdapter.extend({
                     //复制粘贴
                     return true;
                 }
-                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 102 || code == 39 || code == 8 || code == 46 || code == 110 || code == 190)) {
+                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 102 || code == 39 || code == 8 || code == 46 || code == 110 || code == 190 || code == 189 || code == 109)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
                         e.preventDefault();
@@ -4936,12 +5023,14 @@ var FloatAdapter = u.BaseAdapter.extend({
         var self = this,
             newValue;
         if (self.enable) {
-            if (!self.doValidate().passed && self._needClean()) {
-                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                    // 因必输项清空导致检验没通过的情况
-                    self.setValue('');
-                } else {
-                    self.element.value = self.getShowValue();
+            if (!self.doValidate().passed) {
+                if (self._needClean()) {
+                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                        // 因必输项清空导致检验没通过的情况
+                        self.setValue('');
+                    } else {
+                        self.element.value = self.getShowValue();
+                    }
                 }
             } else {
                 newValue = self.element.value ? self.element.value.replaceAll(',', '') : "";
@@ -4986,9 +5075,6 @@ var FloatAdapter = u.BaseAdapter.extend({
 
         focusValue = parseFloat(focusValue) === 0 ? parseFloat(focusValue) : (parseFloat(focusValue) || '');
         this.setShowValue(focusValue);
-    },
-    _needClean: function() {
-        return true
     }
 });
 

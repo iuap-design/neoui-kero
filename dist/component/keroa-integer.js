@@ -950,12 +950,14 @@ var IntegerAdapter = u.BaseAdapter.extend({
 
         on(this.element, 'blur', function() {
             if (self.enable) {
-                if (!self.doValidate().passed && self._needClean()) {
-                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                        // 因必输项清空导致检验没通过的情况
-                        self.setValue('');
-                    } else {
-                        self.element.value = self.getShowValue();
+                if (!self.doValidate().passed) {
+                    if (self._needClean()) {
+                        if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                            // 因必输项清空导致检验没通过的情况
+                            self.setValue('');
+                        } else {
+                            self.element.value = self.getShowValue();
+                        }
                     }
                 } else
                     self.setValue(self.element.value);
@@ -969,7 +971,7 @@ var IntegerAdapter = u.BaseAdapter.extend({
                     //复制粘贴
                     return true;
                 }
-                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46)) {
+                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46 || code == 189)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
                         e.preventDefault();
@@ -985,13 +987,15 @@ var IntegerAdapter = u.BaseAdapter.extend({
         var self = this;
         self.element.value = (self.element.value + '').replace(/\,/g, '');
         if (self.enable) {
-            if (!self.doValidate().passed && self._needClean()) {
+            if (!self.doValidate().passed  ) {
+              if(self._needClean()){
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                     // 因必输项清空导致检验没通过的情况
                     self.setValue('');
                 } else {
                     self.element.value = self.getShowValue();
                 }
+              }
             } else self.setValue(self.element.value);
         }
     }

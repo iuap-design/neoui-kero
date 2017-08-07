@@ -1,3 +1,23 @@
+<a name="3.2.4"></a>
+## [3.2.4](https://github.com/iuap-design/neoui-kero/compare/v3.2.3...v3.2.4) (2017-08-03)
+
+
+### Bug Fixes
+
+* 修改booleanRender在grid的edittable设置为false时，还能编辑的bug ([d8762b7](https://github.com/iuap-design/neoui-kero/commit/d8762b7))
+* 修改年月控件设置format不起作用的bug ([7759858](https://github.com/iuap-design/neoui-kero/commit/7759858))
+* 将grid中的下拉框ui风格与表单中的下拉框风格保持统一 ([efcc911](https://github.com/iuap-design/neoui-kero/commit/efcc911))
+* 解决float类型输入框不能输入小键盘减号bug ([a997e5a](https://github.com/iuap-design/neoui-kero/commit/a997e5a))
+
+
+### Features
+
+* 增加switchRender可以赋值0和1来设置开关 ([6654ccf](https://github.com/iuap-design/neoui-kero/commit/6654ccf))
+* 当在多选的时候，设置selectChangeDatatable为true时，选中一个数据就会动态的去改变datatable ([add000e](https://github.com/iuap-design/neoui-kero/commit/add000e))
+* 支持radio控件的boolean类型的true和false与true和false比较 ([9e74018](https://github.com/iuap-design/neoui-kero/commit/9e74018))
+
+
+
 <a name="3.2.3"></a>
 ## [3.2.3](https://github.com/iuap-design/neoui-kero/compare/v3.2.2...v3.2.3) (2017-06-22)
 

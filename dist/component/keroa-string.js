@@ -134,6 +134,53 @@ var on = function(element, eventName, child, listener) {
 };
 
 /**
+ * Module : Sparrow dom
+ * Author : Kvkens(yueming@yonyou.com)
+ * Date	  : 2016-08-16 13:59:17
+ */
+/**
+ * 元素增加指定样式
+ * @param value
+ * @returns {*}
+ */
+var addClass = function(element, value) {
+	if(element){
+		if(typeof element.classList === 'undefined') {
+			if(u._addClass){
+				u._addClass(element, value);
+			}else{
+				$(element).addClass(value);
+			}
+
+		} else {
+			element.classList.add(value);
+		}
+	}
+
+	return this;
+};
+/**
+ * 删除元素上指定样式
+ * @param {Object} element
+ * @param {Object} value
+ */
+var removeClass = function(element, value) {
+	if(element){
+		if(typeof element.classList === 'undefined') {
+			if(u._removeClass){
+				u._removeClass(element, value);
+			}else{
+				$(element).removeClass(value);
+			}
+
+		} else {
+			element.classList.remove(value);
+		}
+	}
+	return this;
+};
+
+/**
  * Module : Kero string adapter
  * Author : Kvkens(yueming@yonyou.com)
  * Date	  : 2016-08-09 20:12:42
@@ -168,12 +215,14 @@ var StringAdapter = u.BaseAdapter.extend({
 
         on(this.element, 'blur', function(e) {
             if (self.enable) {
-                if (!self.doValidate().passed && self._needClean()) {
-                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                        // 因必输项清空导致检验没通过的情况
-                        self.setValue('');
-                    } else {
-                        self.element.value = self.getShowValue();
+                if (!self.doValidate().passed) {
+                    if (self._needClean()) {
+                        if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                            // 因必输项清空导致检验没通过的情况
+                            self.setValue('');
+                        } else {
+                            self.element.value = self.getShowValue();
+                        }
                     }
                 } else
                     self.setValue(self.element.value);
@@ -183,15 +232,31 @@ var StringAdapter = u.BaseAdapter.extend({
     hide: function() {
         var self = this;
         if (self.enable) {
-            if (!self.doValidate().passed && self._needClean()) {
-                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                    // 因必输项清空导致检验没通过的情况
-                    self.setValue('');
-                } else {
-                    self.element.value = self.getShowValue();
+            if (!self.doValidate().passed) {
+                if (self._needClean()) {
+                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                        // 因必输项清空导致检验没通过的情况
+                        self.setValue('');
+                    } else {
+                        self.element.value = self.getShowValue();
+                    }
                 }
             } else
                 self.setValue(self.element.value);
+        }
+    },
+    setEnable: function(enable) {
+        var self = this;
+        if (this.trueAdpt)
+            self = this.trueAdpt;
+        if (enable === true || enable === 'true') {
+            self.enable = true;
+            self.element.removeAttribute('readonly');
+            removeClass(self.element.parentNode, 'disablecover');
+        } else if (enable === false || enable === 'false') {
+            self.enable = false;
+            self.element.setAttribute('readonly', 'readonly');
+            addClass(self.element.parentNode, 'disablecover');
         }
     }
 });

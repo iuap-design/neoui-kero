@@ -1698,10 +1698,11 @@ var YearMonthAdapter = u.BaseAdapter.extend({
     init: function() {
         var self = this;
         this.validType = 'yearmonth';
-
+        this.format = this.getOption('format');
         this.comp = new YearMonth({
             el: this.element,
-            showFix: this.options.showFix
+            showFix: this.options.showFix,
+            format: this.format
         });
 
 

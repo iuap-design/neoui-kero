@@ -1313,13 +1313,14 @@ const setData = function(data, options) {
  * @param {string} value     需要设置的值
  * @param {u.row} [row=当前行] 需要设置的u.row对象，
  * @param {*} [ctx]        自定义属性，在valuechange监听传入对象中可通过ctx获取此处设置
+ * @param {string} validType 传递值的字符类型，如string，integer等
  * @example
  * datatable.setValue('filed1','value1') //设置当前行字段值
  * var row = datatable.getRow(1)
  * datatable.setValue('filed1','value1',row) //设置在指定行字段值
  * datatable.setValue('filed1','value1',row,'ctx') //设置在指定行字段值，同时传入自定义数据
  */
-const setValue = function(fieldName, value, row, ctx) {
+const setValue = function(fieldName, value, row, ctx, validType) {
     if (arguments.length === 1) {
         value = fieldName;
         fieldName = '$data';
@@ -1327,7 +1328,7 @@ const setValue = function(fieldName, value, row, ctx) {
 
     row = row ? row : this.getCurrentRow();
     if (row)
-        row.setValue(fieldName, value, ctx);
+        row.setValue(fieldName, value, ctx, undefined, validType);
 };
 
 /**
@@ -1757,6 +1758,32 @@ const getRowsByField = function(field, value) {
 };
 
 /**
+ * 根据多个字段及字段值获取所有数据行
+ * @memberof DataTable
+ * @param  {string} fields 需要获取行的对应字段及对应值数组
+ * @return {array}      根据字段及字段值获取的所有数据行
+ * @example
+ * datatable.getRowsByFields([{field:'field1',value:'value1'},{field:'field2',value:'value2'}])
+ */
+const getRowsByFields = function(fileds) {
+    var rows = this.rows.peek();
+    var returnRows = new Array();
+    if (fileds && fileds.length > 0) {
+        for (var i = 0, count = rows.length; i < count; i++) {
+            var matchCount = 0;
+            var l = fileds.length;
+            for (var j = 0; j < l; j++) {
+                if (rows[i].getValue(fileds[j]['field']) === fileds[j]['value'])
+                    matchCount++;
+            }
+            if (matchCount == l)
+                returnRows.push(rows[i]);
+        }
+    }
+    return returnRows;
+};
+
+/**
  * 根据字段及字段值获取第一条数据行
  * @memberof DataTable
  * @param  {string} field 需要获取行的对应字段
@@ -1966,7 +1993,8 @@ const getDataFunObj = {
     getIndexByRowId: getIndexByRowId,
     getAllDatas: getAllDatas,
     getRowIdsByIndices: getRowIdsByIndices,
-    getRowsByIndices: getRowsByIndices
+    getRowsByIndices: getRowsByIndices,
+    getRowsByFields:getRowsByFields
 };
 
 /**
@@ -2213,12 +2241,27 @@ const getSelectedRows = function() {
     return selectRows
 };
 
+const getAllPageSelectedRows = function() {
+    var rows = [];
+    if (this.pageCache) {
+        var pages = this.getPages();
+        for (var i = 0; i < pages.length; i++) {
+            var page = pages[i];
+            if (page) {
+                rows = rows.concat(page.getSelectRows());
+            }
+        }
+    }
+    return rows;
+};
+
 const getSelectFunObj = {
     getSelectedIndex: getSelectedIndex,
     getSelectedIndices: getSelectedIndices,
     getSelectedIndexs: getSelectedIndexs,
     getSelectedDatas: getSelectedDatas,
-    getSelectedRows: getSelectedRows
+    getSelectedRows: getSelectedRows,
+    getAllPageSelectedRows: getAllPageSelectedRows
 };
 
 /**
@@ -2262,12 +2305,14 @@ const getSimpleData = function(options) {
             rows = [];
             for (var i = 0; i < pages.length; i++) {
                 var page = pages[i];
-                if (type === 'all') {
-                    rows = rows.concat(page.rows.peek());
-                }else if(type === 'select') {
-                    rows = rows.concat(page.getSelectRows());
-                } else if (type === 'change') {
-                    rows = rows.concat(page.getSelectRows());
+                if (page) {
+                    if (type === 'all') {
+                        rows = rows.concat(page.rows);
+                    } else if (type === 'select') {
+                        rows = rows.concat(page.getSelectRows());
+                    } else if (type === 'change') {
+                        rows = rows.concat(page.getChangedRows());
+                    }
                 }
             }
         } else {
@@ -2977,8 +3022,8 @@ const removeAllRows = function() {
  * datatable.removeRows([1,2])
  * datatable.removeRows([row1,row2])
  */
-const removeRows = function(indices) {
-    this.setRowsDelete(indices);
+const removeRows = function(indices, obj) {
+    this.setRowsDelete(indices, obj);
 };
 
 
@@ -3172,9 +3217,15 @@ const insertRows = function(index, rows) {
     this.updateSelectedIndices(index, '+', rows.length);
     this.updateFocusIndex(index, '+', rows.length);
     this.updatePageAll();
+    var insertRows = [];
+    $.each(rows,function(i){
+      if(this.status == Row.STATUS.NORMAL || this.status == Row.STATUS.UPDATE || this.status == Row.STATUS.NEW){
+        insertRows.push(this);
+      }
+    });
     this.trigger(DataTable.ON_INSERT, {
         index: index,
-        rows: rows
+        rows: insertRows
     });
     if (this.ns) {
         if (this.root.valueChange[this.ns])
@@ -3271,7 +3322,8 @@ const setAllRowsDelete = function() {
  * 根据索引数组删除数据行
  * @param {Array} indices 需要删除数据行的索引数组
  */
-const setRowsDelete = function(indices) {
+const setRowsDelete = function(indices, obj) {
+    var forceDel = obj ? obj.forceDel : false;
     indices = utilFunObj._formatToIndicesArray(this, indices);
     indices = indices.sort(function(a, b) {
         return b - a;
@@ -3281,7 +3333,7 @@ const setRowsDelete = function(indices) {
     var ros = this.rows();
     for (var i = 0; i < indices.length; i++) {
         var row = this.getRow(indices[i]);
-        if (row.status == Row.STATUS.NEW || this.forceDel) {
+        if (row.status == Row.STATUS.NEW || this.forceDel || forceDel) {
             ros.splice(indices[i], 1);
         } else {
             row.setStatus(Row.STATUS.FALSE_DELETE);
@@ -3390,6 +3442,8 @@ const setRowsSelect = function(indices) {
         rowIds: rowIds
     });
     this.updateCurrIndex();
+
+    this.setRowFocus(indices[0]);
 
 };
 
@@ -3587,8 +3641,12 @@ const setRowFocus = function(index, quiet, force) {
         index = this.getIndexByRowId(index.rowId);
         rowId = index.rowId;
     }
+
     if (index === -1 || (index === this.focusIndex() && !force)) {
         return;
+    }
+    if (this.focusIndex() > -1) {
+        this.setRowUnFocus(this.focusIndex());
     }
     this.focusIndex(index);
     if (quiet) {
@@ -3680,14 +3738,14 @@ const rowFocusFunObj = {
  * datatable.setSimpleData(data)
  * datatable.setSimpleData(data,{unSelect:true})
  */
-const setSimpleData = function(data,options){
+const setSimpleData = function(data, options) {
     this.removeAllRows();
     this.cachedPages = [];
     this.focusIndex(-1);
     this.selectedIndices([]);
 
     this.setSimpleDataReal = [];
-    if (!data){
+    if (!data) {
         this.setSimpleDataReal = data;
         // throw new Error("dataTable.setSimpleData param can't be null!");
         return;
@@ -3696,65 +3754,75 @@ const setSimpleData = function(data,options){
     var rows = [];
     if (!isArray(data))
         data = [data];
-    for (var i =0; i< data.length; i++){
+    for (var i = 0; i < data.length; i++) {
         var _data = data[i];
         /* 判断data中的字段在datatable中是否存在，如果不存在则创建 */
         // for(var f in _data){
         //     this.createField(f)
         // }
         if (typeof data[i] !== 'object')
-            _data = {$data:data[i]};
-        rows.push({
-            status: Row.STATUS.NORMAL,
-            data: _data
-        });
+            _data = {
+                $data: data[i]
+            };
+        if (options && options.status) {
+            rows.push({
+                status: options.status,
+                data: _data
+            });
+        } else {
+            rows.push({
+                status: Row.STATUS.NORMAL,
+                data: _data
+            });
+        }
+
     }
     var _data = {
         rows: rows
     };
-    if(options) {
-        if(typeof options.fieldFlag == 'undefined'){
+    if (options) {
+        if (typeof options.fieldFlag == 'undefined') {
             options.fieldFlag = true;
         }
     }
-    this.setData(_data,options);
+    this.setData(_data, options);
 };
 
 
- /**
-  * 追加数据, 只设置字段值
-  * @memberof DataTable
-  * @param {array} data 数据信息
-  * @param {string} [status=nrm] 追加数据信息的状态，参照Row对象的状态介绍
-  * @param {boject} [options] 可配置参数
-  * @param {boject} [options.unSelect=false] 是否默认选中第一行，如果为true则不选中第一行，否则选中第一行
-  * @example
-  * var data = [{
-  *   filed1:'value1',
-  *   field2:'value2'
-  * },{
-  *   filed1:'value11',
-  *   field2:'value21'
-  * }]
-  * datatable.addSimpleData(data,Row.STATUS.NEW)
-  * datatable.addSimpleData(data, null, {unSelect:true})
-  */
-const addSimpleData = function(data, status, options){
-    if (!data){
+/**
+ * 追加数据, 只设置字段值
+ * @memberof DataTable
+ * @param {array} data 数据信息
+ * @param {string} [status=nrm] 追加数据信息的状态，参照Row对象的状态介绍
+ * @param {boject} [options] 可配置参数
+ * @param {boject} [options.unSelect=false] 是否默认选中第一行，如果为true则不选中第一行，否则选中第一行
+ * @example
+ * var data = [{
+ *   filed1:'value1',
+ *   field2:'value2'
+ * },{
+ *   filed1:'value11',
+ *   field2:'value21'
+ * }]
+ * datatable.addSimpleData(data,Row.STATUS.NEW)
+ * datatable.addSimpleData(data, null, {unSelect:true})
+ */
+const addSimpleData = function(data, status, options) {
+    if (!data) {
         throw new Error("dataTable.addSimpleData param can't be null!");
     }
     if (!isArray(data))
         data = [data];
-    for (var i =0; i< data.length; i++){
+    for (var i = 0; i < data.length; i++) {
         var r = this.createEmptyRow(options);
-        r.setSimpleData(data[i],status);
+        r.setSimpleData(data[i], status);
     }
 
 };
 
 const simpleDataFunObj = {
-	setSimpleData:setSimpleData,
-	addSimpleData:addSimpleData
+    setSimpleData: setSimpleData,
+    addSimpleData: addSimpleData
 };
 
 /**
@@ -3915,7 +3983,7 @@ const eventsFunObj = {
 
 /**
   * Module : Kero webpack entry dataTable index
-  * Author : liuyk(liuyuekai@yonyou.com)
+  * Author : huyue(huyueb@yonyou.com)
   * Date   : 2016-08-09 15:24:46
   */
 
@@ -4110,7 +4178,23 @@ const eventsFunObj = {
      allPages: 'allPages'
  };
 
+/**
+ * 将默认meta与传入进行的meta对象进行合并
+ * meta: {
+     f1: {
+         enable:false
+     }
+ }
+ newMetas：{
+     f1:{
+         enable:false,
+         required:false,
+         descs:{
 
+        }
+    }
+}
+ */
  DataTable$1.createMetaItems = function(metas) {
      var newMetas = {};
      for (var key in metas) {
@@ -5765,10 +5849,11 @@ var YearMonthAdapter = u.BaseAdapter.extend({
     init: function() {
         var self = this;
         this.validType = 'yearmonth';
-
+        this.format = this.getOption('format');
         this.comp = new YearMonth({
             el: this.element,
-            showFix: this.options.showFix
+            showFix: this.options.showFix,
+            format: this.format
         });
 
 
@@ -6596,12 +6681,14 @@ var StringAdapter = u.BaseAdapter.extend({
 
         on$1(this.element, 'blur', function(e) {
             if (self.enable) {
-                if (!self.doValidate().passed && self._needClean()) {
-                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                        // 因必输项清空导致检验没通过的情况
-                        self.setValue('');
-                    } else {
-                        self.element.value = self.getShowValue();
+                if (!self.doValidate().passed) {
+                    if (self._needClean()) {
+                        if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                            // 因必输项清空导致检验没通过的情况
+                            self.setValue('');
+                        } else {
+                            self.element.value = self.getShowValue();
+                        }
                     }
                 } else
                     self.setValue(self.element.value);
@@ -6611,15 +6698,31 @@ var StringAdapter = u.BaseAdapter.extend({
     hide: function() {
         var self = this;
         if (self.enable) {
-            if (!self.doValidate().passed && self._needClean()) {
-                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                    // 因必输项清空导致检验没通过的情况
-                    self.setValue('');
-                } else {
-                    self.element.value = self.getShowValue();
+            if (!self.doValidate().passed) {
+                if (self._needClean()) {
+                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                        // 因必输项清空导致检验没通过的情况
+                        self.setValue('');
+                    } else {
+                        self.element.value = self.getShowValue();
+                    }
                 }
             } else
                 self.setValue(self.element.value);
+        }
+    },
+    setEnable: function(enable) {
+        var self = this;
+        if (this.trueAdpt)
+            self = this.trueAdpt;
+        if (enable === true || enable === 'true') {
+            self.enable = true;
+            self.element.removeAttribute('readonly');
+            removeClass(self.element.parentNode, 'disablecover');
+        } else if (enable === false || enable === 'false') {
+            self.enable = false;
+            self.element.setAttribute('readonly', 'readonly');
+            addClass(self.element.parentNode, 'disablecover');
         }
     }
 });
@@ -6680,12 +6783,14 @@ var IntegerAdapter = u.BaseAdapter.extend({
 
         on$1(this.element, 'blur', function() {
             if (self.enable) {
-                if (!self.doValidate().passed && self._needClean()) {
-                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                        // 因必输项清空导致检验没通过的情况
-                        self.setValue('');
-                    } else {
-                        self.element.value = self.getShowValue();
+                if (!self.doValidate().passed) {
+                    if (self._needClean()) {
+                        if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                            // 因必输项清空导致检验没通过的情况
+                            self.setValue('');
+                        } else {
+                            self.element.value = self.getShowValue();
+                        }
                     }
                 } else
                     self.setValue(self.element.value);
@@ -6699,7 +6804,7 @@ var IntegerAdapter = u.BaseAdapter.extend({
                     //复制粘贴
                     return true;
                 }
-                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46)) {
+                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 39 || code == 8 || code == 46 || code == 189)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
                         e.preventDefault();
@@ -6715,13 +6820,15 @@ var IntegerAdapter = u.BaseAdapter.extend({
         var self = this;
         self.element.value = (self.element.value + '').replace(/\,/g, '');
         if (self.enable) {
-            if (!self.doValidate().passed && self._needClean()) {
+            if (!self.doValidate().passed  ) {
+              if(self._needClean()){
                 if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
                     // 因必输项清空导致检验没通过的情况
                     self.setValue('');
                 } else {
                     self.element.value = self.getShowValue();
                 }
+              }
             } else self.setValue(self.element.value);
         }
     }
@@ -7774,7 +7881,7 @@ var Combo = u.BaseComponent.extend({
         if (this.mutilSelect) {
             var val = this.comboDatas[index].value;
             var name = this.comboDatas[index].name;
-            var index = (this.value + ',').indexOf(val + ',');
+            var index = (',' + this.value + ',').indexOf(',' + val + ',');
             var l = val.length + 1;
             var flag;
             if (this.fullWidth == 0) {
@@ -7846,6 +7953,8 @@ var Combo = u.BaseComponent.extend({
                         }
                         var nWidth = comboDiv.offsetWidth + 20;
                         this._combo_name_par.removeChild(comboDiv);
+                        //当多选下拉框在取消选中的时候也更新title
+                        this._combo_name_par.title = this.name;
                         this.nowWidth -= nWidth;
                         if (fflag) {
                             this.showNowWidth -= nWidth;
@@ -8655,13 +8764,16 @@ var FloatAdapter = u.BaseAdapter.extend({
         on$1(this.element, 'blur', function() {
             var newValue;
             if (self.enable) {
-                if (!self.doValidate().passed && self._needClean()) {
-                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                        // 因必输项清空导致检验没通过的情况
-                        self.setValue('');
-                    } else {
-                        self.element.value = self.getShowValue();
+                if (!self.doValidate().passed) {
+                    if (self._needClean()) {
+                        if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                            // 因必输项清空导致检验没通过的情况
+                            self.setValue('');
+                        } else {
+                            self.element.value = self.getShowValue();
+                        }
                     }
+
                 } else {
                     newValue = self.element.value ? self.element.value.replaceAll(',', '') : "";
                     self.setValue(newValue);
@@ -8676,7 +8788,7 @@ var FloatAdapter = u.BaseAdapter.extend({
                     //复制粘贴
                     return true;
                 }
-                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 102 || code == 39 || code == 8 || code == 46 || code == 110 || code == 190)) {
+                if (!((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || code == 37 || code == 102 || code == 39 || code == 8 || code == 46 || code == 110 || code == 190 || code == 189 || code == 109)) {
                     //阻止默认浏览器动作(W3C)
                     if (e && e.preventDefault)
                         e.preventDefault();
@@ -8692,12 +8804,14 @@ var FloatAdapter = u.BaseAdapter.extend({
         var self = this,
             newValue;
         if (self.enable) {
-            if (!self.doValidate().passed && self._needClean()) {
-                if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
-                    // 因必输项清空导致检验没通过的情况
-                    self.setValue('');
-                } else {
-                    self.element.value = self.getShowValue();
+            if (!self.doValidate().passed) {
+                if (self._needClean()) {
+                    if (self.required && (self.element.value === null || self.element.value === undefined || self.element.value === '')) {
+                        // 因必输项清空导致检验没通过的情况
+                        self.setValue('');
+                    } else {
+                        self.element.value = self.getShowValue();
+                    }
                 }
             } else {
                 newValue = self.element.value ? self.element.value.replaceAll(',', '') : "";
@@ -8742,9 +8856,6 @@ var FloatAdapter = u.BaseAdapter.extend({
 
         focusValue = parseFloat(focusValue) === 0 ? parseFloat(focusValue) : (parseFloat(focusValue) || '');
         this.setShowValue(focusValue);
-    },
-    _needClean: function() {
-        return true
     }
 });
 
@@ -10139,7 +10250,7 @@ DateTimePicker.fn._fillDate = function(type) {
         // 默认显示每个月的1号
         tempDate = date.getDateObj(tempDate.setDate(1));
     } else {
-        tempDate = date.add(this.endDate, 'd', 1);
+        tempDate = date.add(this.endDate, 'd', 8);
         // 默认显示每个月的1号
         tempDate = date.getDateObj(tempDate.setDate(1));
     }
@@ -12077,6 +12188,10 @@ var GridAdapter = u.BaseAdapter.extend({
                     if (comp && comp.modelValueChange) {
                         setTimeout(function() {
                             comp.modelValueChange(obj.value);
+							comp.element.value = obj.value;
+                            comp.element.title = obj.value;
+                            //在grid中由于setShowValue会对控件本身的校验有干扰，所以直接覆盖
+							comp.setShowValue = function(){};
                         });
                     }
 
@@ -12116,11 +12231,6 @@ var GridAdapter = u.BaseAdapter.extend({
             } else if (typeof eType == 'function') {
                 column.editType = eType;
             }
-
-
-
-
-
             if (rType == 'booleanRender') {
                 column.renderType = function(obj) {
 
@@ -12147,11 +12257,11 @@ var GridAdapter = u.BaseAdapter.extend({
 
 
                     $(obj.element).find('input').on('click', function(e) {
-                        $(this).parent().toggleClass('is-checked');
                         if (!obj.gridObj.options.editable) {
                             stopEvent(e);
                             return false;
                         }
+                        $(this).parent().toggleClass('is-checked');
                         if ($(this).parent().hasClass('is-checked')) {
                             this.checked = true;
                         } else {
@@ -12215,12 +12325,49 @@ var GridAdapter = u.BaseAdapter.extend({
                     var checkStr = '',
                         disableStr = '';
 
-                    if (obj.value == 'Y' || obj.value == 'true') {
+                    if (obj.value == 'Y' || obj.value == 'true' || obj.value == '1') {
                         checkStr = 'checked';
                     }
                     disableStr = ' is-disabled';
                     var htmlStr = '<label class="u-switch">' +
                         ' <input type="checkbox"  class="u-switch-input" ' + checkStr + '>' +
+                        ' <span class="u-switch-label"></span>' +
+                        '</label>';
+
+
+                    obj.element.innerHTML = htmlStr;
+                    var comp = new u.Switch($(obj.element).find('label')[0]);
+                    comp.on('change', function(event) {
+                        var column = obj.gridCompColumn;
+                        var field = column.options.field;
+                        if (event.isChecked) {
+                            row.setValue(field, 'Y');
+                        } else {
+                            row.setValue(field, 'N');
+                        }
+                    });
+
+                    // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
+                    if (typeof afterRType == 'function') {
+                        afterRType.call(this, obj);
+                    }
+                };
+            } else if (rType == 'disableSwitchRender') {
+                column.renderType = function(obj) {
+
+                    var grid = obj.gridObj;
+                    var datatable = grid.dataTable;
+                    var rowId = obj.row.value['$_#_@_id'];
+                    var row = datatable.getRowByRowId(rowId);
+                    var checkStr = '',
+                        disableStr = '';
+
+                    if (obj.value == 'Y' || obj.value == 'true') {
+                        checkStr = 'checked';
+                    }
+                    disableStr = ' disabled';
+                    var htmlStr = '<label class="u-switch">' +
+                        ' <input type="checkbox"  class="u-switch-input" ' + checkStr + disableStr + '>' +
                         ' <span class="u-switch-label"></span>' +
                         '</label>';
 
@@ -12249,9 +12396,9 @@ var GridAdapter = u.BaseAdapter.extend({
                     var field = column.options.field;
                     obj.element.innerHTML = obj.value;
                     /*设置header为right*/
-                    $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                    $(obj.element).css('text-align', 'right');
-                    $(obj.element).css('color', '#e33c37');
+                    // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                    // $(obj.element).css('text-align', 'right')
+                    // $(obj.element).css('color', '#e33c37')
                     $(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
                     // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
                     if (typeof afterRType == 'function') {
@@ -12282,9 +12429,9 @@ var GridAdapter = u.BaseAdapter.extend({
                     var svalue = masker.format(formater.format(obj.value)).value;
                     obj.element.innerHTML = svalue;
                     /*设置header为right*/
-                    $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                    $(obj.element).css('text-align', 'right');
-                    $(obj.element).css('color', '#e33c37');
+                    // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                    // $(obj.element).css('text-align', 'right')
+                    // $(obj.element).css('color', '#e33c37')
                     $(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
                     $(obj.element).attr('title', svalue);
 
@@ -12316,9 +12463,9 @@ var GridAdapter = u.BaseAdapter.extend({
                     var svalue = masker.format(formater.format(obj.value)).value;
                     obj.element.innerHTML = svalue;
                     /*设置header为right*/
-                    $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                    $(obj.element).css('text-align', 'right');
-                    $(obj.element).css('color', '#e33c37');
+                    // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                    // $(obj.element).css('text-align', 'right')
+                    // $(obj.element).css('color', '#e33c37')
                     $(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
                     $(obj.element).attr('title', svalue);
 
@@ -12334,6 +12481,11 @@ var GridAdapter = u.BaseAdapter.extend({
                     var ds = getJSObject(viewModel, eOptions['datasource']);
                     if (!ds)
                         ds = getJSObject(viewModel, column['datasource']);
+
+                    var isDsObservable = ko.isObservable(ds);
+                    if (isDsObservable) {
+                        ds = ko.toJS(ds);
+                    }
                     obj.element.innerHTML = '';
                     if (nameArr) {
                         nameArr.length = 0;
@@ -12503,7 +12655,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     var masker = new PercentMasker(maskerMeta);
                     var svalue = masker.format(formater.format(obj.value)).value;
                     obj.element.innerHTML = svalue;
-                    $(obj.element).css('text-align', 'right');
+                    // $(obj.element).css('text-align', 'right')
                     $(obj.element).attr('title', svalue);
 
                     // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
@@ -13088,9 +13240,9 @@ var GridAdapter = u.BaseAdapter.extend({
                 var field = column.options.field;
                 obj.element.innerHTML = obj.value;
                 /*设置header为right*/
-                $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                $(obj.element).css('text-align', 'right');
-                $(obj.element).css('color', '#e33c37');
+                // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                // $(obj.element).css('text-align', 'right')
+                // $(obj.element).css('color', '#e33c37')
                 $(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
                 // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
                 if (typeof afterRType == 'function') {
@@ -13121,9 +13273,9 @@ var GridAdapter = u.BaseAdapter.extend({
                 var svalue = masker.format(formater.format(obj.value)).value;
                 obj.element.innerHTML = svalue;
                 /*设置header为right*/
-                $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                $(obj.element).css('text-align', 'right');
-                $(obj.element).css('color', '#e33c37');
+                // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                // $(obj.element).css('text-align', 'right')
+                // $(obj.element).css('color', '#e33c37')
                 $(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
                 $(obj.element).attr('title', svalue);
 
@@ -13156,9 +13308,9 @@ var GridAdapter = u.BaseAdapter.extend({
                 var svalue = masker.format(formater.format(obj.value)).value;
                 obj.element.innerHTML = svalue;
                 /*设置header为right*/
-                $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
-                $(obj.element).css('text-align', 'right');
-                $(obj.element).css('color', '#e33c37');
+                // $('#' + grid.options.id + '_header_table').find('th[field="' + field + '"]').css('text-align', 'right');
+                // $(obj.element).css('text-align', 'right')
+                // $(obj.element).css('color', '#e33c37')
                 $(obj.element).find('.u-grid-header-link').css('padding-right', '3em');
                 $(obj.element).attr('title', svalue);
 
@@ -13174,6 +13326,10 @@ var GridAdapter = u.BaseAdapter.extend({
                 var ds = getJSObject(viewModel, eOptions['datasource']);
                 if (!ds)
                     ds = getJSObject(viewModel, column['datasource']);
+                var isDsObservable = ko.isObservable(ds);
+                if (isDsObservable) {
+                    ds = ko.toJS(ds);
+                }
                 obj.element.innerHTML = '';
                 if (nameArr) {
                     nameArr.length = 0;
@@ -13333,7 +13489,7 @@ var GridAdapter = u.BaseAdapter.extend({
                 var masker = new PercentMasker(maskerMeta);
                 var svalue = masker.format(formater.format(obj.value)).value;
                 obj.element.innerHTML = svalue;
-                $(obj.element).css('text-align', 'right');
+                // $(obj.element).css('text-align', 'right')
                 $(obj.element).attr('title', svalue);
 
                 // 根据惊道需求增加renderType之后的处理,此处只针对grid.js中的默认render进行处理，非默认通过renderType进行处理
@@ -13461,7 +13617,7 @@ var GridAdapter = u.BaseAdapter.extend({
 
         } else if (eType == 'combo') {
             // compDiv = $('<div class="input-group  form_date u-grid-edit-item-comb"><div  type="text" class="form-control grid-combox"></div><i class="input-group-addon" ><i class="uf uf-anglearrowdown"></i></i></div>');
-            compDiv = $('<div class="eType-input"><input type="text" class="u-grid-edit-item-float"></div>');
+            compDiv = $('<div class="eType-input"><input type="text" class="u-grid-edit-item-float"><span style="top:2px;" class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span></div>');
             //comp = new $.compManager.plugs.combo(compDiv[0],eOptions,viewModel);
             //comp = new Combobox({
             //	el:compDiv[0],
