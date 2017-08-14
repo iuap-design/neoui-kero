@@ -32,7 +32,8 @@ var StringAdapter = u.BaseAdapter.extend({
 
         on(this.element, 'focus', function() {
             if (self.enable) {
-                self.setShowValue(self.getValue())
+                self.onFocusin()
+                
                 try {
                     var e = event.srcElement;
                     var r = e.createTextRange();
@@ -58,6 +59,9 @@ var StringAdapter = u.BaseAdapter.extend({
                     self.setValue(self.element.value)
             }
         });
+    },
+    onFocusin: function(){
+        this.setShowValue(this.getValue())
     },
     hide: function() {
         var self = this;
