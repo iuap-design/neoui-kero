@@ -852,6 +852,16 @@ var GridAdapter = u.BaseAdapter.extend({
             }
         };
         this.dataTable.on(DataTable.ON_ROW_UNSELECT, function(event) {
+            if (oThis.onRowUnSelectTimeout)
+                clearTimeout(oThis.onRowUnSelectTimeout);
+            oThis.onRowUnSelectTimeout = setTimeout(function() {
+                onRowUnSelectFun(event);
+            }, 200);
+            // 后续考虑优化的时候要考虑反选
+            // onRowUnSelectFun(event);
+        });
+
+        var onRowUnSelectFun = function(event) {
             oThis.selectSilence = true;
             $.each(event.rowIds, function() {
                 var index = oThis.grid.getRowIndexByValue('$_#_@_id', this);
@@ -868,7 +878,7 @@ var GridAdapter = u.BaseAdapter.extend({
                 }
             });
             oThis.selectSilence = false;
-        });
+        }
 
         var onRowFocusFun = this.gridOptions.onRowFocus;
         // focus
@@ -1999,17 +2009,17 @@ var GridAdapter = u.BaseAdapter.extend({
                 field = columnOptions.field,
                 title = columnOptions.title,
                 required = columnOptions.required,
-                validType = '', 
-                placement = '', 
-                tipId = '', 
-                errorMsg = '', 
-                nullMsg = '', 
-                maxLength = '', 
+                validType = '',
+                placement = '',
+                tipId = '',
+                errorMsg = '',
+                nullMsg = '',
+                maxLength = '',
                 minLength = '',
-                max = '', 
-                min = '', 
-                maxNotEq = '', 
-                minNotEq = '', 
+                max = '',
+                min = '',
+                maxNotEq = '',
+                minNotEq = '',
                 reg = '';
             if (columnOptions.editOptions) {
                 validType = columnOptions.editOptions.validType;
