@@ -1999,21 +1999,31 @@ var GridAdapter = u.BaseAdapter.extend({
                 field = columnOptions.field,
                 title = columnOptions.title,
                 required = columnOptions.required,
-                validType, placement, tipId, errorMsg, nullMsg, maxLength, minLength,
-                max, min, maxNotEq, minNotEq, reg;
+                validType = '', 
+                placement = '', 
+                tipId = '', 
+                errorMsg = '', 
+                nullMsg = '', 
+                maxLength = '', 
+                minLength = '',
+                max = '', 
+                min = '', 
+                maxNotEq = '', 
+                minNotEq = '', 
+                reg = '';
             if (columnOptions.editOptions) {
-                validType = columnOptions.editOptions.validType || '';
-                placement = columnOptions.editOptions.placement || '';
-                tipId = columnOptions.editOptions.tipId || '';
-                errorMsg = columnOptions.editOptions.errorMsg || '';
-                nullMsg = columnOptions.editOptions.nullMsg || '';
-                maxLength = columnOptions.editOptions.maxLength || '';
-                minLength = columnOptions.editOptions.minLength || '';
-                max = columnOptions.editOptions.max || '';
-                min = columnOptions.editOptions.min || '';
-                maxNotEq = columnOptions.editOptions.maxNotEq || '';
-                minNotEq = columnOptions.editOptions.minNotEq || '';
-                reg = columnOptions.editOptions.regExp || '';
+                validType = columnOptions.editOptions.validType;
+                placement = columnOptions.editOptions.placement;
+                tipId = columnOptions.editOptions.tipId;
+                errorMsg = columnOptions.editOptions.errorMsg;
+                nullMsg = columnOptions.editOptions.nullMsg;
+                maxLength = columnOptions.editOptions.maxLength;
+                minLength = columnOptions.editOptions.minLength;
+                max = columnOptions.editOptions.max;
+                min = columnOptions.editOptions.min;
+                maxNotEq = columnOptions.editOptions.maxNotEq;
+                minNotEq = columnOptions.editOptions.minNotEq;
+                reg = columnOptions.editOptions.regExp;
                 required = columnOptions.editOptions.required || columnOptions.required || '';
             }
 
