@@ -779,18 +779,18 @@ var GridAdapter = u.BaseAdapter.extend({
                     oThis.dataTable.setRowSelect(index);
                 }
             }
-            if (onRowSelectedFun) {
+            if (onRowSelectedFun && typeof onRowSelectedFun == 'function') {
                 onRowSelectedFun.call(oThis, obj);
             }
         };
         this.dataTable.on(DataTable.ON_ROW_SELECT, function(event) {
-            // if (oThis.onRowSelectTimeout)
-            //     clearTimeout(oThis.onRowSelectTimeout);
-            // oThis.onRowSelectTimeout = setTimeout(function() {
-            //     onRowSelectFun(event);
-            // }, 200);
+            if (oThis.onRowSelectTimeout)
+                clearTimeout(oThis.onRowSelectTimeout);
+            oThis.onRowSelectTimeout = setTimeout(function() {
+                onRowSelectFun(event);
+            }, 200);
             // 后续考虑优化的时候要考虑反选
-            onRowSelectFun(event);
+            // onRowSelectFun(event);
         });
 
         var onRowSelectFun = function(event) {
