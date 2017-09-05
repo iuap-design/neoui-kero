@@ -135,13 +135,20 @@ var GridAdapter = u.BaseAdapter.extend({
         this.gridOptions.onTreeExpandFun = getFunction(viewModel, this.gridOptions.onTreeExpandFun);
         this.gridOptions.onBeforeCreateLeftMul = getFunction(viewModel, this.gridOptions.onBeforeCreateLeftMul);
 
-        /*扩展onBeforeEditFun，如果点击的是单选或者复选的话则不执行原有的编辑处理，直接通过此js进行处理*/
+        /*
+         * 扩展onBeforeEditFun，如果点击的是单选或者复选的话则不执行原有的编辑处理，直接通过此js进行处理
+         * 但是可以通过以下参数，来触发onBeforeEditFun事件，默认不触发-huyue
+         * 1.单选设置radioBeforeEditBool:true
+         * 2.复选设置checkboxBeforeEditBool:true
+         */
         var customOnBeforeEditFun = this.gridOptions.onBeforeEditFun;
-        var newOnBeforeEditFun = function(obj) {
+        var newOnBeforeEditFun = function (obj) {
             var colIndex = obj.colIndex;
             var $tr = obj.$tr;
 
-            if ($($tr.find('td')[colIndex]).find('[type=radio]').length > 0 || $($tr.find('td')[colIndex]).find('[type=checkbox]').length > 0) {
+            if ($($tr.find('td')[colIndex]).find('[type=radio]').length > 0  && !obj.gridObj.options.radioBeforeEditBool ) {
+                return false;
+            } else if ( $($tr.find('td')[colIndex]).find('[type=checkbox]').length > 0 && !obj.gridObj.options.checkboxBeforeEditBool ) {
                 return false;
             } else {
                 if (typeof customOnBeforeEditFun == 'function') {
@@ -150,7 +157,7 @@ var GridAdapter = u.BaseAdapter.extend({
                     return true;
                 }
             }
-        }
+        };
         this.gridOptions.onBeforeEditFun = newOnBeforeEditFun;
         /*
          * 处理column参数  item
