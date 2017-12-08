@@ -23,7 +23,7 @@ var StringAdapter = u.BaseAdapter.extend({
         if (!this.element) {
             throw new Error('not found INPUT element, u-meta:' + JSON.stringify(this.options));
         };
-        this.validType = this.options['validType'] || 'string';
+        this.validType = this.options['validType'] || this.getOption('validType') || 'string';
         this.minLength = this.getOption('minLength');
         this.maxLength = this.getOption('maxLength');
         var placeholder = this.options['placeholder']
