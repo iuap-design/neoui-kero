@@ -796,6 +796,7 @@ var GridAdapter = u.BaseAdapter.extend({
             oThis.onRowSelectTimeout = setTimeout(function() {
                 onRowSelectFun(event);
             }, 200);
+            
             // 后续考虑优化的时候要考虑反选
             // onRowSelectFun(event);
         });
